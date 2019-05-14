@@ -682,7 +682,7 @@ $info['warning'][] = 'Ogg Theora (v3) not fully supported in this version of get
 	}
 
 	public static function SpeexBandModeLookup($mode) {
-		static $SpeexBandModeLookup = [];
+		static $SpeexBandModeLookup = array();
 		if (empty($SpeexBandModeLookup)) {
 			$SpeexBandModeLookup[0] = 'narrow';
 			$SpeexBandModeLookup[1] = 'wide';
@@ -731,7 +731,7 @@ $info['warning'][] = 'Ogg Theora (v3) not fully supported in this version of get
 
 	public static function TheoraColorSpace($colorspace_id) {
 		// http://www.theora.org/doc/Theora.pdf (table 6.3)
-		static $TheoraColorSpaceLookup = [];
+		static $TheoraColorSpaceLookup = array();
 		if (empty($TheoraColorSpaceLookup)) {
 			$TheoraColorSpaceLookup[0] = 'Undefined';
 			$TheoraColorSpaceLookup[1] = 'Rec. 470M';
@@ -743,7 +743,7 @@ $info['warning'][] = 'Ogg Theora (v3) not fully supported in this version of get
 
 	public static function TheoraPixelFormat($pixelformat_id) {
 		// http://www.theora.org/doc/Theora.pdf (table 6.4)
-		static $TheoraPixelFormatLookup = [];
+		static $TheoraPixelFormatLookup = array();
 		if (empty($TheoraPixelFormatLookup)) {
 			$TheoraPixelFormatLookup[0] = '4:2:0';
 			$TheoraPixelFormatLookup[1] = 'Reserved';

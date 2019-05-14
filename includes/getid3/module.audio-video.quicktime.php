@@ -67,7 +67,7 @@ class getid3_quicktime extends getid3_handler
 				// to read user data atoms, you should allow for the terminating 0.
 				break;
 			}
-			$atomHierarchy = [];
+			$atomHierarchy = array();
 			$info['quicktime'][$atomname] = $this->QuicktimeParseAtom($atomname, $atomsize, $this->fread(min($atomsize, round($this->getid3->memory_limit / 2))), $offset, $atomHierarchy, $this->ParseAllPossibleAtoms);
 
 			$offset += $atomsize;
@@ -158,7 +158,7 @@ class getid3_quicktime extends getid3_handler
 						}
 					}
 					if ($allnumericnames) {
-						$newData = [];
+						$newData = array();
 						foreach ($atom_structure['subatoms'] as $subatomarray) {
 							foreach ($subatomarray['subatoms'] as $newData_subatomarray) {
 								unset($newData_subatomarray['hierarchy'], $newData_subatomarray['name']);
@@ -796,7 +796,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 				$atom_structure['flags_raw']      = getid3_lib::BigEndian2Int(substr($atom_data,  1, 3)); // hardcoded: 0x0000
 				$atom_structure['number_entries'] = getid3_lib::BigEndian2Int(substr($atom_data,  4, 4));
 				$sttsEntriesDataOffset = 8;
-				//$FrameRateCalculatorArray = [];
+				//$FrameRateCalculatorArray = array();
 				$frames_count = 0;
 
 				$max_stts_entries_to_scan = min(floor($this->getid3->memory_limit / 10000), $atom_structure['number_entries']);
@@ -1466,7 +1466,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 
 	public function QuicktimeLanguageLookup($languageid) {
 		// http://developer.apple.com/library/mac/#documentation/QuickTime/QTFF/QTFFChap4/qtff4.html#//apple_ref/doc/uid/TP40000939-CH206-34353
-		static $QuicktimeLanguageLookup = [];
+		static $QuicktimeLanguageLookup = array();
 		if (empty($QuicktimeLanguageLookup)) {
 			$QuicktimeLanguageLookup[0]     = 'English';
 			$QuicktimeLanguageLookup[1]     = 'French';
@@ -1602,7 +1602,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeVideoCodecLookup($codecid) {
-		static $QuicktimeVideoCodecLookup = [];
+		static $QuicktimeVideoCodecLookup = array();
 		if (empty($QuicktimeVideoCodecLookup)) {
 			$QuicktimeVideoCodecLookup['.SGI'] = 'SGI';
 			$QuicktimeVideoCodecLookup['3IV1'] = '3ivx MPEG-4 v1';
@@ -1661,7 +1661,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeAudioCodecLookup($codecid) {
-		static $QuicktimeAudioCodecLookup = [];
+		static $QuicktimeAudioCodecLookup = array();
 		if (empty($QuicktimeAudioCodecLookup)) {
 			$QuicktimeAudioCodecLookup['.mp3']          = 'Fraunhofer MPEG Layer-III alias';
 			$QuicktimeAudioCodecLookup['aac ']          = 'ISO/IEC 14496-3 AAC';
@@ -1706,7 +1706,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeDCOMLookup($compressionid) {
-		static $QuicktimeDCOMLookup = [];
+		static $QuicktimeDCOMLookup = array();
 		if (empty($QuicktimeDCOMLookup)) {
 			$QuicktimeDCOMLookup['zlib'] = 'ZLib Deflate';
 			$QuicktimeDCOMLookup['adec'] = 'Apple Compression';
@@ -1715,7 +1715,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeColorNameLookup($colordepthid) {
-		static $QuicktimeColorNameLookup = [];
+		static $QuicktimeColorNameLookup = array();
 		if (empty($QuicktimeColorNameLookup)) {
 			$QuicktimeColorNameLookup[1]  = '2-color (monochrome)';
 			$QuicktimeColorNameLookup[2]  = '4-color';
@@ -1733,7 +1733,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeSTIKLookup($stik) {
-		static $QuicktimeSTIKLookup = [];
+		static $QuicktimeSTIKLookup = array();
 		if (empty($QuicktimeSTIKLookup)) {
 			$QuicktimeSTIKLookup[0]  = 'Movie';
 			$QuicktimeSTIKLookup[1]  = 'Normal';
@@ -1750,7 +1750,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeIODSaudioProfileName($audio_profile_id) {
-		static $QuicktimeIODSaudioProfileNameLookup = [];
+		static $QuicktimeIODSaudioProfileNameLookup = array();
 		if (empty($QuicktimeIODSaudioProfileNameLookup)) {
 			$QuicktimeIODSaudioProfileNameLookup = array(
 			    0x00 => 'ISO Reserved (0x00)',
@@ -1810,7 +1810,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 
 
 	public function QuicktimeIODSvideoProfileName($video_profile_id) {
-		static $QuicktimeIODSvideoProfileNameLookup = [];
+		static $QuicktimeIODSvideoProfileNameLookup = array();
 		if (empty($QuicktimeIODSvideoProfileNameLookup)) {
 			$QuicktimeIODSvideoProfileNameLookup = array(
 				0x00 => 'Reserved (0x00) Profile',
@@ -1882,7 +1882,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 
 
 	public function QuicktimeContentRatingLookup($rtng) {
-		static $QuicktimeContentRatingLookup = [];
+		static $QuicktimeContentRatingLookup = array();
 		if (empty($QuicktimeContentRatingLookup)) {
 			$QuicktimeContentRatingLookup[0]  = 'None';
 			$QuicktimeContentRatingLookup[2]  = 'Clean';
@@ -1892,7 +1892,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeStoreAccountTypeLookup($akid) {
-		static $QuicktimeStoreAccountTypeLookup = [];
+		static $QuicktimeStoreAccountTypeLookup = array();
 		if (empty($QuicktimeStoreAccountTypeLookup)) {
 			$QuicktimeStoreAccountTypeLookup[0] = 'iTunes';
 			$QuicktimeStoreAccountTypeLookup[1] = 'AOL';
@@ -1901,7 +1901,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 	}
 
 	public function QuicktimeStoreFrontCodeLookup($sfid) {
-		static $QuicktimeStoreFrontCodeLookup = [];
+		static $QuicktimeStoreFrontCodeLookup = array();
 		if (empty($QuicktimeStoreFrontCodeLookup)) {
 			$QuicktimeStoreFrontCodeLookup[143460] = 'Australia';
 			$QuicktimeStoreFrontCodeLookup[143445] = 'Austria';
@@ -1972,7 +1972,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 
 		$offset = 0;
 		$datalength = strlen($atom_data);
-		$parsed = [];
+		$parsed = array();
 		while ($offset < $datalength) {
 //echo getid3_lib::PrintHexBytes(substr($atom_data, $offset, 4)).'<br>';
 			$record_type       = getid3_lib::BigEndian2Int(substr($atom_data, $offset, 4));  $offset += 4;
@@ -2005,7 +2005,7 @@ if (!empty($atom_structure['sample_description_table'][$i]['width']) && !empty($
 					$offset += ($data_size * 4);
 					break;
 				case 0x0005: // 0x0005 = float  (size field *= 8-byte), values are stored aaaabbbb where value is aaaa/bbbb; possibly multiple sets of values appended together
-					$data = [];
+					$data = array();
 					for ($i = 0; $i < $data_size; $i++) {
 						$numerator    = getid3_lib::BigEndian2Int(substr($atom_data, $offset + ($i * 8) + 0, 4));
 						$denomninator = getid3_lib::BigEndian2Int(substr($atom_data, $offset + ($i * 8) + 4, 4));
@@ -2109,7 +2109,7 @@ echo 'QuicktimeParseNikonNCTG()::unknown $data_size_type: '.$data_size_type.'<br
 
 
 	public function CopyToAppropriateCommentsSection($keyname, $data, $boxname='') {
-		static $handyatomtranslatorarray = [];
+		static $handyatomtranslatorarray = array();
 		if (empty($handyatomtranslatorarray)) {
 			$handyatomtranslatorarray["\xA9".'cpy'] = 'copyright';
 			$handyatomtranslatorarray["\xA9".'day'] = 'creation_date';    // iTunes 4.0

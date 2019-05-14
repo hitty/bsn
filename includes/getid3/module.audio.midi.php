@@ -25,7 +25,7 @@ class getid3_midi extends getid3_handler
 		$info = &$this->getid3->info;
 
 		// shortcut
-		$info['midi']['raw'] = [];
+		$info['midi']['raw'] = array();
 		$thisfile_midi               = &$info['midi'];
 		$thisfile_midi_raw           = &$thisfile_midi['raw'];
 

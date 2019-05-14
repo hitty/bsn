@@ -264,7 +264,7 @@ class getid3_id3v1 extends getid3_handler
 			'RX' => 'Remix'
 		);
 
-		static $GenreLookupSCMPX = [];
+		static $GenreLookupSCMPX = array();
 		if ($allowSCMPXextended && empty($GenreLookupSCMPX)) {
 			$GenreLookupSCMPX = $GenreLookup;
 			// http://www.geocities.co.jp/SiliconValley-Oakland/3664/alittle.html#GenreExtended

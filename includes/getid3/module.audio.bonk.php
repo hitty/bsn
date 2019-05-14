@@ -21,7 +21,7 @@ class getid3_bonk extends getid3_handler
 		$info = &$this->getid3->info;
 
 		// shortcut
-		$info['bonk'] = [];
+		$info['bonk'] = array();
 		$thisfile_bonk        = &$info['bonk'];
 
 		$thisfile_bonk['dataoffset'] = $info['avdataoffset'];

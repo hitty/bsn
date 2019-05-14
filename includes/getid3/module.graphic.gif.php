@@ -97,7 +97,7 @@ class getid3_gif extends getid3_handler
 //				case ',': // ',' - Image separator character
 //
 //					$ImageDescriptorData = $NextBlockTest.$this->fread(9);
-//					$ImageDescriptor = [];
+//					$ImageDescriptor = array();
 //					$ImageDescriptor['image_left']   = getid3_lib::LittleEndian2Int(substr($ImageDescriptorData, 1, 2));
 //					$ImageDescriptor['image_top']    = getid3_lib::LittleEndian2Int(substr($ImageDescriptorData, 3, 2));
 //					$ImageDescriptor['image_width']  = getid3_lib::LittleEndian2Int(substr($ImageDescriptorData, 5, 2));
@@ -114,7 +114,7 @@ class getid3_gif extends getid3_handler
 //
 //					}
 //echo 'Start of raster data: '.$this->ftell().'<BR>';
-//					$RasterData = [];
+//					$RasterData = array();
 //					$RasterData['code_size']        = getid3_lib::LittleEndian2Int($this->fread(1));
 //					$RasterData['block_byte_count'] = getid3_lib::LittleEndian2Int($this->fread(1));
 //					$info['gif']['raster_data'][count($info['gif']['image_descriptor']) - 1] = $RasterData;
@@ -145,7 +145,7 @@ class getid3_gif extends getid3_handler
 //				case '!':
 //					// GIF Extension Block
 //					$ExtensionBlockData = $NextBlockTest.$this->fread(2);
-//					$ExtensionBlock = [];
+//					$ExtensionBlock = array();
 //					$ExtensionBlock['function_code']  = getid3_lib::LittleEndian2Int(substr($ExtensionBlockData, 1, 1));
 //					$ExtensionBlock['byte_length']    = getid3_lib::LittleEndian2Int(substr($ExtensionBlockData, 2, 1));
 //					$ExtensionBlock['data']           = $this->fread($ExtensionBlock['byte_length']);

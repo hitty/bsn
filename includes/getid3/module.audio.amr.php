@@ -31,7 +31,7 @@ class getid3_amr extends getid3_handler
 		}
 
 		// shortcut
-		$info['amr'] = [];
+		$info['amr'] = array();
 		$thisfile_amr = &$info['amr'];
 
 		$info['fileformat']               = 'amr';

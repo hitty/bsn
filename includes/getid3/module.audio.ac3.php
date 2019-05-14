@@ -17,7 +17,7 @@
 
 class getid3_ac3 extends getid3_handler
 {
-    private $AC3header = [];
+    private $AC3header = array();
     private $BSIoffset = 0;
 
     const syncword = "\x0B\x77";
@@ -26,7 +26,7 @@ class getid3_ac3 extends getid3_handler
 		$info = &$this->getid3->info;
 
 		///AH
-		$info['ac3']['raw']['bsi'] = [];
+		$info['ac3']['raw']['bsi'] = array();
 		$thisfile_ac3              = &$info['ac3'];
 		$thisfile_ac3_raw          = &$thisfile_ac3['raw'];
 		$thisfile_ac3_raw_bsi      = &$thisfile_ac3_raw['bsi'];
@@ -252,7 +252,7 @@ class getid3_ac3 extends getid3_handler
 	}
 
 	public static function serviceTypeLookup($bsmod, $acmod) {
-		static $serviceTypeLookup = [];
+		static $serviceTypeLookup = array();
 		if (empty($serviceTypeLookup)) {
 			for ($i = 0; $i <= 7; $i++) {
 				$serviceTypeLookup[0][$i] = 'main audio service: complete main (CM)';
@@ -412,7 +412,7 @@ class getid3_ac3 extends getid3_handler
 		$padding     = (bool) ($frmsizecod % 2);
 		$framesizeid =   floor($frmsizecod / 2);
 
-		static $frameSizeLookup = [];
+		static $frameSizeLookup = array();
 		if (empty($frameSizeLookup)) {
 			$frameSizeLookup = array (
 				0  => array(128, 138, 192),

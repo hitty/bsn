@@ -110,7 +110,7 @@ class getID3_cached_sqlite3 extends getID3 {
 		$stmt = $db->prepare($sql);
 		$stmt->bindValue(':filename', getID3::VERSION, SQLITE3_TEXT);
 		$result = $stmt->execute();
-		list($version) = $result->fetch[];
+		list($version) = $result->fetchArray();
 		if ($version != getID3::VERSION) { // Check version number and clear cache if changed
 			$this->clear_cache();
 		}
@@ -177,7 +177,7 @@ class getID3_cached_sqlite3 extends getID3 {
 		$stmt->bindValue(':filesize', $filesize, SQLITE3_INTEGER);
 		$stmt->bindValue(':filetime', $filetime, SQLITE3_INTEGER);
 		$res = $stmt->execute();
-		list($result) = $res->fetch[];
+		list($result) = $res->fetchArray();
 		if (count($result) > 0 ) {
 			return unserialize(base64_decode($result));
 		}
@@ -219,12 +219,12 @@ class getID3_cached_sqlite3 extends getID3 {
 	*/
 	public function get_cached_dir($dir) {
 		$db = $this->db;
-		$rows = [];
+		$rows = array();
 		$sql = $this->get_cached_dir;
 		$stmt = $db->prepare($sql);
 		$stmt->bindValue(':dirname', $dir, SQLITE3_TEXT);
 		$res = $stmt->execute();
-		while ($row=$res->fetch[]) {
+		while ($row=$res->fetchArray()) {
 			$rows[] = unserialize(base64_decode($row));
 		}
 		return $rows;

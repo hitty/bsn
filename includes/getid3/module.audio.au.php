@@ -31,7 +31,7 @@ class getid3_au extends getid3_handler
 		}
 
 		// shortcut
-		$info['au'] = [];
+		$info['au'] = array();
 		$thisfile_au        = &$info['au'];
 
 		$info['fileformat']            = 'au';

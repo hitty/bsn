@@ -33,7 +33,7 @@
  */
 class getid3_cue extends getid3_handler
 {
-	public $cuesheet = [];
+	public $cuesheet = array();
 
 	public function Analyze() {
 		$info = &$this->getid3->info;
@@ -58,7 +58,7 @@ class getid3_cue extends getid3_handler
 	*/
 	public function readCueSheet(&$filedata)
 	{
-		$cue_lines = [];
+		$cue_lines = array();
 		foreach (explode("\n", str_replace("\r", null, $filedata)) as $line)
 		{
 			if ( (strlen($line) > 0) && ($line[0] != '#'))

@@ -256,7 +256,7 @@ class getid3_lyrics3 extends getid3_handler
 	public function Lyrics3LyricsTimestampParse(&$Lyrics3data) {
 		$lyricsarray = explode("\r\n", $Lyrics3data['raw']['LYR']);
 		foreach ($lyricsarray as $key => $lyricline) {
-			$regs = [];
+			$regs = array();
 			unset($thislinetimestamps);
 			while (preg_match('#^(\\[[0-9]{2}:[0-9]{2}\\])#', $lyricline, $regs)) {
 				$thislinetimestamps[] = $this->Lyrics3Timestamp2Seconds($regs[0]);

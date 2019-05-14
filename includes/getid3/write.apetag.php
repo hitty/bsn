@@ -23,8 +23,8 @@ class getid3_write_apetag
 	public $filename;
 	public $tag_data;
 	public $always_preserve_replaygain = true;    // ReplayGain / MP3gain tags will be copied from old tag even if not passed in data
-	public $warnings                   = []; // any non-critical errors will be stored here
-	public $errors                     = []; // any critical errors will be stored here
+	public $warnings                   = array(); // any non-critical errors will be stored here
+	public $errors                     = array(); // any critical errors will be stored here
 
 	public function getid3_write_apetag() {
 		return true;
@@ -129,7 +129,7 @@ class getid3_write_apetag
 	public function GenerateAPEtag() {
 		// NOTE: All data passed to this function must be UTF-8 format
 
-		$items = [];
+		$items = array();
 		if (!is_array($this->tag_data)) {
 			return false;
 		}

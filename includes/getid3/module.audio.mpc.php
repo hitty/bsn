@@ -21,7 +21,7 @@ class getid3_mpc extends getid3_handler
 	public function Analyze() {
 		$info = &$this->getid3->info;
 
-		$info['mpc']['header'] = [];
+		$info['mpc']['header'] = array();
 		$thisfile_mpc_header   = &$info['mpc']['header'];
 
 		$info['fileformat']               = 'mpc';
@@ -72,7 +72,7 @@ class getid3_mpc extends getid3_handler
 
 		$offset = $this->ftell();
 		while ($offset < $info['avdataend']) {
-			$thisPacket = [];
+			$thisPacket = array();
 			$thisPacket['offset'] = $offset;
 			$packet_offset = 0;
 
@@ -191,7 +191,7 @@ class getid3_mpc extends getid3_handler
 				case 'SE': // Stream End
 				case 'AP': // Audio Data
 					// nothing useful here, just skip this packet
-					$thisPacket = [];
+					$thisPacket = array();
 					break;
 
 				default:
@@ -489,7 +489,7 @@ class getid3_mpc extends getid3_handler
 	}
 
 	public function MPCsv8PacketName($packetKey) {
-		static $MPCsv8PacketName = [];
+		static $MPCsv8PacketName = array();
 		if (empty($MPCsv8PacketName)) {
 			$MPCsv8PacketName = array(
 				'AP' => 'Audio Packet',

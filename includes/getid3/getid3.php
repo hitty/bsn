@@ -189,7 +189,7 @@ class getID3
 				$this->startup_warning .= '"'.$helperappsdir.'" cannot be defined as GETID3_HELPERAPPSDIR because it does not exist';
 			} elseif (strpos(realpath($helperappsdir), ' ') !== false) {
 				$DirPieces = explode(DIRECTORY_SEPARATOR, realpath($helperappsdir));
-				$path_so_far = [];
+				$path_so_far = array();
 				foreach ($DirPieces as $key => $value) {
 					if (strpos($value, ' ') !== false) {
 						if (!empty($path_so_far)) {
@@ -254,7 +254,7 @@ class getID3
 
 			// init result array and set parameters
 			$this->filename = $filename;
-			$this->info = [];
+			$this->info = array();
 			$this->info['GETID3_VERSION']   = $this->version();
 			$this->info['php_memory_limit'] = $this->memory_limit;
 
@@ -271,7 +271,7 @@ class getID3
 			if ((is_readable($filename) || file_exists($filename)) && is_file($filename) && ($this->fp = fopen($filename, 'rb'))) {
 				// great
 			} else {
-				$errormessagelist = [];
+				$errormessagelist = array();
 				if (!is_readable($filename)) {
 					$errormessagelist[] = '!is_readable';
 				}
@@ -327,10 +327,10 @@ class getID3
 			$this->info['fileformat']          = '';                // filled in later
 			$this->info['audio']['dataformat'] = '';                // filled in later, unset if not used
 			$this->info['video']['dataformat'] = '';                // filled in later, unset if not used
-			$this->info['tags']                = [];           // filled in later, unset if not used
-			$this->info['error']               = [];           // filled in later, unset if not used
-			$this->info['warning']             = [];           // filled in later, unset if not used
-			$this->info['comments']            = [];           // filled in later, unset if not used
+			$this->info['tags']                = array();           // filled in later, unset if not used
+			$this->info['error']               = array();           // filled in later, unset if not used
+			$this->info['warning']             = array();           // filled in later, unset if not used
+			$this->info['comments']            = array();           // filled in later, unset if not used
 			$this->info['encoding']            = $this->encoding;   // required by id3v2 and iso modules - can be unset at the end if desired
 
 			return true;
@@ -496,7 +496,7 @@ class getID3
 	public function error($message) {
 		$this->CleanUp();
 		if (!isset($this->info['error'])) {
-			$this->info['error'] = [];
+			$this->info['error'] = array();
 		}
 		$this->info['error'][] = $message;
 		return $this->info;
@@ -559,8 +559,8 @@ class getID3
 
 
 	// return array containing information about all supported formats
-	public function GetFileFormatarray() {
-		static $format_info = [];
+	public function GetFileFormatArray() {
+		static $format_info = array();
 		if (empty($format_info)) {
 			$format_info = array(
 
@@ -1111,7 +1111,7 @@ class getID3
 		// of the file).
 
 		// Identify file format - loop through $format_info and detect with reg expr
-		foreach ($this->GetFileFormatarray() as $format_name => $info) {
+		foreach ($this->GetFileFormatArray() as $format_name => $info) {
 			// The /s switch on preg_match() forces preg_match() NOT to treat
 			// newline (0x0A) characters as special chars but do a binary match
 			if (!empty($info['pattern']) && preg_match('#'.$info['pattern'].'#s', $filedata)) {
@@ -1124,7 +1124,7 @@ class getID3
 		if (preg_match('#\.mp[123a]$#i', $filename)) {
 			// Too many mp3 encoders on the market put gabage in front of mpeg files
 			// use assume format on these if format detection failed
-			$GetFileFormatArray = $this->GetFileFormatarray();
+			$GetFileFormatArray = $this->GetFileFormatArray();
 			$info = $GetFileFormatArray['mp3'];
 			$info['include'] = 'module.'.$info['group'].'.'.$info['module'].'.php';
 			return $info;
@@ -1132,7 +1132,7 @@ class getID3
 			// there's not really a useful consistent "magic" at the beginning of .cue files to identify them
 			// so until I think of something better, just go by filename if all other format checks fail
 			// and verify there's at least one instance of "TRACK xx AUDIO" in the file
-			$GetFileFormatArray = $this->GetFileFormatarray();
+			$GetFileFormatArray = $this->GetFileFormatArray();
 			$info = $GetFileFormatArray['cue'];
 			$info['include']   = 'module.'.$info['group'].'.'.$info['module'].'.php';
 			return $info;

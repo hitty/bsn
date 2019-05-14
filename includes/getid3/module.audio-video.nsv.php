@@ -210,7 +210,7 @@ class getid3_nsv extends getid3_handler
 		if ($framerateindex <= 127) {
 			return (float) $framerateindex;
 		}
-		static $NSVframerateLookup = [];
+		static $NSVframerateLookup = array();
 		if (empty($NSVframerateLookup)) {
 			$NSVframerateLookup[129] = (float) 29.970;
 			$NSVframerateLookup[131] = (float) 23.976;

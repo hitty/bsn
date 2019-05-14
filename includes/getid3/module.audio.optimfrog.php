@@ -109,7 +109,7 @@ class getid3_optimfrog extends getid3_handler
 				$BlockName = 'OFR ';
 			}
 			if (!isset($info['ofr'][$BlockName])) {
-				$info['ofr'][$BlockName] = [];
+				$info['ofr'][$BlockName] = array();
 			}
 			$thisfile_ofr_thisblock = &$info['ofr'][$BlockName];
 
@@ -367,7 +367,7 @@ class getid3_optimfrog extends getid3_handler
 
 
 	// static function OptimFROGalgorithmNameLookup($AlgorithID) {
-	//     static $OptimFROGalgorithmNameLookup = [];
+	//     static $OptimFROGalgorithmNameLookup = array();
 	//     return (isset($OptimFROGalgorithmNameLookup[$AlgorithID]) ? $OptimFROGalgorithmNameLookup[$AlgorithID] : false);
 	// }
 

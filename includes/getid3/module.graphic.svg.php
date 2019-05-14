@@ -41,7 +41,7 @@ class getid3_svg extends getid3_handler
 				if (!isset($info['svg'][$section_to_fix])) {
 					continue;
 				}
-				$section_data = [];
+				$section_data = array();
 				while (preg_match('/ "([^"]+)"/', $info['svg'][$section_to_fix]['raw'][1], $matches)) {
 					$section_data[] = $matches[1];
 					$info['svg'][$section_to_fix]['raw'][1] = str_replace($matches[0], '', $info['svg'][$section_to_fix]['raw'][1]);

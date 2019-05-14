@@ -24,7 +24,7 @@ class getid3_bmp extends getid3_handler
 		$info = &$this->getid3->info;
 
 		// shortcuts
-		$info['bmp']['header']['raw'] = [];
+		$info['bmp']['header']['raw'] = array();
 		$thisfile_bmp                         = &$info['bmp'];
 		$thisfile_bmp_header                  = &$thisfile_bmp['header'];
 		$thisfile_bmp_header_raw              = &$thisfile_bmp_header['raw'];

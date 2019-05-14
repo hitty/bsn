@@ -965,7 +965,7 @@ class getid3_lib
 
 
 		// iconv() not available
-		static $ConversionFunctionList = [];
+		static $ConversionFunctionList = array();
 		if (empty($ConversionFunctionList)) {
 			$ConversionFunctionList['ISO-8859-1']['UTF-8']    = 'iconv_fallback_iso88591_utf8';
 			$ConversionFunctionList['ISO-8859-1']['UTF-16']   = 'iconv_fallback_iso88591_utf16';
@@ -993,7 +993,7 @@ class getid3_lib
 		if (is_string($data)) {
 			return self::MultiByteCharString2HTML($data, $charset);
 		} elseif (is_array($data)) {
-			$return_data = [];
+			$return_data = array();
 			foreach ($data as $key => $value) {
 				$return_data[$key] = self::recursiveMultiByteCharString2HTML($value, $charset);
 			}
@@ -1098,7 +1098,7 @@ class getid3_lib
 
 
 	public static function RGADnameLookup($namecode) {
-		static $RGADname = [];
+		static $RGADname = array();
 		if (empty($RGADname)) {
 			$RGADname[0] = 'not set';
 			$RGADname[1] = 'Track Gain Adjustment';
@@ -1110,7 +1110,7 @@ class getid3_lib
 
 
 	public static function RGADoriginatorLookup($originatorcode) {
-		static $RGADoriginator = [];
+		static $RGADoriginator = array();
 		if (empty($RGADoriginator)) {
 			$RGADoriginator[0] = 'unspecified';
 			$RGADoriginator[1] = 'pre-set by artist/producer/mastering engineer';
@@ -1151,7 +1151,7 @@ class getid3_lib
 	}
 
 
-	public static function GetDataImageSize($imgData, &$imageinfo=[]) {
+	public static function GetDataImageSize($imgData, &$imageinfo=array()) {
 		static $tempdir = '';
 		if (empty($tempdir)) {
 			// yes this is ugly, feel free to suggest a better way
@@ -1178,7 +1178,7 @@ class getid3_lib
 	}
 
 	public static function ImageTypesLookup($imagetypeid) {
-		static $ImageTypesLookup = [];
+		static $ImageTypesLookup = array();
 		if (empty($ImageTypesLookup)) {
 			$ImageTypesLookup[1]  = 'gif';
 			$ImageTypesLookup[2]  = 'jpeg';

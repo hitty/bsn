@@ -100,7 +100,7 @@ class getid3_pcd extends getid3_handler
 	}
 
 	public function YCbCr2RGB($Y, $Cb, $Cr) {
-		static $YCbCr_constants = [];
+		static $YCbCr_constants = array();
 		if (empty($YCbCr_constants)) {
 			$YCbCr_constants['red']['Y']    =  0.0054980 * 256;
 			$YCbCr_constants['red']['Cb']   =  0.0000000 * 256;

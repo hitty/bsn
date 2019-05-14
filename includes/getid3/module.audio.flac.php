@@ -61,7 +61,7 @@ class getid3_flac extends getid3_handler
 				break;
 			}
 
-			$info['flac'][$BlockTypeText]['raw'] = [];
+			$info['flac'][$BlockTypeText]['raw'] = array();
 			$BlockTypeText_raw = &$info['flac'][$BlockTypeText]['raw'];
 
 			$BlockTypeText_raw['offset']          = $BlockOffset;
@@ -187,7 +187,7 @@ class getid3_flac extends getid3_handler
 	private function parseSTREAMINFO($BlockData) {
 		$info = &$this->getid3->info;
 
-		$info['flac']['STREAMINFO'] = [];
+		$info['flac']['STREAMINFO'] = array();
 		$streaminfo = &$info['flac']['STREAMINFO'];
 
 		$streaminfo['min_block_size']  = getid3_lib::BigEndian2Int(substr($BlockData, 0, 2));

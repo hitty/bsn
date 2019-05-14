@@ -48,7 +48,7 @@ class getid3_id3v2 extends getid3_handler
 		// shortcuts
 		$info['id3v2']['header'] = true;
 		$thisfile_id3v2                  = &$info['id3v2'];
-		$thisfile_id3v2['flags']         =  [];
+		$thisfile_id3v2['flags']         =  array();
 		$thisfile_id3v2_flags            = &$thisfile_id3v2['flags'];
 
 
@@ -499,7 +499,7 @@ class getid3_id3v2 extends getid3_handler
 		// Parse genres into arrays of genreName and genreID
 		// ID3v2.2.x, ID3v2.3.x: '(21)' or '(4)Eurodisco' or '(51)(39)' or '(55)((I think...)'
 		// ID3v2.4.x: '21' $00 'Eurodisco' $00
-		$clean_genres = [];
+		$clean_genres = array();
 		if (strpos($genrestring, "\x00") === false) {
 			$genrestring = preg_replace('#\(([0-9]{1,3})\)#', '$1'."\x00", $genrestring);
 		}
@@ -688,7 +688,7 @@ class getid3_id3v2 extends getid3_handler
 						$wordsize = 1;
 						break;
 				}
-				$Txxx_elements = [];
+				$Txxx_elements = array();
 				$Txxx_elements_start_offset = 0;
 				for ($i = 0; $i < strlen($parsedFrame['data']); $i += $wordsize) {
 					if (substr($parsedFrame['data'], $i, $wordsize) == str_repeat("\x00", $wordsize)) {
@@ -789,9 +789,9 @@ class getid3_id3v2 extends getid3_handler
 			// http://www.getid3.org/phpBB3/viewtopic.php?t=1369
 			// "this tag typically contains null terminated strings, which are associated in pairs"
 			// "there are users that use the tag incorrectly"
-			$IPLS_parts = [];
+			$IPLS_parts = array();
 			if (strpos($parsedFrame['data_raw'], "\x00") !== false) {
-				$IPLS_parts_unsorted = [];
+				$IPLS_parts_unsorted = array();
 				if (((strlen($parsedFrame['data_raw']) % 2) == 0) && ((substr($parsedFrame['data_raw'], 0, 2) == "\xFF\xFE") || (substr($parsedFrame['data_raw'], 0, 2) == "\xFE\xFF"))) {
 					// UTF-16, be careful looking for null bytes since most 2-byte characters may contain one; you need to find twin null bytes, and on even padding
 					$thisILPS  = '';
@@ -1390,7 +1390,7 @@ class getid3_id3v2 extends getid3_handler
 				$parsedFrame['datalength']       = strlen($parsedFrame['data']);
 
 				$parsedFrame['image_mime'] = '';
-				$imageinfo = [];
+				$imageinfo = array();
 				$imagechunkcheck = getid3_lib::GetDataImageSize($parsedFrame['data'], $imageinfo);
 				if (($imagechunkcheck[2] >= 1) && ($imagechunkcheck[2] <= 3)) {
 					$parsedFrame['image_mime']       = 'image/'.getid3_lib::ImageTypesLookup($imagechunkcheck[2]);
@@ -1441,7 +1441,7 @@ class getid3_id3v2 extends getid3_handler
 					} else {
 						if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
 							if (!isset($info['id3v2']['comments']['picture'])) {
-								$info['id3v2']['comments']['picture'] = [];
+								$info['id3v2']['comments']['picture'] = array();
 							}
 							$info['id3v2']['comments']['picture'][] = array('data'=>$parsedFrame['data'], 'image_mime'=>$parsedFrame['image_mime']);
 						}

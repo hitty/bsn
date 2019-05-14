@@ -45,7 +45,7 @@ class Image_XMP
 	* The XMP fields that were extracted from the image or updated by this class.
 	* @see getAllTags()
 	*/
-	public $_aXMP = [];
+	public $_aXMP = array();
 
 	/**
 	* @var boolean
@@ -272,7 +272,7 @@ class Image_XMP
 		xml_parser_free($xml_parser);
 
 		// Clear the output array
-		$xmp_array = [];
+		$xmp_array = array();
 
 		// The XMP data has now been parsed into an array ...
 

@@ -23,7 +23,7 @@ class getid3_zip extends getid3_handler
 
 		$info['fileformat']      = 'zip';
 		$info['zip']['encoding'] = 'ISO-8859-1';
-		$info['zip']['files']    = [];
+		$info['zip']['files']    = array();
 
 		$info['zip']['compressed_size']   = 0;
 		$info['zip']['uncompressed_size'] = 0;

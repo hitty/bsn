@@ -33,7 +33,7 @@ class getid3_voc extends getid3_handler
 
 		// shortcuts
 		$thisfile_audio = &$info['audio'];
-		$info['voc'] = [];
+		$info['voc'] = array();
 		$thisfile_voc        = &$info['voc'];
 
 		$info['fileformat']        = 'voc';
@@ -61,7 +61,7 @@ class getid3_voc extends getid3_handler
 			$BlockData      = $this->fread(4);
 			$BlockType      = ord($BlockData{0});
 			$BlockSize      = getid3_lib::LittleEndian2Int(substr($BlockData, 1, 3));
-			$ThisBlock      = [];
+			$ThisBlock      = array();
 
 			getid3_lib::safe_inc($thisfile_voc['blocktypes'][$BlockType], 1);
 			switch ($BlockType) {

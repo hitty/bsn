@@ -47,7 +47,7 @@ class getid3_iso extends getid3_handler
 
 		$this->ParsePathTable();
 
-		$info['iso']['files'] = [];
+		$info['iso']['files'] = array();
 		foreach ($info['iso']['path_table']['directories'] as $directorynum => $directorydata) {
 			$info['iso']['directories'][$directorynum] = $this->ParseDirectoryRecord($directorydata);
 		}
@@ -62,7 +62,7 @@ class getid3_iso extends getid3_handler
 
 		// shortcuts
 		$info = &$this->getid3->info;
-		$info['iso']['primary_volume_descriptor']['raw'] = [];
+		$info['iso']['primary_volume_descriptor']['raw'] = array();
 		$thisfile_iso_primaryVD     = &$info['iso']['primary_volume_descriptor'];
 		$thisfile_iso_primaryVD_raw = &$thisfile_iso_primaryVD['raw'];
 
@@ -136,7 +136,7 @@ class getid3_iso extends getid3_handler
 
 		// shortcuts
 		$info = &$this->getid3->info;
-		$info['iso']['supplementary_volume_descriptor']['raw'] = [];
+		$info['iso']['supplementary_volume_descriptor']['raw'] = array();
 		$thisfile_iso_supplementaryVD     = &$info['iso']['supplementary_volume_descriptor'];
 		$thisfile_iso_supplementaryVD_raw = &$thisfile_iso_supplementaryVD['raw'];
 
@@ -237,7 +237,7 @@ class getid3_iso extends getid3_handler
 		$pathcounter = 1;
 		while ($offset < $PathTableSize) {
 			// shortcut
-			$info['iso']['path_table']['directories'][$pathcounter] = [];
+			$info['iso']['path_table']['directories'][$pathcounter] = array();
 			$thisfile_iso_pathtable_directories_current = &$info['iso']['path_table']['directories'][$pathcounter];
 
 			$thisfile_iso_pathtable_directories_current['length']           = getid3_lib::LittleEndian2Int(substr($info['iso']['path_table']['raw'], $offset, 1));

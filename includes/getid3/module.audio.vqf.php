@@ -29,7 +29,7 @@ class getid3_vqf extends getid3_handler
 		$info['audio']['lossless']     = false;
 
 		// shortcut
-		$info['vqf']['raw'] = [];
+		$info['vqf']['raw'] = array();
 		$thisfile_vqf               = &$info['vqf'];
 		$thisfile_vqf_raw           = &$thisfile_vqf['raw'];
 
@@ -75,7 +75,7 @@ class getid3_vqf extends getid3_handler
 			switch ($ChunkName) {
 				case 'COMM':
 					// shortcut
-					$thisfile_vqf['COMM'] = [];
+					$thisfile_vqf['COMM'] = array();
 					$thisfile_vqf_COMM    = &$thisfile_vqf['COMM'];
 
 					$thisfile_vqf_COMM['channel_mode']   = getid3_lib::BigEndian2Int(substr($ChunkData, $chunkoffset, 4));

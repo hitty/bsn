@@ -29,7 +29,7 @@ class getid3_monkey extends getid3_handler
 		$info['audio']['bitrate_mode'] = 'vbr';
 		$info['audio']['lossless']     = true;
 
-		$info['monkeys_audio']['raw'] = [];
+		$info['monkeys_audio']['raw'] = array();
 		$thisfile_monkeysaudio                = &$info['monkeys_audio'];
 		$thisfile_monkeysaudio_raw            = &$thisfile_monkeysaudio['raw'];
 

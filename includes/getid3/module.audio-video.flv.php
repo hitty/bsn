@@ -510,12 +510,12 @@ class AMFReader {
 
 			// Mixed array
 			case 8:
-				$value = $this->readMixed[];
+				$value = $this->readMixedArray();
 				break;
 
 			// Array
 			case 10:
-				$value = $this->read[];
+				$value = $this->readArray();
 				break;
 
 			// Date
@@ -563,7 +563,7 @@ class AMFReader {
 		// Get highest numerical index - ignored
 //		$highestIndex = $this->stream->readLong();
 
-		$data = [];
+		$data = array();
 
 		while ($key = $this->stream->readUTF()) {
 			$data[$key] = $this->readData();
@@ -576,11 +576,11 @@ class AMFReader {
 		return $data;
 	}
 
-	public function readMixedarray() {
+	public function readMixedArray() {
 		// Get highest numerical index - ignored
 		$highestIndex = $this->stream->readLong();
 
-		$data = [];
+		$data = array();
 
 		while ($key = $this->stream->readUTF()) {
 			if (is_numeric($key)) {
@@ -597,9 +597,9 @@ class AMFReader {
 		return $data;
 	}
 
-	public function readarray() {
+	public function readArray() {
 		$length = $this->stream->readLong();
-		$data = [];
+		$data = array();
 
 		for ($i = 0; $i < $length; $i++) {
 			$data[] = $this->readData();

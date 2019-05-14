@@ -40,8 +40,8 @@ class getid3_tiff extends getid3_handler
 		$info['fileformat']          = 'tiff';
 		$info['video']['dataformat'] = 'tiff';
 		$info['video']['lossless']   = true;
-		$info['tiff']['ifd']         = [];
-		$CurrentIFD                          = [];
+		$info['tiff']['ifd']         = array();
+		$CurrentIFD                          = array();
 
 		$FieldTypeByteLength = array(1=>1, 2=>1, 3=>2, 4=>4, 5=>8);
 
@@ -99,7 +99,7 @@ class getid3_tiff extends getid3_handler
 			}
 
 			$info['tiff']['ifd'][] = $CurrentIFD;
-			$CurrentIFD = [];
+			$CurrentIFD = array();
 			$nextIFDoffset = $this->TIFFendian2Int($this->fread(4), $info['tiff']['byte_order']);
 
 		}
@@ -193,7 +193,7 @@ class getid3_tiff extends getid3_handler
 	}
 
 	public function TIFFcompressionMethod($id) {
-		static $TIFFcompressionMethod = [];
+		static $TIFFcompressionMethod = array();
 		if (empty($TIFFcompressionMethod)) {
 			$TIFFcompressionMethod = array(
 				1     => 'Uncompressed',
@@ -207,7 +207,7 @@ class getid3_tiff extends getid3_handler
 	}
 
 	public function TIFFcommentName($id) {
-		static $TIFFcommentName = [];
+		static $TIFFcommentName = array();
 		if (empty($TIFFcommentName)) {
 			$TIFFcommentName = array(
 				270 => 'imagedescription',

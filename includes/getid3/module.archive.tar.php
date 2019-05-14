@@ -27,7 +27,7 @@ class getid3_tar extends getid3_handler
 		$info = &$this->getid3->info;
 
 		$info['fileformat'] = 'tar';
-		$info['tar']['files'] = [];
+		$info['tar']['files'] = array();
 
 		$unpack_header = 'a100fname/a8mode/a8uid/a8gid/a12size/a12mtime/a8chksum/a1typflag/a100lnkname/a6magic/a2ver/a32uname/a32gname/a8devmaj/a8devmin/a155prefix';
 		$null_512k = str_repeat("\x00", 512); // end-of-file marker

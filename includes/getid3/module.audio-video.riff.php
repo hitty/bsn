@@ -36,7 +36,7 @@ class getid3_riff extends getid3_handler {
 
 		// initialize these values to an empty array, otherwise they default to NULL
 		// and you can't append array values to a NULL value
-		$info['riff'] = array('raw'=>[]);
+		$info['riff'] = array('raw'=>array());
 
 		// Shortcuts
 		$thisfile_riff             = &$info['riff'];
@@ -112,7 +112,7 @@ class getid3_riff extends getid3_handler {
 					$nextRIFFheaderID =                         substr($nextRIFFheader, 0, 4);
 					$nextRIFFsize     = $this->EitherEndian2Int(substr($nextRIFFheader, 4, 4));
 					$nextRIFFtype     =                         substr($nextRIFFheader, 8, 4);
-					$chunkdata = [];
+					$chunkdata = array();
 					$chunkdata['offset'] = $nextRIFFoffset + 8;
 					$chunkdata['size']   = $nextRIFFsize;
 					$nextRIFFoffset = $chunkdata['offset'] + $chunkdata['size'];
@@ -121,7 +121,7 @@ class getid3_riff extends getid3_handler {
 						case 'RIFF':
 							$chunkdata['chunks'] = $this->ParseRIFF($chunkdata['offset'] + 4, $nextRIFFoffset);
 							if (!isset($thisfile_riff[$nextRIFFtype])) {
-								$thisfile_riff[$nextRIFFtype] = [];
+								$thisfile_riff[$nextRIFFtype] = array();
 							}
 							$thisfile_riff[$nextRIFFtype][] = $chunkdata;
 							break;
@@ -235,7 +235,7 @@ class getid3_riff extends getid3_handler {
 
 					// shortcuts
 					$rgadData = &$thisfile_riff_WAVE['rgad'][0]['data'];
-					$thisfile_riff_raw['rgad']    = array('track'=>[], 'album'=>[]);
+					$thisfile_riff_raw['rgad']    = array('track'=>array(), 'album'=>array());
 					$thisfile_riff_raw_rgad       = &$thisfile_riff_raw['rgad'];
 					$thisfile_riff_raw_rgad_track = &$thisfile_riff_raw_rgad['track'];
 					$thisfile_riff_raw_rgad_album = &$thisfile_riff_raw_rgad['album'];
@@ -517,7 +517,7 @@ class getid3_riff extends getid3_handler {
 							// }SLwFormat, *PSLwFormat;
 
 							// shortcut
-							$thisfile_riff['litewave']['raw'] = [];
+							$thisfile_riff['litewave']['raw'] = array();
 							$riff_litewave     = &$thisfile_riff['litewave'];
 							$riff_litewave_raw = &$riff_litewave['raw'];
 
@@ -655,7 +655,7 @@ class getid3_riff extends getid3_handler {
 					$avihData = $thisfile_riff['AVI ']['hdrl']['avih'][$streamindex]['data'];
 
 					// shortcut
-					$thisfile_riff_raw['avih'] = [];
+					$thisfile_riff_raw['avih'] = array();
 					$thisfile_riff_raw_avih = &$thisfile_riff_raw['avih'];
 
 					$thisfile_riff_raw_avih['dwMicroSecPerFrame']    = $this->EitherEndian2Int(substr($avihData,  0, 4)); // frame display rate (or 0L)
@@ -698,7 +698,7 @@ class getid3_riff extends getid3_handler {
 					}
 
 					// shortcut
-					$thisfile_riff_video[$streamindex] = [];
+					$thisfile_riff_video[$streamindex] = array();
 					$thisfile_riff_video_current = &$thisfile_riff_video[$streamindex];
 
 					if ($thisfile_riff_raw_avih['dwWidth'] > 0) {
@@ -803,7 +803,7 @@ class getid3_riff extends getid3_handler {
 										case 'iavs':
 										case 'vids':
 											// shortcut
-											$thisfile_riff_raw['strh'][$i]                  = [];
+											$thisfile_riff_raw['strh'][$i]                  = array();
 											$thisfile_riff_raw_strh_current                 = &$thisfile_riff_raw['strh'][$i];
 
 											$thisfile_riff_raw_strh_current['fccType']               =                         substr($strhData,  0, 4);  // same as $strhfccType;
@@ -1353,7 +1353,7 @@ class getid3_riff extends getid3_handler {
 			if (substr($AMVheader,   8,  4) != "\x38\x00\x00\x00") { // "amvh" chunk size, hardcoded to 0x38 = 56 bytes
 				throw new Exception('expecting "0x38000000" at offset '.($startoffset +   8).', found "'.getid3_lib::PrintHexBytes(substr($AMVheader,   8, 4)).'"');
 			}
-			$RIFFchunk = [];
+			$RIFFchunk = array();
 			$RIFFchunk['amvh']['us_per_frame']   = getid3_lib::LittleEndian2Int(substr($AMVheader,  12,  4));
 			$RIFFchunk['amvh']['reserved28']     =                              substr($AMVheader,  16, 28);  // null? reserved?
 			$RIFFchunk['amvh']['resolution_x']   = getid3_lib::LittleEndian2Int(substr($AMVheader,  44,  4));
@@ -1524,7 +1524,7 @@ class getid3_riff extends getid3_handler {
 						} else {
 
 							if (!isset($RIFFchunk[$listname])) {
-								$RIFFchunk[$listname] = [];
+								$RIFFchunk[$listname] = array();
 							}
 							$LISTchunkParent    = $listname;
 							$LISTchunkMaxOffset = $this->ftell() - 4 + $chunksize;
@@ -1736,8 +1736,8 @@ class getid3_riff extends getid3_handler {
 			$getid3_temp->info['warning']      = $info['warning'];
 			$getid3_temp->info['error']        = $info['error'];
 			$getid3_temp->info['comments']     = $info['comments'];
-			$getid3_temp->info['audio']        = (isset($info['audio']) ? $info['audio'] : []);
-			$getid3_temp->info['video']        = (isset($info['video']) ? $info['video'] : []);
+			$getid3_temp->info['audio']        = (isset($info['audio']) ? $info['audio'] : array());
+			$getid3_temp->info['video']        = (isset($info['video']) ? $info['video'] : array());
 			$getid3_riff = new getid3_riff($getid3_temp);
 			$getid3_riff->Analyze();
 
@@ -1813,7 +1813,7 @@ class getid3_riff extends getid3_handler {
 
 	public static function parseWAVEFORMATex($WaveFormatExData) {
 		// shortcut
-		$WaveFormatEx['raw'] = [];
+		$WaveFormatEx['raw'] = array();
 		$WaveFormatEx_raw    = &$WaveFormatEx['raw'];
 
 		$WaveFormatEx_raw['wFormatTag']      = substr($WaveFormatExData,  0, 2);
@@ -1849,7 +1849,7 @@ class getid3_riff extends getid3_handler {
 
 		// shortcut
 		$info = &$this->getid3->info;
-		$info['wavpack']  = [];
+		$info['wavpack']  = array();
 		$thisfile_wavpack = &$info['wavpack'];
 
 		$thisfile_wavpack['version']           = getid3_lib::LittleEndian2Int(substr($WavPackChunkData,  0, 2));
@@ -1869,7 +1869,7 @@ class getid3_riff extends getid3_handler {
 			}
 
 			// shortcut
-			$thisfile_wavpack['flags'] = [];
+			$thisfile_wavpack['flags'] = array();
 			$thisfile_wavpack_flags = &$thisfile_wavpack['flags'];
 
 			$thisfile_wavpack_flags['mono']                 = (bool) ($thisfile_wavpack['flags_raw'] & 0x000001);

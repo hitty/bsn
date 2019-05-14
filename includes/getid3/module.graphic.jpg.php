@@ -31,7 +31,7 @@ class getid3_jpg extends getid3_handler
 
 		$this->fseek($info['avdataoffset']);
 
-		$imageinfo = [];
+		$imageinfo = array();
 		//list($width, $height, $type) = getid3_lib::GetDataImageSize($this->fread($info['filesize']), $imageinfo);
 		list($width, $height, $type) = getimagesize($info['filenamepath'], $imageinfo); // http://www.getid3.org/phpBB3/viewtopic.php?t=1474
 
@@ -182,7 +182,7 @@ class getid3_jpg extends getid3_handler
 
 	public function IPTCrecordName($iptc_record) {
 		// http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/IPTC.html
-		static $IPTCrecordName = [];
+		static $IPTCrecordName = array();
 		if (empty($IPTCrecordName)) {
 			$IPTCrecordName = array(
 				1 => 'IPTCEnvelope',
@@ -199,7 +199,7 @@ class getid3_jpg extends getid3_handler
 
 	public function IPTCrecordTagName($iptc_record, $iptc_tagkey) {
 		// http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/IPTC.html
-		static $IPTCrecordTagName = [];
+		static $IPTCrecordTagName = array();
 		if (empty($IPTCrecordTagName)) {
 			$IPTCrecordTagName = array(
 				1 => array( // IPTC EnvelopeRecord Tags

@@ -110,7 +110,7 @@ class getid3_apetag extends getid3_handler
 		}
 
 		// shortcut
-		$info['replay_gain'] = [];
+		$info['replay_gain'] = array();
 		$thisfile_replaygain = &$info['replay_gain'];
 
 		for ($i = 0; $i < $thisfile_ape['footer']['raw']['tag_items']; $i++) {
@@ -126,7 +126,7 @@ class getid3_apetag extends getid3_handler
 			$item_key      = strtolower(substr($APEtagData, $offset, $ItemKeyLength));
 
 			// shortcut
-			$thisfile_ape['items'][$item_key] = [];
+			$thisfile_ape['items'][$item_key] = array();
 			$thisfile_ape_items_current = &$thisfile_ape['items'][$item_key];
 
 			$thisfile_ape_items_current['offset'] = $thisfile_ape['tag_offset_start'] + $offset;
@@ -227,7 +227,7 @@ class getid3_apetag extends getid3_handler
 					$thisfile_ape_items_current['data_length'] = strlen($thisfile_ape_items_current['data']);
 
 					$thisfile_ape_items_current['image_mime'] = '';
-					$imageinfo = [];
+					$imageinfo = array();
 					$imagechunkcheck = getid3_lib::GetDataImageSize($thisfile_ape_items_current['data'], $imageinfo);
 					$thisfile_ape_items_current['image_mime'] = image_type_to_mime_type($imagechunkcheck[2]);
 
@@ -267,7 +267,7 @@ class getid3_apetag extends getid3_handler
 							unset($thisfile_ape_items_current['data']);
 						} else {
 							if (!isset($info['ape']['comments']['picture'])) {
-								$info['ape']['comments']['picture'] = [];
+								$info['ape']['comments']['picture'] = array();
 							}
 							$info['ape']['comments']['picture'][] = array('data'=>$thisfile_ape_items_current['data'], 'image_mime'=>$thisfile_ape_items_current['image_mime']);
 						}
@@ -294,7 +294,7 @@ class getid3_apetag extends getid3_handler
 		// http://www.uni-jena.de/~pfk/mpp/sv8/apeheader.html
 
 		// shortcut
-		$headerfooterinfo['raw'] = [];
+		$headerfooterinfo['raw'] = array();
 		$headerfooterinfo_raw = &$headerfooterinfo['raw'];
 
 		$headerfooterinfo_raw['footer_tag']   =                  substr($APEheaderFooterData,  0, 8);

@@ -22,7 +22,7 @@ class getid3_png extends getid3_handler
 		$info = &$this->getid3->info;
 
 		// shortcut
-		$info['png'] = [];
+		$info['png'] = array();
 		$thisfile_png = &$info['png'];
 
 		$info['fileformat']          = 'png';
@@ -62,7 +62,7 @@ class getid3_png extends getid3_handler
 			$chunk['flags']['safe_to_copy'] = (bool) ($chunk['type_raw'] & 0x00000020);
 
 			// shortcut
-			$thisfile_png[$chunk['type_text']] = [];
+			$thisfile_png[$chunk['type_text']] = array();
 			$thisfile_png_chunk_type_text = &$thisfile_png[$chunk['type_text']];
 
 			switch ($chunk['type_text']) {

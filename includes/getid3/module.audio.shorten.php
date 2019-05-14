@@ -70,7 +70,7 @@ class getid3_shorten extends getid3_handler
 
 				$SeekTableData = $this->fread($info['shn']['seektable']['length'] - 16);
 				$info['shn']['seektable']['entry_count'] = floor(strlen($SeekTableData) / 80);
-				//$info['shn']['seektable']['entries'] = [];
+				//$info['shn']['seektable']['entries'] = array();
 				//$SeekTableOffset = 0;
 				//for ($i = 0; $i < $info['shn']['seektable']['entry_count']; $i++) {
 				//	$SeekTableEntry['sample_number'] = getid3_lib::LittleEndian2Int(substr($SeekTableData, $SeekTableOffset, 4));

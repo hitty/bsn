@@ -67,7 +67,7 @@ class getid3_gzip extends getid3_handler {
 			}
 		}
 
-		$info['gzip']['files'] = [];
+		$info['gzip']['files'] = array();
 
 		$fpointer = 0;
 		$idx = 0;
@@ -102,7 +102,7 @@ class getid3_gzip extends getid3_handler {
 			}
 
 			$fpointer = 10;
-			$arr_xsubfield = [];
+			$arr_xsubfield = array();
 			// bit 2 - FLG.FEXTRA
 			//+---+---+=================================+
 			//| XLEN  |...XLEN bytes of "extra field"...|
