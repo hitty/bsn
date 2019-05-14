@@ -1,5 +1,7 @@
 <?php
 require_once('includes/class.paginator.php');
+$advp_user = Session::GetBoolean( 'advp_user' );
+Response::SetBoolean( 'advp_user', $advp_user );
 $action = empty($this_page->page_parameters[0]) ? "" : $this_page->page_parameters[0];
 Response::SetString( 'page', 'banners' );
 switch(true){
@@ -14,7 +16,7 @@ switch(true){
 
             $item = Banners::getItem( $action, !empty( $page_params ) ? $page_params : false );
 
-            $values = [];
+            $values = array();
             if(!empty($item['id'])) {
                 //внешняя ссылка
                 if( !empty( $item['direct_link'] ) ) if( parse_url( $item['direct_link'])['host'] != Host::$host ) $item['link_type'] = 'external';
@@ -32,7 +34,7 @@ switch(true){
     // Запись клика
     /////////////////////////////////////////////////////////         
     case $action=='click': // 
-        if($ajax_mode){
+        if($ajax_mode && !$advp_user ){
             $id = Request::GetInteger('id',METHOD_POST);
             $ref = Request::GetString('ref',METHOD_POST);
             if( !empty( $id ) ) {
@@ -41,6 +43,59 @@ switch(true){
             }
         } else $this_page->http_code=404;
         break;
+        
+    /////////////////////////////////////////////////////////
+    // Рекламный клик
+    /////////////////////////////////////////////////////////         
+    case $action=='adv01': //facebook        
+    case $action=='adv01-r':         
+    case $action=='adv02': //google adwords        
+    case $action=='adv02-r':         
+    case $action=='adv03': // yandex direct        
+    case $action=='adv03-r':         
+        $id = !empty($this_page->page_parameters[1]) ? $this_page->page_parameters[1] : false;
+        if(!empty($id) ){
+
+            if( in_array($action, array( 'adv01', 'adv03', 'adv04' ) ) )  {
+                $index = str_replace('adv', '', $action);
+                $module_template = 'redirect.html';
+                $this_page->page_template = 'modules/html_banners/templates/redirect.html';
+                $ref = Host::getRefererURL();
+                $parse_url = parse_url($ref);
+                if(!empty($parse_url['host'])) $ref = $parse_url['host'];
+                else $ref = '';
+                
+                Response::SetArray('item', array('direct_link' => '/ab/adv' . $index . '-r/'.$id.'/?ref='.$ref));
+            }
+            else {
+                $item = Banners::getItem( false, false, $id );
+                
+                if(!empty($item)){
+                    if(strstr($item['direct_link'], 'http:') == '' && strstr($item['direct_link'], 'https:') == '') $item['direct_link'] = 'http://'.trim( $item['direct_link'], '//' );
+                    Response::SetArray('item', $item);
+                    $params = Request::GetParameters(METHOD_GET);
+                    $ref = !empty($params['ref']) ? $params['ref'] : '';
+                    $real_ref = Host::getRefererURL();
+                    if(empty($real_ref)) $real_ref = '';
+                    $ip = Host::getUserIp();
+                    if( !Host::$is_bot ) {
+                        //2 клика в сутки с 1 IP
+                        $click = $db->fetch("SELECT COUNT(*) as cnt FROM ".$sys_tables['banners_stats_click_day']." WHERE ip = ? AND id_parent = ?", $ip, $id)['cnt'];
+                        if( $click > 2 ) Host::Redirect( 'https://www.bsn.ru/' );
+
+                        switch($action){
+                            case 'adv01-r' : $from = 2; break; // facebook
+                            case 'adv03-r' : $from = 3; break; // google adwords
+                            case 'adv04-r' : $from = 4; break; // yandex direct
+                        }
+                        $db->query("INSERT INTO ".$sys_tables['banners_stats_click_day']." SET `id_parent`=?, `from` = ?, real_ref=?, ref=?, ip=?, browser = ?", $id, $from, $ref, $real_ref, $ip, $_SERVER['HTTP_USER_AGENT']); 
+                        Host::Redirect(!empty($item['direct_link']) ? trim($item['direct_link']) : 'https://www.bsn.ru/');
+                    }
+                }
+            }
+        }
+        break;
+                    
     /////////////////////////////////////////////////////////
     // ЛК
     /////////////////////////////////////////////////////////                 

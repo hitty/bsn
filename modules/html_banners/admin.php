@@ -1,8 +1,9 @@
 <?php
 $GLOBALS['js_set'][] = '/modules/html_banners/ajax_actions.js';
 
+$GLOBALS['js_set'][] = '/js/jquery.form.expand.js';
 require_once('includes/class.paginator.php');
-if( !class_exists( 'Photos') ) if( !class_exists( 'Photos') ) require_once('includes/class.photos.php');
+if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');;
 require_once('includes/class.banners.php');
 Banners::Init();
 // мэппинги модуля
@@ -12,8 +13,8 @@ $mapping = include(dirname(__FILE__).'/conf_mapping.php');
 $this_page->manageMetadata(array('title'=>'Баннеры'));
 
 // собираем GET-параметры
-$get_parameters = [];
-$filters = [];
+$get_parameters = array();
+$filters = array();
 $filters['title'] = Request::GetString('f_title',METHOD_GET);
 $filters['manager'] = $db->real_escape_string(Request::GetInteger('f_manager',METHOD_GET));
 $filters['position'] = $db->real_escape_string(Request::GetInteger('f_position',METHOD_GET));
@@ -202,7 +203,7 @@ switch($action){
                     GROUP BY id
                 ");
                 
-                $ids = [];
+                $ids = array();
                 foreach($ids_list as $k=>$item) if(!empty($item['id'])) $ids[] = $item['id'];
                
                 //сколько должен заказано кликов для данного промежутка времени 
@@ -226,10 +227,10 @@ switch($action){
                     $graphic_colors = array('#3366CC','#DC3912','#FF9900','#109618','#990099','#3cff00', '#808000', '#800000','#FF0000','#F2BB20','#0011EE');       // Цвета графиков
                 else
                     $graphic_colors = array('#FF9900');       // Цвета графиков
-                $data = [];
+                $data = array();
                 if($stats) {
                     foreach($stats as $ind=>$item) {   // Преобразование массива
-                        $arr = [];
+                        $arr = array();
                         foreach($item as $key=>$val){
                             if ($key!='date')
                                 $arr[] = array(Convert::ToString($key),Convert::ToInt($val));
@@ -342,8 +343,6 @@ switch($action){
                             $fileParts = pathinfo($data['name']);
                             $targetExt = $fileParts['extension'];
                             $_targetFile = md5(microtime()).'.' . $targetExt; // конечное имя файла
-                            Photos::makeDir( $_temp_folder . $_targetFile );
-                            Photos::makeDir( $_folder . $_targetFile );
                             if (in_array(strtolower($targetExt),$fileTypes)) {
                                 move_uploaded_file($data['tmp_name'],$_temp_folder.$_targetFile);
                                 copy($_temp_folder.$_targetFile,$_folder.$_targetFile);
@@ -466,7 +465,7 @@ switch($action){
         Response::SetArray('managers', $managers);
         $positions = $db->fetchall("SELECT id,title FROM ".$sys_tables['banners_positions']." ORDER BY id");
         Response::SetArray( 'positions', $positions );
-		$conditions = [];
+		$conditions = array();
 		if(!empty($filters)){
             if(!empty($filters['manager'])) $conditions['manager'] = $sys_tables['banners'].'.id_manager = '.$db->real_escape_string($filters['manager']);
             if(!empty($filters['position'])) $conditions['position'] = $sys_tables['banners'].'.id_position = '.$db->real_escape_string($filters['position']);

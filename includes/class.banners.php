@@ -1,6 +1,6 @@
 <?php
 abstract class Banners {
-    public static $tables = [];
+    public static $tables = array();
     public static function Init(){
         self::$tables = Config::Get('sys_tables');
     }
@@ -77,7 +77,7 @@ abstract class Banners {
         self::$tables = Config::$values['sys_tables'];
         
         if(!empty($banners_type)){
-            $additional_fields = ",IF(".self::$tables['banners'].".direct_link LIKE '%https://www.bsn.ru%','internal','external') AS link_type,
+            $additional_fields = ",IF(".self::$tables['banners'].".direct_link LIKE '%https://www.bsn.int%','internal','external') AS link_type,
                                   1 AS is_banners_banner";
             switch($banners_type){
                 case "build": 
@@ -262,7 +262,7 @@ abstract class Banners {
     }
     public static function getItem( $position = false, $action = false, $id = false ){ 
        global $db;
-       $where = [];
+       $where = array();
        if( !empty( $id ) ) {
             $where[] = self::$tables['banners'].".id = " . $id;
        } else {
@@ -355,6 +355,8 @@ abstract class Banners {
                 SELECT 
                     IFNULL(a.show_amount,0) as show_amount, 
                     IFNULL(b.click_amount,0) as click_amount,
+                    IFNULL(fb.click_amount,0) as click_facebook_amount,
+                    IFNULL(bsn.click_amount,0) as click_bsn_amount,
                     a.date 
                 FROM 
                 (
@@ -379,12 +381,40 @@ abstract class Banners {
                           `date` <= STR_TO_DATE('".$date_end."', '%d.%m.%Y') AND `id_parent` = ".$id."
                       GROUP BY `date`
                      ) b ON a.date = b.date
+                    LEFT JOIN 
+                    (
+                      SELECT 
+                          SUM(IFNULL(`amount`,0)) as click_amount, 
+                          DATE_FORMAT(`date`,'%d.%m.%Y') as date
+                      FROM ".$sys_tables['banners_stats_click_full']."
+                      WHERE
+                          `date` >= STR_TO_DATE('".$date_start."', '%d.%m.%Y') AND 
+                          `date` <= STR_TO_DATE('".$date_end."', '%d.%m.%Y') AND 
+                          `id_parent` = ".$id." AND
+                          `from` = 2
+                      GROUP BY `date`
+                     ) fb ON a.date = fb.date
+                    LEFT JOIN 
+                    (
+                      SELECT 
+                          SUM(IFNULL(`amount`,0)) as click_amount, 
+                          DATE_FORMAT(`date`,'%d.%m.%Y') as date
+                      FROM ".$sys_tables['banners_stats_click_full']."
+                      WHERE
+                          `date` >= STR_TO_DATE('".$date_start."', '%d.%m.%Y') AND 
+                          `date` <= STR_TO_DATE('".$date_end."', '%d.%m.%Y') AND 
+                          `id_parent` = ".$id." AND
+                          `from` = 1
+                      GROUP BY `date`
+                     ) bsn ON a.date = bsn.date
                 )"
                 .(!empty($today_included) ? 
                   " UNION (
                         SELECT 
                             IFNULL(aa.show_amount,0) as show_amount, 
                             IFNULL(bb.click_amount,0) as click_amount,
+                            IFNULL(fbfb.click_amount,0) as click_facebook_amount,
+                            IFNULL(bsnbsn.click_amount,0) as click_bsn_amount,
                             aa.date 
                         FROM 
                         (   SELECT
@@ -403,6 +433,28 @@ abstract class Banners {
                           FROM ".$sys_tables['banners_stats_click_day']."
                           WHERE  `id_parent` = ".$id."
                          ) bb ON aa.id_parent = bb.id_parent
+                        LEFT JOIN 
+                        (
+                          SELECT 
+                              IFNULL(COUNT(*),0) as click_amount,
+                              'сегодня' as date,
+                              id_parent
+                          FROM ".$sys_tables['banners_stats_click_day']."
+                          WHERE  
+                            `id_parent` = ".$id."
+                            AND `from` = 1
+                         ) bsnbsn ON aa.id_parent = bsnbsn.id_parent
+                        LEFT JOIN 
+                        (
+                          SELECT 
+                              IFNULL(COUNT(*),0) as click_amount,
+                              'сегодня' as date,
+                              id_parent
+                          FROM ".$sys_tables['banners_stats_click_day']."
+                          WHERE  
+                            `id_parent` = ".$id."
+                            AND `from` = 2
+                         ) fbfb ON aa.id_parent = fbfb.id_parent
                     )"
                   : ""
                  )."

@@ -672,10 +672,6 @@ return array(
         'markers_stats_click_full'=>'advert_objects.markers_stats_click_full',
         'markers_stats_show_full'=>'advert_objects.markers_stats_show_full',
 
-        'adriver_banners' => 'advert_objects.adriver_banners',
-        'adriver_banners_stats_click_day'=>'advert_objects.adriver_banners_stats_click_day',
-        'adriver_banners_stats_click_full'=>'advert_objects.adriver_banners_stats_click_full',
-
         'credit_calculator' => 'advert_objects.credit_calculator',
         'credit_calculator_percent_rules' => 'advert_objects.credit_calculator_percent_rules',
         'credit_calculator_stats_click_day'=>'advert_objects.credit_calculator_stats_click_day',

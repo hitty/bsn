@@ -30,6 +30,17 @@
 
  {if!empty $data_mapping['id']['value']}
        
+        <p class="title_row" id="specoffer-adding">Прикрепление баннера к сторонним РК</font></p>
+        <p id="p_field_facebook">
+            <span class="lf fieldwrapper" style="width: 100%;">
+                Ссылка для рекламных кампаний : <b>https://www.bsn.ru/ab/advINDEX/{$data_mapping['id']['value']}/</b>.<br />
+                INDEX: 
+                <b>01</b> - <a href="http://www.bsn.ru/ab/adv01/{$data_mapping['id']['value']}/" target="_blank">Facebook</a>, 
+                <b>02</b> - <a href="http://www.bsn.ru/ab/adv02/{$data_mapping['id']['value']}/" target="_blank">Google Adwords</a>, 
+                <b>03</b> - <a href="http://www.bsn.ru/ab/adv03/{$data_mapping['id']['value']}/" target="_blank">Yandex Direct</a>
+            </span>
+        </p>        
+        
     <p class="title_row">Баннер</font></p>
     <p style="display:block; clear:both;" id="p_field_position_in_head" title="если задана ссылка на картинку, то загруженное изображение не выводится, т.е. приоритет у ссылки на картинку">
         <label style="text-align:center; padding-top:1px; width:{if!empty $img_width}{$img_width}{else}145{/if}px; border:1px dashed #aaa; height:auto; margin-bottom:5px;">

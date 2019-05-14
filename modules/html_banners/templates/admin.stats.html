@@ -20,25 +20,35 @@
                   <tr>
                     <th width="100">Дата</th>
                     <th width="120">Показы</th>
-                    <th width="70">Переходы</th>
+                    <th width="70">Переходы БСН</th>
+                    <th width="70">Переходы ФБ</th>
+                    <th width="70">Переходы (всего)</th>
                     <th width="80">CTR, %</th>
                   </tr>
                   	{php:$total_show=0}
                     {php:$total_click=0}
+                    {php:$total_bsn_click=0}
+                    {php:$total_facebook_click=0}
                     
                     {loop $stats,$key,$item}
                     	<tr>
                         	<td>{$item['date']}</td>
                         	<td>{$item['show_amount']}</td>
+                            <td>{php:echo $item['click_bsn_amount']}</td>
+                            <td>{php:echo $item['click_facebook_amount']}</td>
                             <td>{php:echo $item['click_amount']}</td>
                         	<td>{ifgt $item['show_amount'],0}{php:echo number_format(($item['click_amount']/$item['show_amount'])*100, 2, '.', ' ')}{else}0{/if}</td>
 						</tr>
                         {php:$total_show=$total_show+$item['show_amount']}
                         {php:$total_click = $total_click + $item['click_amount']}
+                        {php:$total_bsn_click = $total_bsn_click + $item['click_bsn_amount']}
+                        {php:$total_facebook_click = $total_facebook_click + $item['click_facebook_amount']}
                     {/loop $stats} 
                   <tr>
                     <th>Всего</th>
                     <th>{$total_show}</th>
+                    <th>{$total_bsn_click}</th>
+                    <th>{$total_facebook_click}</th>
                     <th>{$total_click}</th>
                     <th>{ifgt $total_show,0}{php:echo number_format(($total_click/$total_show)*100, 2, '.', ' ')}{else}0{/if}</th>
                   </tr>

@@ -1,13 +1,13 @@
 
 {if!empty $item}
     {ifeq $item['link_type'],'external'}
-        <span class="external-link br3 transition banner-item" data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-id="{$item['id']}" data-position="">
+        <span class="{ifempty $advp_user}external-link {/if}br3 transition banner-item" {ifempty $advp_user}data-link="{$item['direct_link']}" {/if}title="{quoted:$item['title']}" data-id="{$item['id']}" data-position="">
             {php:$_index = rand(0,1);}
             <img class="br3" src="{ifempty $item['photo']}{$img_url[$_index]}{static:/}img/uploads/banners/{$item['img_src']}{else}{$item['photo']}{/if}" alt="{quoted:$item['title']}" />
             {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
         </span>
     {else}
-        <a href="{$item['direct_link']}" title="{quoted:$item['title']}" class="banner-item" data-id="{$item['id']}" data-position="">
+        <a href="{ifempty $advp_user}{$item['direct_link']}{else}ya.ru{/if}" title="{quoted:$item['title']}" class="banner-item" data-id="{$item['id']}" data-position="">
             {php:$_index = rand(0,1);}
             <img src="{ifempty $item['photo']}{$img_url[$_index]}{static:/}img/uploads/banners/{$item['img_src']}{else}{$item['photo']}{/if}" alt="{quoted:$item['title']}" />
             {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}

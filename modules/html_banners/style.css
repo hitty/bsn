@@ -100,22 +100,22 @@
     width: 520px;
 }
 
-.modal-inner .results-wrapper {
+#background-shadow .results-wrapper {
     margin: 40px 0;
 }
 
-.modal-inner .results-wrapper.total .header {
+#background-shadow .results-wrapper.total .header {
     height: 30px;
     border-bottom: 1px solid #DDDDDD;
     margin-bottom: 5px;
 }
 
-.modal-inner .results-wrapper .header .title {
+#background-shadow .results-wrapper .header .title {
     color: #818181;
     font-size: 16px;
 }
 
-.modal-inner .results-wrapper .title {
+#background-shadow .results-wrapper .title {
     color: #000;
     font-size: 14px;
     width: 210px;
@@ -124,14 +124,14 @@
     padding-left: 10px;
 }
 
-.modal-inner .results-wrapper span {
+#background-shadow .results-wrapper span {
     display: block;
     float: left;
     text-align: center;
     width: 100px;
 }
 
-.modal-inner .results-wrapper span:before {
+#background-shadow .results-wrapper span:before {
     margin: -5px auto 0 auto;
     text-align: center;
     display: block;
@@ -140,34 +140,34 @@
     width: 100px;
 }
 
-.modal-inner .results-wrapper .item {
+#background-shadow .results-wrapper .item {
     height: 30px;
     line-height: 30px;
 }
 
-.modal-inner .results-wrapper.total .item:nth-child(odd),
-.modal-inner .results-wrapper.period .item:nth-child(even) {
+#background-shadow .results-wrapper.total .item:nth-child(odd),
+#background-shadow .results-wrapper.period .item:nth-child(even) {
     background: #E8F3FC;
 }
 
-.modal-inner .results-wrapper.period .header{
+#background-shadow .results-wrapper.period .header{
     border: none;
     height: 20px;
 }
-.modal-inner .results-wrapper .form-default{
+#background-shadow .results-wrapper .form-default{
     padding: 8px 10px;
     background: #E8F3FC;
 }
-.modal-inner .results-wrapper .form-default input[type="text"]{
+#background-shadow .results-wrapper .form-default input[type="text"]{
     width: 160px;
     display: inline-block;
     position: relative;    
 }
-.modal-inner .results-wrapper .form-default input[type="submit"]{
+#background-shadow .results-wrapper .form-default input[type="submit"]{
     width: 140px;
     display: block;
     float: right;    
 }
-.modal-inner .results-wrapper.period{
+#background-shadow .results-wrapper.period{
     margin-bottom: 0;
 }

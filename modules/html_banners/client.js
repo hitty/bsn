@@ -1,4 +1,18 @@
 
+function getPending(_url, _params){
+    if(typeof(_params) == 'undefined' || !_params) _params = {ajax: true};
+    else _params.ajax = true;
+        jQuery.ajax({
+            type: "POST", async: true,
+            dataType: 'json', cache: true,
+            url: _url, data: _params,
+            success: function(msg){},
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                //console.log('XMLHttpRequest: '+XMLHttpRequest+', textStatus: '+textStatus+', errorThrown: '+errorThrown+'; Не возможно выполнить операцию!');
+            }
+        });
+    return true;
+}
 jQuery(document).ready(function(){
     //клики - по тгб с просто переходом или клики по блоку для перехода на всплывашке
     jQuery(document).on('click', 'div.banners:not(.with-popup) span, div.banners:not(.with-popup) a', function(e){
