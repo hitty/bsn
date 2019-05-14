@@ -1,0 +1,30 @@
+<div class="topgray">
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{ifempty $list}
+<p>на данный момент галерей нет</p>
+{else}
+    {loop $list,$lk,$item}
+        <div class="central-block dotted news-list">
+            <h3>
+                {ifempty $item['link']}<a href="/galleries/{$item['id']}/" title="подробнее">{$item['title']}</a>
+                {else}<a href="/{$item['link']}/" title="подробнее">{$item['title']}</a>
+                {/if}
+            </h3>
+            <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['normal_date']}</time>
+            <span class="views_count" data-icon="visibility">{php:echo $item['views_count']}</span>
+            {if!empty $item['photo']}
+                {ifempty $item['link']}<a href="/galleries/{$item['id']}/" title="подробнее">
+                {else}<a href="/{$item['link']}/" title="подробнее">
+                {/if}
+                    <div class="small_image"><img src="{static:/}{$img_folder}/sm/{$item['subfolder']}/{$item['photo']}" alt="{quoted:$item['title']}"></div>
+                </a>
+            {/if}
+            <p>{stripall:$item['content_short']}</p>
+            <div class="cleaner">&nbsp;</div>
+        </div>
+    {/loop $list}
+    {include /templates/includes/paginator.html}
+{/if}
+</div>
+{block tgb/block/{$tgb_type}}
+

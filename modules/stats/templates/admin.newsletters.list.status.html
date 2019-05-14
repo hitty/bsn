@@ -1,0 +1,47 @@
+<h1 class="pageTitle">Рассылка #{$list[0]['id_campaign']}. {ifeq $action,'open'}Отослано.{else}Открытия.{/if}</h1>
+
+<div class="list_table">
+    
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                {if!eq $action,'send'}
+                    <col class="col2" width="10%">
+                    <col class="col1" width="20%">
+                    <col class="col2" width="20%">
+                {/if}
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Email</th>
+                    {if!eq $action,'send'}
+                        <th>IP</th>
+                        <th>Referer</th>
+                        <th>Useragent</th>
+                    {/if}
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td>{$item['normal_date']}</td>
+                        <td>{$item['email']}</td>
+                        {if!eq $action,'send'}
+                            <td>{$item['ip']}</td>
+                            <td>{$item['referer']}</td>
+                            <td>{$item['useragent']}</td>
+                        {/if}
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}            
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+    
+            

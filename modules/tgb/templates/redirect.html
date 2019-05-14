@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {php:$direct_link = !empty($item['direct_link']) ? $item['direct_link'] : 'https://www.bsn.ru/'}
+        <meta http-equiv="refresh" content="0; url={$item['direct_link']}">
+        <script>location.replace('{$item["direct_link"]}');</script>
+    </head>
+<body>{$item["direct_link"]}</body>
+</html>

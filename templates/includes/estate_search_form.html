@@ -1,0 +1,1139 @@
+{php:$deal_type = !empty($deal_type) && $deal_type == 'rent' ? 1 : 2}
+{php:$sell_visible = $deal_type == 1 ? 'hidden' : ''}
+{php:$rent_visible = $deal_type == 2 ? 'hidden' : ''}
+
+<form class="fast-search br3 clearfix{if!empty $map_search} map-search{/if}{if!empty $form_shadow} with-shadow{/if}" id="fast-search-form" action="/" method="post" data-estate-type="{$estate_type}">
+    <div class="form-container clearfix">
+        {php:$show_basic_form = empty($estate_type) || in_array($estate_type, array('live','build','commercial','country'))}
+            {if!empty $show_basic_form}
+            <div class="row clearfix">
+                <div class="list-selector select-deal-type">
+                    <a href="#" class="pick"></a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="deal_type" value="{$deal_type}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="2">Купить</li>
+                        <li data-value="1">Снять</li>
+                    </ul>
+                </div>                                    
+
+                <div class="list-selector select-object-type">
+                    <a href="#" class="pick">выберите тип объекта</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="objects_group" id="estate-object-type" value="{$form_data['objects_group']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <div class="sell-objects{ifeq $deal_type,1} hidden{/if}" data-deal="sell" >
+                            <li data-type="build"       data-id="1"     data-value="1-build-sell"              data-url="build/sell/"                data-middle-index="1"     ><span>Новостройку</span></li>
+                            <li data-type="live"        data-id="1"     data-value="1-live-sell"               data-url="live/sell/?obj_type=1"      data-middle-index="1"     ><span>Квартиру</span></li>
+                            <li data-type="live"        data-id="2"     data-value="2-live-sell"               data-url="live/sell/?obj_type=2"      data-middle-index="2"     ><span>Комнату</span></li>
+                            <li data-type="commercial"  data-id="8"     data-value="8-commercial-sell"         data-url="commercial/sell/premises/"  data-middle-index="2"     ><span>Помещение</span></li>
+                            <li data-type="commercial"  data-id="11"    data-value="11-commercial-sell"        data-url="commercial/sell/offices/"   data-middle-index="2"     ><span>Офис</span></li>
+                            <li data-type="country"     data-id="5"     data-value="5-country-sell"            data-url="country/sell/buildings/"    data-middle-index="2"     ><span>Дом/Коттедж</span></li>
+                            <li data-type="country"     data-id="9"     data-value="9-country-sell"            data-url="country/sell/dacha/"        data-middle-index="2"     ><span>Дачу</span></li>
+                            <li data-type="country"     data-id="6"     data-value="6-country-sell"            data-url="country/sell/townhouses/"   data-middle-index="2"     ><span>Таунхаус</span></li>
+                            <li data-type="country"     data-id="4"     data-value="4-country-sell"            data-url="country/sell/land/"         data-middle-index="4"     ><span>Участок</span></li>
+                            <li data-type="country"     data-id="10"    data-value="10-country-sell"           data-url="country/sell/house_part/"   data-middle-index="1"     ><span>Часть дома</span></li>
+                        </div>
+                        <div class="rent-objects{ifeq $deal_type,2} hidden{/if}" data-deal="rent">
+                            <li data-type="live"        data-id="1"     data-value="1-live-rent"               data-url="live/rent/?obj_type=1"      data-middle-index="1"     ><span>Квартиру</span></li>
+                            <li data-type="live"        data-id="2"     data-value="2-live-rent"               data-url="live/rent/?obj_type=2"      data-middle-index="2"     ><span>Комнату</span></li>
+                            <li data-type="commercial"  data-id="8"     data-value="8-commercial-rent"         data-url="commercial/rent/premises/"  data-middle-index="2"     ><span>Помещение</span></li>
+                            <li data-type="commercial"  data-id="11"    data-value="11-commercial-rent"        data-url="commercial/rent/offices/"   data-middle-index="2"     ><span>Офис</span></li>
+                            <li data-type="country"     data-id="5"     data-value="5-country-rent"            data-url="country/rent/buildings/"    data-middle-index="2"     ><span>Дом/Коттедж</span></li>
+                            <li data-type="country"     data-id="4"     data-value="4-country-rent"            data-url="country/rent/land/"         data-middle-index="4"     ><span>Участок</span></li>
+                        </div>
+                    </ul>
+
+                </div> <!--/.list-selector .select-object-type-->
+                
+                {ifempty $map_search}
+                    
+                    <button class="search-button" title="Найти">Найти</button>
+
+                    <div class="checkbox-group extend-search">
+                        <label for="extend_search" title="Расширенный поиск" data-icon="settings">
+                            <input type="checkbox" value="0" name="extend_search" id="extend_search">
+                        </label>
+                    </div>                                    
+                
+                {/if}
+                <div class="middle-panel">
+
+                    <div class="checkbox-group rooms-count{ifempty $form_data['objects_group']} active{/if}" data-index="1">
+                        <label for="rooms_count_0_build"{if!empty $form_data['rooms_checked'][0]} class="on"{/if} title="Студия"><input type="checkbox" value="0" name="rooms:0" id="rooms_count_0_build" {if!empty $form_data['rooms_checked'][0]}checked="checked" {/if}/>С</label>
+                        <label for="rooms_count_1_build"{if!empty $form_data['rooms_checked'][1]} class="on"{/if} title="1ккв"><input type="checkbox" value="0" name="rooms:1" id="rooms_count_1_build" {if!empty $form_data['rooms_checked'][1]}checked="checked" {/if}/>1</label>
+                        <label for="rooms_count_2_build"{if!empty $form_data['rooms_checked'][2]} class="on"{/if} title="2ккв"><input type="checkbox" value="0" name="rooms:2" id="rooms_count_2_build" {if!empty $form_data['rooms_checked'][2]}checked="checked" {/if}/>2</label>
+                        <label for="rooms_count_3_build"{if!empty $form_data['rooms_checked'][3]} class="on"{/if} title="3ккв"><input type="checkbox" value="0" name="rooms:3" id="rooms_count_3_build" {if!empty $form_data['rooms_checked'][3]}checked="checked" {/if}/>3</label>
+                        <label for="rooms_count_4_build"{if!empty $form_data['rooms_checked'][4]} class="on"{/if} title="Многокомнатная"><input type="checkbox" value="0" name="rooms:4" id="rooms_count_4_build" {if!empty $form_data['rooms_checked'][4]}checked="checked" {/if}/>4+</label>
+                    </div>
+                    
+                    <div class="square-full interval-selector square" data-index="2">
+                        <input type="text" name="square_full_from" value="{if!empty $form_data['square_full_from']}{$form_data['square_full_from']}{/if}" placeholder="От" />
+                        <input type="text" name="square_full_to" value="{if!empty $form_data['square_full_to']}{$form_data['square_full_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                    </div>
+
+                    <div class="square-ground interval-selector square" data-index="4">
+                        <input type="text" name="square_ground_from" value="{if!empty $form_data['square_ground_from']}{$form_data['square_ground_from']}{/if}" placeholder="От" />
+                        <input type="text" name="square_ground_to" value="{if!empty $form_data['square_ground_to']}{$form_data['square_ground_to']}{/if}" placeholder="До" /> сот.
+                    </div>
+
+                </div>
+                
+                <div class="interval-selector price-selector">
+                    <input type="text" name="min_cost" id="from_value" value="{if!empty $form_data['min_cost']}{numeric:$form_data['min_cost']}{/if}" placeholder="От" class="digit" />
+                    <input type="text" name="max_cost" id="to_value" value="{if!empty $form_data['max_cost']}{numeric:$form_data['max_cost']}{/if}" placeholder="До" class="digit"  />
+                    Р
+                </div> 
+                <div class="list-picker location">
+                    <a href="#" class="pick district-areas{if!empty $form_data['district_areas']} active{/if}">Районы ЛО: <i></i></a>
+                    <a href="#" class="pick districts{if!empty $form_data['districts']} active{/if}">Районы СПб: <i></i></a>
+                    <a href="#" class="pick subways{if!empty $form_data['subways']} active{/if}">Метро: <i></i></a>
+                    <a href="#" class="pick empty{ifempty $form_data['district_areas']}{ifempty $form_data['districts']}{ifempty $form_data['subways']} active{/if}{/if}{/if}">Метро, район</a>
+                    <a href="#" class="select">...</a>                
+                </div>
+
+            </div> <!--/.row-->              
+        
+            <div class="extend-search-wrap">
+                
+                <div class="tab" data-estate-type="build" data-deal="sell">
+                    <div class="row">
+                        <span class="row-title">Название ЖК</span>
+                        <div class="single-selector autocomplete-title">
+                            <input type="text" name="housing_estate_title" id="housing_estate_title" value="{if!empty $form_data['housing_estate_title']}{$form_data['housing_estate_title']}{/if}" class="autocomplete" autocomplete="off" data-url="/zhiloy_kompleks/title/" />
+                            <i data-icon="clear" class="clear-input{ifempty $form_data['housing_estate']} hidden{/if}"></i>
+                            <input type="hidden" name="housing_estate" value="{if!empty $form_data['housing_estate']}{$form_data['housing_estate']}{/if}"/>
+                        </div>
+                    </div>
+                    <div class="row squares">
+                        <span class="row-title">Площади</span>
+                        <div class="square_full interval-selector">
+                            <span class="selector-title">Общая</span>
+                            <input type="text" name="square_full_from" value="{if!empty $form_data['square_full_from']}{$form_data['square_full_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_full_to" value="{if!empty $form_data['square_full_to']}{$form_data['square_full_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>
+                        <div class="square_live interval-selector">
+                            <span class="selector-title">Жилая</span>
+                            <input type="text" name="square_live_from" value="{if!empty $form_data['square_live_from']}{$form_data['square_live_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_live_to" value="{if!empty $form_data['square_live_to']}{$form_data['square_live_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>
+                        <div class="square_kitchen interval-selector">
+                            <span class="selector-title">Кухня</span>
+                            <input type="text" name="square_kitchen_from" value="{if!empty $form_data['square_kitchen_from']}{$form_data['square_kitchen_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_kitchen_to" value="{if!empty $form_data['square_kitchen_to']}{$form_data['square_kitchen_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>
+                    </div> <!--/.row-->
+                    
+                    <div class="row">
+                        <span class="row-title">До метро</span>
+                        <input type="text" name="way_time" id="way_time_build" value="{if!empty $form_data['way_time']}{$form_data['way_time']}{/if}" maxlength="3"  class="digit"/>
+                        <div class="list-selector select-way_type">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="way_type" value="{$form_data['way_type']}" />
+                            <ul class="list-data" data-simplebar="init">
+                                <li data-value="0">- выберите -</li>
+                                {php:$way_type = $form_filter['way_type'];}
+                                {loop $way_type,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $way_type}
+                            </ul>
+                        </div>                           
+                    </div>
+
+                    <div class="row ">
+                        <span class="row-title">Этаж</span>
+                        <div class="select-floors">
+                            <input type="text" name="level_from" id="level_build_from" value="{if!empty $form_data['level_from']}{$form_data['level_from']}{/if}" maxlength="2" placeholder="От"  class="digit"/>
+                            <input type="text" name="level_to" id="level_build_to" value="{if!empty $form_data['level_to']}{$form_data['level_to']}{/if}" maxlength="2" placeholder="До"  class="digit"/>
+                            <label class="checkbox not-first-level{if!empty $form_data['not_first_level']} on{/if}">
+                                <input type="checkbox" id="not_first_level" class="lf" name="not_first_level" value="{if!empty $form_data['not_first_level']}1{else}2{/if}" {if!empty $form_data['not_first_level']}checked="checked" {/if} rel="not_first_level" data-true-value="1" data-false-value="2">
+                                Кроме первого
+                            </label>
+                            <label class="checkbox{if!empty $form_data['not_last_level']} on{/if}">
+                                <input type="checkbox" id="not_last_level" class="lf" name="not_last_level" value="{if!empty $form_data['not_last_level']}1{else}2{/if}" {if!empty $form_data['not_last_level']}checked="checked" {/if} rel="not_last_level" data-true-value="1" data-false-value="2">
+                                Кроме последнего
+                            </label>
+                            
+                        </div>                                    
+                    </div>
+
+                    <div class="row ">
+                        <span class="row-title">Удобства</span>
+                        
+                        <div class="list-selector select-toilet">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="toilet" value="{$form_data['toilet']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Санузел</li>
+                                {php:$toilet = $form_filter['toilet'];}
+                                {loop $toilet,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $toilet}
+                            </ul>
+                        </div>                     
+                        
+                        <div class="list-selector select-balcon">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="balcon" value="{$form_data['balcon']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Балкон</li>
+                                {php:$balcon = $form_filter['balcon'];}
+                                {loop $balcon,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $balcon}
+                            </ul>
+                        </div>                       
+
+                        <div class="list-selector select-elevator">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="elevator" value="{$form_data['elevator']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Лифт</li>
+                                {php:$elevator = $form_filter['elevator'];}
+                                {loop $elevator,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $elevator}
+                            </ul>
+                        </div>
+                                     
+                        <div class="list-selector select-facing">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="facing" value="{$form_data['facing']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Ремонт</li>
+                                {php:$facing = $form_filter['facing'];}
+                                {loop $facing,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $facing}
+                            </ul>
+                        </div>  
+                                            
+                    </div>
+                    
+                    <div class="row">
+                        <span class="row-title">Дом</span>
+
+                        <div class="list-selector select-building-type">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="building_type" value="{$form_data['building_type']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Тип</li>
+                                {php:$building_type = $form_filter['building_type'];}
+                                {loop $building_type,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $building_type}
+                            </ul>
+                        </div>                                    
+
+                        <div class="list-selector select-build-complete">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="build_complete" value="{$form_data['build_complete']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Срок сдачи</li>
+                                {php:$build_completes = $form_filter['build_complete'];}
+                                {loop $build_completes,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $build_completes}
+                            </ul>
+                        </div>                                    
+                        
+                    </div> <!--/.row-->
+                    <label class="checkbox contractor{if!empty $form_data['contractor']} on{/if}">
+                        <input type="checkbox" id="contractor" class="lf" name="contractor" value="{if!empty $form_data['contractor']}1{else}2{/if}" {if!empty $form_data['contractor']}checked="checked" {/if} rel="contractor" data-true-value="1" data-false-value="2">
+                        Квартира в подряде
+                    </label>
+                    <label class="checkbox asignment{if!empty $form_data['asignment']} on{/if}">
+                        <input type="checkbox" id="asignment" class="lf" name="asignment" value="{if!empty $form_data['asignment']}1{else}2{/if}" {if!empty $form_data['asignment']}checked="checked" {/if} rel="asignment" data-true-value="1" data-false-value="2">
+                        Квартира по переуступке
+                    </label>
+                </div>  <!-- .tab build-sell -->
+                
+                <div class="tab" data-estate-type="live">
+                    <div class="row extend-search-tab" data-type="1-live-rent 2-live-rent">
+                        <span class="row-title">Срок аренды</span>
+                        <div class="radio-group estate-type">
+                            <label for="by-the-day-false" title="Длительно" {ifempty $form_data['by_the_day']}class="on"{/if}><input type="radio" value="0" name="by_the_day" id="by-the-day-false" {ifempty $form_data['by_the_day']}checked{/if}>Длительно</label>
+                            <label for="by-the-day-true" title="Посуточно" {if!empty $form_data['by_the_day']}class="on"{/if}><input type="radio" value="1" name="by_the_day" id="by-the-day-true" {if!empty $form_data['by_the_day']}checked{/if}>Посуточно</label>
+                        </div>                
+
+                    </div>
+                    <div class="row extend-search-tab" data-type="2-live-sell 2-live-rent">
+                        <span class="row-title">Комнат</span>
+                        <div class="checkbox-group rooms-sale-count">
+                            <label for="rooms_total_count_1_live"{if!empty $form_data['rooms_checked'][1]} class="on"{/if} title="1ккв"><input type="checkbox" value="1" name="rooms_total:1" id="rooms_total_count_1_live" {if!empty $form_data['rooms_checked'][1]}checked="checked" {/if}/>1</label>
+                            <label for="rooms_total_count_2_live"{if!empty $form_data['rooms_checked'][2]} class="on"{/if} title="2ккв"><input type="checkbox" value="2" name="rooms_total:2" id="rooms_total_count_2_live" {if!empty $form_data['rooms_checked'][2]}checked="checked" {/if}/>2</label>
+                            <label for="rooms_total_count_3_live"{if!empty $form_data['rooms_checked'][3]} class="on"{/if} title="3ккв"><input type="checkbox" value="3" name="rooms_total:3" id="rooms_total_count_3_live" {if!empty $form_data['rooms_checked'][3]}checked="checked" {/if}/>3</label>
+                            <label for="rooms_total_count_4_live"{if!empty $form_data['rooms_checked'][4]} class="on"{/if} title="4ккв"><input type="checkbox" value="3" name="rooms_total:4" id="rooms_total_count_4_live" {if!empty $form_data['rooms_checked'][4]}checked="checked" {/if}/>4+</label>
+                            в квартире
+                        </div>
+                        
+                    </div> <!--/.row-->            
+
+                    <div class="row squares">
+                        <span class="row-title">Площади</span>
+                        <div class="square_full interval-selector">
+                            <span class="selector-title">Общая</span>
+                            <input type="text" name="square_full_from" value="{if!empty $form_data['square_full_from']}{$form_data['square_full_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_full_to" value="{if!empty $form_data['square_full_to']}{$form_data['square_full_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>
+                        <div class="square_live interval-selector extend-search-tab" data-type="1-live-sell 1-live-rent">
+                            <span class="selector-title">Жилая</span>
+                            <input type="text" name="square_live_from" value="{if!empty $form_data['square_live_from']}{$form_data['square_live_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_live_to" value="{if!empty $form_data['square_live_to']}{$form_data['square_live_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>
+                        <div class="square_kitchen interval-selector">
+                            <span class="selector-title">Кухня</span>
+                            <input type="text" name="square_kitchen_from" value="{if!empty $form_data['square_kitchen_from']}{$form_data['square_kitchen_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_kitchen_to" value="{if!empty $form_data['square_kitchen_to']}{$form_data['square_kitchen_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>
+                    </div> <!--/.row-->
+                    
+                    <div class="row">
+                        <span class="row-title">До метро</span>
+                        <input type="text" name="way_time" id="way_time_live" value="{if!empty $form_data['way_time']}{$form_data['way_time']}{/if}" maxlength="3"  class="digit"/>
+                        <div class="list-selector select-way_type">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="way_type" value="{$form_data['way_type']}" />
+                            <ul class="list-data" data-simplebar="init">
+                                <li data-value="0">- выберите -</li>
+                                {php:$way_type = $form_filter['way_type'];}
+                                {loop $way_type,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $way_type}
+                            </ul>
+                        </div>                           
+                    </div>
+
+                    <div class="row ">
+                        <span class="row-title">Этаж</span>
+                        <div class="select-floors">
+                            <input type="text" name="level_from" id="level_live_from" value="{if!empty $form_data['level_from']}{$form_data['level_from']}{/if}" maxlength="2" placeholder="От"  class="digit"/>
+                            <input type="text" name="level_to" id="level_live_to" value="{if!empty $form_data['level_to']}{$form_data['level_to']}{/if}" maxlength="2" placeholder="До"  class="digit"/>
+                            <label class="checkbox{if!empty $form_data['not_first_level']} on{/if}">
+                                <input type="checkbox" id="not_first_level" class="lf" name="not_first_level" value="{if!empty $form_data['not_first_level']}1{else}2{/if}" {if!empty $form_data['not_first_level']}checked="checked" {/if} rel="not_first_level" data-true-value="1" data-false-value="2">
+                                Кроме первого
+                            </label>
+                            <label class="checkbox{if!empty $form_data['not_last_level']} on{/if}">
+                                <input type="checkbox" id="not_last_level" class="lf" name="not_last_level" value="{if!empty $form_data['not_last_level']}1{else}2{/if}" {if!empty $form_data['not_last_level']}checked="checked" {/if} rel="not_last_level" data-true-value="1" data-false-value="2">
+                                Кроме последнего
+                            </label>
+                            
+                        </div>                                    
+                    </div>
+
+                    <div class="row ">
+                        <span class="row-title">Удобства</span>
+                        
+                        <div class="list-selector select-toilet">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="toilet" value="{$form_data['toilet']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Санузел</li>
+                                {php:$toilet = $form_filter['toilet'];}
+                                {loop $toilet,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $toilet}
+                            </ul>
+                        </div>                     
+                        
+                        <div class="list-selector select-balcon">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="balcon" value="{$form_data['balcon']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Балкон</li>
+                                {php:$balcon = $form_filter['balcon'];}
+                                {loop $balcon,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $balcon}
+                            </ul>
+                        </div>                       
+
+                        <div class="list-selector select-elevator">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="elevator" value="{$form_data['elevator']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Лифт</li>
+                                {php:$elevator = $form_filter['elevator'];}
+                                {loop $elevator,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $elevator}
+                            </ul>
+                        </div>
+                                     
+                        <div class="list-selector select-facing">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="facing" value="{$form_data['facing']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Ремонт</li>
+                                {php:$facing = $form_filter['facing'];}
+                                {loop $facing,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $facing}
+                            </ul>
+                        </div>  
+                                            
+                    </div>
+                    
+                    <div class="row">
+                        <span class="row-title">Дом</span>
+
+                        <div class="list-selector select-building-type">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="building_type" value="{$form_data['building_type']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Тип</li>
+                                {php:$building_type = $form_filter['building_type'];}
+                                {loop $building_type,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $building_type}
+                            </ul>
+                        </div>                                    
+                        
+                    </div> <!--/.row-->
+                    
+                </div> <!-- .tab live -->
+                
+                <div class="tab" data-estate-type="commercial">
+
+                    <div class="row">
+                        <span class="row-title">Название БЦ</span>
+                        <div class="single-selector bc-title">
+                            <input type="text" name="business_center_title" class="autocomplete" autocomplete="off"  id="business_center_title" value="{if!empty $form_data['business_center_title']}{$form_data['business_center_title']}{/if}" data-url="/business_centers/title/" />
+                            <i data-icon="clear" class="clear-input{ifempty $form_data['business_center']} hidden{/if}"></i>
+                            <input type="hidden" name="business_center" value="{if!empty $form_data['business_center']}{$form_data['business_center']}{/if}"/>
+                        </div>                       
+                    </div>
+                    
+                    <div class="row squares extend-search-tab" data-type="8-commercial-sell 8-commercial-rent">
+                        <span class="row-title">Площадь</span>
+                        <div class="square_full interval-selector">
+                            <span class="selector-title">Полезная</span>
+                            <input type="text" name="square_usefull_from" value="{if!empty $form_data['square_usefull_from']}{$form_data['square_usefull_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_usefull_to" value="{if!empty $form_data['square_usefull_to']}{$form_data['square_usefull_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>
+                    </div>  
+                    
+                    <div class="row">
+                        <span class="row-title">До метро</span>
+                        <input type="text" name="way_time" id="way_time_commercial" value="{if!empty $form_data['way_time']}{$form_data['way_time']}{/if}" maxlength="3"  class="digit"/>
+                        <div class="list-selector select-way_type">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="way_type" value="{$form_data['way_type']}" />
+                            <ul class="list-data" data-simplebar="init">
+                                <li data-value="0">- выберите -</li>
+                                {php:$way_type = $form_filter['way_type'];}
+                                {loop $way_type,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $way_type}
+                            </ul>
+                        </div>                           
+                    </div>
+
+                    <div class="row">
+                        <span class="row-title">Удобства</span>    
+                        
+                        <div class="phones_count  interval-selector">
+                            <span class="selector-title">Тел.линии</span>
+                            <input type="text" name="phones_count_from" value="{if!empty $form_data['phones_count_from']}{$form_data['phones_count_from']}{/if}" placeholder="От"  class="digit"/>
+                            <input type="text" name="phones_count_to" value="{if!empty $form_data['phones_count_to']}{$form_data['phones_count_to']}{/if}" placeholder="До"  class="digit"/> шт.
+                        </div>
+                                            
+                        <label class="checkbox{if!empty $form_data['heating']} on{/if}">
+                            <input type="checkbox" id="heating" class="lf" name="heating" value="{if!empty $form_data['heating']}1{else}2{/if}" {if!empty $form_data['heating']}checked="checked" {/if} rel="heating" data-true-value="1" data-false-value="2">
+                            Отопление
+                        </label>
+                        
+                        <label class="checkbox{if!empty $form_data['parking']} on{/if}">
+                            <input type="checkbox" id="parking" class="lf" name="parking" value="{if!empty $form_data['parking']}1{else}2{/if}" {if!empty $form_data['parking']}checked="checked" {/if} rel="parking" data-true-value="1" data-false-value="2">
+                            Паркинг
+                        </label>
+                        
+                        <label class="checkbox{if!empty $form_data['security']} on{/if}">
+                            <input type="checkbox" id="security" class="lf" name="security" value="{if!empty $form_data['security']}1{else}2{/if}" {if!empty $form_data['security']}checked="checked" {/if} rel="security" data-true-value="1" data-false-value="2">
+                            Охрана
+                        </label>
+                        
+                        <label class="checkbox{if!empty $form_data['electricity_commercial']} on{/if}">
+                            <input type="checkbox" id="electricity_commercial" class="lf" name="electricity_commercial" value="{if!empty $form_data['electricity_commercial']}1{else}2{/if}" {if!empty $form_data['electricity_commercial']}checked="checked" {/if} rel="electricity_commercial" data-true-value="1" data-false-value="2">
+                            Электричество
+                        </label>
+                        
+                    </div>
+
+                    
+                    <div class="row">
+                        <span class="row-title">&nbsp;</span>
+                        <div class="ceiling_height interval-selector">
+                            <span class="selector-title">Потолки</span>
+                            <input type="text" name="ceiling_height_from" value="{if!empty $form_data['ceiling_height_from']}{$form_data['ceiling_height_from']}{/if}" placeholder="От"  class="digit"/>
+                            <input type="text" name="ceiling_height_to" value="{if!empty $form_data['ceiling_height_to']}{$form_data['ceiling_height_to']}{/if}" placeholder="До"  class="digit"/> м
+                        </div>
+
+                        <div class="list-selector select-facing">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="facing" value="{$form_data['facing']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Ремонт</li>
+                                {php:$facing = $form_filter['facing'];}
+                                {loop $facing,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $facing}
+                            </ul>
+                        </div> 
+                        <div class="list-selector select-enters">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="enters" value="{$form_data['enter']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Вход</li>
+                                {php:$enters = $form_filter['enter']}
+                                {loop $enters,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $enters}
+                            </ul>
+                        </div>
+
+                    </div> <!--/.row-->
+                
+                </div> <!-- .tab commercial -->
+                
+                <div class="tab" data-estate-type="country" data-deal="">
+                    <div class="row">
+                        <span class="row-title">Название КП</span>
+                        <div class="single-selector cottage-title">
+                            <input type="text" name="cottage_title" class="autocomplete" autocomplete="off" id="cottage_title" value="{if!empty $form_data['cottage_title']}{$form_data['cottage_title']}{/if}" data-url="/cottedzhnye_poselki/title/" />
+                            <i data-icon="clear" class="clear-input{ifempty $form_data['cottage']} hidden{/if}"></i>
+                            <input type="hidden" name="cottage" value="{if!empty $form_data['cottage']}{$form_data['cottage']}{/if}"/>
+                        </div>
+                    </div> 
+
+                    <div class="row squares extend-search-tab" data-type="5-country-sell 6-country-sell 9-country-sell 10-country-sell 5-country-rent 6-country-rent 9-country-rent 10-country-rent">
+                        <span class="row-title">Площадь</span>
+                        <div class="square_full interval-selector">
+                            <span class="selector-title">Общая</span>
+                            <input type="text" name="square_full_from" value="{if!empty $form_data['square_full_from']}{$form_data['square_full_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_full_to" value="{if!empty $form_data['square_full_to']}{$form_data['square_full_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                        </div>                    
+                        <div class="square_ground interval-selector">
+                            <span class="selector-title">Участок</span>
+                            <input type="text" name="square_ground_from" value="{if!empty $form_data['square_ground_from']}{$form_data['square_ground_from']}{/if}" placeholder="От" />
+                            <input type="text" name="square_ground_to" value="{if!empty $form_data['square_ground_to']}{$form_data['square_ground_to']}{/if}" placeholder="До" /> сот
+                        </div>
+                    </div> <!--/.row-->
+                    <div class="row">
+                        <span class="row-title">До метро</span>
+                        <input type="text" name="way_time" id="way_time_country" value="{if!empty $form_data['way_time']}{$form_data['way_time']}{/if}" maxlength="3"  class="digit"/>
+                        <div class="list-selector select-way_type">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="way_type" value="{$form_data['way_type']}" />
+                            <ul class="list-data" data-simplebar="init">
+                                <li data-value="0">- выберите -</li>
+                                {php:$way_type = $form_filter['way_type'];}
+                                {loop $way_type,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $way_type}
+                            </ul>
+                        </div>                           
+                    </div>
+                                    
+                    <div class="row">
+                        <span class="row-title">Удобства</span>
+                        <div class="list-selector select-heating">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="id_heating" value="{$form_data['id_heating']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Отопление</li>
+                                {php:$heating = $form_filter['heating']}
+                                {loop $heating,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $heating}
+                            </ul>
+                        </div>             
+                        <div class="list-selector select-bathroom">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="bathroom" value="{$form_data['bathroom']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Баня</li>
+                                {php:$bathroom = $form_filter['bathroom']}
+                                {loop $bathroom,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $bathroom}
+                            </ul>
+                        </div>                     
+                   
+                        <div class="list-selector select-electricity">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="id_electricity" value="{$form_data['id_electricity']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Электричество</li>
+                                {php:$electricity = $form_filter['electricity']}
+                                {loop $electricity,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $electricity}
+                            </ul>
+                        </div>                          
+                        <div class="list-selector select-water_supply">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="water_supply" value="{$form_data['water_supply']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Водоснабжение</li>
+                                {php:$water_supply = $form_filter['water_supply']}
+                                {loop $water_supply,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $water_supply}
+                            </ul>
+                        </div>
+                        <div class="list-selector select-gas">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="gas" value="{$form_data['gas']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">Газ</li>
+                                {php:$gases = $form_filter['gas']}
+                                {loop $gases,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $gases}
+                            </ul>
+                        </div>                                            
+                    </div> <!--/.row-->
+                    
+                    <div class="row">
+                        <span class="row-title">Cобственность</span>
+                        <div class="list-selector select-ownership">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="ownership" value="{$form_data['ownership']}" />
+                            <ul class="list-data dropped-top">
+                                <li data-value="0">- выбрать -</li>
+                                {php:$ownership = $form_filter['ownership']}
+                                {loop $ownership,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $ownership}
+                            </ul>
+                        </div>                
+                    </div>
+                    
+                </div> <!-- .tab commercial -->
+                
+                <div class="row ">
+                    <span class="row-title">&nbsp</span>
+                    <label class="checkbox{if!empty $form_data['user_objects']} on{/if}">
+                        <input type="checkbox" id="user_objects" class="lf" name="user_objects" value="{if!empty $form_data['user_objects']}1{else}2{/if}" {if!empty $form_data['user_objects']}checked="checked" {/if} rel="user_objects" data-true-value="1" data-false-value="2">
+                        Только от частных лиц
+                    </label>
+                    <label class="checkbox{if!empty $form_data['only_photo']} on{/if}">
+                        <input type="checkbox" id="only_photo" class="lf" name="only_photo" value="{if!empty $form_data['only_photo']}1{else}2{/if}" {if!empty $form_data['only_photo']}checked="checked" {/if} rel="only_photo" data-true-value="1" data-false-value="2">
+                        Только с фото
+                    </label>
+                </div>
+                <div class="extend-params">
+                    {if!empty $form_data['group_id']}<input type="hidden" name="group_id" value="{$form_data['group_id']}" />{/if}
+                </div>
+                {ifempty $map_search}
+                    <div class="row ajax-count">
+                        <span class="row-title">&nbsp</span>
+                        <span class="button blue">Показать <i></i></span>
+                        <span class="reset-form transition" data-icon="replay">Сбросить фильтр</span>
+                    </div>
+                {/if}
+            </div> <!--/.extend-search-wrap-->     
+            
+        {elseifeq $estate_type,'inter'}
+            <div class="row estate-complex inter clearfix">
+                <div class="list-selector select-deal-type">
+                    <a href="#" class="pick"></a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="deal_type" value="{$deal_type}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="2">Купить</li>
+                        <li data-value="1">Снять</li>
+                    </ul>
+                </div>                                       
+                               
+                <div class="list-selector select-object-type">
+                    <a href="#" class="pick">выберите тип объекта</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="objects_group" id="estate-object-type" value="{$form_data['objects_group']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        {php:$objects_group = $form_filter['obj_type'];}
+                        <div class="sell-objects{ifeq $deal_type,1} hidden{/if}" data-deal="sell" >
+                            {loop $objects_group,$o,$group}
+                                <li data-type="inter"       data-id="{$group['id']}"     data-value="{$group['id']}-inter-sell"              data-url="inter/sell/?obj_type={$group['id']}"                data-middle-index="1"     ><span>{$group['title']}</span></li>
+                            {/loop $objects_group}
+                        </div>
+                        <div class="rent-objects{ifeq $deal_type,2} hidden{/if}" data-deal="rent">
+                            {loop $objects_group,$o,$group}
+                                <li data-type="inter"       data-id="{$group['id']}"     data-value="{$group['id']}-inter-rent"              data-url="inter/rent/?obj_type={$group['id']}"                data-middle-index="1"     ><span>{$group['title']}</span></li>
+                            {/loop $objects_group}
+                        </div>
+                    </ul>
+
+                </div>
+                
+                {ifempty $map_search}
+                    <button class="search-button" title="Найти">Найти</button>
+                {/if}
+
+                <div class="extend-params">
+                              
+                                 
+                    <div class="list-selector select-country">
+                        <a href="#" class="pick"></a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" name="country" id="inter_countries" value="{$form_data['country']}" />
+                        {php:$countries = $form_filter['country'];}
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="0">Страна</li>
+                            {loop $countries,$k,$item}
+                                <li class="item-select" data-value="{$item['id']}">{$item['title']}</li>
+                            {/loop $countries}
+                        </ul>
+                    </div>  
+                </div>  
+            </div>              
+            
+        {elseifin $estate_type,'zhiloy_kompleks','apartments'}
+            <div class="row estate-complex clearfix">
+                <div class="list-selector select-deal-type">
+                    <a href="#" class="pick"></a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="deal_type" value="2" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="2">Купить</li>
+                    </ul>
+                </div>                                    
+                <div class="list-selector select-object-type">
+                    <a href="#" class="pick">выберите тип объекта</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="objects_group" id="estate-object-type" value="zhiloy_kompleks" />
+                    <ul class="list-data" data-simplebar="init">
+                        <div class="sell-objects" data-deal="sell" >
+                            {ifeq $estate_type,'zhiloy_kompleks'}
+                                <li data-type="zhiloy_kompleks" data-id="20" data-value="20-zhiloy_kompleks-sell" data-url="zhiloy_kompleks/" data-middle-index="20" ><span>Жилой комплекс</span></li>
+                            {else}
+                                <li data-type="apartments" data-id="50" data-value="50-apartments-sell" data-url="apartments/" data-middle-index="50" ><span>Апартаменты</span></li>
+                            {/if}
+                        </div>
+                    </ul>
+                </div> <!--/.list-selector .select-object-type-->
+                
+                {ifempty $map_search}
+                    <button class="search-button" title="Найти">Найти</button>
+
+                    <div class="checkbox-group extend-search">
+                        <label for="extend_search" title="Расширенный поиск" data-icon="settings">
+                            <input type="checkbox" value="0" name="extend_search" id="extend_search">
+                        </label>
+                    </div>                                    
+                {/if}
+
+                <div class="extend-params">
+                    <div class="single-selector autocomplete-title">
+                        <input type="text" name="housing_estate_title" id="housing_estate_title" value="{if!empty $form_data['housing_estate_title']}{$form_data['housing_estate_title']}{/if}" class="autocomplete" autocomplete="off" data-url="/{$estate_type}/title/" placeholder="Название {ifeq $estate_type,'zhiloy_kompleks'}ЖК{else}апартаментов{/if}" />
+                        <i data-icon="clear" class="clear-input{ifempty $form_data['housing_estate']} hidden{/if}"></i>
+                        <input type="hidden" name="housing_estate" value="{if!empty $form_data['housing_estate']}{$form_data['housing_estate']}{/if}"/>
+                    </div>
+
+                    <div class="list-selector select-build-complete">
+                        <a href="#" class="pick"></a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" name="build_complete" value="{$form_data['build_complete']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="0">Срок сдачи</li>
+                            {php:$build_completes = $form_filter['build_complete'];}
+                            {loop $build_completes,$k,$item}
+                                <li data-value="{$item['id']}">{$item['title']}</li>
+                            {/loop $build_completes}
+                        </ul>
+                    </div>                                    
+
+                    <div class="list-selector select-class">
+                        <a href="#" class="pick"></a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" name="class" value="{$form_data['class']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="0">Класс</li>
+                            {php:$housing_estate_classess = $form_filter['housing_estate_classes'];}
+                            {loop $housing_estate_classess,$k,$item}
+                                <li data-value="{$item['id']}">{$item['title']}</li>
+                            {/loop $housing_estate_classess}
+                        </ul>
+                    </div>   
+                                    
+                    <div class="list-picker location">
+                        <a href="#" class="pick district-areas{if!empty $form_data['district_areas']} active{/if}">Районы ЛО: <i></i></a>
+                        <a href="#" class="pick districts{if!empty $form_data['districts']} active{/if}">Районы СПб: <i></i></a>
+                        <a href="#" class="pick subways{if!empty $form_data['subways']} active{/if}">Метро: <i></i></a>
+                        <a href="#" class="pick empty{ifempty $form_data['district_areas']}{ifempty $form_data['districts']}{ifempty $form_data['subways']} active{/if}{/if}{/if}">Метро, район</a>
+                        <a href="#" class="select">...</a>                
+                    </div>
+                   
+                    <!--label class="checkbox fz-214{if!empty $form_data['214_fz']} on{/if}">
+                        <input type="checkbox" id="214_fz" class="lf" name="214_fz" value="{if!empty $form_data['214_fz']}1{else}2{/if}" {if!empty $form_data['214_fz']}checked="checked" {/if} rel="214_fz" data-true-value="1" data-false-value="2">
+                        ФЗ-214
+                    </label-->
+                </div>
+
+            </div> <!--/.row-->              
+            
+            
+        
+            <div class="extend-search-wrap">
+                
+                <div class="tab" data-estate-type="zhiloy_kompleks" data-deal="sell">
+                    <div class="row">
+                        <input type="hidden" name="search" value="1" />
+                        <div class="single-selector developer-title">
+                            <input type="text" name="developer_title" id="developer_title" value="{if!empty $form_data['developer_title']}{$form_data['developer_title']}{/if}" class="autocomplete" autocomplete="off" data-url="/zhiloy_kompleks/developer_title/" placeholder="Застройщик"/>
+                            <i data-icon="clear" class="clear-input{ifempty $form_data['developer']} hidden{/if}"></i>
+                            <input type="hidden" name="developer" value="{if!empty $form_data['developer']}{$form_data['developer']}{/if}"/>
+                        </div>
+
+                        <label class="checkbox{if!empty $form_data['low_rise']} on{/if}">
+                            <input type="checkbox" id="low_rise" class="lf" name="low_rise" value="{if!empty $form_data['low_rise']}1{else}2{/if}" {if!empty $form_data['low_rise']}checked="checked" {/if} rel="low_rise" data-true-value="1" data-false-value="2">
+                            Малоэтажный
+                        </label>
+                        <label class="checkbox{if!empty $form_data['contractor']} on{/if}">
+                            <input type="checkbox" id="contractor" class="lf" name="contractor" value="{if!empty $form_data['contractor']}1{else}2{/if}" {if!empty $form_data['contractor']}checked="checked" {/if} rel="contractor" data-true-value="1" data-false-value="2">
+                            Квартира в подряде
+                        </label>
+                        
+                        <label class="checkbox{if!empty $form_data['asignment']} on{/if}">
+                            <input type="checkbox" id="asignment" class="lf" name="asignment" value="{if!empty $form_data['asignment']}1{else}2{/if}" {if!empty $form_data['asignment']}checked="checked" {/if} rel="asignment" data-true-value="1" data-false-value="2">
+                            Квартира по переуступке
+                        </label>
+                        
+                    </div>  
+                    {ifempty $map_search}
+                        <div class="row ajax-count">
+                            <span class="button blue">Показать <i>{suffix: $full_count, 'объект','','а','ов'}</i></span>
+                        </div>                    
+                    {/if}
+                </div>
+                
+            </div>       
+        
+        {elseifin $estate_type,'cottedzhnye_poselki','cottage'}
+            <div class="row estate-complex clearfix">
+                <div class="list-selector select-deal-type">
+                    <a href="#" class="pick"></a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="deal_type" value="2" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="2">Купить</li>
+                    </ul>
+                </div>                                    
+                <div class="list-selector select-object-type">
+                    <a href="#" class="pick">выберите тип объекта</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="objects_group" id="estate-object-type" value="cottage" />
+                    <ul class="list-data" data-simplebar="init">
+                        <div class="sell-objects" data-deal="sell" >
+                            <li data-type="cottage" data-id="40" data-value="40-cottage-sell" data-url="cottedzhnye_poselki/" data-middle-index="40" ><span>Коттеджные поселки</span></li>
+                        </div>
+                        
+                    </ul>
+
+                </div> <!--/.list-selector .select-object-type-->
+                
+                {ifempty $map_search}
+                    <button class="search-button" title="Найти">Найти</button>
+
+                    <div class="checkbox-group extend-search">
+                        <label for="extend_search" title="Расширенный поиск" data-icon="settings">
+                            <input type="checkbox" value="0" name="extend_search" id="extend_search">
+                        </label>
+                    </div>                                    
+                {/if}
+
+                
+                <div class="extend-params">
+                    <div class="single-selector autocomplete-title">
+                        <input type="text" name="cottage_title" id="cottage_title" value="{if!empty $form_data['cottage_title']}{$form_data['cottage_title']}{/if}" class="autocomplete cottage-title" autocomplete="off" data-url="/cottedzhnye_poselki/title/" placeholder="Название КП" />
+                        <i data-icon="clear" class="clear-input{ifempty $form_data['cottage']} hidden{/if}"></i>
+                        <input type="hidden" name="cottage" value="{if!empty $form_data['cottage']}{$form_data['cottage']}{/if}"/>
+                    </div>
+
+                    <div class="list-selector select-district">
+                        <a href="#" class="pick"></a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" name="cottage_districts" id="cottage_districts" value="{$form_data['cottage_districts']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="0">Район ЛО</li>
+                            {php:$cottage_district_areas = $form_filter['cottage_districts']}
+                            {loop $cottage_district_areas,$k,$item}
+                                <li data-value="{$item['id']}">{$item['title']}</li>
+                            {/loop $cottage_district_areas}
+                        </ul>
+                    </div>     
+                    
+                    <div class="list-selector select-class">
+                        <a href="#" class="pick"></a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" name="object_type" value="{$form_data['object_type']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="0">Тип объекта</li>
+                            {php:$cottage_object_typess = $form_filter['cottage_object_types'];}
+                            {loop $cottage_object_typess,$k,$item}
+                                <li data-value="{$item['id']}">{$item['title']}</li>
+                            {/loop $cottage_object_typess}
+                        </ul>       
+                    </div>   
+                                    
+                    <div class="square-full interval-selector">
+                        <input type="text" name="min_sqear" id="from_sqear_value" placeholder="от" value="{if!empty $form_data['min_sqear']}{$form_data['min_sqear']}{/if}" placeholder="От"/>
+                        <input type="text" name="max_sqear" id="to_sqear_value" placeholder="до" value="{if!empty $form_data['max_sqear']}{$form_data['max_sqear']}{/if}" placeholder="До"/> м<sup>2</sup>
+                    </div>
+                 
+                </div>
+
+            </div> <!--/.row-->              
+
+            <div class="extend-search-wrap">
+                
+                <div class="tab" data-estate-type="cottage" data-deal="sell">
+
+                    <div class="row">
+                        <span class="row-title">Девелопер</span>
+                        <div class="single-selector developer-title">
+                            <input type="text" name="developer_title" id="developer_title" value="{if!empty $form_data['developer_title']}{$form_data['developer_title']}{/if}" class="autocomplete" autocomplete="off" data-url="/cottedzhnye_poselki/developer_title/"/>
+                            <i data-icon="clear" class="clear-input{ifempty $form_data['developer']} hidden{/if}"></i>
+                            <input type="hidden" name="developer" value="{if!empty $form_data['developer']}{$form_data['developer']}{/if}"/>
+                        </div>
+                    </div> 
+                    
+                    <div class="row">
+                        <span class="row-title">Направление</span>
+                        <div class="list-selector select-directions">
+                            <a href="#" class="pick"></a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="direction" value="{$form_data['direction']}" />
+                            <ul class="list-data" data-simplebar="init">
+                                <li data-value="0">- выберите -</li>
+                                {php:$class = $form_filter['cottage_directions']}
+                                {loop $class,$k,$item}
+                                    <li data-value="{$item['id']}">{$item['title']}</li>
+                                {/loop $class}
+                            </ul>
+                        </div>
+                        
+                        <div class="interval-selector range-selector">
+                            <span class="selector-title">Удаленность от СПБ</span>
+                            <input type="text" name="min_range" id="from_range_value" placeholder="от" value="{if!empty $form_data['min_range']}{$form_data['min_range']}{/if}"  class="digit"/>
+                            <input type="text" name="max_range" id="to_range_value" placeholder="до" value="{if!empty $form_data['max_range']}{$form_data['max_range']}{/if}" class="digit" />
+                            км
+                        </div> 
+                               
+                    </div> 
+
+                    {ifempty $map_search}
+                    <div class="row ajax-count">
+                        <span class="button blue">Показать <i>{suffix: $full_count, 'объект','','а','ов'}</i></span>
+                        <span class="reset-form transition" data-icon="replay">Сбросить фильтр</span>
+                    </div>                    
+                    {/if}
+
+                </div>
+            </div>
+            
+            {elseifeq $estate_type,'business_centers'}
+            <div class="row estate-complex clearfix">
+                <div class="list-selector select-deal-type">
+                    <a href="#" class="pick"></a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="deal_type" value="2" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="2">Купить</li>
+                    </ul>
+                </div>                                    
+                <div class="list-selector select-object-type">
+                    <a href="#" class="pick">выберите тип объекта</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="objects_group" id="estate-object-type" value="business_center" />
+                    <ul class="list-data" data-simplebar="init">
+                        <div class="sell-objects" data-deal="sell" >
+                            <li data-type="business_center" data-id="30" data-value="30-business_center-sell" data-url="business_centers/" data-middle-index="30" ><span>Коттеджные поселки</span></li>
+                        </div>
+                        
+                    </ul>
+
+                </div> <!--/.list-selector .select-object-type-->
+                
+                {ifempty $map_search}<button class="search-button" title="Найти">Найти</button>{/if}
+                
+                <div class="extend-params">
+                    <div class="single-selector autocomplete-title">
+                        <input type="text" name="business_center_title" id="business_center_title" value="{if!empty $form_data['business_center_title']}{$form_data['business_center_title']}{/if}" class="autocomplete business_center-title" autocomplete="off" data-url="/business_centers/title/" placeholder="Название БЦ" />
+                        <i data-icon="clear" class="clear-input{ifempty $form_data['business_center']} hidden{/if}"></i>
+                        <input type="hidden" name="business_center" value="{if!empty $form_data['business_center']}{$form_data['business_center']}{/if}"/>
+                    </div>
+                    <div class="checkbox-group rooms-count{ifempty $form_data['objects_group']} active{/if}" data-index="1">
+                        <label for="class_a"{if!empty $form_data['class_checked']['a']} class="on"{/if} title="Класс A"><input type="checkbox" value="a" name="class:a" id="class_a" {if!empty $form_data['class_checked']['a']}checked="checked" {/if}/>A</label>
+                        <label for="class_b"{if!empty $form_data['class_checked']['b']} class="on"{/if} title="Класс B"><input type="checkbox" value="b" name="class:b" id="class_b" {if!empty $form_data['class_checked']['b']}checked="checked" {/if}/>B</label>
+                        <label for="class_bplus" title="Класс bplus"{if!empty $form_data['class_checked']['b+']} class="on"{/if}><input type="checkbox" value="bplus" name="class:bplus" id="class_bplus" {if!empty $form_data['class_checked']['b+']}checked="checked" {/if}/>B+</label>
+                        <label for="class_c"{if!empty $form_data['class_checked']['c']} class="on"{/if} title="Класс C"><input type="checkbox" value="c" name="class:c" id="class_c" {if!empty $form_data['class_checked']['c']}checked="checked" {/if}/>C</label>
+                        <label for="class_no"{if!empty $form_data['class_checked']['no']} class="on"{/if} title="Без класса"><input type="checkbox" value="no" name="class:no" id="class_no" {if!empty $form_data['class_checked']['no']}checked="checked" {/if}/>-</label>
+                    </div>
+                 
+                </div>
+
+                <div class="list-picker location">
+                    <a href="#" class="pick district-areas{if!empty $form_data['district_areas']} active{/if}">Районы ЛО: <i></i></a>
+                    <a href="#" class="pick districts{if!empty $form_data['districts']} active{/if}">Районы СПб: <i></i></a>
+                    <a href="#" class="pick subways{if!empty $form_data['subways']} active{/if}">Метро: <i></i></a>
+                    <a href="#" class="pick empty{ifempty $form_data['district_areas']}{ifempty $form_data['districts']}{ifempty $form_data['subways']} active{/if}{/if}{/if}">Метро, район</a>
+                    <a href="#" class="select">...</a>                
+                </div>
+            </div> <!--/.row-->                  
+            
+               
+        {/if}
+   
+        
+        
+        <div class="row location-list">
+            <h5 class="districts{if!empty $districts} active{/if}">Районы СПб</h5>
+            <div class="selected-items districts-list" data-type="districts">
+                {if!empty $districts}
+                    {loop $districts,$k,$item}
+                        <div class="item on" data-id="{$item['id']}">{$item['title']}</div>
+                    {/loop $districts}
+                {/if}
+            </div>  
+            <h5 class="district-areas{if!empty $district_areas} active{/if}">Районы ЛО</h5>
+            <div class="selected-items district-areas-list" data-type="district-areas">
+                
+                {if!empty $district_areas}
+                    {loop $district_areas,$k,$item}
+                        <div class="item on" data-id="{$item['id']}">{$item['title']}</div>
+                    {/loop $district_areas}
+                {/if}
+            </div> 
+            <h5 class="subways{if!empty $subways} active{/if}">Станции метро</h5>
+            <div class="selected-items subways-list" data-type="subways">
+                
+                {if!empty $subways}
+                    {loop $subways,$k,$item}
+                        <div class="item on" data-id="{$item['id']}">{$item['title']}</div>
+                    {/loop $subways}
+                {/if}
+            </div>     
+        </div><!--/.location-list-->
+    </div>
+    <i class="shadow"></i>    
+</form>  
+
+<div id="geodata-picker-wrap" data-location="geo">
+    <div class="closebutton" data-icon="close"></div>
+    <div class="filter">
+        <h2>Выберите местоположение</h2>
+        <span class="districts-picker" data-type="districts" data-tab-ref="districts">
+            Санкт-Петербург <i class="br3">0</i>
+            <input type="hidden" name="districts" id="districts" value="{$form_data['districts']}" data-url="/geodata/form/districts/" />
+        </span>
+        <span class="district-areas-picker" data-type="district-areas" data-tab-ref="district-areas">
+            Ленинградская область <i class="br3">0</i>
+            <input type="hidden" name="district_areas" id="district-areas" value="{$form_data['district_areas']}" data-url="/geodata/form/district_areas/" />
+        </span>
+        <span class="subway-picker" data-type="subways" data-tab-ref="subways">
+            Метро <i class="br3">0</i>
+            <input type="hidden" name="subways" id="subways" value="{$form_data['subways']}"  data-url="/geodata/form/subways/" />
+        </span>
+    </div>
+    <div class="items-list clearfix">
+        <div class="items"></div>
+    </div>
+    <div class="location-list clearfix">
+        <div class="selected-items districts-list transition" data-type="districts">
+            {php:$districts = $form_filter['districts']}
+            {php:$first_letter = ''}
+            {loop $districts,$k,$item}
+                {ifeq $first_letter,''}
+                    <div class="column">
+                        <span class="title">{$item['first_letter']}</span>
+                {elseif!eq $first_letter, $item['first_letter']}
+                    {ifin $item['first_letter'],'К','М','Ф'}
+                    </div>
+                    <div class="column">
+                    {/if}
+                    <span class="title">{$item['first_letter']}</span>
+                {/if}
+                {php:$first_letter = $item['first_letter']}
+                <div class="item{if!empty $item['on']} on{/if}" data-icon="check" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $districts}
+            </div>
+        </div>
+        <div class="selected-items district-areas-list transition" data-type="district-areas">
+            {php:$district_areas = $form_filter['district_areas']}
+            {php:$first_letter = ''}
+            {loop $district_areas,$k,$item}
+                {ifeq $first_letter,''}
+                    <div class="column">
+                        <span class="title">{$item['first_letter']}</span>
+                {elseif!eq $first_letter, $item['first_letter']}
+                    {ifin $item['first_letter'],'Г','Л','С'}
+                    </div>
+                    <div class="column">
+                    {/if}
+                    <span class="title">{$item['first_letter']}</span>
+                {/if}
+                {php:$first_letter = $item['first_letter']}
+
+                <div class="item{if!empty $item['on']} on{/if}" data-icon="check" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $district_areas}
+            </div>
+            <span {if!empty $district_areas}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="selected-items subways-list transition" data-type="subways">
+            <h5>Станции метро</h5>
+            {php:$subways = $form_filter['subways']}
+            {loop $subways,$k,$item}
+                <div class="item line-{$item['line_id']}{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $subways}
+            <span {if!empty $subways}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+    </div>
+    <div class="geodata-button">
+        <button value="Применить">Применить</button>
+        <span id="reset-geo" class="transition" data-icon="refresh">Сбросить фильтр</span>
+    </div> 
+</div>   
+<div id="geodata-picker-bg"></div>
+{literal}
+    <script>jQuery(document).ready( function() { jQuery('.fast-search').estateSearch() } )</script>
+{/literal}
+{ifempty $map_search}
+<div class="estate-map-search clearfix">      
+    <a href="/map{$paginator['link']}" class="button white" data-icon="location_on">
+        Смотреть
+        {ifeq $estate_type,'build'} новостройки
+        {elseifeq $estate_type,'live'} жилую недвижимость
+        {elseifeq $estate_type,'country'} загородную недвижимость
+        {elseifeq $estate_type,'commercial'} коммерческую недвижимость
+        {elseifin $estate_type,'zhiloy_kompleks','apartments'} ЖК
+        {elseifeq $estate_type,'business_centers'} БЦ
+        {/if}
+        на карте
+    </a>
+</div>
+{/if}

@@ -1,0 +1,16 @@
+{if!empty $list}
+    <div class="list">
+        <span class="question" data-icon="help">
+            Задайте вопрос вашему менеджеру
+        </span>
+        {loop $list,$k,$item}
+        <div class="item transition clearfix" data-id="{$item['id']}">
+            <span class="name">{$item['name']} {$item['lastname']}</span>
+            
+                <span class="{if!empty $auth['id']}internal-link{else}auth-popup{/if} button blue message" data-icon="chat_bubble_outline" data-url="/authorization/popup/" data-link="/members/messages/{if!empty $item['message_id']}view/{$item['message_id']}{else}add/{$item['id']}{/if}/" data-new-tab="true">Начать чат</span>
+            
+            
+        </div>
+        {/loop $list}
+    </div>  
+{/if}

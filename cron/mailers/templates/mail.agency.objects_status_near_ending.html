@@ -1,0 +1,29 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Здравствуйте{if!empty $info['user_name']}, {$info['user_name']}{if!empty $info['user_lastname']} {$info['lastname']}{/if}{/if}!<br>
+    </td>
+</tr>
+<tr>                         
+    <td>
+    Срок действия платных услуг для ваших объектов заканчивается. Сегодня последний день! <br /><br />
+    {loop $users_info,$user_id,$user_info}
+        <div>
+            <span>{$user_info['user_name']}{if!empty $user_info['user_lastname']} {$user_info['lastname']}{/if}</span><br />
+            {$status_title}
+            {php: $objects_info = $user_info['objects_info'];}
+            <div>
+                {loop $objects_info,$status,$values}
+                    <div style="margin-left:10px;">
+                        <span>{$user_info['statuses'][$status]}:</span><br />
+                        {loop $values,$k,$v}
+                            <div style="display:block;margin-left:20px;">{$v}</div>
+                        {/loop $values}
+                    </div>
+                {/loop $objects_info}
+            </div><br />
+        </div><br />
+    {/loop $users_info}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

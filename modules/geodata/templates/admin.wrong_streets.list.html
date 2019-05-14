@@ -1,0 +1,116 @@
+<script>
+var input_counter=0;
+</script>
+<h1 class="pageTitle">География / нераспознанные улицы</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+           var __filter_title = document.getElementById('f_title').value;
+            var __filter_status = document.getElementById('f_status').options[document.getElementById('f_status').selectedIndex].value;
+            var __url = '{root:/admin/geodata/wrong_streets/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_status!=0) __get.push('f_status='+__filter_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()">
+                <option value="0" {ifeq $get_array['f_status'],"0"}selected{/if}>статус адреса</option>
+                <option value="1" {ifeq $get_array['f_status'],"1"}selected{/if}>распознан</option>
+                <option value="2" {ifeq $get_array['f_status'],"2"}selected{/if}>не распознан</option>
+            </select>
+        </label>
+        <label>
+            Название:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть адреса">
+        </label>
+    </div>
+    {if!empty $list}
+        <table class="table_wrong_streets">    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="40%">
+                <col class="col1" width="40%">
+                <col class="col2" width="5%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Улица</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    {ifempty $item['true_title']}
+                        <tr class="address_unknown">
+                            <td>{$item['id']}</td>
+                            <td>{$item['title']}</td>
+                            <td><input type="text" class="typewatch" data_url="" autocomplete="off" id="{$item['id']}_input" name="autocomplete_input" placeholder="введите часть названия улицы"></td>
+                            <td style="display:none" id="{$item['id']}_idstreet"></td>
+                            <td class="small_icons ac">
+                                <a title="Сохранить" style="display:none;" id="{$item['id']}_save_button"><span style="cursor:pointer;" class="ico_accept" id="{$item['id']}_save" onclick="">Сохранить</span></a>
+                            </td>
+                        </tr>
+                    {else}
+                        <tr>
+                            <td>{$item['id']}</td>
+                            <td>{$item['title']}</td>
+                            <td><input type="text" class="typewatch" data_url="" autocomplete="off" id="{$item['id']}_input" name="autocomplete_input" placeholder="{$item['true_title']}"></td>
+                            <td style="display:none" id="{$item['id']}_idstreet"></td>
+                            <td class="small_icons ac">
+                                <a title="Сохранить"><span style="cursor:pointer" class="ico_accept" id="{$item['id']}_save" onclick="">Сохранить</span></a>
+                            </td>
+                        </tr>
+                    {/if}
+                    
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+<script>
+function save_line(id,id_street,title_street){
+    if (title_street==""){
+        alert("название улицы не может быть пустым")
+        return false;
+    }
+    else{
+        jQuery.ajax({
+                    type: "POST",
+                    async: true, cache: false,
+                    url: "https://www.bsn.ru/admin/geodata/wrong_streets/save_street/",
+                    data: {ajax: true, id:id, id_street: id_street, title_street:title_street},
+                    success: function(query){
+                        window.location.reload(true);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        alert('Запрос не выполнен!');
+                    },
+                });
+    }
+}
+</script>

@@ -1,0 +1,31 @@
+{if!empty $lists['commercial']}{php:$list = $lists['commercial'];}
+{elseif!empty $similar_list}{php:$list = $similar_list;}
+{/if}
+    {php:$show_tgb = !empty($ajax_mode) || !empty($advert_in_estate_list);}
+    <div class="estate-list">
+        {loop $list,$lkey,$item}
+            
+            {php:$status_text = $item['status']==3 ? 'Промо' : ( $item['status']==4 ? 'Премиум' : 'Стандарт'  );}
+            <div data-id="{$item['id']}" class="item{ifeq $item['advanced'],1} payed{/if}"  onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(e){}">
+                <div class="photo bbox lazy" data-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" data-photos-count="{ifgt $item['photos_count'],0}{$item['photos_count']}{else}0{/if}"></div>
+                <div class="info">
+                    <div class="address-wrap">
+                        <span class="title{ifeq $item['advanced'],1} right-blue-gradient-overflow{else} right-gradient-overflow{/if}">БЦ «{$item['title']}»</span>
+                        {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                        {if!empty $district}<span class="district">{if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}</span>{/if}
+                        {if!empty $item['subway']}<span class="subway">{$item['subway']}</span>{/if}
+                    </div>
+                    <div class="tags-price-wrap">
+                        <div class="tags-list">
+                            {if!eq $item['class'],'no'}<span><b>{$item['class']}</b> класс</span>{/if}
+                        </div>
+                    </div>
+
+                    <div class="object-actions">
+                        <span class="edit internal-link" data-link="/members/office/business_centers/edit/{$item['id']}/">Редактировать</span>
+                    </div>
+                    
+                </div>
+            </div>
+        {/loop $list}
+    </div>

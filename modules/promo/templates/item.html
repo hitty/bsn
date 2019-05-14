@@ -1,0 +1,5 @@
+<div class="item {if!empty $item['background_position']}{ifeq $item['background_position'],1}bg-top{elseifeq $item['background_position'],2}bg-bottom{else}bg-cover{/if}{/if}" style="{if!empty $item['height']}height:{$item['height']}px;{/if}{if!empty $photos}background-image:url('/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}');{/if}">
+    <span class="numeric">{$item['position']}</span>
+    <span class="title">{if!empty $item['title']}{$item['title']}{else}Здесь будет заголовок{/if}</span>
+    <div class="text">{if!empty $item['content']}{$item['content']}{else}Пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста{/if}</div>
+</div>

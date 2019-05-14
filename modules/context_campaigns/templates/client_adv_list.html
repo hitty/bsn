@@ -1,0 +1,59 @@
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/context_campaigns/add/">
+    <h3>Новая контекстная рекламная кампания</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/context_campaigns/edit/{$data_mapping['id']['value']}/">
+    <h3>Контекстная рекламная кампания #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <div style="display:none" id="places_data_box">{$places_data}</div>
+</form>
+{if!empty $id_campaign}
+    <div class="adv-list">
+        {if!empty $list}
+            {loop $list,$key,$item}
+                <div class="context-adv">
+                    <div class="main-photo{ifempty $item['photo']} nophoto{/if}">
+                        {if!empty $item['photo']}<div class="campaign-img-box"><img src="/{$img_folder}/big/{$item['folder']}/{$item['photo']}"></div>{/if}
+                    </div>
+                    <div class="bottom-panel">
+                        <span class="adv-title">{$item['title']}</span>
+                        <span class="adv-shows">Показы: <i>{ifempty $item['shows']}0{else}{$item['shows']}{/if}</i></span>
+                        <span class="adv-clicks">Клики: <i>{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</i></span>
+                        <div class="small_icons ac" data-id="{$item['id']}">
+                            <a href="/admin/advert_objects/context_campaigns/{$campaign_id}/edit/{$item['id']}/" title="Редактировать"><span class="ico_edit">Редактировать</span></a>
+                            <a title="Просмотр"><span class="ico_view">Просмотр</span></a>
+                            <a href="/admin/advert_objects/context_campaigns/{$campaign_id}/stats/{$item['id']}/" title="Статистика"><span class="ico_stats">Статистика</span></a>
+                            <a title="Удалить" class="del"><span class="ico_del" data-href="/admin/advert_objects/context_campaigns/{$campaign_id}/del/{$item['id']}/">Удалить</span></a>
+                        </div>
+                    </div>
+                </div>
+            {/loop $list}
+            {include /admin/templates/table_paginator.html}
+        {else}
+            <p style="padding:30px;">Запрошенные данные не найдены</p>
+        {/if}
+    </div>
+    <h1 class="pageTitle">Список объявлений "{$campaign_info['title']}"</h1>
+    <div class="caption_line"><a href="/admin/advert_objects/context_campaigns/{$campaign_id}/add/" class="button">Добавить</a></div>
+{/if}

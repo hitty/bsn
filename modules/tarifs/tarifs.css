@@ -1,0 +1,346 @@
+.tarifs-table tr th,td {
+    width: 170px;
+    height: 30px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: arial;
+    font-size: 16px;
+}
+
+.tarifs-text {
+    line-height: 24px;
+    font-size: 14px;
+    margin: 80px 0 60px 0;
+    min-height: 90px;
+}
+
+.tarifs-text .item {
+    display: none;
+}
+
+.tarifs-text .item.active {
+    display: block;
+}
+
+.tarifs-text .title {
+    color: #1e88e5;
+    float: left;
+    width: 60px;
+    text-align: center;
+    padding: 0 40px 0 10px;
+}
+
+.tarifs-text .title b {
+    display: block;
+    font-size: 72px;
+    line-height: 72px;
+    font-weight: normal;
+}
+
+.tarifs-text .text {
+    color: #818181;
+    font-size: 14px;
+    height: 90px;
+    display: block;
+}
+
+.table-hover{
+    display: none;
+    -webkit-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -o-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    position: absolute;
+    top: 130px;
+    height: 425px;
+    width: 145px;
+    left: 380px;
+    z-index: 1;
+}
+.table-hover.active{
+    display: block;
+}
+.table-hover.tarif-b{
+    left: 215px;
+}
+.table-hover.tarif-n{
+    left: 545px;
+}
+.tarifs-table tr td {
+    border-bottom: none;
+    position: relative;
+    z-index: 90;
+}
+.tarifs-table tr td button{
+    position: relative;
+    z-index: 100;
+}
+.tarifs-table tr td.active button{
+    background: #1e88e5;
+    color:#fff;
+}
+.tarifs-table tr td.active button:hover{
+    background: #1b7ace;
+    color:#fff;
+}
+.tarifs-table tr.titles-row td {
+    font-size: 30px;
+    height: 70px;
+}
+.tarifs-table .titles-row td.active{
+    color:#1e88e5;
+}
+.tarifs-table tr:nth-child(3),.tarifs-table tr:nth-child(5) {
+    background: #e6e6e6;
+}
+
+.tarifs-table tr td.row-title {
+    text-align: left;
+    padding-left: 20px;
+    width: 180px;
+}
+
+.tarifs-table tr.titles-row td.popular-tarif {
+}
+
+.tarifs-table tr.titles-row td.popular-tarif:before {
+    content: "популярный";
+    position: absolute;
+    display: block;
+    color: #1e88e5;
+    height: 16px;
+    width: 160px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 100;
+    padding-top: 30px;
+}
+
+.tarifs-table .buttons-row td {
+    border: none;
+}
+
+.tarifs-table tr td .service-check {
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin: 0px auto;
+    color: #1e88e5;
+    font-size: 24px;
+}
+
+.tarifs-table tr td.prices {
+    height: 60px;
+    vertical-align: top;
+}
+
+.tarifs-table tr.pay-row td.popular-tarif {
+    background-color: #FFFFFF;
+}
+
+.tarifs-table tr.final-cost td.popular-tarif {
+    border-bottom: 1px solid #1e88e5;
+}
+
+.tarifs-table tr.final-cost {
+    color: #2693cf;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tarifs-table tr.your-savings td {
+    background-color: #1e88e5;
+    color: #FFFFFF;
+}
+
+.tarifs-table tr.your-savings td {
+    border-bottom: none;
+}
+
+.tarifs-table tr.choose-period td.choose-period-td {
+    padding: 0px;
+    text-align: center;
+    max-width: 570px;
+    padding-left: 13px;
+}
+
+.list-selector-box {
+}
+
+.tarifs-table tr.choose-period .list-selector-box .list-selector {
+    display: block;
+}
+
+.tarifs-table tr.choose-period .list-selector-box .list-selector .select {
+    top: 15px;
+    right: 9px;
+}
+
+.tarifs-table tr.choose-period .list-selector-box .list-selector .select.left {
+    left: 10px;
+    width: 400px;
+    z-index: 5;
+}
+
+.list-selector-box .period-text {
+    position: absolute;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.list-selector-box .discount-text {
+    font-size: 14px;
+    font-weight: bold;
+    color: #9dd22a;
+    z-index: 5;
+}
+
+.tarifs-table tr.choose-period .list-selector-box {
+}
+
+.tarifs-table tr.pay-row td button {
+    font-size: 14px;
+    display: table-cell;
+    min-width: 151px;
+    max-width: 151px;
+}
+
+.tarifs-table tr.final-cost td {
+    font-size: 18px;
+}
+
+.tarifs-table tr.final-cost td.row-title {
+    font-family: arial;
+    font-size: 14px;
+    color: black;
+    font-weight: 100;
+}
+
+.tarifs-table tr.final-cost td.row-title {
+    font-weight: bold;
+}
+
+.tarifs-table tr.full-cost,.tarifs-table tr.final-cost {
+    height: 58px;
+    max-height: 58px;
+    min-height: 58px;
+}
+
+.tarifs-table tr.your-savings {
+    height: 50px;
+    max-height: 50px;
+    min-height: 50px;
+}
+
+.tarifs-table tr.pay-row td {
+    border: 1px solid #FFFFFF;
+}
+
+.popular-tarif-Box {
+    position: relative;
+}
+
+.tarifs-table tr.row-tall td {
+    height: 40px;
+}
+
+.new-price {
+    display: block;
+    color: #1e88e5;
+    font-size: 18px;
+    padding: 20px 0 5px 0;
+}
+
+.old-price {
+    font-size: 14px;
+    color: #818181;
+    position: relative;
+}
+.old-price:before{
+    content:"";
+    height: 1px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 9px;
+    background: #818181;
+    
+}
+.period-choose {
+    margin: 20px auto 60px auto;
+    width: 250px;
+}
+.period-choose .label{
+    display: inline-block;
+    position: relative;
+    border: 1px solid transparent;
+    text-align: center;
+    font-size: 16px;
+    line-height: 40px;
+    padding: 0 15px 0 13px;
+    background: #e6e6e6;
+    cursor: pointer;
+    height: 40px;
+    box-shadow: none;
+    color: #000;
+    margin: 0;
+    width: auto;
+    float: left;
+}
+.period-choose .label:hover{
+    color: #000;
+    border: 1px solid #1e88e5;
+    background: #fff;
+}
+.radio-group .label:last-of-type {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -ms-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+.period-choose .label.on {
+    background: #1e88e5;
+    -webkit-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    -moz-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    -ms-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    -o-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    color: #fff;
+}
+.period-choose .label:first-of-type {
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    -ms-border-radius: 3px 0 0 3px;
+    -o-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}    
+.period-choose .discount {
+    position: absolute;
+    font-size: 11px;
+    line-height: 11px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #1e88e5;
+    text-transform: uppercase;
+    top: 45px;
+    
+}
+.pseudo-element{
+    display: none;
+}
+.modal-inner .pay-wrap .object-statuses .text{
+    height: 10px;    
+}
+.pay-wrap .pay-total{
+    margin-top: 0;
+}
+.block-blue-border{
+    margin-bottom: 20px;
+}

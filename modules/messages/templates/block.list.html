@@ -1,0 +1,8 @@
+
+{if!empty $list}
+    {loop $list, $key,$message}
+        {if!empty $message['message']}
+            {include /modules/messages/templates/block.item.html}
+        {/if}
+    {/loop $list}
+{/if}

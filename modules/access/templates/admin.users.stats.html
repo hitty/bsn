@@ -1,0 +1,21 @@
+<h1 class="pageTitle">Статистика новых пользователей</h1>
+<div class="showSpecStats">
+    <form method="post" action="" class="form_default">
+    	<input type="hidden" value="ok" name="process"> 
+        Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$info['date_start']}"> 
+        по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$info['date_end']}">
+        <input type="submit" value="показать" name="submit" style="display:none;" id="submitButton" />
+    </form>
+	<div class="separator"></div>
+</div>
+{if!empty $form_submit}
+    {ifempty $stats}<p>За данный промежуток времени статистики нет</p>
+    {else}
+    <div id="result_info_stats">
+            <p>Количество пользователей зарегистрировавшихся за период с <i>{$info['date_start']}</i> по <i>{$info['date_end']}</i>: <b>{$stats[0]['amount']}</b></p>
+            <p>Общее количество пользователей: <b>{$stats[1]['amount']}</b></p>
+            <p>Общее количество пользователей (не агенств) имеющих 2 и 3 размещенных, опубликованных объектов: <b>{$usrcount} </b></p>
+    </div>
+    {/if}    
+{/if}
+

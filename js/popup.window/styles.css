@@ -1,0 +1,389 @@
+.modal-active {
+    overflow: hidden;
+}
+body.modal-active{
+    margin-right:0!important;
+}
+html.modal-active{
+    margin-right: 17px;
+}
+.modal-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99992;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-tap-highlight-color: transparent;
+}
+.modal-container-opened {
+    overflow: hidden;
+}
+.modal-bg{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    -webkit-transition-duration: inherit;
+    -o-transition-duration: inherit;
+    transition-duration: inherit;
+    -webkit-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    -webkit-transition-timing-function: cubic-bezier(.47,0,.74,.71);
+    -o-transition-timing-function: cubic-bezier(.47,0,.74,.71);
+    transition-timing-function: cubic-bezier(.47,0,.74,.71);
+    -webkit-transition-timing-function: cubic-bezier(.22,.61,.36,1);
+    -o-transition-timing-function: cubic-bezier(.22,.61,.36,1);
+    transition-timing-function: cubic-bezier(.22,.61,.36,1);
+    opacity: .8;
+    background: #000;           
+}
+.modal-stage,
+.modal-inner{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.modal-stage {
+    overflow: hidden;
+    direction: ltr;
+    z-index: 99994;
+    -webkit-transform: translateZ(0);
+}
+.modal-slide>* {
+    display: inline-block;
+    position: relative;
+    padding: 24px;
+    margin: 44px 0;
+    border-width: 0;
+    vertical-align: middle;
+    text-align: left;
+    background-color: #fff;
+    overflow: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 10;
+}
+.modal-close,
+.modal-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    outline: 0;
+    white-space: normal;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 99994;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition-property: opacity,-webkit-transform;
+    -o-transition-property: opacity,-o-transform;
+    transition-property: transform,opacity;
+    transition-property: transform,opacity,-webkit-transform,-o-transform;
+    transition-property: transform,opacity,-webkit-transform;
+}
+.modal-close{
+    display: block;   
+    z-index: 99995;
+    background: none;
+    z-index: 5;
+}
+.modal-slide.active{
+    display: block;
+}
+.modal-slide:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    width: 0
+}
+.modal-slide > div,
+.modal-slide > form{
+    min-width: 300px;
+}
+.modal{
+    display: inline-block;
+}
+@media (max-width: 767px) {
+    .modal-slide.active{
+        margin: 0!important;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+    }
+}
+
+.modal {
+    position: relative;
+    width: 460px;
+    max-width: 90%;
+    max-width: -webkit-calc(100%);
+    max-width: calc(100%);
+    color: #000;
+    padding: 20px;
+    overflow: visible;
+    z-index: 99996;
+}
+@media (max-width: 767px) {
+    .modal {
+        padding:40px 15px
+    }
+}
+.modal-container .closebutton {
+    display: block;
+    position: absolute;
+    color: #1e88e5;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+}
+
+
+
+/* fixed position application */
+.new-bsn-fixed,
+.application-fixed{
+    position: fixed;
+    right:0;
+    margin-top: -50px;
+    top: 50%;
+    z-index: 100;
+    transition: right .3s ease;
+    -webkit-transition: right .3s ease;
+    -moz-transition: right .3s ease;
+    -ms-transition: right .3s ease;
+    -o-transition: right .3s ease;
+}
+.new-bsn-fixed{
+    left: 0;
+    right: auto;
+    -webkit-transition: left .3s;
+    -moz-transition:    left .3s;
+    -ms-transition:     left .3s;
+    transition:         left .3s;
+    -o-transition:      left .3s;    
+}
+.application-fixed.active{
+    right:340px;
+}
+.new-bsn-fixed.active{
+    left:340px;
+}
+.new-bsn-fixed #new-bsn-button,
+.application-fixed #application-button{
+-webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    -ms-border-radius: 3px 0 0 3px;
+    -o-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+    z-index: 102;
+    width: 80px;
+    height: 90px;
+    line-height: 15px;
+    right: 0;
+    -webkit-transition: right .3s;
+    -moz-transition: right .3s;
+    -ms-transition: right .3s;
+    transition: right .3s;
+    -o-transition: right .3s;   
+    padding: 8px 1px;
+    text-align: center;    
+}      
+.new-bsn-fixed.active,
+.application-fixed.active{
+     z-index: 100001;
+}
+.new-bsn-fixed #new-bsn-button{
+    -webkit-transition: left .3s;
+    -moz-transition:    left .3s;
+    -ms-transition:     left .3s;
+    transition:         left .3s;
+    -o-transition:      left .3s;  
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -ms-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;      
+}
+.application-fixed #application-button.active{
+    right: 340px;
+}
+.new-bsn-fixed #new-bsn-button.active{
+    left: 340px;
+}
+
+.new-bsn-fixed #new-bsn-button:before,
+.application-fixed #application-button:before{
+    font-size: 30px;
+    display: block;
+    margin: 2px auto 7px auto;
+    width: 100%;
+    text-align: center;
+}
+.application-fixed .circle {
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #1e88e5;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes circle1 {
+    0% {
+        width: 76px;
+        height: 86px;
+        opacity: 1;
+        left: 0;
+        top: 0;        
+    }
+    70% {
+        width: 76px;
+        height: 86px;
+        opacity: 1;
+        left: 0;
+        top: 0;        
+    }
+    90% {
+        width: 116px;
+        height: 126px;
+        left: -19px;
+        top: -19px;
+        opacity: 0;
+    }
+    100% {
+        width: 116px;
+        height: 126px;
+        opacity: 0;
+        left: -19px;
+        top: -19px;
+    }
+}
+@keyframes circle2 {
+    0% {
+        width: 76px;
+        height: 86px;
+        opacity: 1;
+          top: 0;
+          left: 0;        
+    }
+    75% {
+        width: 76px;
+        height: 86px;
+        opacity: 1;
+        top: 0;
+        left: 0;        
+    }
+    95% {
+        width: 116px;
+        height: 126px;
+        left: -19px;
+        top: -19px;
+        opacity: 0;
+    }
+    100% {
+        width: 116px;
+        height: 126px;
+        opacity: 0;
+        left: -19px;
+        top: -19px;
+    }
+}
+@keyframes circle3 {
+    0% {
+        width: 76px;
+        height: 86px;
+        opacity: 0;
+          top: 0;
+          left: 0;        
+    }
+    80% {
+        width: 76px;
+        height: 86px;
+        opacity: 1;
+          top: 0;
+          left: 0;  
+    }
+    100% {
+        width: 116px;
+        height: 126px;
+        opacity: 0;
+        left: -19px;
+        top: -19px;
+    }
+}
+
+.application-fixed:not(.active) .button + .animations .circle.one{
+  animation: circle1 6s infinite;
+}
+.application-fixed:not(.active) .button + .animations .circle.two{
+  animation: circle2 6s infinite;
+}
+.application-fixed:not(.active) .button + .animations .circle.three{
+  animation: circle3 6s infinite;
+}
+.application-fixed.active .button + .animations div{
+    opacity: 0;
+}
+
+.application-fixed #application-button.active{
+    
+}
+.new-bsn-fixed.active .new-bsn-wrapper,
+.application-fixed.active .form {
+    right: -340px;
+    opacity: 1;
+}
+.new-bsn-wrapper,
+.application-fixed .form {
+    width: 300px;
+    right: -340px;
+    left: auto;
+    top: 50%;
+    z-index: 10010;
+    border-left: 3px solid #1e88e5;
+    position: absolute;    
+    -webkit-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -o-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    padding: 20px;
+    background: #fff;    
+    opacity: 0;
+}
+.application-sent-wrapper.success{
+    color: #1e88e5;
+    font-size: 18px;
+    text-align: center;
+    position: relative;    
+    width: 300px;
+}
+.modal-slide .success i[data-icon="mood"]:before{
+    margin: 40px auto;
+    display: block;
+    width: 100%;
+    font-size: 100px;
+}

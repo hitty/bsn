@@ -1,0 +1,234 @@
+<div class="stickers-box">
+    <div class="back-to-search">
+        <a href="/{$search_query}" title="Вернуться к поиску">Вернуться к поиску</a>
+    </div>
+</div>
+
+<article>
+    <div class="card-top">
+        <h1  class="card-title" itemprop="headline">{$item['title']}</h1>
+        <!--div class="card-fav">
+            <a href="#">
+                в избранное
+            </a>
+        </div-->
+        <div class="clearfix"></div>
+    </div>
+    <div class="card-main">
+        <div class="card-main-top">
+            {php:$gallery_type='both';}
+            {php:$gallery_title='Фотографии объекта';}
+            {include /templates/gallery.html}
+            <div class="card-desc">
+                <div class="cd-quantity"><span>{$info['offer_type']}</span>{if!empty $info['offer_type_suffix']}{$info['offer_type_suffix']}{/if}</div>
+                <div class="cd-price">
+                    от {numberformat:$item['cost']} <span class="rur">a</span>
+                    {if!empty $item['old_cost']}<div class="cd-old-price">{do:echo number_format($item['old_cost'],0,'.',' ')} <span class="rur">a</span></div>{/if}
+                </div>
+                
+                <div class="cd-params">
+                    {if!empty $item['floors']}
+                    <div class="params-row">
+                        <div class="params-name">Этажность</div>
+                        <div class="params-line"></div>
+                        <div class="params-value">{$item['floors']} {$item['floors_title']}</div>
+                        <div class="clearfix"></div>
+                    </div>
+                    {/if}
+                    {if!empty $item['id_building_type']}
+                    <div class="params-row">
+                        <div class="params-name">Тип дома</div>
+                        <div class="params-line"></div>
+                        <div class="params-value">{$info['building_type']}</div>
+                        <div class="clearfix"></div>
+                    </div>
+                    {/if}
+                    {if!empty $item['id_build_complete']}
+                    <div class="params-row">
+                        <div class="params-name">Срок сдачи</div>
+                        <div class="params-line"></div>
+                        <div class="params-value">{$info['build_complete']} года</div>
+                        <div class="clearfix"></div>
+                    </div>
+                    {/if}
+                    {if!empty $item['id_agency']}
+                    <div class="params-row">
+                        <div class="params-name">Продавец</div>
+                        <div class="params-line"></div>
+                        <div class="params-value">
+                            <a href="/agencies/{$item['id_agency']}/" title="{$info['agency_title']}" target="_blank">{$info['agency_title']}</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    {/if}
+                </div>
+                <div class="cd-phone-timer">
+                    <div class="cd-phone">
+                            {if!empty $info['agency_advert_phone']}
+                                <div class="offer-phone{ifempty $info['open_hour']} disabled{/if}">
+                                    <span>{$info['agency_advert_phone']}</span>
+                                    {ifempty $info['open_hour']}
+                                        {if!empty $info['next_day']}<span class="next-date">звоните в {$info['next_day']} с {$info['next_hour_begin']} до {$info['next_hour_end']}</span>{/if}
+                                    {/if}
+                                </div>
+                            {/if}
+                        <div class="objects-order">
+                            {if!empty $info['agency_advert_phone']}или {/if}<span id="send-message">оставить заявку</span>
+                        </div>
+                    </div>
+                    <div class="cd-timer" >
+                        <div class="cd-timer-title{iflt $date_interval['d'],3} red{/if}">До конца акции</div>
+                        <div class="cd-timer-main"  data-date-end="{$item['date_end']}">
+                            {if!empty $date_interval['d']}
+                            <div class="cd-timer-item">
+                                <div class="cd-timer-digit days-left">{$date_interval['d']}</div>
+                                <div class="cd-timer-hint">{php:echo makeSuffix($date_interval['d'],'д',array('ень','ня','ней'));}</div>
+                            </div>
+                            {/if}
+                            <div class="cd-timer-item">
+                                <div class="cd-timer-digit hours-left">{$date_interval['h']}</div>
+                                <div class="cd-timer-hint">{php:echo makeSuffix($date_interval['h'],'час',array('','а','ов'));}</div>
+                            </div>
+                            <div class="cd-timer-item">
+                                <div class="cd-timer-digit minutes-left">{$date_interval['i']}</div>
+                                <div class="cd-timer-hint">{php:echo makeSuffix($date_interval['i'],'минут',array('а','ы',''));}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="cd-address">
+                <div class="cd-address-header">
+                    <div class="cda-title"><span>Адрес</span></div>
+                    {if!empty $item['lat']}
+                        {if!empty $item['lng']}
+                        <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+                        <div class="cda-map" data-lat="{$item['lat']}" data-lng="{$item['lng']}"  data-address="{$item['address']}" data-phone="{$info['agency_advert_phone']}">
+                            <span>посмотреть на карте</span>
+                        </div>
+                       {/if} 
+                    {/if}
+                    <div class="clearfix"></div>
+                </div>
+                <div class="cd-address-main">
+                    <div class="cda-address">
+                        {ifeq $item['id_region'],78}г. Санкт-Петербург
+                        {elseif!empty $info['district_area']}Ленобласть
+                        {/if}
+                        {if!empty $info['district']}
+                            , {$info['district']} район
+                        {elseif!empty $info['district_area']}
+                            , {$info['district_area']} район
+                        {/if}
+                       {if!empty $item['address']}
+                            , {$item['address']}
+                        {/if}
+                    </div>
+                    {if!empty $item['id_subway']}
+                        <div class="cda-subway {$info['subway_line_color']}">
+                            <div class="cda-subway-ico">M</div>
+                                {$info['subway']}
+                            <span>{if!empty $item['way_time']}{$item['way_time']}{/if} {if!empty $info['way_type']}{$info['way_type']}{/if}</span>
+                        </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-main-middle">
+            <div class="cmm-shadow cmm-shadow-top"></div>
+            <div class="cmm-shadow cmm-shadow-bottom"></div>
+            <div class="cmm-desc">
+                <div class="cmm-text">{$item['content']}</div>
+            </div>
+        </div>
+        {if!empty $offers_list}
+        <div class="card-main-bottom">
+            <div class="cmb-title">Квартиры по предложению</div>
+            <div class="table-box">
+                <table>
+                    <tbody><tr>
+                        <th class="td-rooms">Комн.</th>
+                        <th class="td-layout">Планировка</th>
+                        <th class="td-total-area">S общая</th>
+                        <th class="td-living-area">S жилая</th>
+                        <th class="td-kitchen-area">S кухни</th>
+                        <th class="td-wc">Тип санузла</th>
+                        <th class="td-blacony">Балкон</th>
+                        <th class="td-trim">Ремонт</th>
+                        <th class="td-price">Цена</th>
+                        <th class="td-sale"></th>
+                    </tr>
+                    {loop $offers_list,$k,$offers_item}
+                    <tr>
+                        <td class="td-rooms">
+                           
+                                {ifeq $offers_item['rooms_total'],0}студия
+                                {else}{$offers_item['rooms_total']}
+                                {/if}
+                           
+                        </td>
+                        <td class="td-layout">
+                            <a href="#">
+                                {if!empty $offers_item['photo']}<img src="/{$campaigns_img_folder}/sm/{$offers_item['subfolder']}/{$offers_item['photo']}" alt="{$item['title']}">{/if}
+                            </a>
+                            {if!empty $offers_item['photo']}
+                            <div class="cell-big-img">
+                                <div class="cell-big-img-arrow"></div>
+                                <img src="/{$campaigns_img_folder}/big/{$offers_item['subfolder']}/{$offers_item['photo']}" alt="{$item['title']}">
+                            </div>
+                            {/if}
+                        </td>
+                        <td class="td-total-area">
+                            {ifgt $offers_item['square_full'],0}{$offers_item['square_full']}м<sup>2</sup>{else}-{/if}
+                        </td>
+                        <td class="td-living-area">
+                            {ifgt $offers_item['square_live'],0}{$offers_item['square_live']}м<sup>2</sup>{else}-{/if}
+                        </td>
+                        <td class="td-kitchen-area">
+                            {ifgt $offers_item['square_kitchen'],0}{$offers_item['square_kitchen']}м<sup>2</sup>{else}-{/if}
+                        </td>
+                        <td class="td-wc">
+                            {if!empty $offers_item['id_toilet']}{$offers_item['toilet']}{else}-{/if}
+                        </td>
+                        <td class="td-blacony">
+                            {if!empty $offers_item['id_balcon']}{$offers_item['balcon']}{else}-{/if}
+                        </td>
+                        <td class="td-trim">
+                            {if!empty $offers_item['id_facing']}{$offers_item['facing']}{else}-{/if}
+                        </td>
+                        <td class="td-price">
+                            {if!empty $offers_item['cost_w_discount']}
+                                {if!eq $offers_item['cost_w_discount'], $offers_item['cost']}
+                                    <div class="cell-new-price">
+                                        {$offers_item['cost_w_discount']} <span class="rur">a</span>
+                                    </div>
+                                    {if!empty $offers_item['cost']}
+                                        <div class="cell-old-price">
+                                            {$offers_item['cost']} <span class="rur">a</span>
+                                        </div>
+                                    {/if} 
+                                {/if}
+                            {else}
+                                {if!empty $offers_item['cost']}
+                                    <div class="cell-new-price">
+                                        {$offers_item['cost']} <span class="rur">a</span>
+                                    </div>
+                                {/if}
+                            {/if}
+                        </td>
+                        <td class="td-sale">
+                            {if!empty $offers_item['discount']}<span><div class="cell-sale-arrow"></div>- {$offers_item['discount']}%</span>
+                            {elseif!empty $offers_item['discount_in_rubles']}<span><div class="cell-sale-arrow"></div>- {$offers_item['discount_in_rubles']}<span class="rur">a</span></span>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/loop $offers_list}
+                </tbody>
+                </table>
+            </div>
+            {/if}
+        </div>
+    </div>
+</article>   

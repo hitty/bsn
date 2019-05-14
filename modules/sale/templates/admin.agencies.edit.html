@@ -1,0 +1,104 @@
+<h1 class="pageTitle">Компании</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/access/agencies/add/">
+    <h3>Новое агентство</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/access/agencies/edit/{$data_mapping['id']['value']}/">
+    <h3>Событие #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+
+    {if!empty $data_mapping['id']['value']}
+        <fieldset style="margin-top: -1px;border-top: 0;">
+            {php:$count = array(1=>'пн',2=>'вт',3=>'ср',4=>'чт',5=>'пт',6=>'сб',7=>'вс');}
+            {loop $count,$k,$item}
+                <p class="p_field_open_hours">
+                    <label>{$item}</label>
+                    <span class="lf fieldwrapper">
+                        <input type="text" name="begin" class="datetimepicker{if!empty $open_hours[$k]['begin']} active-date{/if}" value="{if!empty $open_hours[$k]['begin']}{$open_hours[$k]['begin']}{else}9:30{/if}" {ifempty $open_hours[$k]}disabled="disabled"{/if}/>
+                        <input type="text" name="end" class="datetimepicker{if!empty $open_hours[$k]['begin']} active-date{/if}" value="{if!empty $open_hours[$k]['end']}{$open_hours[$k]['end']}{else}18:30{/if}" {ifempty $open_hours[$k]}disabled="disabled"{/if}/>
+                        <span class="{if!empty $open_hours[$k]['begin']}checked{/if} switcher" data-day="{$k}"></span>
+                    </span>
+                </p>
+            {/loop $count} 
+               
+            <h3>Загрузка логотипа агентства #{$data_mapping['title']['value']}</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/access/agencies/photos/" data-session-id="{php:echo session_id();}"/>
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>        
+    {/if}
+     <input type="submit" value="Сохранить" name="submit">
+    
+</form>
+<script>
+jQuery(document).ready(function(){
+    //fileuploader init
+    if(jQuery('#file_upload').length>0){
+        jQuery('#file_upload').uploadifive({
+                'buttonSetMain':false,
+                'queueSizeLimit':1,
+                'multi':false
+            }
+        );
+    }
+        
+    if(jQuery('.datetimepicker').length>0){
+        jQuery('.datetimepicker').datetimepicker({
+          datepicker:false,
+          format:'H:i',
+          onChangeDateTime:function(dp,$input){
+              $input.attr('value',$input.val())
+              changeTime($input.parents(),'on');
+          }
+        });
+    }
+    
+    
+    jQuery('.datetimepicker').on('change',function(){
+        alert('adad');
+        changeTime(jQuery(this).parents('.fieldwrapper'),'on');    
+    })
+    jQuery('.p_field_open_hours').each(function(){
+        var _this = jQuery(this);
+        _this.children('span').children('.switcher').on('click',function(){
+            jQuery(this).toggleClass('checked');
+            if(jQuery(this).hasClass('checked')) {
+                changeTime(jQuery(this).parents('.fieldwrapper'),'on');
+                jQuery(this).siblings('input').attr('disabled',false).addClass('active-date');
+            } else {
+                jQuery(this).siblings('input').attr('disabled','disabled').removeClass('active-date');;
+                changeTime(jQuery(this).parents('.fieldwrapper'),'off');
+            }
+        })
+    })
+    
+    function changeTime(_th,_action){
+        var _begin = _th.children('input[name=begin]').val();
+        var _end = _th.children('input[name=end]').val();
+        var _day = _th.children('.switcher').data('day');
+        getPending('/admin/access/agencies/time/', {begin:_begin, end:_end, day:_day, action:_action, id:{$data_mapping['id']['value']}});
+    }
+    
+            
+});
+</script>

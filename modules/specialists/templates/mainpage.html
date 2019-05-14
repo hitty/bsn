@@ -1,0 +1,46 @@
+<section class="specialists-wrapper central-main-content br3 clearfix col-3">
+    
+    <div class="statistic-box clearfix">
+        <div class="sb-info">
+            Найдено специалистов всего: <i>{$total_found}</i>
+            {if!empty $total_found}<br />Показаны <i>{ifempty $paginator['from_item']}1-{$total_found}{else}{$paginator['from_item']}-{$paginator['to_item']}{/if}</i>{/if}
+        </div>
+
+        <div class="sb-sort">
+            Показывать 
+            <div class="list-selector grey" id="count_selector">
+                <a href="#" class="pick">20</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="count_selector" value="20" />
+                <ul class="list-data">
+                    <li data-value="20">20</li>
+                    <li data-value="40">40</li>
+                    <li data-value="60">60</li>
+                </ul>
+            </div>
+        </div>
+    </div>   
+        
+    <div class="list clearfix">
+        {loop $list,$lk,$item}
+            <div class="item shadow-hover transition clearfix">
+                <span class="internal-link hdr" data-link="/specialists/{$item['id']}/"></span>
+                
+                <div class="name">
+                    <a href="/specialists/{$item['id']}/" title="подробнее" target="_blank" class="text-overflow">{$item['title']}</a>
+                    <div class="parent-agency">{if!empty $item['parent_agency_title']}<a href="{$item['parent_agency_url']}" title="{$item['parent_agency_title']}" target="blank">{$item['parent_agency_title']}</a>{/if}</div>
+                    <span>{$item['specializations']}</span>
+                </div>
+                <div class="objects">{if!empty $item['amount']}{suffix:$item['amount'],'предложени','е','я','й'}{if!empty $item['answers_amount']}<br \>{suffix:$item['answers_amount'],'ответ','','а','ов'}{/if}{else}{if!empty $item['answers_amount']}{suffix:$item['answers_amount'],'ответ','','а','ов'}{/if}{/if}</div>
+                
+            </div>
+        {/loop $list}
+    </div>
+    {include /templates/includes/paginator.html}
+    
+</section>
+<div class=" clearfix"></div>
+<section class="tgb-list in-row">
+    {block tgb/top/inrow/3}
+</section>
+

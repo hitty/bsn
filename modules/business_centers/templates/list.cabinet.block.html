@@ -1,0 +1,56 @@
+{if!empty $lists['commercial']}{php:$list = $lists['commercial'];}
+{elseif!empty $similar_list}{php:$list = $similar_list;}
+{/if}
+    {php:$show_tgb = !empty($ajax_mode) || !empty($advert_in_estate_list);}
+    <div class="estate-list business-centers">
+        {loop $list,$lkey,$item}
+            
+            {php:$status_text = $item['status']==3 ? 'Промо' : ( $item['status']==4 ? 'Премиум' : 'Стандарт'  );}
+            <div data-id="{$item['id']}" class="item{ifeq $item['advanced'],1} payed{/if}"  onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(e){}">
+                 <a class="hdr" href="/business_centers/{$item['chpu_title']}/" target="_blank" title="{$item['header']}"></a>
+                <div class="photo bbox lazy" data-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" data-photos-count="{ifgt $item['photos_count'],0}{$item['photos_count']}{else}0{/if}">
+                    {php:$media_show = !empty($item['photos_count']) || !empty($item['videos_count']) || !empty($item['comments_objects']);}
+                    {if!empty $media_show}
+                        <div class="media-wrap">
+                            {if!empty $item['photos_count']}<i class="photos" title="Фотографии">{$item['photos_count']}</i>{/if}
+                            {if!empty $item['videos_count']}<i class="videos" title="Видео"></i>{/if}
+                            {if!empty $item['comments_objects']}<i class="comments" title="Комментарии">{$item['comments_objects']}</i>{/if}
+                        </div>
+                    {/if}
+                </div>
+                <div class="info">
+                    <div class="address-wrap">
+                        <span class="title{ifeq $item['advanced'],1} right-blue-gradient-overflow{else} right-gradient-overflow{/if}">БЦ «{$item['title']}»</span>
+                        {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                        {if!empty $district}<span class="district">{if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}</span>{/if}
+                        {if!empty $item['subway']}<span class="subway">{$item['subway']}</span>{/if}
+                        {if!empty $item['agency_title']}<span class="estate-complex-seller" title="{$item['agency_title']}">{$item['agency_title']}</span>{/if}
+                    </div>
+                    <div class="tags-price-wrap">
+                        <div class="tags-list">
+                            {if!eq $item['class'],'no'}<span><b>{$item['class']}</b> класс</span>{/if}
+                        </div>
+                    </div>
+                    <div class="params">
+                        {if!empty $item['infra']}<span><i>Инфраструктура</i>{$item['infra']}</span>{/if}
+                        {if!empty $item['food']}<span><i>Кафе, рестораны</i>{$item['food']}</span>{/if}
+                        {if!empty $item['shops']}<span><i>Магазины</i>{$item['shops']}</span>{/if}
+                        {if!empty $item['service']}<span><i>Сервисные линии</i>{$item['service']}</span>{/if}
+                        {if!empty $item['office']}<span><i>Офисы</i>{$item['office']}</span>{/if}
+                        {if!empty $item['parking']}<span><i>Парковка</i>{$item['parking']}</span>{/if}
+                        {if!empty $item['securesystem']}<span><i>Системы безопасности</i>{$item['securesystem']}</span>{/if}
+                    </div>
+                    <div class="actions">
+                        <span data-id="{$item['id']}" data-type="business_centers" class="star del-from-favorites" data-link="/favorites/unclick/">
+                            <span class="star-label dashed">Удалить из избранного</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="right-td-box">
+                    <div class="right-block">
+                        <div class="object-id">{$item['id']}</div>
+                    </div>
+                </div>
+            </div>
+        {/loop $list}
+    </div>

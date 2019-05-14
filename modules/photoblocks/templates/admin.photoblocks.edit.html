@@ -1,0 +1,37 @@
+<h1 class="pageTitle">Фотоблоки</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/photoblocks/add/">
+    <h3>Новое событие</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/photoblocks/edit/{$data_mapping['id']['value']}/">
+    <h3>Событие #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset>
+            <h3>Загрузка фотографий для фотоблока #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-type="photoblocks" data-id="{$data_mapping['id']['value']}" data-url="/admin/advert_objects/photoblocks/photos/" data-session-id="{php:echo session_id();}"/>
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>  
+    {/if}  
+</form>

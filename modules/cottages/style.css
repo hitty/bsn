@@ -1,0 +1,145 @@
+.bordered-wrapper,
+.card .central-left{
+    overflow:visible;
+}
+.bordered-wrapper:after{
+    content:"";
+    display: table;
+    clear:both;
+}
+
+.content .central-column{
+    min-height: 500px;
+} 
+
+/* Search results */
+table.cottages-list .col_title{
+    width:200px;
+    text-align: center;
+}
+table.cottages-list .col_object{
+    width:80px;
+}
+table.cottages-list .cell{
+    height:50px;
+}
+table.cottages-list .row{
+    height:62px;
+}
+table.cottages-list .col_price .price{
+    top: 30px;
+    left: 10px;
+    position: absolute;
+    font-size:17px;
+}
+table.cottages-list .col_price{
+    width: 110px;
+}
+
+/* Item */
+.central-left{
+    float:left;
+    width: 49%;
+}
+#map-box{
+    width:100%;
+    height:200px;
+}
+
+#country-members-list{
+    float: right;
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+#country-members-list h2{
+    color:#1e88e5;
+    border-bottom:2px solid #1e88e5;
+    font-size:14px;
+    padding-bottom: 3px;
+}
+#country-members-list p{
+    font-size: 11px;
+    text-align: justify;
+    border-bottom: 1px dashed #ccc;
+    padding-top: .5em;
+}
+ .generalinfo-box{
+     border-top:1px solid #ccc;
+     clear: both;
+     padding-top: .5em;
+ }
+ 
+ .stady-2{
+     background: #c8ffc9;;
+ }
+ .stady-3{
+     background: #caf9ff;;
+ }
+ .stady-4{
+     background: #cfd2ff;;
+ }
+ .stady-1{
+     background: #f4b7ff;;
+ }
+ .stady-6{
+     background: #ffa6a6;;
+ } 
+
+#stady-list{
+    list-style: none;
+    display: inline-block;
+    font-size: 11px;
+    margin-left: 10px;
+}
+#stady-list li{
+    display: inline-block;
+    padding:2px;
+    text-align: center;
+    margin-left: 5px;
+    border:1px solid #666;
+    cursor:pointer;
+}
+#stady-list li:hover,
+#stady-list li.active_status{
+   border:1px solid #fff;
+   box-shadow:0px 0px 5px #999; 
+}
+
+.lcrmp{
+  /*  width: 32%;
+    display: inline-block;
+    margin-right: 7px;   */
+    vertical-align: top    width: 180px;
+    display: inline-block;
+    margin-right: 4px;;
+
+}
+.params-box .title{
+    font-size: 16px;
+    width: 100%;
+    padding-top:10px;
+    font-weight: bold;
+}
+.other-properties-box p{
+    width: 90%;;
+}
+.title-wrap{
+    margin: -10px auto 60px auto;
+}
+.title-wrap .submenu-wrap li{
+    color: #000;
+}
+
+.card .properties-wrap i {
+    display: inline-block;
+    max-width: 520px;
+    font-style: normal;
+    text-overflow: visible;
+    overflow: visible;
+    height: auto;
+    max-height: 30px;
+    width: auto;
+    white-space: normal;
+}

@@ -1,0 +1,36 @@
+<h1 class="pageTitle">Неиндексированные страницы</h1>
+<div class="list_table">
+    {if!empty $crawlers}
+        <table>    
+            <colgroup>
+                <col class="col2" width="30%">
+                <col class="col1" width="20%">
+                <col class="col1" width="20%">
+                <col class="col1" width="20%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <th>Робот</th>
+                <th>Не в индексе</th>
+                <th>Показано ссылок</th>
+                <th>Добавлено в индекс</th>
+                <th>&nbsp;</th>
+            </thead>
+            <tbody>
+                {loop $crawlers,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['title']}</td>
+                        <td>{$item['not_indexed']}</td>
+                        <td>{$item['links_shown']}</td>
+                        <td>{$item['indexed']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/pages/not_indexed/{$item['alias']}/add/" title="Добавить"><span class="ico_add">Добавить</span></a>
+                            <a href="/admin/pages/not_indexed/{$item['alias']}/refresh/" title="Обновить"><span class="ico_refresh">Обновить</span></a>
+                            <a href="/admin/pages/not_indexed/{$item['alias']}/" title="Смотреть" target="_blank"><span class="ico_view">Смотреть</span></a>
+                        </td>
+                    </tr>
+                {/loop $crawlers}
+            </tbody>
+        </table>
+    {/if}
+</div>

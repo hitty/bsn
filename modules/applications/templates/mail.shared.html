@@ -1,0 +1,27 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    <b>Уважаемый партнёр!</b>    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        В общий доступ поступила новая заявка:
+        <br /><br />
+        {if!empty $data['object_url']}
+            <p>Объект: <a href="{$data['object_url']}?status=visible">{$data['campaign_title']}</a></p>
+        {else}
+            <p>Раздел: {$data['campaign_title']}</p>
+        {/if}
+        {if!empty $data['user_name']}
+            <p>Имя: {$data['user_name']}</p>
+        {/if}
+        {if!empty $data['user_comment']}
+            <p>Комментарий: {$data['user_comment']}</p>
+        {/if}
+        <p>
+        Заявку можно взять в работу из вашего личного кабинета на <a href="https://www.bsn.ru/">BSN.ru</a>
+        </p>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

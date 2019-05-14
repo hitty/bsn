@@ -1,0 +1,62 @@
+{include /modules/mailers/templates/simple.header.html}
+<style>
+   table.table-stats,
+   .table-stats > *,
+   .table-stats td,
+   .table-stats tr { 
+    border-top: 1px solid #969696; /* Рамка вокруг таблицы */
+    border-bottom: 1px solid #969696; /* Рамка вокруг таблицы */
+    border-collapse: collapse; /* Отображать только одинарные линии */
+    text-align: center;
+    font-size: 12px; 
+   }
+   table.table-stats{
+       border:1px solid #969696;
+   }
+</style>
+<tr><td colspan="2" height="20"></td></tr>
+<tr>
+    <td colspan="2" valign="top" style="" align="left"> 
+    Добрый день, <b>{php:echo trim($manager['manager_name'])}</b>!            
+    </td>
+</tr>
+<tr><td colspan="2" height="20"></td></tr>
+<tr> <!-- content - text -->
+    <td colspan="2" style="padding: 0;">
+        <table cellpadding="5" cellspacing="0" border="0" width="100%" style="font-size: 12px; border-collapse:collapse;text-align: center;" class="table-stats">
+            <tr style="border-top: 1px solid #969696; border-bottom: 1px solid #969696; font-size: 12px; text-align: center;">
+                <td style="text-align: center; font-size: 12px;" width="10" align="center" rowspan="2">ID</td>
+                <td style="text-align: center; font-size: 12px;" width="30" align="center" rowspan="2">Креатив (картинка)</td>
+                <td style="text-align: center; font-size: 12px;" style="text-align: center; font-size: 12px;" width="20" align="center" rowspan="2">Рекламодатель</td>
+                <td style="text-align: center; font-size: 12px;" width="15" align="center" rowspan="2">Старт</td>
+                <td style="text-align: center; font-size: 12px;" width="15" align="center" rowspan="2">Окончание</td>
+                <td style="text-align: center; font-size: 12px;" width="10" align="center" rowspan="2">Лимит</td>
+                <td style="border: 1px solid #969696; text-align: center; font-size: 12px;" width="50" align="center" colspan="4">Клики</td>
+            </tr>
+            <tr style="border-top: 1px solid #969696; border-bottom: 1px solid #969696; font-size: 12px; text-align: center;">
+                <td style="text-align: center; font-size: 12px;" width="10" align="center">Всего</td>
+                <td style="text-align: center; font-size: 12px;" width="10" align="center">Кредитных</td>
+                <td style="text-align: center; font-size: 12px;" width="10" align="center">БСН</td>
+                <td style="text-align: center; font-size: 12px;" width="10" align="center">Кредитных в день</td>
+            </tr>
+            {loop $list,$k,$item}
+                <tr style="border-top: 1px solid #969696; border-bottom: 1px solid #969696; font-size: 12px; text-align: center;">
+                    <td style="text-align: center; font-size: 12px;" width="10" align="center">{$item['id']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="30" align="center">
+                        <img src="//st1.bsn.ru/{$item['photo']}" width="100" />
+                    </td>
+                    <td style="text-align: center; font-size: 12px;" width="20" align="center">{$item['agency']['title']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="15" align="center">{$item['normal_date_start']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="15" align="center">{$item['normal_date_end']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="10" align="center">{$item['clicks_limit']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="10" align="center">{$item['cnt_click_full']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="10" align="center">{$item['cnt_credit_click_full']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="10" align="center">{$item['bsn_click_full']}</td>
+                    <td style="text-align: center; font-size: 12px;" width="10" align="center"> <b>{$item['new_day_limit']}</b><sup style="color:{ifgt $item['new_day_limit'], $item['day_limit']}red{elseiflt $item['new_day_limit'], $item['day_limit']}green{/if}">{ifgt $item['new_day_limit'],$item['day_limit']}+{/if}{php:echo $item['new_day_limit'] - $item['day_limit']}</sup></td>
+                </tr>
+            {/loop $list}
+        </table>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

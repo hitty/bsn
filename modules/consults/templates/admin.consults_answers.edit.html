@@ -1,0 +1,35 @@
+<h1 class="pageTitle">Ответы</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default answer-edit" method="post" action="/admin/content/consults/view/{$question_info['id']}/add/">
+    <h3>Новый ответ к вопросу #{$question_info['id']}</h3>
+    <a href="/admin/content/consults/view/{$question_info['id']}/" class="button back-to-list">К списку ответов</a>
+{else}
+    <form class="form_default answer-edit" method="post" action="/admin/content/consults/view/{$question_info['id']}/edit/{$data_mapping['id']['value']}/">
+    <h3>Ответ #{$data_mapping['id']['value']} к вопросу #{$question_info['id']} {if!empty $author['id']}оставил <a href="/admin/access/users/edit/{$author['id']}/" target="_blank">#{$author['id']}</a> {$author['title']}{/if}</h3>
+    <a href="/admin/content/consults/view/{$question_info['id']}/" class="button back-to-list">К списку ответов</a>
+    <div class="question-text"><span class="title">Вопрос #{$question_info['id']}:</span><span>{$question_info['text']}</span></div>
+    {if!empty $is_first}<b>Этот ответ является первым</b>{/if}
+    {if!empty $is_best}<b>Этот ответ является лучшим по мнению пользователя</b>{/if}
+{/if}
+{if!empty $form_submit}
+    {if!empty $errors}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Проверьте правильность заполнения формы.
+        </div>
+    {else}
+        {if!empty $saved}
+            <div class="notification msgsuccess">
+                <a class="close">Close</a>
+                Данные сохранены.
+            </div>
+        {else}
+            <div class="notification msgalert">
+                <a class="close">Close</a>
+                Ошибка записи в БД.
+            </div>
+        {/if}
+    {/if}
+{/if}
+{include /admin/templates/form_default.html}
+</form>

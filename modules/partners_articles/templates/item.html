@@ -1,0 +1,87 @@
+<article class="central-wrapper topgray">
+<!-- Яндекс.Директ -->
+<div id="yandex_ad"></div>
+<script type="text/javascript">
+(function(w, d, n, s, t) {
+    w[n] = w[n] || [];
+    w[n].push(function() {
+        Ya.Direct.insertInto(110062, "yandex_ad", {
+            stat_id: 6,
+            ad_format: "direct",
+            type: "posterHorizontal",
+            border_type: "ad",
+            limit: 3,
+            title_font_size: 3,
+            links_underline: true,
+            site_bg_color: "FFFFFF",
+            border_color: "FBE5C0",
+            title_color: "0000CC",
+            url_color: "006600",
+            text_color: "000000",
+            hover_color: "0066FF",
+            sitelinks_color: "0000CC",
+            no_sitelinks: false
+        });
+    });
+    t = d.getElementsByTagName("script")[0];
+    s = d.createElement("script");
+    s.src = "//an.yandex.ru/system/context.js";
+    s.type = "text/javascript";
+    s.async = true;
+    t.parentNode.insertBefore(s, t);
+})(window, document, "yandex_context_callbacks");
+</script>
+    <h1>{$item['title']}</h1>
+    {if!empty $photos}
+        <div class="central-left gallery-left-box">
+            {php:$gallery_type='both';}
+            {include /templates/gallery.html}
+            <script>jQuery(document).ready(function(){ getPendingContent(['#social-buttons-content'], ['/banners/social_buttons/']); });</script>
+            <div id="social-buttons-content"></div>    
+        </div>
+    {/if}
+    <div class="bigtext">
+        <p class="smallnotes clearfix">{$item['normal_date']}</p>
+        {$item['content']}
+        {if!empty $tags}
+            <div class="tagslist">
+                Теги: 
+                {loop $tags,$pk,$pv}
+                    {if!empty $pv['id']}<span><a href="/news/tags/{$pv['id']}/" title="{$pv['title']}">{$pv['title']}</a><sup>{$pv['tag_count']}</sup></span>{/if}
+                {/loop $tags}
+            </div>
+        {/if}            
+    </div>
+<!-- Яндекс.Директ -->
+<div id="yandex_ad_2"></div>
+<script type="text/javascript">
+(function(w, d, n, s, t) {
+    w[n] = w[n] || [];
+    w[n].push(function() {
+        Ya.Direct.insertInto(110062, "yandex_ad_2", {
+            stat_id: 6,
+            ad_format: "direct",
+            type: "posterHorizontal",
+            border_type: "ad",
+            limit: 3,
+            title_font_size: 3,
+            links_underline: true,
+            site_bg_color: "FFFFFF",
+            border_color: "FBE5C0",
+            title_color: "0000CC",
+            url_color: "006600",
+            text_color: "000000",
+            hover_color: "0066FF",
+            sitelinks_color: "0000CC",
+            no_sitelinks: false
+        });
+    });
+    t = d.getElementsByTagName("script")[0];
+    s = d.createElement("script");
+    s.src = "//an.yandex.ru/system/context.js";
+    s.type = "text/javascript";
+    s.async = true;
+    t.parentNode.insertBefore(s, t);
+})(window, document, "yandex_context_callbacks");
+</script>    
+</article>    

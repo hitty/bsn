@@ -1,0 +1,78 @@
+<h1 class="pageTitle">Модерация комментариев</h1>
+<form class="form_default" method="post" action="/admin/content/comments/edit/{$data_mapping['id']['value']}/">
+    <h3>Комментарий #{$data_mapping['id']['value']}</h3>
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+</form>
+{if!empty $parent_object}
+    <div class="parent_object">
+        <span>{$parent_object['type_title']}:</span><h3>{$parent_object['title']} <a href="{$parent_object['link']}" target="_blank">открыть оригинал</a></h3>
+        <div>{$parent_object['content']}</div>
+    </div>
+    {if!empty $comments_list}
+        <div class="parent_comments-list">
+        <span class="list-title">Комментарии:</span><br />
+        {loop $comments_list,$ck,$cv}               
+            <a name="comment{$cv['id']}" id="comment{$cv['id']}"></a>
+            <div class="item{ifeq $data_mapping['id']['value'],$cv['id']} active{/if}" id="cid{$cv['id']}" data-id-parent="{$cv['id']}">
+                {ifempty $only_comments}
+                    <div class="vote-for" data-id="{$cv['id']}">
+                        {if!empty $cv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$cv['id_user']}<span class="vote-for-minus">-</span>{/if}{/if}{/if}
+                        <span class="vote-container bbox{if!empty $cv['voted_plus']} plus{elseif!empty $cv['voted_minus']} minus{/if}{ifgt $cv['all_votes'],0} green{elseifeq $cv['all_votes'],0} gray{/if}">{$cv['all_votes']}</span>
+                        {if!empty $cv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$cv['id_user']}<span class="vote-for-plus">+</span>{/if}{/if}{/if}
+                    </div>
+                {/if}
+                <img src="{if!empty $cv['photo']}/img/uploads/big/{$cv['subfolder']}/{$cv['photo']}{else}/img/layout/no_avatar_med.gif{/if}" alt="{$cv['name']} {$cv['lastname']}" class="avatar">        
+                <div class="comment_text">
+                    <span class="username">{$cv['author_name']}</span>
+                    <span class="userdata">{$cv['normal_datetime']}</span>
+                    <div>{strip:$cv['comments_text']}</div>
+                </div>
+                {ifempty $only_comments}{ifempty $feedback}<span class="reply">Ответить</span>{/if}{/if}
+                
+            </div>
+            {if!empty $cv['childs']}
+                {php:$childs=$cv['childs']}
+                {loop $childs,$cck,$ccv}
+                    <a name="comment{$ccv['id']}" id="comment{$ccv['id']}"></a>
+                    <div class="item child" id="cid{$ccv['id']}" data-id-parent="{$cv['id']}" data-id-answer="{$ccv['id']}">
+                        {ifempty $only_comments}
+                            <div class="vote-for" data-id="{$ccv['id']}">
+                                {if!empty $ccv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$ccv['id_user']}<span class="vote-for-minus">-</span>{/if}{/if}{/if}
+                                <span class="vote-container bbox{if!empty $ccv['voted_plus']} plus{elseif!empty $ccv['voted_minus']} minus{/if}{ifgt $ccv['all_votes'],0} green{elseifeq $ccv['all_votes'],0} gray{/if}">{$ccv['all_votes']}</span>
+                                {if!empty $ccv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$ccv['id_user']}<span class="vote-for-plus">+</span>{/if}{/if}{/if}
+                            </div>
+                        {/if}
+                        <img src="{if!empty $ccv['photo']}/img/uploads/big/{$ccv['subfolder']}/{$ccv['photo']}{else}/img/layout/no_avatar_med.gif{/if}" alt="{$ccv['name']} {$ccv['lastname']}" class="avatar">        
+                        <div class="comment_text">
+                            <span class="username">{$ccv['author_name']}</span>
+                            <span class="userdata">{$ccv['normal_datetime']}</span>
+                            {strip:$ccv['comments_text']}
+                        </div>
+                        {ifempty $only_comments}{ifempty $feedback}<span class="reply">Ответить</span>{/if}{/if}
+                    </div>
+                {/loop $childs}
+            {/if}
+        {/loop $comments_list}
+        </div>
+    {/if}
+{/if}

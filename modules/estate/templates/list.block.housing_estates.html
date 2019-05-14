@@ -1,0 +1,76 @@
+{if!empty $lists['build']}{php:$list = $lists['build'];}
+{elseif!empty $similar_list}{php:$list = $similar_list;}
+{/if}
+    {php:$show_tgb = !empty($ajax_mode) || !empty($advert_in_estate_list);}
+    <div class="estate-list ajax-search-results">
+        {loop $list,$lkey,$item}
+            
+            {php:$status_text = $item['status']==3 ? 'Промо' : ( $item['status']==4 ? 'Премиум' : 'Стандарт'  );}
+            <div data-id="{$item['id']}" class="item{if!empty $elite}{ifeq $item['elite_status'],4} payed{/if}{elseifeq $item['status'],3} promo{elseifeq $item['status'],4} premium{elseifeq $item['status'],6} vip{/if}{ifgte $item['weight'],50}{if!empty $item['photo']} expanded{/if}{/if}"  onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(e){}">
+                 <a class="hdr" href="/build/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" target="_blank" title="{$item['header']}"></a>
+                <div class="photo bbox lazy" data-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" data-photos-count="{ifgt $item['photos_count'],0}{$item['photos_count']}{else}0{/if}"></div>
+                <div class="info">
+                    <div class="address-wrap">
+                        <span class="title{ifeq $item['status'],3} right-blue-gradient-overflow{elseifeq $item['status'],6} right-purple-gradient-overflow{elseifeq $item['status'],4} right-yellow-gradient-overflow{else} right-gradient-overflow{/if}">{if!empty $item['txt_addr']}{$item['txt_addr']}{/if}</span>
+                        {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                        {if!empty $district}<span class="district">{if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}</span>{/if}
+                        {if!empty $item['subway']}<span class="subway">{$item['subway']}</span>{/if}
+                        {if!empty $item['housing_estate_title']}<a href="/zhiloy_kompleks/{$item['housing_estate_chpu_title']}" class="estate-complex" title="ЖК {$item['housing_estate_title']}">{$item['housing_estate_title']}</a>{/if}
+                    </div>
+                    <div class="tags-price-wrap">
+                        <div class="tags-list">
+                            <span>
+                                <b>{$item['rooms_sale']}</b> ккв
+                            </span>
+                            {ifgt $item['square_full'],0}
+                                <span class="full-square">    
+                                    <b>{squareformat:$item['square_full']}</b> м<sup>2</sup>
+                                    {php:$show_squares = (!empty($item['square_live']) && $item['square_live']>0) || (!empty($item['square_kitchen']) && $item['square_kitchen']>0) || (!empty($item['square_ground']) && $item['square_ground']>0) || (!empty($item['square_usefull']) && $item['square_usefull']>0);}
+                                    {if!empty $show_squares}
+                                        <i class="bbox">?</i>
+                                        <ul class="squares">
+                                            {if!empty $item['square_full']}{ifgt $item['square_full'],0}<li>Общая: <b>{squareformat:$item['square_full']}</b> м<sup>2</sup></li>{/if}{/if}   
+                                            {if!empty $item['square_live']}{ifgt $item['square_live'],0}<li>Жилая: <b>{squareformat:$item['square_live']}</b> м<sup>2</sup></li>{/if}{/if}   
+                                            {if!empty $item['square_kitchen']}{ifgt $item['square_kitchen'],0}<li>Кухня: <b>{squareformat:$item['square_kitchen']}</b> м<sup>2</sup></li>{/if}{/if}
+                                            {if!empty $item['square_ground']}{ifgt $item['square_ground'],0}<li>Участок: <b>{squareformat:$item['square_ground']}</b> сот.</li>{/if}{/if}  
+                                            {if!empty $item['square_usefull']}{ifgt $item['square_usefull'],0}<li>Полезная: <b>{squareformat:$item['square_usefull']}</b> м<sup>2</sup></li>{/if}{/if}
+                                        </ul>
+                                    {/if}
+
+                                </span>
+                            {/if}
+                            {ifgt $item['level'],0}<span><b>{$item['level']}</b> этаж</span>{/if}
+                            {ifempty $item['id_agency']}<span class="user" title="Объявление от частного лица">&nbsp;</span>{/if}
+                        </div>
+                        <span class="price">{numberformat:$item['cost']}  Р</span>
+                    </div>
+                    <div class="params">
+                        {if!empty $item['build_complete_title']}<span><i>Срок сдачи</i>{$item['build_complete_title']}</span>{/if}
+                        {if!empty $item['facing_title']}<span><i>Ремонт</i>{$item['facing_title']}</span>{/if}
+                        {if!empty $item['balcon_title']}<span><i>Балкон</i>{$item['balcon_title']}</span>{/if}
+                        {if!empty $item['building_type_title']}<span><i>Тип дома</i>{$item['building_type_title']}</span>{/if}
+                        {if!empty $item['elevator_title']}<span><i>Лифт</i>{$item['elevator_title']}</span>{/if}
+                        {if!empty $item['toilet_title']}<span><i>Санузел</i>{$item['toilet_title']}</span>{/if}
+                    </div>
+                    <div class="actions">
+
+                        {ifeq $item['in_favorites'],1}
+                            <span data-id="{$item['id']}" class="star in-favorites" data-link="/favorites/?type=build">
+                                <span class="star-label internal-link">В избранном</span>
+                            </span>
+                        {else}
+                            <span data-id="{$item['id']}" data-type="build" class="star" data-link="/favorites/?type=build">
+                                <span class="star-label dashed">В избранное</span>
+                            </span>
+                        {/if}
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            {php:$show_sp_block = $show_tgb && ($lkey==4 || $lkey==9);}
+           
+        {/loop $list}
+    </div>
+
+{ifempty $no_header}{include /templates/includes/paginator.html}{/if}

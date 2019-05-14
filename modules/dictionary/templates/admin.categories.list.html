@@ -1,0 +1,65 @@
+<h1 class="pageTitle">Словарь</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['move']}
+    {iflt $results['move'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Перемещение элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Перемещение элемента #{$results['move']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="list_table">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="10%">
+                <col class="col2" width="65%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Термин</th>
+                    <th>Значение</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['word']}</td>
+                        <td>{$item['meaning']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/dictionary/categories/up/{$item['id']}/" title="Выше"><span class="ico_up">Выше</span></a>
+                            <a href="/admin/content/dictionary/categories/down/{$item['id']}/" title="Ниже"><span class="ico_down">Ниже</span></a>
+                            <a href="/admin/content/dictionary/categories/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/dictionary/categories/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

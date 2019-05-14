@@ -1,0 +1,116 @@
+<form class="fast-search form-blue" id="fast-search-form" action="/cottedzhnye_poselki/" method="get">
+    <div class="top-panel">
+        <ul class="select-type tabs-container" data-content-container=".middle-panel">
+            <li {ifempty $search_type} class="active"{/if}{ifeq $search_type,'by-title'} class="active"{/if} data-tab-ref="#tab1"><span>По названию</span></li>
+            <li {ifeq $search_type,'by-parameters'} class="active"{/if} data-tab-ref="#tab2"><span>По параметрам</span></li>
+        </ul>
+        <div class="search-title">
+            Поиск коттеджных поселков
+        </div>
+    </div>
+    <div class="middle-panel">
+        <div class="tab" id="tab1" data-search-type="by-title">
+            <div class="rmp cottage-search-form">
+                <div class="lcrmp">
+                    <span class="selector-title">Район Ленинградской области</span>
+                    <div class="list-selector select-districts">
+                        <a href="#" class="pick">Любой</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" id="districts" name="districts" value="{$form_data['districts']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="">Любой</li>
+                            {loop $district_areas,$dk,$dv}
+                                <li data-value="{$dv['id']}">{$dv['title']}</li>
+                            {/loop $district_areas}
+                        </ul>
+                    </div>
+                </div>
+                <div class="lcrmp">
+                    <span class="selector-title">Название поселка</span>
+                    <div class="single-selector title-selector">
+                        <input type="text" name="cotage_title" id="cotage_title" value="{$form_data['title']}" />
+                    </div>
+                </div>
+                <div class="lcrmp">
+                    <span class="selector-title">Девелопер</span>
+                    <div class="list-selector select-developers">
+                        <a href="#" class="pick">Любой</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" id="developers" name="developers" value="{$form_data['developers']}" />
+                        <ul class="list-data" data-simplebar="init">
+                                <li data-value="">Любой</li>   
+                            {loop $developers,$dk,$dv}
+                                <li data-value="{$dv['id']}">{$dv['title']}</li>
+                            {/loop $developers}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> <!--/.tab-->
+        <div class="tab" id="tab2" data-search-type="by-parameters">
+            <div class="rmp">
+                <div class="lrmp">
+                    <span class="selector-title">Тип объекта</span>
+                    <div class="list-selector select-obj-type">
+                        <a href="#" class="pick">Любой</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" id="count_selector"  name="count_selector" value="{$form_data['object_type']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="">Любой</li>
+                            {loop $object_types,$otk,$otv}
+                                <li data-value="{$otv['id']}">{$otv['title']}</li>
+                            {/loop $object_types}
+                        </ul>
+                    </div>                                    
+                    <span class="selector-title">Район Ленинградской области</span>
+                    <div class="list-selector select-districts">
+                        <a href="#" class="pick">Любой</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" id="districts" name="districts" value="{$form_data['districts']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="">Любой</li>
+                            {loop $district_areas,$dk,$dv}
+                                <li data-value="{$dv['id']}">{$dv['title']}</li>
+                            {/loop $district_areas}
+                        </ul>
+                    </div>
+                    <span class="selector-title">Направление от города</span>
+                    <div class="list-selector select-directions">
+                        <a href="#" class="pick">Любое</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" id="directions"  name="directions" value="{$form_data['directions']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            <li data-value="">Любое</li>
+                            {loop $directions,$dk,$dv}
+                                <li data-value="{$dv['id']}">{$dv['title']}</li>
+                            {/loop $directions}
+                        </ul>
+                    </div>
+                </div>
+                <div class="rrmp">                                    
+                    <span class="selector-title">Стоимость</span>
+                    <div class="interval-selector price-selector">&mdash;
+                        <input type="text" name="from_value" id="from_value" placeholder="от" value="{if!empty $form_data['min_cost']}{$form_data['min_cost']}{/if}" />
+                        <input type="text" name="to_value" id="to_value" placeholder="до" value="{if!empty $form_data['max_cost']}{$form_data['max_cost']}{/if}" />
+                    </div> тыс.руб.
+                    <span class="selector-title">Площадь</span>
+                    <div class="interval-selector sqear-selector">&mdash;
+                        <input type="text" name="from_sqear_value" id="from_sqear_value" placeholder="от" value="{if!empty $form_data['min_sqear']}{$form_data['min_sqear']}{/if}" />
+                        <input type="text" name="to_sqear_value" id="to_sqear_value" placeholder="до" value="{if!empty $form_data['max_sqear']}{$form_data['max_sqear']}{/if}" />
+                    </div> м<sup>2</sup>
+                    <span class="selector-title">Удаленность от СПБ, км</span>
+                    <div class="interval-selector range-selector">&mdash;
+                        <input type="text" name="from_range_value" id="from_range_value" placeholder="от" value="{if!empty $form_data['min_range']}{$form_data['min_range']}{/if}" />
+                        <input type="text" name="to_range_value" id="to_range_value" placeholder="до" value="{if!empty $form_data['max_range']}{$form_data['max_range']}{/if}" />
+                    </div> км
+                                
+                </div>
+            </div>
+        </div>
+    </div> <!--/.middle-panel-->
+    <div class="bottom-panel">
+        <div class="rbp">
+            <button class="button" type="submit" name="submit" value="Искать">Искать</button>
+        </div>
+    </div>
+</form>

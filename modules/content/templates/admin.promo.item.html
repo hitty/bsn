@@ -1,0 +1,27 @@
+    {php:$id = !empty($pitem['id'] ) ? $pitem['id'] : ( !empty($data_mapping['id']['value']) ? $data_mapping['id']['value'] : 0 ) }
+    <div class="promo-wrapper {if!empty $data_mapping['id']['value']}template {elseifempty $id}template {/if}clearfix" data-id="{$id}" data-session-id="{php:echo session_id();}" >
+        <span class="refresh-item" data-icon="save" title="Обновить запись"></span>
+        <span class="delete-item" title="Удалить запись"></span>
+        <input type="text" placeholder="Заголовок" value="{if!empty $pitem['title']}{$pitem['title']}{/if}" name="promo_title" class="promo-title"/>
+        <div class="editor">
+            <textarea name="promo" class="promo-text">{if!empty $pitem['content']}{$pitem['content']}{/if}</textarea>
+        </div>
+
+        <div class="preview central-main-content central-wrapper br3"></div>
+
+        <div class="actions clearfix">
+            <div class="background">
+                <span class="title">Задний фон: </span>   
+                <span style="white-space: nowrap;"><input type="radio" name="background_position_{$id}" value="2" {if!empty $pitem['background_position']}{ifeq $pitem['background_position'],2}checked="checked"{/if}{/if}> Снизу </span>
+                <span style="white-space: nowrap;"><input type="radio" name="background_position_{$id}" value="1" {if!empty $pitem['background_position']}{ifeq $pitem['background_position'],1}checked="checked"{/if}{/if}> Сверху </span>
+                <span style="white-space: nowrap;"><input type="radio" name="background_position_{$id}" value="3" {if!empty $pitem['background_position']}{ifeq $pitem['background_position'],3}checked="checked"{/if}{/if}> На весь блок </span>
+                <span style="white-space: nowrap;"><input type="radio" name="background_position_{$id}" value="4" {if!empty $pitem['background_position']}{ifeq $pitem['background_position'],4}checked="checked"{/if}{/if}> Справа, середина </span>
+            </div>
+            <div class="height">
+                <input type="text" placeholder="Высота блока" value="{if!empty $pitem['height']}{$pitem['height']}{/if}" name="height"/>
+                <input type="text" placeholder="Отступ снизу (мобильная версия)" value="{if!empty $pitem['padding_bottom']}{$pitem['padding_bottom']}{/if}" name="padding_bottom"/>
+                <input type="text" placeholder="Цвет заднего фона (мобильная версия)" value="{if!empty $pitem['background_color']}{$pitem['background_color']}{/if}" name="background_color"/>
+            </div>
+        </div>
+        <input type="file" name="file_upload" id="file_upload_{if!empty $id}{$id}{/if}" data-id="{if!empty $id}{$id}{/if}" data-url="/admin/content/articles/promo/photos/" data-session-id="{php:echo session_id();}" />
+    </div>

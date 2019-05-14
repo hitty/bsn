@@ -1,0 +1,11 @@
+
+<div class="row" data-id="{if!empty $question['id']}{$question['id']}{else}{$id}{/if}">
+    <input type="text" placeholder="Вопрос" value="{if!empty $question['question']}{$question['question']}{/if}" name="questions_question_{if!empty $question['id']}{$question['id']}{else}{$id}{/if}" class="question"/>     
+    <input type="text" placeholder="Ответ" value="{if!empty $question['answer']}{$question['answer']}{/if}" name="questions_answer_{if!empty $question['id']}{$question['id']}{else}{$id}{/if}" class="answer"/>
+    <div class="right-answer">
+        <span class="title">Правильный ответ: </span>   
+        <span style="white-space: nowrap;"><input type="radio" name="questions_rightanswer_{if!empty $question['id']}{$question['id']}{else}{$id}{/if}" value="2" {if!empty $question['rightanswer']}{ifeq $question['rightanswer'],2}checked="checked"{/if}{/if}> Нет </span>
+        <span style="white-space: nowrap;"><input type="radio" name="questions_rightanswer_{if!empty $question['id']}{$question['id']}{else}{$id}{/if}" value="1" {if!empty $question['rightanswer']}{ifeq $question['rightanswer'],1}checked="checked"{/if}{/if}> Да </span>
+    </div>    
+    <span class="delete-row" title="Удалить запись"></span>                     
+</div>

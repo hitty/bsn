@@ -1,0 +1,92 @@
+<h1 class="pageTitle">Статистика спецпредложений</h1>
+<div class="showSpecStats">
+    <img width="100" style="float:left" src="{$info['photo']}">
+    <span>Статистика для {$info['ru_type']}а: <strong>{$info['title']}</strong></span>
+    
+    <form method="post" action="/admin/advert_objects/spec_offers/stats/{$info['url_type']}/{$info['id']}/" class="form_default">
+    	<input type="hidden" value="ok" name="process"> 
+        Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$info['date_start']}"> 
+        по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$info['date_end']}">
+        <input type="submit" value="показать" name="submit" style="display:none;" id="submitButton" />
+        {if!empty $info['date_start']}
+            {if!empty $info['date_end']}
+                <ul class="price-calculate click-hide" >
+                    <li>
+                        <h3>Расчет стоимости клика</h3>
+                        <span>Стоимость ТГБ за месяц</span>
+                        <input type="text" class="click-hide" name="price_on_period" id="price-on-period" placeholder="Введите стоимость" value="{$info['price_on_period']}"  />
+                    </li>
+                    <li>
+                        <h3>Кол-во докручиваемых кликов</h3>
+                        <span>Желаемая стоимость клика</span>
+                        <input type="text" class="click-hide" name="wanted_price" id="wanted-price" placeholder="Введите стоимость" value="{$info['wanted_price']}"  />
+                    </li>
+                </ul>
+                <div id="price-stats" class="click-hide" >
+                    <div id="clicks-last-month"  style="display: none;" title="За последний месяц">{$average_clicks['sum_amount']}</div>
+                    <div id="clicks-to-the-end-total" title="Необходимо докрутить кликов до конца месяца">Докрутить до конца месяца: <span></span></div>
+                    <div id="advert-clicks" title="Купленные клики Пингола в этом месяце" >Пингола: <span>{if!empty $advert_clicks['limit']}{$advert_clicks['limit']}{else}0{/if}</span></div>
+                </div>
+            {/if}
+        {/if}
+    </form>
+	<div class="separator"></div>
+</div>
+        {if!empty $form_submit}
+        <script>jQuery(document).ready(clickPrice)</script>
+        <div id="result_info_stats">
+            <a href="#" class="click-hide">Показать только общие переходы (для печати)</a>
+            <table width="600" cellspacing="0" cellpadding="10" data-date-interval="{$info['interval']}">
+              <tbody>
+                  <tr>
+                    <th width="100">Дата</th>
+                    <th width="120">Показы</th>
+                    <th width="90" class="click-hide">Переходы BSN</th>
+                    <th width="90" class="click-hide">Переходы Пингола</th>
+                    <th width="90">Переходы</th>
+                    <th width="90" class="click-hide">Стоимость 1 перехода</th>
+                    <th width="80">CTR, %</th>
+                  </tr>
+                    {php:$total_show=0}
+                    {php:$total_bsn_click=0}
+                    {php:$total_pingola_click=0}
+                    {php:$total_click=0}
+                    {loop $stats,$key,$item}
+                        <tr>
+                            <td>{$item['date']}</td>
+                            <td>{$item['show_amount']}</td>
+                            <td class="click-hide">{$item['click_bsn_amount']}</td>
+                            <td class="click-hide">{$item['click_pingola_amount']}</td>
+                            <td class="clicks">{php:echo $item['click_pingola_amount']+$item['click_bsn_amount'];}</td>
+                            <td class="click-hide">-</td>
+                            <td>{ifgt $item['show_amount'],0}{php:echo number_format((($item['click_pingola_amount']+$item['click_bsn_amount'])/$item['show_amount'])*100, 2, '.', ' ')}{else}0{/if}</td>
+                        </tr>
+                        {php:$total_show=$total_show+$item['show_amount']}
+                        {php:$total_bsn_click = $total_bsn_click + $item['click_bsn_amount']}
+                        {php:$total_pingola_click = $total_pingola_click + $item['click_pingola_amount']}
+                        {php:$total_click=$total_click+$item['click_pingola_amount']+$item['click_bsn_amount']}
+                    {/loop $stats} 
+                  <tr>
+                    <th>Всего</th>
+                    <th>{$total_show}</th>
+                    <th class="click-hide">{$total_bsn_click}</th>
+                    <th class="click-hide">{$total_pingola_click}</th>
+                    <th class="total-clicks">{$total_click}</th>
+                    <th class="click-hide">-</th>
+                    <th>{ifgt $total_show,0}{php:echo number_format(($total_click/$total_show)*100, 2, '.', ' ')}{else}0{/if}</th>
+                  </tr>
+            </tbody>
+            </table>
+          </div>    
+    {/if}
+    
+    <script>
+        jQuery(document).ready(function(){
+            
+            jQuery('a.click-hide').click(function(){
+                jQuery('.click-hide').remove();
+                jQuery('.showSpecStats').height(100);
+            })
+            
+        })
+    </script>

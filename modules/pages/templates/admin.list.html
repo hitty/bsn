@@ -1,0 +1,41 @@
+<h1 class="pageTitle">Страницы (структура сайта)</h1>
+<div class="caption_line"><a href="/admin/pages/add/" class="button">Новая страница</a></div>
+<div class="list_table">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="4%">
+                <col class="col1" width="6%">
+                <col class="col2" width="20%">
+                <col class="col1" width="55%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="2">ID</th>
+                    <th>Алиас страницы</th>
+                    <th>Краткая информация</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td class="arrows_expand">
+                            {if!empty $item['quantity']}
+                                <a href="/admin/pages/expand/{$item['id']}/" title="свернуть/развернуть" class="{if!empty $item['expanded']}expanded{else}collapsed{/if}">свернуть/развернуть</a>
+                            {/if}
+                        </td>
+                        <td>{$item['id']}<br><span class="small_text grey">{$item['path']}</span></td>
+                        <td>{$item['alias']}</td>
+                        <td>{$item['title']}<br><span class="small_text grey">{$item['url']}</span></td>
+                        <td class="small_icons ac">
+                            <a href="/admin/pages/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/pages/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {/if}
+</div>

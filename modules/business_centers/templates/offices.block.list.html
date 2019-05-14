@@ -1,0 +1,20 @@
+{if!empty $list}
+    <div class="list">
+        <div class="header">
+            <div class="number"><span data-sort="{ifeq $sortby,13}14{else}13{/if}" class="sort{ifeq $sortby,13} up{elseifeq $sortby,14} down{/if}">№</span></div>
+            <div class="square"><span data-sort="{ifeq $sortby,1}2{elseifempty $sortby}2{else}1{/if}" class="sort{ifeq $sortby,1} up{elseifeq $sortby,2} down{elseifempty $sortby} up{/if}">Площадь,м<sup>2</sup></span></div>
+            <div class="cost"><span data-sort="{ifeq $sortby,5}6{else}5{/if}" class="sort{ifeq $sortby,5} up{elseifeq $sortby,6} down{/if}">В месяц,<i class="currency-rub rur">a</i></span></div>
+        </div>
+        <div class="scrolled">
+            {loop $list,$k,$item}
+                {php:$active = in_array($item['id'], $ids)}
+                <div class="item{if!empty $active} active{/if}" data-id="{$item['id']}">
+                    <span class="number">{if!empty $item['number']}{$item['number']}{/if}</span>
+                    <span class="square">{squareformat:$item['square']}</span>
+                    <span class="cost">{numberformat:$item['cost']}</span>
+                </div>
+            {/loop $list}
+        </div>
+        
+    </div>
+{/if}

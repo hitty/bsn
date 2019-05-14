@@ -1,0 +1,99 @@
+<div class="gallery-box-expanded-image" id="gallery-box-expanded-image">
+    {if!empty $photo_name}
+         {if!empty $type}
+            {ifeq $type,'inter'}{php:$static = 'http://interestate.ru/'}{/if}
+         {/if}
+        <div class="left-arrow"><b></b></div>
+        <div class="right-arrow"><b></b></div>
+        <div class="photo">
+            <img src="{if!empty $static}{$static}{else}{static:/}{/if}{$img_folder}/big/{$img_subfolder}/{$photo_name}" alt="{if!empty $photo_title}{$photo_title}{elseif!empty $title}{$title}{/if}" data-title="" >
+            {ifempty $no_ydirect}
+            <!--noindex-->
+                {php:$direct_type = 'gallery';}
+                <script>
+                    //если есть таргет, убираем яндекс-директ
+                    if(jQuery('.tab.description .central').attr('data-pg-noydirect')==undefined)
+                        jQuery('.ydirect-box').removeClass('disabled');
+                    else jQuery('.ydirect-box').remove();
+                </script>
+                <span class="ydirect-box disabled">
+                {include /templates/yandex.direct.html}
+                </span>
+            <!--/noindex-->
+            {/if}
+        </div>    
+    {else}
+        Картинка удалена
+    {/if}
+</div>
+<div class="gallery-box-expanded-sidebar"></div>
+{php:$show_context = empty($item['advanced']) || $item['advanced'] == 2}
+{if!empty $show_context}
+<script type="text/javascript">
+    {literal}  
+    jQuery(document).ready(function(){
+        var _url = window.location.href.split('/');
+        getPendingContent('#gallery-box-expanded-container .gallery-box-expanded-image .context-box.gallery #context-block-img','/context_campaigns/block/item/'+_url[4]+'/'+_url[6]+'/gallery/');
+        jQuery('.context-box.gallery').children('#context-block-img').on('click','.close-context',function(){
+            jQuery('.context-box.gallery').fadeOut(300);
+        });
+    });
+    {/literal}
+</script>
+{/if}
+<!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter21898216 = new Ya.Metrika({
+                        id:21898216,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true,
+                        webvisor:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/21898216" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+<script>
+      var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12979802-1']);
+  _gaq.push(['_trackPageview']);
+
+  _gaq.push(['_setAccount', 'UA-24274314-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script>
+    var _title = '{$title}';
+    var _url = '{$url}'; 
+    {literal}
+        new Image().src = "//counter.yadro.ru/hit;bsn-sale?r"+
+        escape(top.document.referrer)+((typeof(screen)=="undefined")?"":
+        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+        screen.colorDepth:screen.pixelDepth))+";u"+escape(_url)+
+        ";h"+escape(_title)+
+        ";"+Math.random();
+    {/literal}
+</script>
+
+    

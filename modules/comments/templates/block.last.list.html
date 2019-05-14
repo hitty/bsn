@@ -1,0 +1,17 @@
+<div class="ajax-load"  data-simplebar="init">
+{if!empty $list}
+    {loop $list,$ck,$cv}               
+        <div class="item" id="cid{$cv['id']}" data-id-parent="{$cv['id']}">
+            <div class="avatar" {ifempty $cv['photo']}data-icon="person_outline"{/if}>
+                {if!empty $cv['photo']}<img src="/img/uploads/big/{$cv['subfolder']}/{$cv['photo']}" alt="{$cv['name']} {$cv['lastname']}">{/if}
+            </div>
+
+            <span class="datetime">{$cv['normal_datetime']}</span>
+            <span class="username text-overflow">{$cv['author_name']} о <a href="/zhiloy_kompleks/{$cv['chpu_title']}/" title="ЖК «{$cv['title']}»">ЖК «{$cv['title']}»</a></span>
+            <div class="comment_text">
+                {stripall:$cv['comments_text']}
+            </div>
+        </div>
+    {/loop $list}
+{/if}  
+</div>

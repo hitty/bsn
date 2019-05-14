@@ -1,0 +1,199 @@
+.o-wrap .offer-price {
+    font-size: 14px;
+    font-weight: bold;
+}
+.o-wrap .offer-old-price {
+    float: right;
+    font-weight: 700;
+    color: #797979;
+    font-size: 11px;
+    padding-top: 2px;
+    display: inline-block;
+    vertical-align: top;
+}
+.o-wrap  .offer-old-price:before {
+    border-bottom: 2px solid #b80000;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 38%;
+    position:relative;
+}
+
+.o-wrap .rooms-quantity {
+    font-size: 12px;
+    font-weight: normal;
+}
+.o-wrap .rooms-quantity span {
+    font-weight: bold;
+}
+
+
+.o-wrap .offer-sticker{
+    height: 20px;
+    line-height: 20px;
+    font-size: 11px;
+}
+.o-wrap .sticker-left {
+    width: 5px;
+    height: 24px;
+    top: 0px;
+    left: -5px;
+    
+}
+.o-wrap .offer-sticker .sticker-left {
+    background-position: 5px -12px!important;
+}
+.o-wrap .offer-sticker .sticker-right{
+    height: 20px;
+    top: 0px;
+    background-position: 33px 26px!important;
+}
+.o-wrap.horizontal .offer-values{
+    font-size: 11px;
+    font-weight: bold;
+}
+.o-wrap .offer-phone{
+    background: url(/img/layout/offer-phone-pingola.png) #fff;
+}
+
+.o-wrap .offer-phone.disabled span {
+    top: 1px;
+}
+.o-wrap .offer-phone.disabled span.next-date {
+    font-size: 11px;
+    top: 15px;
+}
+.o-wrap .ov-timer {
+    font-size: 12px;
+    float: left;
+    padding-right: 21px;
+    background: url(/img/layout/alarm.png) right no-repeat;
+    padding-top: 2px;
+}
+.ov-timer.red {
+    color: #b80000;
+    background: url(/img/layout/alarm-red.png) right no-repeat;
+}
+
+/* VERTICAL */
+.o-wrap.horizontal{
+    width: 100%;
+    height: 132px;
+    overflow: hidden;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+    padding: 0px 4px; 
+}
+.o-wrap.horizontal:after{
+    content: '';
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
+
+.o-wrap.horizontal .offer-item{
+    width: 275px;
+    height: 98px;
+    overflow: hidden;
+    margin-top: 9px;
+    display: inline-block;
+    zoom: 1;
+    padding: 5px;
+}
+.o-wrap.horizontal .offer-item:hover{
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 1px 9px rgba(0, 0, 0, .28);
+    -moz-box-shadow: 0 1px 9px rgba(0, 0, 0, .28);
+    box-shadow: 0 1px 9px rgba(0, 0, 0, .28);
+    z-index: 10;
+}
+
+.o-wrap.horizontal .offer-price,
+.o-wrap.horizontal .rooms-quantity,
+.o-wrap.horizontal .offer-values,
+.o-wrap.horizontal .offer-phone{
+    position:absolute;    
+    left: 170px;
+}
+.o-wrap.horizontal .offer-item:first-child{
+    margin-left:0px;
+}
+.o-wrap.horizontal .offer-item:last-child{
+    margin-right:0px;
+}
+.o-wrap.horizontal .rooms-quantity{
+    top:20px;
+}
+.o-wrap.horizontal .offer-values{
+    top: 44px;
+}
+.o-wrap.horizontal .offer-phone{
+    top: 62px;
+    left: 125px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    height: 27px;
+    font-size: 14px;
+    width: 154px;
+    padding: 6px 0 0 8px;
+}
+.o-wrap.horizontal .offer-old-price{
+    display: none;
+}
+.o-wrap.horizontal .offer-img{
+    position: relative;
+    width: 155px;
+    margin-left: 5px;
+}
+.o-wrap.horizontal .offer-img img{
+    width:150px;
+} 
+
+
+/* VERTICAL */
+.o-wrap.vertical{
+    width:225px;
+    border:1px solid #ddd;
+}
+.o-wrap.vertical .offer-item{
+    width:165px;
+    margin:25px auto;
+} 
+.o-wrap.vertical .offer-item:first-child{
+    margin-top:15px;
+}
+.o-wrap.vertical .offer-item:last-child{
+    margin-bottom:15px;
+}
+.o-wrap.vertical .offer-item:after{content:".";display:block;height:0;line-height:0;clear:both;visibility:hidden;font-size: 0;}
+
+.o-wrap.vertical .offer-img img{
+    width:165px;
+} 
+.o-wrap.vertical .offer-values{
+    height: 23px;
+}
+.o-wrap.vertical .offer-phone{
+    height: 32px;
+    width: 149px;
+    padding-left: 10px;
+    line-height: 33px;    
+}
+.o-wrap.vertical .ov-timer{
+    font-weight: bold;
+    font-size:13px;
+}
+.o-wrap.vertical .offer-phone.disabled{
+    line-height:18px;
+}
+.o-wrap.vertical .rooms-quantity {
+    font-size: 15px;
+    margin-bottom:5px;
+}
+
+

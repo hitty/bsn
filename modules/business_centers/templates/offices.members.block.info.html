@@ -1,0 +1,20 @@
+{ifgt $count_ids,0}
+    <div class="title">
+        {if!empty $item}
+            <div class="office-info">
+                <span class="square">{squareformat:$item['square']} м<sup>2</sup></span>
+                <span class="level">{if!empty $item['level']}{$item['level']} этаж{else}цоколь{/if}</span>
+                {if!empty $photos}<img src="/img/uploads/med/{$photos[0]['subfolder']}/{$photos[0]['name']}" alt="" />{/if}
+                {if!eq $item['date_rent_end'],'0000-00-00'}<span class="date-rent-end{if!empty $item['datediff']}{iflte $item['datediff'],30} warning{/if}{/if}">занят до {$item['date_rent_end_normal']}</span>{/if}
+            </div>
+        {else}
+            <span class="count">{suffix:$count_ids,'офис','','а','ов'}</span>
+        {/if}
+    </div>
+    {if!empty $item['renter_title']}<span class="renter-title">{$item['renter_title']}</span>{/if}
+    <ul class="filter">
+        <li class="commercial"><span>Сформировать КП</span></li>
+        <li class="change"><span>{if!empty $renter}Сменить{else}Назначить{/if} арендатора</span></li>
+        {if!empty $renter}<li class="delete"><span>Удалить арендатора</span></li>{/if}
+    </ul>
+{/if}

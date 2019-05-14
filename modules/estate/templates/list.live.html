@@ -1,0 +1,44 @@
+<div class="central-wrapper">
+    {if!empty $h1}
+        {ifempty $ajax_mode}
+            <h1>{$h1}</h1>
+        {/if}
+    {/if}   
+    
+    
+    
+    {include /modules/estate/templates/block.catalog.main.html}
+  
+    <div id="vip-objects-wrap" onClick="_gaq.push(['_trackEvent', 'Переходы по объектам', 'VIP блоки - лево верх']);">
+         {block estate/vip/main/2}
+     </div>
+
+    {if!empty $list}
+        {include /modules/estate/templates/list.block.build.html}
+    {/if}
+     
+    <div class="inner-wrapper content-last">
+        <div class="header-last">
+            <h4 class="header blue">
+                <span title="Новости по теме">Новости по теме</span>
+            </h4>
+        </div>
+        <div id="news-last-data" class="content-last-data">
+            {block news/block/build/mainpage}
+        </div> <!--/#content-last-data-->
+    </div> <!--/.news-->       
+    
+    <div class="inner-wrapper content-last">
+        <div class="header-last">
+            <h4 class="header blue">
+                <span class="internal-link" data-link="/opinions/" title="Мнения экспертов">Мнения, </span> 
+                <span class="internal-link" data-link="/interview/" title="Интервью">Интервью</span>
+            </h4>
+        </div>
+        
+        <div id="last-opinions-data" class="content-last-data expert-opinions">
+            {block opinions/block/build}
+        </div>
+    </div>      
+    
+</div>

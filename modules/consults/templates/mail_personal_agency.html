@@ -1,0 +1,20 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день{if!empty $data['admin_user_name']}, <b>{$data['admin_user_name']}</b>{/if}!
+    </td>
+</tr>
+<tr style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+    <td>Создан новый вопрос в сервисе Консультант на специалиста {if!empty $data['user_title']} <b>{$data['user_title']}</b>{/if} вашей компании. Вопрос будет доступен только ему в течение {$data['q_lifetime']}, после этого на него смогут отвечать другие специалисты</td>
+</tr>
+<tr>
+    <td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+        <p>Автор: {$env['author']}</p>
+        <p>Дата: {$env['datetime']}</p>
+        <p>Раздел: {$env['section']}</p>
+        <p>Текст: {$env['text']}</p><br />
+        <br />
+        <a href="http://{$env['host']}/members/conversions/consults/">Ответить на вопрос</a>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

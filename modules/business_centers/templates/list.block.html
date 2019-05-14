@@ -1,0 +1,72 @@
+{if!empty $list}
+    {php:$show_statistic_block = !empty($full_count) || empty($only_objects)}
+    {if!empty $show_statistic_block}
+    <div class="statistic-box">
+        {if!empty $full_count}
+        <div class="sb-info">
+            {suffix_word: $full_count, 'Найден','','о','о'}
+            {suffix: $full_count, 'объект','','а','ов'}
+        </div>
+        {/if}
+        {ifempty $only_objects}
+        
+            <div class="sb-sort">
+                <div class="list-selector grey" id="sort_selector">
+                    <a href="#" class="pick">20</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="sort_selector" value="{$sortby}" />
+                    <ul class="list-data" data-simplebar="init" data-link="{php:echo htmlentities($sorting_url)}">
+                        <li data-value="1">район, от А</li>
+                        <li data-value="2">район, от Я</li>
+                        <li data-value="3">метро, от А</li>
+                        <li data-value="4">метро, от Я</li>
+                    </ul>
+                </div>                                    
+            </div>
+            <div class="sb-quote">
+                <div class="list-selector grey" id="count_selector">
+                    <a href="#" class="pick">{$View_count}</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="count_selector" value="{$View_count}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="20"{ifeq $View_count,20}class="selected"{/if}>20</li>
+                        <li data-value="40"{ifeq $View_count,40}class="selected"{/if}>40</li>
+                        <li data-value="60"{ifeq $View_count,60}class="selected"{/if}>60</li>
+                    </ul>
+                </div>                                    
+            </div>
+        {/if}
+        {if!empty $ajax_mode}
+            <script>
+                var _selector = jQuery('#search-results').length > 0 ? '#search-results' : '#ajax-search-results';
+                listSelectorInit(jQuery(_selector))
+            </script>
+        {/if}
+    </div>
+    {/if}
+    {if!empty $lists['commercial']}{php:$list = $lists['commercial'];}
+    {elseif!empty $similar_list}{php:$list = $similar_list;}
+    {/if}
+    {php:$show_tgb = !empty($ajax_mode) || !empty($advert_in_estate_list);}
+    <div class="estate-list" data-url="{$requested_url}">
+        {if!empty $list}
+            {loop $list,$lkey,$item}
+                {include /modules/business_centers/templates/list.block.item.html}
+                {ifempty $only_objects}
+                    {php:$show_sp_block = $show_tgb && ($lkey==4 || $lkey==9);}
+                    {if!empty $show_sp_block}
+                        {block tgb/estate_list/{$estate_type}/{ifeq $lkey,9}second-row/{/if}}
+                    {/if}
+                {/if}
+            {/loop $list}                    
+        {/if}   
+    </div>     
+    {ifempty $only_objects}
+        {ifempty $no_header}
+            {include /templates/includes/paginator.html}
+        {/if}
+        <script src="/modules/estate/ajax.search.results.selector.js" async=""></script>
+    {else}
+        {include /templates/includes/paginator.html}
+    {/if}                     
+{/if}                     

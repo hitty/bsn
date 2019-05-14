@@ -1,0 +1,97 @@
+<fieldset>
+    {loop $data_mapping_campaign,$key,$field}
+        {ifempty $field['nodisplay']}
+            
+                {ifeq $field['fieldtype'];'title_row'}<p class="title_row">{$field['tip']}
+                {elseifeq $field['fieldtype'];'hidden'}
+                    <input type="hidden" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {else}
+                <p
+                    {if!empty $field['tip']} title="{$field['tip']}"{/if}
+                    {if!empty $field['error']} class="error"{/if}
+                    {if!empty $field['hidden']} style="display:none;"{/if} 
+                    id="p_field_{$key}"
+                >
+                <label{ifempty $field['allow_empty']} class="required"{/if}>{$field['label']}{ifempty $field['allow_empty']} *{/if}</label>
+                <span class="lf fieldwrapper">
+                {ifeq $field['fieldtype'];'plaintext'}
+                    <span id="text_{$key}" class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext">{quoted:$field['value']}</span>
+                {elseifeq $field['fieldtype'];'text'}
+                    <input type="text" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}" {if!empty $field['disabled']} disabled="disabled"{/if}>
+                {elseifeq $field['fieldtype'];'email'}
+                    <input type="email" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}">
+                {elseifeq $field['fieldtype'];'phone'}
+                    <input type="phone" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}">
+                {elseifeq $field['fieldtype'];'password'}
+                    <input type="password" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'radio'}
+                    <script>
+                        //обрабатываем нажатие по radio для состояния объявления
+                        function change_radio(e){
+                            //alert(JSON.stringify(e.target));
+                            jQuery('#campaign_published_value').attr("value",e);
+                        }
+                    </script>
+                    {php:$radioloop=$field['values']}
+                    {loop $radioloop,$rlk,$rlt}
+                        <span style="white-space: nowrap;"><input type="radio" name="{$key}" value="{$rlk}"{ifeq $rlk,$field['value']} checked="checked"{/if}> {$rlt} </span> &nbsp;&nbsp;&nbsp;&nbsp;
+                    {/loop $radioloop}
+                    <input type="text" style="display:none" id="campaign_published_value" value="{$field['value']}">
+                {elseifeq $field['fieldtype'];'select'}
+                    {php:$selectloop=$field['values']}
+                    <select class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" id="{$key}">
+                        {loop $selectloop,$rlk,$rlt}
+                            <option value="{$rlk}"{ifeq $field['value'],$rlk} selected="selected"{/if}>{$rlt}</option>
+                        {/loop $selectloop}
+                    </select>
+                {elseifeq $field['fieldtype'];'textarea'}
+                    <textarea class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext" cols="60" rows="2" id="plaintext_{$key}">{quoted:$field['value']}</textarea>
+                {elseifeq $field['fieldtype'];'text+button'}
+                    <input type="text" class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" value="{quoted:$field['value']}">
+                    <button id="btn_{$key}">{$field['tip']}</button>
+                {elseifeq $field['fieldtype'];'upload'}
+                    <input type="file" class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'date'}
+                    <input type="date" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'datetime'}
+                    <input type="text" value="{quoted:$field['value']}" class="datetimepicker" name="{$key}" />
+                {elseifeq $field['fieldtype'];'time'}
+                    <input type="time" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'checkbox'}
+                    <input type="hidden" name="{$key}" id="{$key}" value="{$field['value']}" />
+                    <input type="checkbox" id="checkbox_{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}" name="checkbox_{$key}" value="1" {ifeq $field['value'],$field['true_value']}checked="checked"{/if} rel="{$key}" data-true-value="{$field['true_value']}" data-false-value="{$field['false_value']}">
+                {elseifeq $field['fieldtype'];'set'}
+                    <input type="hidden" name="{$key}" value="{$field['value']}" />
+                    {php:$selectloop=$field['values']}
+                    {loop $selectloop,$rlk,$rlt}
+                        {do:$set_up=$field['value']%(pow(2,$rlk))>=pow(2,$rlk-1)}
+                        <input class="radio" type="checkbox" name="{$key}_set[{$rlk}]" value="1"{if $set_up}checked="checked"{/if} /> {$rlt}<br />
+                    {/loop $selectloop}
+               
+                {else}
+                    {quoted:$field['value']}
+                {/if}
+                {if!empty $field['error']}
+                    <span class="small_text red">{$field['error']}</span>
+                {/if}
+                </span>
+                </p>
+            {/if}
+        {/if}    
+    {/loop $data_mapping_campaign}
+    {ifempty $not_show_submit_button}
+    
+    <p>
+        <input type="submit" value="Сохранить" id="campaign-form-submit" name="submit" style="display:none">
+    </p>
+    
+    {/if}
+</fieldset>
+<script>
+    jQuery(document).ready(function(){
+        //с помощью кнопки справа щелкаем по скрытому input для формы кампании
+        jQuery('#campaign-submit-button').on('click',function(){
+            jQuery('#campaign-form-submit').click();
+        });
+    })
+</script>

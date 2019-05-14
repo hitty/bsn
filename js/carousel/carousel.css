@@ -1,0 +1,198 @@
+.carousel-item {
+    -webkit-tap-highlight-color: transparent;
+    position: relative
+}
+
+.carousel-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+    -moz-backface-visibility: hidden
+}
+
+.carousel-stage:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0
+}
+
+.carousel-stage-outer {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    z-index: 2;
+}
+
+.carousel-item,.carousel-wrapper {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0)
+}
+
+.carousel-item {
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-touch-callout: none
+}
+
+.carousel-item img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.carousel-dots.disabled,.carousel-nav.disabled {
+    display: none
+}
+
+.no-js ,.carousel-loaded {
+    display: block
+}
+
+.carousel-dot,.carousel-nav .carousel-next,.carousel-nav .carousel-prev {
+    cursor: pointer;
+    cursor: hand;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.carousel-loading {
+    opacity: 0;
+    display: block
+}
+
+.carousel-hidden {
+    opacity: 0
+}
+
+.carousel-refresh .carousel-item {
+    visibility: hidden
+}
+
+.carousel-drag .carousel-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.carousel-grab {
+    cursor: move;
+    cursor: grab
+}
+
+.carousel-rtl {
+    direction: rtl
+}
+
+.carousel-rtl .carousel-item {
+    float: right
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both
+}
+
+.carousel-animated-in {
+    z-index: 0
+}
+
+.carousel-animated-out {
+    z-index: 1
+}
+
+.fadeOut {
+    animation-name: fadeOut
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+.carousel-height {
+    transition: height .5s ease-in-out
+}
+
+.carousel-item .carousel-lazy {
+    opacity: 0;
+    transition: opacity .4s ease
+}
+
+.carousel-item img.carousel-lazy {
+    transform-style: preserve-3d
+}
+
+.carousel-dots,.carousel-nav {
+    text-align: center;
+    -webkit-tap-highlight-color: transparent
+}
+
+.carousel-nav {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.carousel-nav [class*=carousel-] {
+    color: #FFF;
+    font-size: 14px;
+    padding: 0;
+    background-color: rgba(0,0,0,0.4);
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 3px;
+    position: absolute;
+    left: 20px;
+    z-index: 10;
+    margin-top: -20px;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+}
+
+.carousel-nav [class*=carousel-]:hover {
+    background-color: rgba(0,0,0,0.6);
+    color: #FFF;
+    text-decoration: none;
+}
+
+.carousel-nav .disabled {
+    opacity: 0;
+    cursor: default;
+}
+
+.carousel-nav.disabled+.carousel-dots {
+    margin-top: 10px
+}
+.carousel-nav .carousel-next{
+    left: auto;
+    right: 20px;
+}
+.carousel-nav [class*=carousel-]:before{
+    margin: 0;
+    font-size: 24px;
+    line-height: 40px;
+    text-align: center;
+    display: block;
+    width: 40px;
+}

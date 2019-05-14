@@ -1,0 +1,20 @@
+.title-wrap{
+    margin: -10px auto 60px auto;
+}
+.title-wrap .submenu-wrap li{
+    color: #000;
+}
+.card .properties-wrap i {
+    display: inline-block;
+    max-width: 520px;
+    font-style: normal;
+    text-overflow: visible;
+    overflow: visible;
+    height: auto;
+    max-height: 30px;
+    width: auto;
+    white-space: normal;
+}
+.estate-complex article .offers .item{
+    cursor: default;
+}

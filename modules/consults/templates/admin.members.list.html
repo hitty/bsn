@@ -1,0 +1,64 @@
+<h1 class="pageTitle">Консультации | Юристы</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/content/consults/members/add/" class="button">Добавить запись</a></div>
+<div class="list_table consults-members">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col1" width="20%">
+                <col class="col2" width="25%">
+                <col class="col1" width="45%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО</th>
+                    <th>Контакты</th>
+                    <th>Компания</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td class="consults-members-info">
+                            <span>{$item['name']}{if!empty $item['bsn_id']}, <a href="/access/admin/users/{$item['bsn_id']}/">#{$item['bsn_id']}</a>{/if}</span>
+                        </td>
+                        <td class="contacts">
+                            {if!empty $item['email']}<span><i>Email</i><i>{$item['email']}</i></span>{/if}
+                            {if!empty $item['phone1']}<span><i>телефон1</i><i>{$item['phone1']}</i></span>{/if}
+                            {if!empty $item['phone2']}<span><i>телефон2</i><i>{$item['phone2']}</i></span>{/if}
+                            {if!empty $item['phone3']}<span><i>телефон3</i><i>{$item['phone3']}</i></span>{/if}
+                            {if!empty $item['fax']}<span><i>факс</i><i>{$item['fax']}</i></span>{/if}
+                            {if!empty $item['url']}<span><i>сайт</i><i><a href="{$item['url']}" target="_blank">{$item['url']}</a></i></span>{/if}
+                        </td>
+                        <td>{$item['company']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/consults/members/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            {ifempty $item['bsn_id']}<a href="/admin/content/consults/members/reg/{$item['id']}/" title="Зарегистрировать"><span class="ico_add">Зарегистрировать</span></a>{/if}
+                            <a href="/admin/content/consults/members/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

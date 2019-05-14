@@ -1,0 +1,50 @@
+<div class="left-column">
+    <div id="left-column" class="fixed-column">
+    {if!empty $authorized}
+        <aside>
+            <ul>
+                {loop $authmenu_first,$authkey,$authitem}
+                    <li {if!empty $authitem['class']}class="{$authitem['class']} active-submenu"{/if}>   
+                       
+                        <a href="/{if!empty $authitem['url']}{$authitem['url']}/{/if}" class="{if!empty $authitem['active']} active{/if}" data-icon="arrow_forward">{$authitem['title']}</a>
+                        {if!empty $authmenu_second[$authitem['url']]} 
+                            <ul>
+                                {php:$submenu=$authmenu_second[$authitem['url']];}
+                                {loop $submenu,$smkey,$smitem}
+                                    {if!empty $smitem['title']}
+                                        <li {if!empty $smitem['class']}class="{$smitem['class']}"{/if}>
+                                            {ifeq $smitem['class'],'category-title'}
+                                                <span class="br3 category-title{if!empty $smitem['active']} active{/if}">{if!empty $smitem['amount']}<sup>{$smitem['amount']}</sup>{/if}{$smitem['title']}</span>
+                                            {else}
+                                                <a href="{ifempty $smitem['external_link']}/{$smitem['url']}/{else}{$smitem['url']}{/if}" title="{$smitem['title']}" class="br3{if!empty $smitem['active']} active{/if}" data-icon="arrow_forward">{$smitem['title']}{if!empty $smitem['amount']}<sup>{$smitem['amount']}</sup>{/if}</a>
+                                            {/if}           
+                                            {if!empty $authsubmenu_second[$smitem['url']]} 
+                                                <ul class="authmenu-secondlevel-submenu">
+                                                    {php:$subsubmenu=$authsubmenu_second[$smitem['url']];}
+                                                    {loop $subsubmenu,$ssmkey,$ssmitem}
+                                                        {if!empty $ssmitem['title']}
+                                                            <li>    
+                                                                {ifgt $ssmitem['amount'],0}
+                                                                    <a href="/{$ssmitem['url']}/" title="{$ssmitem['title']}" class="br3{if!empty $ssmitem['active']} active{/if}" data-icon="arrow_forward">{$ssmitem['title']}<sup>{$ssmitem['amount']}</sup></a>
+                                                                {else}
+                                                                    <span>{$ssmitem['title']}</span>
+                                                                {/if}
+                                                                
+                                                            </li>
+                                                        {/if}
+                                                    {/loop $subsubmenu}
+                                                </ul>
+                                            {/if}
+
+                                        </li>
+                                    {/if}
+                                {/loop $submenu}
+                            </ul>
+                        {/if}
+                    </li>
+                {/loop $authmenu_first}                
+            </ul> 
+        </aside>   
+        {/if}
+    </div>
+</div>

@@ -1,0 +1,260 @@
+.yellow.tag .info + .rating-info {
+    height: auto;
+    width: 190px;
+    font-size: 14px;
+    position: absolute;
+    right: 0px;
+    top: 65px;
+    margin-bottom: -32px;
+    padding: 20px;
+    color: #000;
+    z-index: 100;
+    background: #fff;
+    cursor: default;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    visibility: hidden;
+    line-height: 14px;
+    right: 0;
+    text-align: left;
+}
+
+.yellow.tag .info + .rating-info.wide {
+    width: 360px;
+}
+
+.yellow.tag .info + .rating-info.wide.thin {
+    width: 300px;
+}
+
+.yellow.tag .info + .rating-info.wide.thin:after {
+}
+
+.yellow.tag .rating-info:hover,.yellow.tag .info:hover + .rating-info {
+    opacity: 1;
+    visibility: visible;
+    top: 41px;
+    z-index: 2000;
+    text-align: left;
+}
+
+.yellow.tag h3 {
+    font-weight: normal;
+    padding-bottom: 5px;
+    font-size: 18px;
+    color: #1e88e5;
+}
+
+.yellow.tag .info + .rating-info.wide .avg-title-line {
+    text-align: left;
+}
+
+.yellow.tag .info + .rating-info .avg-title-line span {
+    text-align: center;
+    width: 85px;
+    display: inline-block;
+}
+
+.yellow.tag .info + .rating-info .avg-title-line .title {
+    width: 165px;
+    padding: 0px;
+    display: inline-block;
+    text-align: left;
+}
+
+.yellow.tag .info + .rating-info .avg-total-line {
+    text-align: center;
+    width: 100%;
+}
+
+.yellow.tag .info + .rating-info .avg-rating-line {
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.yellow.tag .info + .rating-info .avg-rating-line.last {
+    border-top: 1px solid #e2e2e2;
+    margin-top: 10px;
+    color: #969696;
+    padding-top: 20px;
+    text-align: left;
+    margin-top: 40px;
+}
+
+.yellow.tag .info + .rating-info .avg-rating-line.last .line-title {
+    width: auto;
+    min-width: initial;
+    padding-right: 5px;
+    display: inline;
+}
+
+.rating-info .popup {
+    float: none;
+    color: #1e88e5;
+    border-bottom: 1px dashed;
+    font-weight: normal;
+    font-size: 14px;
+    display: inline-block;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.rating-info .popup:hover {
+    border-bottom: 1px solid rgba(0,0,0,0);
+}
+
+.yellow.tag .info + .rating-info:not(.wide) .voted {
+    display: block;
+}
+.housing-estate-votings,
+.yellow.tag .rating-list{
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+.yellow.tag .rating-list{
+    padding-top: 0;
+}
+.housing-estate-votings{
+    padding-bottom: 0;
+}        
+.housing-estate-votings{
+    border: none;
+}
+.yellow.tag .rating-list .total,
+.housing-estate-votings .total{
+    float: right;
+    color:#1e88e5;
+    font-size: 18px;
+    font-weight: normal;
+}
+.housing-estate-votings h3{
+    line-height: 20px;
+}
+.housing-estate-votings{
+    font-style: normal;    
+}
+.housing-estate-votings .text{
+    font-weight: normal;
+    font-size: 14px;    
+}
+.housing-estate-votings .stars{
+    
+}
+.housing-estate-votings .stars span{
+    width: 20px;
+    height: 19px;
+    font-size: 22px;
+    display: block;
+    float: left;
+    padding: 0 5px;
+    cursor: pointer;
+    color:#818181;
+}
+.housing-estate-votings.voted .stars span{
+    cursor: default;
+}
+.housing-estate-votings .stars span:before{
+    
+    
+    
+    
+    
+}
+.housing-estate-votings .stars span:first-of-type{
+    padding-left: 0;
+}
+.housing-estate-votings .stars span:last-of-type{
+    padding-right: 0;
+}
+.housing-estate-votings .stars span:before {
+    width: 20px;
+    height: 19px;
+    margin: 0;
+}
+
+.housing-estate-votings .stars span.hovered,
+.housing-estate-votings .stars span.active{
+    color:#ffe324;
+}
+.housing-estate-votings .stars span.active.hovered:before{
+    content: "star_border";
+}
+.housing-estate-votings .stars span.active:before{
+    content: "star";
+}
+.housing-estate-votings .total{
+    float: right;
+}
+.yellow.tag .actions{
+    height: 40px;    
+    margin-top: 10px;
+}
+.yellow.tag .actions .already-voted{
+    color:#54b605;
+    line-height: 40px;
+}
+.yellow.tag .actions .already-voted,
+.housing-estate-votings.voted + .actions .button{
+    display: none;
+}
+.housing-estate-votings.voted + .actions .already-voted,
+.yellow.tag .actions .button{
+    display: inline-block;
+}
+.yellow.tag .info + .rating-info .avg-rating-line .line-title {
+    width: 300px;
+    text-align: left;
+    display: table-cell;
+    font-weight: normal;
+}
+
+.yellow.tag .info + .rating-info .avg-rating-line .line-value {
+    font-weight: normal;
+    display: table-cell;
+    text-align: left;
+}
+
+.yellow.tag .info + .rating-info.wide .avg-rating-line .line-value i {
+    width: 60px;
+    display: inline-block;
+    text-align: right;
+    font-weight: bold;
+}
+
+.fast-search.tiny .interval-selector.price-selector input {
+    width: 90px;
+}
+
+.card .fast-search.tiny .middle-panel {
+    width: 310px;
+}
+
+#datetime-filter {
+    margin-top: 20px;
+}
+
+.payed-format #datetime-filter {
+    margin-top: -20px;
+}
+.payed-format article.card .contacts-wrap .contacts-info{
+    width: 480px;
+}
+
+.categories-links{
+    width: 900px;
+}
+section.card{
+    margin: 40px 10px;
+}
+.comments.housing-estates{
+    padding: 40px;
+}
+.comments.housing-estates #comments-form{
+    margin: 0;
+}
+.rating-description {
+    width: 720px;
+}

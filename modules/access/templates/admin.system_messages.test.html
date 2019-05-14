@@ -1,0 +1,28 @@
+<h1 class="pageTitle">Проверка рассылки</h1>
+
+<form class="form_default" method="post" action="" enctype="multipart/form-data">
+<h3>{$spam_title} &quot;{$title}&quot;</h3>
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    
+    {include /admin/templates/form_default.html}
+    
+</form>

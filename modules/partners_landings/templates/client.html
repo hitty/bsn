@@ -1,0 +1,129 @@
+{include /templates/includes/main_head_part.html}
+
+</head>
+<body>
+    
+    
+    {$content}
+    
+    <footer>
+        <div class="inner">
+            
+            <span class="logo svg"></span>
+
+            {include /templates/footer.social.html}
+
+            <div class="big-links flex">
+                <span class="internal-link" data-link="/about/" title="О проекте">О проекте</span>
+                <span class="internal-link" data-link="/contacts/" title="Контакты">Контакты</span>
+                <span class="internal-link" data-link="/advertising/" title="Реклама на сайте">Реклама на сайте</span>
+                <!--span class="internal-link" data-link="/news/blog/" title="Блог">Блог</span-->
+            </div>
+            
+            <div class="about-text">
+                1999 - {php:echo date('Y');} &copy; Большой Сервер Недвижимости BSN.RU — информационно-аналитический портал по недвижимости.
+                Использование всех материалов сайта, в том числе размещенных объявлений, возможно только с разрешения администрации сайта либо с указанием ссылки на источник.
+            </div>
+
+        </div>
+    </footer>
+    {php:$show_overlay=false}
+    {if!empty $debug}
+        <div id="debug"></div>
+    {else}
+            {ifempty $debug}
+                {ifempty $test_mode}
+                    
+                        
+                            <!-- Google Tag Manager -->
+                            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                            })(window,document,'script','dataLayer','GTM-MLWH8Q3');</script>
+                            <!-- End Google Tag Manager -->
+                       
+                        <!-- Yandex.Metrika counter -->
+                        <script type="text/javascript">
+                            (function (d, w, c) {
+                                (w[c] = w[c] || []).push(function() {
+                                    try {
+                                        w.yaCounter21898216 = new Ya.Metrika({
+                                            id:21898216,
+                                            clickmap:true,
+                                            trackLinks:true,
+                                            accurateTrackBounce:true,
+                                            webvisor:true
+                                        });
+                                    } catch(e) { }
+                                });
+
+                                var n = d.getElementsByTagName("script")[0],
+                                    s = d.createElement("script"),
+                                    f = function () { n.parentNode.insertBefore(s, n); };
+                                s.type = "text/javascript";
+                                s.async = true;
+                                s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+                                if (w.opera == "[object Opera]") {
+                                    d.addEventListener("DOMContentLoaded", f, false);
+                                } else { f(); }
+                            })(document, window, "yandex_metrika_callbacks");
+                        </script>
+                        <noscript><div><img src="https://mc.yandex.ru/watch/21898216" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+                    <!-- /Yandex.Metrika counter -->
+                {/if}                
+                
+                {if!empty $fbq}
+                    <!-- Facebook Pixel Code -->
+                    <script>
+                      !function(f,b,e,v,n,t,s)
+                      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                      n.queue=[];t=b.createElement(e);t.async=!0;
+                      t.src=v;s=b.getElementsByTagName(e)[0];
+                      s.parentNode.insertBefore(t,s)}(window, document,'script',
+                      'https://connect.facebook.net/en_US/fbevents.js');
+                      fbq('init', '1915455185387754');
+                      fbq('track', 'ViewContent', { 
+                           content_type: '{$fbq['content_type']}',
+                           content_ids: ['{$fbq['content_ids']}'],
+                           content_name: '{$fbq['content_name']}',
+                           content_category: '{$fbq['content_category']}',
+                           value: '{$fbq['value']}',
+                           currency: '{$fbq['currency']}'
+                      });      
+                    </script>
+                    <noscript><img height="1" width="1" style="display:none"
+                      src="https://www.facebook.com/tr?id=1915455185387754&ev=PageView&noscript=1"
+                    /></noscript>
+                    <!-- End Facebook Pixel Code -->
+                {/if}
+                    
+        {/if}
+        
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+        document.write("<a href='//www.liveinternet.ru/click;bsn-sale' "+
+        "target=_blank><img src='//counter.yadro.ru/hit;bsn-sale?t18.2;r"+
+        escape(document.referrer)+((typeof(screen)=="undefined")?"":
+        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+        screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+        ";"+Math.random()+
+        "' alt='' title='LiveInternet: показано число просмотров за 24"+
+        " часа, посетителей за 24 часа и за сегодня' "+
+        "border='0' width='1' height='1' style='display:none;'><\/a>")
+        //--></script><!--/LiveInternet-->
+        <noscript>
+            <div>
+                <img src="//mc.yandex.ru/watch/21898216" style="position:absolute; left:-9999px;" alt="" />
+            </div>
+        </noscript>    
+
+    {/if}
+    
+    </body>
+</html>
+
+
+    

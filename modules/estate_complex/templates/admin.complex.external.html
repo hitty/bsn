@@ -1,0 +1,109 @@
+<h1 class="pageTitle">Сопоставление комплексов от агентств</h1>
+    <script type="text/javascript">
+        function filter_activate(reset){
+
+            var __filter_manager = document.getElementById('f_manager').value;
+            if(reset == ''){
+                if (document.getElementById('f_user') !== null) var __filter_user = document.getElementById('f_user').value;
+                if (document.getElementById('f_status') !== null) var __filter_status = document.getElementById('f_status').value;
+                if (document.getElementById('f_published') !== null) var __filter_published = document.getElementById('f_published').value;
+            }
+            var __url = '/admin/estate/estate_complexes_external/';
+            var __get = new Array();
+            if(__filter_manager!='') __get.push('f_manager='+__filter_manager);
+            if(reset == ''){
+                if(document.getElementById('f_user') !== null && __filter_manager!='') __get.push('f_user='+__filter_user);
+                if(document.getElementById('f_status') !== null && __filter_user!='') __get.push('f_status='+__filter_status);
+                if(document.getElementById('f_published') !== null && __filter_published!='') __get.push('f_published='+__filter_published);
+            }
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+<div class="list_table">    
+    <div class="filter_line" style="text-align: left;">
+        <label >
+            Менеджер:
+            <select id="f_manager" onchange="filter_activate('clean_all')" style="margin-right:10px; ">
+                <option value="0">выберите менеджера</option>
+                {loop $managers,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_manager'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $managers}
+            </select>
+        </label>
+
+        {ifgt $get_array['f_manager'],0}
+            {if!empty $users}
+                <label >
+                    Агентство:
+                    <select id="f_user" onchange="filter_activate('')" style="width: 200px; margin-right:10px; ">
+                        <option value="0">выберите агентство</option>
+                        {loop $users,$key,$val}
+                            <option value="{$val['id']}"{ifeq $get_array['f_user'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                        {/loop $users}
+                    </select>
+                </label>
+        
+                {ifgt $get_array['f_user'],0}
+                <label >
+                    Статус:
+                    <select id="f_status" onchange="filter_activate('')" style="margin-right:10px; ">
+                        <option value="2" {ifeq $get_array['f_status'],2} selected="selected"{/if}>не проставлен</option>
+                        <option value="1" {ifeq $get_array['f_status'],1} selected="selected"{/if}>проставлен</option>
+                        <option value="3" {ifeq $get_array['f_status'],3} selected="selected"{/if}>все</option>
+                    </select>
+                </label>
+                <label >
+                    Опубликовано:
+                    <select id="f_published" onchange="filter_activate('')" style="margin-right:10px; ">
+                        <option value="1" {ifeq $get_array['f_published'],1} selected="selected"{/if}>да</option>
+                        <option value="2" {ifeq $get_array['f_published'],2} selected="selected"{/if}>нет</option>
+                    </select>
+                </label>
+                {/if}        
+            {/if}
+        {/if}
+    </div>
+    
+    {if!empty $warn_text}
+        <div style="width:100%; padding:30px; font-size: 14px; text-align: center;">
+        {$warn_text}
+        </div>
+    {/if}
+    
+    {if!empty $list}
+        
+        <table>    
+            <thead>
+                <tr>
+                    <th width="5%">ID</th>
+                    <th width="25%">Название у агентства</th>
+                    <th width="70%">Наше название</th>
+                </tr>
+            </thead>
+            <tbody>
+                {php:$current_type = 0;}
+                {loop $list,$key,$item}
+                    {if!eq $current_type,$item['type']}
+                        <tr>
+                            <td colspan="4"><h2>{$item['complex_type']}</h2></td>
+                        </tr>
+                        {php:$current_type = $item['type'];}
+                    {/if}
+                    <tr>
+                        <td>{$item['id']}</td>
+                        <td>{$item['external_title']}</td>
+                        <td align="left" style="text-align: left;"> 
+                            <span style="position:relative;">
+                                <input type="text" class="autocomplete_input autocomplete"  data-type="{$item['type']}" value="{$item['complex_title']}" data-url="/admin/estate/estate_complexes_external/find_complex/" size="40" autocomplete="off" data-input="complex-{$item['id']}"/>
+                                <input type="button" class="save-complex" data-id="{$item['id']}" value="Сохранить" id="complex-{$item['id']}" data-value={$item['id_complex']} disabled="disabled="/>
+                                <span class="complex-saved" {ifeq $item['id_complex'],0}style="display:none;"{/if}></span>
+                            </span>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>            
+        </table>
+        
+    {/if}
+</div>        

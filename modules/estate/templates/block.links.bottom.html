@@ -1,0 +1,80 @@
+        <div class="objects-types-list">
+            <h2 class="header blue">Смотрите также</h2>
+            <ul>
+                {ifeq $links_type_row, 1}
+                    
+                    {if!eq $estate_type,'build'}
+                        <li><a href="/build/" title="Продажа жилой недвижимости">Продажа новостроек</a></li>   
+                    {/if}
+                    {if!eq $estate_type,'live'}
+                        <li><a href="/live/sell/" title="Продажа жилой недвижимости">Продажа жилой недвижимости</a></li>   
+                        <li><a href="/live/rent/" title="Аренда жилой недвижимости">Аренда жилой недвижимости</a></li>   
+                    {/if}
+                    {if!eq $estate_type,'country'}
+                        <li><a href="/country/sell/" title="Продажа загородной недвижимости">Продажа загородной недвижимости</a></li>   
+                        <li><a href="/country/rent/" title="Аренда загородной недвижимости">Аренда загородной недвижимости</a></li>   
+                    {/if}
+                    {if!eq $estate_type,'commercial'}
+                        <li><a href="/commercial/sell/" title="Продажа коммерческой недвижимости">Продажа коммерческой недвижимости</a></li>   
+                        <li><a href="/commercial/rent/" title="Аренда коммерческой недвижимости">Аренда коммерческой недвижимости</a></li>   
+                    {/if}
+                {elseifeq $links_type_row, 2}
+                    {if!eq $rooms,0}<li><a href="/build/sell/rooms-0/" title="Продажа квартир-студий">Квартиры-студии</a></li>{/if}
+                    {if!eq $rooms,1}<li><a href="/build/sell/rooms-1/" title="Продажа однокомнатных квартир">Однокомнатные квартиры</a></li>{/if}
+                    {if!eq $rooms,2}<li><a href="/build/sell/rooms-2/" title="Продажа двухкомнатных квартир">Двухкомнатные квартиры</a></li>{/if}
+                    {if!eq $rooms,3}<li><a href="/build/sell/rooms-3/" title="Продажа трехкомнатных квартир">Трехкомнатные квартиры</a></li>{/if}
+                    {if!eq $rooms,4}<li><a href="/build/sell/rooms-4/" title="Продажа многокомнатных квартир">Многокомнатные квартиры</a></li>{/if}
+                    <li><a href="/build/objects/" title="Спецпредложения в новостройках">Спецпредложения в новостройках</a></li>
+                    {if!eq $estate_type,'zhiloy_kompleks'}<li><a href="/zhiloy_kompleks/" title="Жилые комплексы">Жилые комплексы</a></li>
+                    {elseif!empty $low_rise}<li><a href="/zhiloy_kompleks/" title="Жилые комплексы">Жилые комплексы</a></li>{/if}
+                    {ifempty $low_rise}<li><a href="/zhiloy_kompleks/low_rise/" title="Малоэтажная застройка">Малоэтажная застройка</a></li>{/if}
+                {elseifeq $links_type_row, 3}
+                    {php:$show_districts = !empty($form_data['districts']) || !empty($form_data['district_areas']) || !empty($form_data['subways'])}
+                    {if!empty $show_districts}
+                        {if!empty $form_data['districts']}
+                            {php:$districts = $form_filter['districts']}
+                            {loop $districts,$k,$item}
+                                {if!eq $form_data['districts'],$item['id']}<li><a href="/build/sell/?rooms={$rooms}&districts={$item['id']}" title="{$item['title']}">{$item['title']}</a></li>{/if}
+                            {/loop $districts}
+                        {/if}
+                        {if!empty $form_data['district_areas']}   
+                            {php:$district_areas = $form_filter['district_areas']}
+                            {loop $district_areas,$k,$item}
+                                {if!eq $form_data['district_areas'],$item['id']}<li><a href="/build/sell/?rooms={$rooms}&district_areas={$item['id']}" title="{$item['title']}">{$item['title']}</a></li>{/if}
+                            {/loop $district_areas}
+                        {/if}
+                        {if!empty $form_data['subways']}
+                            {php:$subways = $form_filter['subways']}
+                            {loop $subways,$k,$item}
+                                {if!eq $form_data['subways'],$item['id']}<li><a href="/build/sell/?rooms={$rooms}&subways={$item['id']}" title="{$item['title']}">{$item['title']}</a></li>{/if}
+                            {/loop $subways}
+                        {/if}
+                        
+                    {else}       
+                        {php:$llist = $links_list['build']}                
+                        {loop $llist,$k,$item}
+                            {if!eq $real_url, $k}
+                                {if!eq $real_url, $item['url']}<li rel="{$item['url']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a></li>{/if}
+                            {else}
+                                {php:$page_title = $item['title'];}
+                            {/if}
+                        {/loop $llist}
+                        
+                            {php:$districts = empty($form_data['geodata_selected']) || $form_data['geodata_selected'] != 'districts'}
+                            {if!empty $districts}
+                                <li><a href="/build/sell/?geodata_selected=districts&rooms={$rooms}" title="{$page_title} в СПб">{$page_title} по районам</a></li>
+                            {/if}
+                            
+                            {php:$district_areas = empty($form_data['geodata_selected']) || $form_data['geodata_selected'] != 'district_areas'}
+                            {if!empty $district_areas}
+                                <li><a href="/build/sell/?geodata_selected=district_areas&rooms={$rooms}" title="{$page_title} в ЛО">{$page_title} в ЛО</a></li>
+                            {/if}
+                            
+                            {php:$subways = empty($form_data['geodata_selected']) || $form_data['geodata_selected'] != 'subways'}
+                            {if!empty $subways}
+                                <li><a href="/build/sell/?geodata_selected=subways&rooms={$rooms}" title="{$page_title} рядом с метро">{$page_title} рядом с метро</a></li>
+                            {/if}
+                    {/if}
+                {/if}
+            </ul>
+        </div>

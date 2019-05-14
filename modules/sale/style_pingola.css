@@ -1,0 +1,184 @@
+.o-wrap .offer-price {
+    font-size: 14px;
+    font-weight: bold;
+}
+.o-wrap .offer-old-price {
+    float: right;
+    font-weight: 700;
+    color: #797979;
+    text-decoration: line-through;
+    font-size: 11px;
+    padding-top: 2px;
+    display: inline-block;
+    vertical-align: top;
+}
+.o-wrap .rooms-quantity {
+    font-size: 12px;
+    font-weight: normal;
+}
+.o-wrap .rooms-quantity span {
+    font-weight: bold;
+}
+
+
+.o-wrap .offer-sticker{
+    height: 20px;
+    line-height: 20px;
+    font-size: 11px;
+}
+.o-wrap .sticker-left {
+    width: 5px;
+    height: 24px;
+    top: 0px;
+    left: -5px;
+    
+}
+.o-wrap .offer-sticker .sticker-left {
+    background-position: 5px -12px!important;
+}
+.o-wrap .offer-sticker .sticker-right{
+    height: 20px;
+    top: 0px;
+    background-position: 33px 26px!important;
+}
+.o-wrap.horizontal .offer-values{
+    font-size: 11px;
+    font-weight: bold;
+}
+.o-wrap .offer-phone{
+    background: url(/img/layout/offer-phone-pingola.png) #fff;
+}
+
+.o-wrap .offer-phone.disabled span {
+    top: 1px;
+}
+.o-wrap .offer-phone.disabled span.next-date {
+    font-size: 11px;
+    top: 15px;
+}
+.o-wrap .ov-timer {
+    font-size: 12px;
+    float: left;
+    padding-right: 21px;
+    background: url(/img/layout/alarm.png) right no-repeat;
+    padding-top: 2px;
+}
+.ov-timer.red {
+    color: #b80000;
+    background: url(/img/layout/alarm-red.png) right no-repeat;
+}
+
+/* VERTICAL */
+.o-wrap.horizontal{
+    width:880px;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    height:132px;
+    overflow:hidden;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+    
+}
+.o-wrap.horizontal:after{
+    content: '';
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
+
+.o-wrap.horizontal .offer-item{
+    width: 275px;
+    height: 98px;
+    overflow:hidden;
+    margin-top:16px;
+    display: inline-block;
+    *display: inline;
+    zoom: 1
+        
+}
+.o-wrap.horizontal .offer-price,
+.o-wrap.horizontal .rooms-quantity,
+.o-wrap.horizontal .offer-values,
+.o-wrap.horizontal .offer-phone{
+    position:absolute;    
+    left: 160px;
+}
+.o-wrap.horizontal .offer-item:first-child{
+    margin-left:0px;
+}
+.o-wrap.horizontal .offer-item:last-child{
+    margin-right:0px;
+}
+.o-wrap.horizontal .rooms-quantity{
+    top:20px;
+}
+.o-wrap.horizontal .offer-values{
+    top: 44px;
+}
+.o-wrap.horizontal .offer-phone{
+    top: 62px;
+    left: 119px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    height: 28px;
+    font-size: 14px;
+    width: 154px;
+    padding: 6px 0 0 8px;
+}
+.o-wrap.horizontal .offer-old-price{
+    display: none;
+}
+.o-wrap.horizontal .offer-img{
+    position: relative;
+    width: 155px;
+    margin-left: 5px;
+}
+.o-wrap.horizontal .offer-img img{
+    width:150px;
+} 
+
+
+/* VERTICAL */
+.o-wrap.vertical{
+    width:225px;
+    border:1px solid #ddd;
+}
+.o-wrap.vertical .offer-item{
+    width:165px;
+    margin:25px auto;
+} 
+.o-wrap.vertical .offer-item:first-child{
+    margin-top:15px;
+}
+.o-wrap.vertical .offer-item:last-child{
+    margin-bottom:15px;
+}
+.o-wrap.vertical .offer-item:after{content:".";display:block;height:0;line-height:0;clear:both;visibility:hidden;font-size: 0;}
+
+.o-wrap.vertical .offer-img img{
+    width:165px;
+} 
+.o-wrap.vertical .offer-values{
+    height: 23px;
+}
+.o-wrap.vertical .offer-phone{
+    height: 31px;
+    width: 148px;
+    padding-left: 10px;
+    line-height: 33px;    
+}
+.o-wrap.vertical .ov-timer{
+    font-weight: bold;
+    font-size:13px;
+}
+.o-wrap.vertical .offer-phone.disabled{
+    line-height:18px;
+}
+.o-wrap.vertical .rooms-quantity {
+    font-size: 15px;
+    margin-bottom:5px;
+}
+
+

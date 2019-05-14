@@ -1,0 +1,27 @@
+
+
+{if!empty $form_submit}
+    {ifempty $stats}<p>За данный промежуток времени статистики нет</p>
+    {else}
+    <div id="result_info_stats">
+        <table width="400" cellspacing="0" cellpadding="10">
+          <tbody>
+              <tr>
+              {loop $data_titles,$key,$item}
+                <th width="100">{$item[1]}</th>
+              {/loop $data_titles}
+              </tr>
+              {loop $stats,$key,$item}
+                  <tr>
+                      <td>{$item['idate']}</td>
+                      <td>{$item['subscribed']}</td>
+                      <td>{$item['unsubscribed']}</td>
+                      <td>{$item['changes']}</td>
+                  </tr>
+              {/loop $stats} 
+        </tbody>
+        </table>
+    </div>
+    {/if}    
+{/if}
+

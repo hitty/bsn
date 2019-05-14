@@ -1,0 +1,61 @@
+<i class="title">BSN.Target<i> / Статистика</i> <a href="/members/context_campaigns/">Вернуться к списку кампаний</a></i>
+<div class="chart-box">
+    <span class="controls-box">
+        <div class="list-selector change-campaign">
+            <a href="#" class="pick">{$campaign_info['title']}</a>
+            <a href="#" class="select">...</a>
+            <input type="hidden" id="filter_campaign" name="{$key}" value="{$campaign_info['id']}"/>
+            <ul class="list-data" id="main_filter_campaign">
+                {loop $cmp_list,$k,$item}
+                    <li data-value="/members/context_campaigns/{$item['id']}/stats/?ajax=true&cmp={$item['id']}" data-id="{$item['id']}" class="">{$item['title']}</li>
+                {/loop $cmp_list}
+            </ul>
+        </div>
+        <span class="chart pie"></span>
+        <span class="chart line"></span>
+        <span class="chart column"></span>
+        <div class="list-selector change-chart blue">
+            <a href="#" class="pick">Показы</a>
+            <a href="#" class="select">...</a>
+            <input type="hidden" id="filter_chart" name="{$key}" value="show"/>
+            <ul class="list-data" data-simplebar="init">
+                <li data-value="show">Показы</li>
+                <li data-value="click">Клики</li>
+                <li data-value="ctr">CTR %</li>
+                <li data-value="fin">Расходы</li>
+            </ul>
+        </div>
+    </span>                                    
+    <span class="chart-area">
+        {loop $cmp_list,$k,$item}
+            <span id="{$item['id']}-graphic-show-l"></span>
+            <span id="{$item['id']}-graphic-show-c"></span>
+            <span id="{$item['id']}-graphic-show-p"></span>
+            
+            <span id="{$item['id']}-graphic-click-l"></span>
+            <span id="{$item['id']}-graphic-click-c"></span>
+            <span id="{$item['id']}-graphic-click-p"></span>
+            
+            <span id="{$item['id']}-graphic-ctr-l"></span>
+            <span id="{$item['id']}-graphic-ctr-c"></span>
+            <span id="{$item['id']}-graphic-ctr-p"></span>
+            
+            <span id="{$item['id']}-graphic-fin-l"></span>
+            <span id="{$item['id']}-graphic-fin-c"></span>
+            <span id="{$item['id']}-graphic-fin-p"></span>
+        {/loop $cmp_list}
+        <span class="x-title"></span>
+        <span class="y-title"></span>
+    </span>
+</div>
+<!--
+<div class="table-blocks">
+{if!empty $cmp_list}
+    {loop $cmp_list,$k,$item}
+        <div class="adv-table-{$item['id']}" id="adv_table_{$item['id']}"></div>
+    {/loop $cmp_list}
+{/if}
+</div>
+-->
+<div class="members-stats-wrap" data-campaign_id="" data-type="cabinet-targeting_stats"></div>
+<div id="advs_table" class="advs_table"></div>

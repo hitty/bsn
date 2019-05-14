@@ -1,0 +1,35 @@
+<div class="payment-info">
+    <div class="pay-method">1. <strong>Робокасса</strong></div>
+    <div id="robokassa">
+        <img src="//st1.bsn.ru/img/robokassa.png" />
+    Моментальная онлайн-оплата кредитными картами <strong>VISA</strong>, <strong>Mastercard</strong>, <strong>электронными деньгами WebMoney</strong>, <strong>Яндекс.Деньги</strong>, <strong>RBK-Money</strong>, рубли <strong>ВКонтакте</strong>, оплата через <strong>терминалы Элекснет</strong> или <strong>QIWI</strong>. Оплата производится через сервис «<span class="external-link" data-link="http://www.robokassa.ru/" title="ROBOKASSA">ROBOKASSA</span>».<br/><br/>
+    Безопасность оплаты гарантируется многолетним опытом работы компании «<span class="external-link" data-link="http://www.robokassa.ru/"  title="ROBOKASSA">ROBOKASSA</span>» в сфере электронных платежей.
+        {if!empty $protect}
+            {ifeq $query,'invalid'}
+                <p>Ошибка! Введены неверные данные.</p>
+            {/if}
+            <form method="post" action="" id="pay-form">
+                <input type="hidden" name="inv_id" value="{$inv_id}"/>
+                <input type="hidden" name="inv_desc" value="{$inv_desc}"/>
+                <span class="bbbfont">Сумма </span>
+                <input type="hidden" name="inv_summ" value="{$inv_summ}" class="digit pay-input"/> <span class="pay-input"> {$inv_summ} руб.</span>
+               
+                <input type="submit" name="paying" value="Оплатить" class="flatselect"/>
+            </form>
+        {/if}
+    </div>
+    <div class="pay-short-info">
+        <a name="promoted"></a>
+            
+        <ul>
+            <li>*<b>"СТАНДАРТ"</b>: Размещение до <b>3</b> объявлений для частных лиц:</li>
+            <li>- жилая недвижимость: <strong>бесплатно</strong></li>
+            <li>- загородная недвижимость: <strong>бесплатно</strong></li>
+            <li>- коммерческая недвижимость: <strong>бесплатно</strong></li>
+            <li style="padding-top: 4px;"><b>"СТАНДАРТ": свыше 3</b> объявлений для частных лиц: <b>5 руб/сут</b></li>
+            <li style="padding-top: 4px;"><strong><a href="//st1.bsn.ru/img/layout/promo_item.jpg" target="_blank" alt="Промо объект">"ПРОМО"</a></strong> : <strong>расширенная строка</strong> по результатам поисковой выборки : <strong>15 руб/сут</strong></li>
+            <li style="padding-top: 4px;"><strong><a href="//st1.bsn.ru/img/layout/premium_item.jpg" target="_blank" alt="Премиум объект">"ПРЕМИУМ"</a></strong>: <strong>расширенная строка с позиционированием на первых местах</strong> в результатах поисковой выборки: <strong>30 руб/сут</strong></li>
+        </ul>
+        Вы можете ознакомиться с <a href="//st1.bsn.ru/img/oferta.doc" title="Договор для физических лиц" >договором для физических лиц</a> на предоставление услуг по размещению информации на портале <a href="https://www.bsn.ru/" title="BSN.ru">www.bsn.ru</a>.<br />При всех возникших у Вас вопросах звоните к нам в офис: (812) 655-02-13
+    </div>
+</div>

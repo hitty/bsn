@@ -1,0 +1,35 @@
+{php:$cottage_contacts = !empty($item['seller']) || !empty($item['developer_title']);}
+{if!empty $cottage_contacts}
+<div class="contacts-wrap clearfix br3 shadow">
+        <div class="contacts-info text-overflow br3">
+            {ifempty $item['agency_advert']}
+                {if!empty $item['agency_title']}
+                    {if!eq $item['agency_title'],'Частное лицо'}
+                        {if!empty $item['agency_photo_name']}
+                            <img src="{static:/}img/uploads/sm/{$item['agency_subfolder']}/{$item['agency_photo_name']}" alt="{$item['agency_title']}" class="logo" />
+                        {/if}
+                        <span class="internal-link agency-name" data-link="/organizations/company/{$item['agency_chpu_title']}/">
+                            {$item['agency_title']}
+                        </span>
+                    {/if}
+                {/if}
+            {/if}
+        </div>
+
+        <div class="agency-info">
+        {if!empty $payed_format}
+            <div class="phone-wrap">
+                <p class="hidden-phone" id="{if!empty $info['agency_advert_phone']}comagic_phone{else}seller_phone{/if}">
+                    {if!empty $info['agency_advert_phone']}<span onClick="if(!_debug)  try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Показать телефон']);} catch(e){}" class="{ifempty $payed_format}dashed-link-blue{else}button{/if}" data-icon="phone">Показать телефон</span>{if!empty $info['work_status_title']}<span class="work-status">{$info['work_status_title']}</span>{/if}
+                    {else}<span onClick="if(!_debug)  try{_gaq.push(['_trackEvent', 'Целевое действие', 'Показать телефон']);} catch(e){}" class="{ifempty $payed_format}dashed-link-blue{else}button{/if}"  data-icon="phone">Показать телефон</span>{if!empty $info['work_status_title']}<span class="work-status">{$info['work_status_title']}</span>{/if}
+                    {/if}
+                    
+                </p>
+                <p class="shown-phone"></p>
+            </div>
+            {/if}
+            
+            <span data-url="/applications/popup/?estate_type={$estate_type}&id={$item['id']}&deal_type=sell" class="button grey popup" data-location="estate-application" data-icon="message" data-url="/applications/popup/" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }" data-location="estate-application" data-icon="message" >Оставить заявку</span>
+        </div>
+</div>
+{/if}

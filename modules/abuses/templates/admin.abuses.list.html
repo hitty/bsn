@@ -1,0 +1,122 @@
+<h1 class="pageTitle">Жалобы</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_date = document.getElementById('f_date').value;
+            var __filter_status = document.getElementById('f_status').options[document.getElementById('f_status').selectedIndex].value;
+            var __filter_category = document.getElementById('f_category').options[document.getElementById('f_category').selectedIndex].value;
+            var __filter_user = document.getElementById('f_user').options[document.getElementById('f_user').selectedIndex].value;
+            var __url = '{root:/admin/service/abuses/}';
+            var __get = new Array();
+            if(__filter_date!='') __get.push('f_date='+__filter_date);
+            if(__filter_status!=0) __get.push('f_status='+__filter_status);
+            if(__filter_category!=0) __get.push('f_category='+__filter_category);
+            if(__filter_user!=0) __get.push('f_user='+__filter_user);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Агентство:
+            <select id="f_user" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $agencies,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_user'],$val['id']} selected="selected"{/if}}>{$val['title']}</option>
+                {/loop $agencies}
+            </select>
+        </label>
+        <label>
+            Дата:
+            <input type="text" id="f_date" value="{$get_array['f_date']}" onchange="filter_activate()" placeholder="часть даты">
+        </label>
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>
+        <label>
+            Категория:
+            <select id="f_category" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_category'],$val['id']} selected="selected"{/if}}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="20%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Жалоба</th>
+                    <th>Агентство</th>
+                    <th>Статус</th>
+                    <th>Объект</th>
+                    <th>Дата жалобы</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>
+                            {$item['category_title']}
+                            {if!empty $item['text']}<p style="color:#666; font-size:11px; padding: 5px 0;">{$item['text']}</p>{/if}
+                        </td>
+                        <td>
+                            {$item['agency_title']}
+                            {if!empty $item['manager']}<p style="font-style:italic; color:#888; font-size:11px;">{$item['manager']}</p>{/if}
+                        </td>
+                        <td>
+                            {ifeq $item['status'],1}<span class="abuse-red">Не обработана</span>
+                            {else}<span class="abuse-green">Обработана</span>
+                            {/if}
+                        </td>
+                        <td>
+                            <a href="/{$item['estate_url']}/{$item['id_object']}" target="_blank">{$item['estate_type']}, id:{$item['id_object']}</a>
+                            
+                        </td>
+                        <td>{php:echo date('d.m.Y H:i:s',strtotime($item['abuse_date']))}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/service/abuses/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                        </td>
+                        
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

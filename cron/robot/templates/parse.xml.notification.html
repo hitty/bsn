@@ -1,0 +1,18 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{php:echo trim($agency['user_name'])}</b>!            
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    {if!empty $file_error_text}
+        {$file_error_text}
+    {else}
+        <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+            Сформирован <a href="https://www.bsn.ru/members/objects/agencies_uploads/pdf/{$process_id}/">новый отчет</a> о загрузке объектов.<br />
+            Управлять загрузкой вы можете в Личном Кабинете в разделе <a href="https://www.bsn.ru/members/objects/agencies_uploads/">Офис > Загрузка объектов</a>
+        </td>
+    {/if}
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

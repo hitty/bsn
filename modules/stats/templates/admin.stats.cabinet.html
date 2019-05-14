@@ -1,0 +1,51 @@
+        
+        
+        
+        {ifempty $info}<p style="padding: 10px 0;">За данный промежуток времени статистики нет</p>
+        {else}
+            <table width="911" cellspacing="0" cellpadding="10">
+              <tbody>
+                  <tr>
+                    <th width="200">Дата</th>
+                    <th width="200">Всего</th>
+                    <th width="200">Аренда</th>
+                    <th width="200">Продажа</th>
+                    <th width="200">Обычные платные аренда</th>
+                    <th width="200">Обычные платные продажа</th>
+                    <th width="200">Промо аренда</th>
+                    <th width="200">Промо продажа</th>
+                    <th width="200">Премиум аренда</th>
+                    <th width="200">Премиум продажа</th>
+                  </tr>
+                  {loop $info,$key,$item}
+                    {if!eq $key,'total'}
+                    <tr>
+                        <td>{$item['date']}</td>
+                        <td>{$item['total']}</td>
+                        <td>{$item['rent']}</td>
+                        <td>{$item['sell']}</td>
+                        <td>{$item['common_payed_rent']}</td>
+                        <td>{$item['common_payed_sell']}</td>
+                        <td>{$item['promo_rent']}</td>
+                        <td>{$item['promo_sell']}</td>
+                        <td>{$item['premium_rent']}</td>
+                        <td>{$item['premium_sell']}</td>
+                    </tr>
+                    {else}
+                    <tr>
+                        <th><b>{$item['date']}</b></th>
+                        <th>{$item['total']}</th>
+                        <th>{$item['rent']}</th>
+                        <th>{$item['sell']}</th>
+                        <th>{$item['common_payed_rent']}</th>
+                        <th>{$item['common_payed_sell']}</th>
+                        <th>{$item['promo_rent']}</th>
+                        <th>{$item['promo_sell']}</th>
+                        <th>{$item['premium_rent']}</th>
+                        <th>{$item['premium_sell']}</th>
+                    </tr>
+                    {/if}
+                  {/loop $info}
+            </tbody>
+            </table>
+          {/if}   

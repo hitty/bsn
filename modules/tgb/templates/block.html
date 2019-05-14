@@ -1,0 +1,27 @@
+{ifeq $action,'last'}
+    <script>
+        var _position = '{$position}';
+        window.location.href = "https://www.bsn.ru/tgb/lastnd/{if!empty $position}{$position}/{/if}";      
+    </script>    
+{elseifeq $action,'dizbook'}
+    <script>
+        var _position = '{$position}';
+        window.location.href = "https://www.bsn.ru/tgb/dizbooklast/{if!empty $position}{$position}/{/if}";      
+    </script>    
+{else}
+    <div class="tgb-list  {if!empty $position}{$position}{/if} {if!empty $action}{$action}{/if}" id="tgb-list" {ifempty $list}style="height:0px; border:none; padding:0; margin:0;"{/if}>
+    {if!empty $list}
+        {if!eq $position, 'right'}<p id="tgb-title">Спецпредложения от застройщиков Санкт-Петербурга</p>{/if}
+        {loop $list,$key,$item}
+            <div class="tgb naydidom">
+                <a href="{$item['direct_link']}" title="{quoted:$item['title']}" data-from="{$action}" data-type="tgb" data-id="{$item['id']}" data-position="{if!empty $position}{$position}{else}top{/if}" target="_blank">
+                    {php:$_index = rand(0,1);}
+                    <img class="lazy" data-src="{ifempty $item['photo']}{$img_url[$_index]}{static:/}img/uploads/tgb/{$item['img_src']}{else}{$item['photo']}{/if}" alt="{quoted:$item['title']}" />
+                    {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+                    {if!eq $action,'dizbooklast'}<p>{$item['title']}</p>{/if}
+                </a>
+            </div>
+        {/loop $list}
+    {/if}
+    </div> 
+{/if}

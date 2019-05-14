@@ -1,0 +1,18 @@
+<div class="subscriptions-container">
+    <h1>Подтверждение подписки на запросы</h1>
+    {if!empty $error}
+        <div class="notification msgerror" id="scroll_to_message">
+            {$error}
+        </div>
+    {/if}
+    {if!empty $success_registration}
+        <div class="notification success" id="scroll_to_message">
+            Спасибо за подтверждение подписки. Вам на Email выслано письмо о регистрации нового аккаунта на сайте BSN.ru
+        </div>
+    {/if}
+    {if!empty $success_subscribe}
+        <div class="notification success" id="scroll_to_message">
+            Спасибо за подтверждение подписки. Вам надо <a href="/authorization/" title="Авторизация на сайте BSN.ru">авторизоваться</a> чтобы просмотреть список ваших подписок.
+        </div>
+    {/if}
+</div>

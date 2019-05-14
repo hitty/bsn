@@ -1,0 +1,42 @@
+    <!--<h1 id="members-h1">Личный кабинет</h1>-->
+    <h2 id="members-h2">Настройки профиля</h2>
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror" id="scroll_to_message">
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess" id="scroll_to_message">
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert" id="scroll_to_message">
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+     <div id="personalinfo" {if!empty $form_auth_data['id_tarif']}class="wide specialist"{else}{if!empty $form_auth_data['id_agency']}class="wide"{/if}{/if}>
+         <form name="personalinfo" id="item-edit-form" method="POST" action="/members/personalinfo/" class="grey" >
+            
+            <div class="rmp">
+                <div id="sex-select">
+                    
+                </div>
+                <p id="file-upload-info">
+                    <h3 class="btitle">Аватар</h3>
+                    <input type="file" name="file_upload" id="file_upload" data-id="{if!empty $data_mapping['id']['value']}{$data_mapping['id']['value']}{else}0{/if}" data-url="/members/personalinfo/photos/" data-session-id="{php:echo session_id();}" />
+                </p>
+                
+            </div>
+            
+           
+            <div class="lrmp">
+                {include /modules/members/templates/form.estate.html}
+            </div>     
+            <input type="hidden" name="submit_form" id="submit_form" value="1" /> 
+            <input type="submit" class="button blue" value="Сохранить">
+        </form>
+    </div>
+   

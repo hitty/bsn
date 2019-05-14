@@ -1,0 +1,38 @@
+{ifempty $block}
+<div id="movies-wrap">
+    <div class="search-filters">
+        <a href="/video_konkurs_2015/" title="Заглавная страница конкурса" class="to-main">Загрузи свое видео</a>
+        <div class="orderby">
+            <input type="hidden" id="sortby" value="{$sortby}" />
+            <span>Сортировать</span>
+            <a href="/video_konkurs_2015/list/?sortby={ifeq $sortby,1}2{else}1{/if}" class="sort{ifeq $sortby,1} down{elseifeq $sortby,2} up{/if}">По номеру</a>
+            <a href="/video_konkurs_2015/list/?sortby={ifeq $sortby,3}4{else}3{/if}" class="sort{ifeq $sortby,3} down{elseifeq $sortby,4} up{/if}">По популярности</a>
+            <a href="/video_konkurs_2015/list/?sortby={ifeq $sortby,6}5{else}6{/if}" class="sort{ifeq $sortby,5} down{elseifeq $sortby,6} up{/if}">По названию ЖК</a>
+        </div>
+    </div>
+    <div id="movies-list">
+{/if}
+{if!empty $list}
+    {loop $list, $k, $item}
+        <div class="item">
+            {if!empty $item['external_link']}
+                <embed src='/js/spruto/player.swf'
+                type='application/x-shockwave-flash' allowfullscreen='true'
+                allowScriptAccess='always' width='460' height='270'
+                flashvars="settingsUrl=https://{Host::$host}/video_player/?name={$item['external_link']}&posterUrl=//st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo_name']}&title={$item['title']}"/>
+            {/if}
+            
+            <div class="likes{ifempty $item['can_vote']} active{/if}" data-id={$item['id']}>{$item['votings']}</div>
+            <a href="/{ifeq $item['complex_type'],1}zhiloy_kompleks{else}cottedzhnye_poselki{/if}/{$item['chpu_title']}/" class="title" title="{ifeq $item['complex_type'],1}ЖК{else}КП{/if} «{$item['title']}»" target="_blank">{ifeq $item['complex_type'],1}ЖК{else}КП{/if} «{$item['title']}»</a>
+            <div class="info-item">
+                <span class="number">{$item['id']}</span>
+                <span class="user">{$item['name']}</span>
+            </div>
+        </div>
+    {/loop $list}
+{/if}
+{ifempty $block}
+    </div>
+    {if!empty $paginator}<span class="show-more"></span>{/if}
+</div>
+{/if}

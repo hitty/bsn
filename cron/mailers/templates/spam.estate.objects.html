@@ -1,0 +1,58 @@
+ <font face="arial">
+{ifempty $list}
+<div style="width:800px; text-align:center; font-size:16px;">Новых объектов не появилось</div>
+{else}   
+    <table width="100%" cellspacing="0" cellpadding="2" border="0" bgcolor="#ffffff" align="center" style="border-collapse:collapse;">
+        <tr style="border: 1px solid #ccc;">
+            <th class="col_object" style="width: 3%;">Тип объекта</th>
+            <th class="col_address" style="width: 35%;">Адрес</th>
+            <th class="col_metro" style="width: 20%;">Метро</th>
+            <th class="col_square" style="width: 17%;">Площади<br />(общ. / жил. / кух.)</th>
+            <th class="col_price" style="width: 12%;">Цена<br />(Общ., за м<sup>2</sup>)</th>
+            <th class="col_price" style="width: 14%;">Дата обновление</th>
+        </tr>
+        {loop $list,$k,$item}
+        
+        <tr style="border: 1px solid #ccc;">
+            <td style="border: 1px solid #ccc;"class="col_object">
+                {ifeq $item['id_type_object'],1}
+                    {$item['rooms_total']}ккв
+                {elseifeq $item['id_type_object'],2}
+                    {$item['rooms_sale']}к в {$item['rooms_total']}ккв
+                {else}
+                    {$item['type_object']}
+                {/if}
+                
+            </td>
+            <td style="border: 1px solid #ccc;"class="col_address">
+                <a href="https://www.bsn.ru/live/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" target="_blank">
+                    {if!empty $item['txt_addr']}{$item['txt_addr']}<br />{/if}
+                    {if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}
+                </a>
+            </td>
+            <td style="border: 1px solid #ccc;"class="col_metro">{if!empty $item['subway']}<span class="metro-station">{$item['subway']}</span>{/if}</td>
+            <td style="border: 1px solid #ccc;"class="col_square">
+                {ifgt $item['square_full'],0}{do:echo number_format($item['square_full'],1,'.',' ')}{else}&ndash;{/if}
+                /
+                {ifgt $item['square_live'],0}{do:echo number_format($item['square_live'],1,'.',' ')}{else}&ndash;{/if}
+                /
+                {ifgt $item['square_kitchen'],0}{do:echo number_format($item['square_kitchen'],1,'.',' ')}{else}&ndash;{/if}
+            </td>
+            <td style="border: 1px solid #ccc;"class="col_price">
+                <span class="price">{do:echo number_format($item['cost'],0,'.',' ')} <span class="currency-rub">руб.</span>
+                    {ifeq $item['by_the_day'],1} в сутки{/if}
+                </span>
+                {if!eq $item['rent'],1}
+                    {ifeq $item['id_type_object'],1}
+                        {ifgt $item['square_full'],0}<span class="price-per-meter" style="display: block; clear:both; color:#888; font-style:italic;">{do:echo number_format($item['cost']/$item['square_full'],0,'.',' ')} за м<sup>2</sup></span>{/if}
+                    {elseifeq $item['id_type_object'],2}
+                        {ifgt $item['square_live'],0}<span class="price-per-meter">{do:echo number_format($item['cost']/$item['square_live'],0,'.',' ')} за м<sup>2</sup></span>{/if}
+                    {/if}
+                {/if}
+            </td>
+            <td>{$item['date_change']}</td>
+        </tr>
+        {/loop $list}
+    </table>
+{/if}
+    </font>

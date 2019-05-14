@@ -1,0 +1,17 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день, <b>{$data['manager_name']}</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        В компанию {$data['agency_title']} специалисту {$data['user_title']} поступил новый вопрос:
+        <br /><br />
+        <p>Автор: {$env['author']}</p>
+        <p>Дата: {$env['datetime']}</p>
+        <p>Раздел: {$env['section']}</p>
+        <p>Текст: {$env['text']}</p><br />
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

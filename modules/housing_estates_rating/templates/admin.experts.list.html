@@ -1,0 +1,119 @@
+<h1 class="pageTitle">Жилые комплексы | Эксперты</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/service/housing_estates_rating/experts/add/" class="button">Добавить эксперта</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_agreed = document.getElementById('f_agreed').value;
+            var __url = '{root:/admin/service/housing_estates_rating/experts/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_agreed!='') __get.push('f_agreed='+__filter_agreed);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+			document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Имя:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть имени">
+        </label>
+        <label>
+            Приглашение:
+            <select id="f_agreed" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                
+                {loop $agreeds,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_agreed'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $agreeds}
+            </select>
+        </label>        
+    </div>
+    {if!empty $list}
+        <table class="housing-estates-experts">    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="20%">
+                <col class="col2" width="15%">
+                <col class="col2" width="25%">
+                <col class="col2" width="20%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО, email</th>
+                    <th>Логин / пароль</th>
+                    <th>Районы</th>
+                    <th>Статус email</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>
+                            {php:$show_name = !empty($item['name']) || !empty($item['lastname'])}
+                                <a href="/zhiloy_kompleks/votes/?invite_code={$item['token']}" target="_blank" title="Авторизоваться под пользователем">
+                                {if!empty $show_name}{$item['name']} {$item['lastname']}{else}noname{/if}
+                            </a>  
+                            <br />email: {$item['email']}
+                            {if!empty $item['agency_title']}<br />агентство «{$item['agency_title']}»{/if}
+                        </td>
+                        <td>
+                            <a href="/admin/access/users/edit/{$item['id_user']}/" target="_blank" title="Редактировать данные авторизации">
+                                {$item['login']} / {$item['original_passwd']}
+                            </a>
+                        </td>
+                        <td>
+                            {if!empty $item['photo_name']}
+                            <a href="/img/uploads/big/{$item['photo_subfolder']}/{$item['photo_name']}" target="_blank" style="float: left; margin-right: 5px;">
+                                <img src="/img/uploads/sm/{$item['photo_subfolder']}/{$item['photo_name']}">
+                            </a>
+                            {/if}
+                            {$item['district_title']}
+                            {ifeq $item['agreed'],1}
+                                {if!empty $item['total']}
+                                    <span style="display: block;padding-top: 10px; color:#818181">
+                                        Проголосовано за {$item['votings']} из {$item['total']} ЖК 
+                                    </span>
+                                {/if}
+                            {/if}
+                        </td>
+                        <td class="sent-mail-status{if!eq $item['sent_mail'],2} active{/if}">
+                            <span class="sended button disabled">Приглашение отправлено</span>
+                            <span class="send button" data-id="{$item['id']}">Отправить приглашение</span>
+                            <span class="agreed{ifeq $item['agreed'],1} green{/if}">
+                                {ifeq $item['agreed'],1}Принял приглашение
+                                {else}Не принял приглашение
+                                {/if}
+                            </span>
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/service/housing_estates_rating/experts/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/service/housing_estates_rating/experts/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,29 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день, <b>{$data['manager_name']}</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Поступила новая заявка:
+        <br /><br />
+        
+        {if!empty $data['universal_app']}
+            <p>Общая заявка раздела {$data['universal_app_title']} 
+            {if!empty $data['is_specialist']} специалиста {$data['user_title']} {/if}
+            {if!empty $data['agency_title']} компании {$data['agency_title']}{/if}</p>
+        {else}
+            <p>Объект: {$data['campaign_title']}</p>
+        {/if}
+        
+        {if!empty $data['user_name']}
+            <p>Имя: {$data['user_name']}</p>
+        {/if}
+        {if!empty $data['user_comment']}
+            <p>Комментарий: {$data['user_comment']}</p>
+        {/if}
+        <p>Партнер: {$data['agency_title']}</p>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

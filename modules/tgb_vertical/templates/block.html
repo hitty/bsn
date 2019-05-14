@@ -1,0 +1,6 @@
+{if!empty $item}
+        {php:$_index = rand(0,1);}
+        <span class="external-link" style="background-image: url({ifempty $item['img_link']}{$img_url[$_index]}{static:/}{$item['img_folder']}/{$item['img_src']}{else}{$item['img_link']}{/if}) ;"  data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="tgb_vertical" data-id="{$item['id']}" id="tgb-vertical-img">
+            {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+        </span>
+{/if}

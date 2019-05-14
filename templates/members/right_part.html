@@ -1,0 +1,529 @@
+<div class="right-column members {ifeq $page,'context_campaigns'}{ifempty $campaigns_list_page}{ifempty $campaigns_stats_page}topped{/if}{/if}{/if} {if!empty $stats_page}stats{/if}">
+    <div id="right-column">
+        {if!in $page_type,'business_centers','business_centers_renters'}
+            {php:$premium_type = (int)(mt_rand(0,3));}
+        {/if}
+        {if!empty $step_number}
+            <div class="add-object-manage">
+                {ifeq $step_number,1}
+                    <div class="fb-hint"><div class="fb-hint-lamp"></div>Как частное лицо вы можете бесплатно разместить один объект по любому типу недвижимости.</div>
+                {elseifeq $step_number,2}
+                    <button id="next_step" class="step-{$step_number} disabled" value="Следующий шаг">Следующий шаг</button>
+                    <div class="fb-hint">
+                        <div class="fb-hint-lamp"></div>При заполнении адреса начните вводить населенный пункт или город.<br />Система предложит выбрать из списка.<br/>Район города или области заполнятся автоматически.
+                    </div>
+                {elseifeq $step_number,3}  
+                    {ifeq $info['published'],1}
+                        <button id="publish" class="step-{$step_number} green published" value="Сохранить">Сохранить</button>  
+                    {else}
+                        <button id="publish" class="step-{$step_number} green disabled">Опубликовать</button>
+                        <span class="internal-link" id="save">Сохранить</span>
+                    {/if}
+                {/if}
+            </div>
+        {elseifeq $page,'cabinet'}
+                {ifeq $status['title'],'published'}
+                    <div class="fb-hint{ifeq $status['title'], 'published'}{ifempty $count_list['published_total']} empty-list{/if}{/if}"><div class="fb-hint-lamp"></div>В этом разделе вы можете управлять опубликованными объектами. Редактировать или отправлять в архив.</div>
+                {elseifeq $status['title'],'archive'}
+                    <div class="fb-hint"><div class="fb-hint-lamp"></div>Архивные объекты можно снова опубликовать или удалить навсегда. В архив объекты попадают автоматически после завершения периода публикации.</div>
+                {elseifeq $status['title'],'moderation'}
+                    <div class="fb-hint"><div class="fb-hint-lamp"></div>Объекты в данном разделе проходят модерацию и будут опубликованы на сайте после подтверждения.</div>
+                {elseifeq $status['title'],'draft'}
+                    <div class="fb-hint"><div class="fb-hint-lamp"></div>Черновики ваших объектов. Количество черновиков не ограничено.</div>
+                {/if}
+        {elseifeq $page,'objects_subscriptions'}
+                <div class="fb-hint"><div class="fb-hint-lamp"></div>Подпишитесь на интересующие вас объекты и получайте обновления автоматически.</div>
+        {elseifeq $page,'favorites'}
+                <div class="fb-hint"><div class="fb-hint-lamp"></div>Добавляйте интересующие предложения в избранное чтобы иметь быстрый доступ к контактам.</div>
+        {elseifeq $page,'finances'}
+                <div class="fb-hint"><div class="fb-hint-lamp"></div>В этом разделе отображаются все финансовые операции. Поступления и списания средств с баланса.</div>
+        {elseifeq $page,'personalinfo'}
+             <button id="save" value="Сохранить">Сохранить</button>
+        {elseifeq $page,'office_edit'}
+             {php:$enabled = !empty($full_info['can_edit']) && $full_info['can_edit'] == 1;}
+             <button id="office-save" {ifempty $enabled}class="disabled"{/if} value="Сохранить анкету" data-id="">Сохранить анкету</button>
+             <a href="/members/office/staff/" class="close-without-saving" title="Закрыть без сохранения">Закрыть без сохранения</a>
+        {elseifeq $page,'office_list'}
+             <div class="fb-hint"><div class="fb-hint-lamp"></div>Это список сотрудников вашей компании. <br /><br />Связаться с любым сотрудником можно через личное сообщение. <br /><br />Добавлять и редактировать сотрудников, пополнять баланс сотрудников может администратор аккаунта. Он отмечен специальным бейджем "админ". <br /><br />Если на аватарке сотрудника показан зеленый квадрат, то данный сотрудник сейчас находится на сайте.</div>
+        {elseifeq $page,'pay_objects'}
+             <div class="fb-hint"><div class="fb-hint-lamp"></div>Внимательно проверьте все условия и период применения услуги.<br /> Если какие то объекты добавлены по ошибке, прямо на этой странице удалите их. Система пересчитает все автоматически.<br /> Обратите внимание, чтобы применить услугу к выбранным объектам, баланс аккаунта должен быть не меньше стоимости услуги.</div>
+        {elseifeq $page,'pay_object'}
+            <div class="fb-hint"><div class="fb-hint-lamp"></div>Внимательно проверьте все условия и период применения услуги.<br /> Если какие то объекты добавлены по ошибке, прямо на этой странице удалите их. Система пересчитает все автоматически.<br /> Обратите внимание, чтобы применить услугу к выбранным объектам, баланс аккаунта должен быть не меньше стоимости услуги.</div>
+        {elseifeq $page,'context_campaigns'}
+            {ifempty $campaigns_list_page}
+                {ifempty $campaigns_stats_page}
+                    <button class="green" id="campaign-save-button" value="Сохранить">Сохранить кампанию</button>
+                    <div class="fb-hint upped"><div class="fb-hint-lamp"></div>Запланируйте старт кампании. Добавьте объявления. Настройте таргетинг. После проверки модератором ваша кампания запустится автоматически.</div>
+                {else}
+                    <div class="fb-hint full-upped"><div class="fb-hint-lamp"></div>Графики в этом разделе можно фильтровать для удобства. Мы предусмотрели для вас три вида оформления.</div>
+                {/if}
+            {else}
+                <div class="fb-hint topped"><div class="fb-hint-lamp"></div>Расскажите своей аудитории о ваших предложениях и услугах. Создайте любое количество рекламных кампаний. Задайте ограничения по бюджету для каждой кампании.Управляйте объявлениями внутри кампаний. Анализируйте показатели, изменяйте таргетинги.<br/>В объявлениях можно использовать изображения размером:<ul style="list-style-type:disc;margin-left:20px;text-indent:-5px;"><li>760x100</li><li>200x300</li><li>200x100</li><li>300x80</li><li>80x80</li></ul></div>
+            {/if}
+        {elseifeq $page_type,'business_centers'}<div class="fb-hint"><div class="fb-hint-lamp"></div>Управляйте занятостью помещений в Бизнес-Центре.<br/><br/>Назначайте арендаторов и сроки аренды. Если необходимо добавить новые фотографии Бизнес-Центра, планировки и фотографии офисов, обратитесь к вашему менеджеру.</div>
+        {elseifeq $page_type,'business_centers_renters'}<div class="fb-hint"><div class="fb-hint-lamp"></div>Это список ваших арендаторов. <br/><br/>Для того, чтобы назначить помещению арендатора на странице редактирования Бизнес-Центра, его нужно сначала добавить на этой странице. <br /><br />В столбце Арендовано отображается суммарная занимаемая площадь указанного арендатора.</div>
+        {elseifeq $page_type,'agencies_uploads'}<div class="fb-hint"><div class="fb-hint-lamp"></div>В данном разделе вы можете управлять автоматической загрузкой объектов на сайт. Включать и выключать загрузку. Тестировать ссылку с фидом объектов. Устанавливать время загрузки. <br /><br />Поддерживаемые форматы представлены в разделе <a href="/advertising/line_ads/" title="Реклама на сайте" target="_blank">реклама на сайте</a>.</div>
+        {/if}
+        {if!empty $show_selection_panel}
+            <div class="objects-selection-actions">
+                <span class="objects-actions-title">Выбрано<span class="objects-actions-amount"></span></span>
+                <span class="objects-actions-box">
+                    {if!empty $allowed_group_ops['publish']}<span class="objects-action publish" data-url="/members/estate/published/">Опубликовать</span>{/if}
+                    {if!empty $allowed_group_ops['archive']}<span class="objects-action archive" data-url="/members/estate/archive/">В архив</span>{/if}
+                    <span class="objects-action delete" data-url="/members/estate/delete/">Удалить</span>
+                </span>
+                <span class="objects-promote-box">
+                    {if!empty $allowed_group_ops['improve']}
+                        <span class="objects-action promo" data-url="/members/pay_objects/?status=3">Сделать «ПРОМО»</span>
+                        <span class="objects-action premium" data-url="/members/pay_objects/?status=4">Сделать «ПРЕМИУМ»</span>
+                        <span class="objects-action vip" data-url="/members/pay_objects/?status=6">Сделать «VIP»</span>
+                        {if!empty $allowed_group_ops['raise']}<span class="objects-action raise" data-url="/members/pay_objects/?status=1">Поднять объекты</span>{/if}
+                    {/if}
+                </span>
+            </div>
+        {/if}
+
+        {ifempty $no_right_banner}
+            {if!empty $pay_page}
+                <a class="promo-banner" title="Дешевле с тарифом" href="//www.bsn.ru/members/tarifs/" target="_blank"><img id="vip-banner" src="//st1.bsn.ru/img/layout/tariffs.png" alt="Дешевле с тарифом" /></a>
+            {else}        
+                {php:$premium_type = mt_rand(0,3)}
+                {ifeq $premium_type,0}
+                    <a class="premium-banner" title="Объект премиум дает увеличение просмотров в 5 раз" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="premium-banner" src="//st1.bsn.ru/img/layout/premium-banner.png" alt="Объект премиум дает увеличение просмотров в 5 раз" /></a>
+                {elseifeq $premium_type,1}
+                    <a class="promo-banner" title="Объект промо дает увеличение просмотров в 3 раза" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="promo-banner" src="//st1.bsn.ru/img/layout/promo-banner.png" alt="Объект премиум дает увеличение просмотров в 3 раза" /></a>
+                 {elseifeq $premium_type,2}
+                    <a class="promo-banner" title="Объект VIP дает максимальное число просмотров" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="vip-banner" src="//st1.bsn.ru/img/layout/vip-banner.png" alt="Объект премиум дает максимальное число просмотров" /></a>
+                 {else}
+                    <a class="promo-banner" title="Поднятие объекта за минимальные деньги" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="vip-banner" src="//st1.bsn.ru/img/layout/usluga-banner-up.png" alt="Поднятие объекта за минимальные деньги" /></a>
+                 {/if}
+            {/if}
+        {/if}
+
+        
+        {if!empty $filter}
+            <div id="ajax-filter" class="bbox">
+                <div class="expand">
+                    <div class="hided">Развернуть фильтр</div>
+                    <div class="shown active">Свернуть фильтр</div>
+                </div>
+                <div class="params-wrap">
+                    <div class="single-selector active" data-estate-allowed="1234">
+                        <input type="hidden" id="filter_estate_type" name="estate_type" value="{$get_parameters['estate_type']}"/>
+                    </div>
+                    {if!empty $filter_text_address}
+                        <span class="selector-title">Адрес</span>
+                        <div class="single-selector text-address active" data-estate-allowed="1234">
+                            <input type="text" id="filter_text_address" name="text_address" placeholder="Адрес" class="filter-text-address"  value="{$get_parameters['filter_text_address']}">
+                        </div>
+                    {/if}
+                    {if!empty $filter_agents}
+                        <span class="selector-title">Сотрудник</span>
+                        <div class="list-selector select-district" data-estate-allowed="123461">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_user" name="user" value="{$get_parameters['user']}"/>
+                            <ul class="list-data">
+                                <li data-value="all">Любой</li>
+                                {loop $filter_agents,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $filter_agents}
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $filter_consults_categories}
+                        <span class="selector-title">Раздел</span>
+                        <div class="list-selector select-district" data-estate-allowed="123461">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_consults_category" name="consults_category" value="{$get_parameters['category']}"/>
+                            <ul class="list-data">
+                                <li data-value="all">Любой</li>
+                                {loop $filter_consults_categories,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $filter_consults_categories}
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $filter_respondents}
+                        <span class="selector-title">Кто ответил</span>
+                        <div class="list-selector select-district" data-estate-allowed="123461">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_users_answered" name="users_answered" value="{$get_parameters['respondent']}"/>
+                            <ul class="list-data">
+                                <li data-value="all">Любой</li>
+                                {loop $filter_respondents,$key,$val}
+                                    {if!empty $val['lawyer']}
+                                        <li data-value="{$val['id']}">{$val['title']}</li>
+                                    {/if}
+                                {/loop $filter_respondents}
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $agencies}
+                        <span class="selector-title">Агентства</span>                        
+                        <div class="list-selector select-agency">
+                            <a href="#" class="pick">все</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_agency" name="filter_agency" value="{$get_parameters['filter_agency']}"/>
+                            <ul class="list-data">
+                                <li data-value="0">все</li>
+                                {loop $agencies,$key,$val}
+                                    {if!empty $val['title']}
+                                        <li data-value="{$val['id']}">{$val['title']}</li>
+                                    {/if}
+                                {/loop $agencies}
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $selector_app_io}
+                        <span class="selector-title app_io">Заявки</span>
+                        <div class="single-selector app_io" data-estate-allowed="1234">
+                            <span style="white-space: nowrap;" class="checkbox radio on" data-value="in">Входящие</span>
+                            <span style="white-space: nowrap;" class="checkbox radio" data-value="out">Исходящие</span>
+                            <input type="hidden" id="app_io" name="app_io" value="in"/>
+                        </div>
+                    {/if}
+                    {if!empty $filter_time_periods}
+                        <span class="selector-title">Период</span>     
+                        <div class="list-selector select-time-period" data-estate-allowed="1234">
+                            <a href="#" class="pick">выберите период</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_period" name="filter_period" value="{$get_parameters['filter_period']}"/>
+                            <ul class="list-data">
+                                <li data-value="0">выберите период</li>
+                                <li data-value="1">за неделю</li>
+                                <li data-value="2">за месяц</li>
+                            </ul>
+                        </div>
+                        <div class="range-selector">
+                            <input type="text" id="filter_date_start" name="filter_date_start" placeholder="Начало" class="datetimepicker date"  value="{$get_parameters['filter_date_start']}">
+                            &mdash;
+                            <input type="text" id="filter_date_end" name="filter_date_end" placeholder="Окончание" class="datetimepicker date"  value="{$get_parameters['filter_date_end']}">
+                        </div>
+
+                    {/if}
+                    {if!empty $transactions}
+                        <span class="selector-title">Транзакции</span>
+                        <div class="list-selector select-transaction">
+                            <a href="#" class="pick">все</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_transaction" name="filter_transaction" value="{$get_parameters['filter_transaction']}"/>
+                            <ul class="list-data">
+                                <li data-value="0">все</li>
+                                {loop $transactions,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $transactions}
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $group_by_periods}
+                        <span class="selector-title">Группировать</span>
+                        <div class="list-selector groupby" data-estate-allowed="1234">
+                            <a href="#" class="pick">По дням</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_groupby" name="groupby" value="day" />
+                            <ul class="list-data">
+                                <li data-value="day">По дням</li>
+                                <li data-value="week">По неделям</li>
+                                <li data-value="month">По месяцам</li>
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $group_by_app_dealtype}
+                        <span class="selector-title">Тип сделки</span>
+                        <div class="list-selector groupby_dealtype" data-estate-allowed="1234">
+                            <a href="#" class="pick">Все</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_groupby_dealtype" name="groupby_dealtype" value="{$get_parameters['groupby_dealtype']}" />
+                            <ul class="list-data">
+                                <li data-value="">Все</li>
+                                <li data-value="1">Аренда</li>
+                                <li data-value="2">Покупка</li>
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $group_by_owner}
+                        <span class="selector-title">Тип заявки</span>
+                        <div class="list-selector groupby_owner" data-estate-allowed="1234">
+                            <a href="#" class="pick">Все</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_groupby_owner" name="groupby_owner" value="{$get_parameters['groupby_owner']}" />
+                            <ul class="list-data">
+                                <li data-value="">Все</li>
+                                <li data-value="1">Только мои</li>
+                                <li data-value="2">Только чужие</li>
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $deal_type}
+                        <span class="selector-title">Тип сделки</span>
+                        <div class="single selector deal-type" data-estate-allowed="1234">
+                            <span class="checkbox"><input type="checkbox" id="filter_deal-type-sell" data-value="2">Продажа</span>
+                            <span class="checkbox"><input type="checkbox" id="filter_deal-type-rent" data-value="1">Аренда</span>
+                            <input type="hidden" id="filter_deal_type" name="deal_type" value="" />
+                        </div>
+                    {/if}
+                    <div class="filter-parameters_line">
+                        {if!empty $rooms_count}
+                            <div class="single selector rooms-count" data-estate-allowed="123">
+                                <span class="selector-title">Комнат</span>
+                                <input type="text" id="filter_rooms_count" name="rooms_count" value="{$get_parameters['rooms_count']}" />
+                            </div>
+                        {/if}
+                        {if!empty $level}
+                            <div class="single selector level" data-estate-allowed="12">
+                                <span class="selector-title">Этаж</span>
+                                <input type="text" id="filter_level" name="level" value="{$get_parameters['level']}" />
+                            </div>
+                        {/if}
+                    </div>
+                    {if!empty $full_square}
+                        <div class="filter-parameters_line">
+                        <span class="selector-title">Общий метраж (м<sup>2</sup>)</span>
+                        <div class="single selector full_square" data-estate-allowed="1234">
+                            <input type="text" id="filter_full_square_to" name="full_square_to" value="{$get_parameters['full_square_to']}" placeholder="До"/>
+                            <input type="text" id="filter_full_square_from" name="full_square_from" value="{$get_parameters['full_square_from']}" placeholder="От"/>
+                        </div>
+                        </div>
+                    {/if}
+                    {if!empty $filter_object_type}
+                        <span class="selector-title">Тип объекта</span>
+                        {do: $filter_object_type_live = $filter_object_type['live'];}
+                        {do: $filter_object_type_country = $filter_object_type['country'];}
+                        {do: $filter_object_type_commercial = $filter_object_type['commercial'];}
+                        <div class="list-selector select-object_type-live" data-estate-allowed="1">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_object_type" name="object_type" value="{$get_parameters['object_type']}"/>
+                            <ul class="list-data">
+                                <li data-value="0">Любой</li>
+                                {loop $filter_object_type_live,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $filter_object_type_live}
+                            </ul>
+                        </div>
+                        <div class="list-selector select-object_type-country" data-estate-allowed="3">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_object_type" name="object_type" value=""/>
+                            <ul class="list-data">
+                                <li data-value="0">Любой</li>
+                                {loop $filter_object_type_country,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $filter_object_type_country}
+                            </ul>
+                        </div>
+                        <div class="list-selector select-object_type-commercial" data-estate-allowed="4">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_object_type" name="object_type" value="{$get_parameters['object_type']}"/>
+                            <ul class="list-data">
+                                <li data-value="0">Любой</li>
+                                {loop $filter_object_type_commercial,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $filter_object_type_commercial}
+                            </ul>
+                        </div>
+                    {/if}     
+                    {if!empty $long_filter}<div class="expanding-area">{/if}
+                    {if!empty $filter_district}
+                        <span class="selector-title">Район города</span>
+                        <div class="list-selector select-district" data-estate-allowed="124">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_district" name="district" value="{$get_parameters['district']}"/>
+                            <ul class="list-data">
+                                <li data-value="0">Любой</li>
+                                {loop $filter_district,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $filter_district}
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $filter_district_area}
+                        <span class="selector-title">Район ЛО</span>
+                        <div class="list-selector select-district-area" data-estate-allowed="1234">
+                            <a href="#" class="pick">Любой</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_district_area" name="district_area" value="{$get_parameters['district_area']}"/>
+                            <ul class="list-data">
+                                <li data-value="0">Любой</li>
+                                {loop $filter_district_area,$key,$val}
+                                    <li data-value="{$val['id']}">{$val['title']}</li>
+                                {/loop $filter_district_area}
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $filter_subway}
+                        <span class="selector-title">Ближайшее метро</span>
+                        <div class="filter-parameters_line">
+                            <div class="single selector txt_subway" data-estate-allowed="1234">
+                                <input type="text" class="typewatch lf" id='txt_subway' name='txt_subway' autocomplete="off">
+                                <i data-icon="clear" class="clear-input hidden"></i>
+                            </div>
+                        </div>
+                    {/if}
+                    {if!empty $cost}
+                        <div class="filter-parameters_line">
+                            <span class="selector-title">Стоимость (тыс. руб)</span>
+                            <div class="single selector cost" data-estate-allowed="1234">
+                                <input type="text" id="filter_cost_from" name="cost_from" value="{$get_parameters['cost_from']}"  placeholder="От" data-vtype="numeric"/>
+                                <input type="text" id="filter_cost_to" name="cost_to" value="{$get_parameters['cost_to']}" placeholder="До" data-vtype="numeric"/>
+                            </div>
+                        </div>
+                    {/if}
+
+                    
+                    {if!empty $object_selection_types}
+                        <span class="selector-title">Примененные услуги</span>
+                        <div class="list-selector object-selection-type" data-estate-allowed="1234">
+                            <a href="#" class="pick">Любые</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" id="filter_object_selection_type" name="object_selection_type" value="{$get_parameters['object_selection_type']}" />
+                            <ul class="list-data">
+                                <li data-value="">Любые</li>
+                                <li data-value="common">Обычные</li>
+                                <li data-value="common_payed">Обычные платные</li>
+                                <li data-value="raising">Поднятие</li>
+                                <li data-value="promo">Промо</li>
+                                <li data-value="premium">Премиум</li>
+                                <li data-value="vip">VIP</li>
+                            </ul>
+                        </div>
+                    {/if}
+                    {if!empty $long_filter}</div>{/if}
+                </div> <!-- params-wrap -->
+                <div class="submit-wrap">
+                    {if!empty $long_filter}
+                        <span class="result-filter"></span>
+                    {else}
+                        <span class="reset-filter">Сбросить фильтр</span>
+                    {/if}
+                    <button id="submit-ajax-form">Применить</button>
+                    {if!empty $long_filter}<span class="reset-filter big">Сбросить фильтр</span>{/if}
+                </div>
+            </div>
+        {/if}
+    </div>
+</div> <!--/.right-column-->
+<script>
+    jQuery(document).ready(function(){
+        {ifempty $right_column_inactive}
+            //опрелеление координат плавающей правой панели          
+            jQuery('.weight-wrap').each(function(){
+                var _this = jQuery(this);
+                var _height = _this.offset().top;
+                jQuery(window).scroll(function(){
+                    var _top = jQuery(this).scrollTop();
+                    if (_top > _height) {
+                        _this.addClass('scrolled');
+                    } else {
+                        _this.removeClass('scrolled');
+                    }
+                });
+            }); 
+            jQuery('.right-column').each(function(){
+                var _this = jQuery(this);
+                var _height = _this.offset().top - parseInt(jQuery('header').height());;
+                var _doc_height = jQuery(window).height()
+                jQuery('.right-column').css('min-height', jQuery('#right-column').height()+'px');
+                _check_scroll = false;
+                jQuery(window).scroll(function(){
+                    var _right_column_height = parseInt(jQuery('#right-column').height());
+                    var _top = parseInt(jQuery(this).scrollTop());
+                    var _doc_height = jQuery(window).height()
+                    var _footer_top = parseInt(jQuery('footer').offset().top);
+                    if(_doc_height - 40 > _right_column_height){
+                        if (_top + _right_column_height + 70> _footer_top) {
+                            jQuery('#right-column').removeClass('scrolled').addClass('scrolled-bottom');
+                            _check_scroll = true;
+                        } else if (_top > _height) {
+                            jQuery('#right-column').addClass('scrolled').removeClass('scrolled-bottom');
+                            _check_scroll = true;
+                        } else if(_check_scroll == false){
+                            jQuery('#right-column').removeClass('scrolled').removeClass('scrolled-bottom');
+                        } else _check_scroll = false;
+                    } else {
+                        if(_top + _right_column_height  - 150 > _footer_top) {
+                            jQuery('#right-column').removeClass('scrolled-bottom-fixed').addClass('scrolled-bottom');
+                            _check_scroll = true;
+                        }
+                        else if(_right_column_height + 270 - _doc_height <  _top){
+                            jQuery('#right-column').addClass('scrolled-bottom-fixed').removeClass('scrolled-bottom');
+                        } else jQuery('#right-column').removeClass('scrolled-bottom-fixed').removeClass('scrolled-bottom');
+                    }
+                    return false;
+                });    
+            });        
+        {/if}
+        var _now = new Date();
+        //инициализируем datetimepicker
+        if(jQuery('.datetimepicker').length>0){
+            jQuery('.datetimepicker').datetimepicker();
+            jQuery('.datetimepicker').datetimepicker({
+                timepicker:false,
+                format:'d.m.y'
+            });
+        }
+        //запрещаем ручное редактирование дат
+        jQuery('.datetimepicker').on('keydown',function(){
+            return false;
+        });
+        jQuery('.shown').on('click',function(){
+            jQuery(this).removeClass('active').siblings('div').addClass('active');
+            jQuery(this).parent().parent().children('.filter-body').fadeOut(300);
+        });
+        jQuery('.hided').on('click',function(){
+            jQuery(this).removeClass('active').siblings('div').addClass('active');
+            jQuery(this).parent().parent().children('.filter-body').fadeIn(300);
+        });
+        //обработка двух галочек для типа недвижимости для фильтра объектов
+        jQuery('.single.selector.deal-type').children('span').children('input').on('click',function(){
+            var _f_deal_type = jQuery('#filter_deal_type');
+            var _this_value = jQuery(this).attr('data-value');
+            //корректируем общий набор в зависимости от статуса
+            if(_f_deal_type.val().indexOf(_this_value)>=0) _f_deal_type.val(_f_deal_type.val().replace(_this_value,''));
+            else _f_deal_type.val(_f_deal_type.val() + _this_value);
+        });
+        //при reset-filter помимо обычных действий, нужно еще снять галочки у поля "тип сделки", при его наличии и добавить класс hidden в clear-input
+        jQuery('.reset-filter').on('click',function(){
+            jQuery('.single.selector.deal-type').children('.checkbox').removeClass('on');
+            jQuery('.clear-input').addClass('hidden');
+            jQuery('.result-filter').html("");
+            
+        });
+        if(jQuery('#filter_rooms_count').mask!==undefined){
+            jQuery('#filter_rooms_count').mask('000',{
+                                                   reverse:true
+                                                 });
+            jQuery('#filter_level').mask('000',{
+                                                reverse:true
+                                               });
+            jQuery('#filter_full_square_from').mask('00 000',{
+                                                         reverse:true
+                                                        });
+            jQuery('#filter_full_square_to').mask('00 000',{
+                                                        reverse:true
+                                                      });
+            jQuery('#filter_cost_to').mask('000 000 000',{
+                                                            reverse:true
+                                                            });
+            jQuery('#filter_cost_to').mask('000 000 000',{
+                                                            reverse:true
+                                                          });
+        }
+        //для переключалок типа заявок (входящие/исходящие)
+        jQuery('.single-selector.app_io').children('.checkbox').on('click',function(){
+            jQuery(this).addClass('on').siblings().removeClass('on');
+            jQuery(this).siblings('input').val(jQuery(this).attr('data-value'));
+        });
+        
+        jQuery(document).on('click','.typewatch_popup_list li',function(){
+            jQuery(this).parent().parent().children('.clear-input').removeClass('hidden');
+        });
+        //чтобы в списке объектов в лк сразу отработал фильтр
+        if(jQuery('#objects-list-title').length>0) jQuery('#objects-list-title').children('li.active').click();
+    });
+</script>

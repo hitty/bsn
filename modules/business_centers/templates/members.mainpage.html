@@ -1,0 +1,14 @@
+{if!empty $h1}
+    <div class="last-objects-h1-title">
+            <h1>{$h1}</h1>
+    </div>
+{/if}
+<div class="central-wrapper">
+    {if!empty $list}
+        {include /modules/business_centers/templates/members.list.block.html}
+    {else}
+        <div class="empty-results">
+            По вашему запросу ничего не найдено!
+        </div>
+    {/if}    
+</div>

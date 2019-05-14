@@ -1,0 +1,23 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:20px; line-height: 26px;" align="left"> 
+    Здравствуйте{if!empty $info['full_name']}, {$info['full_name']}{/if}!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:14px; line-height: 20px;" align="left"> 
+        Вы подписались на обновление раздела <b>{$info['estate_type_name']}, {$info['deal_type_name']}</b> по запросу:<br />
+        <a href="{$info['bsn_url']}{$info['url']}">{$info['title']}</a><br />
+        
+        <br>
+        Период информирования о новых вариантах: {$period} день.
+        <br>
+        Для подтверждения подписки перейдите по ссылке: {$confirm_link} 
+        <br>
+        
+        Своевременно проверяйте обновления по Вашим подпискам.<br />
+        Неакутальные подписки, обновления по которым пользователи не просматривают 7 дней, мы отключаем.<br />
+        Управлять своими подписками вы можете в личном кабинете<br />
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

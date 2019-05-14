@@ -1,0 +1,88 @@
+body.estate-list{
+    margin: 0;
+}
+.custom-controls {
+    position: absolute;
+    height: 86px;
+}
+
+.custom-controls div {
+    width: 50px;
+    cursor: pointer;
+    position: relative;
+    background: #fff;
+    display: inline-block;
+    height: 50px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -o-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+.custom-controls div:hover {
+    color: #1e88e5;
+}
+
+.custom-controls.inactive {
+    display: none;
+}
+
+.custom-controls div:before {
+    font-size: 27px;
+    position: relative;
+    top: 8px;
+    left: 12px;
+    overflow: hidden;
+    font-weight: bold;
+}
+.custom-controls.fullscreen-control .active:before {
+    content: "fullscreen_exit"
+}
+.balloon ymaps{
+    overflow: visible!important;
+}
+.balloon,
+.balloon-content {
+    width: 560px;
+    height: 200px;
+    position: relative;
+    background: #fff;
+}
+.balloon .close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #1e88e5;
+    font-size: 24px;
+    display: block;
+    z-index: 100;
+    border: none;
+}
+
+.balloon-content .item {
+    width: 520px;
+    cursor: pointer;
+}
+
+.balloon-content .item .hdr {
+    margin: 0;
+    padding: 0;
+}
+.balloon-content .item .info{
+    width: 280px;    
+}
+.balloon-content .item .photo{
+    width: 220px;
+}
+#map-search-results.estate-list .item.estate-complex .main-params-wrap .total-objects{
+    display: none;
+}
+#map-search-results .estate-list .item .actions .tag{
+    margin-right: 4px;
+}
+
+#map-search-results.estate-list .item .actions .tag{
+    margin-right: 4px;
+}

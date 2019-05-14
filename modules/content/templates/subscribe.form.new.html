@@ -1,0 +1,12 @@
+<div class="subscribe-news">
+    <div class="text">
+        <form method="post" action="/news/subscribe/" id="subscribe_form">
+            <input type="text" name="subscribe" value="" placeholder="Ваш email" />
+            <span></span>
+            <button type="submit" class="submit" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Подписаться на новости', 'Искать']); }catch(e){}" value="Подписаться">Подписаться</button>
+        </form>
+    </div>
+    <div class="success">
+        Спасибо, подписка оформлена!
+    </div>    
+</div> 

@@ -1,0 +1,72 @@
+<div class="bordered-wrapper topblue mortgage-item">
+    <div class="card">
+        {if!empty $h1}<h1 class="topspace">{$h1}</h1>{/if}
+        <div class="notes-box">
+            <h3 class="btitle">Общие данные</h3>
+            <p>- название банка: <span>{$list['fullname']}</span></p>
+            <p>- цель кредитования: <span>{$list['goal']}</span></p>
+            <p>- рынок недвижимости: <span>{$list['market']}</span></p>
+        </div>
+        <div class="notes-box">
+            <h3 class="btitle">Параметры кредита</h3>
+            <p>- валюта кредита: <span>{$list['currency']}</span></p>
+            <p>- ставка кредита: <span>{$list['rate_value']}<br />{$list['rate_description']}</span></p>
+            <p>- обеспечение по кредиту: <span>{$list['loansecurity']}</span></p>
+            <p>- срок кредита:  <span>{$list['creditperiod']}</span></p>
+            <p>- величина кредита: <span>{$list['creditsize_value']}<br />{$list['creditsize_description']}</span></p>
+            <p>- первоначальный взнос: <span>{$list['firstpayment']}</span></p>
+            <p>- подтверждение дохода: <span>{$list['incconfirm']}</span></p>
+            <p>- срок рассмотрения заявки: <span>{$list['approveperiod']}</span></p>
+            <p>- нотариальное оформление договора: <span>{$list['notary']}</span></p>
+        </div>
+        <div class="notes-box">
+            <h3 class="btitle">Требования к заемщику</h3>
+            <p>- возраст заемщика: <span>{$list['age']}</span></p>
+            <p>- гражданство РФ: <span>{$list['nationality']}</span></p>
+            <p>- регистрация по месту получения кредита: <span>{$list['registration']}</span></p>
+            <p>- общий трудовой стаж: <span>{$list['seniority_all']}</span></p>
+            <p>- трудовой стаж на последнем месте: <span>{$list['seniority_last']}</span></p>
+        </div>
+        <div class="notes-box">
+            <h3 class="btitle">Требования к созаемщикам и поручителям </h3>
+            <p>- наличие поручителей: <span>{$list['bail']}</span></p>
+            <p>- привлечение созаемщиков: <span>{$list['coborrower']}</span></p>
+        </div>
+        <div class="notes-box">
+            <h3 class="btitle">Порядок погашения кредита</h3>
+            <p>- платежи: <span>{$list['paymenttype']}</span></p>
+            <p>- досрочное погашение без санкций: <span>{$list['advrepay_possibility']}</span></p>
+            <p>- минимальная сумма досрочного платежа: <span>{$list['advrepay_minamount']}</span></p>
+        </div>
+        <div class="notes-box">
+            <h3 class="btitle">Расходы по кредиту</h3>
+            {if!empty $charges_list}
+                <div class="banks-list">
+                    <div class="banks-list-head">
+                        <div class="row">
+                            <div class="cell col_charge">Расход</div>
+                            <div class="cell col_frequency">Периодичность</div>
+                            <div class="cell col_frequency_vaue">Значение</div>
+                        </div>
+                    </div>
+                    <div class="banks-list-body program-list">
+                        {loop $charges_list,$lk,$lv}
+                            <div class="row">
+                                <div class="cell col_charge">{$lv['name']}</div>
+                                <div class="cell col_frequency">{$lv['frequency']}</div>
+                                <div class="cell col_frequency_vaue">{$lv['value']}</div>
+                            </div>
+                        {/loop $charges_list}
+                    </div>
+                
+                </div>
+            {/if}
+        </div>        
+        <div class="notes-box">
+            <h3 class="btitle">Контактные данные</h3>
+            {if!empty $list['site']}<p>- сайт: <span><a href="{$list['site']}" title="" target="_blank">{$list['site']}</a></span></p>{/if}
+            {if!empty $list['email']}<p>- e-mail: <span><a href="mailto:{$list['email']}" title="">{$list['email']}</a></span></p>{/if}
+            {if!empty $list['telephone']}<p>- телефон: <span>{$list['telephone']}</span></p>{/if}
+        </div>
+    </div>
+</div>

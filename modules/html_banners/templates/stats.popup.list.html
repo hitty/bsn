@@ -1,0 +1,19 @@
+{php:$total_show=0}
+{php:$total_click=0}
+
+{loop $stats,$key,$item}
+    <div class="item clearfix">
+        <span class="title">{$item['date']}</span>
+        <span class="views">{$item['show_amount']}</span>
+        <span class="clicks">{$item['click_amount']}</span>
+        <span class="ctr">{ifgt $item['show_amount'],0}{php:echo number_format(($item['click_amount']/$item['show_amount'])*100, 2, '.', ' ')}{else}0{/if}%</span>
+    </div>
+    {php:$total_show=$total_show+$item['show_amount']}
+    {php:$total_click = $total_click + $item['click_amount']}
+{/loop $stats} 
+<div class="item clearfix">
+    <span class="title"><b>Всего</b></span>
+    <span class="views">{$total_show}</span>
+    <span class="clicks">{$total_click}</span>
+    <span class="ctr">{ifgt $total_show,0}{php:echo number_format(($total_click/$total_show)*100, 2, '.', ' ')}{else}0{/if}%</span>
+</div>

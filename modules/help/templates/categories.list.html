@@ -1,0 +1,24 @@
+<div class="help-header"><h1>ПОМОЩЬ</h1></div>
+<div class="help-description">
+<p>В этом разделе вы найдете ответы на все вопросы по сервисам сайта, личному кабинету, услугам. Раздел постоянно модифицируется и наполняется, учитывая ваши пожелания. Не забывайте голосовать за прочитанную статью, была ли она полезна для вас или бесполезна. Это поможет нам в понимании необходимости что-то подкорректировать.</p>
+</div>
+{include modules/search/templates/search.form.html}
+{loop $categories_blocks,$key,$category}
+    {php: $ccat = $category['articles'][0]}
+    <div class="help-category-block help-main">
+        <!--<div class="help-category-block-img"><img src="/img/uploads/sm/{$ccat['subfolder']}/{$ccat['photo']}" border="0" ></div>-->
+        <div class="help-category-txtblock {$category['alias']}">
+            <div class="help-category-block-header"><h2><a href="http://{$host}/help/{$category['chpu_title']}/">{$category['title']}</a><h2></div>
+            <div class="help-category-block-descrpt"><h3>{$category['description']}</h3></div>
+            <div class="help-category-block-article-lst">
+                <ul>
+                {php: $articles = $category['articles']}
+                {loop $articles,$ckey,$article}
+                    <li><a href="http://{$host}/help/{$category['chpu_title']}/{$article['achpu_title']}/" >{$article['atitle']}</a>
+                {/loop $articles}
+                </ul>
+            </div>
+        </div>
+    </div>
+{/loop $categories_blocks}
+<div class="help-categories-wrapper">&nbsp;</div>

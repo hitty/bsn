@@ -1,0 +1,114 @@
+<div class="stats-table adv-list consults consults-list">
+    {if!empty $list}
+        <table class="tablesorter consults {if!empty $common_user}common-user{/if}" cellpading="1">  
+            <colgroup>
+                <col class="col1" width="1%">
+                <col class="col1" width="20%">
+                <col class="col2" width="15%">
+                <col class="col2" width="49%">
+                <col class="col2" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><span class="app-id">ID</span></th>
+                    <th><span class="adv-title">Время</span></th>
+                    <th><span class="adv-shows">Автор</span></th>
+                    <th><span class="adv-clicks">Вопрос</span></th>
+                    <th><span class="adv-ctr"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="{$item['id']}" class="adv-table-row {if!empty $item['comment']}editing{/if} {ifeq $item['viewed'],2}new-app{/if}">
+                        <td>{$item['id']}</td>
+                        <td data-order="{$item['question_datetime']}" class="date_in">{$item['question_datetime_formatted']}</td>
+                        <td>{$item['name']}</td>
+                        <td class="question-body">
+                            <span class="question-category">{$item['category_title']}</span>
+                            {if!empty $item['personal_question']}<span class="personal-question-badge">Персональный</span>{/if}
+                            <span class="question-text control">Показать вопрос</span>
+                            <div class="info-block">
+                                <div class="question-text-block">{$item['question']}</div>
+                                <div class="question-answer-form">
+                                    {ifeq $item['your_answer_status'],5}
+                                        <span class="send-answer control">Опубликовать</span>
+                                        <span class="save-answer control">Сохранить</span>
+                                        <span class="cancel-answer control">Отмена</span>
+                                        <textarea rows="2" {if!empty $item['your_answer']}data-id={$item['your_answer_id']}{/if}>{if!empty $item['your_answer']}{$item['your_answer']}{/if}</textarea>
+                                    {else}
+                                        {ifempty $item['your_answer_status']}
+                                            <span class="send-answer control">Опубликовать</span>
+                                            <span class="save-answer control">Сохранить</span>
+                                            <span class="cancel-answer control">Отмена</span>
+                                            <textarea rows="2" {if!empty $item['your_answer']}data-id={$item['your_answer_id']}{/if}>{if!empty $item['your_answer']}{$item['your_answer']}{/if}</textarea>
+                                        {/if}    
+                                        <span class="question-answer-text">{$item['your_answer']}</span>
+                                    {/if}
+                                    
+                                </div>
+                            </div>
+                        </td>
+                        <td class="answers {ifempty $item['your_answer']}can-answer{/if}">
+                            {ifempty $item['answers_amount']}
+                                <span class="answers-amount">Нет ответов</span>
+                            {else}
+                                <span class="answers-amount">{suffix:$item['answers_amount'],'ответ','','а','ов'}</span>
+                            {/if}
+                            {ifempty $item['your_answer_status']}
+                                <button class="blue">Ответить</button>
+                            {else}
+                                {ifeq $item['your_answer_status'],5}<span class="your-draft control">Черновик</span>
+                                {else}<span class="you-answered control">{ifeq $item['your_answer_status'],2}Модерация{else}{ifeq $item['your_answer_status'],1}Вы ответили{/if}{/if}</span>{/if}
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <div class="no-results-found">
+            Вопросы не найдены
+        </div>
+    {/if}
+</div>
+{include /templates/includes/paginator.html}
+<script>
+    jQuery(document).ready(function(){
+        //инициализируем datatable
+        jQuery('.tablesorter').dataTable({
+            "bPaginate": false,
+            'bInfo': false,
+            "order": [[ 1, "desc" ]],
+            "columnDefs": [{ orderable: false, targets: -1 }]
+        });
+        jQuery('.dataTables_filter').children('label').css('opacity','0');
+        jQuery('span.title.in-work').on('click',function(){
+            if(jQuery(this).hasClass('common-user')) return false;
+            if(!confirm('Завершить заявку?')) return false;
+            var _id = jQuery(this).parents('tr').attr('id');
+            var _url = window.location.href + 'finish/' + _id;
+            jQuery.ajax({
+                type: "POST", async: true,
+                dataType: 'json', cache: false,
+                url: _url,
+                data: {ajax: true},
+                success: function(msg){
+                    if(msg.ok){
+                        //если все хорошо, корректируем количество и щелкаем по вкладке "Завершенные"
+                        jQuery('#objects-list-title').children('.active').children('sup').html(parseInt(jQuery('#objects-list-title').children('.active').children('sup').html()) - 1);
+                        jQuery('#objects-list-title').children().eq(3).children('sup').html(parseInt(jQuery('#objects-list-title').children().eq(3).children('sup').html()) + 1)
+                        jQuery('#objects-list-title').children().eq(3).click();
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    return false;
+                },
+                complete: function(){
+                }
+            });
+        });
+    })
+        
+        
+    
+</script>

@@ -1,0 +1,22 @@
+<div class="slide-photogallery">
+    {if!empty $list}
+        {php:$count = count($list);}
+        <div class="photos">
+            {ifgt $count,0}
+                <span class="arrow-left"><b></b></span>
+                <span class="arrow-right"><b></b></span>
+            {/if}
+            {loop $list,$k,$item}
+                <img src="/{$img_folder}/big/{$item['subfolder']}/{$item['name']}" alt="" {ifeq $k,0}class="active"{/if} data-pos="{php:echo $k+1}">
+            {/loop $list}
+        </div>
+        <div class="counter">
+            <span class="counter-from">1</span> из <span class="counter-total">{$count}</span>
+        </div>
+        
+    {else}
+        Картинка удалена
+    {/if}
+</div> 
+
+    

@@ -1,0 +1,37 @@
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<form class="account-form active registration" name="through_auth_form" method="POST" action="">
+    <span class="form-title">Регистрация</span>
+    <span class="data-block">
+        <input type="text" id="login_email" name="login_email" value="{if!empty $form_data['email']}{$form_data['email']}{/if}" placeholder="Электронная почта / логин" / {if!empty $errors['login_email']}class="red-border"{/if}>
+        {if!empty $errors['login_email']}<span class="error-tip">{$errors['login_email']}</span>{/if}
+    </span>
+    <span class="data-block">
+        <input type="text" id="reg_name" name="login_name" value="{if!empty $form_data['name']}{$form_data['name']}{/if}" placeholder="Имя" {if!empty $errors['login_name']}class="red-border"{/if}/>
+        {if!empty $errors['login_name']}<span class="error-tip">{$errors['login_name']}</span>{/if}
+    </span>
+    <span class="data-block">
+        <input type="text" id="reg_promo" name="login_promo" value="{if!empty $form_data['promo']}{$form_data['promo']}{/if}" placeholder="Промокод" {if!empty $errors['login_promo']}class="red-border"{/if}/>
+    </span>
+    <div class="data-block recaptcha">
+        <div class="g-recaptcha" data-sitekey="6LfjtwcTAAAAAPry3YW7ycqDsqXWuctzNgUiomh0"></div>
+        {if!empty $errors['recaptcha']}<span class="error-tip">{$errors['recaptcha']}</span>{/if}
+    </div>
+    <div class="data-block">
+        <label for="terms" class="checkbox terms-agreement">
+            <input type="checkbox" id="terms" name="terms" value="2" />    
+        </label>
+        <span>Я согласен с <a href="/terms_of_service/" title="Пользовательское соглашение BSN.ru">условиями</a></span>
+    </div>
+    <div class="bottom-container">
+        <button type="submit" value="Зарегистрироваться" id="submit_button" name="submit" class="green send" disabled="disabled">Зарегистрироваться</button>
+        {ifempty $not_show_social_authorization}
+            {php:$auth_type = 'authorization';}
+            {include /templates/social_authorization.html}
+        {/if}
+        <div class="alternative-block">
+            <span>Уже есть аккаунт?</span>
+            <a href="/authorization/" title="Войти">Войти</a>
+        </div>
+    </div>
+</form>

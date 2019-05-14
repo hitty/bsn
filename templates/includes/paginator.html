@@ -1,0 +1,61 @@
+{if!empty $paginator}
+    <div class="br3 transition paginator{if!empty $ajax_pagination} ajaxed{/if}">
+        {ifgt $paginator['pages_count'];1}
+            {ifempty $direct_link_paginator}
+                {if!empty $paginator['left']}
+                    <span class="br3 transition {ifempty $search_form_left}{ifempty $ajax_search}{ifempty $ajax_mode}internal-link {/if}{/if}{/if}page-left" data-link="{ifeq $paginator['left'],1}{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}{else}{$paginator['link']}{$paginator['left']}{/if}">← Предыдущая</span>
+                {/if}
+
+                <div class="central-wrapper br3">
+                    {if!empty $paginator['first']}
+                        <span class="br3 transition {ifempty $search_form_left}{ifempty $ajax_search}{ifempty $ajax_mode}internal-link {/if}{/if}{/if}" data-link="{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}">{$paginator['first']}</span>
+                        {ifgt $paginator['active_page'],4}<span data-link="#">...</span>{/if}
+                    {/if}
+                    {php:$pages_list=$paginator['pages']}
+                    {loop $pages_list,$pk,$pv}
+                        {ifeq $paginator['active_page'];$pv}
+                             <span class="br3 transition active" data-active-link="{ifeq $pv,1}{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}{else}{$paginator['link']}{$pv}{/if}">{$pv}</span>
+                        {else}
+                            <span class="br3 transition {ifempty $search_form_left}{ifempty $ajax_search}{ifempty $ajax_mode}internal-link {/if}{/if}{/if}" data-link="{ifeq $pv,1}{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}{else}{$paginator['link']}{$pv}{/if}" title="">{$pv}</span>
+                        {/if}
+                    {/loop $pages_list}
+                    {if!empty $paginator['last']}
+                            {iflt $paginator['active_page'],$paginator['pages_count']-3}<span>...</span>{/if}
+                            <span class="br3 transition {ifempty $search_form_left}{ifempty $ajax_search}{ifempty $ajax_mode}internal-link {/if}{/if}{/if}" data-link="{$paginator['link']}{$paginator['last']}" title="Последняя">{$paginator['last']}</span>
+                    {/if}
+                </div>    
+                {if!empty $paginator['right']}
+                    <span class="br3 transition {ifempty $search_form_left}{ifempty $ajax_search}{ifempty $ajax_mode}internal-link {/if}{/if}{/if}page-right" data-link="{$paginator['link']}{$paginator['right']}">Следующая →</span>
+                {/if}
+            {else}
+                {if!empty $paginator['left']}
+                    <a class="br3 transition paginator-link page-left" href="{ifeq $paginator['left'],1}{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}{else}{$paginator['link']}{$paginator['left']}{/if}" title="Предыдущая">← Предыдущая</a>
+                {/if}
+
+                <div class="central-wrapper br3">
+
+                    {if!empty $paginator['first']}
+                        <a class="br3 transition paginator-link" href="{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}" title="{$paginator['first']}">{$paginator['first']}</a>
+                        {ifgt $paginator['active_page'],4}<span data-link="#">...</span>{/if}
+                    {/if}
+                    {php:$pages_list=$paginator['pages']}
+                        {loop $pages_list,$pk,$pv}
+                            {ifeq $paginator['active_page'];$pv}
+                                 <span class="br3 transition active" data-active-link="{ifeq $pv,1}{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}{else}{$paginator['link']}{$pv}{/if}">{$pv}</span>
+                            {else}
+                                <a class="br3 transition paginator-link" href="{ifeq $pv,1}{php:echo rtrim(str_replace('page=','',$paginator['link']),'&?')}{else}{$paginator['link']}{$pv}{/if}" title="{$pv}">{$pv}</a>
+                            {/if}
+                        {/loop $pages_list}
+                    {if!empty $paginator['last']}
+                            {iflt $paginator['active_page'],$paginator['pages_count']-3}<span>...</span>{/if}
+                            <a class="br3 transition paginator-link" href="{$paginator['link']}{$paginator['last']}" title="Последняя">{$paginator['last']}</a>
+                    {/if}
+                </div>
+                    
+                {if!empty $paginator['right']}
+                    <a class="br3 transition paginator-link page-right" href="{$paginator['link']}{$paginator['right']}" title="Следующая">Следующая →</a>
+                {/if}
+            {/if}
+        {/if}
+    </div>
+{/if}

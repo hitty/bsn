@@ -1,0 +1,27 @@
+<span class="line-title">{$field['label']}</span>
+<div class="single-selector banks_selected" {if!empty $field['hidden']} style="display:none;"{/if} >
+    <input type="hidden" class="{ifempty $field['allow_empty']}required{/if}" name="banks_selected" id="banks_selected" value="{$field['value']}" />
+    {php:$selectloop=$field['values']}
+    {if!empty $selectloop}
+        {loop $selectloop,$rlk,$rlt}
+            <div class="radio-line">
+                {if!empty $field['value']}
+                    {do:$set_up=$field['value']%(pow(2,$rlk))>=pow(2,$rlk-1)}
+                {else}
+                    {do: $set_up = false}
+                {/if}
+                <div class="checkbox">
+                    <input class="checkbox rich-set-element" type="checkbox" data-id="{$rlk}" value="1"{if $set_up}checked="checked"{/if} /> 
+                    <span class="radio-line_title">{$rlt['title']}</span>
+                    <div class="radio-line_info">
+                        <img class="radio-line_image" src="{static:/}{$rlt['img']}" alt="{$rlt['title']}" data-href="{$rlt['url']}">
+                        <div class="bank-info">
+                            <span>Ваш ежемесячный платеж:</span>
+                            <span class="bank-info__monthly-cost"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/loop $selectloop}
+    {/if}
+</div>

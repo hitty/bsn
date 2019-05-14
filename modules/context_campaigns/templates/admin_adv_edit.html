@@ -1,0 +1,207 @@
+<h1 class="pageTitle">Контекстные рекламные блоки</h1>
+<a class="button back-to-list" href="/admin/advert_objects/context_campaigns/{$campaign_info['id']}/">К списку объявлений</a>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/context_campaigns/{$campaign_id}/add/">
+    <h3>Новое объявление в контекстной рекламной кампании "{$campaign_info['title']}"</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/context_campaigns/{$campaign_id}/edit/{$data_mapping['id']['value']}/">
+    <h3>Объявление #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot; контекстной рекламной кампании "{$campaign_info['title']}"</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <div style="display:none" id="places_data_box">{$places_data}</div>
+    <!--таргетинг - только при редактирвании уже созданной кампании-->
+    {if!empty $data_mapping['id']['value']}
+        <fieldset>
+            <h3>Таргетинг для контекстной рекламной кампании #{$data_mapping['id']['value']}</h3>
+            <div id="targetings_list" class="targetings_list" data-id_object="{$data_mapping['id']['value']}">
+                <div class="tg object_type">
+                    {if!empty $estate_live}
+                    <div class="type-live-box {ifempty $estate_live}hidden{/if}" data-type="type_objects_live">
+                        <span class="tg-title">Тип объекта - жилая</span>
+                        {if!empty $estate_live}
+                            {if!empty $targeting_data['type_objects_live']}
+                                {php: $object_types = $targeting_data['type_objects_live'];}
+                                {loop $object_types,$key,$value}
+                                    <span class="tg-item{if!empty $value['id_tag']}{if!empty $targeting_list['type_objects_live'][$value['id_tag']]['value']} selected{/if}{/if}" {if!empty $targeting_data['type_objects_live'][$key]['id_tag']}id = {$targeting_data['type_objects_live'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="1"{/if}>{$value['title']}</span>
+                                {/loop $object_types}
+                            {/if}
+                        {/if}
+                    </div>
+                    {/if}
+                    {if!empty $estate_commercial}
+                    <div class="type-commercial-box {ifempty $estate_commercial}hidden{/if}" data-type="type_objects_commercial">
+                        <span class="tg-title">Тип объекта - коммерческая</span>
+                        {if!empty $estate_commercial}
+                            {if!empty $targeting_data['type_objects_commercial']}
+                                {php: $object_types = $targeting_data['type_objects_commercial'];}
+                                {loop $object_types,$key,$value}
+                                    <span class="tg-item{if!empty $targeting_list['type_objects_commercial'][$value['id_tag']]['value']} selected{/if}" {if!empty $targeting_data['type_objects_commercial'][$key]['id_tag']}id = {$targeting_data['type_objects_commercial'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="3"{/if}>{$value['title']}</span>
+                                {/loop $object_types}
+                            {/if}
+                        {/if}
+                    </div>
+                    {/if}
+                    {if!empty $estate_country}
+                    <div class="type-country-box {ifempty $estate_country}hidden{/if}" data-type="type_objects_country">
+                        <span class="tg-title">Тип объекта - загородная</span>
+                        {if!empty $targeting_data['type_objects_country']}
+                            {php: $object_types = $targeting_data['type_objects_country'];}
+                            {loop $object_types,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['type_objects_country'][$value['id_tag']]['value']} selected{/if}" {if!empty $targeting_data['type_objects_country'][$key]['id_tag']}id = {$targeting_data['type_objects_country'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="4"{/if}>{$value['title']}</span>
+                            {/loop $object_types}
+                        {/if}
+                    </div>
+                    {/if}
+                </div>
+                <div class="tg price">
+                    <b>Нижняя граница цены (тыс.руб.):</b>
+                    <input type="text" class="price-input" id="input-price-floor" value="{$data_mapping['price_floor']['value']}">
+                </div>
+                <div class="tg price">
+                    <b>Верхняя граница цены (тыс.руб.):</b>
+                    <input type="text" class="price-input" id="input-price-top" value="{$data_mapping['price_top']['value']}">
+                </div>
+                {if!empty $show_rooms}
+                    <div class="tg rooms" data-type="rooms">
+                        <span class="tg-title">Комнатность</span>
+                        {if!empty $targeting_data['rooms']}
+                            {php: $rooms = $targeting_data['rooms'];}
+                            {loop $rooms,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['rooms'][$key]} selected{/if}" {if!empty $key}id = {$key}{/if}>{$value}</span>
+                            {/loop $rooms}
+                        {/if}
+                    </div>
+                {/if}
+                {if!empty $show_subways}
+                    <div class="tg subways" data-type="subways">
+                        <span class="tg-title">Метро</span>
+                        {if!empty $targeting_data['subways']}
+                            {php: $subways = $targeting_data['subways'];}
+                            {loop $subways,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['subways'][$value['id_tag']]['value']} selected{/if}" data-key={$key} {if!empty $value['id_tag']}id = {$value['id_tag']}{else}data-source-id="{$key}" data-restrictions="1234"{/if}>{$value['title']}</span>
+                            {/loop $subways}
+                        {/if}
+                    </div>
+                {/if}
+                {if!empty $show_districts}
+                    <div class="tg districts" data-type="districts">
+                        <span class="tg-title">Район СПБ</span>
+                        {if!empty $targeting_data['districts']}
+                            {php: $districts = $targeting_data['districts'];}
+                            {loop $districts,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['districts'][$value['id_tag']]['value']} selected{/if}" {if!empty $targeting_data['districts'][$key]['id_tag']}id = {$targeting_data['districts'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="123"{/if}>{$value['title']}</span>
+                            {/loop $districts}
+                        {/if}
+                    </div>
+                {/if}
+                {if!empty $show_district_areas}
+                    <div class="tg district_areas" data-type="district_areas">
+                        <span class="tg-title">Район ЛО</span>
+                        {if!empty $targeting_data['district_areas']}
+                            {php: $district_areas = $targeting_data['district_areas'];}
+                            {loop $district_areas,$key,$value}
+                                <span class="tg-item{if!empty $value['id_tag']}{if!empty $targeting_list['district_areas'][$value['id_tag']]['value']} selected{/if}{/if}" {if!empty $targeting_data['district_areas'][$key]['id_tag']}id = {$targeting_data['district_areas'][$key]['id_tag']}{else}data-source-id="{$key}"{/if}>{$value['title']}</span>
+                            {/loop $district_areas}
+                        {/if}
+                    </div>
+                {/if}
+            </div>
+        </fieldset>
+        <fieldset>
+            <h3 id="pictures_requirements">Загрузка картинок для {ifeq $data_mapping['block_type']['value'],2}текстово-графического {/if}рекламного блока #{$data_mapping['id']['value']} {if!empty $item_height}(Размеры {$item_width}px x {$item_height}px){/if}</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/advert_objects/context_campaigns/{$campaign_id}/photos/" data-session-id="{php:echo session_id();}" {if!empty $item_height}data-height="{$item_height}" data-width="{$item_width}"{/if}/>
+            <input type="hidden" name="id_priority" value="0"/>
+        </fieldset>
+    {/if}
+    <p class="estate-type-block">
+        <label>Типы недвижимости</label>
+        <span><input type="checkbox" id="estate-live" {if!empty $estate_live}checked{/if} data-id="1">Жилая</span>
+        <span><input type="checkbox" id="estate-build" {if!empty $estate_build}checked{/if} data-id="2">Новостройки</span>
+        <span><input type="checkbox" id="estate-country" {if!empty $estate_country}checked{/if} data-id="4">Загородная</span>
+        <span><input type="checkbox" id="estate-commercial" {if!empty $estate_commercial}checked{/if} data-id="3">Коммерческая</span>
+    </p>
+    <p class="deal-type-block">
+        <label>Типы сделки</label>
+        <span>Аренда<input type="checkbox" id="deal-rent" {if!empty $deal_rent}checked{/if} data-id="1"></span>
+        <span>Продажа<input type="checkbox" id="deal-sell" {if!empty $deal_sell}checked{/if} data-id="1"></span>
+    </p>
+</form>
+
+<script>
+    
+    jQuery(document).ready(function(){        
+        //обрабатываем нажатия по галочкам для типов недвижимости - изменяем значение невидимого поля формы
+        jQuery('#estate-live').change(function(){
+            if(jQuery(this).prop('checked')) jQuery('#estate_type').val(jQuery('#estate_type').val()+"1");
+            else jQuery('#estate_type').val(jQuery('#estate_type').val().replace(/1/,''));
+        });
+        jQuery('#estate-build').change(function(){
+            if(jQuery(this).prop('checked')) jQuery('#estate_type').val(jQuery('#estate_type').val()+"2");
+            else jQuery('#estate_type').val(jQuery('#estate_type').val().replace(/2/,''));
+        });
+        jQuery('#estate-country').change(function(){
+            if(jQuery(this).prop('checked')) jQuery('#estate_type').val(jQuery('#estate_type').val()+"4");
+            else jQuery('#estate_type').val(jQuery('#estate_type').val().replace(/4/,''));
+        });
+        jQuery('#estate-commercial').change(function(){
+            if(jQuery(this).prop('checked')) jQuery('#estate_type').val(jQuery('#estate_type').val()+"3");
+            else jQuery('#estate_type').val(jQuery('#estate_type').val().replace(/3/,''));
+        });
+        //ограничение на места размещения для текстового и тгб таргета
+        jQuery('#p_field_block_type').children('.lf').children('span').eq(0).on('click',function(){
+            jQuery('#id_place').children().removeAttr('disabled');
+        });
+        jQuery('#p_field_block_type').children('.lf').children('span').eq(1).on('click',function(){
+            if(jQuery(this).children()[0].checked == true)
+                jQuery('#id_place').children().eq(3).removeAttr('disabled').siblings().attr('disabled','disabled');
+                jQuery('#id_place').children().eq(4).removeAttr('disabled','disabled');
+                //если вариант который был - не подходит, щелкаем на другой
+                if(jQuery('#id_place').children('option[selected="selected"]').attr('disabled') == 'disabled') jQuery('#id_place').children().eq(1).attr('selected','selected');
+        });
+        jQuery('#p_field_block_type').children('.lf').children('span').eq(2).on('click',function(){
+            if(jQuery(this).children()[0].checked == true){
+                jQuery('#id_place').children().eq(3).attr('disabled','disabled').siblings().removeAttr('disabled');
+                //если вариант который был - не подходит, щелкаем на другой
+                if(jQuery('#id_place').children('option[selected="selected"]').attr('disabled') == 'disabled') jQuery('#id_place').children().eq(1).attr('selected','selected');
+                jQuery('#id_place').children().eq(4).attr('disabled','disabled');
+            }
+        });
+        
+        //кликаем чтобы сразу применились ограничения
+        jQuery('#p_field_block_type').children('.lf').children('span').children('input[checked="checked"]').parent().click();
+        
+        //обрабатываем нажатия по галочкам для типов сделки - изменяем значение невидимого поля формы
+        jQuery('#deal-rent').change(function(){
+            if(jQuery(this).prop('checked')) jQuery('#deal_type').val(jQuery('#deal_type').val()+"1");
+            else jQuery('#deal_type').val(jQuery('#deal_type').val().replace(/1/,''));
+        });
+        jQuery('#deal-sell').change(function(){
+            if(jQuery(this).prop('checked')) jQuery('#deal_type').val(jQuery('#deal_type').val()+"2");
+            else jQuery('#deal_type').val(jQuery('#deal_type').val().replace(/2/,''));
+        });
+        //переносим блок с галочками по типам недвижимости в форму (под место размещения)
+        jQuery('.estate-type-block').offset({ top:jQuery('#p_field_id_place').offset().top+40, left:jQuery('#p_field_id_place').offset().left});
+        //переносим блок с галочками по типам сделки в форму (под типы недвижимости)
+        jQuery('.deal-type-block').offset({ top:jQuery('#p_field_id_place').offset().top+80, left:jQuery('#p_field_id_place').offset().left});
+    });
+</script>

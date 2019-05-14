@@ -1,0 +1,79 @@
+<!DOCTYPE html >
+<html>
+<head><script src="/html.js"></script>
+<meta charset="UTF-8">
+<title>Template_for_AdobeAnimate_CC_Adfox</title>
+<script type="text/javascript" src="http://banners.adfox.ru/files/adfox_HTML5.js"></script>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="topline-seminar-2.js"></script>
+<script>
+    var flashVars = {
+      reference: "%reference%",
+      link: "%user1%",
+      target: "%target%",
+      rnd: parseInt("%random1%") || parseInt("%random%"),
+      events: [
+            "",
+            "%event1%",
+            "%event2%",
+            "%event3%",
+            "%event4%",
+            "%event5%",
+            "%event6%",
+            "%event7%",
+            "%event8%",
+            "%event9%",
+            "%event10%",
+            "%event11%",
+            "%event12%",
+            "%event13%",
+            "%event14%",
+            "%event15%",
+            "%event16%",
+            "%event17%",
+            "%event18%",
+            "%event19%",
+            "%event20%",
+            "%event21%",
+            "%event22%",
+            "%event23%",
+            "%event24%",
+            "%event25%",
+            "%event26%",
+            "%event27%",
+            "%event28%",
+            "%event29%",
+            "%event30%"
+      ]
+    };
+var canvas, stage, exportRoot;
+function init() {
+	canvas = document.getElementById("canvas");
+	images = images||{};
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt) {
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+}
+function handleComplete(evt) {
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.toplineseminar2();
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.enableMouseOver();
+	createjs.Ticker.setFPS(lib.properties.fps);
+	createjs.Ticker.addEventListener("tick", stage);
+}
+</script>
+</head>
+<body onload="init();" style="background-color:#D4D4D4;margin:0px;">
+	<canvas id="canvas" width="1200" height="90" style="background-color:rgba(0, 6, 95, 1.00)"></canvas>
+</body>
+</html>

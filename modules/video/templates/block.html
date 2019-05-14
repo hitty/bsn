@@ -1,0 +1,9 @@
+{if!empty $videos} 
+    
+    {loop $videos,$pk,$pv}
+        <embed src='/js/spruto/player.swf'
+        type='application/x-shockwave-flash' allowfullscreen='true'
+        allowScriptAccess='always' width='100%' height='570'
+        flashvars="settingsUrl=https://{Host::$host}/video_player/?name={$pv['name']}&posterUrl={static:/}img/uploads/med/{$pv['photo_subfolder']}/{$pv['photo_name']}&title={$h1}&auto_play=2"/>
+    {/loop $videos}
+{/if}

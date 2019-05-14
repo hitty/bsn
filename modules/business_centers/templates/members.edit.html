@@ -1,0 +1,215 @@
+    <div class="central">
+        <div class="row">
+            <div class="addr-box">
+                <span class="title">БЦ «{$item['title']}»</span>
+                {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                {if!empty $district}
+                    <span class="district">
+                        {if!empty $item['district']}
+                            {$item['district']} район
+                        {elseif!empty $item['district_area']}
+                            {$item['district_area']} район ЛО
+                        {/if}
+                    </span>
+                {/if}
+                {if!empty $item['address']}<span class="addr">{$item['address']}</span>{/if}
+                {if!empty $item['subway']}
+                    <span class="subway">
+                            {$item['subway']}
+                            {if!empty $item['way_time']} {$item['way_time']} {$item['way_type']}{/if}
+                    </span>
+                {/if} 
+ 
+            </div>          
+        </div>
+        <div class="row info-wrap">
+            <div class="lrmp">
+                <div class="info">
+                    <div class="params-box properties-box">
+                        {if!eq $item['class'],'no'}<p><span class="value vip"><b>{$item['class']}</b> класс</span></p>{/if}
+                        {php:$square = !empty($item['min_square']) || !empty($item['max_square'])}
+                        {if!empty $square}
+                            <p>
+                                <span class="value vip">
+                                    <b>
+                                        {ifgt $item['min_square'],0}
+                                            {ifempty $item['max_square']}от {squareformat:$item['min_square']}
+                                            {else} {squareformat:$item['min_square']} - {squareformat:$item['max_square']}
+                                            {/if}
+                                        {elseifgt $item['max_square'],0}
+                                            до {squareformat:$item['max_square']}
+                                        {/if}
+                                         м<sup>2</sup>
+                                     </b> офисы
+                                 </span>
+                             </p>
+                        {/if}
+                        {php:$cost_meter = !empty($item['min_cost_meter']) || !empty($item['max_cost_meter'])}
+                        {if!empty $cost_meter}
+                            <p>
+                                <span class="value vip">
+                                    <b>
+                                        {ifgt $item['min_cost_meter'],0}
+                                            {ifempty $item['max_cost_meter']}от {numberformat:$item['min_cost_meter']}
+                                            {else} {numberformat:$item['min_cost_meter']} - {numberformat:$item['max_cost_meter']}
+                                            {/if}
+                                        {elseifgt $item['max_cost_meter'],0}
+                                            до {numberformat:$item['max_cost_meter']}
+                                        {/if}
+
+                                          Р/м<sup>2</sup>
+                                     </b>
+                                 </span>
+                             </p>
+                        {/if}                        
+                        {php:$cost = !empty($item['min_cost']) || !empty($item['max_cost'])}
+                        {if!empty $cost}
+                            <p>
+                                <span class="value vip">
+                                    <b>
+                                        {ifgt $item['min_cost'],0}
+                                            {ifempty $item['max_cost']}от {numberformat:$item['min_cost']}
+                                            {else} {numberformat:$item['min_cost']} - {numberformat:$item['max_cost']}
+                                            {/if}
+                                        {elseifgt $item['max_cost'],0}
+                                            до {numberformat:$item['max_cost']}
+                                        {/if}
+
+                                          Р
+                                     </b>
+                                 </span>
+                             </p>
+                        {/if}                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="slide-photogallery">
+                    {php:$gallery_type='slide_thumbs';}
+                    {php:$gallery_title='Фотографии объекта';}
+                    {php:$hash = substr(md5(mt_rand(0,10000)), 0, 5);}  {include /templates/gallery.html}
+            </div>
+        </div>
+        <div class="expand-row">
+            <span class="expand">Показать подробности</span>
+            <span class="hide">Скрыть подробности</span>
+        </div>
+        <div class="row expand-info">
+            <div class="info">
+                <div class="item dogovor">
+                    <b>Договор</b>
+                    {if!empty $item['dogovor']}<a href="/docs/{$item['dogovor']}">Скачать образец</a>{/if}
+                    <p>{$item['dogovor_description']}</p>
+                </div>
+                <div class="item how-pay">
+                    <b>Оплата</b>
+                    <p>{$item['how_pay']}</p>
+                </div>
+                <div class="item internet">
+                    <b>Интернет</b>
+                    <p>{$item['internet']}</p>
+                </div>
+            </div>
+            <ul class="params-list">
+                <li {ifeq $item['office_parking'],1}class="on"{/if}>Паркинг</li>
+                <li {ifeq $item['office_security'],1}class="on"{/if}>Безопасность</li>
+                <li {ifeq $item['office_sport'],1}class="on"{/if}>Спорт</li>
+                <li {ifeq $item['office_food'],1}class="on"{/if}>Питание</li>
+                <li {ifeq $item['office_access'],1}class="on"{/if}>Доступ (24/7)</li>
+            </ul>
+                {if!eq $item['fulldescr'],''}
+                <div class="notes-box bigtext">
+                    <h2>Описание бизнес-центра «{$item['title']}»</h2>
+                    {strip:$item['fulldescr']}
+                </div>
+                {/if}
+        </div>
+
+        <a name="rent" id="rent"></a>
+        <div class="row offices-box" data-id="{$item['id']}">
+            {if!empty $business_centers_corpuses}
+                <div class="list-selector select-corp grey">
+                    <a href="#" class="pick"></a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="business_centers_corpuses" id="business_centers_corpuses" value="{$business_centers_corpuses[0]['corp']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        {php:$id_corp = '';}
+                        {loop $business_centers_levels,$k,$item}
+                            {if!eq $id_corp, $item['id_corp']}
+                                <li data-value="{$item['id_corp']}">Корпус{ifempty $item['id_corp']} не указан{else} {$item['corp_title']}{/if}</li>
+                                {php:$id_corp = $item['id_corp'];}
+                            {/if}
+                        {/loop $business_centers_levels}
+                    </ul>
+                </div>     
+            {/if}
+
+            <div class="list-selector select-level grey list">
+                <a href="#" class="pick"></a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="business_centers_levels" id="business_centers_levels" value="all" />
+                <ul class="list-data" data-simplebar="init">
+                    
+                    {php:$corp = '112233'}
+                    {loop $business_centers_levels,$k,$item}
+                        {if!eq $item['id_corp'],$corp}
+                            <li data-value="all" data-corp="{$item['id_corp']}" class="all">все этажи</li>
+                            {php:$corp = $item['id_corp']}
+                        {/if}
+                        <li data-value="{$item['id']}" data-corp="{$item['id_corp']}">{ifempty $item['level']}цокольный{else}{$item['level']}{/if} этаж - <i>{suffix:$item['offices_count'],'офис','','а','ов'} {suffix_word:$item['offices_count'],'свобод','ен','но','но'}</i></li>
+                    {/loop $business_centers_levels}
+                </ul>
+            </div>     
+            <div class="view-type">
+                <span class="list active">Список офисов</span>
+                <span class="plans">План этажа</span>
+            </div>
+            <div class="offices list">
+                <div class="fixed-wrap"><div class="info-wrap"></div></div>
+                <div class="list-wrap"></div>
+                <div class="plans-wrap"></div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function(){
+                jQuery('.offices-box').offices({
+                    corp_select_element     : '.select-corp',   
+                    level_select_element    : '.select-level',   
+                    info_element            : '.offices .info-wrap',
+                    offices_element         : '.offices .list-wrap',
+                    plans_element           : '.offices .plans-wrap',
+                    members_page            : true,
+                });
+            })
+            
+        </script>
+        
+    </div>                     
+    <div id="change-renter-wrap">
+        <div id="change-renter">
+            <a class="closebutton"></a>
+            <span class="form-title">Сменить арендатора<span>Выбрано офисов: <i></i></span></span>
+            <span class="title">Новый арендатор</span>
+            <div class="list-selector select-renter grey list">
+                <a href="#" class="pick"></a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="change_renters" id="change_renters" value="" />
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="">выберите арендатора</li>
+                    {loop $renters,$k,$item}
+                        <li data-value="{$item['id']}">{$item['title']}</li>
+                    {/loop $renters}
+                </ul>
+            </div>  
+            <span class="title">Срок аренды</span>
+            <div class="interval-selector">
+                <span>с <input type="text" value="" class="datetimepicker" name="date_start" id="date_start" maxlength="10" autocomplete="off"></span>
+                <span>по <input type="text" value="" class="datetimepicker" name="date_end" id="date_end" maxlength="10" autocomplete="off"></span>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="green send" value="Сменить арендатора">Сменить арендатора</button>
+        </div>        
+    </div>

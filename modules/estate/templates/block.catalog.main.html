@@ -1,0 +1,128 @@
+{ifeq $estate_type,'build'}
+    <div class="catalog-item clearfix">
+        <img src="{static:/}img/layout/catalog_build.png" alt="Новостройки" class="catalog-img" />
+        {if!empty $estate_mainpage}<h2>Новостройки</h2>{/if}
+        <div class="flex">
+            
+            <div class="object-types-list">
+                <span class="title">Купить</span>
+                <ul>
+                    {php:$plist = $popular_list['build']}                
+                    {loop $plist,$k,$item}
+                        <li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>
+                    {/loop $plist}
+                    
+                    {if!empty $links_list['build']}
+                        {php:$llist = $links_list['build']}                
+                        {loop $llist,$k,$item}
+                            <li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>
+                        {/loop $llist}
+                    {/if}
+
+                    {ifempty $estate_mainpage}
+                        <li><a href="/build/sell/?geodata_selected=districts" title="Новостройки по районам">Новостройки по районам</a></li>
+                        <li><a href="/build/sell/?geodata_selected=district_areas" title="Новостройки по районам">Новостройки ЛО</a></li>
+                        <li><a href="/build/sell/?geodata_selected=subways" title="Новостройки по станциям метро">Новостройки по станциям метро</a></li>
+                    {/if}
+                    
+                    <li rel="sell" class="black-links"><a href="/zhiloy_kompleks/" title="Жилые комплексы">Жилые комплексы</a> </li>
+                    <li rel="sell" class="black-links"><a href="/zhiloy_kompleks/low_rise/" title="Малоэтажная застройка">Малоэтажная застройка</a></li>
+                </ul>   
+            </div>
+        </div>
+    </div>   
+{elseifeq $estate_type,'live'}
+    <div class="catalog-item clearfix">
+        <img src="{static:/}img/layout/catalog_live.png" alt="Жилая недвижимость" class="catalog-img" />
+        {if!empty $estate_mainpage}<h2>Жилая недвижимость</h2>{/if}
+        <div class="flex">
+            <div class="object-types-list">
+                <span class="title"><a href="/live/sell/" title="Продажа жилой недвижимости">Купить</a></span>
+                
+                <ul>
+                    {php:$plist = $popular_list['live']}                
+                    {loop $plist,$k,$item}
+                        {ifeq $item['type'],'sell'}<li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>{/if}
+                    {/loop $plist}
+                    
+                    <li class="black-links"><a href="/live/sell/rooms/" title="Продажа комнат">Комнаты</a></li>
+                    <li class="black-links"><a href="/zhiloy_kompleks/" title="Продажа жилых комплексов">Жилые комплексы</a></li>
+                    <li class="black-links"><a href="/zhiloy_kompleks/low_rise/" title="Продажа малоэтажных комплексов">Малоэтажная застройка</a></li>
+                </ul>
+            </div>
+            <div class="object-types-list">
+                <span class="title"><a href="/live/rent/" title="Аренда жилой недвижимости">Снять</a></span>
+                
+                <ul>
+                    {php:$plist = $popular_list['live']}                
+                    {loop $plist,$k,$item}
+                        {ifeq $item['type'],'rent'}<li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>{/if}
+                    {/loop $plist}
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+{elseifeq $estate_type,'country'}
+    <div class="catalog-item clearfix">
+        <img src="{static:/}img/layout/catalog_country.png" alt="Загородная недвижимость" class="catalog-img" />
+        {if!empty $estate_mainpage}<h2>Загородная недвижимость</h2>{/if}
+        <div class="flex">
+            <div class="object-types-list">
+                <span class="title"><a href="/country/sell/" title="Продажа загородной недвижимости">Купить</a></span>
+                
+                <ul id="country-object-types-list">
+                    {php:$plist = $popular_list['country']}                
+                    {loop $plist,$k,$item}
+                        {ifeq $item['type'],'sell'}<li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>{/if}
+                    {/loop $plist}
+                    
+                    <li class="black-links"><a href="/cottedzhnye_poselki/" title="Продажа коттеджных поселков">Коттеджные поселки</a></li>
+                    <li class="black-links"><a href="/country/sell/buildings/" title="Продажа домов, коттеджей">Дома, коттеджи</a></li>
+                    <li class="black-links"><a href="/country/sell/house_part/" title="Продажа части дома ">Часть дома</a></li>
+                    <li class="black-links"><a href="/country/sell/dacha/" title="Продажа дач">Дачи</a></li>
+                    <li class="black-links"><a href="/country/sell/townhouses/" title="Продажа таунхаусов">Таунхаусы</a></li>
+                </ul>
+            </div>
+            <div class="object-types-list">
+                <span class="title"><a href="/country/rent/" title="Аренда загородной недвижимости">Снять</a></span>
+                <ul id="country-object-types-list">
+                    {php:$plist = $popular_list['country']}                
+                    {loop $plist,$k,$item}
+                        {ifeq $item['type'],'rent'}<li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>{/if}
+                    {/loop $plist}
+                </ul>
+            </div>
+        </div>
+    </div>       
+{elseifeq $estate_type,'commercial'}
+    <div class="catalog-item clearfix">
+        <img src="{static:/}img/layout/catalog_commercial.png" alt="Коммерческая недвижимость" class="catalog-img" />
+        {if!empty $estate_mainpage}<h2>Коммерческая недвижимость</h2>{/if}
+        <div class="flex">
+            <div class="object-types-list">
+                <span class="title"><a href="/commercial/sell/" title="Продажа коммерческой недвижимости">Купить</a></span>
+                <ul>
+                    {php:$plist = $popular_list['commercial']}                
+                    {loop $plist,$k,$item}
+                        {ifeq $item['type'],'sell'}<li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>{/if}
+                    {/loop $plist}
+                    
+                    <li rel="sell" class="black-links"><a href="/business_centers/" title="Бизнес-центры">Бизнес-центры</a></li>
+                    <li rel="sell" class="black-links"><a href="/commercial/sell/offices/" title="Продажа офисных помещений">Офисы</a></li>
+                </ul>
+            </div>
+            <div class="object-types-list">
+                <span class="title"><a href="/commercial/rent/" title="Аренда коммерческой недвижимости">Снять</a></span>
+                <ul>
+                    {php:$plist = $popular_list['commercial']}                
+                    {loop $plist,$k,$item}
+                        {ifeq $item['type'],'rent'}<li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a>{ifgt $item['filled'],0}<sup>{numberformat:$item['filled']}</sup>{/if}</li>{/if}
+                    {/loop $plist}
+                    
+                    <li rel="rent" class="black-links"><a href="/commercial/rent/offices/" title="Продажа офисных помещений">Офисы</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{/if}

@@ -1,0 +1,40 @@
+<h1>Конвертер баннеров для AdRiver</h1>
+<form class="form_default" method="post" action="" enctype="multipart/form-data">
+    {php:$show_files = !empty($form_submit) && empty($errors)}
+    {ifempty $show_files}
+        {if!empty $errors['extensions_error']}<span class="error">Необходимо загрузить 2 файла: HTML и JS</span>{/if}
+        <p id="p_field_html" style="clear: none;">
+            <span class="lf fieldwrapper">
+               <b>Загрузка файла HTML *</b>
+                <input type="file" placeholder="" value="" name="html" id="html" class="lf">
+                {if!empty $errors['html']}
+                    {php:$errors = $errors['html']}
+                    {loop $errors, $k, $text}
+                        <span class="small_text red">{$text}</span>
+                    {/loop $errors}
+                {/if}
+            </span>
+        </p>
+        <p id="p_field_js" style="clear: none;">
+            <span class="lf fieldwrapper">
+               <b>Загрузка файла JS *</b>
+                <input type="file" placeholder="" value="" name="js" id="js" class="lf">
+                {if!empty $errors['js']}
+                    {php:$errors = $errors['js']}
+                    {loop $errors, $k, $text}
+                        <span class="small_text red">{$text}</span>
+                    {/loop $errors}
+                {/if}
+            </span>
+        </p>
+        <p style="clear: none;">
+            <input type="submit" value="Конвертировать" name="submit">
+        </p>
+    {else}
+        <div class="download-links">
+            Конвертация прошла успешно. Ссылки на новые файлы:
+            <span><a href="?download&filename={$html_file}" target="_blank">HTML</a></span>
+            <span><a href="?download&filename={$js_file}" target="_blank">JS</a></span>
+        </div>
+    {/if}
+</form>

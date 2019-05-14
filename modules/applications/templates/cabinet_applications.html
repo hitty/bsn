@@ -1,0 +1,49 @@
+<h2 id="members-h2">
+    Заявки
+</h2>
+
+<div class="filter ajax-tabs-container" data-content-container=".applications-wrapper" data-url="">
+    <span class=" br3" data-param="/members/conversions/applications/?status=all"  data-tab-ref="all">
+        Все</sup>
+    </span>
+    <span class=" br3" data-param="/members/conversions/applications/?status=new"  data-tab-ref="new">
+        Новые</sup>
+    </span>
+    <span class=" br3" data-param="/members/conversions/applications/?status=performing"  data-tab-ref="performing">
+        В работе</sup>
+    </span>
+    <span class=" br3" data-param="/members/conversions/applications/?status=finished"  data-tab-ref="finished">
+        Завершенные</sup>
+    </span>
+</div>       
+<div class="statistic-box clearfix">
+    <div class="list-selector estate-type">
+        <a href="#" class="pick">Тип недвижимости</a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" id="filter_estatetype" name="filter_estatetype" value="{$get_parameters['filter_estatetype']}" />
+        <ul class="list-data" data-simplebar="init">
+            <li data-value="">Тип недвижимости</li>
+            <li data-value="2">Новостройки</li>
+            <li data-value="1">Жилая</li>
+            <li data-value="3">Коммерческая</li>
+            <li data-value="4">Загородная</li>
+        </ul>
+    </div>
+    <div class="list-selector estate-type">
+        <a href="#" class="pick">Тип сделки</a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" id="filter_dealtype" name="filter_dealtype" value="{$get_parameters['filter_dealtype']}" />
+        <ul class="list-data" data-simplebar="init">
+            <li data-value="">Тип сделки</li>
+            <li data-value="1">Аренда</li>
+            <li data-value="2">Покупка</li>
+            <li data-value="3">Сдам</li>
+            <li data-value="4">Продам</li>
+        </ul>
+    </div>
+    <div class="sb-info"></div>        
+</div>       
+<div class="applications-wrapper cabinet" id="ajax-search-results">
+    
+</div>    
+

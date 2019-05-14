@@ -1,0 +1,144 @@
+<!--<h1 id="members-h1">Личный кабинет</h1>-->
+<h2 id="members-h2">Оплата услуг</h2>
+    <div id="item-edit-form" class="pay-wrap">
+        {ifeq $complete,'start'}
+                {ifeq $query,'wrong'}
+                    <table width="100%" height="100">
+                        <tr height="30">
+                            <td valign="middle" align="center"><b>Неверный номер варианта</b></td>
+                        </tr>
+                        <tr height="20">
+                            <td align="center"><a href="/members/cabinet/"><b>Перейти в личный кабинет</b></a></td>
+                        </tr>
+                    </table>
+                {elseifeq $query,'wrong_params'}
+                    <table width="100%" height="100">
+                        <tr height="30">
+                            <td valign="middle" align="center"><b>Неверные входные параметры</b></td>
+                        </tr>
+                        <tr height="20">
+                            <td align="center"><a href="/members/cab/"><b>Перейти в личный кабинет</b></a></td>
+                        </tr>
+                    </table>
+                {elseifeq $query,'invalid'}
+                    <table width="100%" height="100">
+                        <tr height="30">
+                            <td valign="middle" align="center"><b>Минимальная сумма оплаты 15 рублей</b></td>
+                        </tr>
+                        <tr height="20">
+                            <td align="center"><a href="/members/cab/"><b>Перейти в личный кабинет</b></a></td>
+                        </tr>
+                    </table>
+                {elseifeq $query,'error'}
+                    <table width="100%" height="100">
+                        <tr height="30">
+                            <td valign="middle" align="center"><b>Извините, на сайте некоторые технические проблемы. Попробуйте выполнить операцию позже.</b></td>
+                        </tr>
+                        <tr height="20">
+                            <td align="center"><a href="/members/cab/"><b>Перейти в личный кабинет</b></a></td>
+                        </tr>
+                    </table>
+                {else}
+                    <div class="pay-option-wrap">
+                        <ul class="pay-option-tabs">
+                            <li data-rel="#robokassa" class="robokassa"><img src="{static:/}img/layout/robokassa.png" alt="Робокаса" /></li>
+                        </ul>
+                        <p>Моментальная онлайн-оплата кредитными картами VISA, Mastercard, электронными деньгами WebMoney, Яндекс.Деньги, RBK-Money, оплата через терминалы Элекснет или QIWI.</p>           
+
+                    </div>
+                    <h3 class="btitle red">Выбранные платные услуги</h3>
+                    3<ul class="object-statuses" name="object-statuses">
+                        {ifeq $status, 5}
+                            <li data-value="5"  class="standart-extended active">
+                                Обычное размещение <span><i>150</i><span class="rur">a</span></span>
+                                <p>
+                                    Лимит бесплатных публикаций для вашего аккаунта "Частное лицо" исчерпан.
+                                    Для специалистов недвижимости рекомендуем подключить <a href="/help/13_akkaunt/22_tarify/" target="_blank" title="выгодный тариф">выгодный тариф</a> и экономить на размещении объектов.
+                                    <br />Размещение на 30 дней
+                                </p>
+                            </li>
+                        {elseifeq $status, 3}
+                            <li data-value="3"  class="promo active">
+                                Услуга  «ПРОМО» <span><i>450</i><span class="rur">a</span></span>
+                                <p>
+                                    <i class="adv-text">В <b>3</b> раза больше просмотров</i>
+                                    Выделение в результатах поиска среди других объявлений
+                                    <br />Размещение на 30 дней
+                                    
+                                </p>
+                            </li>
+                        {elseifeq $status, 4}
+                            <li data-value="4"  class="premium active" >
+                                Услуга  «ПРЕМИУМ» <span><i>900</i><span class="rur">a</span></span>
+                                <p>
+                                    <i class="adv-text">В <b>5</b> раз больше просмотров</i>
+                                    Выделение в результатах поиска + закрепление на первых позициях. 
+                                    <br />Размещение на 30 дней
+                                </p>
+                            </li>
+                        {elseifeq $status, 1}
+                            <li data-value="1"  class="raising active" >
+                                Поднятие<span>30<span class="rur">a</span></span>
+                                <p>
+                                    <i class="adv-text">Временная эффективность</i>
+                                    Поднятие объявления в результатах поиска -  эффективный инструмент продвижения вашего объекта за минимальные деньги
+                                </p>
+                            </li>
+                        {/if} 
+                    </ul>                   
+                    <div class="objects-wrap">
+                        <h3>Объекты <i>1</i></h3>
+                        <div class="objects-list">
+                            <div class="object">      
+                                {if!empty $photo['name']}<img src="{static:/}{$img_folder}/sm/{$photo['subfolder']}/{$photo['name']}" alt="{$item['header']}"/>{else}<img src="{static:/}img/layout/no-photo-small.gif" alt=""/>{/if}
+                                <a href="/{$estate}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" target="_blank">{$item['txt_addr']}</a>
+                                {$titles['object_type']}{if!empty $item['level']}, этаж {$item['level']}{if!empty $item['level_total']}/{$item['level_total']}{/if}{/if}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pay-total">
+                        Итого:
+                        <span class="calculate">
+                            <i>1 объект</i>X<b>{ifeq $status, 5}150{elseifeq $status,4}900{elseifeq $status,3}450{elseifeq $status,1}30{/if} руб.</b>
+                        </span>
+                        <p>= <i>{ifeq $status, 5}150{elseifeq $status,4}900{elseifeq $status,3}450{elseifeq $status,1}30{/if} руб.</i></p>
+                        {if!empty $protect}
+                            {ifeq $query,'invalid'}
+                                <p>Ошибка! Введены неверные данные.</p>
+                            {/if}
+                            <form method="post" action="" id="pay-form">
+                                <input type="hidden" name="inv_id" value="{$inv_id}"/>
+                                <input type="hidden" name="inv_desc" value="{$inv_desc}"/>
+                                <input type="hidden" name="inv_summ" value="{$inv_summ}" class="digit pay-input"/>
+                                <input type="submit" name="paying" value="Перейти к оплате" class="button green"/>
+                            </form>
+                        {/if}
+                    </div>
+
+
+                                                                                                                        
+                    
+                {/if}        
+    {elseifeq $complete,'success'}
+            <div class="pay-success">
+                <p>Оплата завершена успешно. Спасибо, что доверяете нам!</p>
+                <p>ID пополненного варианта: <b>{$insert_id}</b></p>
+            </div>
+    {elseifeq $complete,'fail'}
+            <table cellpadding="0" cellspacing="0" border="0" summary="" style="width:100%">
+                <tr>
+                    <td align="center">
+                        <img src="http://st.bsn.ru/img/icUnExclamation.gif" width="47" height="46"/>
+                        <br/>
+                        Баланс вашего варианта НЕ ПОПОЛНЕН. Мы зафиксировали проблему и попытаемся ее решить в ближайшее время.
+                        <br/>
+                        <br/>
+                        ID варианта: <b>{$insert_id}</b>
+                        <br/>
+                        <div style="margin:10px 50px 10px 50px; overflow:hidden; background: #ACBBD4; height:1px"><![CDATA[]]></div>
+                    </td>
+                </tr>
+            </table>
+    {/if}
+    </div>
+    

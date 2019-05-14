@@ -1,0 +1,67 @@
+{include /modules/mailers/templates/simple.header.html}
+{if!empty $letter_starting}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+        {$letter_starting}
+    </td>
+</tr>
+{/if}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+
+    <!--adv_block-to-moderate-->
+    {ifeq $letter_data['letter_type'],1}
+        <p>У {ifempty $is_specialist}компании{else}специалиста{/if} {$letter_data['agency_title']} в рекламной кампании «{$letter_data['cmp_title']}» появилось объявление для проверки: #{$letter_data['adv_id']} <a href="{$letter_data['manager_href']}">{$letter_data['adv_title']}</a>.</p>
+    {/if}
+    <!--adv_block-succ-moderate-->
+    {ifeq $letter_data['letter_type'],2}
+        <p>Рекламное объявление {if!empty $letter_data['adv_title']}"{$letter_data['adv_title']}"{/if} вашей кампании «{$letter_data['cmp_title']}» успешно прошло модерацию и запущено.<br>
+           Напоминаем, что любые изменения в активном рекламном объявлении инициируют процесс модерации.</p>
+        <br/><br/>
+    {/if}
+    <!--adv_block-archive-client-->
+    {ifeq $letter_data['letter_type'],3}
+        <p>Ваше рекламное объявление "{$letter_data['adv_title']}" кампании «{$letter_data['cmp_title']}» отправлено на модерацию.</p>
+    {/if}
+    <!--campaign-arch-client-->
+    {ifeq $letter_data['letter_type'],4}
+        <p>Рекламная кампания «{$letter_data['cmp_title']}» {ifempty $is_specialist}компании{else}специалиста{/if} {$letter_data['agency_title']} перемещена в архив клиентом.</p>
+    {/if}
+    <!--campaign-archive-endperiod-->
+    {ifeq $letter_data['letter_type'],5}
+        {if!empty $to_manager}
+            <p>
+                {php: $cmp_list = $letter_data['cmp_list'];}
+                {loop $cmp_list,$k,$item}
+                    {php: $item['cmp_titles'] = implode(', ',$item['campaigns_titles']);}
+                    Рекламные кампании: {$item['cmp_titles']} {ifempty $is_specialist}компании{else}специалиста{/if} {$item['agency_title']} перемещены в архив по истечении срока действия.<br>
+                {/loop $cmp_list}
+            </p>
+        {else}
+            <p>{if!empty $multiple_campaigns}
+                Ваши рекламные кампании:<br>{$letter_data['cmp_titles']}<br>перемещены в архив по истечении срока действия.
+               {else}Ваша рекламная кампания «{$letter_data['cmp_titles']}» перемещена в архив по истечении срока действия.
+               {if!empty $letter_data['by_manager']}менеджером{/if}
+               {/if}
+            </p>
+        {/if}
+    {/if}
+    <!--campaign-low-balance-->
+    {ifeq $letter_data['letter_type'],6}
+        {if!empty $letter_data['agency_title']}
+            <p>У рекламной кампании #{$letter_data['cmp_id']} «{$letter_data['cmp_title']}» {ifempty $is_specialist}компании{else}специалиста{/if} {$letter_data['agency_title']} осталось {$letter_data['balance']} рублей на балансе.</p>
+        {else}
+            <p>На <a href="https://www.bsn.ru/members/finances/">бюджете</a> вашей рекламной кампании #{$letter_data['cmp_id']} {$letter_data['cmp_title']} осталось всего {$letter_data['balance']} рублей.</p>
+            <p>Для пополнения баланса свяжитесь с нашим менеджером.</p>
+        {/if}
+    {/if}
+    <!--zero-balance-reached-->
+    {ifeq $letter_data['letter_type'],7}
+        {if!empty $letter_data['agency_title']}
+            <p>Контекстная рекламная кампания #{$letter_data['cmp_id']} «{$letter_data['cmp_title']}» {ifempty $is_specialist}компании{else}специалиста{/if} {$letter_data['agency_title']} убрана в архив по исчерпании бюджета.</p>
+        {else}
+            <p>Ваша контекстная рекламная кампания #{$letter_data['cmp_id']} {$letter_data['cmp_title']} убрана в архив по исчерпании бюджета.</p>
+        {/if}
+    {/if}
+</td></tr>
+{include /modules/mailers/templates/simple.footer.html}

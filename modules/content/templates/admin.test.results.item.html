@@ -1,0 +1,11 @@
+    {php:$id = !empty($pitem['id'] ) ? $pitem['id'] : ( !empty($id) ? $id : 0 ) }
+    <div class="test-results-wrapper clearfix" data-id="{$id}" data-session-id="{php:echo session_id();}" >
+        <span class="refresh-item" data-icon="save" title="Обновить запись"></span>
+        <span class="delete-item" title="Удалить запись"></span>
+        <input type="text" placeholder="Кол-во угаданных: ОТ" value="{if!empty $pitem['from']}{$pitem['from']}{/if}" name="from_{$id}" class="test-results-from"/>
+        <input type="text" placeholder="Кол-во угаданных: ДО" value="{if!empty $pitem['to']}{$pitem['to']}{/if}" name="to_{$id}" class="test-results-to"/>
+        <div class="editor">
+            <input type="text" placeholder="Заголовок" value="{if!empty $pitem['title']}{$pitem['title']}{/if}" name="title_{$id}" class="test-results-title"/>
+            <textarea name="test_results" class="test-results-text">{if!empty $pitem['content']}{$pitem['content']}{/if}</textarea>
+        </div>
+    </div>

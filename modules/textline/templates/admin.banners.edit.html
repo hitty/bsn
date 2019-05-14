@@ -1,0 +1,57 @@
+<h1 class="pageTitle">TextLine/ Объявления</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/textline/banners/add/" enctype="multipart/form-data">
+    <h3>Новое объявление</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/textline/banners/edit/{$data_mapping['id']['value']}/"  enctype="multipart/form-data">
+    <h3>Объявление #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    
+    {if!empty $data_mapping['id']['value']}
+        {ifeq $data_mapping['type']['value'],2}
+            <p class="title_row">Изображение (380x30 px)</font></p>
+            <p style="display:block; clear:both;" id="p_field_position_in_head" title="если задана ссылка на картинку, то загруженное изображение не выводится, т.е. приоритет у ссылки на картинку">
+                <label style="text-align:center; padding-top:1px; width:380px; border:1px dashed #aaa; height:30px; margin-bottom:5px;">
+                     {if!empty $data_mapping['img_src']['value']}
+                         <img src="{static:/}{$img_folder}/{$data_mapping['img_src']['value']}" alt="" width="380" />
+                     {/if}
+                </label>
+                
+                <span class="lf fieldwrapper">
+                    Загрузить изображение
+
+                    <input type="file" placeholder="" value="{$data_mapping['img_src']['value']}" name="img_src" id="img_src" class="lf">
+                    {if!empty $data_mapping['img_src']['error']}
+                        <span class="small_text red">{$data_mapping['img_src']['error']}</span>
+                    {/if}
+                </span>
+            </p>
+        {/if}  
+    {/if}  
+ 
+    <p>
+        <input type="submit" value="Сохранить" name="submit">
+    </p>  
+    
+</form>  

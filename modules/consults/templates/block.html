@@ -1,0 +1,50 @@
+<div class="question-form">
+    <form method="post" action="/{quoted:$form_vars['url']}" id="simple-form">
+        {if!eq $authorized, true}
+            <div class="single-selector login">
+                <span class="selector-title {if!empty $errors['name']}required error{/if}">
+                    Имя * {if!empty $errors['name']}<span class="error_tip"> ({$errors['name']})</span>{/if}
+                </span>
+                <input type="text" name="name" value="{quoted:$form_vars['name']}" required="required"/>
+            </div>
+        {/if}
+        {if!eq $authorized, true}
+            <div class="single-selector login">
+                <span class="selector-title {if!empty $errors['email']}required error{/if}">
+                    {$email_text} * {if!empty $errors['email']}<span class="error_tip"> ({$errors['email']})</span>{/if}
+                </span>
+                <input type="text" name="email" value="{quoted:$form_vars['email']}" required="required"/>
+            </div>
+        {/if}        
+        <div class="single-selector login">
+            <span class="selector-title">
+                Категория
+            </span>
+            <select name="category"{if!empty $errors['category']} class="error"{/if}>
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $form_vars['category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </div>
+        
+        <div class="single-selector login">
+            <span class="selector-title {if!empty $errors['title']}required error{/if}">
+                Заголовок * {if!empty $errors['title']}<span class="error_tip"> ({$errors['title']})</span>{/if}
+            </span>
+            <input type="text" name="title"value="{quoted:$form_vars['title']}" required="required"/>
+        </div>
+                
+        <div class="single-selector login">
+            <span class="selector-title {if!empty $errors['text']}required error{/if}">
+                Ваш вопрос * {if!empty $errors['text']}<span class="error_tip"> ({$errors['text']})</span>{/if}
+            </span>
+            <textarea id="text" name="text"style="height:100px;" required="required">{$form_vars['text']}</textarea>
+        </div>
+        
+
+            <button type="submit" class="submit" name="submit" value="отправить вопрос">отправить вопрос</button>
+    </form>
+</div>
+
+
+

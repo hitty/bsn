@@ -1,0 +1,30 @@
+{include /modules/mailers/templates/simple.header.html}
+
+    <tr> <!-- content - title -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+       {if!empty $item['to_user_name']}Здравствуйте, {$item['to_user_name']}!{/if}
+        </td>
+    </tr>
+    <tr> <!-- content - text -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left"> 
+            {ifeq $item['is_system'],2}
+                Вам поступило новое сообщение.
+                <br><br>
+                От пользователя {$item['from_user_name']}.
+                <br><br>
+                {if!empty $item['related_obj_url']}
+                    Объект: <a href="{$item['related_obj_url']}" target="_blank">{$item['related_obj_url']}</a>
+                    <br><br>
+                {/if}
+            {else}
+                У вас новое системное сообщение.
+                <br><br>
+            {/if}
+            {ifeq $item['is_system'],2}Сообщение: {/if}{$item['message']}
+            <br><br>
+            <a href="https://www.bsn.ru/members/messages/#{if!empty $item['id_parent']}{$item['id_parent']}{else}{$item['id']}{/if}">Читать весь диалог</a>
+        </td>
+    </tr>
+  
+{include /modules/mailers/templates/simple.footer.html}
+                            

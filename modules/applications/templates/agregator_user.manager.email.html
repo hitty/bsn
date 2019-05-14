@@ -1,0 +1,14 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день, {$data['manager_name']}!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        На {$env['host']} после получения заявки на объект "{$data['object_info']}" {if!empty $data['agency_id']} размещенной от партнера {$data['agency_title']}{/if}<br />
+        автоматически зарегистрирован пользователь {if!empty $data['user_name']}{$data['user_name']},{/if} #{$data['inserted_id']}
+        <br />
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

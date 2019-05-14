@@ -1,0 +1,10 @@
+
+{if!empty $message['message']}
+
+<li class="message{$message['msg_direction']} clearfix" id="{$message['is_unread']}">
+    <div class="text">
+        {$message['message']}
+        <div class="timestamp" title="{$message['datetime_create']}">{$message['normal_datetime_create']}</div>
+    </div>
+</li>
+{/if}

@@ -1,0 +1,27 @@
+<h1 class="pageTitle">Статьи раздела изменений в проектах</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/content/help/add-report/">
+    <h3>Новая статья</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+</form>    

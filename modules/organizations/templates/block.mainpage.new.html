@@ -1,0 +1,11 @@
+{if!empty $list}
+    {loop $list,$k,$item}
+        <div  data-id="{$item['id']}" class="item internal-link" data-link="/organizations/company/{$item['chpu_title']}">
+            {if!empty $item['agency_photo']}
+                    <img class="logo" src="/{$item['agency_photo_folder']}/{$item['agency_photo']}" alt="{$item['title']}" >
+            {/if}
+            <span class="title">{$item['title']}</span>
+            <span class="count">{suffix:$item['count_total'],'предложени','е','я','ий'}</span>
+        </div>
+    {/loop $list}
+{/if}

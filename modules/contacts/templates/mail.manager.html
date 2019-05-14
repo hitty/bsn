@@ -1,0 +1,16 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Новое обращение через форму контактов на BSN.ru
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        От {$data['name']}, {$data['email']}<br /><br />
+        Тема: {$themes[$data['theme']]}<br/><br />
+
+        {$data['comment']}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

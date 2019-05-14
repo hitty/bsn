@@ -1,0 +1,56 @@
+<font face="arial">
+<table width="800" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" align="center">
+<tr>
+    <td align="left" height="50">
+        <a href="https://www.bsn.ru"><img src="https://www.bsn.ru/img/layout/logo_small.png" width="146" height="40"></a>
+    </td>
+</tr>
+<tr>
+    <td height="20"><hr></td>
+</tr>
+<tr>                         
+    <td>
+        Добрый день{if!empty $data['user_title']}, {$data['user_title']}{/if}!
+        <br /><br />
+        {if!empty $data['in_work']}
+            Ваша заявка {$data['app_id']} взята в работу:
+            <br /><br />
+            Объект #{$data['object_id']}: <a href="{$data['object_url']}">{$data['campaign_title']}</a>
+            <br /><br />
+            
+        {else}
+            {if!empty $data['finishing']}
+                Ваша заявка {$data['app_id']} закрыта.
+                <br /><br />
+                Объект # {$data['object_id']} <a href="{$data['object_url']}">{$data['campaign_title']}</a>
+                <br /><br />
+            {else}
+                Поступила новая заявка:
+                <br /><br />
+                <p>Объект: {$data['campaign_title']}</p>
+                {if!empty $data['user_name']}
+                    <p>Имя: {$data['user_name']}</p>
+                {/if}
+                {if!empty $data['user_type_title']}
+                    <p>Категория: {$data['user_type_title']}</p>
+                {/if}
+                {if!empty $data['user_phone']}
+                    <p>Телефон: {$data['user_phone']}</p>
+                {/if}
+                {if!empty $data['user_email']}
+                    <p>Email: {$data['user_email']}</p>
+                {/if}
+                {if!empty $data['user_comment']}
+                    <p>Комментарий: {$data['user_comment']}</p>
+                {/if}
+                
+                <p>
+                Внимание! Заявка на ваш объект доступна только вам в течение {$data['app_lifetime']} По истечении этого времени доступ к заявке получат все работающие на сайте специалисты. Рекомендуем оперативно отреагировать на входящий запрос и взять заявку в работу в личном кабинете.
+                </p>
+            {/if}
+        {/if}
+    </td>
+</tr>
+<tr><td><br><br>Ваш <a href="https://www.bsn.ru/">BSN.ru</a></td></tr>
+</table>
+</font>

@@ -1,0 +1,38 @@
+    <form action="registration/" method="post" id="registration-form" class="event-registration-form public active">
+        <span class="form-title">Стать участником мероприятия!</span>
+        <div class="left-column consults">
+            <div class="single-selector">
+                <span class="selector-title {if!empty $errors['fio']}error{/if}">ФИО*</span>
+                <input type="text" name="name"  data-required='true' value="">   
+                <span>Обязательное поле</span>
+            </div>
+            <div class="single-selector">
+                <span class="selector-title {if!empty $errors['phone']}error{/if}">Контактный телефон*</span>
+                <input type="phone" name="phone" data-required='true' value="">
+                <span>Обязательное поле</span>
+            </div>
+            <div class="single-selector">
+                <span class="selector-title {if!empty $errors['user_email']}error{/if}">E-mail*</span>
+                <input type="text" name="email" class="email" data-required='true' value="">
+                <span>Неправильный email</span>
+            </div>
+        </div>
+        <div class="right-column consults">
+            <div class="single-selector company">
+                <span class="selector-title {if!empty $errors['user_company']}error{/if}">Компания</span>
+                <input type="text" name="company" value="">
+            </div>
+            <div class="single-selector rank">
+                <span class="selector-title {if!empty $errors['user_rank']}error{/if}">Должность</span>
+                <input type="text" name="job" value="">
+            </div>
+            <div class="single-selector">
+                <span class="selector-title">Пожелания</span>
+                <textarea name="wishes"></textarea>
+            </div>
+        </div>
+        <div class="form-footer">
+            <span class="note">*Поля, отмеченные звездочкой, обязательны для заполнения</span>
+            <button class="green send" name="submit" value="Зарегистрироваться" id="reg-button">Зарегистрироваться</button>
+        </div>
+    </form>

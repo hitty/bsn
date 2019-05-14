@@ -1,0 +1,145 @@
+<h1 class="pageTitle">Консультации</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/content/consults/add/" class="button">Добавить запись</a></div>
+<div class="list_table consults">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_id_answer = document.getElementById('f_id_answer').value;
+            var __filter_category = document.getElementById('f_category').value;
+            var __filter_status = document.getElementById('f_status').value;
+            var __filter_member = document.getElementById('f_member').value;
+            var __url = '{root:/admin/content/consults/}';
+            var __get = new Array();
+            if(__filter_id!=0) __get.push('f_id='+__filter_id);
+            if(__filter_id_answer!=0) __get.push('f_id_answer='+__filter_id_answer);
+            if(__filter_category!=0) __get.push('f_category='+__filter_category);
+            if(__filter_status!=0) __get.push('f_status='+__filter_status);
+            if(__filter_member!='') __get.push('f_member='+__filter_member);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            ID ответа:
+            <input type="text" id="f_id_answer" value="{$get_array['f_id_answer']}" onchange="filter_activate()"  placeholder="ID ответа" size="20">
+        </label>
+        <label>
+            ID вопроса:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID вопроса" size="20">
+        </label>
+        <label>
+            Раздел вопроса :
+            <select id="f_category" onchange="filter_activate()" style="width: 200px;">
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </label>
+        <label>
+            Статус :
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="0" selected="selected">Не выбран</option>
+                <option value="1"{ifeq $get_array['f_status'],1} selected="selected"{/if}>Опубликован</option>
+                <option value="2"{ifeq $get_array['f_status'],2} selected="selected"{/if}>На модерации</option>
+                <option value="3"{ifeq $get_array['f_status'],3} selected="selected"{/if}>Не прошел модерацию</option>
+                <option value="4"{ifeq $get_array['f_status'],4} selected="selected"{/if}>Ожидает публикации</option>
+                <option value="5"{ifeq $get_array['f_status'],5} selected="selected"{/if}>В архиве</option>
+                <option value="6"{ifeq $get_array['f_status'],6} selected="selected"{/if}>Нигде</option>
+            </select>
+        </label>    
+        <label>
+            Юрист :
+            <select id="f_member" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                {loop $members,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_member'],$val['id']} selected="selected"{/if}>{$val['name']}</option>
+                {/loop $members}
+            </select>
+        </label>    
+       
+
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="3%">
+                <col class="col1" width="6%">
+                <col class="col1" width="6%">
+                <col class="col1" width="8%">
+                <col class="col1" width="35%">
+                <col class="col1" width="35%">
+                <col class="col1" width="5%">
+                <col class="col2" width="2%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата</th>
+                    <th>Дата модерации</th>
+                    <th>Статус</th>
+                    <th>Вопрос</th>
+                    <th>Ответы</th>
+                    <th>Просмотры <br>сегодня/всего</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{if!empty $item['show_item']}<a href="/service/consultant/{$item['category_code']}/{$item['id']}/" target="_blank">{$item['id']}</a>{else}{$item['id']}{/if}</td>
+                        <td>{$item['question_datetime']}</td>
+                        <td>{$item['moderation_datetime']}</td>
+                        <td>{if!empty $item['id_respondent_user']}<span class="personal-question">Персональный</span>{/if}
+                            <span {ifeq $item['status'],2}class="need-moderation"{/if}>{$item['status_title']}<br />{$item['visibility_title']}</span>
+                        </td>
+                        <td>
+                            <span style="color: #ff0000;">{$item['category_name']}</span><br />
+                            {if!empty $item['title']}<b>{$item['title']}</b></br>{/if}
+                            {$item['question']}<br />
+                            <span style="font-size:11px;">{$item['name']}, {$item['normal_question_date']}</span>
+                            {if!empty $item['answers_need_moderation']}
+                                <span class="need-moderation">Есть ответы для модерации</span>
+                            {/if}
+                        </td>
+                        <td class="answers-block">
+                            {if!empty $item['best_answer']}
+                                <b>Лучший ответ:</b>
+                                <span>{$item['best_answer']}</span>
+                                <!--<span style="font-size:11px;">{$item['member_name']}, {$item['normal_answer_date']}</span>-->
+                            {else}
+                                {if!empty $item['first_answer']}
+                                    <b>Первый ответ {if!empty $item['answers_amount']}({$item['answers_amount']} всего){/if}:</b>
+                                    <span>{$item['first_answer']}</span>
+                                {/if}
+                            {/if}
+                        </td>
+                        <td>{$item['views']}/{$item['views_count']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/consults/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/consults/view/{$item['id']}/" title="Смотреть" target="_blank"><span class="ico_view">Смотреть</span></a>
+                            <a href="/admin/content/consults/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

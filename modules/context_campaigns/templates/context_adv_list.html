@@ -1,0 +1,200 @@
+<!--{if!empty $h1}<h1 id="members-h1">{$h1}</h1>{/if}-->
+    {ifempty $data_mapping_campaign['id']['value']}
+        <h2 class="campaign-page-title">Создание рекламной кампаниии</h2>
+    {else}
+        <h2 class="campaign-page-title">Редактирование рекламной кампании</h2>
+    {/if}
+    <div class="adv-campaign-msg-box"></div>
+    <div class="campaign-box">
+    <div class="adv-campaign-edit-block{ifempty $data_mapping_campaign['id']['value']} new{/if}">
+        <span class="top-block">
+            <span class="campaign-title">
+                <i class="title active"></i>
+                <span class="note"><i>←</i>Нажмите, чтобы редактировать</span>
+            </span>
+            <span class="period"><span class="field-title">Срок действия</span><i class="from">с</i><i class="till">до</i></span>
+            <span class="status">
+                <i class="st-active">Активна</i>
+                <span class="{ifeq $data_mapping_campaign['published']['value'],2}checked {/if}switcher" data-status="{$data_mapping_campaign['published']['value']}"><span class="circled"></span></span>
+                <i class="st-unactive">Не активна</i>
+            </span>
+        </span>
+        <span class="cbottom-block">
+            <span class="balance"><i class="field-title">Бюджет</i></span>
+            <span class="description"><i class="field-title">Описание</i></span>
+        </span>
+    </div>
+{ifempty $data_mapping_campaign['id']['value']}
+    <form class="form_default" method="post" action="/members/context_campaigns/add/">
+{else}
+    <form class="form_default" method="post" action="/members/context_campaigns/{$data_mapping_campaign['id']['value']}/">
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /modules/context_campaigns/templates/form.context_campaign.html}
+    <div style="display:none" id="places_data_box">{$places_data}</div>
+</form>
+{if!empty $id_campaign}
+<h3 class="adv-list-title" data-id="{$data_mapping_campaign['id']['value']}">{if!empty $list}Список объявлений{/if}</h3><i class="adv-list-length">{if!empty $list}Всего: {$items_count}{/if}</i>
+    <div class="adv-list">
+        {if!empty $list}
+            {loop $list,$key,$item}
+                <div class="context-adv" id="context-block-{$item['id']}">
+                    <div class="left-block-box">
+                        <div class="img-preview">
+                            {if!empty $item['photo']}
+                                <div class="campaign-img-box">
+                                    <div class="campaign-img-frame">
+                                        <img src="/{$img_folder}/big/{$item['folder']}/{$item['photo']}">
+                                    </div>
+                                </div>
+                            {/if}
+                        </div>
+                        <div class="left-block {$item['published']}">
+                            <span class="info-panel">
+                                <span class="adv id">#{$item['id']}</span>
+                                <span class="adv title">{$item['title']}</span>
+                                <span class="image-info">{if!empty $item['id_main_photo']}{$item['width']}*{$item['height']}{else}Нет картинки{/if}</span>
+                            </span>
+                            <span class="targeting-panel">
+                                <span class="targeting-info">
+                                    <i class='title-text'>Таргетинг</i>
+                                    {if!empty $item['has_targeting']}
+                                        <span class="arrow"></span>
+                                        <span class="square-info">
+                                            {if!empty $item['type_objects']}
+                                                <i class="object-types"><b>Тип объекта:</b><i>{$item['type_objects']}</i></i>
+                                            {/if}
+                                            {if!empty $item['has_price']}
+                                                <i class="price-borders">
+                                                    <b>Цены:</b>
+                                                    <i>{if!empty $item['price_floor']}от {$item['price_floor']} т.р.{/if}</i>
+                                                    <i>{if!empty $item['price_top']}до {$item['price_top']} т.р.{/if} </i>
+                                                </i>
+                                            {/if}
+                                        </span>
+                                    {/if}
+                                </span>
+                                <span class="targeting-estate">{$item['deal_text']}</span>
+                            </span>
+                            <span class="stats-panel">
+                                <span class="stats-info">
+                                    <span class="adv expenditures"><i>{ifempty $item['total_expenditure']}0{else}{$item['total_expenditure']}{/if}</i> руб.</span>
+                                    <span class="adv clicks"><i>{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</i></span>
+                                    <span class="adv shows"><i>{ifempty $item['shows']}0{else}{$item['shows']}{/if}</i></span>
+                                    <span class="adv ctr"><i>{ifempty $item['CTR']}0.00{else}{$item['CTR']}{/if}%</i></span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <span class="object-actions {$item['published']}">
+                        <span title="Редактировать" class="edit" data-id="{$item['id']}" data-campaign-id="{$data_mapping_campaign['id']['value']}">Изменить</span>
+                        <span title="Копировать" class="copy" data-id="{$item['id']}" data-url="/members/context_campaigns/{$data_mapping_campaign['id']['value']}/copy/{$item['id']}/">Копировать</span>
+                        <span title="Удалить" class="delete outer" data-id="{$item['id']}" data-url="/members/context_campaigns/{$data_mapping_campaign['id']['value']}/del/{$item['id']}/">Удалить</span>
+                    </span>
+                    <div class="context-adv-edit">
+                        <form class="form-adv" id="adv-edit-{$item['id']}" method="post" action="/members/context_campaigns/{$data_mapping_campaign['id']['value']}/edit/{$item['id']}/"></form>
+                        <i class="save-adv-form continue">Сохранить</i>
+                        <button class="save-adv-form green">Сохранить и закрыть</button>
+                        <button class="undo-adv-form grey">Отмена</button>
+                        <span class="form-result-box" style="display:none"></span>
+                    </div>
+                </div>
+            {/loop $list}
+            {include /templates/includes/paginator.html}
+        {/if}
+    </div>
+    <div class="add-item"><span class="button blue">Добавить объявление</span></div>
+    <div class="context-adv new">
+        <form class="form-adv" id="adv-edit-new" method="post" action="/members/context_campaigns/{$data_mapping_campaign['id']['value']}/add/"></form>
+        <button class="save-adv-form green">Сохранить и продолжить</button>
+        <span class="form-result-box" style="display:none"></span>
+    </div>
+{/if}
+</div>
+<div id="geodata-picker-wrap" class="target-outed">
+    <div class="close-btn"></div>
+    <div class="filter">
+        <i class="popup-title">Таргет</i>
+        <span class="object-types-picker" data-type="object-types" data-title="Типы объектов">
+            Типы объектов <i>0</i>
+            <input type="hidden" name="object-types" id="popup-object-types" value="" data-url="/context_campaigns/object_types/" />
+        </span>
+        <span class="districts-picker" data-type="districts" data-title="Районы Петербурга">
+            Районы Петербурга <i>0</i>
+            <input type="hidden" name="districts" id="districts" value="{$tags_filter['districts']['selected']}" data-url="/geodata/form/districts/context/" />
+        </span>
+        <span class="district-areas-picker" data-type="district-areas" data-title="Районы Ленобласти">
+            Районы Ленобласти <i>0</i>
+            <input type="hidden" name="district_areas" id="district-areas" value="{$tags_filter['district_areas']['selected']}" data-url="/geodata/form/district_areas/context/" />
+        </span>
+        <span class="subway-picker" data-type="subways" data-title="Станции метро">
+            Станции метро <i>0</i>
+            <input type="hidden" name="subways" id="subways" value="{$tags_filter['subways']['selected']}"  data-url="/geodata/form/subways/context/" />
+        </span>
+    </div>
+    <div class="items-list">
+        <div class="items"></div>
+        <div class="bottom-block">
+            <div class="selected-total">Выбрано: <i></i></div>
+            <div class="select-all-btn">Выделить все</div>
+            <div class="diselect-all-btn">Снять все выделения</div>
+        </div>
+    </div>
+    <div class="location-list" data-active-tab="">
+        <div class="selected-items districts-list transition" data-type="districts">
+            <h5>Районы Петербурга</h5>
+            {php:$districts = $tags_filter['districts']}
+            {loop $districts,$k,$item}
+                
+                {if!empty $item['id_tag']}<div class="item" data-id="{$item['id']}" data-tag-id="{$item['id_tag']}">{$item['title']}</div>{/if}
+            {/loop $districts}
+        </div>
+        <div class="selected-items district-areas-list transition" data-type="district-areas">
+            <h5>Районы Ленобласти</h5>
+            {php:$district_areas = $tags_filter['district_areas']}
+            {loop $district_areas,$k,$item}
+                {if!empty $item['id_tag']}<div class="item" data-id="{$item['id']}" data-tag-id="{$item['id_tag']}">{$item['title']}</div>{/if}
+            {/loop $district_areas}
+            <span {if!empty $district_areas}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="selected-items subways-list transition" data-type="subways">
+            <h5>Станции метро</h5>
+            {php:$subways = $tags_filter['subways']}
+            {loop $subways,$k,$item}
+                {if!empty $item['id_tag']}<div class="item line-{$item['line_id']}" data-id="{$item['id']}" data-tag-id="{$item['id_tag']}">{$item['title']}</div>{/if}
+            {/loop $subways}
+            <span {if!empty $subways}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="geodata-button context-tags-apply">
+            <button value="Подтвердить">Подтвердить</button>
+        </div>
+    </div>
+</div>
+<div class="tg location outed" data-type="location" style="display:none;">
+    <span class="tg-title"></span>
+    <span class="tg-list">
+    </span>
+    <div class="list-picker location outed" data-on-exit="true">
+        <span class="selected-tags-info unactive"></span>
+        <span class="selected-tags-show-all unactive" data-change=""></span>
+        <a class="pick" href="#"></a>
+        <input type="hidden" name="subways" value="{$ids_list}" data-url="/geodata/form/subways/">
+    </div>
+</div>
+<script src="/modules/context_campaigns/geo_popup.js"></script>

@@ -1,0 +1,32 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    <b>Уважаемый партнёр!</b>    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Поступила новая заявка:
+        <br /><br />
+        {if!empty $data['object_url']}
+            <p>Объект: <a href="{$data['object_url']}">{$data['campaign_title']}</a></p>
+        {/if}
+        {if!empty $data['user_name']}
+            <p>Имя: {$data['user_name']}</p>
+        {/if}
+        {if!empty $data['user_phone']}
+            <p>Телефон: {$data['user_phone']}</p>
+        {/if}
+        {if!empty $data['user_email']}
+            <p>Email: {$data['user_email']}</p>
+        {/if}
+        {if!empty $data['user_comment']}
+        <p>Комментарий: {$data['user_comment']}</p>
+        {/if}
+        
+        <p>
+        Внимание! Заявка на ваш объект доступна только вам в течение {$data['app_lifetime']} По истечении этого времени доступ к заявке получат все работающие на сайте специалисты. Рекомендуем оперативно отреагировать на входящий запрос и взять заявку в работу в личном кабинете.
+        </p>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

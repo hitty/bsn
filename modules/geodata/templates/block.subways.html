@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" id="subways-svg" x="0px" y="0px" viewBox="0 0 600 490" xml:space="preserve" width="600" height="490">
+    {loop $lines_list,$k,$item}
+        <polyline class="{$item['line_color']}-line" points="{$item['coords']}"></polyline>
+    {/loop $lines_list}
+    {loop $stations_list,$k,$item}
+        <circle class="{$item['line_color']}-line" cx="{$item['point_x_coords']}" cy="{$item['point_y_coords']}" r="5" data-id="{$item['id']}"></circle>
+    {/loop $stations_list}
+</svg>
+<div id="subways-title-wrap">
+    {loop $stations_list,$k,$item}
+        <span data-subway-title-id="{$item['id']}" data-line="{$item['id_subway_line']}" class="subways-title-item line-{$item['id_subway_line']}" style="left: {$item['text_left_offset']}px;top: {$item['text_top_offset']}px;">{$item['title']}</span>
+    {/loop $stations_list}
+</div>
+<div class="bottom-wrapper" id="subways-lines">
+    {loop $lines_list,$k,$item}
+        <span data-id="{$item['id']}" class="br3 line-{$item['id']}">{$item['id']}</span>
+    {/loop $lines_list}
+</div>
+<div class="top-wrapper" id="subways-lines">
+    {loop $lines_list,$k,$item}
+        <span data-id="{$item['id']}" class="br3 line-{$item['id']}">{$item['id']}</span>
+    {/loop $lines_list}
+</div>

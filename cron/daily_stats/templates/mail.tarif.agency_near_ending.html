@@ -1,0 +1,16 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Здравствуйте{if!empty $item['user_name']}, {$item['user_name']}{if!empty $item['user_lastname']} {$item['lastname']}{/if}{/if}!<br>
+    </td>
+</tr>
+<tr>                         
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left"> 
+    Заканчивается срок действия тарифа "{$item['tarif_title']}" для агентства {$item['agency_title']}. <br /><br />
+
+    Срок окончания тарифа - {$item['formatted_actualized_tarif_end']}<br /><br />
+
+    Чтобы избежать приостановки тарифа, рекомендуем пополнять баланс заранее.<br /><br />
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

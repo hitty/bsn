@@ -1,0 +1,57 @@
+<!--<h1 id="members-h1">Личный кабинет</h1>-->
+<h2 id="members-h2" data-agency="{if!empty $auth['agency']}1{/if}">
+    Звонки
+</h2>
+
+{if!empty $calls_total}
+    <div class="ajax-sorting clearfix">
+        
+        <div class="sb-quote">
+            <div class="limit-page-wrap called grey">
+                <div class="list-selector grey" id="limit-selector">
+                    <a href="#" class="pick">20</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="limit_page" id="limit-page" value="15" />
+                    <ul class="list-data">
+                        <li data-value="10">10</li>
+                        <li data-value="20">20</li>
+                        <li data-value="30">30</li>
+                    </ul>
+                </div>                                    
+            </div>        
+        </div>
+        
+        <div class="sb-sort">
+            <div class="list-selector grey" id="sort_selector">
+                <a href="#" class="pick" title="сначала заполненные">По дате, новые сверху</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="sort_selector" value="">
+                <ul class="list-data" data-simplebar="init" data-link="/members/conversions/calls/?page=1&amp;sortby=">
+                    <li data-value="" class="selected">По дате, новые сверху</li>
+                    <li data-value="1">По дате, новые снизу</li>
+                </ul>
+            </div>                                    
+        </div>
+         
+    </div>
+                        
+    <div class="members-stats-wrap calls"></div>
+    <div id="calls-url" style="display: none;" class="active"  data-value="/members/conversions/calls/?ajax=true"></div>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('.members-stats-wrap').ajaxfilter({
+                url_element             : '#calls-url',
+                limit_on_page_element   : '#limit-selector',
+                sorting_element         : '#sort_selector',
+                page_element            : '.paginator',
+                query_form_element      : '#ajax-filter'
+            });
+            jQuery('.members-menu').children('.conversions').children('.members-objects-count').children('.calls').addClass('active').siblings().removeClass('active');
+        })
+        
+    </script>
+{else}
+<div class="cabinet empty-list">
+    <span class="title">На данный момент у вас нет звонков!</span>
+</div>
+{/if}

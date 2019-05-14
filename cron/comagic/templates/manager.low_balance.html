@@ -1,0 +1,44 @@
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title></title>
+<style>
+*{
+    padding:0;
+    margin:0;
+}
+.fiximg{
+    display:block;
+}
+</style>
+</head>
+<body>
+<font face="arial" color="#000000">
+<a href="https://www.bsn.ru/"><img src="https://www.bsn.ru/img/layout/logo.png" width="180" height="50" border="0" class="fiximg"></a>
+<br><br>
+Добрый день, {$manager_name}! 
+{ifempty $agency}
+<br /><br />
+РџРѕСЃС‚СѓРїРёР» <a href="https://www.bsn.ru/members/conversions/calls/">РІС…РѕРґСЏС‰РёР№ Р·РІРѕРЅРѕРє</a>:
+<br /><br />
+
+<p style="line-height: 1.4;">{$agency['title']}:</p>
+<table cellpadding="0" cellspacing="13" style="width:470px;
+                                               border-top:1px solid #f3f3f3;
+                                               {ifeq $k,$lines_show}
+                                                    border-bottom:1px solid #f3f3f3;
+                                               {/if}
+                                               line-height: 1.4;">
+    <tr>
+        <td style="width:180px">{$item['num_from']}</td>
+        <td style="width:240px">{$item['call_date']}</td>
+    </tr>
+</table>
+{else}
+    <br />Баланс компании {$agency['title']} уменьшился до {$agency['balance']} р., что составляет стоимость менее трех звонков. <br />
+{/if}
+
+<p>Приятной работы, 
+<br>
+команда <a href="https://www.bsn.ru/">BSN.ru</a></p>
+</font>

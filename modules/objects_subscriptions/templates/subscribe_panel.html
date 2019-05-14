@@ -1,0 +1,13 @@
+<div class="subscribe-panel br3"> 
+    <div class="left-part"><span class="title">Получать обновления по вашему запросу</span></div>
+    <div class="right-part">
+        {if!empty $email}
+            <div class="auth-text">Рассылка будет направлена на адрес<br><span class="email">{$email}</span></div>
+        {else}
+            <input type="email" name="email" id="subscribe_email" placeholder="Ваш email">
+        {/if}
+        <div class="subscribe-button subscribe{ifempty $email} disabled-button{/if} button grey" data-deal-type = "{$deal_type}" data-estate-title="{$titleSubscribeButton}" data-estate-type = "{$estate_type}" data-subscr-link = "{$subscription_link}">
+            <span>Подписаться</span>
+        </div>
+    </div>
+</div>

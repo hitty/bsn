@@ -1,0 +1,218 @@
+<form class="fast-search form-blue tiny ajax-form" id="fast-search-form" action="/" method="post">
+    <div class="form-container">
+
+        {php:$deal_type = !empty($deal_type) && $deal_type == 'rent' ? 1 : 2}
+        {php:$sell_visible = $deal_type == 1 ? 'hidden' : ''}
+        {php:$rent_visible = $deal_type == 2 ? 'hidden' : ''}
+        <div class="row">
+            
+            <div class="list-selector select-deal-type">
+                <a href="#" class="pick"></a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="deal_type" value="{$deal_type}" />
+                <ul class="list-data">
+                    {if!empty $deal_type_amount['sell']}<li data-value="2" class="selected">Купить</li>{/if}
+                    {if!empty $deal_type_amount['rent']}<li data-value="1">Снять</li>{/if}
+                </ul>
+            </div>                                    
+            <div class="list-selector select-object-type">
+                <a href="#" class="pick">выберите тип объекта</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="objects_group" id="estate-object-type" value="{$form_data['objects_group']}" />
+                <ul class="list-data">
+                    {if!empty $deal_type_amount['sell']}
+                    <div class="sell-objects{ifeq $deal_type,1} hidden{/if}" data-deal="sell" >
+                        {if!empty $agency_amounts['1-build-sell']['amount']}        <li data-type="build"       data-id="1"     data-value="1-build-sell"              data-url="build/sell/"                data-middle-index="1"     ><span>Новостройку</span></li>   {/if}
+                        {if!empty $agency_amounts['1-live-sell']['amount']}         <li data-type="live"        data-id="1"     data-value="1-live-sell"               data-url="live/sell/flats"            data-middle-index="1"     ><span>Квартиру</span></li>      {/if}
+                        {if!empty $agency_amounts['2-live-sell']['amount']}         <li data-type="live"        data-id="2"     data-value="2-live-sell"               data-url="live/sell/rooms"            data-middle-index="2"     ><span>Комнату</span></li>       {/if}
+                        {if!empty $agency_amounts['8-commercial-sell']['amount']}   <li data-type="commercial"  data-id="8"     data-value="8-commercial-sell"         data-url="commercial/sell/premises/"  data-middle-index="2"     ><span>Помещение</span></li>     {/if}
+                        {if!empty $agency_amounts['11-commercial-sell']['amount']}  <li data-type="commercial"  data-id="11"    data-value="11-commercial-sell"        data-url="commercial/sell/offices/"   data-middle-index="2"     ><span>Офис</span></li>          {/if}
+                        {if!empty $agency_amounts['5-commercial-sell']['amount']}   <li data-type="country"     data-id="5"     data-value="5-country-sell"            data-url="country/sell/buildings/"    data-middle-index="2"     ><span>Дом/Коттедж</span></li>   {/if}
+                        {if!empty $agency_amounts['9-commercial-sell']['amount']}   <li data-type="country"     data-id="9"     data-value="9-country-sell"            data-url="country/sell/dacha/"        data-middle-index="2"     ><span>Дачу</span></li>          {/if}
+                        {if!empty $agency_amounts['6-country-sell']['amount']}      <li data-type="country"     data-id="6"     data-value="6-country-sell"            data-url="country/sell/townhouses/"   data-middle-index="2"     ><span>Таунхаус</span></li>      {/if}
+                        {if!empty $agency_amounts['4-country-sell']['amount']}      <li data-type="country"     data-id="4"     data-value="4-country-sell"            data-url="country/sell/land/"         data-middle-index="4"     ><span>Участок</span></li>       {/if}
+                        {if!empty $agency_amounts['10-country-sell']['amount']}     <li data-type="country"     data-id="10"    data-value="10-country-sell"           data-url="country/sell/house_part/"   data-middle-index="1"     ><span>Часть дома</span></li>    {/if}
+                    </div>
+                    {/if}
+                    {if!empty $deal_type_amount['rent']}
+                        <div class="rent-objects{ifeq $deal_type,2} hidden{/if}" data-deal="rent">
+                            {if!empty $agency_amounts['1-live-rent']['amount']}         <li data-type="live"        data-id="1"     data-value="1-live-rent"               data-url="live/rent/flats"            data-middle-index="1"     ><span>Квартиру</span></li>      {/if}
+                            {if!empty $agency_amounts['2-live-rent']['amount']}         <li data-type="live"        data-id="2"     data-value="2-live-rent"               data-url="live/rent/rooms"            data-middle-index="2"     ><span>Комнату</span></li>       {/if}
+                            {if!empty $agency_amounts['8-commercial-rent']['amount']}   <li data-type="commercial"  data-id="8"     data-value="8-commercial-rent"         data-url="commercial/rent/premises/"  data-middle-index="2"     ><span>Помещение</span></li>     {/if}
+                            {if!empty $agency_amounts['11-commercial-rent']['amount']}  <li data-type="commercial"  data-id="11"    data-value="11-commercial-rent"        data-url="commercial/rent/offices/"   data-middle-index="2"     ><span>Офис</span></li>          {/if}
+                            {if!empty $agency_amounts['5-country-rent']['amount']}      <li data-type="country"     data-id="5"     data-value="5-country-rent"            data-url="country/rent/buildings/"    data-middle-index="2"     ><span>Дом/Коттедж</span></li>   {/if}
+                            {if!empty $agency_amounts['4-country-rent']['amount']}      <li data-type="country"     data-id="4"     data-value="4-country-rent"            data-url="country/rent/land/"         data-middle-index="4"     ><span>Участок</span></li>       {/if}
+                        </div>
+                    {/if}
+                </ul>
+
+            </div> <!--/.list-selector .select-object-type-->
+            
+            <div class="middle-panel">
+
+                <div class="checkbox-group rooms-count{ifempty $form_data['objects_group']} active{/if}" data-index="1">
+                    <label for="rooms_count_0_build"{if!empty $form_data['rooms_checked'][0]} class="on"{/if} title="Студия"><input type="checkbox" value="0" name="rooms:0" id="rooms_count_0_build" {if!empty $form_data['rooms_checked'][0]}checked="checked" {/if}/>С</label>
+                    <label for="rooms_count_1_build"{if!empty $form_data['rooms_checked'][1]} class="on"{/if} title="1ккв"><input type="checkbox" value="0" name="rooms:1" id="rooms_count_1_build" {if!empty $form_data['rooms_checked'][1]}checked="checked" {/if}/>1</label>
+                    <label for="rooms_count_2_build"{if!empty $form_data['rooms_checked'][2]} class="on"{/if} title="2ккв"><input type="checkbox" value="0" name="rooms:2" id="rooms_count_2_build" {if!empty $form_data['rooms_checked'][2]}checked="checked" {/if}/>2</label>
+                    <label for="rooms_count_3_build"{if!empty $form_data['rooms_checked'][3]} class="on"{/if} title="3ккв"><input type="checkbox" value="0" name="rooms:3" id="rooms_count_3_build" {if!empty $form_data['rooms_checked'][3]}checked="checked" {/if}/>3</label>
+                    <label for="rooms_count_4_build"{if!empty $form_data['rooms_checked'][4]} class="on"{/if} title="Многокомнатная"><input type="checkbox" value="0" name="rooms:4" id="rooms_count_4_build" {if!empty $form_data['rooms_checked'][4]}checked="checked" {/if}/>4+</label>
+                </div>
+                
+                <div class="square-full interval-selector square" data-index="2">
+                    <input type="text" name="square_full_from" value="{if!empty $form_data['square_full_from']}{$form_data['square_full_from']}{/if}" placeholder="От" />
+                    <input type="text" name="square_full_to" value="{if!empty $form_data['square_full_to']}{$form_data['square_full_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                </div>
+
+                <div class="square-live interval-selector square" data-index="3">
+                    <input type="text" name="square_live_from" value="{if!empty $form_data['square_live_from']}{$form_data['square_live_from']}{/if}" placeholder="От" />
+                    <input type="text" name="square_live_to" value="{if!empty $form_data['square_live_to']}{$form_data['square_live_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                </div>
+
+                <div class="square-ground interval-selector square" data-index="4">
+                    <input type="text" name="square_ground_from" value="{if!empty $form_data['square_ground_from']}{$form_data['square_ground_from']}{/if}" placeholder="От" />
+                    <input type="text" name="square_ground_to" value="{if!empty $form_data['square_ground_to']}{$form_data['square_ground_to']}{/if}" placeholder="До" /> сот.
+                </div>
+            </div>
+            
+            <div class="interval-selector price-selector">
+                <input type="text" name="min_cost" id="from_value" value="{if!empty $form_data['min_cost']}{$form_data['min_cost']}{/if}" placeholder="От" />
+                <input type="text" name="max_cost" id="to_value" value="{if!empty $form_data['max_cost']}{$form_data['max_cost']}{/if}" placeholder="До" />
+                Р
+            </div> 
+
+            <div class="extend-params">
+                <input type="hidden" value="1" name="agent_page">
+                <input type="hidden" value="{$id_agent}" name="agent">
+                <input type="hidden" value="1" name="only_objects">    
+            </div>
+
+        </div> <!--/.row-->              
+
+        
+        
+        <div class="row location-list">
+            <h5 class="districts{if!empty $districts} active{/if}">Районы СПб</h5>
+            <div class="selected-items districts-list" data-type="districts">
+                {if!empty $districts}
+                    {loop $districts,$k,$item}
+                        <div class="item on" data-id="{$item['id']}">{$item['title']}</div>
+                    {/loop $districts}
+                {/if}
+            </div>
+            <h5 class="district-areas{if!empty $district_areas} active{/if}">Районы ЛО</h5>
+            <div class="selected-items district-areas-list" data-type="district-areas">
+                
+                {if!empty $district_areas}
+                    {loop $district_areas,$k,$item}
+                        <div class="item on" data-id="{$item['id']}">{$item['title']}</div>
+                    {/loop $district_areas}
+                {/if}
+            </div>
+            <h5 class="subways{if!empty $subways} active{/if}">Станции метро</h5>
+            <div class="selected-items subways-list" data-type="subways">
+                
+                {if!empty $subways}
+                    {loop $subways,$k,$item}
+                        <div class="item on" data-id="{$item['id']}">{$item['title']}</div>
+                    {/loop $subways}
+                {/if}
+            </div>
+        </div><!--/.location-list-->
+    </div>
+    
+    {if!empty $map_search}
+        <div class="form-status active">
+            <span class="expand">Развернуть</span>
+            <span class="collapse">Свернуть</span>
+        </div>
+        {ifeq $estate_type,'zhiloy_kompleks'}
+            <div id="housing-estate-tooltip">
+                <span class="closebutton"></span>
+            </div>
+        {/if}
+    {/if}
+    <i class="shadow"></i>    
+</form>  
+{if!empty $map_search}
+    {ifeq $estate_type, 'zhiloy_kompleks'}<div id="analytics-map"></div>{/if}
+{/if}
+
+<div id="geodata-picker-wrap" data-location="geo">
+    <div class="closebutton" data-icon="close"></div>
+    <div class="filter">
+        <h2>Выберите местоположение</h2>
+        <span class="districts-picker" data-type="districts">
+            Санкт-Петербург <i class="br3">0</i>
+            <input type="hidden" name="districts" id="districts" value="{$form_data['districts']}" data-url="/geodata/form/districts/" />
+        </span>
+        <span class="district-areas-picker" data-type="district-areas">
+            Ленинградская область <i class="br3">0</i>
+            <input type="hidden" name="district_areas" id="district-areas" value="{$form_data['district_areas']}" data-url="/geodata/form/district_areas/" />
+        </span>
+        <span class="subway-picker" data-type="subways">
+            Метро <i class="br3">0</i>
+            <input type="hidden" name="subways" id="subways" value="{$form_data['subways']}"  data-url="/geodata/form/subways/" />
+        </span>
+    </div>
+    <div class="items-list clearfix">
+        <div class="items"></div>
+    </div>
+    <div class="location-list clearfix">
+        <div class="selected-items districts-list transition" data-type="districts">
+            {php:$districts = $form_filter['districts']}
+            {php:$first_letter = ''}
+            {loop $districts,$k,$item}
+                {ifeq $first_letter,''}
+                    <div class="column">
+                        <span class="title">{$item['first_letter']}</span>
+                {elseif!eq $first_letter, $item['first_letter']}
+                    {ifin $item['first_letter'],'К','М','Ф'}
+                    </div>
+                    <div class="column">
+                    {/if}
+                    <span class="title">{$item['first_letter']}</span>
+                {/if}
+                {php:$first_letter = $item['first_letter']}
+                <div class="item{if!empty $item['on']} on{/if}" data-icon="check" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $districts}
+            </div>
+        </div>
+        <div class="selected-items district-areas-list transition" data-type="district-areas">
+            {php:$district_areas = $form_filter['district_areas']}
+            {php:$first_letter = ''}
+            {loop $district_areas,$k,$item}
+                {ifeq $first_letter,''}
+                    <div class="column">
+                        <span class="title">{$item['first_letter']}</span>
+                {elseif!eq $first_letter, $item['first_letter']}
+                    {ifin $item['first_letter'],'Г','Л','С'}
+                    </div>
+                    <div class="column">
+                    {/if}
+                    <span class="title">{$item['first_letter']}</span>
+                {/if}
+                {php:$first_letter = $item['first_letter']}
+
+                <div class="item{if!empty $item['on']} on{/if}" data-icon="check" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $district_areas}
+            </div>
+            <span {if!empty $district_areas}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="selected-items subways-list transition" data-type="subways">
+            <h5>Станции метро</h5>
+            {php:$subways = $form_filter['subways']}
+            {loop $subways,$k,$item}
+                <div class="item line-{$item['line_id']}{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $subways}
+            <span {if!empty $subways}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+    </div>
+    <div class="geodata-button">
+        <button value="Применить">Применить</button>
+        <span id="reset-geo" class="transition" data-icon="refresh">Сбросить фильтр</span>
+    </div>
+</div>   
+<div id="geodata-picker-bg"></div>
+{literal}
+    <script>jQuery(document).ready( function() { jQuery('.fast-search').estateSearch() } )</script>
+{/literal}

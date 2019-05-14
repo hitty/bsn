@@ -1,0 +1,38 @@
+<h1 class="pageTitle">Неиндексированные страницы</h1>
+<div class="list_table">
+    {if!empty $crawlers}
+        <table>    
+            <colgroup>
+                <col class="col2" width="30%">
+                <col class="col1" width="20%">
+                <col class="col1" width="20%">
+                <col class="col1" width="20%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <th>Робот</th>
+                <th>В стеке</th>
+                <th>Убрано из стека</th>
+                <th>Показано ссылок сегодня</th>
+                <th>Возвращено в стек</th>
+                <th>Проиндексировано</th>
+                <th>&nbsp;</th>
+            </thead>
+            <tbody>
+                {loop $crawlers,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['title']}</td>
+                        <td>{$item['in_stack']}</td>
+                        <td>{$item['out_of_stack']}</td>
+                        <td>{ifempty $item['links_shown']}0{else}{$item['links_shown']}{/if}</td>
+                        <td>{$item['back_to_stack']}</td>
+                        <td>{$item['indexed']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/seo/not_indexed/{$item['alias']}/" title="Смотреть" target="_blank"><span class="ico_view">Смотреть</span></a>
+                        </td>
+                    </tr>
+                {/loop $crawlers}
+            </tbody>
+        </table>
+    {/if}
+</div>

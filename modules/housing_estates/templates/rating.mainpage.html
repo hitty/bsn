@@ -1,0 +1,98 @@
+{php:$payed_format=true}
+<div class="rating-mainpage">
+    <h1>{$h1_page}</h1>
+    <div class="categories-links flex-center filter switch-types" data-content-container=".rating-types-tabs">
+        <span class="active" data-tab-ref=".housing-estates">Жилые комплексы</span>
+        <span data-tab-ref=".apartments">Апартаменты</span>
+    </div>
+    <div class="central-wrapper">
+        <div id="housing-estates-rating-list" class="clearfix">
+            
+            <div class="rating-types-tabs">
+                <div class="tab housing-estates active">
+                    <div class="rating-text text full-width-column clearfix">
+                        <p>Каждый год эксперты рынка недвижимости по просьбе BSN.ru оценивают строящиеся жилые комплексы Петербурга и Ленобласти.</p>
+                        <p>Портал BSN.ru начал проводить экспертные рейтинги строящихся жилых комплексов Санкт-Петербурга и Ленобласти в 2015 году. Цель рейтингов - помочь потенциальным покупателям квартиры в новостройке сравнить проекты и получить больше информации для принятия решения о покупке. </p>
+                        <p>Во второй половине 2017 года будет выпущен обновленный экспертный рейтинг жилых комплексов.</p>
+                        <div class="dashed-link-blue popup" data-location="rating-how-to-zhk" data-url="/popups/zhiloy_kompleks_rating/">
+                            Подробнее о том, как высчитывается рейтинг ЖК
+                        </div>
+                    </div>
+                    
+                    <div class="inner filters-wrap">
+                        <div class="filter select-class">
+                            <input type="hidden" name="class" value="{$form_data['class']}" class="filter-value" />
+                            <span class="active" data-param="">Все классы</span>
+                            <span data-param="1">Эконом</span>
+                            <span data-param="2">Бизнес</span>
+                            <span data-param="3">Премиум</span>
+                            <span data-param="4">Комфорт</span>
+                        </div>
+                        
+                        <h2>Рейтинг ЖК</h2>
+                        
+                        <div class="list-selector select-region big">
+                            <a href="#" class="pick">Петербурга и ЛО</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="region" value="" class="filter-value" />
+                            <ul class="list-data" data-simplebar="init">
+                                <li data-value="" title="Петербург и ЛО">Петербурга и ЛО</li>
+                                <li data-value="78">Петербурга</li>
+                                <li data-value="47">Ленобласти</li>
+                            </ul>
+                        </div>
+                        
+
+                        <div class="clearfix">
+                            <div class="list-selector select-district inactive">
+                                <a href="#" class="pick">Все районы</a>
+                                <a href="#" class="select">...</a>
+                                <input type="hidden" name="district" value="{$form_data['district']}" class="filter-value" />
+                                <ul class="list-data" data-simplebar="init">
+                                    <li data-value="" title="Выберите район">
+                                        Все районы
+                                        <span class="district-text">
+                                            <span class="all active district"> Петербурга и ЛО</span>
+                                            <span class="district78"> Петербурга</span>
+                                            <span class="district47"> Ленинградской области</span>
+                                        </span>
+                                    </li>
+                                    {loop $list,$k,$item}
+                                        <li data-value="{$item['id']}" data-region="{$item['region']}" title="{$item['title']}">{$item['title']}</li>
+                                    {/loop $list}        
+                                </ul>    
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="housing-estates-rating-block" class="clearfix">
+                        {block zhiloy_kompleks/block/rating_mainpage/region}  
+                    </div> <!--/#content-last-data-->    
+                </div>
+                
+                <div class="tab apartments">
+                    <div class="rating-text  text full-width-column">
+                        <p>Портал BSN.ru представляет экспертный рейтинг строящихся и реализованных проектов апартаментов в Санкт-Петербурге. Рейтинг был проведен в апреле 2016 года.  Обновленный экспертный рейтинг апартаментов будет выпущен во второй половине 2017 года.</p>
+                        <div class="dashed-link-blue popup" data-location="rating-how-to-apartments" data-url="/popups/apartments_rating/">
+                            Подробнее о том, как высчитывается рейтинг апартаментов
+                        </div>
+                    </div>
+                    <div id="apartments-rating-block" class="clearfix  inner" >
+                        {block apartments/block/rating_mainpage}  
+                    </div> <!--/#content-last-data-->
+                </div>
+                                
+                 
+            </div>
+        </div> <!--/#housing-estates-rating-list-->
+    </div>
+    
+    
+    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug" type="text/javascript"></script>
+    
+    <div class="inner">
+        <h2>На карте</h2>
+        <div id="map-search-results" class="estate-list br3"></div>
+    </div>
+        
+</div>

@@ -1,0 +1,11 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{if!empty $list}
+    <div class="topgray inner-wrapper">
+    {loop $list,$lk,$event} 
+        <div class="events-list">
+            <a href="/events_registration/{$event['url']}/">{$event['title']}</a>
+        </div>
+    {/loop $list}
+    </div>
+{/if}
+{include templates/includes/paginator.html}

@@ -1,0 +1,9 @@
+
+       {loop $list,$k,$item}
+            <div class="item">
+                {php:$distance = (integer)($item['distance']*10)}
+                <i class="{$item['category_class']}"></i>
+                <span class="title">{$item['name']}</span>
+                {ifeq $distance,0}меньше минуты{elseifgt $distance,5}больше 5 минут{else}{suffix:$distance,'минут','а','ы',''}{/if} пешком
+            </div>
+       {/loop $list}

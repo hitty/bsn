@@ -1,0 +1,373 @@
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>{$newsletter_title}</title>
+{literal}
+<style>
+div, td { font-family: Arial, Helvetica, sans-serif; text-align:left; font-size:16px; color:#000;}
+body {width:100%!important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; color:#000; margin:0; padding:0;font-family: Arial, Helvetica, sans-serif; color:#333;font-size:16px;}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+</style>
+{/literal}
+</head>
+<body>
+<center style="background: #e6e6e6;">
+<table class="wrapper" width="570" border="0" cellspacing="0" cellpadding="0" style="background: #e6e6e6;;padding:20px;margin:0;font-family: Arial, Helvetica, sans-serif; " >
+     <tr height="20"><td></td></tr>
+     <tr>
+        <td>
+            <table class="wrapper" width="570" border="0" cellspacing="0" cellpadding="20" style="background: #fff;padding:0;margin:0;font-family: Arial, Helvetica, sans-serif; " >
+                <tr>
+                    <td>
+                        <table width="570" border="0" cellspacing="0" cellpadding="0" align="center" style="background: #fff; padding: 0; margin:0;">
+                            <tr><td colspan="2" height="20"></td></tr>
+                            <tr style="height: 40px;">
+                                <td align="left" style="text-align:left" valign="middle" width="150">
+                                    <img class="fiximg" src="https://www.bsn.ru/img/layout/bsn_logo_small.png" border="0" width="146" height="40" align="left">
+                                </td>
+                                <td align="right" valign="middle" width="420" style="text-align:right; color: #000;">
+                                    Новости недвижимости за <span style="color:#1e88e5">{$curdate}</span>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" height="30"></td></tr>
+                            <tr>
+                                <td style="padding:0" colspan="2" align="center">
+                                    <table width="570" cellpadding="3" cellspacing="0">
+                                        <tr>
+                                            <td><a href="https://www.bsn.ru/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Каталог недвижимости" style="margin:0; border:none; text-decoration: none;"><img src="https://www.bsn.ru/img/layout/news_mailer_catalog.png" alt="Каталог недвижимости"></a></td>
+                                            <td><a href="https://www.bsn.ru/news/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Новости" style="margin:0; border:none; text-decoration: none;"><img src="https://www.bsn.ru/img/layout/news_mailer_news.png" alt="Новости"></a></td>
+                                            <td><a href="http://sale.bsn.ru/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Акции" style="margin: 0; border:none; text-decoration: none;"><img src="https://www.bsn.ru/img/layout/news_mailer_akcii.png" alt="Акции"></a></td>
+                                            <td><a href="https://www.bsn.ru/members/estate/add/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Добавить объект"><img src="https://www.bsn.ru/img/layout/news_mailer_add_object.png" alt="Добавить объект" style="border:none; text-decoration: none;"></a></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            {if!empty $news_list}
+                                <tr><td colspan="2" height="40"></td></tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td width="50">
+                                                    <div  style="text-transform: uppercase; color: #fff; background: #1e88e5; font-weight: bold; padding: 0; text-align: center; font-size: 24px; height: 28px; line-height: 28px; width: 180px;">Новости</div>
+                                                </td>
+                                                <td width="100%" style="text-align: right;">
+                                                    <a href="https://www.bsn.ru/news/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Читать все" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Читать все >></a>
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2" height="10"></td></tr>
+                                            {if!empty $news_list[0]['photo']}
+                                                <tr>
+                                                    <td colspan="2" style="padding: 0px;">
+                                                        <a href="https://www.bsn.ru/news/{$news_list[0]['category_code']}/{$news_list[0]['region_code']}/{$news_list[0]['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{$news_list[0]['title']}" target="_blank" style="border:none; text-decoration: none; width: 570px; overflow: hidden; display:block">
+                                                            <img src="https://www.bsn.ru/img/uploads/big/{$news_list[0]['subfolder']}/{$news_list[0]['photo']}" alt="{$news_list[0]['title']}" style="width: 570px;"  width="570"/>
+                                                        </a>
+                                                    </td>
+                                                </tr>    
+                                            {/if}
+                                            {php:$count = count($news_list)}
+                                            {loop $news_list,$k,$item}
+                                                {php:$last = $count - 1 == $k}
+                                                <tr><td colspan="2" height="10"></td></tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <a href="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:24px; {ifeq $k,0} color:#1e88e5; font-weight:bold;{/if}">{stripall:$item['title']}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr><td colspan="2" height="10" {ifempty $last}style="border-bottom:1px solid #e6e6e6;"{/if}></td></tr>
+                                            {/loop $news_list}
+                                            
+                                        </table>
+                                    </td>
+                                </tr>
+                            {/if}
+                            {if!empty $articles_list}
+                                <tr><td colspan="2" height="30"></td></tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td width="50">
+                                                    <div  style="text-transform: uppercase; color: #fff; background: #1e88e5; font-weight: bold; padding: 0; text-align: center; font-size: 24px; height: 28px; line-height: 28px; width: 180px;">Статьи</div>
+                                                </td>
+                                                <td width="100%" style="text-align: right;">
+                                                    <a href="https://www.bsn.ru/articles/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Все статьи" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Читать все >></a>
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2" height="10"></td></tr>
+                                            {if!empty $articles_list[0]['photo']}
+                                                <tr>
+                                                    <td colspan="2" style="padding: 0;">
+                                                        <a href="https://www.bsn.ru/articles/{$articles_list[0]['category_code']}/{$articles_list[0]['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{$articles_list[0]['title']}" target="_blank" style="border:none; text-decoration: none;">
+                                                            <img src="https://www.bsn.ru/img/uploads/big/{$articles_list[0]['subfolder']}/{$articles_list[0]['photo']}" alt="{$articles_list[0]['title']}" style="width: 570px;"  width="570"/>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {/if}
+                                            {php:$count = count($articles_list)}
+                                            {loop $articles_list,$k,$item}
+                                                {php:$last = $count - 1 == $k}
+                                                <tr><td colspan="2" height="10"></td></tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <a href="https://www.bsn.ru/articles/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:24px; {ifeq $k,0} color:#1e88e5; font-weight:bold;{/if}">{stripall:$item['title']}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr><td colspan="2" height="10" {ifempty $last}style="border-bottom:1px solid #e6e6e6;"{/if}></td></tr>
+                                            {/loop $articles_list}
+                                        </table>
+                                    </td>
+                                </tr>
+                            {/if} 
+                            {if!empty $bsn_tv_news_list}
+                                <tr><td colspan="2" height="30"></td></tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td width="50">
+                                                    <div  style="text-transform: uppercase; color: #fff; background: #1e88e5; font-weight: bold; padding: 0; text-align: center; font-size: 24px; height: 28px; line-height: 28px; width: 180px;">БСН-ТВ</div>
+                                                </td>
+                                                <td width="100%" style="text-align: right;">
+                                                    <a href="https://www.bsn.ru/bsntv/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Читать все" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Смотреть все >></a>
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2" height="10"></td></tr>
+                                            {if!empty $bsn_tv_news_list[0]['photo']}
+                                                <tr>
+                                                    <td colspan="2" style="padding: 0px;">
+                                                        <a href="https://www.bsn.ru/bsntv/{$bsn_tv_news_list[0]['category_code']}/{$bsn_tv_news_list[0]['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{$bsn_tv_news_list[0]['title']}" target="_blank" style="border:none; text-decoration: none;">
+                                                            <img src="https://www.bsn.ru/img/uploads/big/{$bsn_tv_news_list[0]['subfolder']}/{$bsn_tv_news_list[0]['photo']}" alt="{$bsn_tv_news_list[0]['title']}" style="width: 570px;" width="570" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {/if}
+                                            {php:$count = count($bsn_tv_news_list)}
+                                            {loop $bsn_tv_news_list,$k,$item}
+                                                {php:$last = $count - 1 == $k}
+                                                <tr><td colspan="2" height="10"></td></tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <a href="https://www.bsn.ru/bsntv/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:24px; {ifeq $k,0} color:#1e88e5; font-weight:bold;{/if}">{stripall:$item['title']}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr><td colspan="2" height="10" {ifempty $last}style="border-bottom:1px solid #e6e6e6;"{/if}></td></tr>
+                                            {/loop $bsn_tv_news_list}
+                                        </table>
+                                    </td>
+                                </tr>
+                            {/if}          
+
+                            {if!empty $design_news_list}
+                                <tr><td colspan="2" height="30"></td></tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td width="50">
+                                                    <div  style="text-transform: uppercase; color: #fff; background: #1e88e5; font-weight: bold; padding: 0; text-align: center; font-size: 24px; height: 28px; line-height: 28px; width: 180px;">ДИЗАЙН И РЕМОНТ</div>
+                                                </td>
+                                                <td width="100%" style="text-align: right;">
+                                                    <a href="https://www.bsn.ru/design.bsntv/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Читать все" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Смотреть все >></a>
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2" height="10"></td></tr>
+                                            {if!empty $design_news_list[0]['photo']}
+                                                <tr>
+                                                    <td colspan="2" style="padding: 0px;">
+                                                        <a href="https://www.bsn.ru/news/{$design_news_list[0]['category_code']}/{$design_news_list[0]['region_code']}/{$design_news_list[0]['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{$design_news_list[0]['title']}" target="_blank" style="border:none; text-decoration: none;">
+                                                            <img src="https://www.bsn.ru/img/uploads/big/{$design_news_list[0]['subfolder']}/{$design_news_list[0]['photo']}" alt="{$design_news_list[0]['title']}" style="width: 570px;" width="570" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {/if}
+                                            {php:$count = count($design_news_list)}
+                                            {loop $design_news_list,$k,$item}
+                                                {php:$last = $count - 1 == $k}
+                                                <tr><td colspan="2" height="10"></td></tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <a href="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:24px; {ifeq $k,0} color:#1e88e5; font-weight:bold;{/if}">{stripall:$item['title']}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr><td colspan="2" height="10" {ifempty $last}style="border-bottom:1px solid #e6e6e6;"{/if}></td></tr>
+                                            {/loop $design_news_list}
+                                        </table>
+                                    </td>
+                                </tr>
+                            {/if}      
+                                                          
+                            {if!empty $opinions_list}
+                                <tr><td colspan="2" height="40"></td></tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td width="50">
+                                                    <div  style="text-transform: uppercase; color: #fff; background: #1e88e5; font-weight: bold; padding: 0; text-align: center; font-size: 24px; height: 28px; line-height: 28px; width: 180px;">Мнения</div>
+                                                </td>
+                                                <td width="100%" style="width: 400px; text-align: right;">
+                                                    <a href="https://www.bsn.ru/opinions/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="Все мнения" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Читать все >></a>
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2" height="10"></td></tr>
+                                            {loop $opinions_list,$k,$item}
+                                                <tr>
+                                                    <td colspan="2" style="padding-top: 0;">
+                                                        <table cellpadding="0" cellspacing="0" border="0" s>
+                                                            <tr>
+                                                                <td rowspan="2" style="padding: 0 10px 0 0;">
+                                                                    <img src="https://st1.bsn.ru/img/uploads/med/{$item['experts_subfolder']}/{$item['experts_photo']}" alt="{$item['expert_title']}, {$item['expert_company']}, {$item['agency_title']}" width="160" height="220" />
+                                                                </td>
+                                                                <td style="background: url('//st1.bsn.ru/img/layout/news_mailer_opinion_bg.png') left center no-repeat; padding: 0 10px;" width="400" height="155">
+                                                                    <a class="a-h3" href="https://www.bsn.ru/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/" title="подробнее" style="font-size: 24px; color:#1e88e5; font-weight: bold; text-decoration: none;">{$item['annotation']}</a>    
+                                                                </td>
+                                                            <tr>
+                                                                 <td>
+                                                                    <b>{$item['expert_title']}</b>, <br />{$item['expert_company']}, {$item['agency_title']}
+                                                                 </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr><td colspan="2" height="20"></td></tr>
+
+                                            {/loop $opinions_list}
+                                            
+                                        </table>
+                                    </td>
+                                </tr>
+                            {/if} 
+                            <tr><td colspan="2"><img class="fiximg" src="https://www.bsn.ru/img/mail/wrap-w.png" border="0" width="570" height="40"></td></tr>
+                            <tr>
+                                <td colspan="2" style="background: #f3f3f3; padding: 0;height: 80px;" >
+                                    <table cellpadding="0" cellspacing="0" border="0" width="570" style="border-collapse:collapse; border:none;">
+                                        <tr>
+                                            <td align="center" width="190" style="text-align: center; color: #000;"  >
+                                                Объектов на продажу
+                                                <table cellpadding="0" cellspacing="0" border="0" align="center" style="padding-top: 0;">
+                                                    <tr>
+                                                    {loop $estate_sell_count,$k,$item}
+                                                        <td><img src="https://www.bsn.ru/img/mail/cif{$item}.png" width="14" height="20" border="0" /><img src="https://www.bsn.ru/img/mail/wrap-f3.png" width="1" height="20" border="0" /></td>
+                                                    {/loop $estate_sell_count}
+                                                    </tr>
+                                                </table>
+                                            </td>                 
+                                            <td align="center" width="190" style="text-align: center;color: #000;"  >
+                                                Объектов в аренду
+                                                <table cellpadding="0" cellspacing="0" border="0" align="center" style="padding-top: 0;">
+                                                    <tr>
+                                                    {loop $estate_rent_count,$k,$item}
+                                                        <td><img src="https://www.bsn.ru/img/mail/cif{$item}.png" width="14" height="20" border="0" /><img src="https://www.bsn.ru/img/mail/wrap-f3.png" width="1" height="20" border="0" /></td>
+                                                    {/loop $estate_rent_count}
+                                                    </tr>
+                                                </table>
+                                            </td>
+
+                                            <td align="center" width="190" style="text-align: center;color: #000;"  >
+                                                Звонков за вчера
+                                                <table cellpadding="0" cellspacing="0" border="0" align="center" style="padding-top: 0;">
+                                                    <tr>
+                                                    {loop $calls_count,$k,$item}
+                                                        <td><img src="https://www.bsn.ru/img/mail/cif{$item}.png" width="14" height="20" border="0" /><img src="https://www.bsn.ru/img/mail/wrap-f3.png" width="1" height="20" border="0" /></td>
+                                                    {/loop $calls_count}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>                        
+                                </td>
+                            </tr>                            
+                            {if!empty $banners_list}
+                                <tr><td colspan="2" height="50"></td></tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                {loop $banners_list,$k, $item}
+                                                    {php:$break_line = $k%2 == 1;}
+                                                    <td width="285" align="center" style="text-align: center; padding: 0;">
+                                                        {if!eq $item['link'],''} 
+                                                            <a href="{$item['link']}?utm_source=bsn&utm_medium=email&utm_campaign={$date}" target="_blank">
+                                                        {/if}
+                                                        <img width="240" align="center" border="0" style="border:none; max-width:240px" src="https://st.bsn.ru/img/uploads/sm/{$item['subfolder']}/{$item['name']}" />
+                                                        {if!eq $item['link'],''} </a> {/if}
+                                                    </td>
+                                                    {ifeq $break_line,1}</tr><tr height="20"><td colspan="2"></td></tr><tr>{/if}
+                                                {/loop $banners_list}
+                                                {php:$bsn_banner = count($banners_list)%2 == 1;}
+                                                {ifeq $bsn_banner,1}
+                                                    {loop $bsn_banners_list,$k, $item}
+                                                        <td width="285" align="center" style="text-align: center;padding: 0;">
+                                                            {if!eq $item['link'],''} 
+                                                                <a href="{$item['link']}?utm_source=bsn&utm_medium=email&utm_campaign={$date}" target="_blank">
+                                                            {/if}
+                                                            <img width="240" align="center" border="0" style="border:none; max-width:240px" src="https://st.bsn.ru/img/uploads/sm/{$item['subfolder']}/{$item['name']}" />
+                                                            {if!eq $item['link'],''} </a> {/if}
+                                                        </td>
+                                                    {/loop $bsn_banners_list}
+                                                {/if}
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            {/if}
+                            
+                            
+                            <tr><td colspan="2" height="40"></td></tr>
+                            <tr> 
+                                <td colspan="2" align="center" style="text-align:center; padding-top: 0;">
+                                    <table width="100%" cellspacing="4">
+                                        <tr>
+                                            <td width="25%" align="center" style="text-align: center;"><a href="https://www.bsn.ru/about/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">О проекте</a></td>
+                                            <td width="25%" align="center"style="text-align: center;"><a href="https://www.bsn.ru/contacts/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Контакты</a></td>
+                                            <td width="25%" align="center" style="text-align: center;"><a href="https://www.bsn.ru/advertising/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Реклама</a></td>
+                                            <td width="25%" align="center" style="text-align: center;"><a href="https://www.bsn.ru/news/blog/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Блог</a></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            {if!empty $user_code}
+                            <tr><td colspan="2" height="20"></td></tr>
+                            <tr>
+                                <td colspan="2" align="center" style="text-align:center;padding-top: 0;">
+                                    <div style="font-size:14px;color:#000;text-align:center;" class="unsubscribe">
+                                        Вы являетесь подписчиком новостей рынка недвижимости от BSN.ru. 
+                                        <br /><a style="font-size:14px;color:#000;text-align:center; text-align: center; text-decoration: underline;" href="https://www.bsn.ru/news/unsubscribe/?id={$user_id}&email={$user_email}&code={$user_code}" target="_blank">Отписаться</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/if}
+                            <tr><td colspan="2" height="20"></td></tr>
+                            <tr> 
+                                <td colspan="2" align="center" style="text-align:center; padding-top: 0;">
+                                    <table width="100%" cellspacing="4">
+                                        <tr>
+                                            <td width="10%"></td>
+                                            <td width="10%"></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//vk.com/bsn_ru" title="BSN.ru во Вконтакте" style="width:32px; height:30px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/vk.png" alt="BSN.ru во Вконтакте" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//www.facebook.com/pages/Bsnru/484773664932728" title="BSN.ru в Facebook" style="width:32px; height:30px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/fb.png" alt="BSN.ru в Facebook" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//www.youtube.com/channel/UCs-JHz_clECjieYwzi0irMw" title="BSN.ru в Youtube" style="width:32px; height:30px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/yt.png" alt="BSN.ru в Youtube" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//twitter.com/bsn_ru" title="BSN.ru в Twitter" style="width:32px; height:30px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/tw.png" alt="BSN.ru в Twitter" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//t.me/bsn_ru" title="BSN.ru в Telegram" style="width:32px; height:30px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/tg.png" alt="BSN.ru в Telegram" border="0" /></a></td>
+                                            <td width="10%"></td>
+                                            <td width="10%"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" height="20"></td></tr>
+                        </table>  
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+     <tr height="20"><td></td></tr>
+</table>
+</center>
+</body>
+</html>
+                            

@@ -1,0 +1,7 @@
+<div id="video-preload"></div>
+<div class="video-watermark transition" class="internal-link" data-link="/"></div>
+<video id="my-video" class="video-js" controls preload="auto" {if!empty $poster}poster="{$poster}"{/if} data-setup="{}" width="100%">
+    {php:$fileinfo = pathinfo($link)}
+    <source src="{$link}" type="{ifeq $fileinfo['extension'], 'mp4'}video/mp4{elseifeq $fileinfo['extension'], 'flv'}rtmp/flv{/if}" width="100%">
+</video>
+{ifempty $only_player}<script src="/js/video-player/video.js"></script>{/if}

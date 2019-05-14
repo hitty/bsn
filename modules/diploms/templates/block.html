@@ -1,0 +1,9 @@
+<ul class="diploms-list">
+{loop $list,$k,$item}
+    <li>
+        <i>{$item['year']}</i>
+            <img src="{static:/}img/uploads/sm/{$item['subfolder']}/{$item['name']}"/>
+        
+    </li>
+{/loop $list}
+</ul>

@@ -1,0 +1,46 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день, <b>{$data['name']}</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    {ifempty $data['answer']}
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+            Необходимо проверить новый <a href="{$data['edit_url']}" target="_blank">вопрос</a> в Консультанте:
+            <br /><br />
+            {if!empty $data['universal_app']}
+                Вопрос раздела {$data['category_title']} {if!empty $data['agency_title']}{if!empty $data['agent']} для специалиста{else} для компании{/if} {$data['agency_title']}{/if}.
+            {/if}
+            <p>{if!empty $data['user_creating']}С созданием пользователя{else}Имя пользователя{/if}: {if!empty $data['q_user_id']}#{$data['q_user_id']}{/if} {$data['q_user_name']}</p>
+            {if!empty $data['q_title']}
+            <p>Заголовок: {$data['q_title']}</p>
+            {/if}
+            {if!empty $data['q_body']}
+                <p>Вопрос: {$data['q_body']}</p>
+            {/if}
+        </td>
+    {else}
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+            Необходимо проверить новый <a href="{$data['answer_edit_url']}" target="_blank">ответ</a> в Консультанте:
+            <br /><br />
+            {if!empty $data['universal_app']}
+                Вопрос раздела {$data['category_title']}.
+            {/if}
+            {if!empty $data['q_title']}
+            <p>Вопрос: {$data['q_title']}</p>
+            {else}
+                {if!empty $data['q_body']}
+            <p>Вопрос: {$data['q_body']}</p>
+                {/if}
+            {/if}
+            
+            <p>
+            Ответ пользователя #{$data['respondent_user_id']} {$data['respondent_user_title']} {if!empty $data['respondent_agency_title']} агентства {$data['respondent_agency_title']}{/if}:<br>
+            {$data['answer']}
+            </p>
+        </td>
+    {/if}
+    
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

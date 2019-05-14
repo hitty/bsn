@@ -1,0 +1,46 @@
+<h1 class="pageTitle">Статистика КП</h1>
+<div class="showSpecStats">
+    <img width="145" style="float:left" src="/{$photo}">
+    <span>Статистика для поселка: <strong>{$info['title']}</strong></span>
+    
+    <form method="post" action="/admin/estate/cottages/stats/{$info['id']}/" class="form_default">
+    	<input type="hidden" value="ok" name="process"> 
+        Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$info['date_start']}"> 
+        по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$info['date_end']}">
+        <input type="submit" value="показать" name="submit" style="display:none;" id="submitButton" />
+    </form>
+	<div class="separator"></div>
+</div>
+        {if!empty $form_submit}
+		<div id="result_info_stats">
+            <table width="400" cellspacing="0" cellpadding="10">
+              <tbody>
+                  <tr>
+                    <th width="100">Дата</th>
+                    <th width="120">Показы</th>
+                    <th width="90">Переходы</th>
+                    <th width="80">CTR, %</th>
+                  </tr>
+                  	{php:$total_show=0}
+                    {php:$total_click=0}
+                    {loop $stats,$key,$item}
+                    	<tr>
+                        	<td>{$item['date']}</td>
+                        	<td>{$item['show_amount']}</td>
+                        	<td>{$item['click_amount']}</td>
+                        	<td>{ifgt $item['show_amount'],0}{php:echo number_format(($item['click_amount']/$item['show_amount'])*100, 2, '.', ' ')}{else}0{/if}</td>
+						</tr>
+                        {php:$total_show=$total_show+$item['show_amount']}
+                        {php:$total_click=$total_click+$item['click_amount']}
+                    {/loop $stats} 
+                  <tr>
+                    <th>Всего</th>
+                    <th>{$total_show}</th>
+                    <th>{$total_click}</th>
+                    <th>{ifgt $total_show,0}{php:echo number_format(($total_click/$total_show)*100, 2, '.', ' ')}{else}0{/if}</th>
+                  </tr>
+            </tbody>
+            </table>
+      	</div>    
+    {/if}
+

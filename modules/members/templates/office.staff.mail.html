@@ -1,0 +1,14 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{$item['name']}</b>!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Компания  «{$auth['agency_title']}» добавила Вас к корпоративному аккаунту на <a href="https://www.bsn.ru/" title="Перейти на BSN.ru" target="_blank">bsn.ru</a><br/><br/>
+        Подтвердить или отказаться вы можете в своем <a href="https://www.bsn.ru/members/">личном кабинете</a>.
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

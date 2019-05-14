@@ -1,0 +1,18 @@
+<div class="central-wrapper">
+    {if!empty $h1}
+    <div class="last-objects-h1-title">
+            <h1>{$h1}</h1>
+    </div>
+    {/if}
+
+    
+    {if!empty $lists}
+        {loop $lists,$estate_type,$list}
+            <h2 class="elite-title"><a href="/elite/{$estate_type}/" title="{$estate_types[$estate_type]}">{$estate_types[$estate_type]}</a></h2>
+            {ifeq $estate_type,'live'}{include /modules/estate/templates/list.block.live.html}{/if}
+            {ifeq $estate_type,'build'}{include /modules/estate/templates/list.block.build.html}{/if}
+            {ifeq $estate_type,'commercial'}{include /modules/estate/templates/list.block.commercial.html}{/if}
+            {ifeq $estate_type,'country'}{include /modules/estate/templates/list.block.country.html}{/if}
+        {/loop $lists}
+    {/if}
+</div>

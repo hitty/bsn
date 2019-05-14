@@ -1,0 +1,54 @@
+<form class="fast-search form-blue tiny ajax-form" id="fast-search-form" action="/" method="post">
+    <div class="form-container">
+        {php:$ajax_search = true;}
+        <div class="row">
+            <div class="list-selector select-deal-type">
+                <a href="#" class="pick">выберите</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="deal_type" id="estate-deal-type" value="" />
+                <div class="list-data">
+                    <ul>{php:$deal_type = ''}
+                        {loop $objects,$o,$oitem}                        
+                            {if!eq $deal_type, $oitem['rent']}
+                                <li data-type="commercial" data-value="{ifeq $oitem['rent'],1}rent{else}sell{/if}" data-title="{ifeq $oitem['rent'],1}Аренда{else}Продажа{/if}">{ifeq $oitem['rent'],1}Аренда{else}Продажа{/if}</li>
+                                {php:$deal_type = $oitem['rent']}
+                                {ifempty $active_deal_type}{php:$active_deal_type = $oitem['rent']}{/if}
+                            {/if}
+                        {/loop $objects}
+                    </ul>
+                </div>
+            </div> <!--/.list-selector .select-deal-type-->
+        
+            <div class="list-selector select-object-type">
+                <a href="#" class="pick">выберите</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="objects_group" id="estate-object-type" value="" />
+                <div class="list-data">
+                    <ul>
+                        <li data-type="commercial" data-title="Выберите"  data-value="commercial" data-url="commercial/">Выберите</li>
+                        {loop $objects,$o,$oitem}                        
+                            <li class="{if!eq $active_deal_type,$oitem['rent']}hidden{/if}" data-type="commercial" data-deal="{ifeq $oitem['rent'],1}rent{else}sell{/if}"  data-title="{$oitem['title_short']}"  data-value="{$oitem['id']}-commercial" data-url="commercial/{ifeq $oitem['rent'],1}rent{else}sell{/if}/?obj_type={$oitem['id']}">{$oitem['title_short']}</li>
+                        {/loop $objects}
+                    </ul>
+                </div>
+            </div> <!--/.list-selector .select-object-type-->
+           
+            <div class="interval-selector price-selector">
+                <input type="text" name="from_value" id="from_value_commercial" value="" placeholder="От"/>
+                <input type="text" name="to_value" id="to_value_commercial" value=""  placeholder="До"/>
+                <span class="deal-type-switcher">
+                    <span class="rent{if!empty $active_deal_type}{ifeq $active_deal_type,1} active{/if}{/if}">Р/мес</span>
+                    <span class="sell{if!empty $active_deal_type}{ifeq $active_deal_type,2} active{/if}{/if}">Р</span>
+                </span>
+            </div> 
+            <div class="interval-selector square-selector squares">
+                <input type="text" name="square_full_from" value="" placeholder="От" />
+                <input type="text" name="square_full_to" value="" placeholder="До" /> м<sup>2</sup>
+            </div> 
+            <input type="hidden" value="{$item['id']}" name="business_center">
+            <input type="hidden" value="1" name="only_objects">
+                    
+        </div> <!--/.row-->
+         
+    </div>
+</form>  

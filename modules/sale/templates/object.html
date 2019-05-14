@@ -1,0 +1,53 @@
+                    <div class="offer-item" data-type-id="{$item['id_offer_type']}">
+                        <a href="/campaign/{$item['chpu_title']}/" title="{$item['title']}" class="common-link"></a>
+                        <div class="offer-price">
+                            {numberformat:$item['cost']} <span class="rur">a</span>
+                            {if!empty $item['old_cost']}<div class="offer-old-price">{do:echo number_format($item['old_cost'],0,'.',' ')} <span class="rur">a</span></div>{/if}
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="rooms-quantity"><span>{$item['offer_type']}</span>{if!empty $item['offer_type_suffix']}{$item['offer_type_suffix']}{/if}</div>
+                        <div class="offer-img">
+                            <img src="/{$campaigns_img_folder}/sm/{$item['subfolder']}/{$item['photo']}" alt="">
+                            {ifeq $item['id_offer_type'],1}
+                                <div class="offer-sticker green">
+                                    <div class="sticker-left"></div>{$item['action_title']}<div class="sticker-right"></div>
+                                </div>
+                            {elseifeq $item['id_offer_type'],2}
+                                <div class="offer-sticker orange">
+                                    <div class="sticker-left"></div>до <span>{$item['discount']}</span> %<div class="sticker-right"></div>
+                                </div>
+                            {elseifeq $item['id_offer_type'],3}
+                                <div class="offer-sticker blue">
+                                    <div class="sticker-left"></div>рассрочка <span>{$item['installment']}</span> %<div class="sticker-right"></div>
+                                </div>
+                            {/if}
+                            <div class="offer-img-address">
+                            <a href="/campaign/{$item['chpu_title']}/" title="{$item['full_address']}">
+                                {$item['full_address']}
+                                <div class="address-marker"></div>
+                            </a>
+                            </div>
+                        </div>
+                        <div class="offer-desc">{$item['content_short']}</div>
+                        <div class="offer-values">
+                            <div class="ov-timer" data-date-end="{$item['date_end']}">00:00:00</div>
+                            <!--div class="ov-favorite">
+                                <a href="#">в избранное</a>
+                                <span class="star gold"></span>
+                            </div-->
+                            <div class="clearfix"></div>
+                        </div>
+                        
+                        {if!empty $item['agency_advert_phone']}
+                            <div class="offer-phone{ifempty $item['open_hour']} disabled{/if}">
+                                <span>{$item['agency_advert_phone']}</span>
+                                {ifempty $item['open_hour']}
+                                    {if!empty $item['next_day']}<span class="next-date">звоните в {$item['next_day']} с {$item['next_hour_begin']} до {$item['next_hour_end']}</span>{/if}
+                                {/if}
+                            </div>
+                        {/if}                        
+                        <div class="offer-company">
+                            <a href="/agencies/{$item['id_agency']}/" title="{$item['agency_title']}" target="_blank">{$item['agency_title']}</a>
+                        </div>
+                    </div>
+                    <div class="margin"></div>

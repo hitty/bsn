@@ -1,0 +1,72 @@
+                        </table>  
+                    </td>
+                </tr>
+              
+                <tr height="20"><td></td></tr>
+                
+                <tr>
+                    <td colspan="2">
+                        <table width="100%">
+
+                            <tr> 
+                                
+                                <td width="310" align="left" style="text-align:left; padding: 0;">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                        <tr>
+                                            <td align="left" style="text-align: left;"><a href="https://www.bsn.ru/about/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 14px; font-weight: 700; color: #6E6E6E; text-decoration: none;">О проекте</a></td>
+                                            <td align="left" style="text-align: left;"><a href="https://www.bsn.ru/contacts/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 14px; font-weight: 700; color: #6E6E6E; text-decoration: none;">Контакты</a></td>
+                                            <td align="left" style="text-align: left;"><a href="https://www.bsn.ru/advertising/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 14px; font-weight: 700; color: #6E6E6E; text-decoration: none;">Реклама на сайте</a></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                
+                                <td width="270" align="right" style="text-align:right; padding: 0;">
+                                    <table width="100%" cellspacing="0" cellpadding="0" >
+                                        <tr>
+                                            <td width="10%"></td>
+                                            <td width="10%"></td>
+                                            <td width="10%"></td>
+                                            <td width="10%"></td>
+                                            <td width="10%" align="right" style="text-align: right; padding-left: 10px;"><a href="//vk.com/bsn_ru" title="BSN.ru во Вконтакте" style="width:17px; height:10px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/vk_grey.png" alt="BSN.ru во Вконтакте" border="0" /></a></td>
+                                            <td width="10%" align="right" style="text-align: right; padding-left: 10px;"><a href="//www.facebook.com/pages/Bsnru/484773664932728" title="BSN.ru в Facebook" style="width:8px; height:17px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/fb_grey.png" alt="BSN.ru в Facebook" border="0" /></a></td>
+                                            <td width="10%" align="right" style="text-align: right; padding-left: 10px;"><a href="//telegram.me/bsn_ru" title="BSN.ru в Telegram" style="width:17px; height:14px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/tg_grey.png" alt="BSN.ru в Telegram" border="0" /></a></td>
+                                            <td width="10%" align="right" style="text-align: right; padding-left: 10px;"><a href="//www.youtube.com/channel/UCs-JHz_clECjieYwzi0irMw" title="BSN.ru в Youtube" style="width:17px; height:13px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/yt_grey.png" alt="BSN.ru в Youtube" border="0" /></a></td>
+                                            <td width="10%" align="right" style="text-align: right; padding-left: 10px;"><a href="//twitter.com/bsn_ru" title="BSN.ru в Twitter" style="width:17px; height:14px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/tw_grey.png" alt="BSN.ru в Twitter" border="0" /></a></td>
+                                        </tr>
+                                    </table>
+                                </td>                                
+                                
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+
+                <tr><td colspan="2" height="20"></td></tr>
+                
+                <tr>
+                    <td colspan="3" align="left" valign="top" style="font-size: 14px;color: #B9B9B9;text-align: left;"> 
+                        1999 - {php:echo date('Y');} &copy; Большой Сервер Недвижимости<br />
+                        BSN.RU — информационно-аналитический портал по недвижимости.<br />
+                    </td>
+                </tr>
+                
+                {if!empty $user_code}
+                <tr>
+                    <td colspan="2" align="left">
+                        <p style="padding-top: 20px;"><span style="font-size: 12px;color:#B9B9B9;">
+                        Вы получили данное письмо, так как являетесь зарегистрированным пользователем на сайте BSN.ru<br>
+                        Если письмо попало к вам по ошибке, Вы можете <a href="https://www.bsn.ru/news/unsubscribe/?id={$user_id}&email={$user_email}&code={$user_code}" target="_blank">отписаться от рассылки</a></span></p>
+                    </td>
+                </tr>
+                {/if}
+                
+                <tr style="background: #F8F8F8;"><td colspan="2" height="40"></td></tr>
+            </table>  
+        </td>
+    </tr>
+</table>
+
+</center>
+</body>
+</html>

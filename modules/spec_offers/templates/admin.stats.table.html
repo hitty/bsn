@@ -1,0 +1,65 @@
+<table width="700" cellspacing="0" cellpadding="10">
+  <tbody>
+      <tr>
+        <th width="100">Дата</th>
+        {ifempty $partner}
+            <th width="120">Показы</th>
+            <th width="120">Показы  1 ТГБ</th>
+            <th width="90" class="click-hide">Переходы BSN</th>
+        {/if}
+        <th width="90" class="click-hide">Переходы Пингола</th>
+        {ifempty $partner}
+            <th width="90">Переходы</th>
+            <th width="90">Переходы 1 ТГБ</th>
+            <th width="80">CTR, %</th>
+            <th width="80">Кол-во ТГБ в день</th>
+        {/if}
+      </tr>
+        {php:$total_show=0}
+        {php:$total_show_per_day=0}
+        {php:$total_bsn_click=0}
+        {php:$total_pingola_click=0}
+        {php:$total_click=0}
+        {php:$total_click_per_day=0}    
+        {php:$total_per_day=0}    
+        {loop $stats,$key,$item}
+            <tr>
+                <td>{$item['date']}</td>
+                {ifempty $partner}
+                    <td>{$item['show_amount']}</td>
+                    <td>{php: echo (int) $item['show_per_day']}</td>
+                    <td class="click-hide">{$item['click_bsn_amount']}</td>
+                {/if}
+                <td class="click-hide">{$item['click_pingola_amount']}</td>
+                {ifempty $partner}
+                    <td>{php:echo $item['click_pingola_amount']+$item['click_bsn_amount'];}</td>
+                    <td>{php: echo (int) $item['click_per_day']}</td>
+                    <td>{ifgt $item['show_amount'],0}{php:echo number_format((($item['click_pingola_amount']+$item['click_bsn_amount'])/$item['show_amount'])*100, 2, '.', ' ')}{else}0{/if}</td>
+                {/if}
+                <td>{$item['tgb_per_day']}</td>
+            </tr>
+            {php:$total_show=$total_show+$item['show_amount']}
+            {php:$total_show_per_day=$total_show_per_day+$item['show_per_day']}
+            {php:$total_bsn_click = $total_bsn_click + $item['click_bsn_amount']}
+            {php:$total_pingola_click = $total_pingola_click + $item['click_pingola_amount']}
+            {php:$total_click=$total_click+$item['click_pingola_amount']+$item['click_bsn_amount']}
+            {php:$total_click_per_day = $total_click_per_day + $item['click_per_day']}
+            {php:$total_per_day = $total_per_day + $item['tgb_per_day']}
+        {/loop $stats} 
+      <tr>
+        <th>Всего</th>
+        {ifempty $partner}
+            <th>{$total_show}</th>
+            <th>{php:echo (int) ($total_show_per_day);}</th>
+            <th class="click-hide">{$total_bsn_click}</th>
+        {/if}
+        <th class="click-hide">{$total_pingola_click}</th>
+        {ifempty $partner}
+            <th>{$total_click}</th>
+            <th>{php:echo (int) ($total_click_per_day);}</th>
+            <th>{ifgt $total_show,0}{php:echo number_format(($total_click/$total_show)*100, 2, '.', ' ')}{else}0{/if}</th>
+            <th>{php:echo (int) ($total_per_day/count($stats));}</th>
+        {/if}
+      </tr>
+</tbody>
+</table>

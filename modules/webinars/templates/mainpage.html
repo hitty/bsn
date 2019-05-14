@@ -1,0 +1,61 @@
+<div class="content-mainpage">
+    {if!empty $h1}<h1 class="padded">{$h1}</h1>{/if}
+    {if!empty $online_webinar}
+        <div class="webinars-block online">
+            <h4 class="header red online">В прямом эфире</h4>
+            <div class="webinar-item">
+                <div class="item_img"style="background-image: url({static:/}{$img_folder}/sm/{$online_webinar['subfolder']}/{$online_webinar['photo']});"></div>
+                <div class="item_info">
+                    <span class="item_info-title internal-link" data-link="/webinars/{$online_webinar['url']}/" data-new-tab="true">{$online_webinar['title']}</span>
+                    <span class="item_info-bottom_controls">
+                        <span class="item_info-reg watch button gray">Смотреть сейчас</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    {/if}
+    
+    {if!empty $month_list}
+        <div class="central-wrapper next-event-wrapper">                                                                                    
+            <h2 class="blue">Предстоящие</h2>
+            <div class="content-wrapper clearfix">
+                {loop $month_list,$np,$nitem}
+                    <div class="item br3 bbox">
+                         <span class="image bg-cover" style="background-image: url({static:/}{$img_folder}/big/{$nitem['subfolder']}/{$nitem['photo']});" ></span>
+                        <div class="content">
+                            <a href="/webinars/{$nitem['url']}/" class="text">{$nitem['title']}</a>                        
+                            <span class="button blue internal-link" data-link="/webinars/{$nitem['url']}/" >Записаться на вебинар</span>
+                            <div class="text">{$nitem['e_date']}</div>
+                        </div>
+                    </div>
+                {/loop $month_list}
+                
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    {/if}    
+    
+    {if!empty $popular_list}
+        <div class="central-wrapper">
+            <h2 class="blue">Популярные вебинары</h2>
+            <div class="content-wrapper row-3 clearfix">
+                {php:$list = $popular_list}
+                {include /modules/webinars/templates/block.html}     
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    {/if}    
+        
+    {if!empty $last_list}
+        <div class="central-wrapper">
+            <h2 class="blue">Прошедшие вебинары</h2>
+            <div class="content-wrapper row-2 clearfix">
+                {php:$list = $last_list}
+                {include /modules/webinars/templates/block.html}     
+                <div class="clearfix"></div>
+                <span class="center-button-block ajax-pagination button grey clearfix" data-link="/webinars/?page={$page}">Еще вебинары</span>
+            </div>
+        </div>
+    {/if}    
+    
+</div>

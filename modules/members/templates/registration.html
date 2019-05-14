@@ -1,0 +1,12 @@
+{if!empty $close_window}
+    <script>
+        if(window.opener === null) {
+            window.location = "/registration/success/";
+        } else {
+            window.opener.location = "/registration/success/";
+            window.close();
+        }
+    </script>
+{/if}
+</head>
+{$registration_form}

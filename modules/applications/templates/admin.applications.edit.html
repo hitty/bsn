@@ -1,0 +1,58 @@
+<h1 class="pageTitle">Заявки</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/service/applications/edit/add/">
+    <h3>Новая контекстная заявка</h3>
+{else}
+    <form class="form_default applications" method="post" action="/admin/service/applications/edit/{$data_mapping['id']['value']}/">
+    <h3>Заявка #{$data_mapping['id']['value']} 
+        <span class="app-description">
+            {ifempty $description['url']}
+                {ifempty $object_published}
+                    <span class="error">Объект #{$description['text']} отсутствует в базе</span>
+                {else}
+                    {$description['text']}
+                {/if}
+            {else}
+                Заявка 
+                {if!empty $realtor_help_type_title}<span style="padding-top: 5px; font-size: 12px; color:green">"Помощь риэлтора" - {$realtor_help_type_title}</span>{/if}
+                на объект <a href="{$description['url']}" target="blank">#{$description['text']}</a> раздела {$description['type']}.
+                
+                {ifempty $object_published}<span class="error">Объект #{$description['text']} отсутствует в базе</span>
+                {else}<span class="succ">Объект существует, {ifeq $object_published,1}опубликован{else}{ifeq $object_published,2}в {if!empty $deep_archive}отдельном {/if}архиве{/if}{/if}</span>{/if}
+            {/if}
+        </span>
+    </h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <div style="display:none" id="places_data_box">{$places_data}</div>
+</form>
+<script>
+    jQuery(document).ready(function(){
+        var _status_box = jQuery('#p_field_status')
+        _status_box.find('input[value="6"]').attr('disabled',true);
+        _status_box.children('.lf.fieldwrapper').append('<span class="radio-line"></span><span class="radio-line"></span>');
+        _status_box.find('input[value="2"], input[value="4"], input[value="5"]').parent().appendTo(jQuery('#p_field_status').find('.radio-line').eq(0));
+        _status_box.find('input[value="1"], input[value="3"], input[value="6"], input[value="8"]').parent().appendTo(jQuery('#p_field_status').find('.radio-line').eq(1));
+        _status_box.html(_status_box.html().replace(/&nbsp;/g,''));
+    });
+</script>

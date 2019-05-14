@@ -1,0 +1,47 @@
+    {php:$total_click=0}    
+    {loop $stats,$key,$item}
+        {ifeq $item['date'],'сегодня'}{php:$total_click_limits = $total_click}
+        {else}{php:$total_click=$total_click+$item['click_amount']}
+        {/if}
+        
+    {/loop $stats}
+   
+    <table width="1440" cellspacing="0" cellpadding="10" style="clear: both;">
+      <tbody>
+          <tr>
+            <th width="100">Дата</th>
+            {ifempty $partner}
+                <th width="120">Показы</th>
+                <th width="120">Показы  1 ТГБ</th>
+                <th width="90" class="click-hide">Переходы</th>
+            {/if}
+          </tr>
+            {php:$total_show=0}
+            {php:$total_show_per_day=0}
+            {php:$total_click=0}
+            {php:$count=0}    
+            {loop $stats,$key,$item}
+                <tr>
+                    <td>{$item['date']}</td>
+                    {ifempty $partner}
+                        <td>{$item['show_amount']}</td>
+                        <td>{php: echo (int) $item['show_per_day']}</td>
+                        <td class="click-hide">{$item['click_amount']}</td>
+                        <td class="click-hide">{$item['click_amount']}</td>
+                    {/if}
+                </tr>
+                {php:$total_show=$total_show+$item['show_amount']}
+                {php:$total_show_per_day=$total_show_per_day+$item['show_per_day']}
+                {php:$total_click = $total_click + $item['click_amount']}
+                {ifeq $item['date'],'сегодня'}{php:$total_click_limits = $total_click}{/if}
+            {/loop $stats} 
+          <tr>
+            <th>Всего</th>
+            {ifempty $partner}
+                <th>{$total_show}</th>
+                <th>{php:echo (int) ($total_show_per_day);}</th>
+                <th class="click-hide">{$total_click}</th>
+            {/if}                                             
+          </tr>
+    </tbody>
+    </table>

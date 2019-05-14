@@ -1,0 +1,19 @@
+<form class="fast-search" id="fast-search-form" action="/organizations/" method="get">
+    <div class="form-container clearfix">
+        <div class="row clearfix">
+                                
+            <div class="single-selector autocomplete-title">
+                <input type="text" name="organization_title" id="organization_title" value="{if!empty $form_data['organization_title']}{$form_data['organization_title']}{/if}" class="autocomplete" autocomplete="off" data-url="/organizations/search/{if!empty $activity}?activity={$activity}{/if}" />
+                <i class="clear-input{ifempty $form_data['organization']} hidden{/if}" data-icon="clear"></i>
+                <input type="hidden" name="organization" value="{if!empty $form_data['organization']}{$form_data['organization']}{/if}"/>
+            </div>
+            
+            <div class="specialization-list">
+                {block organizations/block/activities/}
+            </div>   
+           
+           <button class="search-button" title="Найти">Найти</button>
+           
+        </div>
+    </div>    
+</form>  

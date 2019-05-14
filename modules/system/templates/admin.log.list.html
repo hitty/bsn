@@ -1,0 +1,35 @@
+<h1 class="pageTitle">Ошибки Mysql</h1>
+<!--<p>Тут можно разместить описательный блок, номер версии, хотлинки и т.п.</p>-->
+<div class="list_table">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="1%">
+                <col class="col1" width="50%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Лог</th>
+                </tr>
+            </thead>
+            <tbody>
+                {php:$count=0}
+                
+                {loop $list,$key,$item}
+                    <tr id="item_{$count}">
+                        <td class="small_icons ac"><a href="/admin/system/mysql/del/{$count}/" title="Удалить"><span class="ico_del">Удалить</span></a></td>
+                        <td>
+                        {loop $item,$kk,$kitem}
+                            {$kk}: {$kitem} , 
+                        {/loop $item}
+                        </td>
+                    </tr>
+                    {php:$count++}
+                {/loop $list}
+            </tbody>
+        </table> 
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

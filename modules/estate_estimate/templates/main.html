@@ -1,0 +1,108 @@
+<div class="estate-estimate-wrapper full-width-column clearfix">
+    <div class="info bbox">
+        <h2>Как работает сервис оценки?</h2>
+        <p>Онлайн-оценка квартир основана на ценах предложений о продаже и аренде жилья, размещенных на сайте BSN.RU. Специальный алгоритм, по которому рассчитывается средневзвешенная цена, учитывает характеристики указанного и соседних объектов, а также их удаленность. Наибольший вес при определении цены имеют предложения, которые расположены ближе всего к указанному адресу и обладают схожими характеристиками.</p>
+        <p>Мы постоянно совершенствуем наши модели, поэтому цены на жилье за разные периоды могут незначительно различаться.</p>
+    </div>
+    <form class="estate-evaluation" action="">
+
+        <div class="row">
+            <span class="object-type">Квартира</span>
+        </div>
+        
+        <div class="row">
+                                          
+            <div class="rooms-count">
+                <div class="radio-group ">
+                    <label class="radio-group on" for="rooms-count_0" title="Студия"><input type="radio" name="rooms_total" value="1" checked="checked" id="rooms-count_0">С</label>
+                    <label class="radio-group" for="rooms-count_1" title="Однокомнатная квартира"><input type="radio" name="rooms_total" value="1" id="rooms-count_1">1</label>
+                    <label class="radio-group" for="rooms-count_2" title="Двухкомнатная квартира"><input type="radio" name="rooms_total" value="2" id="rooms-count_2">2</label>
+                    <label class="radio-group" for="rooms-count_3" title="Трехкомнатная квартира"><input type="radio" name="rooms_total" value="3" id="rooms-count_3">3</label>
+                    <label class="radio-group" for="rooms-count_4" title="Четырехкомнатная квартира"><input type="radio" name="rooms_total" value="4" id="rooms-count_4">4+</label>
+                </div>
+            </div>
+
+            <div class="square">
+                <input type="text" name="square" value="" required="required" placeholder="S, м2 *"> 
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="street-select{if!empty $location} disabled{/if} left">
+                <input type="text" name="geodata_title" id="street-build" value="" class="autocomplete geodata_title" autocomplete="off" data-url="/geodata/estate_estimate_address/" placeholder="Улица *" required="required" />
+                <i data-icon="clear" class="clear-input" data-icon="clear"></i>
+                <input type="hidden" name="id_geodata" id="geodata" value=""/>
+            </div>
+        </div>
+
+        <div class="row address-wrap">
+            <div class="house">
+                <input type="text" name="house" id="house" value="" required="required" placeholder="№ дома *"/>
+            </div>            
+            <div class="corp">
+                <input type="text" name="corp" id="corp" value="" placeholder="Корпус" />
+            </div>            
+            <div class="level-from">
+                <input type="text" name="level" id="level" value=""  required="required" placeholder="Этаж *"/>
+            </div>
+            <div class="level-to">
+                <input type="text" name="level_total" id="level_total" value="" placeholder="из" />
+            </div>            
+        </div>
+
+        
+        <div class="row">
+
+            <div class="list-selector select-flat-type bbox">
+                <a href="#" class="pick"></a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="id_building_type" value="" required="required" />
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="0">- тип дома * -</li>
+                    {loop $building_types,$f,$building_type}
+                        <li data-value="{$building_type['id']}">{$building_type['title']}</li>
+                    {/loop $building_types}
+                </ul>
+            </div> 
+        </div>
+        
+        <div class="row purpose-wrap">         
+            <div class="list-selector select-purpose bbox">
+                <a href="#" class="pick"></a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="id_purpose" value="" required="required"/>
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="0">- почему вас интересует оценка?* -</li>
+                    {loop $purposes,$f,$purpose}
+                        <li data-value="{$purpose['id']}">{$purpose['title']}</li>
+                    {/loop $purposes}
+                </ul>
+            </div>                                    
+        </div>
+        
+        <div class="row">
+            <div class="email">
+                <input type="email" name="email" value="" placeholder="Ваш email"> 
+            </div>
+        </div>
+        
+        <div class="row note">При заполнении поля email вы будете зарегистрированы на портале и сможете добавлять свои объявления</div>
+        <span class="form-note">* поля, помеченные звездочкой обязательны к заполнению.</span>
+        <button value="Оценить">Оценить квартиру</button>
+
+       
+    </form>
+     
+    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <div class="card-map-wrapper" id="card-map-wrapper" data-icon="build"  data-map-icon="build"></div>
+    
+    
+    <div id="estimate-result"></div>
+</div>
+
+<a href="_estimate/" class="button estimate-again flat">Оценить еще</a>
+
+<section class="tgb-list in-row">
+    {block tgb/top/inrow}
+</section>
+

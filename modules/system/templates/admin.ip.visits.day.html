@@ -1,0 +1,64 @@
+<h1 class="pageTitle">общая статистика IP посетителей</h1>
+<div class="caption_line">
+    <!--<span class="button add-page-to-index">Добавить запись</span>-->
+</div>
+
+<span>Найдено: {$total_found}</span>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_status = document.getElementById('f_status').value;
+            var __url = '{root:/admin/system/ip_visits/not_indexed/'+document.location.href.split('/')[6]+'}';
+            var __get = new Array();
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Выбрать за последний(е):
+            <input type="text" id="f_url" value="{$get_array['f_url']}" onchange="filter_activate()"  placeholder="адрес страницы">
+        </label>
+    </div>
+    {if!empty $ip_visits_full}
+        <table>    
+            <colgroup>
+                <col class="col2" width="20%">
+                <col class="col1" width="20%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <th>IP</th>
+                <th>Дата</th>
+                <th>Страниц просмотрено</th>
+                <th>Средний интервал (сек)</th>
+                <th>Минимальный средний интервал (сек)</th>
+                <th>Тип</th>
+                <th>&nbsp;</th>
+            </thead>
+            <tbody>
+                {loop $ip_visits_full,$key,$item}
+                    <tr id="item_{$item['id']}" class="">
+                        <td>{$item['ip']}</td>
+                        <td>{$item['date_formatted']}</td>
+                        <td>{$item['visits']}</td>
+                        <td>{$item['avg_interval']}</td>
+                        <td>{$item['min_avg_interval']}</td>
+                        <td>{if!empty $item['user_type']}Робот {$item['user_type']}{else}пользователь{/if}</td>
+                        <td class="small_icons ac">
+                            <!--<a href="/admin/system/ip_visits/del/{$item['id']}/" title="Удалить" target="_blank"><span class="ico_del">Удалить</span></a>-->
+                        </td>
+                    </tr>
+                {/loop $ip_visits_full}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {/if}
+</div>

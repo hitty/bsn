@@ -1,0 +1,112 @@
+<div class="stats-table adv-list">
+    
+    {if!empty $list}
+       
+        <div class="statistic-box">
+            <div class="sb-info">Найдено: <b>{$items_count}</b> {if!empty $items_count} Показаны <b>{$from_item}-{$to_item}</b>{/if}</div>
+        </div>
+        <table class="tablesorter applications public {if!empty $common_user}common-user{/if}" cellpading="1">  
+            <colgroup>
+                <col class="col1" width="1%">
+                <col class="col1" width="20%">
+                <col class="col2" width="29%">
+                <col class="col2" width="35%">
+                <col class="col2" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><span class="app-id">ID</span></th>
+                    <th><span class="adv-title">Дата</span></th>
+                    <th><span class="adv-shows">Контакт</span></th>
+                    <th><span class="adv-clicks">Тип заявки</span></th>
+                    <th><span class="adv-ctr"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}  
+                    {php:$show_application = ( !empty($item['id_realtor_help_type']) && !empty($auth['id_agency'])) || ( empty($item['id_realtor_help_type']) )}
+                    {if!empty $show_application}
+                    <tr id="{$item['id']}" class="adv-table-row {if!empty $item['free_for_payed']}{if!empty $free_apps_for_me}free-for-payed{/if}{/if}">
+                        <td>{$item['id']}</td>
+                        <td data-order="{$item['date_normal']}" class="date_in">
+                            <span>{$item['date']}</span>
+                            <span>{$item['time']}</span>
+                            <span class="comment">
+                                {if!empty $item['user_comment']}
+                                    <i>Комментарий</i>
+                                {else}
+                                    <i class="no-comment">Нет комментария</i>
+                                {/if}
+                            </span>
+                            <div class="app-comments-block">
+                                <span class="user-comment-block">{$item['user_comment']}</span>
+                            </div>
+                        </td>
+                        <td class="app-info">
+                            <span class="app-phone">{$item['phone']}<br>{$item['email']}</span>
+                            <span class="app-name">{$item['name']}</span>
+                            <span class="app-user-type">{$item['user_type_title']}{if!empty $item['work_status_title']},<br/>{$item['work_status_title']}{/if}</span>
+                        </td>
+                        <td class="app-type">
+                            <span class="object-type">{$item['object_type_title']}</span>
+                            {ifempty $item['id_realtor_help_type']}<span class="deal-type {$item['rent_title']}">{$item['rent']}</span>{/if}
+                            {if!empty $item['id_realtor_help_type']}
+                                Требуется риэлтор. {$item['realtor_help_type_title']}
+                            {elseif!empty $item['id_parent']}
+                                <a href="{$item['url']}" target="_blank" title="Посмотреть карточку объекта">Смотреть объект</a>
+                            {/if}
+                            <!--{if!empty $item['user_object']}<span class="your-object">Это ваш объект</span>{/if}-->
+                            <span class="estate-type">{$item['estate_type_title']}</span>
+                        </td>
+                        <td class="status-info">
+                            {php:$show_button = !( (!empty($auth)) && $auth['id_group'] == 13 && ($item['estate_type'] == 2 || ($item['estate_type'] == 5 && $item['build_complete'] == 'Сдан') ) )}
+                            {if!empty $item['id_realtor_help_type']}
+                                {if!empty $can_buy_realtor_apps}
+                                    <span class="button blue in-work public realtor" data-can-buy="{$can_buy_realtor_apps}" data-exclusive="{$item['can_be_exclusive']}" low-cost="1000" high-cost="1000">В работу</span>
+                                {/if}
+                            {elseif!empty $item['free_for_payed']}
+                                {if!empty $free_apps_for_me}
+                                    <span class="button blue in-work public free-for-payed" data-can-buy="{$can_buy_apps}" low-cost="{ifempty $item['cost']}0{else}{$item['cost']}{/if}">В работу бесплатно</span>
+                                {else}
+                                    <span class="gray-info">Бесплатно для клиентов BSN.ru</span>
+                                {/if}
+                            {else}
+                                {if!empty $show_button}<span class="button blue {if!empty $authorized}in-work public{else}authorize{/if}" data-can-buy="{$can_buy_apps}" data-exclusive="{$item['can_be_exclusive']}" low-cost="{ifempty $item['cost']}0{else}{$item['cost']}{/if}" high-cost="{ifempty $item['exclusive_cost']}0{else}{$item['exclusive_cost']}{/if}">В работу</span>{/if}
+                            {/if}
+                        </td>
+                    </tr>
+                    {/if}
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <div class="no-results-found">
+            Заявки не найдены
+        </div>
+    {/if}
+</div>
+{if !$authorized}
+<!--noindex-->
+    
+<!--/noindex-->
+{/if}      
+{php:$ajax_search = true;}             
+{include /templates/includes/paginator.html}
+<script>
+    jQuery(document).ready(function(){
+        //инициализируем datatable
+        jQuery('.tablesorter').dataTable({
+            "bPaginate": false,
+            'bInfo': false,
+            "order": [[ 1, "desc" ]],
+            "columnDefs": [{ orderable: false, targets: -1 }]
+        });
+        jQuery('.dataTables_filter').children('label').css('opacity','0');
+        //когда щелкаем "в работу" без авторизации, 
+        jQuery(document).on('click', '.button.blue.authorize', function(){
+            jQuery('.auth-login').click();
+        });
+        
+        jQuery('.total-apps').children('i').html("{ifempty $items_count}0{else}{$items_count}{/if}");
+    })
+</script>

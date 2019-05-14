@@ -1,0 +1,38 @@
+    <h1 class="centered">Архив мнений</h1>
+
+    <div id="content-list" class="central-wrapper">
+        <section class="col-4">
+            <div id="datetime-filter" data-container=".ajax-results.content-wrapper" data-url="/opinions/{if!empty $category}{$category}/{/if}">
+                <div class="list-selector years-list grey">
+                    <a href="#" class="pick"></a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="progress_years" value="{$current_year}" />
+                    <ul class="list-data" data-simplebar="init">
+                        {loop $date_list,$k,$pitem} 
+                                <li data-value="{$k}">{$k}</li>
+                        {/loop $date_list}
+                    </ul>
+                </div>                 
+                <ul class="list br3">
+                    
+                    {loop $date_list,$year,$months}
+                        {loop $months,$m,$mitem}
+                            <li class="item{ifeq $current_year,$year} on{ifeq $mitem['month_number'],$current_month} active{/if}{/if}" data-year="{$year}" data-params="?month={$mitem['month_number']}&year={$year}{if!empty $category}&category={$category}{/if}"><span>{$mitem['month']}</span></li>
+                        {/loop $months}
+                    {/loop $date_list}
+                </ul>
+            </div>
+        </section>
+        
+        <section class="content-wrapper row-3 clearfix ajax-results">
+               
+        </section>
+    </div>
+
+    {literal}
+        <script>
+            jQuery(document).ready(function(){
+                jQuery('#datetime-filter .active').click();
+            })
+        </script>
+    {/literal}

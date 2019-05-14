@@ -1,0 +1,21 @@
+
+{if!empty $list}
+
+{php:$show_empty_results = true}
+{loop $list,$lk,$item}
+    {php:$content_type = $item['type']}
+    {ifin $content_type,'news','articles','bsntv','doverie'}
+        {include /modules/content/templates/block.item.html}
+    {elseifeq $content_type,'calendar_events'}
+        {include /modules/calendar_events/templates/list.block.item.html}
+    {else}
+        {include /modules/opinions_predictions/templates/block.item.html}
+    {/if}
+{/loop $list}
+{if!empty $ajax_pagination}
+    <div class="clearfix"></div>
+    <span class="center-button-block ajax-pagination button grey clearfix" data-link="{$ajax_url}">Еще {ifeq $content_type,'articles'}статьи{elseifeq $content_type,'bsntv'}видео{else}новости{/if}</span>
+{/if}
+{else}
+    <div class="empty-results">Ничего не нашлось</div>
+{/if}

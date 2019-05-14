@@ -1,0 +1,59 @@
+{if!empty $list}
+    <div class="subscriptions-list">
+    
+        {loop $list,$lkey,$item}
+        <div class="item shadow-hover clearfix{ifeq $item['confirmed'],2} inactive{/if}" data-id="{$item['id']}">
+            <div class="left-part">
+               
+                <span class="date">{$item['create_date']}</span>
+            </div>
+            <div class="central-part">
+                <span class="text">
+                    {php:$description = $item['description']}
+                    
+                    {php:$title = $description['title']}
+                    {php:unset($description['title'])}
+                    {loop $title,$dk,$ditem}
+                        {$ditem}
+                    {/loop $title}
+
+                    {php:$show_districts = !empty($description['district_areas']) || !empty($description['districts'])}
+                    {if!empty $show_districts}
+                        
+                            {if!empty $description['districts']}
+                                СПБ: {$description['districts']},
+                            {/if}
+                            {if!empty $description['district_areas']}
+                                ЛО: {$description['district_areas']},
+                            {/if}
+                        
+                    {/if}
+                    {if!empty $description['subways']}
+                            {$description['subways']},
+                    {/if}
+                    {if!empty $description['other_params']}
+                            {php:$other_params = $description['other_params']}{php:$count=0;}
+                            {loop $other_params,$dk,$ditem}{if!eq $count,0},{/if} {$ditem}{php:$count++}{/loop $other_params}
+                    {/if}    
+                    <span class="count{ifgt $item['new_objects'],0} with-objects{/if}">
+                        {suffix:$item['new_objects'],'новы','й','х','х'} {suffix_word:$item['new_objects'],'объект','','а','ов'}
+                    </span>
+                </span>
+                
+
+            </div>
+            <div class="right-part">
+                {php:$uri_delimeter = empty(strpos($item['url'],'?')) ? '?' : '&'}
+                <span class="button confirm" data-id="{$item['id']}">Подтвердить подписку</span>
+                <span class="button internal-link" data-link="/{$item['url']}{$uri_delimeter}id_subscription={$item['id']}" data-new-tab="true">Перейти</span>
+                <span class="object-unsubscribe" data-icon="delete" data-type="{$estate_type}" data-id="{$item['id']}"><i>Отписаться</i></span>
+                
+            </div>
+        </div>
+                
+        {/loop $list}
+    </div>
+{else}
+    <div class="empty-results">На данный момент у вас нет подписок на поисковые запросы</div>
+{/if}
+       

@@ -1,0 +1,92 @@
+<script type="text/javascript">
+    function filter_activate(){
+        {ifempty $id_agency} 
+            var __filter_agency = document.getElementById('f_agency').value;
+        {/if}
+        {if!empty $campaigns} 
+            {ifempty $id_agency}
+                if(__filter_agency > 0) var __filter_campaign = document.getElementById('f_campaign').value; 
+            {else}
+                var __filter_campaign = document.getElementById('f_campaign').value; 
+            {/if}
+        {/if}
+        var __date_start = document.getElementById('f_date_start').value; 
+        var __date_end = document.getElementById('f_date_end').value; 
+        var __url = '{root:/admin/sale/finances/}';
+        var __period = jQuery('input[name=f_period]:checked').val();
+        var __get = new Array();
+        
+        {ifempty $id_agency} 
+            if(__filter_agency >0) __get.push('f_agency='+__filter_agency);
+        {/if}
+        {if!empty $campaigns} 
+            if(__filter_campaign>0) __get.push('f_campaign='+__filter_campaign);
+        {/if}
+        if(__period>0) __get.push('f_period='+__period);
+        if(__date_start!=null && __date_start!='') __get.push('f_date_start='+__date_start);     
+        if(__date_end!=null && __date_end!='') __get.push('f_date_end='+__date_end);     
+        if(__get.length>0) __url = __url+'?'+__get.join('&');
+        document.location.href = __url;
+    }
+</script>
+<div class="finance">
+    <h1 class="pageTitle">Финансы</h1>
+    <div class="filter_line">
+        {if!empty $campaigns}
+        <label>
+            <span class="label-title">Кампания:</span>
+            <div class="list-selector select-campaign">
+                <a href="#" class="pick">Любой</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="f_campaign" name="f_campaign" value="{$get_array['f_campaign']}"  onchange="filter_activate()"/>
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="0">все</li>
+                    {loop $campaigns,$key,$val}
+                        <li data-value="{$val['id']}">{$val['title']}</li>
+                    {/loop $campaigns}
+                </ul>
+            </div>
+        </label>     
+        {/if}
+        <label>
+            <span class="lf fieldwrapper" id="span_field_period" data-rel="period">
+                <input type="radio" name="f_period" value="1" id="period_0" {ifeq $get_array['f_period'],'1'}checked="checked"{/if}> 
+                <label class="radio-group-devided" for="period_0">Неделя</label>
+                <input type="radio" name="f_period" value="2" id="period_1" {ifeq $get_array['f_period'],'2'}checked="checked"{/if}> 
+                <label class="radio-group-devided" for="period_1">Месяц</label>
+            </span>        
+        </label>
+        <label>
+            <input type="text" id="f_date_start" name="f_date_start" placeholder="Начало" class="datetimepicker date"  value="{$get_array['f_date_start']}">
+            -
+            <input type="text" id="f_date_end" name="f_date_end" placeholder="Окончание" class="datetimepicker date"  value="{$get_array['f_date_end']}">
+        </label>
+    </div>
+    <div class="table wrap-0-27">
+        <div class="row header">
+            <!-- класс active показывает активный элемент сортировки, добавочный класс up будет отображать маркер в обратном порядке -->
+            <div class="cell fdate active"><a href="">Дата <span></span></a></div>
+            <div class="cell fcompany">Кампания</div>
+            <div class="cell ftype">Тип операции</div>
+            <div class="cell write-off">Списание</div>
+            <div class="cell credited">Зачисление</div>
+        </div>
+        {loop $operations_list,$key,$item}
+            <div class="row">
+                <div class="cell fdate">{$item['date']}</div>
+                <div class="cell fcompany">{$item['campaign_title']}</div>
+                <div class="cell ftype call">{$item['operation_type']}</div>
+                <div class="cell write-off">{$item['expenditure']}<span></span></div>
+                <div class="cell credited">{$item['income']}</div>
+            </div>
+        {/loop $operations_list}
+        
+        <div class="row">
+            <div class="cell ftotal">
+                Итого за период:
+            </div>
+            <div class="cell write-off">{$operations_total['expenditure_total']}<span></span></div>
+            <div class="cell credited">{$operations_total['income_total']}<span></span></div>
+        </div>
+    </div>
+</div>

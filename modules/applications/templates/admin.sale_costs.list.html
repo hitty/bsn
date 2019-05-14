@@ -1,0 +1,33 @@
+<h1 class="pageTitle">Компании с ценами на заявки из SALE</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <div class="filter_line"></div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="33%">
+                <col class="col1" width="33%">
+                <col class="col1" width="33%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Компания</th>
+                    <th>Цена заявки с SALE</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['title']}</td>
+                        <td>{$item['cost']}</td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

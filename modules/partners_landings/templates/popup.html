@@ -1,0 +1,28 @@
+<div class="application-wrapper">
+    <form action="/{$current_page['requested_path']}/?action=add" method="POST">
+        <span class="title">Оставить заявку</span>
+
+        <div class="row">
+            <input type="text" name="name" value="" placeholder="Ваше имя" required="required" />
+        </div>
+
+        <div class="row">
+            <input type="text" name="phone" class="phone" value="" placeholder="Телефон" required="required" />
+        </div>
+
+        <div class="row">
+            <input type="email" name="email" value="" placeholder="Email (необязательно)"/>
+        </div>
+        
+        
+        <div class="row">
+            <textarea name="user_comment" id="user-comment" placeholder="Комментарий (необязательно)"></textarea>
+        </div>
+        
+        <div class="row">
+            <button class="send blue" value="Отправить">Отправить</button>
+        </div>
+        
+        
+    </form>
+</div>

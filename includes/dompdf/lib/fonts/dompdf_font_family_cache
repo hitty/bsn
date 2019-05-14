@@ -1,0 +1,76 @@
+<?php return array (
+  'sans-serif' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'Helvetica',
+    'bold' => DOMPDF_FONT_DIR . 'Helvetica-Bold',
+    'italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',
+    'bold_italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',
+  ),
+  'times' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'Times-Roman',
+    'bold' => DOMPDF_FONT_DIR . 'Times-Bold',
+    'italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
+    'bold_italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
+  ),
+  'times-roman' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'Times-Roman',
+    'bold' => DOMPDF_FONT_DIR . 'Times-Bold',
+    'italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
+    'bold_italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
+  ),
+  'courier' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'Courier',
+    'bold' => DOMPDF_FONT_DIR . 'Courier-Bold',
+    'italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+    'bold_italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+  ),
+  'helvetica' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'Helvetica',
+    'bold' => DOMPDF_FONT_DIR . 'Helvetica-Bold',
+    'italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',
+    'bold_italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',
+  ),
+  'zapfdingbats' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+    'bold' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+    'italic' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+    'bold_italic' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+  ),
+  'serif' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'times',
+    'bold' => DOMPDF_FONT_DIR . 'timesbd',
+    'italic' => DOMPDF_FONT_DIR . 'timesi',
+    'bold_italic' => DOMPDF_FONT_DIR . 'timesbi',
+  ),
+  'monospace' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'Courier',
+    'bold' => DOMPDF_FONT_DIR . 'Courier-Bold',
+    'italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+    'bold_italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+  ),
+  'fixed' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'Courier',
+    'bold' => DOMPDF_FONT_DIR . 'Courier-Bold',
+    'italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+    'bold_italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+  ),
+  'roboto' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . '7a74fc41feb2263dec6d8a446f9b3b2d',
+  ),
+  'arial' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'arial',
+    'bold' => DOMPDF_FONT_DIR . 'arialbd',
+    'italic' => DOMPDF_FONT_DIR . 'ariali',
+    'bold_italic' => DOMPDF_FONT_DIR . 'arialbi',
+  ),
+) ?>

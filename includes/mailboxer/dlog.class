@@ -1,0 +1,128 @@
+<?php
+
+// class for item log node
+class dlog // {{{
+{
+	protected $input_encoding = 'utf-8';
+	protected $xml_encoding = 'utf-8';
+	protected $xml;
+	protected $xmlroot;
+	protected $version = '1.0';
+
+	const ITEM_TYPE_ERROR = 1;
+	const ITEM_TYPE_WARNING = 2;
+	const ITEM_TYPE_NOTICE = 4;
+	const ITEM_TYPE_INFO = 8;
+
+	public function __construct($input_encoding = false, $xml_encoding = false)
+	{
+		// setting input encoding if present
+			if($input_encoding !== false) $this->input_encoding = $input_encoding;
+			if($xml_encoding !== false) $this->xml_encoding = $xml_encoding;
+
+		// creating xml container
+			$this->xml = new DOMDocument('1.0',$this->xml_encoding);
+			$this->xml->formatOutput = true;
+			$this->xmlroot = $this->xml->appendChild($this->xml->createElement('root'))->appendChild($this->xml->createElement('dlog'));
+			$this->xmlroot->setAttribute('version',$this->version);
+	}
+
+	function addGroup($title, &$src_group = false)
+	{
+		if($src_group === false) $src_group = $this->xmlroot;
+		$new_group = $src_group->appendChild($this->xml->createElement('group'));
+		$new_group->setAttribute('title',@iconv($this->input_encoding, 'utf-8//IGNORE', $title));
+		return new dlog_group($new_group, $this->input_encoding);
+	}
+
+	function printxml()
+	{
+		$this->xml->formatOutput = true;
+		echo '<pre>'.$this->xml->saveXml().'</pre>';
+	}
+
+	function savelog($prefix, $suffix, $path)
+	{
+		$prefix_expl = explode('\'',$prefix);
+		$prefix = '';
+		foreach($prefix_expl as $idx => $prefix_part)
+		{
+			switch($idx % 2):
+				case 0:
+					$prefix .= $prefix_part;
+					break;
+				case 1:
+					$prefix .= date($prefix_part);
+					break;
+			endswitch;
+		}
+
+		$contents = scandir($path);
+		unset($contents[0],$contents[1]);
+
+		$indexes = array(0);
+
+		foreach($contents as $item)
+		{
+			if(preg_match("/^$prefix([0-9]\{4})".str_replace('.','\.',$suffix)."$/",$item,$matches))
+			{
+				array_push($indexes, (int) $matches[1]);
+			}
+			else
+			{
+				continue;
+			}
+		}
+
+		$next_index = str_pad(max($indexes) + 1, 4, 0, STR_PAD_LEFT);
+		$next_filename = $path . '/' . $prefix . $next_index . $suffix;
+
+		$this->xml->save($next_filename);
+		//echo $this->xml->saveXml();
+	}
+} // }}}
+
+// class for group log node
+class dlog_group extends dlog // {{{
+{
+	protected $xml_group;
+	protected $input_encoding;
+
+	function __construct(&$group,$input_encoding)
+	{
+		$this->xmlroot = $group;
+		$this->xml = $group->ownerDocument;
+		$this->xml_group = $group;
+		$this->input_encoding = $input_encoding;
+	}
+
+	function addItem($item_content, $item_type = self::ITEM_TYPE_INFO)
+	{
+		$args = func_get_args();
+		$item_content = $args[0];
+		$item_type = @$args[1] or $item_type = self::ITEM_TYPE_INFO;
+		unset($args[0],$args[1]);
+
+		$item = $this->xml_group->appendChild($this->xml_group->ownerDocument->createElement('item'));
+		$item->setAttribute('type',$item_type);
+
+		$time = gettimeofday();
+		$currmicrotime = (float) $time['sec'].'.'.$time['usec'];
+		$item->setAttribute('timestamp',$currmicrotime);
+		$item->setAttribute('content',@iconv($this->input_encoding,'utf-8//IGNORE',$item_content));
+
+		$sargs = array();
+
+		foreach($args as $arg)
+		{
+			$sargs[] = $arg;
+		}
+		foreach($sargs as $num => $val)
+		{
+			$item->setAttribute('param'.($num+1),@iconv($this->input_encoding, 'utf-8//IGNORE', $val));
+		}
+	}
+} // }}}
+
+
+?>

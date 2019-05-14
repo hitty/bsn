@@ -1,0 +1,26 @@
+<div class="topgray">
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{ifempty $list}
+<p>на данный момент новостей нет</p>
+{else}
+    <div class="statistic-box">
+        <div class="sb-sorting">
+            {ifeq $sortby,1}
+                <span class="sb-sorting-pressed">новые</span>
+            {else}
+                <a class="sort{ifeq $sortby,1} down{elseifeq $sortby,2} up{/if}" href="{php:echo htmlentities($sorting_url)}{ifeq $sortby,1}2{else}1{/if}">новые</a>
+            {/if}
+            {ifeq $sortby,3}
+                <span class="sb-sorting-pressed">популярные</span>
+            {else}
+                <a class="sort{ifeq $sortby,3} down{elseifeq $sortby,4} up{/if}" href="{php:echo htmlentities($sorting_url)}{ifeq $sortby,3}4{else}3{/if}">популярные</a>
+            {/if}
+            
+        </div>
+    </div>
+    <div  id="content-list">
+        {include /modules/bsntv/templates/custom_block.html}
+    </div>
+    {include /templates/includes/paginator.html}
+{/if}
+</div>

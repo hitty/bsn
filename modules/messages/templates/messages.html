@@ -1,0 +1,78 @@
+
+{if!empty $h2}<h2 class="messages-h2">{$h2}</h2>{/if}
+{if!empty $msg_list} 
+<div class="messages-wrapper clearfix">
+    <div class="users-list" data-simplebar="init">
+        {loop $msg_list,$key,$message}
+        <div class="item {ifeq $message['id_group'],$support_group} support{elseifeq $message['id_group'],$system_group} system{/if}{ifeq $message['useronline'],'true'} green{/if}" data-url="/members/messages/view/{if!empty $message['msg_id_parent']}{$message['msg_id_parent']}{else}{$message['msg_id']}{/if}/" data-id-user-to="{if!eq $auth['id'],$message['id_user_to']}{$message['id_user_to']}{else}{$message['id_user_from']}{/if}" data-id-parent="{if!empty $message['msg_id_parent']}{$message['msg_id_parent']}{else}{$message['msg_id']}{/if}">
+            <div class="avatar">
+                {if!empty $message['photo']}
+                    <img src="{static:/}img/uploads/big/{$message['photo_subfolder']}/{$message['photo']}" alt=""/>
+                {/if}
+                <span class="user-avatar" data-icon="person_outline"></span>
+                {if!eq $message['id_group'],$system_group}
+                    <span class="online-status{ifeq $message['useronline'],'true'} online{/if}" title=""></span>  
+                    <span>{ifeq $message['useronline'],'true'}сейчас на сайте{else}в сети <i class="timestamp" title="{$message['last_enter']}"></i>{/if}</span>
+                {/if}
+            </div>
+
+            <div class="name text-overflow">
+                <b>{$message['name']}</b>
+            </div>
+            <div class="last-message{ifeq $message['is_unread'],1} unread{/if}">
+                <span class="message text-overflow">{stripall:$message['message']}</span>
+                {ifeq $message['msg_direction'],'to'}
+                    {if!empty $message['msg_unread_total']}
+                    <span class="unread-total">
+                        {$message['msg_unread_total']}
+                    </span>
+                    {/if}
+                {/if}                    
+            </div>
+            
+            {if!empty $message['object']}
+                {php:$object = $message['object'];}
+                {if!empty $object['published']}
+                <div class="objcomment"><a href="{$message['related_obj_url']}">Комментарий к объекту</a></div>
+                <div class="objpopup {ifeq $key,0}first{/if}">
+                    <div class="anglebox"><div class="angle"></div></div>
+                    <div class="objpopupcnt">
+                    <img class="objimg" src="{ifempty $object['photo_url']}{static:/}img/layout/no-photo-med.gif{else}{static:/}img/uploads/med/{$object['photo_url']}{/if}" width="176" align="left"/>
+                    <div class="objinfo">
+                        <p class="txtaddr">{$object['txt_addr']}</p>
+                        <p class="txtroom">
+                            {if!empty $object['rooms_sale']}{$object['rooms_sale']}{php: echo (in_array($object['rooms_sale'],array(2,3,4)))?('х'):('')}-комнатная квартира{/if}
+                            {if!eq $object['level_total'],0}, этаж {$object['level']}/{$object['level_total']}{/if}
+                        </p>
+                        <p class="txtsubway">{if!empty $object['subway_name']}{$object['subway_name']}{/if}{if!empty $object['way_time']}, {$object['way_time']} {$object['way_type_name']}{/if}</p>
+                        <p class="txtdistrict">{if!empty $object['district_title']}[{$object['district_title']} район]{/if}</p>
+                        <div class="price-container">
+                            <div class="dealtype">{ifeq $object['rent'],2}ПРОДАЖА{else}АРЕНДА{/if}</div>
+                            <div class="price">{do:echo number_format($object['cost'],0,'.',' ')} р.</div>
+                            <div class="square"><u>{$object['square_full']} м</u><sup>2</sup></div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                {/if}
+            {/if}
+        </div>   
+        {/loop $msg_list}
+       
+    </div>
+    <div class="dialog-wrapper br3 clearfix">
+    </div>
+</div>
+<form action="/messages/send/" method="POST" id="messageform" class="clearfix"> 
+    <textarea id="messagetext" onkeyup="textAreaAdjust(this)" data-simplebar="init"></textarea>
+    <input id="id_to" type="hidden" value="">
+    <input id="id_parent" type="hidden" value="">
+    <a id="sendmessage" class="button">Отправить</a>
+</form>    
+{else}
+    <div class="cabinet empty-list">
+        <span class="title">На данный момент сообщений нет!</span>
+    </div>
+    
+{/if}
+

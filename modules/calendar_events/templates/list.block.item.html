@@ -1,0 +1,22 @@
+{if!empty $ev}
+{elseif!empty $item}{php:$ev=$item}
+{/if}
+<div class="{ifempty $big}col-1{else} col-2 big{/if} item br3 shadow-hover transition{if!empty $hidden} hidden{/if}">
+    <a class="hdr" href="/calendar/{$ev['chpu_title']}/"></a>
+    <div class="categories">
+        {if!empty $ev['active_event']}<span class="active-event-badge br3"><i></i>Идет</span>{/if}
+        {php:$show_end = $ev['dayend']>0 && $ev['daybegin']!=$ev['dayend'] ;}
+        <span class="br3 date">
+            <i>{$ev['daybegin']}</i>{ifempty $show_end}{$ev['monthbegin']}{elseif!eq $ev['monthend'], $ev['monthbegin']}{$ev['monthbegin']}{/if}
+        {if!empty $show_end} 
+            <i>{$ev['dayend']}</i>{$ev['monthend']}
+        {/if}
+        </span>
+    </div>
+    
+    <span class="image br3 bg-cover lazy" data-src="{if!empty $ev['photo_name']}/img/uploads/{ifempty $big}med{else}big{/if}/{$ev['subfolder']}/{$ev['photo_name']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}"></span>
+    <div class="content">
+        <a class="title transition-text" href="/calendar/{$ev['chpu_title']}/" title="подробнее">{$ev['title']}</a>
+    </div>
+    <span class="city text-overflow">{$ev['city']}{if!empty $ev['place']}, {$ev['place']}{/if}</span>
+</div>

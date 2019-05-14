@@ -1,0 +1,1165 @@
+    <div class="form-container">
+        {if!empty $form_filter['obj_type']}
+            {if!eq $estate_type,'build'}
+                {php:$obj_type = $form_filter['obj_type'];}
+                {php:$reset = false;}
+                {loop $obj_type,$k,$item}
+                    {if!empty $item['active']}
+                        {php:$reset = true;}
+                        {ifeq $estate_type, 'live'}{php:$obj_type_active = true;}{/if}
+                    {/if}    
+                {/loop $obj_type}
+                <div class="block">
+                    <span class="title on">Тип объекта</span>
+                    <div class="data"  data-type="obj_type">
+                        <span class="{if!empty $reset}reset{/if}" data-url="{$obj_type['reset_url']}">{if!empty $reset}Сбросить этот фильтр{/if}</span>
+                        {loop $obj_type,$k,$item}                                         
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                            {/if}
+                        {/loop $obj_type}
+                    </div>             
+                </div> 
+            {/if}
+        {/if}
+        {if!empty $form_filter['rooms']}
+            {php:$show_rooms = $estate_type == 'build' || !empty($obj_type_active)}
+            {if!empty $show_rooms}
+                {php:$rooms = $form_filter['rooms'];}
+                {php:$reset = false;}           
+                {loop $rooms,$k,$item}
+                    {if!empty $item['active']}
+                        {php:$reset = true;}
+                    {/if}    
+                {/loop $rooms}
+                <div class="block">
+                    <span class="title on">Комнат{ifeq $estate_type,'live'} в квартире{/if}</span>   
+                    <div class="data"  data-type="rooms">
+                        <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $rooms,$k,$item}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                            {/if}
+                        {/loop $rooms}
+                    </div>                                    
+                </div>
+                
+                {if!empty $form_filter['rooms_sale']}
+                    {php:$rooms_sale = $form_filter['rooms_sale'];}
+                    {php:$reset = false;}           
+                    {loop $rooms_sale,$k,$item}
+                        {if!empty $item['active']}
+                            {php:$reset = true;}
+                        {/if}    
+                    {/loop $rooms_sale}
+                    <div class="block">
+                        <span class="title on">Комнат {ifeq $deal_type,'sell'}на продажу{else}в аренду{/if}</span>   
+                        <div class="data"  data-type="rooms_sale">
+                            <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms_sale['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                            {loop $rooms_sale,$k,$item}
+                                {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                                {/if}
+                            {/loop $rooms_sale}
+                        </div>                                    
+                    </div>
+                {/if}            
+            {/if}            
+        {/if}
+
+        
+        {php:$show_map_search = in_array($estate_type, array('live', 'build', 'commercial', 'country', 'zhiloy_kompleks'))}
+        {if!empty $show_map_search}
+            <div class="internal-link map-search single-selector" data-link="/map/{ifeq $estate_type, 'zhiloy_kompleks'}zhiloy_kompleks/{/if}">Поиск по карте</div>
+        {/if}
+        {php:$location = !empty($form_data['districts']) || !empty($form_data['district_areas']) || !empty($form_data['subways']) || !empty($form_data['regions'])}
+        {ifempty $location}
+            {ifeq $estate_type, 'country'}
+                <div class="single-selector">
+                    <span class="title">Населенный пункт</span>
+                    <input type="text" name="address" id="address" value="{if!empty $form_data['address']}{$form_data['address']}{/if}" class="autocomplete address" autocomplete="off" data-url="/geodata/address/country/" {if!empty $location} disabled="disabled"{/if} placeholder="Деревня, село..."/>
+                    <i data-icon="clear" class="clear-input{ifempty $form_data['address']} hidden{/if}"></i>
+                    <input type="hidden" name="geodata" value="{if!empty $form_data['geodata']}{$form_data['geodata']}{/if}"/>
+                     <div class="list-picker location{if!empty $form_data['address']} disabled{/if}">
+                        <span class="pick"></span> 
+                        <i class="hidden"></i>   
+                    </div>                 
+                 </div>
+            {elseif!eq $estate_type, 'inter'}
+                <div class="single-selector">
+                    <span class="title">Адрес</span>
+                    <input type="text" name="address" id="address" value="{if!empty $form_data['address']}{$form_data['address']}{/if}" class="autocomplete address" autocomplete="off" data-url="/geodata/address/" {if!empty $location} disabled="disabled"{/if} placeholder="Улица, проспект, ..."/>
+                    <i data-icon="clear" class="clear-input{ifempty $form_data['address']} hidden{/if}"></i>
+                    <input type="hidden" name="geodata" value="{if!empty $form_data['geodata']}{$form_data['geodata']}{/if}"/>
+                     <div class="list-picker location{if!empty $form_data['address']} disabled{/if}">
+                        <span class="pick"></span> 
+                        <i class="hidden"></i>   
+                    </div>                 
+                 </div>
+            {/if}
+        {/if}
+            
+        {ifeq $estate_type, 'build'}
+            <div class="single-selector">
+                <span class="title">Название ЖК</span>
+                <input type="text" name="housing_estate_title" id="housing_estate_title" value="{if!empty $form_data['housing_estate_title']}{$form_data['housing_estate_title']}{/if}" class="autocomplete he-title" autocomplete="off" data-url="/zhiloy_kompleks/title/" />
+                <i data-icon="clear" class="clear-input{ifempty $form_data['housing_estate_title']} hidden{/if}"></i>
+                <input type="hidden" name="housing_estate" value="{if!empty $form_data['housing_estate']}{$form_data['housing_estate']}{/if}"/>
+             </div>
+            
+            {ifempty $form_data['class']}
+                {php:$reset = false;}
+                {loop $form_filter_left,$k,$item}
+                    {ifeq $item['type'],'cost_range'}
+                        {if!empty $item['active']}{php:$cost_reset = true;}{/if}    
+                        {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}    
+                    {/if}
+                {/loop $form_filter_left}            
+                <div class="block">
+                    <span class="title on">Цена</span>
+                    <div class="data" data-type="cost_range">
+                        <span class="{if!empty $cost_reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $cost_reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $form_filter_left,$k,$item}
+                            {ifeq $item['type'],'cost_range'}
+                                {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) ) . ' млн.руб.'}
+                                {php:$show_link = !empty($item['url']) && (empty($cost_reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title}</a>
+                                {/if}
+                            {/if}
+                        {/loop $form_filter_left}
+                    </div>
+                </div>
+            {/if}
+            
+            {ifempty $cost_reset}
+                {php:$class = $form_filter['class'];}
+                {php:$reset = false;}
+                {loop $class,$k,$item}
+                    {if!empty $item['active']}{php:$reset = true;}{/if}    
+                {/loop $class}
+                <div class="block">
+                    <span class="title on">Класс квартиры</span>
+                    <div class="data"  data-type="class">
+                        <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$class['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $class,$k,$item}
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                        {/if}
+                        {/loop $class}
+                    </div>                                    
+                </div>
+            {/if}
+
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'square_full_range'}
+                    {if!empty $item['active']}
+                        {php:$square_full = true;}
+                        {php:$reset = true;}
+                    {/if} 
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title on">Общая площадь</span>
+                <div class="data"  data-type="square_full_range">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'square_full_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} м<sup>2</sup></a>
+                                    {/if}
+                            {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+                        
+            {include /modules/estate/templates/search.form.left.geodata.html}
+
+             
+             {php:$user_objects = $form_filter['user_objects'];}
+            {php:$reset = false;}
+            {loop $user_objects,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $user_objects}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Продавец</span>
+                <div class="data"  data-type="user_objects">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$user_objects['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $user_objects,$k,$item}
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                        {/if}
+                    {/loop $user_objects}
+                </div>                                    
+            </div>
+            
+            {php:$building_type = $form_filter['building_type'];}
+            {php:$reset = false;}
+            {loop $building_type,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $building_type}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Тип дома</span>
+                <div class="data"  data-type="building_type">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$building_type['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $building_type,$k,$item}
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                        {/if}
+                    {/loop $building_type}
+                </div>                                    
+            </div>
+
+            {php:$build_completes = $form_filter['build_complete'];}
+            {php:$reset = false;}
+            {loop $build_completes,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $build_completes}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Срок сдачи</span>
+                <div class="data"  data-type="build_complete">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$build_completes['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $build_completes,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}{if!eq $item['title'], 'Сдан'} год{/if}</a>
+                    {/if}
+                    {/loop $build_completes}
+                </div>
+            </div> 
+            
+            {if!empty $square_full}
+                {php:$reset = false;}
+                {loop $form_filter_left,$k,$item}
+                    {ifeq $item['type'],'square_kitchen_range'}
+                        {if!empty $item['active']}{php:$reset = true;}{/if} 
+                        {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                    {/if}
+                {/loop $form_filter_left}            
+                <div class="block">
+                    <span class="title{if!empty $reset} on{/if}">Площадь кухни</span>
+                    <div class="data"  data-type="square_kitchen_range">
+                        <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $form_filter_left,$k,$item}
+                            {ifeq $item['type'],'square_kitchen_range'}
+                                {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) ) }
+                                {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} м<sup>2</sup></a>
+                                {/if}
+                            {/if}
+                        {/loop $form_filter_left}
+                    </div>
+                </div>
+                
+                {php:$reset = false;}
+                {loop $form_filter_left,$k,$item}
+                    {ifeq $item['type'],'square_live_range'}
+                        {if!empty $item['active']}{php:$reset = true;}{/if}   
+                        {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}     
+                    {/if}
+                {/loop $form_filter_left}            
+                <div class="block">
+                    <span class="title{if!empty $reset} on{/if}">Жилая площадь</span>
+                    <div class="data" data-type="square_live_range">
+                        <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $form_filter_left,$k,$item}
+                            {ifeq $item['type'],'square_live_range'}
+                                {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                                {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} м<sup>2</sup></a>
+                                {/if}
+                            {/if}
+                        {/loop $form_filter_left}
+                    </div>
+                </div>
+            {/if}
+            
+            {php:$toilet = $form_filter['toilet'];}
+            {php:$reset = false;}
+            {loop $toilet,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $toilet}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Санузел</span>
+                <div class="data"  data-type="toilet">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $toilet,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $toilet}
+                </div>                     
+            </div>
+                        
+            {php:$furnishing = $form_filter['furnishing'];}
+            {php:$reset = false;}
+            {loop $furnishing,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $furnishing}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Отделка</span>
+                <div class="data"  data-type="furnishing">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$furnishing['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $furnishing,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $furnishing}
+                </div> 
+            </div>
+
+            {php:$balcon = $form_filter['balcon'];}
+            {php:$reset = false;}
+            {loop $balcon,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $balcon}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Балкон</span>
+                <div class="data"  data-type="balcon">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$balcon['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $balcon,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $balcon}
+                </div>
+            </div>
+            
+            {php:$elevator = $form_filter['elevator'];}
+            {php:$reset = false;}
+            {loop $elevator,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $elevator}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Лифт</span>
+                <div class="data"  data-type="elevator">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$elevator['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $elevator,$k,$item}                                         
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $elevator}
+                </div>             
+            </div>
+            
+            
+        {elseifeq $estate_type, 'live'}          
+           
+            {if!empty $obj_type_active}
+
+                {php:$reset = false;}
+                {loop $form_filter_left,$k,$item}
+                    {ifeq $item['type'],'cost_range'}
+                        {if!empty $item['active']}{php:$cost_reset = true;}{/if}    
+                        {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}    
+                    {/if}
+                {/loop $form_filter_left}            
+                <div class="block">
+                    <span class="title on">Цена</span>
+                    <div class="data" data-type="cost_range">
+                        <span class="{if!empty $cost_reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $cost_reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $form_filter_left,$k,$item}
+                            {ifeq $item['type'],'cost_range'}
+                                {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) ) . ' '.$item['prefix']}
+                                {php:$show_link = !empty($item['url']) && (empty($cost_reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title}</a>
+                                {/if}
+                            {/if}
+                        {/loop $form_filter_left}
+                    </div>
+                </div>
+            {/if}
+
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'square_full_range'}
+                    {if!empty $item['active']}
+                        {php:$square_full = true;}
+                        {php:$reset = true;}
+                    {/if} 
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title on">Общая площадь</span>
+                <div class="data"  data-type="square_full_range">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'square_full_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} м<sup>2</sup></a>
+                                    {/if}
+                            {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+                        
+            {include /modules/estate/templates/search.form.left.geodata.html}
+
+             
+            {php:$user_objects = $form_filter['user_objects'];}
+            {php:unset($user_objects[0])}
+            {php:$reset = false;}
+            {loop $user_objects,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $user_objects}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Продавец</span>
+                <div class="data"  data-type="user_objects">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$user_objects['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $user_objects,$k,$item}
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                        {/if}
+                    {/loop $user_objects}
+                </div>                                    
+            </div>
+            
+            {php:$building_type = $form_filter['building_type'];}
+            {php:$reset = false;}
+            {loop $building_type,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $building_type}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Тип дома</span>
+                <div class="data"  data-type="building_type">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$building_type['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $building_type,$k,$item}
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                        {/if}
+                    {/loop $building_type}
+                </div>                                    
+            </div>
+
+            
+            {if!empty $square_full}
+                {php:$reset = false;}
+                {loop $form_filter_left,$k,$item}
+                    {ifeq $item['type'],'square_kitchen_range'}
+                        {if!empty $item['active']}{php:$reset = true;}{/if} 
+                        {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                    {/if}
+                {/loop $form_filter_left}            
+                <div class="block">
+                    <span class="title{if!empty $reset} on{/if}">Площадь кухни</span>
+                    <div class="data"  data-type="square_kitchen_range">
+                        <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $form_filter_left,$k,$item}
+                            {ifeq $item['type'],'square_kitchen_range'}
+                                {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                                {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} м<sup>2</sup></a>
+                                {/if}
+                            {/if}
+                        {/loop $form_filter_left}
+                    </div>
+                </div>
+                
+                {php:$reset = false;}
+                {loop $form_filter_left,$k,$item}
+                    {ifeq $item['type'],'square_live_range'}
+                        {if!empty $item['active']}{php:$reset = true;}{/if}   
+                        {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}     
+                    {/if}
+                {/loop $form_filter_left}            
+                <div class="block">
+                    <span class="title{if!empty $reset} on{/if}">Жилая площадь</span>
+                    <div class="data" data-type="square_live_range">
+                        <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $form_filter_left,$k,$item}
+                            {ifeq $item['type'],'square_live_range'}
+                                {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                                {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} м<sup>2</sup></a>
+                                {/if}
+                            {/if}
+                        {/loop $form_filter_left}
+                    </div>
+                </div>
+            {/if}
+            
+            {php:$toilet = $form_filter['toilet'];}
+            {php:$reset = false;}
+            {loop $toilet,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $toilet}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Санузел</span>
+                <div class="data"  data-type="toilet">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $toilet,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $toilet}
+                </div>                     
+            </div>
+                        
+            {php:$facing = $form_filter['facing'];}
+            {php:$reset = false;}
+            {loop $facing,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $facing}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Ремонт</span>
+                <div class="data"  data-type="facing">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$facing['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $facing,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $facing}
+                </div>
+            </div>
+                           
+            {php:$balcon = $form_filter['balcon'];}
+            {php:$reset = false;}
+            {loop $balcon,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $balcon}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Балкон</span>
+                <div class="data"  data-type="balcon">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$balcon['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $balcon,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $balcon}
+                </div>
+            </div>
+            
+            {php:$elevator = $form_filter['elevator'];}
+            {php:$reset = false;}
+            {loop $elevator,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $elevator}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Лифт</span>
+                <div class="data"  data-type="elevator">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$elevator['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $elevator,$k,$item}                                         
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $elevator}
+                </div>             
+            </div>                
+                  
+                  
+        {elseifeq $estate_type, 'country'}      
+        
+                   
+            <div class="single-selector">
+                <span class="title">Коттеджный посёлок</span>
+                <input type="text" name="cottage_title" id="cottage_title" value="{if!empty $form_data['cottage_title']}{$form_data['cottage_title']}{/if}" class="autocomplete he-title" autocomplete="off" data-url="/cottedzhnye_poselki/title/" />
+                <i data-icon="clear" class="clear-input{ifempty $form_data['cottage_title']} hidden{/if}"></i>
+                <input type="hidden" name="cottage" value="{if!empty $form_data['cottage']}{$form_data['cottage']}{/if}"/>
+             </div>
+
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'cost_range'}
+                    {if!empty $item['active']}{php:$cost_reset = true;}{/if}    
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}    
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title on">Цена</span>
+                <div class="data" data-type="cost_range">
+                    <span class="{if!empty $cost_reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $cost_reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'cost_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) ) . ' '.$item['prefix']}
+                            {php:$show_link = !empty($item['url']) && (empty($cost_reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title}</a>
+                            {/if}
+                        {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+
+            {php:$ownership = $form_filter['ownership'];}
+            {php:$reset = false;}
+            {loop $ownership,$k,$item}
+                {if!empty $item['active']}
+                    {php:$reset = true;}
+                    {php:$ownership_active = true;}
+                {/if}    
+            {/loop $ownership}
+            <div class="block">
+                <span class="title on">Собственность</span>
+                <div  class="data{ifempty $reset} expanded{/if}"  data-type="ownership">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$ownership['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $ownership,$k,$item}                                         
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                            {ifempty $reset} {ifeq $k,4}<span class="expand dashed-link-blue">Показать остальные</span>{/if}{/if}
+                        {/if}
+                    {/loop $ownership}
+                </div>             
+            </div> 
+                                        
+            {include /modules/estate/templates/search.form.left.geodata.html}
+
+             
+            {php:$user_objects = $form_filter['user_objects'];}
+            {php:unset($user_objects[0])}
+            {php:$reset = false;}
+            {loop $user_objects,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $user_objects}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Продавец</span>
+                <div class="data"  data-type="user_objects">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$user_objects['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $user_objects,$k,$item}
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                        {/if}
+                    {/loop $user_objects}
+                </div>                                    
+            </div>
+            
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'square_ground_range'}
+                    {if!empty $item['active']}{php:$reset = true;}{/if} 
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Площадь участка</span>
+                <div class="data"  data-type="square_ground_range">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'square_ground_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} {$item['prefix']}</a>
+                            {/if}
+                        {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+            
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'square_live_range'}
+                    {if!empty $item['active']}{php:$reset = true;}{/if}   
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}     
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Площадь дома</span>
+                <div class="data" data-type="square_live_range">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'square_live_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} м<sup>2</sup></a>
+                            {/if}
+                        {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+                            
+            {php:$heating = $form_filter['heating'];}
+            {php:$reset = false;}
+            {loop $heating,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $heating}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Отопление</span>
+                <div class="data"  data-type="heating">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $heating,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $heating}
+                </div>                     
+            </div>
+
+            {php:$bathroom = $form_filter['bathroom'];}
+            {php:$reset = false;}
+            {loop $bathroom,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $bathroom}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Баня</span>
+                <div class="data"  data-type="bathroom">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $bathroom,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $bathroom}
+                </div>                     
+            </div>
+
+            {php:$electricity = $form_filter['electricity'];}
+            {php:$reset = false;}
+            {loop $electricity,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $electricity}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Электричество</span>
+                <div class="data"  data-type="electricity">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $electricity,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $electricity}
+                </div>                     
+            </div>
+
+            {php:$water_supply = $form_filter['water_supply'];}
+            {php:$reset = false;}
+            {loop $water_supply,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $water_supply}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Водоснабжение</span>
+                <div class="data"  data-type="water_supply">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $water_supply,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $water_supply}
+                </div>                     
+            </div>
+
+            {php:$gas = $form_filter['gas'];}
+            {php:$reset = false;}
+            {loop $gas,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $gas}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Газ</span>
+                <div class="data"  data-type="gas">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $gas,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $gas}
+                </div>                     
+            </div>
+                                                            
+            {php:$toilet = $form_filter['toilet'];}
+            {php:$reset = false;}
+            {loop $toilet,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $toilet}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Санузел</span>
+                <div class="data"  data-type="toilet">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $toilet,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $toilet}
+                </div>                     
+            </div>
+
+
+        {elseifeq $estate_type, 'commercial'}                 
+
+
+
+
+            <div class="single-selector">
+                <span class="title">Название БЦ</span>
+                <input type="text" name="business_center_title" id="business_center_title" value="{if!empty $form_data['business_center_title']}{$form_data['business_center_title']}{/if}" class="autocomplete he-title" autocomplete="off" data-url="/business_centers/title/" />
+                <i data-icon="clear" class="clear-input{ifempty $form_data['business_center_title']} hidden{/if}"></i>
+                <input type="hidden" name="business_center" value="{if!empty $form_data['business_center']}{$form_data['business_center']}{/if}"/>
+             </div>
+             
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'cost_range'}
+                    {if!empty $item['active']}{php:$cost_reset = true;}{/if}    
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}    
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title on">Цена</span>
+                <div class="data" data-type="cost_range">
+                    <span class="{if!empty $cost_reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $cost_reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'cost_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) ) . ' '.$item['prefix']}
+                            {php:$show_link = !empty($item['url']) && (empty($cost_reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title}</a>
+                            {/if}
+                        {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+
+
+            {include /modules/estate/templates/search.form.left.geodata.html}
+
+            {php:$user_objects = $form_filter['user_objects'];}
+            {php:unset($user_objects[0])}
+            {php:$reset = false;}
+            {loop $user_objects,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $user_objects}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Продавец</span>
+                <div class="data"  data-type="user_objects">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$user_objects['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $user_objects,$k,$item}
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                        {/if}
+                    {/loop $user_objects}
+                </div>                                    
+            </div>
+
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'square_full_range'}
+                    {if!empty $item['active']}{php:$reset = true;}{/if} 
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Общая площадь</span>
+                <div class="data"  data-type="square_full_range">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'square_full_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} {$item['prefix']}</a>
+                            {/if}
+                        {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>             
+               
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'square_usefull_range'}
+                    {if!empty $item['active']}{php:$reset = true;}{/if} 
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Полезная площадь</span>
+                <div class="data"  data-type="square_usefull_range">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'square_usefull_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} {$item['prefix']}</a>
+                            {/if}
+                        {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+            
+            {php:$reset = false;}
+            {loop $form_filter_left,$k,$item}
+                {ifeq $item['type'],'square_ground_range'}
+                    {if!empty $item['active']}{php:$reset = true;}{/if} 
+                    {if!empty $item['reset_url']}{php:$reset_url = $item['reset_url'];}{/if}       
+                {/if}
+            {/loop $form_filter_left}            
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Площадь участка</span>
+                <div class="data"  data-type="square_ground_range">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$reset_url}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $form_filter_left,$k,$item}
+                        {ifeq $item['type'],'square_ground_range'}
+                            {php:$title = ( $item['from_value'] == 0.00 ? 'До ' . squareformat($item['to_value']) : ( squareformat($item['to_value']) == 0.00 ? 'Больше ' . squareformat($item['from_value']) : squareformat($item['from_value']) .' - ' . squareformat($item['to_value'])) )}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$title}"{if!empty $item['active']} class="on"{/if}>{$title} {$item['prefix']}</a>
+                            {/if}
+                        {/if}
+                    {/loop $form_filter_left}
+                </div>
+            </div>
+                            
+            {php:$heating = $form_filter['heating'];}
+            {php:$reset = false;}
+            {loop $heating,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $heating}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Отопление</span>
+                <div class="data"  data-type="heating">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $heating,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $heating}
+                </div>                     
+            </div>  
+                                   
+            {php:$parking = $form_filter['parking'];}
+            {php:$reset = false;}
+            {loop $parking,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $parking}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Паркинг</span>
+                <div class="data"  data-type="parking">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $parking,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $parking}
+                </div>                     
+            </div>  
+            
+            {php:$security = $form_filter['security'];}
+            {php:$reset = false;}
+            {loop $security,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $security}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Охрана</span>
+                <div class="data"  data-type="security">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $security,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $security}
+                </div>                     
+            </div>        
+            
+            {php:$electricity = $form_filter['electricity'];}
+            {php:$reset = false;}
+            {loop $electricity,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $electricity}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Электричество</span>
+                <div class="data"  data-type="electricity">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $electricity,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $electricity}
+                </div>                     
+            </div>
+            
+            {php:$facing = $form_filter['facing'];}
+            {php:$reset = false;}
+            {loop $facing,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $facing}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Ремонт</span>
+                <div class="data"  data-type="facing">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $facing,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $facing}
+                </div>                     
+            </div>
+            
+            {php:$enters = $form_filter['enter'];}
+            {php:$reset = false;}
+            {loop $enters,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $enters}
+            <div class="block">
+                <span class="title{if!empty $reset} on{/if}">Вход</span>
+                <div class="data"  data-type="enters">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$rooms['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $enters,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $enters}
+                </div>                     
+            </div>
+        {elseifeq $estate_type, 'inter'}
+            
+            {php:$country = $form_filter['country'];}
+            {php:$reset = false;}
+            {loop $country,$k,$item}
+                {if!empty $item['active']}
+                    {php:$reset = true;}
+                    {php:$country_active = true;}
+                {/if}    
+            {/loop $country}
+            <div class="block">
+                <span class="title on">Страна</span>
+                <div  class="data{ifempty $reset} expanded{/if}"  data-type="country">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$country['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $country,$k,$item}                                         
+                        {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                        {if!empty $show_link}
+                            <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                            {ifempty $reset} {ifeq $k,4}<span class="expand dashed-link-blue">Показать остальные</span>{/if}{/if}
+                        {/if}
+                    {/loop $country}
+                </div>             
+            </div>            
+        
+        
+        {elseifeq $estate_type, 'zhiloy_kompleks'}
+            
+            <div class="single-selector">
+                <span class="title">Название ЖК</span>
+                <input type="text" name="housing_estate_title" id="housing_estate_title" value="{if!empty $form_data['housing_estate_title']}{$form_data['housing_estate_title']}{/if}" class="autocomplete he-title" autocomplete="off" data-url="/zhiloy_kompleks/title/" />
+                <i data-icon="clear" class="clear-input{ifempty $form_data['housing_estate_title']} hidden{/if}"></i>
+                <input type="hidden" name="housing_estate" value="{if!empty $form_data['housing_estate']}{$form_data['housing_estate']}{/if}"/>
+             </div>       
+             
+            {php:$build_completes = $form_filter['build_complete'];}
+            {php:$reset = false;}
+            {loop $build_completes,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $build_completes}            
+            <div class="block">
+                <span class="title on">Срок сдачи</span>
+                <div class="data"  data-type="build_complete">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$build_completes['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $build_completes,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}{if!eq $item['title'], 'Сдан'} год{/if}</a>
+                    {/if}
+                    {/loop $build_completes}
+                </div>
+            </div> 
+            
+            {php:$fz = $form_filter['214_fz'];}
+            <div class="block">
+                <span class="title on">ФЗ 214</span>
+                <div class="data"  data-type="214_fz">
+                    {loop $fz,$k,$item}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/loop $fz}
+                </div>
+            </div>          
+               
+            {php:$classs = $form_filter['class'];}
+            {php:$reset = false;}
+            {loop $classs,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $classs}            
+            <div class="block">
+                <span class="title on">Класс</span>
+                <div class="data"  data-type="class">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$classs['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $classs,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {/loop $classs}
+                </div>
+            </div> 
+            
+            {php:$low_rise = $form_filter['low_rise'];}
+            <div class="block">
+                <span class="title on">Малоэтажный</span>
+                <div class="data"  data-type="low_rise">
+                    {loop $low_rise,$k,$item}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/loop $low_rise}
+                </div>
+            </div> 
+                        
+            {php:$apartments = $form_filter['apartments'];}
+            <div class="block">
+                <span class="title on">Апартаменты</span>
+                <div class="data"  data-type="apartments">
+                    {loop $apartments,$k,$item}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/loop $apartments}
+                </div>
+            </div> 
+                        
+            {include /modules/estate/templates/search.form.left.geodata.html}
+              
+            {php:$developers = $form_filter['developer'];}
+            {php:$reset = false;}
+            {loop $developers,$k,$item}
+                {if!empty $item['active']}{php:$reset = true;}{/if}    
+            {/loop $developers}            
+            <div class="block">
+                <span class="title on">Застройщик</span>
+                <div  class="data{ifempty $reset} expanded{/if}"  data-type="developer">
+                    <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$developers['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                    {loop $developers,$k,$item}
+                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                    {if!empty $show_link}
+                       <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if}>{$item['title']}</a>
+                    {/if}
+                    {ifempty $reset} {ifeq $k,4}<span class="expand dashed-link-blue">Показать остальные</span>{/if}{/if}
+                    {/loop $developers}
+                </div>
+            </div>                       
+        {/if}
+    </div>
+    <script src="/modules/estate/streets.autocomplette.left.search.js"></script>

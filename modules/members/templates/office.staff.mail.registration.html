@@ -1,0 +1,17 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{$info['name']}</b>!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Компания  «{$auth['agency_title']}» добавила Вас к корпоративному аккаунту на bsn.ru<br/><br/>
+        Подтвердить или отказаться вы можете в своем <a href="https://www.bsn.ru/members/">личном кабинете</a>.
+        Для входа в личный кабинет используйте:<br /><br />
+        Логин: <b>{$info['email']}</b><br />
+        Пароль: <b>{$info['original_passwd']}</b>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

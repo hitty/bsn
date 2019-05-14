@@ -1,0 +1,87 @@
+<h1 class="pageTitle">Контекстные рекламные кампании</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['move']}
+    {iflt $results['move'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Перемещение элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Перемещение элемента #{$results['move']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/advert_objects/context_campaigns/add/" class="button">Добавить</a></div>
+<script type="text/javascript">
+    function filter_activate(){
+        var __filter_user = document.getElementById('f_user').options[document.getElementById('f_user').selectedIndex].value;
+        var __url = '{root:/admin/advert_objects/context_campaigns/}';
+        var __get = new Array();
+        if(__filter_user!=0) __get.push('f_user='+__filter_user);
+        if(__get.length>0) __url = __url+'?'+__get.join('&');
+        document.location.href = __url;
+    }
+</script>
+<div class="filter_line">
+    <label>
+        Пользователь:
+        <select id="f_user" onchange="filter_activate()" style="width: 150px;">
+            <option value="0">все</option>
+            {loop $f_users_list,$key,$item}
+                <option value="{$item['id']}" {ifeq $get_array['f_user'],$item['id']} selected{/if}>{$item['name']}{if!empty $item['agency_title']}({$item['agency_title']}){/if}</option>
+            {/loop $f_users_list}
+        </select>
+    </label>
+</div>
+    {if!empty $list}
+        <div class="adv-list">
+        {loop $list,$key,$item}
+            
+            <div class="context-campaign {ifeq $item['published'],2}unactive{/if}">
+                <div class="bottom-panel">
+                    <span class="campaign-title"><i>{$item['title']}</i> <i>#{$item['id']}</i></span>
+                    <span class="campaign-date-start">Начало: <i>{$item['date_start_formatted']}</i></span>
+                    <span class="campaign-date-end">Окончание: <i>{$item['date_end_formatted']}</i></span>
+                    <span class="campaign-balance">Бюджет: <i>{$item['balance']}</i></span>
+                    <span class="campaign-shows">Показы: <i>{ifempty $item['shows']}0{else}{$item['shows']}{/if}</i></span>
+                    <span class="campaign-clicks">Клики: <i>{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</i></span>
+                    <span class="campaign-clicks">CTR: <i>{ifempty $item['CTR']}0%{else}{$item['CTR']}%{/if}</i></span>
+                    <span class="campaign-clicks top-bordered">{$item['user_group_name']}                  
+                        <a href="/admin/access/users/edit/{$item['user_id']}/"
+                            {if!empty $item['user_name']} title="{$item['user_name']}">{$item['user_name']}
+                            {else}
+                                {if!empty $item['user_email']} title="{$item['user_email']}">{$item['user_email']}
+                                {else} {if!empty $item['user_login']} title="{$item['user_login']}">{$item['user_login']} {/if}
+                                {/if}
+                            {/if}
+                        </a>
+                    </span>
+                    <div class="small_icons ac" data-id="{$item['id']}">
+                        <a href="/admin/advert_objects/context_campaigns/edit/{$item['id']}/" title="Редактировать"><span class="ico_edit">Редактировать</span></a>
+                        <a href="/admin/advert_objects/context_campaigns/{$item['id']}/" title="Просмотр"><span class="ico_view">Просмотр</span></a>
+                        <a href="/admin/advert_objects/context_campaigns/stats/{$item['id']}/" title="Статистика"><span class="ico_stats">Статистика</span></a>
+                        {if!empty $item['has_moder']}<span class="need-moderation">Модерация</span>{/if}
+                        <a title="Удалить" class="del"><span class="ico_del" data-href="/admin/advert_objects/context_campaigns/del/{$item['id']}/">Удалить</span></a>
+                    </div>
+                </div>
+            </div>
+        {/loop $list}
+        </div>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}

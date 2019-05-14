@@ -1,0 +1,114 @@
+<h1 class="pageTitle">Видео конкурс </h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/service/video_konkurs/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_status = document.getElementById('f_status').value;
+            var __filter_sms_status = document.getElementById('f_sms_status').value;
+            var __url = '{root:/admin/service/video_konkurs/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__filter_sms_status!='') __get.push('f_sms_status='+__filter_sms_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url; 
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Модерация:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>
+        <label>
+            Баланс:
+            <select id="f_sms_status" onchange="filter_activate()" style="width: 150px;">
+                {loop $sms_statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_sms_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $sms_statuses}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="1%">
+                <col class="col2" width="15%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col1" width="15%">
+                <col class="col2" width="5%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название ЖК</th>
+                    <th>Дата</th>
+                    <th>ФИО</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>
+                            {if!empty $item['photo_name']}<img src="//st1.bsn.ru/img/uploads/sm/{$item['subfolder']}/{$item['photo_name']}" /><br />{/if}
+                            {$item['id']}
+                        </td>
+                        <td>
+                            {$item['title']}  <br />
+                            {ifeq $item['status'],2}
+                                <span style="color:red; font-size:11px;">На модерации</span>
+                                {ifeq $item['external_link'],''}<br /><br /><span style="color:red; font-size:11px;">Видео обрабатывается</span>{/if}
+                            {else}<span style="color:green; font-size:11px;">Отмодерирован</span>
+                            {/if}
+                            
+                            <br />
+                            {ifeq $item['sms_status'],2}
+                                <span style="color:red; font-size:11px;">Баланс не пополнен</span>
+                            {else}<span style="color:green; font-size:11px;">Баланс пополнен</span>
+                            {/if}
+                            
+                        </td>
+                        <td>{$item['normal_date']}</td>
+                        <td>{$item['name']}</td>
+                        <td>{$item['phone']}</td>
+                        <td>{$item['email']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/service/video_konkurs/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/service/video_konkurs/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,96 @@
+{if!empty $list}
+   
+    
+    <div class="statistic-box">
+        <div class="sb-info">
+            {if!empty $total_items_count}
+                {suffix_word: $total_items_count, 'Найден',' ','о ','о '}
+                {suffix: $total_items_count, 'объект','','а','ов'}
+                {if!empty $group_by}<br />по {suffix: $items_count,'адрес','у','ам','ам'}{/if}
+            {else}
+                {suffix_word: $items_count, 'Найден','','о ','о '}
+                {suffix: $items_count, 'объект','','а','ов'}
+            {/if}
+            {if!empty $all_offers_link}<br/><a href="{$all_offers_link}" title="Показать все объекты по данному запросу">Показать все объекты по данному запросу</a>{/if}
+        </div>
+        {ifempty $only_objects}
+            <div class="sb-sort">
+                <div class="list-selector grey" id="sort_selector">
+                    <a href="#" class="pick">{$sortby_title}</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="sort_selector" value="{$sortby_num}" />
+                    {if!empty $sort_list}
+                        <ul class="list-data" data-simplebar="init" data-link="{php:echo htmlentities($sorting_url)}">
+                            <li data-value="" {ifeq $sortby_num,0}class="selected"{/if}>{if!eq $estate_type, 'inter'}сначала заполненные{else}- сортировка -{/if}</li>
+                            {loop $sort_list,$k,$i}
+                                <li {ifeq $i['sort_num'],$sortby_num}class="selected"{/if}data-value="{$i['sort_num']}">{$i['sort_title']}</li>
+                            {/loop $sort_list}
+                            
+                        </ul>
+                    {/if}
+                </div>                                    
+            </div>
+            <div class="sb-quote">
+                <div class="list-selector grey" id="count_selector">
+                    <a href="#" class="pick">{$View_count_estate}</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="count_selector" value="{$View_count_estate}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="20"{ifeq $View_count_estate,20}class="selected"{/if}>20</li>
+                        <li data-value="40"{ifeq $View_count_estate,40}class="selected"{/if}>40</li>
+                        <li data-value="60"{ifeq $View_count_estate,60}class="selected"{/if}>60</li>
+                    </ul>
+                </div>                                    
+            </div>
+        {/if}
+        {if!empty $ajax_mode}
+            <script>
+                var _selector = jQuery('#search-results').length > 0 ? '#search-results' : '#ajax-search-results';
+                listSelectorInit(jQuery(_selector))
+            </script>
+        {/if}
+    </div>
+    
+    {if!empty $lists[$estate_type]}{php:$list = $lists[$estate_type];}
+    {elseif!empty $similar_list}{php:$list = $similar_list;}
+    {/if}
+        {php:$show_tgb = !empty($ajax_mode) || !empty($advert_in_estate_list);}
+        <div class="estate-list" data-url="{$requested_url}">
+            {if!empty $order_by_housing_estate_agency}
+                {php:$agency_id = 0}
+                {php:$user_id = 0}
+            {/if}
+            {if!empty $list}
+                {loop $list,$lkey,$item}
+                    
+                    {include /modules/estate/templates/list.block.item.html}
+                   
+                    {ifempty $only_objects}
+                        {php:$show_sp_block = $show_tgb && ($lkey==4);}
+                        {if!empty $show_sp_block}
+                            {block tgb/estate_list/{$estate_type}}
+                        {/if}     
+                    {/if}
+                    
+                {/loop $list}
+            {/if}
+        </div>      
+        
+    {ifeq $showSubscribeButton, true}
+        {ifempty $only_objects}
+            {include /templates/subscribe.panel.html}
+        {/if}
+    {/if}
+
+    {ifempty $only_objects}
+        {ifempty $no_header}
+            {include /templates/includes/paginator.html}
+        {/if}
+    {else}
+        {include /templates/includes/paginator.html}
+    {/if}
+   
+{else}
+    {include /modules/estate/templates/list.divide.queries.html}
+{/if}
+

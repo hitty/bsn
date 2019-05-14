@@ -1,0 +1,29 @@
+<h1 id="members-h1">Личный кабинет</h1>
+<h2 id="members-h2" data-agency="{if!empty $auth['agency']}1{/if}">
+    Звонки
+    <div class="limit-page-wrap">
+        Показывать по
+        <div class="list-selector" id="limit-selector">
+            <a href="#" class="pick">15</a>
+            <a href="#" class="select">...</a>
+            <input type="hidden" name="limit_page" id="limit-page" value="15" />
+            <ul class="list-data" data-simplebar="init">
+                <li data-value="10">10</li>
+                <li data-value="20">20</li>
+                <li data-value="30">30</li>
+            </ul>
+        </div>                                    
+    </div>
+</h2>
+<div class="members-stats-wrap calls"></div>
+<div id="calls-url" style="display: none;"  data-value="/members/calls/?ajax=true"></div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.members-stats-wrap').ajaxfilter({
+            url_element             : '#calls-url',
+            limit_on_page_element   : '#limit-selector',
+            page_element            : '.paginator'
+        })
+    })
+    
+</script>

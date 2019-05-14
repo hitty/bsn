@@ -1,0 +1,71 @@
+<script>
+jQuery(document).ready(function(){
+     getGraphicsContent(['#graphic-1'], ['/country/analytics/graphics/1/']);
+     getGraphicsContent(['#graphic-2'], ['/country/analytics/graphics/2/']);
+     getGraphicsContent(['#graphic-3'], ['/country/analytics/graphics/3/']);
+     getGraphicsContent(['#graphic-4'], ['/country/analytics/graphics/4/']);
+     getGraphicsContent(['#graphic-5'], ['/country/analytics/graphics/5/']);
+     getGraphicsContent(['#graphic-6'], ['/country/analytics/graphics/6/']);
+     
+     $('.expand_section').click(function(){
+         var child_count=this.parentNode.childElementCount;
+         for (var i=0;i<child_count;i++){
+             this.parentNode.children[i].hidden=!this.parentNode.children[i].hidden;
+         }
+         this.hidden=false;
+     });
+     //кликаем по всем заголовкам, чтобы свернуть
+     $('.expand_section').each(function(){
+       $(this).trigger('click');  
+     });
+});
+</script>
+<article class="central-wrapper">
+    <h1><h1>Анализ предложения по коттеджным поселкам на {$analytics['date']} г.</h1>
+    <div class="bigtext">
+        {$analytics['tblock_1']}
+        <div class="ajax-graphics type-pie">
+            <h2 class="header blue">Распределение загородных комплексов по типам объектов</h2>
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-1" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        <div class="ajax-graphics type-pie">
+            <h2 class="header blue">Распределение загородных комплексов по состоянию</h2>
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-2" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        {$analytics['tblock_2']}
+        <div class="ajax-graphics type-column">
+            <h2 class="header blue">Динамика вывода новых объектов</h2>
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-3" class="graphics-container-wide"></span>
+            <p class="graphics-help"></p>
+        </div>
+        {$analytics['tblock_3']}
+        
+        <div class="ajax-graphics type-column">
+        <h2 class="header blue">Расположение загородных комплексов</h2>
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-4" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        
+        <div class="ajax-graphics type-column">
+            <h2 class="header blue">Расположение загородных комплексов по удаленности</h2>
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-5" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        {$analytics['tblock_4']}
+        
+        <div class="ajax-graphics type-column">
+            <h2 class="header blue">Ценовые классы коттеджных поселков</h2>
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-6" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        
+        {$analytics['tblock_6']}
+</article>

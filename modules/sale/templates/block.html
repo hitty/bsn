@@ -1,0 +1,71 @@
+{if!empty $list}
+    {if!empty $h1}<h1 class="o-objects">{$h1}</h1>{/if}
+    <div class="o-wrap {$position}">
+    {loop $list,$k,$item}
+        <div class="offer-item" data-type-id="{$item['id_offer_type']}">
+            <a href="/campaign/{$item['chpu_title']}/" title="{$item['title']}" class="common-link" target="_blank"></a>
+            <div class="offer-price">
+                от {numberformat:$item['cost']} <span class="rur">a</span>
+                {if!empty $item['old_cost']}<div class="offer-old-price">{do:echo number_format($item['old_cost'],0,'.',' ')} <span class="rur">a</span></div>{/if}
+            </div>
+            <div class="rooms-quantity"><span>{$item['offer_type']}</span>{if!empty $item['offer_type_suffix']}{$item['offer_type_suffix']}{/if}</div>
+            <div class="offer-img">
+                <img src="/{$campaigns_img_folder}/sm/{$item['subfolder']}/{$item['photo']}" alt="">
+                {ifeq $item['id_offer_type'],1}
+                    <div class="offer-sticker green">
+                        <div class="sticker-left"></div>{$item['action_title']}<div class="sticker-right"></div>
+                    </div>
+                {elseifeq $item['id_offer_type'],2}
+                    <div class="offer-sticker orange">
+                        <div class="sticker-left"></div>до <span>{$item['discount']}</span> %<div class="sticker-right"></div>
+                    </div>
+                {elseifeq $item['id_offer_type'],3}
+                    <div class="offer-sticker blue">
+                        <div class="sticker-left"></div>рассрочка <span>{$item['installment']}</span> %<div class="sticker-right"></div>
+                    </div>
+                {/if}
+                <div class="offer-img-address">
+                <a href="/campaign/{$item['chpu_title']}/" title="{$item['full_address']}">
+                    {$item['full_address']}
+                    <div class="address-marker"></div>
+                </a>
+                </div>
+            </div>
+            <div class="offer-values">
+                <div class="ov-timer" data-date-end="{$item['date_end']}">00:00:00</div>
+            </div>
+            
+            {if!empty $item['agency_advert_phone']}
+            <div class="offer-phone{ifempty $item['open_hour']} disabled{/if}">
+                <span>{$item['agency_advert_phone']}</span>
+                {ifempty $item['open_hour']}
+                    {if!empty $item['next_day']}<span class="next-date">звоните в {$item['next_day']} с {$item['next_hour_begin']}</span>{/if}
+                {/if}
+            </div>
+            {/if}
+        </div>
+    {/loop $list}
+    </div>
+    <script > 
+        jQuery(document).ready(function(){
+            // текущая дата
+            var _today = new Date();   
+            var yesterday = new Date(_today.getTime() - (24 * 60 * 60 * 1000));    
+            jQuery('.ov-timer').each(function(){
+                var _this = jQuery(this);
+                // дата предстоящего события (год, месяц, число)
+                var _mysql_date = _this.data('date-end').split(/[-]/);
+                var _endDate = new Date(_mysql_date[0], _mysql_date[1]-1, _mysql_date[2]);
+                // если событие еще не наступило
+                if(yesterday <= _endDate){
+                    if(Math.floor(Math.round(_endDate-_today)/86400000) < 3) _this.addClass('red');
+                    _this.text(timeToEvent(_endDate, 'inline')); 
+                    window.setInterval(function(){ 
+                      _this.text(timeToEvent(_endDate, 'inline')); 
+                    },1000);           
+                } 
+
+            });
+         });
+    </script> 
+{/if}

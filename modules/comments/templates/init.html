@@ -1,0 +1,13 @@
+<div id="comments-form" class="clearfix">
+    {ifempty $only_comments}
+        <a name="comments"></a>
+        <div class="info-sort-box">                                                        
+            <span class="comments_total">
+                {ifempty $feedback}Комментарии{else}Отзывы{/if} <b>{ifempty $item['comments_count']}0{else}{$item['comments_count']}{/if}</b>
+            </span>
+        </div>
+    {/if}
+    
+    <div class="list"  data-url="{$comments_data['page_url']}" data-parent-id="{$comments_data['id_parent']}" data-type="{$comments_data['parent_type']}" {if!empty $comments_data['feedback']}data-feedback="true"{/if} {if!empty $only_comments}data-only-comments="true"{/if}></div>
+    
+</div>

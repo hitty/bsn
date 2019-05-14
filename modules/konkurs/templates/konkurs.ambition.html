@@ -1,0 +1,30 @@
+<h2>{$h2}</h2>
+{if!empty $konkurs_status}
+    {if!empty $info['text_begin_top']}<div class="konkurs-clauses">{$info['text_begin_top']}</div>{/if}
+    {if!empty $list}
+        {php:$category = "";}
+        <h2 class="header blue">{$info['title']}</h2>
+        <div class="expanded-list">
+            {loop $list,$k,$item}
+                {if!eq $category, $item['category_title']}
+                    {if!eq $category,''}</div>{/if}
+                    <h3 class="btitle">{$item['category_title']} {if!eq $item['can_vote'],1} (проголосовано){/if}</h3>
+                    <div class="expanded-list-items {ifeq $item['can_vote'],1}vote-for{/if}" data-all-votes="{php: echo (!empty($item['all_votes']))?$item['all_votes']:0}">
+                    {php:$category = $item['category_title'];}
+                {/if}
+                    <p id="{$item['id']}" {ifempty $item['can_vote']}{ifeq $item['vote_id_member'],$item['id']}class="voted"{/if}{/if} name="{$konkurs_url}">
+                        <a href="/cottedzhnye_poselki/{$item['external_id']}/" target="_blank" title="{$item['title']}">{$item['title']}</a>
+                        <span class="vote-button button green">Голосовать</span>
+                        <span class="progressbar" data-current-votes="{$item['amount']}">
+                            <span style="width: {php: print($item['amount']/$item['all_votes'])*100}%" class="progressbar-fill"></span>
+                        </span>
+                    </p>
+            {/loop $list}
+            </div>
+        </div>
+    {/if}
+    {if!empty $info['text_begin_bottom']}<div class="konkurs-clauses">{$info['text_begin_bottom']}</div>{/if}
+{else}
+    <div class="konkurs-clauses">{$info['text_end']}</div>
+{/if}
+

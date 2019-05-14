@@ -1,0 +1,83 @@
+<h1 class="pageTitle">Количество вариантов в БД</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_type = document.getElementById('f_estatetype').value;
+            var __url = '{root:/admin/service/stats/varcount/}';
+            var __get = new Array();
+            if(parseInt(__filter_type)>0) __get.push('f_estatetype='+__filter_type);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Тип недвижимости:
+            <select id="f_estatetype" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_estatetype'],1} selected="selected"{/if}}>Жилая недвижимость</option>
+                <option value="2"{ifeq $get_array['f_estatetype'],2} selected="selected"{/if}}>Новостройки</option>
+                <option value="3"{ifeq $get_array['f_estatetype'],3} selected="selected"{/if}}>Коммерческая недвижимость</option>
+                <option value="4"{ifeq $get_array['f_estatetype'],4} selected="selected"{/if}}>Загородная недвижимость</option>
+                <option value="5"{ifeq $get_array['f_estatetype'],5} selected="selected"{/if}}>Суммарно по всем типам</option>
+            </select>
+        </label>
+    </div>
+    {if!empty $list_gen}
+        <table>    
+            <colgroup>
+                <col class="col2" width="30%">
+                <col class="col2" width="70%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Количество вариантов</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list_gen,$key,$item}
+                    <tr>
+                        <td>{$item['title']}</td>
+                        <td style="text-align:left">{$item['count']}</td>
+                    </tr>
+                {/loop $list_gen}
+            </tbody>
+        </table>
+    {else}
+        {if!empty $list}
+            <table>    
+                <colgroup>
+                    <col class="col2" width="50%">
+                    <col class="col2" width="20%">
+                    <col class="col2" width="20%">
+                    <col class="col2" width="10%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Агентство</th>
+                        <th>Тип выгрузки</th>
+                        <th>Всего (Продажа+Аренда)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loop $list,$key,$item}
+                        <tr>
+                            <td>
+                                {if!empty $item['id_agency']}<a href="/admin/access/agencies/edit/{$item['id_agency']}/">{$item['title']}</a>
+                                {else}{$item['title']}
+                                {/if}
+                            </td>
+                            <td style="text-align:left"> {$item['agency_type']}</td>
+                            <td style="text-align:left">{$item['deals_total']} ({$item['sell_count']} + {$item['rent_count']})</td>
+                        </tr>
+                    {/loop $list}
+                </tbody>
+            </table>
+            {include /admin/templates/table_paginator.html}
+        {else}            
+            <p style="padding:30px;">Запрошенные данные не найдены</p>
+        {/if}
+    {/if}
+</div>

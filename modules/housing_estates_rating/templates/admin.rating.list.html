@@ -1,0 +1,86 @@
+<h1 class="pageTitle">Жилые комплексы | Рейтинг по районам</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/service/housing_estates_rating/rating/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_district = document.getElementById('f_district').value;
+            var __url = '{root:/admin/service/housing_estates_rating/rating/}';
+            var __get = new Array();
+            if(__filter_district!='') __get.push('f_district='+__filter_district);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+			document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Район:
+            <select id="f_district" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                
+                {loop $districts,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_district'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $districts}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="40%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Рейтинг</th>
+                    <th>Количество голосов</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>
+                            <a href="/zhiloy_kompleks/{$item['chpu_title']}/" title="{$item['title']}" target="_blank">{$item['title']}</a>
+                        </td>
+                        <td>
+                            {$item['rating']}
+                           <span style="display: block; color:#818181; font-size: 12px;">
+                            (
+                                Транспортная доступность : {$item['rating_transport']},
+                                Инфраструктура : {$item['rating_infrastructure']},
+                                Надежность : {$item['rating_safety']},
+                                Экологичность : {$item['rating_ecology']},
+                                Соотношение цена/качество : {$item['rating_quality']}
+                            )
+                           </span>
+                        </td>
+                        <td>
+                            {$item['voters']}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

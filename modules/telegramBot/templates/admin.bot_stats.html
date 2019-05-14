@@ -1,0 +1,39 @@
+{if!empty $form_submit}
+    <script>jQuery(document).ready(clickPrice)</script>
+    <div id="result_info_stats">
+        <table width="1350" cellspacing="0" cellpadding="10" data-date-interval="{$info['interval']}">
+          <tbody>
+              <tr>
+                <th width="100">Дата</th>
+                <th width="120">Пользователей</th>
+                <th width="70" class="click-hide">Поисковые запросы</th>
+              </tr>
+                {php:$total_searches=0}
+                {loop $stats,$key,$item}
+                    <tr>
+                        <td>{$item['date']}</td>
+                        <td>{$item['users_amount']}</td>
+                        <td class="click-hide">{php:echo $item['searches_amount']}</td>
+                    </tr>
+                    {php:$total_searches = $total_searches + $item['searches_amount']}
+                {/loop $stats} 
+              <tr>
+                <th>Всего</th>
+                <th>{$item['users_amount']}</th>
+                <th class="click-hide">{$total_searches}</th>
+              </tr>
+        </tbody>
+        </table>
+      </div>    
+{/if}
+
+<script>
+    jQuery(document).ready(function(){
+        
+        jQuery('a.click-hide').click(function(){
+            jQuery('.click-hide').remove();
+            jQuery('.showSpecStats').height(100);
+        })
+        
+    })
+</script>

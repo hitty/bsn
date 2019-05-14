@@ -1,0 +1,55 @@
+<form class="application-view-form public" action="" method="POST">
+    <span class="form-title">Заявка</span>
+    <a class="closebutton"></a>
+    <div class="left-column form-column">
+        <div class="field-box"><span>Ваше имя</span><input type="text" name="name" class="{if!empty $form_type} grey{/if}" required="required"/><span>Обязательное поле</span></div>
+        <div class="field-box"><span>Телефон</span><input type="text" name="phone" class="phone {if!empty $form_type} grey{/if}" required="required" autocomplete="off"/><span>Обязательное поле</span></div>
+        <div class="field-box"><span>Email<i>(необязательно)</i></span><input type="text" name="email" class="email {if!empty $form_type} grey{/if}" autocomplete="off"/><span>Неправильный email</span></div>
+    </div>
+    <div class="right-column">
+        <div class="app-options-box">
+            <div class="field-box wide">
+                <span>Кто вы</span>
+                <div class="list-selector grey app_user_type" data-estate-allowed="1234"><a href="#" class="pick">Выберите</a><a href="#" class="select">...</a>
+                    <input id="user_type" name="user_type" value="" required="required" type="hidden">
+                    <ul class="list-data" data-simplebar="init">
+                        <li class="selected" data-value="">выберите</li>
+                        <li data-value="1">Собственник</li>
+                        <li data-value="2">Агент</li>
+                    </ul>
+                </div>
+                <span>Обязательное поле</span>
+            </div>
+            <div class="field-box">
+                <span>Тип сделки</span>
+                <div class="list-selector grey app_deal_type" data-estate-allowed="1234"><a href="#" class="pick">Не выбран</a><a href="#" class="select">...</a>
+                    <input id="deal_type" name="deal_type" value="" required="required" type="hidden">
+                    <ul class="list-data" data-simplebar="init">
+                        <li class="selected" data-value="">Не выбран</li>
+                        <li data-value="1">Аренда</li>
+                        <li data-value="2">Покупка</li>
+                        <li data-value="3">Сдам</li>
+                        <li data-value="4">Продам</li>
+                    </ul>
+                </div>
+                <span>Обязательное поле</span>
+            </div>
+            <div class="field-box">
+                <span>Тип недвижимости</span>
+                <div class="list-selector {if!empty $form_type} grey{/if} app_estate_type" data-estate-allowed="1234"><a href="#" class="pick">Не выбран</a><a href="#" class="select">...</a>
+                    <input id="estate_type" name="estate_type" value="" required="required" type="hidden"><ul class="list-data" data-simplebar="init">
+                    <li class="selected" data-value="">Не выбран</li><li data-value="2">Новостройки</li><li data-value="1">Жилая</li><li data-value="3">Коммерческая</li><li data-value="4">Загородная</li>
+                </ul></div><span>Обязательное поле</span>
+            </div>
+        </div>
+        <span>Комментарий<i>(необязательно)</i></span><textarea name="user_comment" class="{if!empty $form_type} grey{/if}" id="user-comment"></textarea>
+    </div>
+    <div class="application-view-form-button public">
+        <button class="green send" value="Отправить" onclick="yaCounter21898216.reachGoal('send_open_app'); return true;">Отправить</button>
+    </div>
+</form>
+<script>
+    jQuery(document).ready(function(){
+        jQuery(".application-view-form.public .left-column input[name='phone']").mask('8 (000) 000-00-00');
+    });   
+</script>

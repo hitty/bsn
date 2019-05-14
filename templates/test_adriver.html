@@ -1,0 +1,160 @@
+{include /templates/includes/main_head_part.html}
+<script>
+jQuery(document).ready(function(){
+    jQuery('#p-carousel').carouFredSel({
+        width: '100%',
+        scroll: {
+            items: 1,
+            pauseOnHover: true
+        },
+        auto: {
+            timeoutDuration: 5000,
+        },
+        prev: {
+            button: '.partners-box .carousel-btn-prev',
+            pauseOnHover: true
+        },
+        next: {
+            button: '.partners-box .carousel-btn-next',
+            pauseOnHover: true
+        }
+    });
+     getPendingContent(['#spec-offers-data'], ['/spec_offers/main_page/']);
+});
+</script>
+
+</head>
+<body>
+        {include /templates/includes/main_header_part.html}
+    <div class="shadow-wrapper" id="shadow-wrapper">
+
+    <div class="content">
+        <div class="main-content">
+            <div class="left-wrapper">
+                {include /templates/includes/main_menu_part.html}
+                <div class="central-column">
+                    <div class="central-wrapper">
+                        {include /templates/includes/estate_search_form.html}
+                    </div>
+                    <div class="central-wrapper">
+                        <div class="central-left">
+                            <div class="inner-wrapper expert-opinions">
+                                <h2 class="header"><span class="title">мнения экспертов</span></h2>
+                                <a href="/opinions/" class="right-label">Все мнения</a>
+                                <div class="central-block filter ajax-tabs-container" data-content-container="#last-opinions-data" data-url="/opinions/block/">
+                                    <span class="active" data-param="">Все</span>
+                                    <span data-param="live">Жилая</span>
+                                    <span data-param="commercial">Коммерческая</span>
+                                    <span data-param="country">Загородная</span>
+                                    <span data-param="build">Новостройки</span>
+                                </div>
+                                
+                                <div id="last-opinions-data">
+                                    {block opinions/block}
+                                </div> <!--/#expert-opinions-data-->
+                                <div class="central-block rtext">
+                                    <a href="/opinions/" class="morelink">Все мнения</a>
+                                </div>
+                            </div>
+                            <div class="inner-wrapper">
+                                <h2 class="header green">Бесплатная консультация</h2>
+                                <div class="question-form">
+                                    {block service/consultant/block}
+                                </div> <!--/.question-form-->
+                            </div>
+                            <div class="inner-wrapper noborder">
+                                <script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
+                                <div id="vk_groups"></div>
+                                <script type="text/javascript">VK.Widgets.Group("vk_groups", {mode: 0, width: "auto", height: "290"}, 33058562);</script>
+                            </div>
+                            <div class="inner-wrapper company-prognoses">
+                                <h2 class="header"><span class="title">прогнозы от компаний</span></h2>
+                                <div id="predictions-data">
+                                    {block predictions/block}
+                                </div> <!--/#predictins-data-->
+                            </div> <!--/.company-prognoses-->  
+                            <div class="inner-wrapper last-offers">
+                                <h2 class="header blue">Последние предложения</h2>
+                                <div class="central-block filter ajax-tabs-container" data-content-container="#last-offers-data" data-url="/block/">
+                                    <span class="active" data-param="live">Жилая</span>
+                                    <span data-param="commercial">Коммерческая</span>
+                                    <span data-param="country">Загородная</span>
+                                    <span data-param="build">Новостройки</span>
+                                </div>
+                                <div id="last-offers-data">
+                                    {block estate/block/live}
+                                </div> <!--/#last-offers-data-->
+                            </div> <!--/.last-offers-->
+                             
+                            
+                        </div>
+                        <div class="central-right">
+                            <div class="inner-wrapper last-news">
+                                <h2 class="header"><span class="title">последние новости <a href="/news_rss/" title="RSS FEED" class="rss-feed">RSS</a></span></h2>
+                                <a href="/news/all_articles/" class="right-label">Все новости</a>
+                                <div class="central-block filter ajax-tabs-container" data-content-container="#last-news-data" data-url="/news/block/">
+                                    <span class="active" data-param="all/mainpage">Все</span>
+                                    <span data-param="live/mainpage">Жилая</span>
+                                    <span data-param="commercial/mainpage">Коммерческая</span>
+                                    <span data-param="country/mainpage">Загородная</span>
+                                    <span data-param="build/mainpage">Новостройки</span>
+                                </div>
+                                <div id="last-news-data">
+                                    {block news/block}
+                                </div> <!--/#last-news-data-->
+                                <div class="central-block dotted rtext">
+                                    <a href="/news/all_articles/" class="morelink">Все новости</a>
+                                </div>
+                                <div class="bottom-block subscribe-news">
+                                    <form method="post" action="/news/subscribe/" id="subscribe_form">
+                                        <input type="text" name="subscribe" value="" placeholder="Ваш E-mail"/></input>
+                                        <button type="submit" class="submit" value="подписаться на новости">подписаться на новости</button>
+                                    </form>
+                                </div>
+                            </div> <!--/.news-->
+                            <div class="inner-wrapper analytic-articles">
+                                <h2 class="header"><span class="title">статьи</span></h2>
+                                <div id="analytic-articles-data">
+                                    {block articles/block}
+                                </div> <!--/#analytic-articles-data-->
+                            </div> <!--/.analytic-articles-->
+                            <div class="inner-wrapper spec-offers">
+                                <h2 class="header"><span class="title">специальные предложения</span></h2>
+                                <div id="spec-offers-data"></div>
+                            </div> <!--/.spec-offers-->
+                        
+                        </div>
+                    </div>
+                    
+                </div> <!--/.central-column-->
+                {include /templates/includes/main_left_part.html}
+            </div> <!--/.left-wrapper-->
+            {include /templates/includes/main_right_part.html}
+        </div> <!--/.main-content-->
+        <div class="central-wrapper" id="bottom-banner"></div>
+        <div class="partners-box">
+            <h3>Наши партнеры</h3>
+            <div class="p-carousel-wrapper">
+                <ul class="carousel-list" id="p-carousel">
+                    <li class="carousel-item"><a class="partner_gud" href="#">Гильдия управляющих и девелоперов</a></li>
+                    <li class="carousel-item"><a class="partner_bsnexpo" href="#">Большой салон недвижимости</a></li>
+                    <li class="carousel-item"><a class="partner_interestate" href="#">Interestate.ru</a></li>
+                    <li class="carousel-item"><a class="partner_doverie" href="#">Доверие потребителя</a></li>
+                    <li class="carousel-item"><a class="partner_arspb" href="#">Ассоциация риэлтеров Санкт-Петербурга</a></li>
+                </ul>
+                <div class="carousel-btn-prev"></div>
+                <div class="carousel-btn-next"></div>
+            </div>
+        </div>
+        {if!empty $metadata['seo_text']}
+        <div class="bottom-text-wrapper">
+            <h4>О проекте BSN.RU</h4>
+            <div class="bottom-text-box">
+                {$metadata['seo_text']}
+            </div>
+        </div>
+        {/if}
+    </div> <!--/.content-->
+    {include /templates/includes/main_footer_part.html}
+</body>
+</html>

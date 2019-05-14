@@ -1,0 +1,57 @@
+<h1 class="pageTitle">Акции</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/access/promotions/add/">
+    <h3>Новое событие</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/access/promotions/edit/{$data_mapping['id']['value']}/">
+    <h3>Событие #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $data_mapping['id']['value']}
+        <fieldset>
+            <h3>Загрузка фотографии для акции (мин.размеры 360x270 px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/access/promotions/photos/" data-session-id="{php:echo session_id();}" />
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>
+    {/if}    
+</form>
+{if!empty $data_mapping['id']['value']}
+    <div class="ajax-items promotions-objects-list" data-id-parent="{$data_mapping['id']['value']}">
+        <span class="button add-object">Добавить объект</span>
+        <div class="header">
+            <span class="id_object">ID объекта</span>
+            <span class="delete"></span>
+        </div>
+        <div class="list">
+        {if!empty $objects}
+            {loop $objects, $k, $object}
+                <div class="item" id="item-{$object['id']}" data-id="{$object['id']}">
+                    <span class="id_object">{$object['id']}</span>
+                    <input name="id_object_{$object['id']}" value="{$object['id_object']}" type="text">
+                    <b class="delete" title="Удалить"></b>
+                </div>
+            {/loop $objects}
+        {/if}
+        </div>
+    </div>
+{/if}

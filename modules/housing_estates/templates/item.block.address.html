@@ -1,0 +1,34 @@
+<div class="addr-wrap br3">
+<span class="title">Адрес</span>
+{if!empty $item['address']}
+        <span class="txt-addr" data-title="{if!empty $item['district']}Санкт-Петербург {elseif!empty $item['district_area']}Ленинградская область, {$item['district_area']} район{else}Санкт-Петербург, {/if}{if!empty $item['address']}, {$item['address']}{/if}" data-zoom="city">
+            {if!empty $item['district']}
+                {if!empty $district_link}
+                    <a href="/{$district_link['pretty_url']}/" title="{$district_link['h1_title']}" class="grey-border-bottom">{$item['district']} район</a>,
+                {else}
+                    {$item['district']} район,
+                {/if}
+                
+            {elseif!empty $item['district_area']}
+                {if!empty $district_area_link}
+                    <a href="/{$district_area_link['pretty_url']}/" title="{$district_area_link['h1_title']}" class="grey-border-bottom">{$item['district_area']} район ЛО</a>,
+                {else}
+                    {$item['district_area']} район ЛО,
+                {/if}
+                
+            {/if}
+            {if!empty $item['address']}{$item['address']}{/if}
+        </span>
+    {/if}  
+    
+    {if!empty $item['subway']}
+        <span class="subway{if!empty $item['subway_line_color']} {$item['subway_line_color']}{/if}">
+            {if!empty $subway_link}
+                <a href="/{$subway_link['pretty_url']}/" title="{$subway_link['h1_title']}" class="grey-border-bottom">{$item['subway']}</a>
+            {else}
+                {$item['subway']}
+            {/if}
+            {if!empty $item['way_time']} - {$item['way_time']} {if!empty $item['way_type']}{$item['way_type']}{/if}{/if}
+        </span>
+    {/if}
+</div>

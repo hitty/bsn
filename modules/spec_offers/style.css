@@ -1,0 +1,27 @@
+#specoffers-list{
+    overflow: hidden;
+}
+#specoffers-list li{
+    float:left;
+    margin:0px 14px 20px 14px;
+    height:207px;
+    overflow:hidden;
+}
+#specoffers-list li div.item-image{
+    width: 150px;
+    height: 150px;
+    border:1px solid #ddd;
+}
+#specoffers-list li div.item-info{
+    font-size:14px;
+    margin-top:2px;
+    width:150px;
+}
+#specoffers-list li img{
+    height:150px;
+    width:150px;
+    clear: both;
+}
+#specoffers-list li a:hover{
+    color:#990000;
+}

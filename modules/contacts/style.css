@@ -1,0 +1,68 @@
+.wide-format .central-wrapper {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 40px;
+}
+.contacts-wrap{
+    padding: 0 20px;
+}
+.contacts-wrap .address {
+    margin: 0 40px 40px 0;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+.contacts-wrap .info {
+    float: left;
+    width: 50%;    
+}
+
+.contacts-wrap .info li {
+    padding-bottom: 10px;
+}
+
+.contacts-wrap .info span {
+    display: inline-block;
+    position: relative;
+    float: left;
+    padding-right: 10px;
+}
+
+.contacts-wrap .info b {
+    display: block;
+    font-size: 24px;    
+    line-height: 34px;
+}
+
+.contacts-wrap .info i {
+    font-size: 14px;
+    color: #818181;
+}
+.contacts-wrap .info a{
+    color:#1e88e5;
+    border: none;
+}
+.contacts-wrap .info .phone-wrap {
+    padding-bottom: 30px;
+}
+
+.contacts-wrap .info .phone-wrap .phones {
+}
+.contacts-wrap + .notice{
+    background: #d2e7fa;
+    padding: 40px;
+    margin: 40px auto;
+    font-size: 16px;
+    line-height: 30px;
+    width: 1100px;
+}
+.contacts-wrap + .notice b{
+    color: #1e88e5;
+    display: block;
+    font-weight: normal;
+}
+.card-map-wrapper{
+    height: 340px;
+    width: 50%;
+    float: right;
+}

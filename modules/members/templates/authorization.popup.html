@@ -1,0 +1,33 @@
+<div class="auth-form">
+    <form class=" active br3" name="through_auth_form" method="POST" action="/authorization/">
+        <span class="title">Вход</span>
+
+        <div class="row">
+            <input type="text" id="auth_login" name="auth_login" value="" placeholder="Электронная почта / логин" required="required" />
+        </div>
+        
+        <div class="row">
+            <input type="password" id="auth_passwd" name="auth_passwd" value="" placeholder="Пароль" required="required" />
+        </div>
+
+        <div class="row single-selector">
+            <input type="hidden" name="auth_cookie_save" id="auth_cookie_save" value="2">
+            <label class="selector-title checkbox">
+                <input type="checkbox" id="checkbox_auth_cookie_save" class="lf" name="checkbox_auth_cookie_save" value="2" rel="auth_cookie_save" data-true-value="1" data-false-value="2">
+                Запомнить меня                                            
+            </label>
+        </div>   
+                             
+        <div class="row lostpassword">
+            Забыли пароль? <span class="popup dashed-link-blue" data-url="/lostpassword/popup/" data-location="popup-lostpassword">Напомнить</span>
+        </div>
+
+        <div class="row button-container">
+            <button class="send" value="Отправить">Войти</button>
+        </div>
+        <div class="row registration-block">
+            <span>Нет профиля?</span>
+            <span class="popup dashed-link-blue" data-url="/registration/popup/" data-location="popup-registration" data-redirect="true">Зарегистрируйтесь!</span>
+        </div>
+    </form>
+</div> 

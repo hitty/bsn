@@ -1,0 +1,79 @@
+<div class="public-application-wrapper">
+    <form action="/applications/add/" method="POST">
+        <span class="title">Оставить заявку</span>
+
+        <div class="row">
+            <input type="text" name="name" value="" placeholder="Ваше имя" required="required" />
+        </div>
+
+        <div class="row">
+            <input type="text" name="phone" class="phone" value="" placeholder="Телефон" required="required" />
+        </div>
+
+        <div class="row">
+            <input type="email" name="email" value="" placeholder="Email (необязательно)"/>
+        </div>
+        
+        <div class="row">
+            <div class="list-selector application-deal-type">
+                <a href="#" class="pick">Тип сделки</a>
+                <a href="#" class="select">...</a>
+                <input id="deal_type" name="deal_type" value="" required="required" type="hidden">
+                <ul class="list-data" data-simplebar="init">
+                    <li class="selected" data-value="">Тип сделки</li>
+                    <li data-value="1">Аренда</li>
+                    <li data-value="2">Покупка</li>
+                    <li data-value="3">Сдам</li>
+                    <li data-value="4">Продам</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="list-selector application-estate-type">
+                <a href="#" class="pick">Тип недвижимости</a>
+                <a href="#" class="select">...</a>
+                <input id="estate_type" name="estate_type" value="" required="required" type="hidden">
+                <ul class="list-data" data-simplebar="init">
+                    <li class="selected" data-value="">Тип недвижимости</li>
+                    <li data-value="2">Новостройки</li>
+                    <li data-value="1">Жилая</li>
+                    <li data-value="3">Коммерческая</li>
+                    <li data-value="4">Загородная</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <textarea name="user_comment" id="user-comment" placeholder="Комментарий (необязательно)"></textarea>
+        </div>
+        
+        <div class="row radio-group">
+            <div class=" estate-type">
+                             
+                <label for="user_type_1" title="Я - частное лицо" class="on">
+                    <input type="radio" value="1" name="user_type" id="user_type_1" checked="checked">Я - частное лицо
+                </label>
+                <label for="user_type_2" title="Я - агент">
+                    <input type="radio" value="2" name="user_type" id="user_type_2">Я - агент
+                </label>
+            </div>                
+
+        </div>
+        
+        {if!empty $agency_id}
+            <input id="agency_id" name="agency_id" value="{$agency_id}" type="hidden" />
+        {/if}
+
+        {if!empty $agent_id}
+            <input id="agent_id" name="agent_id" value="{$agent_id}" type="hidden" />
+        {/if}
+        
+        
+        <div class="row">
+            <button class="send" value="Отправить">Отправить</button>
+        </div>
+        
+        
+    </form>
+</div>

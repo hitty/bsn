@@ -1,0 +1,83 @@
+        {ifempty $stats}<p style="padding: 10px 0;">За данный промежуток времени статистики нет</p>
+        {else}
+        <div id="result_info_stats">
+            <table width="800" cellspacing="0" cellpadding="10">
+              <tbody>
+                  <tr>
+                    <th width="100">Дата</th>
+                    <th width="100">Жилая</th>
+                    <th width="100">Новостройки</th>
+                    <th width="100">Коммерческая</th>
+                    <th width="100">Загородная</th>
+                    <th width="100">ЖК</th>
+                    <th width="100">КП</th>
+                    <th width="100">БЦ</th>
+                    <th width="100">Суммарно</th>
+                  </tr>
+                        {php:$total_live_amount=0}
+                        {php:$total_live_amount_clicked=0}
+                        {php:$total_build_amount=0}
+                        {php:$total_build_amount_clicked=0}
+                        {php:$total_commercial_amount=0}
+                        {php:$total_commercial_amount_clicked=0}
+                        {php:$total_country_amount=0}
+                        {php:$total_country_amount_clicked=0}
+                        {php:$total_housing_estates_amount=0}
+                        {php:$total_housing_estates_amount_clicked=0}
+                        {php:$total_business_centers_amount=0}
+                        {php:$total_business_centers_amount_clicked=0}
+                        {php:$total_cottages_amount=0}
+                        {php:$total_cottages_amount_clicked=0}
+                        {loop $stats,$key,$item}
+                        <tr>
+                            <td>{$item['date']}</td>
+                            <td>{$item['live_amount_clicked']} / {$item['live_amount']}</td>
+                            <td>{$item['build_amount_clicked']} / {$item['build_amount']}</td>
+                            <td>{$item['commercial_amount_clicked']} / {$item['commercial_amount']}</td>
+                            <td>{$item['country_amount_clicked']} / {$item['country_amount']}</td>
+                            <td>{$item['housing_estates_amount_clicked']} / {$item['housing_estates_amount']}</td>
+                            <td>{$item['business_centers_amount_clicked']} / {$item['business_centers_amount']}</td>
+                            <td>{$item['cottages_amount_clicked']} / {$item['cottages_amount']}</td>
+                            <td>{$item['summary']}</td>
+                        </tr>
+                        {php:$total_live_amount=$total_live_amount+$item['live_amount']}
+                        {php:$total_live_amount_clicked=$total_live_amount_clicked+$item['live_amount_clicked']}
+                        {php:$total_build_amount=$total_build_amount+$item['build_amount']}
+                        {php:$total_build_amount_clicked=$total_build_amount_clicked+$item['build_amount_clicked']}
+                        {php:$total_commercial_amount=$total_commercial_amount+$item['commercial_amount']}
+                        {php:$total_commercial_amount_clicked=$total_commercial_amount_clicked+$item['commercial_amount_clicked']}
+                        {php:$total_country_amount=$total_country_amount+$item['country_amount']}
+                        {php:$total_country_amount_clicked=$total_country_amount_clicked+$item['country_amount_clicked']}
+                        {php:$total_housing_estates_amount=$total_housing_estates_amount+$item['housing_estates_amount']}
+                        {php:$total_housing_estates_amount_clicked=$total_housing_estates_amount_clicked+$item['housing_estates_amount_clicked']}
+                        {php:$total_business_centers_amount=$total_business_centers_amount+$item['business_centers_amount']}
+                        {php:$total_business_centers_amount_clicked=$total_business_centers_amount_clicked+$item['business_centers_amount_clicked']}
+                        {php:$total_cottages_amount=$total_cottages_amount+$item['cottages_amount']}
+                        {php:$total_cottages_amount_clicked=$total_cottages_amount_clicked+$item['cottages_amount_clicked']}
+                    {/loop $stats} 
+                  <tr>
+                    <th>Всего</th>
+                    <th>{$total_live_amount_clicked} / {$total_live_amount}</th>
+                    <th>{$total_build_amount_clicked} / {$total_build_amount}</th>
+                    <th>{$total_commercial_amount_clicked} / {$total_commercial_amount}</th>
+                    <th>{$total_country_amount_clicked} / {$total_country_amount}</th>
+                    <th>{$total_housing_estates_amount_clicked} / {$total_housing_estates_amount}</th>
+                    <th>{$total_business_centers_amount_clicked} / {$total_business_centers_amount}</th>
+                    <th>{$total_cottages_amount_clicked} / {$total_cottages_amount}</th>
+                    <th>{php: echo ($total_live_amount+$total_build_amount+$total_commercial_amount + $total_country_amount + $total_housing_estates_amount + $total_business_centers_amount + $total_cottages_amount)}</th>
+                  </tr>
+                  <tr >
+                    <th style="font-size:13px;">В среднем за период</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_live_amount_clicked)/count($stats));} / {php:echo (integer)(($total_live_amount)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_build_amount_clicked)/count($stats));} / {php:echo (integer)(($total_build_amount)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_commercial_amount_clicked)/count($stats));} / {php:echo (integer)(($total_commercial_amount)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_country_amount_clicked)/count($stats));} / {php:echo (integer)(($total_country_amount)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_housing_estates_amount_clicked)/count($stats));} / {php:echo (integer)(($total_housing_estates_amount)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_business_centers_amount_clicked)/count($stats));} / {php:echo (integer)(($total_business_centers_amount)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_cottages_amount_clicked)/count($stats));} / {php:echo (integer)(($total_cottages_amount)/count($stats));}</th>
+                    <th style="font-size:12px;">{php: echo ((integer)(($total_live_amount)/count($stats))+(integer)(($total_build_amount)/count($stats))+(integer)(($total_commercial_amount)/count($stats)) + (integer)(($total_country_amount)/count($stats)) + (integer)(($total_housing_estates_amount)/count($stats))  + (integer)(($total_business_centers_amount)/count($stats)) + (integer)(($total_cottages_amount)/count($stats)) )}</th>
+                  </tr>
+            </tbody>
+            </table>
+          </div> 
+          {/if}   

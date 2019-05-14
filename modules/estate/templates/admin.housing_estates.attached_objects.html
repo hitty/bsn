@@ -1,0 +1,65 @@
+<h1 class="pageTitle">Жилой комплекс "{$complex_info['title']}"</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="caption_line"></div>
+<div class="list_table housing_estate_variants">
+    <div class="filter_line">
+        
+    </div>
+    {if!empty $list}
+        <table>
+            <colgroup>
+                <col class="col2" width="3%">
+                <col class="col2" width="3%">
+                <col class="col1" width="30%">
+                <col class="col1" width="10%">
+                <col class="col1" width="15%">
+                <col class="col2" width="10%">
+                <col class="col1" width="5%">
+                <col class="col2" width="24%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID пользователя</th>
+                    <th>ID компании</th>
+                    <th>Клиент</th>
+                    <th>Телефоны</th>
+                    <th>Тариф</th>
+                    <th>Статус клиента</th>
+                    <th>Количество вариантов</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id_user']}">
+                        <td>#{$item['id_user']}</td>
+                        <td>#{$item['id_agency']}</td>
+                        <td>
+                            {if!empty $item['agency_photo']}<img src="/{$img_folder}/sm/{$item['agency_photo_folder']}/{$item['agency_photo']}" alt="{quoted:$item['title']}" /> {/if}
+                            {$item['title']}
+                        </td>
+                        <td>
+                            {if!empty $item['phone_1']}{$item['phone_1']}<br>{/if}
+                            {if!empty $item['phone_2']}{$item['phone_2']}<br>{/if}
+                            {if!empty $item['phone_3']}{$item['phone_3']}<br>{/if}
+                            {if!empty $item['advert_phone']}{$item['advert_phone']}{/if}
+                        </td>
+                        <td>
+                            {if!empty $item['tarif_title']} {$item['tarif_title']} {/if}
+                        </td>
+                        <td>{$item['housing_estate_user_status']}</td>
+                        <td>{$item['amount']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/housing_estates/attached_objects/{$complex_info['id']}/copy/" data-id="{$item['id_user']}" title="Копировать другому клиенту"><span class="ico_copy">Копировать другому клиенту</span></a>
+                            <a href="/admin/estate/housing_estates/attached_objects/{$complex_info['id']}/unattach/" data-id="{$item['id_user']}" title="Открепить от этого ЖК"><span class="ico_unattach">Открепить от этого ЖК</span></a>
+                            <a href="/admin/estate/housing_estates/attached_objects/{$complex_info['id']}/del/" data-id="{$item['id_user']}" title="Удалить варианты"><span class="ico_del">Удалить варианты</span></a>
+                            <input id="copy-to-id" type="text" value="" placeholder="ID админа агентства кому скопировать" title="ID админа агентства кому скопировать" style="display:none;width:250px;">
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <p style="padding:30px;">У данного ЖК нет опубликованных вариантов</p>
+    {/if}
+</div>

@@ -1,0 +1,19 @@
+<div class="estate-list complex-list {$estate_type}{ifeq $item['map_status'],1} payed{/if}" {ifeq $item['map_status'],1} data-status="{$item['map_status']}"{/if}>
+    {include /modules/housing_estates/templates/list.block.item.new.html}
+    {php:$show_bottom_block = $item['total_objects'] > 0 || $item['map_status'] == 1}
+    {if!empty $show_bottom_block}
+        
+            <div class="map-address-link">
+                {ifgt $item['total_objects'],0}
+                    <a class="offers" target="_blank" href="/build/sell/?housing_estate={$item['id']}">Все {suffix:$item['total_objects'],'предложени','е','я','ий'} в этом ЖК</a>
+                {/if}
+                {ifeq $item['map_status'],1}
+                    <div class="company">
+                        {$seller_phone}
+                        <img src="/img/uploads/sm/{$item['agency_subfolder']}/{$item['agency_photo_name']}" alt="{$item['title']}" class="logo" />
+                    </div>
+                {/if}
+            </div>
+    {/if}
+    
+</div>

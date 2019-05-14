@@ -1,0 +1,36 @@
+
+<table width="1100" cellspacing="0" cellpadding="10" style="clear: both;">
+  <tbody>
+      <tr>
+        <th></th>
+        <th>Число визитов бота на сайт</th>
+        <th>Число показанных ссылок боту</th>
+        <th>Число посещенных страниц из ранее показанных по ссылкам</th>
+        <th>Робот зашел</th>
+      </tr>
+        {php:$total_visits=0}
+        {php:$total_links_shown=0}
+        {php:$total_old_pages_visits=0}
+        {php:$total_pages_added=0}
+        {loop $stats,$key,$item}
+            <tr>
+                <td>{$item['date_formatted']}</td>
+                <td>{$item['visits_amount']}</td>
+                <td>{$item['links_shown']}</td>
+                <td>{$item['old_pages_visits']}</td>
+                <td>{$item['pages_added']}</td>
+            </tr>
+            {php:$total_visits=$total_visits+$item['visits_amount']}
+            {php:$total_links_shown=$total_links_shown+$item['links_shown']}
+            {php:$total_old_pages_visits = $total_old_pages_visits + $item['old_pages_visits']}
+            {php:$total_pages_added = $total_pages_added + $item['pages_added']}
+        {/loop $stats}
+      <tr>
+        <th>Всего</th>
+        <th>{$total_visits}</th>
+        <th>{$total_links_shown}</th>
+        <th>{$total_old_pages_visits}</th>
+        <th>{$total_pages_added}</th>
+      </tr>
+</tbody>
+</table>

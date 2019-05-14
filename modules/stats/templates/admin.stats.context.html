@@ -1,0 +1,100 @@
+<h1 class="pageTitle">Статистика контекстных рекламных кампаний</h1>
+<script type="text/javascript">
+    function filter_activate(_source){
+        if(jQuery('.button.pressed') && _source == undefined)
+            var __button_pressed = jQuery('.button.pressed').attr('data-period');
+        var __filter_userID = document.getElementById('f_userID').value;
+        var __filter_date_start = document.getElementById('date_start').value;
+        var __filter_date_end = document.getElementById('date_end').value;
+        var __filter_operation_target = document.getElementById('f_operation_target').options[document.getElementById('f_operation_target').selectedIndex].value;
+        var __url = '{root:/admin/service/stats/finances_stats}';
+        var __get = new Array();
+        if(__filter_userID!='') __get.push('f_userID='+__filter_userID);
+        __get.push('f_date_start='+__filter_date_start);
+        __get.push('f_date_end='+__filter_date_end);
+        if(__button_pressed) __get.push('button_pressed='+__button_pressed);
+        if(__filter_operation_target!=0) __get.push('f_operation_target='+__filter_operation_target);
+        if(__get.length>0){
+            __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    }
+    jQuery('#f_userID').on('change',function(){
+        filter_activate("change_date");
+    });
+    jQuery('#f_operation_target').on('change',function(){
+        filter_activate("change_date");
+    });
+</script>
+<div class="filter_line" style="text-align: left;">
+    <label>
+        Агентство:
+        <select id="f_operation_target" onchange="filter_activate()" style="width: 150px;">
+            {if!empty $agencies_list}
+            {loop $agencies_list,$k,$item}
+                <option value="{$item['alias']}" {ifeq $get_array['f_agency'],$item['alias']} selected="selected"{/if}>{$item['title']}</option>
+            {/loop $agencies_list}
+            {/if}
+        </select>
+    </label>
+    <label>
+        Место размещения:
+        <select id="f_operation_target" onchange="filter_activate()" style="width: 150px;">
+            {if!empty $context_places}
+            {loop $context_places,$k,$item}
+                <option value="{$item['alias']}" {ifeq $get_array['f_place'],$item['alias']} selected="selected"{/if}>{$item['title']}</option>
+            {/loop $context_places}
+            {/if}
+        </select>
+    </label>
+    <label>
+        Название кампании:
+        <input type="text" id="f_campaign_title" value="{$get_array['f_campaign_title']}" onchange="filter_activate()"  placeholder="Название кампании">
+    </label>
+</div>
+<div class="finances-stats">
+    <div class="showSpecStats date-filter">
+        <div class="form_default">
+            <input type="hidden" value="ok" name="process" onchange="filter_activate()">
+            Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$get_array['date_start']}">
+            по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$get_array['date_end']}">
+            <span class="button{ifeq $button_pressed,'day'} pressed{/if}" data-period="day">сегодня</span>
+            <span class="button{ifeq $button_pressed,'week'} pressed{/if}" data-period="week">неделя</span>
+            <span class="button{ifeq $button_pressed,'month'} pressed{/if}" data-period="month">месяц</span>
+            <span class="button{ifeq $button_pressed,'quarter'} pressed{/if}" data-period="quarter">квартал</span>
+            <span class="button{ifeq $button_pressed,'year'} pressed{/if}" data-period="year">год</span>
+            <span class="spinner"></span>
+        </div>
+        <div class="separator"></div>
+    </div>
+</div>
+<div class="finances-wrap" id="result_info_stats">
+    {if!empty $list}
+    <table>
+        <thead>
+            <tr>
+                <th width="200"><span>ID</span></th>
+                <th width="200"><span>Кампания</span></th>
+                <th width="200"><span>Компания(Агентство)</span></th>
+                <th width="200"><span>Место размещения</span></th>
+                <th width="200"><span>Количесвто кликов</span></th>
+                <th width="200"><span>Количесвто показов</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {loop $list,$k,$item}
+                <tr>
+                    <td>{$item['id_context']}</td>
+                    <td>{$item['context_title']}</td>
+                    <td>{$item['agency_title']}</td>
+                    <td>{$item['place_title']}</td>
+                    <td>{$item['clicks_amount']}</td>
+                    <td>{$item['shows_amount']}</td>
+                </tr>
+            {/loop $list}
+        </tbody>
+    </table>
+    {else}
+        Пока вы не совершали финансовых операций на сайте.
+    {/if}
+</div>

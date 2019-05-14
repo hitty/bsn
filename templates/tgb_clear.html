@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="index,follow">
+{if!empty $metadata['title']}<title>{$metadata['title']}</title>{/if}
+{if!empty $metadata['description']}<meta name="description" content="{quoted:$metadata['description']}">{/if}
+{if!empty $metadata['keywords']}<meta name="keywords" content="{quoted:$metadata['keywords']}">{/if}
+<link rel="stylesheet" href="/modules/tgb/style.css" media="all">
+<script src="/js/jquery.min.out.js" charset="utf-8"></script>
+<script src="/modules/tgb/client.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="content-print">
+    {$content}              
+</div>
+</body>
+</html>

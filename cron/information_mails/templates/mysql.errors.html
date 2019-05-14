@@ -1,0 +1,36 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{$user['user_name']}</b>!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:10px 0; font-size:12px; line-height: 12px;" align="left"> 
+        <table border="1">    
+            <colgroup>
+                <col class="col1" width="50%">
+                <col class="col1" width="50%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Запрос</th>
+                    <th>Окружение</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td valign="top" >{$key}</td>
+                        <td valign="top" >
+                        {loop $item,$kk,$kitem}
+                            <p>{$kitem}</p>
+                        {/loop $item}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>    
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

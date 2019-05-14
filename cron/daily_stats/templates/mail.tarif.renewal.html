@@ -1,0 +1,20 @@
+{include /modules/mailers/templates/simple.header.html}
+
+    <tr> <!-- content - title -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+        Здравствуйте, {$item['name']}{if!empty $item['lastname']} {$item['lastname']}{/if}!
+        </td>
+    </tr>
+    <tr> <!-- content - text -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left"> 
+            Действие тарифа "{$item['title']}" успешно продлено до {$item['renewal_date']} г. <br /><br />
+
+            Во избежании приостановки тарифа, рекомендуем пополнять баланс заранее. <br />
+            Напоминаем Вам, что по окончании действия тарифа, все объекты автоматически переносятся в архив. <br /><br />
+
+            Приятной работы.   
+        </td>
+    </tr>
+  
+{include /modules/mailers/templates/simple.footer.html}
+                            

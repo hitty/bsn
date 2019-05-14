@@ -1,0 +1,19 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Вы (или кто-то другой) инициировали регистрацию на портале {$env['host']}. В качестве логина был указан Ваш адрес электронной почты.<br />
+        Если Вы не подавали заявку на регистрацию и не хотите регистрироваться на нашем портале, пожалуйста, просто закройте это письмо и ничего не предпринимайте.<br />
+        Регистрация будет считаться завершенной при первом входе в созданный аккаунт.<br /><br />
+        Данные для входа:<br />
+        <font size="+1">
+        Логин: {$data['email']}<br />
+        Пароль: {$data['password']}<br />
+        </font>    
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

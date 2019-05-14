@@ -1,0 +1,13 @@
+<span class="external-link{if!empty $type} spec{/if}" data-link="{if!empty $item['banner_direct_link']}{$item['banner_direct_link']}{else}{$item['campaign_direct_link']}{/if}" title="{quoted:$item['title']}" data-type="textline" data-id="{$item['id']}">
+    {if!empty $type}
+        {if!empty $item['img_src']}
+            <img src="{static:/}img/uploads/textline/{$item['img_src']}" class="logo"  />
+        {/if}
+    {elseif!empty $item['agency_photo']}
+        <img src="{static:/}img/uploads/sm/{$item['agency_photo_folder']}/{$item['agency_photo']}" class="logo"  />
+    {/if}
+    {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" class="pixel" />{/if}
+    {ifempty $type}
+        <span class="text">{$item['title']}</span>
+    {/if}
+</span>

@@ -1,0 +1,36 @@
+{if!empty $paginator}
+    <div class="paginator_line">
+        {ifgt $paginator['pages_count'];1}
+            <div class="pages_status">
+                Показано: с {$paginator['from_item']} по {$paginator['to_item']} (всего {$paginator['items_count']})
+            </div>
+            <div class="pages_list">
+                {if!empty $paginator['left']}
+                    <a class="page_button" href="{$paginator['link']}1" title="Первая">&lt;&lt;</a>
+                    <a class="page_button" href="{$paginator['link']}{$paginator['left']}" title="Предыдущая">&lt;</a>
+                {else}
+                    <span class="page_button">&lt;&lt;</span>
+                    <span class="page_button">&lt;</span>
+                {/if}
+                {php:$pages_list=$paginator['pages']}
+                {loop $pages_list,$pk,$pv}
+                    {ifeq $paginator['active_page'];$pv}
+                        <span  class="page_button active">{$pv}</span>
+                    {else}
+                        <a class="page_button" href="{$paginator['link']}{$pv}" title="">{$pv}</a>
+                    {/if}
+                {/loop $pages_list}
+                {if!empty $paginator['right']}
+                    <a class="page_button" href="{$paginator['link']}{$paginator['right']}" title="Следующая">&gt;</a>
+                    <a class="page_button" href="{$paginator['link']}{$paginator['pages_count']}" title="Последняя">&gt;&gt;</a>
+                {else}
+                    <span class="page_button">&gt;</span>
+                    <span class="page_button">&gt;&gt;</span>
+                {/if}
+            </div>
+        {else}<div class="paginator_line">(всего {$paginator['items_count']})</div>
+        {/if}
+    </div>
+{else}<div class="paginator_line">(всего {ifempty $paginator}{$paginator_items_count}{else}$paginator['items_count']{/if})</div>
+{/if}
+    

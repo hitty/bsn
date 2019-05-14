@@ -1,0 +1,36 @@
+<font face="arial">
+<table width="800" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" align="center">
+    {if!empty $up_banner}
+    <tr>
+        <td valign="middle"><img src="{$up_banner}"></td>
+    </tr>
+    {/if}
+    <tr>
+        <td colspan="3">{$content}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="5" height="20"></td>
+    </tr>
+    {if!empty $down_banner}
+    <tr>
+        <td valign="middle"><img src="{$down_banner}"></td>
+    </tr>
+    {/if}
+    <tr>
+        <td colspan="5" height="20"></td>
+    </tr>
+</table>
+<div style="display: block;margin: 20px 0;font-size: 12px;color: #818181;text-align:center;">Вы получили данное письмо, т.к. являетесь зарегистрированным пользователем на нашем сайте</div>
+{if!empty $pixel}{$pixel}{/if}
+
+{ifeq $type,1}
+    {include /cron/mailers/templates/unsubscribe.html}
+{elseifeq $type,2}
+    {include /cron/mailers/templates/info.dizbook.html}
+{elseifeq $type,3}
+    {include /cron/mailers/templates/info.interestate.html}    
+{/if}
+
+</font>

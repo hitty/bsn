@@ -1,0 +1,76 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+<p>В ближайшее время в соответствующей рубрике будет опубликован ответ, о котором мы сообщим дополнительно на Email</p>
+<hr>
+<div class="central-wrapper">
+    {ifeq $object_type, 'build'}
+    <h2  class="ajax-object-types-h2"><a href="/build/" title="Новостройки">Новостройки</a></h2>
+    <ul class="object-types-list">
+        <li rel="sell"><a href="/zhiloy_kompleks/" title="Жилые комплексы">Жилые комплексы</a> </li>
+        <li rel="sell"><a href="/zhiloy_kompleks/low_rise/" title="Малоэтажная застройка">Малоэтажная застройка</a></li>
+        <li rel="sell"><a href="/build/sell/" title="Квартиры в новостройках">Квартиры в новостройках</a></li>
+        <li rel="sell"><a href="/build/objects/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+        <li rel="rent"><a href="/build/objects/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+    </ul>
+    {/if}
+    {ifeq $object_type, 'live'}
+    <div class="ajax-object-types-container"  data-content-container="#live-object-types-list">
+        <h2><a href="/live/" title="Жилая недвижимость">Жилая недвижимость</a></h2>
+        <span class="active" data-param="sell">Продажа</span> /
+        <span data-param="rent">Аренда</span>
+        <a href="/live/sell/" title="Смотреть все объекты">смотреть все объекты</a>
+    </div>
+    <ul class="object-types-list" id="live-object-types-list">
+        <li rel="sell"><a href="/live/sell/rooms/" title="Продажа комнат">Комнат</a></li>
+        <li rel="sell"><a href="/live/sell/flats/" title="Продажа квартир на вторичном рынке">Квартиры на вторичном рынке</a></li>
+        <li rel="sell"><a href="/zhiloy_kompleks/" title="Продажа жилых комплексов">Жилые комплексы</a></li>
+        <li rel="sell"><a href="/zhiloy_kompleks/low_rise/" title="Продажа малоэтажных комплексов">Малоэтажная застройка</a></li>
+        <li rel="rent"><a href="/live/rent/rooms/" title="Аренда комнат">Комнат</a></li>
+        <li rel="rent"><a href="/live/rent/flats/" title="Аренда квартир на вторичном рынке">Квартиры на вторичном рынке</a></li>
+        <li rel="sell"><a href="/live/exclusive/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+        <li rel="rent"><a href="/live/exclusive/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+    </ul>
+    {/if}
+    {ifeq $object_type, 'country'}
+    <div class="ajax-object-types-container"  data-content-container="#country-object-types-list">
+        <h2><a href="/country/" title="Загородная недвижимость">Загородная недвижимость</a></h2>
+        <span class="active" data-param="sell">Продажа</span> /
+        <span data-param="rent">Аренда</span>
+        <a href="/country/sell/" title="Смотреть все объекты">смотреть все объекты</a>
+    </div>
+    <ul class="object-types-list" id="country-object-types-list">
+        <li rel="sell"><a href="/cottedzhnye_poselki/" title="Продажа коттеджных поселков">Коттеджные поселки</a></li>
+        <li rel="sell"><a href="/country/sell/buildings/" title="Продажа домов, дач, коттеджей">Дома, дачи, коттеджи</a></li>
+        <li rel="sell"><a href="/country/sell/land/" title="Продажа домов земельных участков">Земельне участки</a></li>
+        <li rel="sell"><a href="/country/sell/townhouses/" title="Продажа таунхаусов">Таунхаусы</a></li>
+        <li rel="rent"><a href="/country/rent/buildings/" title="Аренда домов, дач, коттеджей">Дома, дачи, коттеджи</a></li>
+        <li rel="sell"><a href="/country/cottage/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+        <li rel="rent"><a href="/country/cottage/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+    </ul>
+    {/if}
+    {ifeq $object_type, 'commercial'}
+    <div class="ajax-object-types-container"  data-content-container="#commercial-object-types-list">
+        <h2><a href="/commercial/" title="Коммерческая недвижимость">Коммерческая недвижимость</a></h2>
+        <span class="active" data-param="sell">Продажа</span> /
+        <span data-param="rent">Аренда</span>
+        <a href="/commercial/sell/" title="Смотреть все объекты">смотреть все объекты</a>
+    </div>
+    <ul class="object-types-list" id="commercial-object-types-list">
+        <li rel="sell"><a href="/business_centers/" title="Бизнес-центры">Бизнес-центры</a></li>
+        <li rel="sell"><a href="/commercial/sell/land/" title="Продажа земельных участков">Земельные участки</a></li>
+        <li rel="sell"><a href="/commercial/sell/universal/" title="Продажа универсальных помещений">Универсальные помещения</a></li>
+        <li rel="sell"><a href="/commercial/sell/warehouses/" title="Продажа производственно-складских помещений, гаражей">Производств.-складские помещения</a></li>
+        <li rel="sell"><a href="/commercial/sell/buildings/" title="Продажа зданий">Здания</a></li>
+        <li rel="sell"><a href="/commercial/sell/offices/" title="Продажа офисных помещений">Офисные помещения</a></li>
+        <li rel="sell"><a href="/commercial/sell/sersec/" title="Продажа помещений сферы услуг">Помещения сферы услуг</a></li>
+        <li rel="rent"><a href="/commercial/rent/land/" title="Аренда земельных участков">Земельные участки</a></li>
+        <li rel="rent"><a href="/commercial/rent/universal/" title="Аренда универсальных помещений">Универсальные помещения</a></li>
+        <li rel="rent"><a href="/commercial/rent/warehouses/" title="Аренда производственно-складских помещений, гаражей">Производств.-складские помещения</a></li>
+        <li rel="rent"><a href="/commercial/rent/buildings/" title="Продажа зданий">Здания</a></li>
+        <li rel="rent"><a href="/commercial/rent/offices/" title="Продажа офисных помещений">Офисные помещения</a></li>
+        <li rel="rent"><a href="/commercial/rent/sersec/" title="Продажа помещений сферы услуг">Помещения сферы услуг</a></li>
+        <li rel="sell"><a href="/commercial/exclusive/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+        <li rel="rent"><a href="/commercial/exclusive/" title="Спецпредложения" class="spec-offers">Спецпредложения</a></li>
+    </ul>
+    {/if}
+    
+</div>

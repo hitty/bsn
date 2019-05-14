@@ -1,0 +1,255 @@
+<h1 class="pageTitle">Агентства</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'],0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/access/agencies/add/" class="button">Добавить агентство</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter = document.getElementById('tbl_filter').value;
+            var __filter_id = document.getElementById('tbl_filter_id_user').value;
+            var __filter_id_agency = document.getElementById('tbl_filter_id_agency').value;
+            var __filter_advert_phone = document.getElementById('tbl_filter_advert_phone').value;
+            var __filter_application_realtor_help = document.getElementById('tbl_filter_application_realtor_help').value;
+            var __filter_tarif = document.getElementById('tbl_filter_tarif').value;
+            var __f_manager = document.getElementById('tbl_f_manager').value;
+            var __f_sortby = document.getElementById('tbl_f_sortby').value;
+            var __url = '{root:/admin/access/agencies/}';
+            var _url_params = new Array();
+            if(__filter!='') _url_params.push('filter='+document.getElementById('tbl_filter').value);
+            if(__filter_id!='') _url_params.push('filter_id='+document.getElementById('tbl_filter_id_user').value);
+            if(__filter_id_agency!='') _url_params.push('filter_id_agency='+document.getElementById('tbl_filter_id_agency').value);
+            if(__filter_advert_phone!='') _url_params.push('filter_advert_phone='+document.getElementById('tbl_filter_advert_phone').value);
+            if(__filter_application_realtor_help!='') _url_params.push('filter_application_realtor_help='+document.getElementById('tbl_filter_application_realtor_help').value);
+            if(__filter_tarif!='') _url_params.push('filter_tarif='+document.getElementById('tbl_filter_tarif').value);
+            if(__f_manager!='') _url_params.push('f_manager='+document.getElementById('tbl_f_manager').value);
+            if(__f_sortby!='') _url_params.push('f_sortby='+document.getElementById('tbl_f_sortby').value);
+            if(_url_params.length > 0) __url = __url + '/?' + _url_params.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <div class="agencies-activities">
+            {if!empty $activities_list}
+                    <li class=""> <a href="/admin/access/agencies/">Сбросить фильтры</a></li>
+                {loop $activities_list,$lk,$item}
+                    <li class="{$item[0]['url']} {ifeq $activity,$item[0]['url']}active{/if}">
+                        {ifeq $get_array['f_activity'],$item[0]['url']}
+                            <b class="selected">{$item[0]['title']}</b>
+                        {else}
+                            <a href="?f_activity={$item[0]['url']}">{$item[0]['title']}</a>
+                        {/if}
+                        
+                        <sup>{$item[1]}</sup>
+                    </li>
+                {/loop $activities_list}
+            {/if}
+        </div>
+        <label>
+            ID администратора:
+            <input type="text" id="tbl_filter_id_user" value="{$get_array['filter_id']}" onchange="filter_activate()"  placeholder="ID администратора" size="20">
+        </label>
+        <label>
+            ID агентства:
+            <input type="text" id="tbl_filter_id_agency" value="{$get_array['filter_id_agency']}" onchange="filter_activate()"  placeholder="ID агентства" size="20">
+        </label>
+        <label>
+            Поиск:
+            <input type="text" id="tbl_filter" value="{$get_array['filter']}" onchange="filter_activate()"  placeholder="Название агентства" size="70">
+        </label>
+        <label>
+            Подставной телефон:
+            <select id="tbl_filter_advert_phone" onchange="filter_activate()" style="width: 150px;">
+                <option value="">не выбрано</option>
+                <option value="1"{ifeq $get_array['filter_advert_phone'],1} selected="selected"{/if}}>есть</option>
+                <option value="2"{ifeq $get_array['filter_advert_phone'],2} selected="selected"{/if}}>нет</option>
+            </select>
+        </label>
+        <label>
+            "Помощь риэлтора":
+            <select id="tbl_filter_application_realtor_help" onchange="filter_activate()" style="width: 150px;">
+                <option value="">не выбрано</option>
+                <option value="1"{ifeq $get_array['filter_application_realtor_help'],1} selected="selected"{/if}}>проставлен email</option>
+                <option value="2"{ifeq $get_array['filter_application_realtor_help'],2} selected="selected"{/if}}>нет</option>
+            </select>
+        </label>
+        <label>
+            "Сортировка":
+            <select id="tbl_f_sortby" onchange="filter_activate()" style="width: 70px;">
+                <option value="">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_sortby'],1} selected="selected"{/if}}>А->Я</option>
+                <option value="2"{ifeq $get_array['f_sortby'],2} selected="selected"{/if}}>Я->А</option>
+            </select>
+        </label>
+        <label>
+            Проставлен тариф:
+            <select id="tbl_filter_tarif" onchange="filter_activate()" style="width: 150px;">
+                <option value="">не выбрано</option>
+                <option value="yes"{ifeq $get_array['filter_tarif'],"yes"} selected="selected"{/if}}>да</option>
+                <option value="no"{ifeq $get_array['filter_tarif'],"no"} selected="selected"{/if}}>нет</option>
+                {loop $tarifs_agencies,$k,$v}
+                    <option value="{$v['id']}"{ifeq $get_array['filter_tarif'],$v['id']} selected="selected"{/if}}>{$v['title']}</option>
+                {/loop $tarifs_agencies}
+            </select>
+        </label>
+        <label>
+            Менеджер:
+            <select id="tbl_f_manager" onchange="filter_activate()" style="width: 150px;">
+                <option value="">не выбрано</option>
+                {loop $managers,$k,$v}
+                    <option value="{$v['id']}"{ifeq $get_array['f_manager'],$v['id']} selected="selected"{/if}}>{$v['title']}</option>
+                {/loop $managers}
+            </select>
+        </label>
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="50%">
+                <col class="col1" width="20%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Информация об агентстве</th>
+                    <th>Баланс</th>
+                    <th>Менеджер</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']} 
+                            
+                        </td>
+                        <td>
+                            {if!empty $item['agency_photo']}<img src="/{$img_folder}/sm/{$item['agency_photo_folder']}/{$item['agency_photo']}" alt="{quoted:$item['title']}" /> {/if}
+                            {$item['title']}
+                            {if!empty $item['id_user']}
+                                <br />
+                                <span class="agency-estate-title">жилая:</span>
+                                <a href="/live/sell/?agency={$item['id_user']}" target="_blank" class="agency-estate-links agency-estate-title">продажа</a>
+                                <a href="/live/rent/?agency={$item['id_user']}" target="_blank" class="agency-estate-links">аренда</a>
+                                <a href="/build/sell/?agency={$item['id_user']}" target="_blank" class="agency-estate-links">стройка</a>
+                                <span class="agency-estate-title">коммерческая:</span>
+                                <a href="/commercial/sell/?agency={$item['id_user']}" target="_blank" class="agency-estate-links">продажа</a>
+                                <a href="/commercial/rent/?agency={$item['id_user']}" target="_blank" class="agency-estate-links">аренда</a>
+                                <span class="agency-estate-title">загородная:</span>
+                                <a href="/country/sell/?agency={$item['id_user']}" target="_blank" class="agency-estate-links">продажа</a>
+                                <a href="/country/rent/?agency={$item['id_user']}" target="_blank" class="agency-estate-links">аренда</a>
+                                <br />
+                                {if!empty $item['users']}
+                                {php:$users = $item['users']}
+                                    <div class="users-list">
+                                        <div class="header item">
+                                            <span class="id">ID</span>
+                                            <span class="name">ФИО</span>
+                                            <span class="login">Логин</span>
+                                            <span class="email">Email</span>
+                                            <span class="phone">Телефон</span>
+                                            <span class="edit">&nbsp;</span>
+                                        </div>
+                                    {loop $users, $ku, $uitem}
+                                        <div class="item{ifeq $uitem['agency_admin'],1} admin{/if}">
+                                            <span class="id">{$uitem['id']}&nbsp;</span>
+                                            <span class="name">{$uitem['lastname']} {$uitem['name']}&nbsp;</span>
+                                            <span class="login">{$uitem['login']}&nbsp;</span>
+                                            <span class="email">{if!empty $uitem['email']}{$uitem['email']}{/if}&nbsp;</span>
+                                            <span class="phone">{if!empty $uitem['phone']}{$uitem['phone']}{/if}&nbsp;</span>
+                                            <span class="edit"><a href="/admin/access/users/edit/{$uitem['id']}/">ред</a></span>
+                                        </div>
+                                    {/loop $users}
+                                    </div>
+                                {/if}
+                            {/if}
+                        </td>
+                        <td {if!empty $item['tarif_title']}{ifempty $item['no_objects']}class="td-tall"{/if}{/if}>
+                        	<span class="small_text">
+                            {if!empty $item['phone_1']}{$item['phone_1']}<br>{/if}
+                            {if!empty $item['phone_2']}{$item['phone_2']}<br>{/if}
+                            {if!empty $item['phone_3']}{$item['phone_3']}<br>{/if}
+                            {if!empty $item['url']}<a href="{$item['url']}" target="_blank" title="{quoted:$item['title']}">{$item['url']}</a>{/if}
+                            {if!empty $item['email']}, email: {$item['email']}{/if}
+                            </span>
+                            {if!empty $item['tarif_title']}
+                                <span class="tarif-info-box">
+                                    <span class="infoline tarif"><i>Тариф:</i> {$item['tarif_title']} {ifeq $item['id_tarif'],1}{if!empty $item['tarif_cost']}{$item['tarif_cost']} руб.{/if}{/if}</span>
+                                    <span class="infoline staff"><i>Сотрудники:</i> {$item['staff_amount']} / {$item['staff_limit']}</span>
+                                    <span class="infoline tarif"><i>Промо:</i> {$item['active_objects']['promo']} / {$item['promo_limit']}</span>
+                                    <span class="infoline tarif"><i>Премиум:</i> {$item['active_objects']['premium']} / {$item['premium_limit']}</span>
+                                    <span class="infoline tarif"><i>VIP:</i> {$item['active_objects']['vip']} / {$item['vip_limit']}</span>
+                                    {ifeq $item['business_center'],1}
+                                        <span class="infoline tarif"><i>БЦ:</i> да</span>
+                                    {/if}
+                                </span>
+                                <span class="agency-objects-box">
+                                    {ifempty $item['no_objects']}
+                                        <span class="obj-line build"><span>стройка: </span><i>{$item['active_build']}</i></span>
+                                        <span class="obj-line live"><span>жилая: </span><i>{$item['active_live']}</i></span>
+                                        <span class="obj-line commercial"><span>коммерческая: </span><i>{$item['active_commercial']}</i></span>
+                                        <span class="obj-line country"><span>загородная: </span><i>{$item['active_country']}</i></span>
+                                        <span class="obj-details"></span>
+                                    {/if}
+                                </span>
+                                {if!empty $item['xml_time_formatted']}
+                                    <span class="xml-time-box">
+                                        {if!empty $item['loading_permitted']}
+                                            <span class="infoline"><i>Выгрузка:</i> <br /><a href="{$item['xml_link']}">{$item['xml_link']}</a></span>
+                                        {/if}
+                                        <span class="infoline"><i>Время выгрузки: </i>{$item['xml_time_formatted']}</span>
+                                    </span>
+                                {/if}
+                            {/if}
+                        </td>
+                        <td><span class="small_text">{$item['balance']}</span></td>
+                        <td><span class="small_text">{$item['manager_name']}</span></td>
+                        <td class="small_icons ac">
+                            {ifempty $item['is_loading']}
+                                <a href="/admin/access/agencies/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                                {if!empty $can_replenish}
+                                    <a href="/admin/access/agencies/replenish_balance/{$item['id']}/" title="Пополнить баланс"><span class="ico_balance">Пополнить баланс</span></a>
+                                {/if}
+                                <a href="/admin/access/agencies/refresh/{$item['id']}/" title="Обновить"><span class="ico_refresh" data-target-elem=".agency-objects-box">Обновить информацию по объектам</span></a>
+                                <a href="/admin/access/agencies/turn_off/{$item['id']}/" title="Убрать все в архив и снять с выгрузки"><span class="ico_turnoff" data-confirm="Вы уверены, что хотите снять с выгрузки это агентство и убрать все объекты в архив?" data-success="Агентство снято с выгрузки, все объекты убраны в архив">Убрать все в архив и снять с выгрузки</span></a>
+                                <a href="/admin/access/agencies/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                                {if!empty $item['id_tarif']}
+                                    {if!empty $item['xml_link']}
+                                        {if!empty $item['loading_permitted']}
+                                            <a href="/admin/access/agencies/load/{$item['id']}/" title="Выгрузить"><span class="ico_load" data-confirm="Вы уверены, что хотите выгрузить варианты по ссылке {$item['xml_link']} этого агентства?" data-success="Выгрузка запущена, не трогайте агентство пока выгрузка не завершится!">Выгрузить</span></a>
+                                        {/if}
+                                    {/if}
+                                {/if}
+                                {ifin $item['id_group'],1,104}<a href="/admin/access/superadmin/{$item['id_user']}/" title="Авторизоваться под пользователем"><span class="ico_user">Авторизоваться под пользователем</span></a>{/if}
+                            {else}
+                                <span>Идет выгрузка!</span>
+                            {/if}
+                            {ifempty $item['no_objects']}
+                                <a href="/admin/access/agencies/details/{$item['id']}/" title="Подробности"><span class="ico_details" data-target-elem=".agency-objects-box">Подробности</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

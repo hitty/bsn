@@ -1,0 +1,35 @@
+<h1 class="pageTitle">Overlay баннер | Заявки</h1>
+{if!empty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/tgb_overlay/phones/edit/{$data_mapping['id']['value']}/"  enctype="multipart/form-data">
+    <h3>Заявка #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <p id="p_field_source">
+        <label class="required">Источник заявки</label>
+        <span>
+            <a href="{$info['ref']}" target="_blank">Ссылка</a>
+        </span>
+    </p> 
+    
+    
+</form>

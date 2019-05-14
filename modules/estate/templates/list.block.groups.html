@@ -1,0 +1,49 @@
+{if!empty $list}
+    <div class="list">
+    {loop $list,$lkey,$item}
+        <div class="item br3" data-new-tab="true" data-link="/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" data-img-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}">
+            {ifempty $item['total_variants']}
+                {ifgt $item['square_full'],0}
+                    <span class="full-square">    
+                        {squareformat:$item['square_full']} м<sup>2</sup>
+                    </span>
+                {/if}
+                {ifgt $item['level'],0}
+                    <span class="level">
+                        {$item['level']} этаж
+                    </span>
+                {/if}
+            {/if}
+        
+            <span data-id="{$item['id']}" data-type="{$estate_type}" title="{ifeq $item['in_favorites'],1}Удалить из избранного{else}В избранное{/if}" data-icon="{ifeq $item['in_favorites'],1}star{else}star_border{/if}" class="star{ifeq $item['in_favorites'],1} in-favorites{/if} transition" data-link="/favorites/?type={$estate_type}">
+                <span class="star-label"></span>
+            </span>
+
+            <span class="cost">
+                {if!empty $item['min_cost_objects']}
+                    {ifeq $item['min_cost_objects'], $item['max_cost_objects']}
+                        {numberformat:$item['min_cost_objects']} 
+                    {else}
+                        <b>от</b> {numberformat:$item['min_cost_objects']} <b>до</b> {numberformat:$item['max_cost_objects']} 
+                    {/if}
+                {else}
+                    {numberformat:$item['cost']} 
+                {/if}
+                 Р
+            </span>
+            
+            
+            
+        </div>
+    {/loop $list}
+    {php:$count_list = count($list)}
+    {ifgt $count_list,9}
+        {if!empty $ajax_mode}
+            {if!empty $form_data['group_id']}
+                <a href="{$requested_url}" class="show-all-variants" target="_blank">Смотреть все квартиры</a>
+            {/if}
+        {/if}
+    {/if}
+    </div>
+{/if}
+       

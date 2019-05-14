@@ -1,0 +1,19 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    ALARM!!!  
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Файл: {$trace['file']}
+        <br /><br />
+        Строка: {$trace['line']}
+        <br /><br />
+        Ошибка: {$mysql_error}
+        <br /><br />
+        Запрос: {$mysql_query}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

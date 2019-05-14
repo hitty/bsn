@@ -1,0 +1,59 @@
+    <span class="button grey search-button" data-icon="search" data-url="/search/popup/"></span>
+    <h1 class="centered">{if!empty $h1}{$h1}{else}Медиа{/if}</h1>
+    {include modules/search/templates/search.form.html}
+    
+    <div class="categories-links flex">
+        <a href="/news/" title="Новости">Новости</a>
+        <a href="/articles/" title="Статьи">Статьи</a>
+        <a href="/doverie/" title="Доверие потребителя">Доверие потребителя</a>
+        <a href="/opinions/" title="Мнение экспертов">Мнение экспертов</a>
+        <a href="/bsntv/" title="БСН-ТВ">БСН-ТВ</a>
+    </div>
+      
+    <section class="content-wrapper">
+        <div class="content-list bbox br3" data-simplebar="init">
+            <h3>Лента новостей</h3>
+            {loop $news_list,$k,$nitem}
+                {include /modules/content/templates/block.list.item.html}
+            {/loop $news_list}
+        </div>
+       {block media/block/hub}
+       
+    </section> 
+    
+    <section class="tgb-list in-row">
+        {block tgb/top}
+    </section>
+    
+  
+    <section>
+        <h2 class="inner">Статьи</h2>
+        <div class="content-wrapper first-big column-3 row-2">
+            {block articles/block/last/5/}
+        </div>
+        {if!empty $right_banner}
+            <div class="banner-right col-1 br3">
+                <div id="right-top-banner" class="br3" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Баннер']); }catch(e){}"></div>
+            </div>
+        {else}
+            <div class="tgb-list column">
+                {block tgb/bottom/3}
+            </div>
+        {/if}
+
+    </section> 
+    
+    <section>
+        <h2 class="inner">БСН-ТВ</h2>
+        <div class="content-wrapper bsntv">
+            {block bsntv/block/last/4/}
+        </div>
+    </section> 
+
+    <section>
+        <h2 class="inner">Доверие потребителя</h2>
+        <div class="content-wrapper doverie">
+            {block doverie/block/last/4/}
+        </div>
+    </section> 
+

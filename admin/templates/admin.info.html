@@ -1,0 +1,69 @@
+<h1 class="pageTitle">Администрирование сайта</h1>
+<!--<p>Тут можно разместить описательный блок, номер версии, хотлинки и т.п.</p>-->
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_date = document.getElementById('f_date').value;
+            var __filter_project = document.getElementById('f_project').options[document.getElementById('f_project').selectedIndex].value;
+            var __url = '{root:/admin/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_date!='') __get.push('f_date='+__filter_date);
+            if(__filter_project!=0) __get.push('f_project='+__filter_project);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Дата:
+            <input type="text" id="f_date" value="{$get_array['f_date']}" onchange="filter_activate()" placeholder="часть даты">
+        </label>
+        <label>
+            Проект:
+            <select id="f_project" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $projects_list,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_project'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $projects_list}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table class="project-changes">
+            <colgroup>
+                <col class="col2" width="100%">
+            </colgroup>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="report_{$item['id']}">
+                        <td>
+                            <div class="report-title">{$item['title']}</div>
+                            <div class="report-properties-box">
+                                <div class="report-time"><b>Добавлено:</b> {$item['datetime_create']}</div>
+                                <div class="report-project-title"><b>Проект:</b> {$item['project_title']}</div>
+                                <div class="report-author"><b>Автор сообщения:</b> {$item['author_name']}</div>
+                            </div>
+                            {if!eq $item['datetime_create'],$item['datetime_modify']}
+                                <div class="report-modify"><b>Изменено:</b> {$item['datetime_modify']}</div>
+                            {/if}
+                            <div class="report-box">
+                                <div class="report-short">{$item['content_short']}</div>
+                                <div class="report-text unactive">{$item['content']}</div>
+                            </div>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

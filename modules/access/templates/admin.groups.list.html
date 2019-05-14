@@ -1,0 +1,62 @@
+<h1 class="pageTitle">Группы</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/access/groups/add/" class="button">Добавить группу</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter = document.getElementById('tbl_filter').value;
+            var __url = '{root:/admin/access/groups/}';
+            if(__filter!='') __url = __url + '?filter='+document.getElementById('tbl_filter').value;
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Поиск:
+            <input type="text" id="tbl_filter" value="{$get_array['filter']}" onchange="filter_activate()" placeholder="Название">
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="85%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['name']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/access/groups/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/access/groups/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

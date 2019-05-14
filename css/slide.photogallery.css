@@ -1,0 +1,100 @@
+/* photogallery */
+.slide-photogallery{
+    margin: 30px 0 40px -40px;
+    width: 880px;
+}
+
+.slide-photogallery .counter{
+    margin: 0 auto;
+    text-align: center;
+    width: 680px;
+    position: absolute;
+    bottom: 0px;
+    padding: 0;
+}
+.slide-photogallery .counter .list{
+    display: table;
+    margin: 0 auto;
+}
+.slide-photogallery .counter .item{
+    border: 1px solid #000;
+    width: 10px;
+    height: 2px;
+    background: #fff;  
+    padding: 0;  
+    margin: 0 1px;
+}
+.slide-photogallery .counter .item:hover,
+.slide-photogallery .counter .item.active{
+    background: #1e88e5;    
+    border-color: #1e88e5;    
+}
+.slide-photogallery .photos{
+    width: 880px;
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+    padding: 0!important;  
+}
+
+.slide-photogallery .photos img{
+    position: absolute;    
+    opacity:0;
+    filter: alpha(opacity=0);      
+    transition-property: opacity;
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    -khtml-transition-property: opacity;
+    -ms-transition-property: opacity;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    -moz-transition-duration: .5s;
+    -o-transition-duration: .5s;
+    -khtml-transition-duration: .5s;
+    -ms-transition-duration: .5s;
+    width: 100%;
+}
+.slide-photogallery .photos img.active{
+    opacity:1;
+    filter: alpha(opacity=100);  
+}
+.slide-photogallery .photos .arrow-left,
+.slide-photogallery .photos .arrow-right{
+position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transition: opacity .3s ease;
+  -moz-transition: opacity .3s ease;
+  -o-transition: opacity .3s ease;
+  -ms-transition: opacity .3s ease;
+  transition: opacity .3s ease;
+  z-index: 10;
+  width: 60px;
+  background: rgba(0,0,0,.5);
+  opacity: .5;
+}
+.slide-photogallery .photos .arrow-right{
+    right: 0;
+}
+.slide-photogallery .photos .arrow-left{
+    left: 0;
+}
+.slide-photogallery .photos .arrow-left:hover,
+.slide-photogallery .photos .arrow-right:hover{
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.slide-photogallery .photos .arrow-left:before,
+.slide-photogallery .photos .arrow-right:before{
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    font-size: 60px;
+    left: 50%;
+    margin-left: -30px;    
+}

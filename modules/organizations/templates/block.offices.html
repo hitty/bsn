@@ -1,0 +1,28 @@
+{if!empty $list}
+<div class="offices-list">
+    <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+    
+    {loop $list,$key,$item}
+        <div class="office-line clearfix">
+            <div class="number">
+                {if!empty $item['this']}
+                    {$item['title']}
+                {else}
+                    <a href="/organizations/company/{$item['chpu_title']}/" title="страница компании {$item['title']}">{$item['title']}</a>
+                {/if}
+            </div>
+            <div class="card-map-wrapper" id="card-map-wrapper-{php:echo mt_rand(0,10000);}" data-lat="{$item['lat']}" data-lng="{$item['lng']}" data-map-icon="object" data-title="{$item['title']}"></div>
+            <div class="addr">{$item['addr']}</div>
+            <div class="phone">{if!empty $payed_format}{if!empty $item['advert_phone']}<b> {$item['advert_phone']} {else} {if!empty $item['phone_1']}<b>{$item['phone_1']}{/if} {/if}</b>{/if}</div>
+            {if!empty $item['workdays']}
+                <div class="workdays br3 clearfix">
+                    {php: $workdays = $item['workdays'];}
+                    {loop $workdays,$k,$i}
+                        <span class="work-day {ifgt $k,5}extra{/if}"><i class="day-title">{$i['day_title']}</i><i class="work-time">{$i['worktime']}</i></span>
+                    {/loop $workdays}
+                </div>
+            {/if}
+        </div>
+    {/loop $list}
+</div> 
+{/if}

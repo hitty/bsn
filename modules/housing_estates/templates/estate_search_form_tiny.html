@@ -1,0 +1,56 @@
+{php:$show_filter = !empty($seller_objects) || !empty($company_objects)}
+<form class="fast-search form-blue tiny ajax-form" id="fast-search-form" action="/" method="post">
+    <div class="form-container">
+        {php:$ajax_search = true;}
+        <div class="row">
+            <input type="hidden" name="deal_type" id="deal-type" value="2" />
+            <div class="list-selector select-object-type">
+                <a href="#" class="pick">выберите тип объекта</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="objects_group" id="estate-object-type" value="1-build-sell" />
+                <div class="list-data">
+                    <li class="selected" data-type="build"       data-id="1"     data-value="1-build-sell"              data-url="build/sell/"                data-middle-index="1"     ><span>Новостройку</span></li>
+                </div>
+            </div> <!--/.list-selector .select-object-type-->        
+            <div class="middle-panel">
+
+                <div class="tab active" data-estate-type="build" data-deal="sell">
+                    <div class="checkbox-group rooms-count">
+                        <label for="rooms_count_0_build"{if!empty $form_data['rooms_checked'][0]} class="on"{/if} title="Студия"><input type="checkbox" value="0" name="rooms:0" id="rooms_count_0_build" {if!empty $form_data['rooms_checked'][0]}checked="checked" {/if}/>С</label>
+                        <label for="rooms_count_1_build"{if!empty $form_data['rooms_checked'][1]} class="on"{/if} title="1ккв"><input type="checkbox" value="0" name="rooms:1" id="rooms_count_1_build" {if!empty $form_data['rooms_checked'][1]}checked="checked" {/if}/>1</label>
+                        <label for="rooms_count_2_build"{if!empty $form_data['rooms_checked'][2]} class="on"{/if} title="2ккв"><input type="checkbox" value="0" name="rooms:2" id="rooms_count_2_build" {if!empty $form_data['rooms_checked'][2]}checked="checked" {/if}/>2</label>
+                        <label for="rooms_count_3_build"{if!empty $form_data['rooms_checked'][3]} class="on"{/if} title="3ккв"><input type="checkbox" value="0" name="rooms:3" id="rooms_count_3_build" {if!empty $form_data['rooms_checked'][3]}checked="checked" {/if}/>3</label>
+                        <label for="rooms_count_4_build"{if!empty $form_data['rooms_checked'][4]} class="on"{/if} title="Многокомнатная"><input type="checkbox" value="0" name="rooms:4" id="rooms_count_4_build" {if!empty $form_data['rooms_checked'][4]}checked="checked" {/if}/>4+</label>
+                    </div>
+                </div> <!--/#build-->         
+            </div> 
+            <div class="interval-selector price-selector">
+                <input type="text" name="min_cost" id="from_value_build" value="" placeholder="От" />
+                <input type="text" name="max_cost" id="to_value_build" value="" placeholder="До" />
+                руб.
+            </div> 
+            <div class="extend-search-wrap">
+
+                <div class="tab active" data-estate-type="build" data-deal="sell">
+                    <input type="hidden" value="1" name="housing_estate_page">
+                    <input type="hidden" value="{$item['id']}" name="housing_estate">
+                    <input type="hidden" value="1" name="only_objects">
+                    {if!empty $show_filter}    
+                        <input type="hidden" value="{if!empty $seller_objects}{$item['id_seller']}{else}{$item['id_user']}{/if}" name="agency"> 
+                        <input type="hidden" value="0" name="exclude_agency"> 
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div> 
+</form>  
+{literal}<script>jQuery(document).ready( function() { jQuery('.fast-search.tiny').estateSearch({ajax_search:true}) } )</script>{/literal}
+
+{if!empty $show_filter}
+    <div class="filter objects-by-agency">
+        {if!empty $seller_objects}<span class="active" data-id="{$item['id_seller']}">Объекты от продавца</span>
+        {elseif!empty $company_objects}<span class="active" data-id="{$item['id_user']}">Объекты от застройщика</span>
+        {/if}
+        <span class="br3">Объекты от других компаний и частных лиц</span>
+    </div>
+{/if}

@@ -1,0 +1,13 @@
+<div class="item news inner-wrapper">
+    <div class="top-label">СТАТЬЯ ПО ТЕМЕ</div>
+    <a href="{ifempty $item['link']}/bsntv/{$item['category_code']}/{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее" class="image lazy" data-src="({static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']})">{if!empty $item['video_link']}<div class="video-layer"></div>{/if}</a>
+    <div class="content">
+        <p class="smallnotes clearfix">
+            <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['normal_date']}</time>
+            <a href="/bsntv/{$item['category_code']}/" title="{$item['category_title']}" class="category">{$item['category_title']}</a>
+            <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+            <span class="comments_count" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+        </p>  
+        <a class="a-h3" href="{ifempty $item['link']}/bsntv/{$item['category_code']}/{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее">{$item['title']}</a>
+    </div>
+</div>

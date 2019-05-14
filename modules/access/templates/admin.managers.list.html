@@ -1,0 +1,73 @@
+<h1 class="pageTitle">Пользователи / менеджеры</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['move']}
+    {iflt $results['move'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Перемещение элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Перемещение элемента #{$results['move']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/access/managers/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Найдидом<br />Осталось / Всего</th>
+                    <th>Пингола<br />Осталось / Всего</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['name']}</td>
+                        <td>{$item['phone']}</td>
+                        <td>{$item['email']}</td>
+                        <td>{$item['naydidom_credit_limit']}/{$item['month_naydidom_credit_limit']}</td>
+                        <td>{$item['pingola_credit_limit']}/{$item['month_pingola_credit_limit']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/access/managers/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/access/managers/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

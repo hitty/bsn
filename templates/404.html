@@ -1,0 +1,34 @@
+{php:$error_404  = true;}
+{include /templates/includes/main_head_part.html}
+</head>
+<body class="error-404" itemscope itemtype="http://schema.org/WebPage">
+    
+    {php:$payed_format = true;}
+    {include /templates/includes/main_header_part.html}
+    <div class="central-wrapper">
+        <div class="text">Ошибка 404. Запрошенная вами страница не найдена</div>
+        <div class="content">
+            <span class="title">
+                {ifeq $session_404_order,1}
+                    Хитрый енот, возможно, утащил страницу,<br /> которую вы искали
+                {elseifeq $session_404_order,2}
+                    Как это страницы нет?<br />
+                    Мы уже обзваниваем все инстанции!
+                {elseifeq $session_404_order,3}
+                    Наш системный администратор
+                    постарается поправить эту проблему
+                {/if}
+            </span>
+            <img src="/img/layout/404_{$session_404_order}.gif" alt="Страница не найдена" class="br3" />
+            <span class="bottom-text">
+                {if!eq $session_404_order,1}
+                    Это займёт некоторое время,<br />а вы пока возвращайтесь на <a href="/" title="Главая страница BSN.ru">главную</a>
+                {else}
+                    Скорее возвращайтесь на <a href="/" title="Главая страница BSN.ru">главную</a>, пока он не украл и ее!
+                {/if}
+            </span>
+        </div>
+    </div>
+    <p class="footer-text">1999 - {php:echo date('Y')} © Большой Сервер Недвижимости</p>
+</body>
+</html>

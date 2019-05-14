@@ -1,0 +1,30 @@
+.mainpage .tgb-list-wrap {
+    margin: 25px 0 40px 0;
+    height: 135px;
+    overflow: hidden;
+    padding: 0;
+}
+.mainpage .h1-title{
+    font-size: 36px;
+    font-weight: normal;
+    padding: 0 0 80px 0;
+    text-align: center;
+    display: block;
+}
+
+.mainpage .bottom-text-box{
+    margin: 0 20px;    
+}
+.mainpage .bottom-text-wrapper h1{
+    margin-top: 70px;
+    padding: 0;
+}
+.shadow-wrapper{
+    margin-top: 160px;
+}
+.top-banner-wrapper ~ .shadow-wrapper{
+    margin-top: 40px;
+}
+#housing-estates-rating-list .filters-wrap{
+    margin: 20px 0 -20px 0;
+}

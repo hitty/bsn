@@ -1,0 +1,34 @@
+<h1 class="pageTitle">Количество объектов в избранном</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    {if!empty $favorites_list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="30%">
+                <col class="col2" width="70%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Количество объектов</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $favorites_list,$key,$item}
+                    <tr>
+                        <td>{$item['obj_type']}</td>
+                        <td style="text-align:left">{$item['amount']}</td>
+                    </tr>
+                {/loop $favorites_list}
+                {loop $summary_favorites_list,$key,$item}
+                    <tr>
+                        <td><strong>{$item['obj_type']}</strong></td>
+                        <td style="text-align:left"><strong>{$item['amount']}</strong></td>
+                    </tr>
+                {/loop $summary_favorites_list}
+            </tbody>
+        </table>
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

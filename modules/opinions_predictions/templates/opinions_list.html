@@ -1,0 +1,23 @@
+{ifempty $list}
+<p>на данный момент новостей нет</p>
+{else}
+<div class="expert-opinions">
+    {loop $list,$lk,$item}
+        <div class="central-block dotted opinions-list">                                    
+            <a id="opinion{$item['id']}"></a>
+            <div class="item-image">
+                <img src="{static:/}{$img_folder}/sm/{$item['experts_subfolder']}/{$item['experts_photo']}" alt="{quoted:$item['title']}" />
+            </div>
+            <div class="item-info">
+                <h3>{$item['annotation']}</h3>
+                <p class="author">Эксперт: <strong>{$item['expert_title']}, {$item['expert_company']}, {$item['agency_title']}</strong></p>
+                <p class="author">Тип недвижимости: <strong><a href="/opinions/{$item['estate_url']}/" title="{$item['estate_title']}">{$item['estate_title']}</a></strong></p>
+                <p>{$item['text']}</p>
+            </div>
+            <div class="cleaner">&nbsp;</div>
+        </div>
+    {/loop $list}
+</div>
+{include /templates/includes/paginator.html}
+{/if}
+

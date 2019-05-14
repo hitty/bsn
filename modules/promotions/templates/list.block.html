@@ -1,0 +1,8 @@
+<div class="promotions-list content-wrapper row-3 clearfix" data-url="{$requested_url}">
+    {loop $list,$k,$item}
+        {include /modules/promotions/templates/list.block.item.html}
+    {/loop $list}
+</div>
+{ifempty $only_objects}
+    {ifempty $no_header}{include /templates/includes/paginator.html}{/if}
+{/if}

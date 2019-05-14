@@ -1,0 +1,97 @@
+<h2 id="members-h2">{if!eq $obj_type,'balance'}Оплата услуг{else}Пополнение баланса{/if}</h2>
+    <div class="balance-wrapper">
+        {ifeq $complete,'start'}
+        {ifeq $query,'wrong'}
+            <table width="100%" height="100">
+                <tr height="30">
+                    <td valign="middle" align="center"><b>Неверный номер варианта</b></td>
+                </tr>
+                <tr height="20">
+                    <td align="center"><a href="/members/cabinet/"><b>Перейти в личный кабинет</b></a></td>
+                </tr>
+            </table>
+        {elseifeq $query,'wrong_params'}
+            <table width="100%" height="100">
+                <tr height="30">
+                    <td valign="middle" align="center"><b>Неверные входные параметры</b></td>
+                </tr>
+                <tr height="20">
+                    <td align="center"><a href="/members/cab/"><b>Перейти в личный кабинет</b></a></td>
+                </tr>
+            </table>
+        {elseifeq $query,'invalid'}
+            <table width="100%" height="100">
+                <tr height="30">
+                    <td valign="middle" align="center"><b>Минимальная сумма оплаты 15 рублей</b></td>
+                </tr>
+                <tr height="20">
+                    <td align="center"><a href="/members/cab/"><b>Перейти в личный кабинет</b></a></td>
+                </tr>
+            </table>
+        {elseifeq $query,'error'}
+            <table width="100%" height="100">
+                <tr height="30">
+                    <td valign="middle" align="center"><b>Извините, на сайте некоторые технические проблемы. Попробуйте выполнить операцию позже.</b></td>
+                </tr>
+                <tr height="20">
+                    <td align="center"><a href="/members/cab/"><b>Перейти в личный кабинет</b></a></td>
+                </tr>
+            </table>
+        {else}
+            
+            <div class="add-wrap clearfix">
+                <div class="lrmp">
+                    <form method="post" action="" id="add-form">
+                        <h3>Пополнение счета</h3>
+                        <div class=" clearfix">
+                            <input type="hidden" name="inv_id" value="{$inv_id}"/>
+                            <input type="hidden" name="inv_desc" value="Пополнение баланса, ID пользователя:{$auth['id']}"/>
+                            <input type="text" name="inv_summ"  placeholder="Введите сумму в рублях" value="{$inv_summ}" class="digit pay-input"/>
+                            <button type="submit" class="blue">Пополнить</button>
+                        </div>
+                        <h3 class="promocode-title">Промо-код</h3>
+                        <div class="promocode-wrap clearfix">
+                            <input type="text" name="promocode" id="promocode" placeholder="Введите промо-код" />
+                            <span class="button promocode-activate grey">Применить</button>
+                        </div>
+                        <input type="hidden" name="paying"  value="1"/>
+                        
+                    </form>
+                </div>
+                <div class="rrmp">
+                    <h3 class="btitle black">Ваш текущий баланс</h3>   
+                    <span class="total"> {numeric:$balance} Р</span>
+                </div>
+            </div>
+            
+           
+            <div class="finances-wrapper" id="ajax-search-results">
+                <script>getPendingContent('.finances-wrapper', '/members/finances/?ajax=true&count=20&page=1');</script>
+            </div>
+        {/if}        
+    {elseifeq $complete,'success'}
+        <div class="pay-success">
+            <p>Оплата завершена успешно. Спасибо, что доверяете нам!</p>
+        </div>
+    {elseifeq $complete,'promocode_pay'}
+        <div class="pay-success">
+            <p>Оплата завершена успешно. Ваш баланс пополнен на {suffix:$item['summ'],'рубл','ь','я','ей'}</p>
+        </div>
+    {elseifeq $complete,'fail'}
+        <table cellpadding="0" cellspacing="0" border="0" summary="" style="width:100%">
+            <tr>
+                <td align="center">
+                    <img src="http://st.bsn.ru/img/icUnExclamation.gif" width="47" height="46"/>
+                    <br/>
+                    Баланс НЕ ПОПОЛНЕН. Мы зафиксировали проблему и попытаемся ее решить в ближайшее время.
+                    <br/>
+                    <br/>
+                    ID варианта: <b>{$insert_id}</b>
+                    <br/>
+                    <div style="margin:10px 50px 10px 50px; overflow:hidden; background: #ACBBD4; height:1px"><![CDATA[]]></div>
+                </td>
+            </tr>
+        </table>
+    {/if}
+    </div>
+    

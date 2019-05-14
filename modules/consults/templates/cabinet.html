@@ -1,0 +1,29 @@
+<h2 id="members-h2" {if!empty $stats_page}class="padded"{/if}>{if!empty $consultant_user}Вопросы{else}Мои вопросы{/if}</h2>
+
+
+{if!empty $total_objects}
+<div class="filter ajax-tabs-container" data-content-container=".consults-wrapper" data-url="">
+    <span class=" br3" data-param="/members/conversions/consults/?status=all"  data-tab-ref="all">
+        Все</sup>
+    </span>
+    <span class=" br3" data-param="/members/conversions/consults/?status=answered"  data-tab-ref="new">
+        Отвеченные</sup>
+    </span>
+    <span class=" br3" data-param="/members/conversions/consults/?status=new"  data-tab-ref="new">
+        Неотвеченные</sup>
+    </span>
+    <span class=" br3" data-param="/members/conversions/consults/?status=personal"  data-tab-ref="personal">
+        Персональные</sup>
+    </span>
+    <span class=" br3" data-param="/members/conversions/consults/?status=my"  data-tab-ref="my">
+        Мои вопросы</sup>
+    </span>
+</div>
+<div class="consults-wrapper" id="ajax-search-results">
+    
+</div>
+{else}
+    <div class="cabinet empty-list">
+        <span class="title">Вопросы не найдены!</span>
+    </div>
+{/if}

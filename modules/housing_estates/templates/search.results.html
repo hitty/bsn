@@ -1,0 +1,126 @@
+<div class="central-wrapper">
+    {$search_form}
+
+    <div class="statistic-box">
+        <div class="sb-info">
+                Объектов: {$full_count}{if!empty $paginator}, показаны {$paginator['from_item']}-{$paginator['to_item']}{/if}
+        </div>
+        <div class="sb-quote">
+            Показывать по
+            <div class="list-selector grey" id="count_selector">
+                <a href="#" class="pick">20</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="type_of_object" value="15" />
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="15">15</li>
+                    <li data-value="30">30</li>
+                    <li data-value="60">60</li>
+                </ul>
+            </div>                                    
+        </div>
+    </div>
+   {if!empty $list}
+
+        <table class="estate-list housing_estates-list">
+            <thead>
+                <tr>
+                    <th class="col_photo"><h2>Фото</h2></th>
+                    <th class="col_object"><h2>Тип</h2></th>
+                    <th class="col_title"><h2>Название</h2></th>
+                    <th class="col_address"><h2>Адрес</h2></th>
+                    <th class="col_price"><h2>Цена</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$lkey,$item}
+                    <tr data-id="{$item['id']}">
+                        <td class="col_photo">{if!empty $item['photo']}<img src="{static:/}{$img_folder}/sm/{$item['subfolder']}/{$item['photo']}" alt="{quoted:$item['title']}" width="70"/>{/if}</td>
+                        <td class="col_object">
+                            {ifgt $item['u_count'],0}участки<br />{/if}
+                            {ifgt $item['c_count'],0}коттеджи<br />{/if}
+                            {ifgt $item['t_count'],0}таунхаусы<br />{/if}
+                            {ifgt $item['k_count'],0}квартиры{/if}
+
+                        </td>
+                        <td class="col_title">
+                            <a href="/zhiloy_kompleks/{$item['chpu_title']}/" target="_blank">
+                                {if!empty $item['title']}{$item['title']}{/if}
+                            </a>
+                        </td>
+                        <td class="col_address">
+                            <a href="/zhiloy_kompleks/{$item['chpu_title']}/" target="_blank">
+                                {if!empty $item['district_title']}{$item['district_title']} район, {/if}
+                                {if!empty $item['txt_addr']}{$item['txt_addr']}{/if}
+                            </a>
+                        </td>
+                        <td class="col_price">
+                            <span class="price">
+                                {php:$price_status=!empty($price_from)&&!empty($price_to);}
+                                {if!empty $price_status}
+                                    {if!eq  $item[$price_from],$item[$price_to]}
+                                        {if!empty $item[$price_from]}от {do:echo number_format($item[$price_from],0,'.',' ')}<br />{/if}
+                                        {if!empty $item[$price_to]}до {do:echo number_format($item[$price_to],0,'.',' ')}{/if}
+                                    {else}    
+                                        {if!empty $item[$price_from]} {do:echo number_format($item[$price_from],0,'.',' ')}
+                                        {else}
+                                            {if!empty $item[$price_to]} {do:echo number_format($item[$price_to],0,'.',' ')}{/if}
+                                        {/if}
+                                    {/if}
+                                {else}
+                                    {ifgt $item['u_count'],0}
+                                        {if!eq  $item['u_cost_ub'],$item['u_cost_ue']}
+                                            {if!empty $item['u_cost_ub']}от {do:echo number_format($item['u_cost_ub'],0,'.',' ')}<br />{/if}
+                                            {if!empty $item['u_cost_ue']}до {do:echo number_format($item['u_cost_ue'],0,'.',' ')}{/if}
+                                        {else}    
+                                            {if!empty $item['u_cost_ub']} {do:echo number_format($item['u_cost_ub'],0,'.',' ')}
+                                            {else}
+                                                {if!empty $item['u_cost_ue']} {do:echo number_format($item['u_cost_ue'],0,'.',' ')}{/if}
+                                            {/if}
+                                        {/if}
+                                    {elseifgt $item['c_count'],0}
+                                        {if!eq  $item['c_cost_cb'],$item['c_cost_ce']}
+                                            {if!empty $item['c_cost_cb']}от {do:echo number_format($item['c_cost_cb'],0,'.',' ')}<br />{/if}
+                                            {if!empty $item['c_cost_ce']}до {do:echo number_format($item['c_cost_ce'],0,'.',' ')}{/if}
+                                        {else}    
+                                            {if!empty $item['c_cost_cb']} {do:echo number_format($item['c_cost_cb'],0,'.',' ')}
+                                            {else}
+                                                {if!empty $item['c_cost_ce']} {do:echo number_format($item['c_cost_ce'],0,'.',' ')}{/if}
+                                            {/if}
+                                        {/if}
+                                    {elseifgt $item['t_count'],0}
+                                        {if!eq  $item['t_cost_b'],$item['t_cost_e']}
+                                            {if!empty $item['t_cost_b']}от {do:echo number_format($item['t_cost_b'],0,'.',' ')}<br />{/if}
+                                            {if!empty $item['t_cost_e']}до {do:echo number_format($item['t_cost_e'],0,'.',' ')}{/if}
+                                        {else}    
+                                            {if!empty $item['t_cost_b']} {do:echo number_format($item['t_cost_b'],0,'.',' ')}
+                                            {else}
+                                                {if!empty $item['t_cost_e']} {do:echo number_format($item['t_cost_e'],0,'.',' ')}{/if}
+                                            {/if}
+                                        {/if}
+                                    {elseifgt $item['k_count'],0}
+                                        {if!eq  $item['k_cost_b'],$item['k_cost_e']}
+                                            {if!empty $item['k_cost_b']}от {do:echo number_format($item['k_cost_b'],0,'.',' ')}<br />{/if}
+                                            {if!empty $item['k_cost_e']}до {do:echo number_format($item['k_cost_e'],0,'.',' ')}{/if}
+                                        {else}    
+                                            {if!empty $item['k_cost_b']} {do:echo number_format($item['k_cost_b'],0,'.',' ')}
+                                            {else}
+                                                {if!empty $item['k_cost_e']} {do:echo number_format($item['k_cost_e'],0,'.',' ')}{/if}
+                                            {/if}
+                                        {/if}
+                                    {/if}
+                                
+                                {/if}
+                                
+                            </span>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /templates/includes/paginator.html}
+    {else}
+        <div class="empty-results">
+            По вашему запросу ничего не найдено!
+        </div>
+    {/if}
+</div>

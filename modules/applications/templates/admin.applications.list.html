@@ -1,0 +1,217 @@
+<h1 class="pageTitle">Заявки</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table apps">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_status = document.getElementById('f_status').value;
+            var __filter_estate_type = document.getElementById('f_estate_type').value;
+            var __filter_realtor_help_type = document.getElementById('f_realtor_help_type').value;
+            var __filter_rent = document.getElementById('f_rent').value;
+            var __filter_app_id = document.getElementById('f_app_id').value;
+            var __filter_apper_id = document.getElementById('f_apper_id').value;
+            var __filter_object_id = document.getElementById('f_object_id').value;
+            var __filter_agency = document.getElementById('f_agency').value;
+            var __filter_date_start = document.getElementById('f_date_start').value;
+            var __filter_date_end = document.getElementById('f_date_end').value;
+            var __filter_moder_date_start = document.getElementById('f_moder_date_start').value;
+            var __filter_moder_date_end = document.getElementById('f_moder_date_end').value;
+            
+            var __url = '{root:/admin/service/applications/}';
+            var __get = new Array();
+            if(__filter_status!=0) __get.push('f_status='+__filter_status);
+            if(__filter_estate_type!=0) __get.push('f_estate_type='+__filter_estate_type);
+            if(__filter_realtor_help_type!=0) __get.push('f_realtor_help_type='+__filter_realtor_help_type);
+            if(__filter_rent!=0) __get.push('f_rent='+__filter_rent);
+            if(__filter_app_id!=0) __get.push('f_app_id='+__filter_app_id);
+            if(__filter_apper_id!=0) __get.push('f_apper_id='+__filter_apper_id);
+            if(__filter_object_id!=0) __get.push('f_object_id='+__filter_object_id);
+            if(__filter_agency!=0) __get.push('f_agency='+__filter_agency);
+            if(__filter_date_start!=0) __get.push('f_date_start='+__filter_date_start);
+            if(__filter_date_end!=0) __get.push('f_date_end='+__filter_date_end);
+            if(__filter_moder_date_start!=0) __get.push('f_moder_date_start='+__filter_moder_date_start);
+            if(__filter_moder_date_end!=0) __get.push('f_moder_date_end='+__filter_moder_date_end);
+            
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line wide">
+        <div class="total-found">Всего найдено: {$total_found}</div>
+        <label>
+            Дата cоздания: с <input type="text" size="10" id="f_date_start" name="date_start" value="{$get_array['f_date_start']}"> 
+        </label>
+        <label>
+            по <input type="text" size="10" id="f_date_end" name="date_end"  class="dateChoose" value="{$get_array['f_date_end']}">
+        </label>
+        <label>
+            Дата модерации: с <input type="text" size="10" id="f_moder_date_start" name="moder_date_start" value="{$get_array['f_moder_date_start']}"> 
+        </label>
+        <label>
+            по <input type="text" size="10" id="f_moder_date_end" name="moder_date_end"  class="dateChoose" value="{$get_array['f_moder_date_end']}">
+        </label>
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="10"{ifeq $get_array['f_status'],10} selected="selected"{/if}}>Отработанные</option>
+                <option value="9"{ifeq $get_array['f_status'],9} selected="selected"{/if}}>Нигде</option>
+                <option value="8"{ifeq $get_array['f_status'],8} selected="selected"{/if}}>Архив</option>
+                <option value="6"{ifeq $get_array['f_status'],6} selected="selected"{/if}}>Ожидание старта</option>
+                <option value="5"{ifeq $get_array['f_status'],5} selected="selected"{/if}}>Не прошли модерацию</option>
+                <option value="4"{ifeq $get_array['f_status'],4} selected="selected"{/if}}>На модерации</option>
+                <option value="2"{ifeq $get_array['f_status'],2} selected="selected"{/if}}>Новые</option>
+                <option value="-2"{ifeq $get_array['f_status'],-2} selected="selected"{/if}}>Новые(общий пул)</option>
+                <option value="3"{ifeq $get_array['f_status'],3} selected="selected"{/if}}>В работе</option>
+                <option value="1"{ifeq $get_array['f_status'],1} selected="selected"{/if}}>Завершенные</option>
+                <option value="-3"{ifeq $get_array['f_status'],-3} selected="selected"{/if}}>Обработано(для отчета)</option>
+            </select>
+        </label>
+        <label>
+            Тип недвижимости:
+            <select id="f_estate_type" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_estate_type'],1} selected="selected"{/if}}>Жилая</option>
+                <option value="2"{ifeq $get_array['f_estate_type'],2} selected="selected"{/if}}>Стройка</option>
+                <option value="3"{ifeq $get_array['f_estate_type'],3} selected="selected"{/if}}>Коммерческая</option>
+                <option value="4"{ifeq $get_array['f_estate_type'],4} selected="selected"{/if}}>Загородная</option>
+                <option value="5"{ifeq $get_array['f_estate_type'],5} selected="selected"{/if}}>ЖК</option>
+                <option value="6"{ifeq $get_array['f_estate_type'],6} selected="selected"{/if}}>Коттеджные поселки</option>
+                <option value="7"{ifeq $get_array['f_estate_type'],7} selected="selected"{/if}}>БЦ</option>
+                <option value="8"{ifeq $get_array['f_estate_type'],8} selected="selected"{/if}}>Акция</option>
+            </select>
+        </label>
+        <label>
+            "Помощь риэлтора":
+            <select id="f_realtor_help_type" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_realtor_help_type'],1} selected="selected"{/if}}>Да</option>
+                <option value="2"{ifeq $get_array['f_realtor_help_type'],2} selected="selected"{/if}}>Нет</option>
+            </select>
+        </label>
+        <label>
+            Тип сделки:
+            <select id="f_rent" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_rent'],1} selected="selected"{/if}}>Аренда</option>
+                <option value="2"{ifeq $get_array['f_rent'],2} selected="selected"{/if}}>Продажа</option>
+                <option value="3"{ifeq $get_array['f_rent'],3} selected="selected"{/if}}>Сдам</option>
+                <option value="4"{ifeq $get_array['f_rent'],4} selected="selected"{/if}}>Продам</option>
+            </select>
+        </label>
+        <label>
+            Компания:
+            <select id="f_agency" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">чей объект</option>
+                <option value="-1" {ifeq $get_array['f_agency'],-1} selected="selected"{/if}>объект частного лица</option>
+                {loop $agencies_list,$key,$item}
+                    <option value="{$item['id']}"{ifeq $get_array['f_agency'],$item['id']} selected="selected"{/if}>{$item['title']}</option>
+                {/loop $agencies_list}
+            </select>
+        </label>
+        <label>
+            ID Заявки:
+            <input type="text" id="f_app_id" value="{$get_array['f_app_id']}" onchange="filter_activate()"  placeholder="ID заявки">
+        </label>
+        <label>
+            ID пользователя:
+            <input type="text" id="f_apper_id" value="{$get_array['f_apper_id']}" onchange="filter_activate()"  placeholder="ID пользователя">
+        </label>
+        <label>
+            ID объекта:
+            <input type="text" id="f_object_id" value="{$get_array['f_object_id']}" onchange="filter_activate()"  placeholder="ID объекта">
+        </label>
+    </div>
+    {if!empty $list}
+        <table class="applications-table">    
+            <colgroup>
+                <col class="col2" width="1%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="5%">
+                <col class="col2" width="1%">
+                <col class="col2" width="1%">
+                <col class="col2" width="1%">
+                <col class="col2" width="1%">
+                <col class="col2" width="1%">
+                <col class="col2" width="68%">
+                <col class="col2" width="1%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата и время создания</th>
+                    <th>Дата и время модерации</th>
+                    <th>Статус</th>
+                    <th>Тип недвижимости</th>
+                    <th>Текущая цена</th>
+                    <th>ID объекта</th>
+                    <th>Чей объект</th>
+                    <th>Контакты</th>
+                    <th>Комментарий</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}        
+                    <tr id="item_{$item['id']}" class="{ifeq $item['advanced'],1}advanced{/if}">
+                        <td align="center">{$item['id']}</td>
+                        <td>{ifempty $item['cdatetime_formatted']}{$item['date']}{else}{$item['cdatetime_formatted']}{/if}</td>
+                        <td>{$item['date']}</td>
+                        <td>{$item['status_title']}{ifeq $item['visible_to_all'],1} (общий пул){else}{ifeq $item['visible_to_all'],3}<br />(бесплатно для клиентов){/if}{/if}</td>
+                        <td>{if!empty $item['universal_app_title']}{$item['universal_app_title']}{/if}</td>
+                        <td>{if!empty $item['now_costs']}{$item['now_costs']}{/if}</td>
+                        <td>
+                            {ifempty $item['id_parent']}          
+                                <span>Общая заявка {$item['universal_app_title']}</span>
+                            {else}
+                                {ifeq $item['target_object_status'],3}Объект на модерации
+                                {else}
+                                    {ifempty $item['target_object_status']}Объект удален
+                                    {else}<a href="{$item['object_url']}{if!empty $item['chpu_title']}{$item['chpu_title']}{else}{$item['id_parent']}{/if}/?status=visible" target="_blank">{$item['id_parent']}</a>
+                                    {/if}
+                                {/if}
+                            {/if}
+                            {if!empty $item['id_realtor_help_type']}<span style="display: block;padding-top: 5px; font-size: 12px; color:green">"Помощь риэлтора"</span>{/if}
+                        </td>
+                        <td>{if!empty $item['owner_info']}<a href="{$item['owner_url']}" target="blank">{$item['owner_info']}</a>{/if}</td>
+                        <td>{$item['name']}
+                            {if!empty $item['phone']}<br/> {$item['phone']}{/if}
+                            {if!empty $item['email']}<br/> {$item['email']}{/if}
+                            {if!empty $item['user_type_title']}<br/> {$item['user_type_title']}{/if}
+                            {if!empty $item['work_status_title']}<br/> {$item['work_status_title']}{/if}
+                        <td>{$item['user_comment']}</td>
+                        <td class="small_icons ac">
+                            {if!empty $can_edit}
+                                <a href="/admin/service/applications/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            {/if}
+                            <a href="/admin/service/applications/called/{$item['id']}/" title="В отработанные"><span class="ico_to_called">В отработанные</span></a>
+                            <a href="/admin/service/applications/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            {php:$is_new = ($item['status'] == 2) && ($item['visible_to_all'] == 1)}
+                            {if!empty $is_new}
+                                <a href="/admin/service/applications/remoderate/{$item['id']}/" title="Вернуть на модерацию"><span class="ico_remoderate">Вернуть на модерацию</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery("#f_date_start, #f_date_end, #f_moder_date_start, #f_moder_date_end").datepicker({
+            defaultDate: "0",
+            hideIfNoPrevNext: true,
+            numberOfMonths: 2,
+            dateFormat: 'dd.mm.yy'
+        });    
+        var show = false;
+        jQuery('#f_date_start, #f_date_end, #f_moder_date_start, #f_moder_date_end').change(function(){
+            if(jQuery('#f_date_start').val()!='' && jQuery('#f_date_end').val()!='') filter_activate();
+            if(jQuery('#f_moder_date_start').val()!='' && jQuery('#f_moder_date_end').val()!='') filter_activate();
+        });
+    });
+</script>

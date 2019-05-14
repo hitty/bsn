@@ -1,0 +1,183 @@
+<style>
+.receipt-print table{
+    border-left:1px solid #000;
+    border-top:1px solid #000;
+}
+.receipt-print td{
+    border-right:1px solid #000;
+    border-bottom:1px solid #000;
+    padding:3px;
+}
+</style>
+
+<SCRIPT> 
+function printPage(){
+    window.print();
+}
+
+</script>
+<div class="receipt-print">
+<table border="1" cellpadding="3" cellspacing="0" summary="" style="font-family: sans-serif; font-size: xx-small;" width="560">
+    <tr>
+        <td align="left" height="255" style="vertical-align: middle;" width="200">
+            <p align="center"><font size="2"><strong>ИЗВЕЩЕНИЕ</strong></font></p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;Кассир</p>
+        </td>
+        <td align="left" height="255" style="vertical-align: middle;" width="200">
+            <table border="0" cellpadding="3" cellspacing="0" style="font-family: sans-serif; font-size: xx-small;" width="100%">
+                <tr>
+                    <td colspan="4">ИНН 7805130485, КПП 784101001</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border-bottom: 1px solid black; width: 100%;">ООО "ПетроСервис"</td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="4" style="font-size: smaller;">получатель платежа</td>
+                </tr>
+                <tr style="vertical-align: left;">
+                    <td align="left" nowrap="nowrap" width="1">Учреждение&nbsp;банка</td>
+                    <td colspan="4"  nowrap="nowrap" style="border-bottom: 1px solid black; width: 100%;">ОАО "БАНК САНКТ-ПЕТЕРБУРГ"</td>
+                </tr>
+                <tr style="vertical-align: middle;">
+                    <td height="10">Расчетный счет N</td>
+                    <td height="10">40702810333000005659</td>
+                    <td height="10">БИК</td>
+                    <td height="10">044030790</td></tr>
+                    <tr style="vertical-align: middle;">
+                    <td align="center" colspan="4" height="10">Кор. счет: 30101810900000000790</td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="4">
+                        <div font-size="12px"><u><b>{$item['name']}</b></u></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">Вид платежа</td>
+                    <td align="center">Дата</td>
+                    <td align="center">Сумма</td></tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        Оплата услуг БСН, BS-{$item['id']}
+                    </td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">{$item['cost']} руб</td>
+                </tr>
+                <tr>
+                    <td align="center">Номер:</td>
+                    <td align="center" colspan="3">&nbsp;</td>
+                </tr>
+            <tr>
+                <td align="left" colspan="2" rowspan="2">Плательщик: </td>
+                <td align="center">Пеня:</td>
+                <td align="center">&nbsp;</td>
+            </tr>
+            <tr align="center">
+                <td>Всего:</td>
+                <td><b>{$item['cost']} руб </b></td>
+            </tr>
+
+        </table>
+    </td>
+</tr>
+    <tr>
+        <td align="left" height="255" style="vertical-align: middle;" width="200">
+            <p align="center"><font size="2"><strong>ИЗВЕЩЕНИЕ</strong></font></p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;</p>
+            <p align="center">&nbsp;Кассир</p>
+        </td>
+        <td align="left" height="255" style="vertical-align: middle;" width="200">
+            <table border="0" cellpadding="3" cellspacing="0" style="font-family: sans-serif; font-size: xx-small;" width="100%">
+                <tr>
+                    <td colspan="4">ИНН 7805130485, КПП 784101001</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border-bottom: 1px solid black; width: 100%;">ООО "ПетроСервис"</td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="4" style="font-size: smaller;">получатель платежа</td>
+                </tr>
+                <tr style="vertical-align: left;">
+                    <td align="left" nowrap="nowrap" width="1">Учреждение&nbsp;банка</td>
+                    <td colspan="4"  nowrap="nowrap" style="border-bottom: 1px solid black; width: 100%;">ОАО "БАНК САНКТ-ПЕТЕРБУРГ"</td>
+                </tr>
+                <tr style="vertical-align: middle;">
+                    <td height="10">Расчетный счет N</td>
+                    <td height="10">40702810333000005659</td>
+                    <td height="10">БИК</td>
+                    <td height="10">044030790</td></tr>
+                    <tr style="vertical-align: middle;">
+                    <td align="center" colspan="4" height="10">Кор. счет: 30101810900000000790</td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="4">
+                        <div font-size="12px"><u><b>{$item['name']}</b></u></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">Вид платежа</td>
+                    <td align="center">Дата</td>
+                    <td align="center">Сумма</td></tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        Оплата услуг БСН, BS-{$item['id']}
+                    </td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">{$item['cost']} руб</td>
+                </tr>
+                <tr>
+                    <td align="center">Номер:</td>
+                    <td align="center" colspan="3">&nbsp;</td>
+                </tr>
+            <tr>
+                <td align="left" colspan="2" rowspan="2">Плательщик: </td>
+                <td align="center">Пеня:</td>
+                <td align="center">&nbsp;</td>
+            </tr>
+            <tr align="center">
+                <td>Всего:</td>
+                <td><b>{$item['cost']} руб </b></td>
+            </tr>
+
+        </table>
+    </td>
+</tr>
+</table>
+<br/><br/>
+<FORM>
+    <INPUT TYPE="button" onClick="printPage()" value="Печатать">
+</FORM>
+<div style="width:550px; padding:5px; font-family: Tahoma; font-size:11px; margin-top:20px; background: yellow">
+Уважаемый(ая) {$item['name']},<br/>
+если Вы из Санкт-Петербурга и оплачиваете наши услуги через Сбербанк,<br/>
+то для того, чтобы мы могли оперативно обработать Ваш платеж, выполните <br/>
+одно из следующих условий:<br/><br/>
+
+1) отсканируйте оплаченную квитанцию и пришлите ее
+нам по телефону 655-02-13 или телефону/факсу 655-02-14.<br/>
+2) отсканируйте оплаченную квитанцию и пришлите ее
+нам на адрес: oplata@bsn.ru<br/><br/>
+
+<span style="color:red; font-weight:bold">ВНИМАНИЕ!</span> В случае невыполнения одного из вышеперечисленных действий для уведомления нас<br/>
+об оплате квитанции, Ваша заявка будет размещена в виде расширенной строки или расширенной строки с позиционированием
+<br/>
+фактического поступления денег на наш расчетный счет (в течении 3-7 банковских дней).
+
+<br/><br/>
+* за услугу перевода наличных денег некоторые    банки берут комиссионные<br/>
+в размере 3% от суммы перевода.
+</div>
+<a href="/receipt/">Назад</a>
+</div>

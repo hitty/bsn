@@ -1,0 +1,21 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left">
+    Добрый день{if!empty $data['name']}, {$data['name']}{/if}!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+        
+        На ваш объект "{$data['object_info']}" на {$env['host']} поступила заявка.<br />
+        <br />
+        В качестве логина на {$env['host']} был указан Ваш адрес электронной почты.<br />
+        Регистрация будет считаться завершенной при первом входе в созданный аккаунт.<br /><br />
+        Данные для входа:<br />
+        <font size="+1">
+        Логин: {$data['email']}<br />
+        Пароль: {$data['password']}<br />
+        </font>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

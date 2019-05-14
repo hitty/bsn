@@ -1,0 +1,62 @@
+
+{if!empty $list}
+     <div class="statistic-box">
+        
+            <div class="sb-info">
+                {php:$total = !empty( $paginator['items_count'] ) ? $paginator['items_count'] : count( $list )}
+                Найдено {suffix:$total,'баннер','','а','ов'}<br />
+                {if!empty $paginator}Показано {$paginator['from_item']} - {$paginator['to_item']}{/if}
+            </div>
+        {if!empty $paginator}
+            <div class="list-selector grey" id="count-selector">
+                <a href="#" class="pick">20</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="count" id="count" value="10" />
+                <ul class="list-data">
+                    <li data-value="10">10</li>
+                    <li data-value="20">20</li>
+                    <li data-value="30">30</li>
+                </ul>
+            </div>      
+        {/if}
+    </div>
+    <div class="banners-wrapper cabinet" id="ajax-search-results">
+        {loop $list,$k,$item}       
+            <div class="item shadow-hover transition clearfix" id="{$item['id']}">
+                <div class="image">
+                    <div class="inner">
+                        {if!empty $item['photo']}
+                            <img src="{$item['photo']}" alt="{quoted:$item['title']}" />
+                        {/if}
+                    </div>
+                </div>
+                <div class="info">
+                    <span class="agency external-link text-overflow" {if!empty $item['direct_link']} data-link="{$item['direct_link']}"{/if}>
+                        {if!empty $item['agency_title']}{$item['agency_title']}{elseif!empty $item['title']}{$item['title']}{/if}
+                    </span>
+                    <span class="dates">
+                        Опубликован {$item['normal_date_start']}<br />
+                        Истекает {$item['normal_date_end']}<br />
+                    </span>
+                    <span class="actions">
+                        <span class="tag">{$item['position_title']} </span>
+                        <span class="dashed-link-blue" data-redirect="false" data-url="/members/conversions/banners/stats/popup/{$item['id']}/">Подробная статистика</span>
+                    </span>
+                    
+                </div>
+                
+                <div class="statistics">
+                    <div class="inner">
+                        <span class="views" data-icon="remove_red_eye">{$item['cnt_full']}</span>
+                        <span class="clicks" data-icon="touch_app">{$item['cnt_click_full']}</span>
+                        <span class="ctr" data-icon="assessment">{ifgt $item['cnt_click_full'],0}{php:echo number_format( ( $item['cnt_click_full'] / $item['cnt_full'] )*100, 2, '.', ' ')}{else}0{/if}%</span>
+                    </div>
+                </div>
+            </div>
+        {/loop $list}                                                    
+    </div>     
+    {include /templates/includes/paginator.html} 
+   
+{else}
+    <div class="empty-results">На данный момент у вас нет звонков</div>
+{/if}

@@ -1,0 +1,19 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{$user['user_name']}</b>!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Напоминаем, вебинар <br /><br />
+        <a href="https://www.bsn.ru/webinars/{$item['url']}/" style="font-size: 24px; font-weight: bold;">«{$item['title']}»</a> <br /><br /><br />
+        состоится уже сегодня {$item['date_w']} в {$item['time_w']}.<br /><br />
+        Чтобы перейти к нему в назначенное время, нажмите на кнопку ниже:<br /><br /> 
+        <a href="https://www.bsn.ru/webinars/kvartiry_ot_podryadchikov_osobennosti_pokupki/"><img src="https://st1.bsn.ru/img/layout/webinar-notification.png" /></a><br /><br /> 
+        
+        <b>Участники вебинара узнают промо-код, по которому можно будет получить дополнительную скидку на покупку квартиры от подрядчика.</b>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

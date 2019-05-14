@@ -1,0 +1,18 @@
+<h1 class="pageTitle">Статистика кликов по телефонам в карточках агентств</h1>
+<script type="text/javascript">
+var _chart_url = '/admin/service/stats/phones/';
+var _params_ids = ["f_user_id","date_start","date_end"];
+</script>
+<div class="filter_line" style="text-align: left;">
+    <label >
+        Выбор агентства:
+        <select id="f_user_id" style="width: 270px; ">
+            <option value="0">выберите агентство</option>
+            {loop $agencies,$key,$val}
+                <option value="{$val['id']}"{ifeq $get_array['f_user_id'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+            {/loop $agencies}
+        </select>
+    </label>
+</div>
+{include admin/templates/admin.stat_chart.html}
+<div id="result_info_stats"></div>

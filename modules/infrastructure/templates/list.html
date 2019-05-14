@@ -1,0 +1,15 @@
+
+<div class="infrastructure br3 section" name="infrastructure">
+    {if!eq $estate_type, 'inter'}
+        <div class="title">Инфраструктура</div>
+        <div id="infrastructure" class="br3">
+            <ul>
+               {loop $list,$k,$iitem}
+                    <li class="{$iitem['class']} bbox br3 transition" data-id="{$iitem['id']}" data-icon="check_box_outline_blank" data-items="">{$iitem['title']}</li>
+               {/loop $list}
+            </ul>
+        </div>
+    {/if}
+    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <div class="card-map-wrapper" id="card-map-wrapper-{php:echo mt_rand(0,10000);}" data-lat="{if!empty $item['lat']}{$item['lat']}{elseif!empty $item['x_coord']}{$item['x_coord']}{/if}" data-lng="{if!empty $item['lng']}{$item['lng']}{elseif!empty $item['y_coord']}{$item['y_coord']}{/if}"  data-map-icon="{$estate_type}" data-infrastructure="true"></div>
+</div>

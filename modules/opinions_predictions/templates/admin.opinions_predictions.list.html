@@ -1,0 +1,112 @@
+<h1 class="pageTitle">Мнения / экспертов / Интервью</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/content/opinions_predictions/add/" class="button">Добавить запись</a>
+    <a href="/admin/content/opinions_predictions/flush_memcache/" class="delete-memcache">Очистить кеш для всех блоков на сайте</a>
+    <a href="/admin/content/opinions_predictions/delete_memcache/" class="delete-memcache" >Очистить кеш мнений</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_opinion_type = document.getElementById('f_opinion_type').value;
+            var __filter_estate_type = document.getElementById('f_estate_type').value;
+            var __filter_expert = document.getElementById('f_expert').value;			
+            var __url = '{root:/admin/content/opinions_predictions/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_opinion_type>0) __get.push('f_opinion_type='+__filter_opinion_type);
+            if(__filter_estate_type>0) __get.push('f_estate_type='+__filter_estate_type);			
+            if(__filter_expert>0) __get.push('f_expert='+__filter_expert);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Тип :
+            <select id="f_opinion_type" onchange="filter_activate()" style="width: 150px;">
+                {loop $opinion_types,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_opinion_type'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $opinion_types}
+            </select>
+        </label>    
+        <label>
+            Недвижимость:
+            <select id="f_estate_type" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                {loop $estate_types,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_estate_type'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $estate_types}
+            </select>
+        </label>
+        <label>
+            Эксперт:
+            <select id="f_expert" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                {loop $experts,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_expert'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $experts}
+            </select>
+        </label>
+
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="20%">
+                <col class="col1" width="55%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Эксперт</th>
+                    <th>Аннотация</th>
+                    <th>Дата опубликования</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>
+                            <a href="/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/" target="_blank" title="Посмотреть на сайте">{$item['id']}</a>
+                        </td>
+                        <td>{$item['expert_name']}</td>
+                        <td>{$item['annotation']}</td>
+                        <td>
+                            	{php:echo date('d.m.y',strtotime($item['date']))}
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/opinions_predictions/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/opinions_predictions/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,19 @@
+{include /modules/mailers/templates/simple.header.html}
+
+    <tr> <!-- content - title -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+            {$letter_starting}
+        </td>
+    </tr>
+    <tr> <!-- content - text -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left">             
+            {php: $apps_amount = count($apps_list);}
+            {loop $apps_list,$key,$item}
+                Срок резервирования ({$item['lifetime']} мин.) вашей заявки #{$item['app_id']} от {$item['app_date']} истек, заявка перемещена в общий пул.<br>
+            {/loop $apps_list}
+            <br />
+            <p>Но вы также, но уже на общих основаниях, можете взять {iflt $apps_amount,2}ее{else}их{/if} в работу, если {iflt $apps_amount,2}ее{else}их{/if} не успел взять в работу другой специалист.</p>
+         </td>
+    </tr>
+  
+{include /modules/mailers/templates/simple.footer.html}

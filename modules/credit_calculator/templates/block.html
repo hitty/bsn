@@ -1,0 +1,108 @@
+<div class="credit-box-wrap">
+  <span class="credit-box-wrap_title">Готовы ли вы к ипотеке?</span>
+  <span class="credit-box-wrap_notes">Наша команда и Банк «Санкт-Петербург» подобрали для Вас самые
+приятные предложения на рынке Петербурга. Воспользуйтесь каль-
+кулятором ниже и узнайте, готовы ли вы взять ипотеку на объект
+своей мечты!</span>
+ <input type="radio" value="Р" name="currency" checked="checked" data-min="300000" data-max="{if!empty $item['cost']}{$item['cost']}{else}35000000{/if}" data-step="100000">
+  <div class="input">
+    <div class="content">
+      
+      <div class="type-objects clearfix filter">
+        <span data-market="1" data-object="apartment" data-max-loan="85" class="active" data-index="0">Новостройка</span>
+        <span data-market="2" data-object="apartment" data-max-loan="85" data-index="1">Квартиры</span>
+        <span data-market="2" data-object="house" data-max-loan="75" data-index="2">Дом</span>
+        <span data-market="2" data-object="land" data-max-loan="75" data-index="3">Земля</span>
+      </div>
+      
+      <div class="row clearfix">
+        
+        <div class="title-header">Стоимость объекта</div>
+
+        <div class="slider-and-amount">
+          <div class="slider-container">
+            <div id="amount-slider-wrapper">
+              <div id="amount-slider" class="slider slider-horizontal"></div>
+            </div>
+            <div class="slider-legend">
+              <span class="min" id="amount-min"></span>
+              <span class="max" id="amount-max"></span>
+            </div>
+          </div>
+          <input type="text" class="amount input-small emphasize emphasize-amount" value="{if!empty $item['cost']}{$item['cost']}{else}3000000{/if}" name="amount">
+        </div>
+      
+      </div>
+      
+      <div class="row clearfix">
+
+        <div class="title-header percent">Первый взнос</div>
+        <div class="slider-and-amount">
+          <div class="slider-container">
+            <div id="contribution-slider" class="slider slider-horizontal"></div>
+            <div class="slider-legend">
+              <span class="min" id="contribution-min"></span>
+              <span class="max" id="contribution-max"></span>
+            </div>
+          </div>
+          <input type="text" class="amount input-small emphasize emphasize-amount" value="" name="initialContribution">
+        </div>
+        
+      </div>
+
+      <div class="row clearfix">
+        <div class="title-header">Срок ипотеки</div>
+        <div class="slider-and-amount">
+          <span id="flexible-duration-container">
+            <div class="slider-container">
+              <div id="amount-slider-duration" class="slider slider-horizontal"></div>
+              <div class="slider-legend">
+                <span class="min" id="duration-min"></span>
+                <span class="max" id="duration-max"></span>
+              </div>
+            </div>
+            <input type="text" class="amount input-small emphasize emphasize-amount" value="10" name="duration">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="angle-right"></div>
+  </div>
+  
+  
+  
+  
+  
+  <div class="output credit-box-wrap_control-panel results br3">
+
+      <div class="monthly-payment row clearfix">
+        Ежемесячный платёж
+        <div class="amount"><span id="monthly-payment"></span><span id="monthly-payment-currency" class="currency">Р</span></div>
+      </div>
+
+      <div class="min-salary row clearfix">
+        Минимальный доход
+        <div class="amount"><span id="min-salary"></span><span id="min-salary-currency" class="currency">Р / мес</span></div>
+      </div>
+
+      <div class="interest row clearfix">
+        Ставка
+        <div class="rate"><span id="rate">0%</span></div>
+      </div>
+
+      <div class="withdrawal row clearfix">
+        Полная сумма кредита
+        <div class="withdrawal"><span id="total-cost"></span><span class="currency"></span></div>
+      </div>
+
+  </div>
+  
+    <div class="credit-box-wrap_banks-list">
+        <span class="credit-box_item wrap_details external-link button blue" data-link="https://www.bspb.ru/retail/mortgage/second/form/?utm_source=bsn&utm_medium=calculator&utm_campaign=bspb">Заполнить заявку</span>
+
+        <span class="banks-list_item" data-id="1592" data-min-first="400000" data-max-years="25">
+            При поддержке 
+            <img src="//st1.bsn.ru/img/uploads/sm/44/44950156750002e0bffe0aae15509e3b.png">
+        </span>
+    </div>  
+</div>

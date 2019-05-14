@@ -1,0 +1,29 @@
+<h2 id="members-h2">
+    Объекты
+</h2>
+{php:$total_objects = $counts['published'] + $counts['moderation'] + $counts['archive'] + $counts['draft']}
+{ifgt $total_objects,0}
+    <div class="filter ajax-tabs-container" data-content-container=".estate-form" data-url="">
+        {ifgt $counts['published'],0}<span class=" br3  {if!empty $active_status}{ifeq $active_status,'published'}active{/if}{/if}"     data-param="/members/objects/list/published" data-tab-ref="published">Опубликованы <sup>{$counts['published']}</sup></span>{/if}
+        {ifgt $counts['moderation'],0}<span class=" br3 {if!empty $active_status}{ifeq $active_status,'moderation'}active{/if}{/if}"    data-param="/members/objects/list/moderation"  data-tab-ref="moderation">На модерации <sup>{$counts['moderation']}</sup></span>{/if}
+        {ifgt $counts['archive'],0}<span class=" br3    {if!empty $active_status}{ifeq $active_status,'archive'}active{/if}{/if}"       data-param="/members/objects/list/archive"  data-tab-ref="archive">В архиве <sup>{$counts['archive']}</sup></span>{/if}
+        {ifgt $counts['draft'],0}<span class=" br3      {if!empty $active_status}{ifeq $active_status,'draft'}active{/if}{/if}"         data-param="/members/objects/list/draft"  data-tab-ref="drafted">В черновике <sup>{$counts['draft']}</sup></span>{/if}
+    </div>
+    <div class="estate-form clearfix card">
+        {if!empty $active_status} 
+            <script>getPendingContent('.estate-form', '/members/objects/list/{$active_status}/')</script>
+        {/if}
+    </div>
+    {if!empty $popup_element_link}<div id="popup-element" data-url="{$popup_element_link}" data-location="" ></div>{/if}
+{else}
+    <div class="cabinet empty-list">
+        <span class="title">К сожалению, у вас еще нет ни одного объекта!</span>
+        <div class="buttons">
+            <span class="button blue internal-link" data-link="/members/objects/add/live/sell/">Добавить объект</span>
+            {if!empty $auth['id_agency']}{ifeq $auth['agency_admin'],1}<span class="button grey internal-link" data-link="/members/objects/agencies_uploads/">Добавить объекты по ссылке</span>{/if}{/if}
+        </div>
+        
+    
+    </div>
+    
+{/if}

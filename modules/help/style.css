@@ -1,0 +1,299 @@
+.shadow-wrapper:before,
+.shadow-wrapper:after{
+    content: "";
+    display: table;
+    clear: both;    
+}
+.help-content{
+    border: 1px solid #ccc;
+    float:left;
+    width:100%;
+}
+.help-header{
+    background-color: #3787C7;
+    margin: 4px 5px 26px 5px;
+    padding: 9px 11px 0px 11px;
+}
+.help-header h1{
+    color: #fff;
+    font-family: arial,tahoma,sans-serif;
+    font-size: 16px;
+    line-height: 16px;   
+}
+.help-description{
+    margin:0px 12px 27px 12px;
+    text-align: justify;
+}
+
+.help-menu-header{
+    font-family: arial,tahoma,sans-serif;
+    font-size: 16px;
+    line-height: 16px;
+    color:#000;
+    margin:0px;
+    padding:13px 0px 6px 12px;
+    border-bottom:1px solid #3787c7;
+}
+.help-menu-list{
+    margin-top: 12px;   
+}
+.help-menu-list ul{
+    list-style-type: none;
+    list-style-position: inside;
+}
+.help-menu-list li{
+    margin: 2px 0px 8px 0px;
+    padding: 6px 0px 6px 15px;
+    color: #fff;
+}
+.help-menu-list li.selected{
+    background-color:#f4f4f4;
+    color: #3787C7;
+}
+.help-menu-list a{
+    color:#000;
+    text-decoration: none;
+}
+.help-menu-list a:hover{
+    color:#3787C7;
+}
+.help-menu-wrapper{
+    height: 22px;
+}
+.help-menu-header-first{
+    margin-top:34px;
+}
+.help-category-block{
+    float: left;
+    padding:5px 5px 5px 5px;
+    margin: 40px 5px 5px 5px;
+    width:47%;
+}
+.help-category-block-img{
+    float:left;
+    margin-left:7px;    
+}
+.help-category-txtblock{
+    float: left;
+    padding:1px 1px 1px 1px;
+    margin: 1px 1px 1px 124px;
+    width:60%;
+    position:relative;
+}
+.help-category-txtblock:before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    display: block;
+    background: url("//st1.bsn.ru/img/layout/help_icons102.png") no-repeat scroll 0% 0% transparent;
+    height: 102px;
+    width: 102px;
+    left: -122px;
+    top: 0px;
+}
+.help-category-txtblock.akkaunt:before{
+    background-position: 0px 0px;
+}
+.help-category-txtblock.lichnyy_kabinet:before{
+    background-position: 0px -204px;
+}
+.help-category-txtblock.obschaya_informaciya:before{
+    background-position: 0px -102px;
+}
+.help-category-block-header{
+    margin:23px 0px 0px 0px; 
+    padding:11px 0px 0px 0px;
+    border-top:1px solid #EEEEEE;
+    width:100%;
+}
+.help-category-block-header h2{
+    font-family: arial,tahoma,sans-serif;
+    font-size: 16px;
+    line-height: 10px;
+    color:#1e88e5;
+    padding:0px;
+    margin:0px;  
+}
+.help-category-block-header a{
+    text-decoration: underline;
+}
+.help-category-block-header a:hover{
+    text-decoration: none;
+}
+.help-category-block-descrpt{
+    margin:0px 0px 6px 0px;
+}
+.help-category-block-descrpt h3{
+    font-family: arial,tahoma,sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 14px;
+    margin:0px;
+    padding:0px;
+}
+.help-category-block-article-lst{
+    color:#afafaf;
+}
+.help-category-block-article-lst ul{
+    margin-left:16px;
+    list-style-position: outside;
+    list-style-type: square;
+}
+.help-category-block-article-lst li{
+    margin:5px 0px 5px 0px;
+    line-height:12px;
+}
+.category li{
+    line-height:20px;
+}
+.help-category-block-article-lst a{
+    margin-top:14px;
+    font-family: arial,tahoma,sans-serif;
+    font-size: 12px;
+    color:#959595;
+    text-decoration: underline;
+}
+.help-category-block-article-lst a:hover{
+    text-decoration: none;
+    color:#1e88e5; 
+}
+.help-category-page{
+    margin-top:11px;
+    width:100%;
+}
+.help-category-page .help-category-block-img{
+    margin-left:15px;
+}
+.help-category-page .help-category-txtblock{
+    margin-left:24px;
+    margin-bottom:40px;
+    width:80%;
+}
+ .help-category-block-header{
+    margin-bottom:15px;
+}
+.help-categories-wrapper{
+    float:left;
+    width:100%;
+    height:100px;
+}
+.help-category-page .help-category-block-descrpt{
+    margin-bottom:20px; 
+}
+.help-category-page .help-category-block-article-lst a{
+    font-size: 14px;
+    color:#000;
+}
+.help-category-page .help-category-block-article-lst a:hover{
+    color:#1e88e5;
+}
+.help-category-page .help-category-block-article-lst li{
+    color:#000;
+    margin:3px 0px 3px 0px; 
+}
+.help-article-page{
+    margin:0px 16px 16px 16px;
+}
+.help-article-page ul,ol{
+    list-style-position: inside;
+    list-style-type: square;
+}
+.help-article-header{
+    font-family: arial,tahoma,sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    margin:19px 0px 34px 0px;
+    padding-top:7px;
+    border-top:1px solid #f4f4f4;
+    color:#1e88e5;
+}
+.help-article-useful,.help-article-unuseful,.help-article-back,.help-article-back-top{
+    font-family: arial,tahoma,sans-serif;
+    font-size: 12px;
+    display:inline-block;
+    border:1px solid #ccc;
+    padding:21px 0px 14px 15px;
+    margin:52px 0px 18px 0px;
+}
+.help-article-spec{
+    font-size:0px;
+    text-align:center;
+}
+.help-article-spec a{
+    padding-left: 10px;
+    color:#000;
+    text-decoration:underline;
+}
+.help-article-spec a:hover{
+    color:#1e88e5;
+    text-decoration: none;
+}
+.help-article-spec .text{
+    position:relative;
+    top: 0px;
+    left:10px;
+}
+.help-article-page .icon{
+    float: left;
+    position: relative;
+    top: -3px;
+    width:22px;
+    height:22px;    
+    background-image: url(//st.bsn.ru/img/layout/help_icons22.png);
+}
+.help-article-back,.help-article-back-top{
+    width:155px;
+    border:0px;
+    font-size:14px;
+    padding-left:0px;
+    margin-left:0px;
+}
+.help-article-back{
+    float:left;
+}
+.help-article-back-top{
+    margin:16px 12px 0px 16px;
+    padding:0px;
+}
+.help-article-useful{
+    padding-right:15px;
+}
+.help-article-useful .icon{
+    background-position: -0px -22px;
+}
+.help-article-unuseful{
+    padding-right:15px;
+    border-left:none;
+}
+.help-article-unuseful .icon{
+    background-position: -0px -44px;
+}
+.help-article-views{
+    font-family: arial,tahoma,sans-serif;
+    font-size: 14px;
+    float:right;
+    text-align:left;
+    width:145px;
+    border:1px;
+    padding:21px 0px 23px 0px;
+    margin-top:52px;
+}
+.help-article-views .icon{
+    margin-right:7px;
+    background-position: -0px -0px;
+}
+.useful-voted,.useless-voted{
+    width:312px;
+    font-weight:bold;
+    background-color:#f4f4f4;
+    padding-left:87px;
+}
+.useful-voted{
+    color:#58A92F;
+    text-align:left;
+}
+.useless-voted{
+    color:#d22a2a;
+    border:1px solid #ccc;
+    text-align:left;
+}

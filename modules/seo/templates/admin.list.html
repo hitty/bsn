@@ -1,0 +1,90 @@
+<h1 class="pageTitle">SEO для страниц</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/seo/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_url = document.getElementById('f_url').value;
+            var __filter_pretty_url = document.getElementById('f_pretty_url').value;
+            var __filter_match = jQuery('input[name=f_match]:checked').val();
+            var __url = '{root:/admin/seo/}';
+            var __get = new Array();
+            if(__filter_url!='') __get.push('f_url='+__filter_url);
+            if(__filter_pretty_url!='') __get.push('f_pretty_url='+__filter_pretty_url);
+            if(__filter_match > 0) __get.push('f_match='+__filter_match);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            URL:
+            <input type="text" id="f_url" value="{$get_array['f_url']}" onchange="filter_activate()"  placeholder="адрес страницы">
+        </label>
+        <label>
+            Подменный URL:
+            <input type="text" id="f_pretty_url" value="{$get_array['f_pretty_url']}" onchange="filter_activate()" placeholder="подменный адрес">
+            <span class="lf fieldwrapper" id="span_field_match" data-rel="match onchange="filter_activate()""> 
+                Точное вхождение
+                <input type="radio" name="f_match" value="1" onlick="filter_activate()" id="match_0" {ifeq $get_array['f_match'],'1'}checked="checked"{/if}> 
+                <label class="radio-group-devided" for="match_0" onlick="filter_activate()">Нет</label>
+                <input type="radio" name="f_match" value="2" onlick="filter_activate()" id="match_1" {ifeq $get_array['f_match'],'2'}checked="checked"{/if}> 
+                <label class="radio-group-devided" for="match_1" onlick="filter_activate()">Да</label>
+            </span>        
+            
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="50%">
+                <col class="col1" width="35%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Адреса</th>
+                    <th>Заголовки</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>
+                            {if!empty $item['url']}<p>URL: <strong>{$item['url']}</strong></p>{/if}
+                            {if!empty $item['pretty_url']}<p class="small_text grey">Подменный URL: <strong>{$item['pretty_url']}</strong></p>{/if}
+                        </td>
+                        <td>
+                            {if!empty $item['title']}<p class="small_text">TITLE: {$item['title']}</p>{/if}
+                        	{if!empty $item['h1_title']}<p class="small_text">H1: {$item['h1_title']}</p>{/if}
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/seo/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/seo/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

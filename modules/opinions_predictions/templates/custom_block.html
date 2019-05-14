@@ -1,0 +1,22 @@
+{ifempty $list}
+<p>на данный момент новостей нет</p>
+{else}
+{loop $list,$lk,$item}
+    <div class="central-block">                                    
+        <a href="/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/" title="подробнее" class="image" data-src="{static:/}{$img_folder}/sm/{$item['experts_subfolder']}/{$item['experts_photo']}"></a>
+        <div class="content">
+            <time  data-icon="schedule" datetime="{$item['date']}">{$item['normal_date']}</time>
+            <div class="content-box">
+                <a class="a-h3" href="/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/" title="подробнее">{$item['annotation']}</a>
+                <p class="content-annotation-small"><b>{$item['expert_title']}</b>, {$item['expert_company']}, {$item['agency_title']}</p>
+            </div>
+        </div>
+        <span class="content-categories">
+            <a href="/{$item['type_url']}/" title="{$item['type_title']}">
+                {$item['type_title']}
+            </a> 
+        </span>
+        
+    </div>
+{/loop $list}
+{/if}

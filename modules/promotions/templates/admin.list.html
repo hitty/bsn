@@ -1,0 +1,121 @@
+<h1 class="pageTitle">Акции</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/access/promotions/add/" class="button">Добавить акцию</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_estate_complex_type = document.getElementById('f_estate_complex_type').value;
+            var __filter_estate_type = document.getElementById('f_estate_type').value;
+            var __filter_published = document.getElementById('f_published').value;
+            var __url = '{root:/admin/access/promotions/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_estate_complex_type>0) __get.push('f_estate_complex_type='+__filter_estate_complex_type);            
+            if(__filter_estate_type>0) __get.push('f_estate_type='+__filter_estate_type);            
+            if(__filter_published>0) __get.push('f_published='+__filter_published);			
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+         
+        <label>
+            Тип недвижимости:
+            <select id="f_estate_type" onchange="filter_activate()" style="width: 150px;">
+                <option value=""{ifempty $get_array['f_estate_type']} selected="selected"{/if}>все</option>
+                {loop $estate_types,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_estate_type'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $estate_types}
+            </select>
+        </label>
+        <label>
+            Комплекс:
+            <select id="f_estate_complex_type" onchange="filter_activate()" style="width: 150px;">
+                {loop $estate_complex_types,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_estate_complex_type'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $estate_complex_types}
+            </select>
+        </label>
+        <label>
+            Статус:
+            <select id="f_published" onchange="filter_activate()" style="width: 150px;">
+                <option value="0"{ifempty $get_array['f_published']} selected="selected"{/if}>все</option>
+                <option value="1"{ifeq $get_array['f_published'],1} selected="selected"{/if}>опубликован</option>
+                <option value="2"{ifeq $get_array['f_published'],2} selected="selected"{/if}>не опубликован</option>
+                <option value="3"{ifeq $get_array['f_published'],3} selected="selected"{/if}>а архиве</option>
+            </select>
+        </label>
+
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="20%">
+                <col class="col1" width="10%">
+                <col class="col2" width="25%">
+                <col class="col1" width="25%">
+                <col class="col1" width="5%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Даты проведения</th>
+                    <th>Агентство</th>
+                    <th>Комплекс</th>
+                    <th>Объектов</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>
+                            {if!empty $item['photo']}
+                                <img src="/{$basic_img_dolder}/sm/{$item['subfolder']}/{$item['photo']}" width="150" /><br />
+                            {/if}
+                            {$item['id']}
+                        </td>
+                        <td>{$item['title']}</td>
+                        <td>
+                                {php:echo date('d.m.y',strtotime($item['date_start']))} - 
+                            	{php:echo date('d.m.y',strtotime($item['date_end']))}
+                        </td>
+                        <td>{$item['agency_title']}</td>
+                        <td>{$item['complex_type_title']}: {$item['complex_title']}</td>
+                        <td>{$item['objects_count']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/access/promotions/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/access/promotions/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

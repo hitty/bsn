@@ -1,0 +1,121 @@
+<div id="upload-wrap">
+    <script>
+        if(getParameterByName('ok') == 'true' && getBSNCookie('upload') == null) {
+            document.location.href = '/video_konkurs_2015/';
+        }
+    </script>
+    {ifempty $ok}
+    {ifempty $notify}
+    <form id="upload-form"  method="POST" action="/video_konkurs_2015/" enctype="multipart/form-data">
+        
+        <h2>Загрузи на BSN.ru</h2>
+        <input type="text" name="name" placeholder="Ваше имя" id="name" value="{if!empty $parameters['name']}{$parameters['name']}{/if}" />
+        <input type="email" name="email" placeholder="Email" id="email" value="{if!empty $parameters['email']}{$parameters['email']}{/if}" />
+        <div class="estate-complex-wrap">
+            <input type="text" name="estate_complex_title" id="estate_complex_title" value="{if!empty $parameters['estate_complex_title']}{$parameters['estate_complex_title']}{/if}" class="autocomplete he-title" autocomplete="off" data-url="/zhiloy_kompleks/title/" placeholder="Название ЖК" />
+            <i data-icon="clear"  class="clear-input{ifempty $parameters['estate_complex']} hidden{/if}"></i>
+            <input type="hidden" name="estate_complex" value="{if!empty $parameters['estate_complex']}{$parameters['estate_complex']}{/if}"/>
+            <a href="/map/zhiloy_kompleks/" title="Найти ЖК на карте" target="_blank">Найти на карте</a>
+            <div class="complex-tabs">
+                <span class="selected housing-estate bbox" data-complex-type="1">ЖК</span> 
+                <span class="cottage bbox"  data-complex-type="2">КП</span> 
+                <input type="hidden" name="complex_type" id="complex_type" value="{if!empty $parameters['complex_type']}{$parameters['complex_type']}{else}1{/if}"  />
+            </div>
+        </div>
+        <input type="phone" name="phone" placeholder="Телефон" id="phone" value="{if!empty $parameters['phone']}{$parameters['phone']}{/if}" />
+        <label class="checkbox">
+            
+            <input type="checkbox" value="0" name="offer_agree" id="offer-agree" required="required">
+            Да, я согласен с <span class="external-link" data-link="https://www.bsn.ru/video_konkurs_2015/offer/" data-target="_blank" title="Правила">правилами участия</span>.                
+        </label>
+        {if!empty $errors}
+            <div class="errors-list">
+            {loop $errors,$k,$error}
+                <p>{$error}</p>
+            {/loop $errors}
+            </div>
+            {/if}
+
+            <div class="upload-info">
+                <input type="file" class="custom-file-input" name="userfile" />
+                <span>Мы принимаем видео в формате <b>mp4, 3gp, ogg, avi, mov, wmf</b> длиной <b>не более 3 мин</b>. и объемом до <b>200мб</b></span>
+            </div> 
+            <button type="submit" disabled="disabled" id="send-video">Загрузи</button>
+            <div class="waiting inactive">Подождите пожалуйста...</div>
+        </form>
+        {/if}
+    {else}
+    <div class="upload-complete">
+    
+        {if!empty $errors}
+            <div class="errors-list">
+            {loop $errors,$k,$error}
+                <p>{$error}</p>
+            {/loop $errors}
+            </div>
+        {/if}
+        <a name="thanks"></a>
+        <h3>Спасибо за участие! </h3>
+        {if!empty $notify}<p>{$notify}</p>{/if}
+        <p>После успешной проверки файла на соответствие требованиям конкурса он будет добавлен в каталог. </p>
+        <p>Так же на email придет оповещение со ссылкой на файл.</p>
+        <p>После этого можно начинать голосовать за видео. 3 видео, которые наберут наибольшее количество голосов получат сертификаты на размещение рекламы на БСН.</p>
+        <p>Удачи!</p>
+    </div>
+    {/if}
+    
+    <h2>Поделись этой страницей</h2>
+    <h3>в социальных сетях с хэштегом <span class="red">#ВИДЕОДОМ</span></h3>
+    <div id="social-buttons-content">
+        <script async src="//yastatic.net/share/share.js"></script>
+        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="medium" data-yashareTitle="Я участвую в конкурсе видео о жилых комплексах и коттеджных поселках Санкт-Петербурга и Ленобласти. Голосуйте за меня. #ВИДЕОДОМ" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,gplus" data-yashareTheme="counter"></div>
+    </div>    
+    <div class="get-money">
+        <h2>Набери максимум лайков</h2>
+        <h3>получи рекламу на БСН</h3>
+    </div>
+</div>
+<div id="movies-wrap">
+    <div class="movies">
+        <a href="/video_konkurs_2015/list/" class="show-all" title="Смотреть все видео">Смотреть все</a>
+        <h3>... как уже сделали {suffix:$count,'','участник','участника','участников'}:</h3>
+    </div>
+    <div id="movies-list">
+        {block /video_konkurs_2015/list/block/}
+    </div>
+</div>
+<style type="text/css" media="screen, projection">
+        #port {
+            background: rgb(47, 49, 52);
+            margin: 1.5em 0px;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+        }
+    </style>
+</div>
+<script>
+    jQuery(document).ready(function(){
+        // Declare parallax on layers
+        jQuery('.parallax-layer').parallax({
+            mouseport: jQuery("#parallax"),
+            yparallax: 0
+        },
+        {
+            xparallax: '40px',
+            xorigin: 0,
+        }
+        ,
+        {
+            xparallax: '20px',
+            xorigin: 0 ,
+            decay:0
+        },
+        {
+            xparallax: '50px',
+            xorigin: 0 ,
+            decay:0
+        }
+        );
+    });
+</script>

@@ -1,0 +1,44 @@
+    {if!empty $ajax_mode}{php:$allsmall = true}{/if}
+    {php:if(empty($count)) $count = count($list)}
+    {ifempty $allsmall}
+        {php:$prev_big_image = !empty($big_image)}
+        {php:$big_image = ( !empty($first_big) || !empty($item['main_item']) || !empty($item['article_partner']) || ( !empty($content_type) && $content_type=='articles' && $item['promo']!=2) ) && empty($count_items) }
+        {php:if(!empty($big_image))$count_items++}
+    {/if}
+    {iflte $count_items,$count}
+        {if!empty $item['title']}
+        <div class="{if!empty $big_image}col-2 big{else}col-1{/if} item br3 shadow-hover transition">
+            <a class="internal-link" href="{ifempty $item['link']}/{if!empty $item['content_type']}{$item['content_type']}{else}{$content_type}{/if}/{if!empty $item['category_code']}{$item['category_code']}/{/if}{if!empty $item['region_code']}{$item['region_code']}/{/if}{$item['chpu_title']}/{else}{$item['link']}/{/if}"></a>
+            
+            <div class="categories">
+                {if!empty $item['main_item']}
+                    <span class="category-title blue br3">Новость дня</span>
+                {elseif!empty $item['article_partner']}
+                    {if!empty $big_image}
+                        <span class="category-title green br3">Партнерский материал</span>
+                    {/if}
+                {/if}
+                {if!empty $item['category_title']}<a href="/{if!empty $item['content_type']}{$item['content_type']}{else}{$content_type}{/if}/{if!empty $item['category_code']}{$item['category_code']}/{/if}" title="{$item['category_title']}" class="transition-text category-title br3 text-overflow">{$item['category_title']}</a>{/if}
+            </div>
+            
+            {if!empty $item['video_link']}<span class="transition play" data-icon="play_circle_filled"></span>{/if}
+            
+            <span class="image br3 bg-cover lazy" data-src="{if!empty $item['photo']}{static:/}img/uploads/{if!empty $big_image}big{else}med{/if}/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}"></span>
+            <div class="content">
+                <a class="title transition-text" href="{ifempty $item['link']}/{$item['content_type']}/{if!empty $item['category_code']}{$item['category_code']}/{/if}{if!empty $item['region_code']}{$item['region_code']}/{/if}{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее">{$item['title']}</a>
+            </div>
+             <p class="smallnotes clearfix">
+                {ifeq $item['paid'],1}
+                    <span class="partner-material">Партнерский материал</span>
+                {else}
+                    <time  data-icon="schedule" datetime="{$item['datetime']}" data-icon="schedule">{$item['normal_date']}</time>
+                    <span class="views_count transition" data-icon="visibility">{$item['views_count']}</span>
+                    <span class="comments_count transition" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+                {/if}
+            </p>  
+        </div>
+        {/if}
+    {/if}
+    {php:$count_items++}
+   
+    

@@ -1,0 +1,48 @@
+<form class="consults-view-form flex" method="POST" data-responder="{$info['id']}" action="/service/consultant/add/">
+    <span class="title">Задайте свой вопрос:</span>
+    
+    <div class="row">
+        <input type="text" name="name" required="required" value="{if!empty $form_vars['name']}{$form_vars['name']}{/if}" placeholder="Ваше имя" required="required">
+    </div>
+
+    <div class="row">
+        <input type="text" name="email" class="email" autocomplete="off" required="required" placeholder="Email" value="{if!empty $form_vars['email']}{$form_vars['email']}{/if}" required="required">    
+    </div>
+
+    <div class="row">
+        <input type="text" name="title" placeholder="Заголовок"  required="required">
+    </div>
+
+    <div class="row">
+        <div class="list-selector category grey" data-estate-allowed="1234">
+            <a href="#" class="pick">Выбрать тему вопроса</a>
+            <a href="#" class="select">...</a>
+            <input id="category" name="category" value="" required="required" type="hidden">
+            <ul class="list-data" data-simplebar="init">
+                <li class="selected" data-value="">Выбрать тему вопроса</li>
+                {loop $question_categories_list,$k,$i}
+                    <li data-value="{$k}" class="text-overflow">{$i['title']}</li>
+                {/loop $question_categories_list}
+            </ul>
+        </div>    
+    </div>
+
+    <div class="row text-block">
+        <textarea name="text" id="text" required="required" placeholder="Вопрос"></textarea>
+    </div>
+
+
+    {ifempty $auth}
+    <div class="row">
+        <label class="checkbox agree on">
+            <input id="reg_agree" name="reg_agree" value="1" type="checkbox" data-true-value="1" data-false-value="0" rel="reg_agree">
+            <i>Зарегистрироваться на BSN.ru</i>
+        </label>
+    </div>        
+    {/if}
+    <div class="row">
+        <button class="blue send" name="submit" value="Отправить">Отправить</button>
+    </div>
+    <div class="text grey row">Все поля являются обязательными для заполнения</div>
+    
+</form>

@@ -1,0 +1,26 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <span>Список заблокированных IP по статусам:</span>
+    {if!empty $blocked_ips}
+        {loop $blocked_ips,$status,$status_list}
+            <div>
+                <span>Заблокировано со статусом {$status}</span>
+                <table class="wrapper" width="100%" border="0" cellspacing="0" cellpadding="0" style="padding:0;margin:0;font-family: Tahoma, Arial, Helvetica, sans-serif;!important; font-size:13px;" >
+                    {loop $status_list,$key,$item}
+                        <tr>
+                            <td>{$item['ip']}</td>
+                            <td>{$item['pages_visited']}</td>
+                            <td>{$item['pages_avg_interval']}</td>
+                            <td>{$item['last_visit']}</td>
+                            <td>{$item['visitor_type']}</td>
+                        </tr>
+                    {/loop $status_list}
+                </table>
+            </div>
+        {/loop $blocked_ips}
+    {else}
+    пуст.
+    {/if}
+    <div>Время выполнения: {$time_start} - {$time_end}</div>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

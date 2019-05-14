@@ -1,0 +1,525 @@
+.estate-list .item.expanded, 
+.estate-list .item.payed,
+.estate-list .item.expanded .photo img, 
+.estate-list .item.expanded .photo, 
+.estate-list .item.payed .photo img, 
+.estate-list .item.payed .photo,
+.estate-list .item.payed .info, 
+.estate-list .item .info, 
+.estate-list .item.expanded .info
+{
+    height:120px;
+}
+.estate-list .item .photo{
+    width: 160px;
+}
+.estate-list .item.payed .info, 
+.estate-list .item .info, 
+.estate-list .item.expanded .info{
+    width:560px;
+}      
+.object-actions{
+    clear: both;
+}
+.content .main-content{
+    overflow: hidden;
+}
+.content .payed-format .addr-box{
+    position: relative;
+    z-index: 10;
+    background: none;
+    padding: 30px 0 0 0;
+    color: #000;
+    left: 0;
+    right: 0;
+    border: none;    
+}
+.addr-box .title{
+    font-size: 24px;
+    display: block;
+}
+.addr-box .addr{
+    display: inline-block;
+    font-weight: normal;
+}
+.addr-box .district{
+    background: url('https://st.bsn.ru/img/layout/icons16.png') no-repeat -4px -971px;
+    padding: 0 15px 0 11px;
+}
+.addr-box .subway{
+     background: url('https://st.bsn.ru/img/layout/icons16.png') no-repeat 0px -431px;    
+     padding-left: 18px;
+     display: block;
+}
+.content .payed-format .info-wrap .lrmp{
+    padding: 0;
+    width: 100%;
+}
+.content .params-box .value.vip{
+    margin-bottom: 0;
+}
+.content .gallery-box.slide-thumbs .thumbs-wrap .thumbs-list a{
+    width: 270px;
+    height: 187px;    
+}
+.content .payed-format .slide-photogallery{
+    width: 760px;
+}
+.content .payed-format .gallery-box.slide-thumbs .central-right,
+.content .payed-format .gallery-box.slide-thumbs,
+.content .gallery-box.slide-thumbs .thumbs-wrap{
+    height: 190px;
+    min-height: 190px;
+}
+.expand-row{
+    background: #969696;
+    padding: 10px 30px;
+    margin-top: -5px;
+    cursor: pointer;
+    position: relative;
+    color:#fff;
+}
+.expand-row:before,
+.expand-row:after{
+    content: "▾";
+    position: absolute;
+    left: 8px;
+    top: 1px;
+    display: block;
+    height: 33px;
+    font-size: 25px;
+    padding: 0 10px 0 0;
+    line-height: 33px;
+    
+}
+.expand-row:after{
+    left: auto;
+    right: 8px;
+}
+.expand-row.active:before,
+.expand-row.active:after{
+    content: "▴";
+}
+.expand-row.active:after{
+    
+}
+.expand-row span{
+    display: none;
+    border-bottom: 1px dashed;
+}
+.expand-row .expand{
+   display: inline-block; 
+}
+.expand-row.active .hide{
+    display: inline-block;
+}
+.expand-row.active .expand,
+.expand-row + .expand-info{
+    display: none;
+}
+.payed-format .expand-info{
+    background: none!important;
+}
+.payed-format .expand-info .info{
+    background: #e6e6e6;
+}
+.expand-row.active + .expand-info{
+    display: block;
+}
+.payed-format .expand-info .item{
+    float: none!important;
+}
+.content .payed-format .notes-box{
+    width: auto;
+    float: none;
+    padding-top: 10px;
+    font-size: 16px!important;
+}
+.content .payed-format .notes-box .bottom-gradient-overflow{
+    max-height: 100%;
+}
+.content .payed-format .notes-box h2{
+    font-weight: bold!important;
+}
+.payed-format .params-list{
+    margin: 0 0 10px 10px;
+}
+.content .offices-box{
+    padding-top: 10px;
+    min-height: 450px;
+}
+.content .offices-box .offices{
+    margin: 0;
+    position: relative;
+}
+.offices-box .offices .info{
+    
+}
+.content .offices-box .offices .list{
+    display: block;
+    float: none;
+    width: auto;
+    height: auto;
+}
+.offices-box .offices .list .header{
+    border: none;
+}
+.offices-box .offices.plans .plans-wrap,
+.offices-box .offices.list .list-wrap{
+   display: block; 
+}
+.offices-box .offices.list .plans-wrap,
+.offices-box .offices.plans .list-wrap{
+   display: none; 
+}
+.offices-box .offices .list .number,
+.offices-box .offices .list .level{
+    width:30px;    
+}
+.offices-box .offices .list div{
+    min-width:25px;    
+}
+.offices-box .offices .list .renter{
+   width: 220px;
+}
+.offices-box .offices .list .renter b{
+white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: normal;
+    width: 200px;
+    display: block;
+    float: left;
+    position: absolute;
+    left: 0;
+    top: -16px;
+    margin-top: 2px;
+}
+.offices-box .offices .list .date-rent-end{
+   width: 100px; 
+}
+.offices-box .offices .list .date-rent-end.warning{
+    color:#d71d1d;
+    position: relative;
+}
+.offices-box .offices .list .date-rent-end.warning:before{
+content: "!";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #d71d1d;
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+    left: 0;
+    top: 1px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-right: 2px;
+}
+.content .offices-box .offices .list .item.active{
+    background: #a9d71d;
+}
+.content .offices-box .offices .list .item.active .checkbox{
+    background-position: 0 -19px;
+}
+.offices-box .offices .fixed-wrap {
+    position: absolute;
+    top: 0;
+    right: -220px;
+    width: 200px;
+    background: #e6e6e6;
+}
+.offices-box .offices .list-wrap .list .number {
+    width: 70px;
+}
+.offices-box .offices .list-wrap .list .cost_meter {
+    width: 80px;
+}
+.offices-box .offices .list-wrap .list .cost{
+    width: 90px;
+}
+.offices-box .offices .list-wrap .list .square {
+    width: 50px;
+}
+.offices-box .offices .fixed-wrap .info-wrap.fixed {
+    position: fixed;
+    width: 200px;
+    top: 45px;
+}
+.offices-box .offices .fixed-wrap .info-wrap.fixed-bottom {
+    position: fixed;
+    width: 200px;
+    bottom: 70px;
+}
+.offices-box .offices .info-wrap .title {
+    padding: 10px 10px 0 10px;
+    background: #a9d71d;
+}
+
+.offices-box .offices .info-wrap .title .count {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.offices-box .offices .info-wrap .title .square {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.offices-box .offices .info-wrap .title .level {
+    float: right;
+    margin-top: 5px;
+}
+
+.offices-box .offices .info-wrap .title img {
+    margin: 5px -10px 0px -10px;
+    width: 200px;
+    display: block;
+}
+
+.offices-box .offices .info-wrap .title .date-rent-end {
+    display: block;
+    padding: 5px 0;
+}
+.offices-box .offices .info-wrap .title .date-rent-end.warning{
+    color: #d71d1d;
+    position: relative;    
+    padding-left: 20px;
+}
+.offices-box .offices .info-wrap .title .date-rent-end.warning:before {
+    content: "!";
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #d71d1d;
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+    left: 0;
+    top: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 16px;
+}
+.offices-box .offices .info-wrap .renter-title{
+    padding: 14px 10px 10px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+}
+.offices-box .offices .info-wrap .filter {
+    margin: 0;
+    float: none;
+}
+
+.offices-box .offices .info-wrap .filter li {
+    display: block;
+    margin-top: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    padding: 7px 10px 7px 25px;
+    font-size: 12px;
+    position:relative;
+    background:  #969696;
+}
+.offices-box .offices .info-wrap .filter li span{
+    border-bottom: 1px dashed #fff;
+    display: inline-block;
+    float: none;
+    margin: 0;
+    padding: 0;
+    color:#fff;
+}
+.offices-box .offices .info-wrap .filter li:hover span{
+    border-bottom: 1px dashed rgba(0,0,0,0);
+    color:#fff;
+}
+.offices-box .offices .info-wrap .filter li:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 5px;
+    height: 16px;
+    width: 16px;
+    left: 5px;
+    background: url(//st1.bsn.ru/img/layout/icons16.png) no-repeat;
+}
+
+.offices-box .offices .info-wrap .filter .commercial:before {
+    background-position: 0px -1830px;
+}
+
+.offices-box .offices .info-wrap .filter .delete:before {
+    background-position: 0px -1452px;
+}
+.offices-box .offices .info-wrap .filter .delete {
+    background-color: #d71d1d;
+}
+
+.offices-box .offices .info-wrap .filter .change:before {
+    background-position: 0px -1862px;
+}
+
+.view-type{
+    float: right;
+    margin-top: 25px;
+}
+.view-type span{
+    color: #969696;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px dashed #969696;
+    margin-left: 40px;
+    font-size: 16px;
+}
+.view-type .active{
+    border-bottom: none;
+    color:#000;
+}
+.view-type span:before{
+    content:"";
+    background: url(//st1.bsn.ru/img/layout/icons16.png) no-repeat 0px -1816px;
+    display: block;
+    position: absolute;
+    top:0;
+    left: -17px;
+    width: 16px;
+    height: 16px;
+}
+.view-type .list.active:before{
+     background-position: 0px -1800px;
+}
+.view-type .plans:before{
+    background: url(//st1.bsn.ru/img/layout/icons16.png) no-repeat 0px -1784px;
+}
+.view-type .plans.active:before{
+    background-position: 0px -1768px;
+}
+.offices-box .select-level{
+    max-width: 270px;
+}
+.offices-box .select-level.plans .all{
+    display: none;
+}
+.offices-box .offices .plans polygon.active, .offices-box .offices .plans rect.active{
+    fill: rgba(169, 215, 29, 1)!important;
+}
+.offices-box .offices .plans polygon.hovered:not(.rented):not(.storeroom), .offices-box .offices .plans polygon:hover:not(.rented):not(.storeroom), .offices-box .offices .plans rect.hovered:not(.rented):not(.storeroom), .offices-box .offices .plans rect:hover:not(.rented):not(.storeroom){
+    stroke: rgba(169, 215, 29, 1)!important;
+}
+.offices-box .offices .plans rect.can-rent:hover:not(.rented):not(.storeroom),
+.offices-box .offices .plans polygon.can-rent:hover:not(.rented):not(.storeroom){
+    fill: rgba(255, 232, 232, .5);
+}
+#change-renter-wrap{
+    display: none;    
+}
+#change-renter{
+    height: 230px;
+    width: 300px;
+    z-index: 1000000;
+    position: fixed;
+    left: 50%;
+    float: none;
+    color: #000;
+    margin: -150px 0 0 -110px;
+    top: 50%;
+    padding: 20px;
+    background: #fff;
+    opacity: 0;
+    transition: margin .3s, opacity .3s;
+    -webkit-transition: margin .3s, opacity .3s;
+    -moz-transition: margin .3s, opacity .3s;
+    -ms-transition: margin .3s, opacity .3s;
+    -o-transition: margin .3s, opacity .3s;
+    text-indent: -2000;
+}
+#change-renter.active{
+    text-indent: 0;
+    margin-top: -130px;
+    opacity: 1;
+}
+#change-renter .form-title{
+    display: block;
+    width: 100%;
+    height: 30px;
+    background-color: #1E88E5;
+    color: #FFF;
+    position: relative;
+    z-index: 10;
+    font-size: 28px;
+    font-weight: bold;
+    margin: -20px -20px 0 -20px;
+    padding: 10px 20px 30px 20px;
+}
+#change-renter .form-title span{
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+    margin-top: -2px;
+}
+#change-renter .interval-selector{
+    width: 300px;
+    padding: 0;
+    margin: 0;
+    height: 40px;
+}    
+#change-renter .list-selector{
+    margin:0;
+}
+#change-renter .title{
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+#change-renter .interval-selector span{
+    float: left;
+}
+#change-renter .interval-selector span input{
+    margin-left: 5px;
+    width: 100px;
+}
+#change-renter .interval-selector span:nth-of-type(2){
+    margin-left: 10px;
+}
+.xdsoft_datetimepicker{
+    margin-top: -42px!important;
+    z-index: 100000!important;
+}
+.modal-inner .button-container{
+    top: 50%;
+    z-index: 100000;
+    opacity: 1;
+    width: 340px;
+    left: 50%;
+    margin: 150px 0 0 -110px;
+    padding: 0px;
+    height: 70px;
+    text-align: center;
+    position: fixed;
+    transition: margin 0.3s ease 0s, opacity 0.3s ease 0s;
+    background: #FFF;
+}
+.modal-inner .button-container button{
+    margin-top: 15px;
+}
+.modal-inner .closebutton{
+    width: 20px;
+    height: 20px;
+    right: -30px;
+    top: 0px;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    position: absolute;
+    z-index: 20;
+}
+.modal-inner .closebutton:hover{
+    background-color: #1E88E5;
+}
+.offices-box .offices .plans svg{
+    left: -90px;
+}               

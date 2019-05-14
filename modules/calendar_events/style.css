@@ -1,0 +1,170 @@
+.calendar-mainpage h2:first-letter {
+    text-transform: uppercase;
+}
+
+.content-wrapper .item.big .image {
+    height: 240px;
+    border-radius: 3px 3px 0 0;
+}
+
+.content-wrapper .item.big .title {
+    color: #000;
+    font-size: 22px;
+    line-height: 26px;
+}
+
+.content-wrapper .item.big .image:before {
+    background: none;
+}
+
+.content-wrapper .item.big .content {
+    font-size: 12px;
+    bottom: auto;
+}
+
+.content-wrapper .item .city {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #818181;
+    max-width: 240px;
+}
+
+.content-wrapper .item.big .city {
+    max-width: 540px;
+}
+
+.content-wrapper .item.hidden {
+    display: none;
+}
+
+.content-wrapper .item.show-all .content {
+    width: 70%;
+    margin: 120px auto 0 auto;
+    text-align: center;
+}
+.content-wrapper .item.big .categories{
+    top: 190px
+}
+.content-wrapper .item .categories{
+    top: 160px
+}
+.content-wrapper .item .categories .date i {
+    margin-right: 3px;
+}
+.content-wrapper .item .categories .date i:nth-child(2):before {
+    content: "-";
+    display: inline-block;
+    margin-right: 5px;
+}
+.content-wrapper .item .categories .active-event-badge{
+    color: #dd0000;
+    background: #fff;    
+}
+.content-wrapper .item .categories .active-event-badge i {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #dd0000;
+    border-radius: 6px;
+    -webkit-animation: fade 5s infinite;
+    -moz-animation: fade 5s infinite;
+    -o-animation: fade 5s infinite;
+    animation: fade 5s infinite;
+    position: relative;
+    margin: -2px 4px 0 0;
+    top: -1px;http://novostroiki-spb.plp7.ru/
+}
+@-webkit-keyframes fade {
+  0%   { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@-moz-keyframes fade {
+  0%   { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@-o-keyframes fade {
+  0%   { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes fade {
+  0%   { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+
+article .title{
+    margin: 0 40px 40px 40px;
+    padding-top: 70px;
+    text-align: center;
+}
+article .smallnotes,
+article .smallnotes [data-icon]::before{
+    color:#818181;
+}
+
+
+article .registration-wrapper {
+    padding: 120px 40px;
+}
+
+article .registration-wrapper .wrapper {
+    margin: 0 auto;
+    width: 700px;
+    background-color: rgba(255,255,255,0.8);
+    padding: 30px 50px;
+    text-align: center;
+}
+
+article .registration-wrapper time {
+    font-size: 30px;
+    display: block;
+}
+
+article .registration-wrapper .place {
+    display: block;
+    color: #818181;
+    padding: 10px 0 0 0;
+    font-size: 16px;
+}
+article .registration-wrapper button{
+    margin-top: 30px;
+}
+article .registration-wrapper .place:before{
+    position: relative;
+    float: none;
+    margin: -1px 5px 0 0;
+    font-size: 22px;    
+}
+.top-banner-wrapper + header + .central-column article h1 {
+    margin-top: 30px;
+}
+
+article .external-link{
+    color: #1e88e5;
+    border-bottom: 1px solid #1e88e5;
+}
+article .external-link:hover{
+    border-bottom: 1px solid rgba(0,0,0,0);
+}
+article #social-buttons-content{
+    margin: 40px 0 20px 0;    
+}
+article #social-buttons-content:before{
+    color: #818181;
+    margin: 0 5px 0 0;    
+}
+.content-wrapper .item .categories {
+    z-index: 20;
+}
+.bigtext a{
+    border: none;
+}         
+.content-wrapper .item.big:hover .title{
+    color: #1e88e5;
+}

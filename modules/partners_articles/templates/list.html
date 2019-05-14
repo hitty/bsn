@@ -1,0 +1,16 @@
+<div class="topgray">
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{ifempty $list}
+<p>на данный момент новостей нет</p>
+{else}
+    {loop $list,$lk,$item}
+        <div class="central-block dotted news-list">
+            <h3><a href="/partners_articles_{$item['new_prefix']}/{$item['code']}/" title="подробнее">{$item['title']}</a></h3>
+            <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['normal_date']}</time>
+            <p>{stripall:$item['content_short']}</p>
+            <div class="cleaner">&nbsp;</div>
+        </div>
+    {/loop $list}
+    {include /templates/includes/paginator.html}
+{/if}
+</div>

@@ -1,0 +1,94 @@
+<h1 class="pageTitle">География</h1>
+	<script type="text/javascript">
+        function filter_activate(objectType){
+            var __get = new Array();
+            var __filter_id_country = document.getElementById('id_country').options[document.getElementById('id_country').selectedIndex].value;
+            if(__filter_id_country!='') __get.push('id_country='+__filter_id_country);
+            if(objectType!='country'){
+				if(document.getElementById('id_region')){
+                    var __filter_id_region = document.getElementById('id_region').options[document.getElementById('id_region').selectedIndex].value;
+                    if(__filter_id_region!=0) __get.push('id_region='+__filter_id_region);
+                }
+				if(document.getElementById('id_area') && objectType!='region'){
+                    var __filter_id_area = document.getElementById('id_area').options[document.getElementById('id_area').selectedIndex].value;
+                    if(__filter_id_area!=0) __get.push('id_area='+__filter_id_area);
+                }
+            }
+			var __url = '{root:/admin/geodata/objects/$form_parameter/}';
+            if(__get.length>'') __url = __url+'?'+__get.join('&');
+			document.location.href = __url;
+        }
+    </script>
+
+    {ifempty $data_mapping['id']['value']}
+        <form class="form_default" method="post" action="/admin/geodata/objects/add/{if!empty $get_string}?{$get_string}{/if}">
+        <h3>Новая запись</h3>
+    {else}
+        <form class="form_default" method="post" action="/admin/geodata/objects/edit/{$data_mapping['id']['value']}/{if!empty $get_string}?{$get_string}{/if}">
+        <h3>id #{$data_mapping['id']['value']} &quot;{$data_mapping['offname']['value']}&quot;</h3>
+    {/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+{ifeq $form_parameter,'add'}   
+    <fieldset>
+        <p>   
+            <label>Страна:</label>
+            <span class="lf fieldwrapper">
+                <select id="id_country" onchange="filter_activate('country')" style="width: 150px;">
+                    <option value="">-</option>
+                    {loop $id_country,$key,$val}
+                    <option value="{$val['id_country']}" {ifeq $get_array['id_country'],$val['id_country']} selected="selected"{/if}>{$val['offname']}</option>
+                    {/loop $id_country}
+                </select>
+            </span>
+        </p>
+        {if!empty $id_region}
+            <p>   
+                <label>Регион:</label>
+                <span class="lf fieldwrapper">
+                    <select id="id_region" onchange="filter_activate('region')" style="width: 150px;">
+                        <option value="">-</option>
+                        {loop $id_region,$key,$val}
+                        <option value="{$val['id_region']}" {ifeq $get_array['id_region'],$val['id_region']} selected="selected"{/if}>{$val['offname']}</option>
+                        {/loop $id_region}
+                    </select>
+                </span>
+            </p>
+        {/if}
+        {if!empty $id_area}
+            <p>   
+                <label>Региональный объект:</label>
+                <span class="lf fieldwrapper">
+                    <select id="id_area" onchange="filter_activate('')" style="width: 150px;">
+                        <option value="">-</option>
+                        {loop $id_area,$key,$val}
+                        <option value="{$val['id_area']}" {ifeq $get_array['id_area'],$val['id_area']} selected="selected"{/if}>{$val['offname']}</option>
+                        {/loop $id_area}
+                    </select>
+                </span>
+            </p>
+        {/if}
+    </fieldset>
+{/if}
+ 
+    
+    {include /admin/templates/form_default.html}
+</form>

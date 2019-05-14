@@ -1,0 +1,64 @@
+<h1 class="pageTitle">Статистика баннеров Кредитный калькулятор</h1>
+<div class="showSpecStats">
+    <img width="150" style="display: block;" src="/{$info['photo']}">
+    <span style="display: block;">Статистика для баннера: <strong>{$info['title']}</strong></span>
+    
+    <form method="post" action="/admin/advert_objects/credit_calculator/stats/{$info['id']}/" class="form_default">
+    	<input type="hidden" value="ok" name="process"> 
+        Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$info['date_start']}"> 
+        по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$info['date_end']}">
+        <input type="submit" value="показать" name="submit" style="display:none;" id="submitButton" />
+    </form>
+	<div class="separator"></div>
+</div>
+        {if!empty $form_submit}
+		<div id="result_info_stats">
+            <table width="600" cellspacing="0" cellpadding="10">
+              <tbody>
+                  <tr>
+                    <th width="100">Дата</th>
+                    <th width="120">Показы в карточке</th>
+                    <th width="90">Переходы с карточки</th>
+                    <th width="80">CTR в карточке, %</th>
+                    <th width="90">Переходы с ФБ</th>
+                    <th width="120">Показы в поиске</th>
+                    <th width="90">Переходы с поиска</th>
+                    <th width="80">CTR в поиске, %</th>
+                  </tr>
+                    {php:$total_show_card=0}
+                    {php:$total_click_card=0}
+                    {php:$total_click_fb=0}
+                  	{php:$total_show_search=0}
+                    {php:$total_click_search=0}
+                    {loop $stats,$key,$item}
+                    	<tr>
+                        	<td>{$item['date']}</td>
+                            <td>{$item['show_amount_card']}</td>
+                            <td>{$item['click_amount_card']}</td>
+                            <td>{ifgt $item['show_amount_card'],0}{php:echo number_format(($item['click_amount_card']/$item['show_amount_card'])*100, 2, '.', ' ')}{else}0{/if}</td>
+                            <td>{$item['click_amount_fb']}</td>
+                        	<td>{$item['show_amount_search']}</td>
+                        	<td>{$item['click_amount_search']}</td>
+                            <td>{ifgt $item['show_amount_search'],0}{php:echo number_format(($item['click_amount_search']/$item['show_amount_search'])*100, 2, '.', ' ')}{else}0{/if}</td>
+						</tr>
+                        {php:$total_show_card=$total_show_card+$item['show_amount_card']}
+                        {php:$total_click_card=$total_click_card+$item['click_amount_card']}
+                        {php:$total_click_fb=$total_click_fb+$item['click_amount_fb']}
+                        {php:$total_show_search=$total_show_search+$item['show_amount_search']}
+                        {php:$total_click_search=$total_click_search+$item['click_amount_search']}
+                    {/loop $stats} 
+                  <tr>
+                    <th>Всего</th>
+                    <th>{$total_show_card}</th>
+                    <th>{$total_click_card}</th>
+                    <th>{ifgt $total_show_card,0}{php:echo number_format(($total_click_card/$total_show_card)*100, 2, '.', ' ')}{else}0{/if}</th>
+                    <th>{$total_click_fb}</th>
+                    <th>{$total_show_search}</th>
+                    <th>{$total_click_search}</th>
+                    <th>{ifgt $total_show_search,0}{php:echo number_format(($total_click_search/$total_show_search)*100, 2, '.', ' ')}{else}0{/if}</th>
+                  </tr>
+            </tbody>
+            </table>
+      	</div>    
+    {/if}
+

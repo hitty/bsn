@@ -1,0 +1,55 @@
+<h1 class="pageTitle">Статистика Телеграмного ботопоиска</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table telegrambot">
+    <script type="text/javascript">
+        function filter_activate(){
+            /*
+            var __filter_date_start = document.getElementById('f_date_start').value;
+            var __filter_date_end = document.getElementById('f_date_end').value;
+            
+            var __url = '{root:/admin/service/applications/}';
+            var __get = new Array();
+            
+            if(__filter_date_start!=0) __get.push('f_date_start='+__filter_date_start);
+            if(__filter_date_end!=0) __get.push('f_date_end='+__filter_date_end);
+            
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+            */
+        }
+    </script>
+    <div class="filter_line wide">
+    </div>
+    {if!empty $info}
+        <table class="telegrambot_info-table">    
+            <colgroup>
+                <col class="col2" width="1%">
+                
+                <col class="col2" width="1%">
+            </colgroup>
+            <thead>
+                
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Пользователей всего</td>
+                    <td>{$info['users_total']}</td>
+                </tr>
+                <tr>
+                    <td>Поисковых запросов в день</td>
+                    <td>{$info['searches_avg_day']}</td>
+                </tr>
+                <tr>
+                    <td>Пользователей в день</td>
+                    <td>{$info['users_avg_day']}</td>
+                </tr>
+                <tr>
+                    <td>Последнее использование</td>
+                    <td>{$info['last_usage']}</td>
+                </tr>
+            </tbody>
+        </table>
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

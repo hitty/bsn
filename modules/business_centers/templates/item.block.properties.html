@@ -1,0 +1,95 @@
+{if!empty $item['transport']}<p><span><b>Транспортная доступность</b></span><i>{strip:$item['transport']}</i></p>{/if}
+            {if!empty $item['buildyear']}<p><span><b>Год постройки</b></span><i>{strip:$item['buildyear']}</i></p>{/if}
+            {if!empty $item['remontyear']}<p><span><b>Год ремонта</b></span><i>{strip:$item['remontyear']}</i></p>{/if}
+            {if!empty $item['startyear']}<p><span><b>Год начала строительства</b></span><i>{strip:$item['startyear']}</i></p>{/if}
+            {if!empty $payed_format}
+
+                {if!empty $item['officeareasmin'] || $item['officeareasmax']}
+                    <p>
+                        <span><b>Площади</b></span>
+                        <i>
+                            {ifgt $item['officeareasmin'],0}
+                                {ifempty $item['officeareasmax']}от {numberformat:$item['officeareasmin']}
+                                {else} от {numberformat:$item['officeareasmin']} до {numberformat:$item['officeareasmax']}
+                                {/if}
+                            {elseifgt $item['officeareasmax'],0}
+                                до {numberformat:$item['officeareasmax']}
+                            {/if}                        
+                            м<sup>2</sup>
+                        </i>
+                    </p>
+                {/if}
+                {if!empty $item['m2monthcostmin'] || $item['m2monthcostmax']}
+                    <p>
+                        <span><b>Ставка, месяц</b></span>
+                        <i>
+                            {ifgt $item['m2monthcostmin'],0}
+                                {ifempty $item['m2monthcostmax']}от {numberformat:$item['m2monthcostmin']}
+                                {else} от {numberformat:$item['m2monthcostmin']} до {numberformat:$item['m2monthcostmax']}
+                                {/if}
+                            {elseifgt $item['m2monthcostmax'],0}
+                                до {numberformat:$item['m2monthcostmax']}
+                            {/if}                        
+                            руб/м<sup>2</sup>
+                        </i>
+                    </p>
+                {/if}
+                {if!empty $item['m2yearcostmin'] || $item['m2yearcostmax']}
+                    <p>
+                        <span><b>Ставка, год</b></span>
+                        <i>
+                            {ifgt $item['m2yearcostmin'],0}
+                                {ifempty $item['m2yearcostmax']}от {numberformat:$item['m2yearcostmin']}
+                                {else} от {numberformat:$item['m2yearcostmin']} до {numberformat:$item['m2yearcostmax']}
+                                {/if}
+                            {elseifgt $item['m2yearcostmax'],0}
+                                до {numberformat:$item['m2yearcostmax']}
+                            {/if}                        
+                            руб/м<sup>2</sup>
+                        </i>
+                    </p>
+                {/if}
+            {/if}
+            {if!empty $item['allarea']}<p><span><b>Общая площадь БЦ</b></span><i>{numberformat:$item['allarea']} м<sup>2</sup></i></p>{/if}
+            {if!empty $item['rentarea']}<p><span><b>Суммарная площадь для аренды</b></span><i>{numberformat:$item['rentarea']} м<sup>2</sup></i></p>{/if}
+            {if!empty $item['lift']}<p><span><b>Лифт</b></span><i>{strip:$item['lift']}</i></p>{/if}
+            {if!empty $item['climatesystem']}<p><span><b>Климат-системы</b></span><i>{strip:$item['climatesystem']}</i></p>{/if}
+            {if!empty $item['otherrentcond']}<p><span><b>Дополнительные условия аренды</b></span><i>{strip:$item['otherrentcond']}</i></p>{/if}
+            {if!empty $item['wareareasmin'] || $item['wareareasmax']}
+                <p>
+                    <span><b>Площадь складских помещений</b></span>
+                    <i>
+                        {ifgt $item['wareareasmin'],0}
+                            {ifempty $item['wareareasmax']}от {numberformat:$item['wareareasmin']}
+                            {else} от {numberformat:$item['wareareasmin']} до {numberformat:$item['wareareasmax']}
+                            {/if}
+                        {elseifgt $item['wareareasmax'],0}
+                            до {numberformat:$item['wareareasmax']}
+                        {/if}                        
+                        м<sup>2</sup>
+                    </i>
+                </p>
+            {/if}
+            {if!empty $item['warecostm2min'] || $item['warecostm2max']}
+                <p>
+                    <span><b>Ставка складских помещений</b></span>
+                    <i>
+                        {ifgt $item['warecostm2min'],0}
+                            {ifempty $item['warecostm2max']}от {numberformat:$item['warecostm2min']}
+                            {else} от {numberformat:$item['warecostm2min']} до {numberformat:$item['warecostm2max']}
+                            {/if}
+                        {elseifgt $item['warecostm2max'],0}
+                            до {numberformat:$item['warecostm2max']}
+                        {/if}                        
+                        м<sup>2</sup>
+                    </i>
+                </p>
+            {/if}            
+            {if!empty $item['infra']}<p><span><b>Инфраструктура</b></span><i>{strip:$item['infra']}</i></p>{/if}
+            {if!empty $item['food']}<p><span><b>Кафе, рестораны</b></span><i>{strip:$item['food']}</i></p>{/if}
+            {if!empty $item['shops']}<p><span><b>Магазины</b></span><i>{strip:$item['shops']}</i></p>{/if}
+            {if!empty $item['service']}<p><span><b>Сервисные линии</b></span><i>{strip:$item['service']}</i></p>{/if}
+            {if!empty $item['office']}<p><span><b>Офисы</b></span><i>{strip:$item['office']}</i></p>{/if}
+            {if!empty $item['parking']}<p><span><b>Парковка</b></span><i>{strip:$item['parking']}</i></p>{/if}
+            {if!empty $item['securesystem']}<p><span><b>Системы безопасности</b></span><i>{strip:$item['securesystem']}</i></p>{/if}
+            {if!empty $item['advert_text']}{$item['advert_text']}{/if}

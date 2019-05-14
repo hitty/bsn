@@ -1,0 +1,30 @@
+<!--<h1 id="members-h1">Личный кабинет</h1>-->
+<h2 id="members-h2">
+    Финансы
+    <div class="limit-page-wrap">
+        Показывать по
+        <div class="list-selector grey" id="limit-selector">
+            <a href="#" class="pick">20</a>
+            <a href="#" class="select">...</a>
+            <input type="hidden" name="limit_page" id="limit-page" value="15" />
+            <ul class="list-data" data-simplebar="init">
+                <li data-value="10">10</li>
+                <li data-value="20">20</li>
+                <li data-value="30">30</li>
+            </ul>
+        </div>                                    
+    </div>
+</h2>
+<div class="members-stats-wrap finances"></div>
+<div id="finances-url" style="display: none;" class="active"  data-value="/members/finances/?ajax=true"></div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.members-stats-wrap').ajaxfilter({
+            url_element             : '#finances-url',
+            limit_on_page_element   : '#limit-selector',
+            page_element            : '.paginator',
+            query_form_element      : '#ajax-filter'
+        })
+    })
+    
+</script>

@@ -1,0 +1,21 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{$auth_data['name']}{if!empty $auth_data['lastname']} {$auth_data['lastname']}{/if}</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        {ifgt $total_objects,1}Ваши {suffix:$total_objects,'объект','','а','ов'} опубликованы {if!empty $object_data['status_text']}{$object_data['status_text']}{/if}
+        {else}Ваш объект опубликован {if!empty $object_data['status_text']}{$object_data['status_text']}{/if}
+        {/if} до {$object_data['status_date_end']}<br/><br/>
+        {ifgt $total_objects,1}Ссылки на карточки объектов{else}Ссылка на карточку объекта{/if}:<br/>
+        {loop $objects_links,$k,$i}
+            {loop $i,$key,$item}
+                <a href="http://{$item}" title="">{$item}</a><br/>
+            {/loop $i}
+            <br/>
+        {/loop $objects_links}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

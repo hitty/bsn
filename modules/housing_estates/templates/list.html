@@ -1,0 +1,35 @@
+{if!empty $housing_estate_expert}
+    {php:$show_expert_form = ( empty( $housing_estate_expert['name'] ) && empty( $housing_estate_expert['lastname'] ) ) || empty( $housing_estate_expert['job'] )}
+    {if!empty $show_expert_form}
+        <form class="expert-personal-wrapper clearfix" action="/zhiloy_kompleks/votes/personal_info/">
+            <span class="title">Позвольте прояснить пару деталей.</span>
+            <div class="row">
+                <input type="text" name="fio" placeholder="Как вас зовут? (ФИО)" value="{if!empty $housing_estate_expert['name']}{$housing_estate_expert['name']}{/if}{if!empty $housing_estate_expert['lastname']} {$housing_estate_expert['lastname']}{/if}" required="required" />
+            </div>
+            <div class="row">
+                <input type="text" name="job" value="{$housing_estate_expert['job']}" placeholder="Ваша компания и должность" required="required" />
+            </div>
+            <div class="row">
+                <span class="button">Подтвердить</span>
+            </div>
+        </form>
+    {/if}
+{/if}
+
+<div class="central-main-content br3 clearfix col-3"> 
+    <div id="search-results">
+        {if!empty $list}
+            {php:$advert_in_estate_list = true;}
+            {include /modules/housing_estates/templates/list.block.html}
+        {else}
+            <div class="empty-results">
+                По вашему запросу ничего не найдено!
+            </div>
+        {/if}    
+    </div>
+</div>
+{if!empty $housing_estate_expert}
+    {ifempty $housing_estate_expert['resume']}
+        <span class="send-resume" data-url="/zhiloy_kompleks/votes/popup_resume/"></span>
+    {/if}
+{/if}

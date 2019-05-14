@@ -1,0 +1,31 @@
+<div class="vacancies-response-form br3">
+    <form action="/calendar/registration/" method="POST" enctype="multipart/form-data">
+        <span class="title">Стать участником мероприятия!</span>
+        
+        <div class="row">
+            <input type="text" name="name" placeholder="ФИО*" required="required" value="">   
+        </div>
+        <div class="row">
+            <input type="phone" name="phone" placeholder="Контактный телефон*" required="required" value="">
+        </div>
+        <div class="row">
+            <input type="text" name="email" placeholder="E-mail*" class="email"  required="required" value="">
+        </div>
+        
+        <div class="row">
+            <input type="text" name="company" placeholder="Компания" value="">
+        </div>
+        <div class="row">
+            <input type="text" name="job" placeholder="Должность" value="">
+        </div>
+        <div class="row">
+            <textarea name="wishes" placeholder="Пожелания" ></textarea>
+        </div>
+
+        <input type="hidden" name="id" value="{$id}"/>
+        
+        <div class="row">
+            <button class="send" value="Зарегистрироваться">Зарегистрироваться</button>
+        </div>
+    
+    </form>

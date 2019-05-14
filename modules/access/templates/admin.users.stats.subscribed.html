@@ -1,0 +1,36 @@
+<h1 class="pageTitle">Статистика подписавшихся пользователей</h1>
+<div class="showSpecStats">
+    <form method="post" action="" class="form_default">
+    	<input type="hidden" value="ok" name="process"> 
+        Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$info['date_start']}"> 
+        по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$info['date_end']}">
+        <input type="submit" value="показать" name="submit" style="display:none;" id="submitButton" />
+    </form>
+	<div class="separator"></div>
+</div>
+{if!empty $form_submit}
+    {ifempty $stats}<p>За данный промежуток времени статистики нет</p>
+    {else}
+    <div id="result_info_stats">
+        <table width="400" cellspacing="0" cellpadding="10">
+          <tbody>
+              <tr>
+                <th width="100">Дата</th>
+                <th width="100">Подписчики</th>
+                <th width="100">Отписалось</th>
+                <th width="100">Изменение</th>
+              </tr>
+              {loop $stats,$key,$item}
+                  <tr>
+                      <td>{$item['date']}</td>
+                      <td>{$item['subscribed']}</td>
+                      <td>{$item['unsubscribed']}</td>
+                      <td>{$item['changes']}</td>
+			      </tr>
+              {/loop $stats} 
+        </tbody>
+        </table>
+    </div>
+    {/if}    
+{/if}
+

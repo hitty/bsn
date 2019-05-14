@@ -1,0 +1,37 @@
+<div class="consultant-item" id="{$item['id']}">
+        <div class="info-line">
+            <span class="line__general">
+                <span>{$item['id']}</span>
+                <span>{$item['question_normal_date']}</span>
+            </span>
+            <span class="line__title">
+                <span class="question-title">{$item['question_title']}</span>
+                
+            </span>
+            <span class="line__controls">
+                <button class="blue read-answers{if!empty $answers_list[$lk]} has-answers{/if}" data-text="{if!empty $answers_list[$lk]}Дан ответ{else}Смотреть вопрос{/if}" >{if!empty $answers_list[$lk]}Дан ответ{else}Смотреть вопрос{/if}</button>
+            </span>
+        </div>
+        <div class="dropdown-box">
+            <span class="question-author">{$item['question_author_info']}</span>
+            <div class="dropdown-box__question">{$item['question']}</div>
+           
+            {if!empty $answers_list[$lk]}
+                <div class="dropdown-box__answers-list">
+                    {php: $answers_for_this = $answers_list[$lk];}
+                    {loop $answers_for_this,$answers_key,$answer}
+                        <div class="answer-box">
+                            <span>{$answer['answer']}</span>
+                        </div>
+                        <span class="answer-author">
+                            {if!empty $answer['user_info']}
+                                {$answer['user_info']} {if!empty $answer['normal_date']}- {$answer['normal_date']}{/if}
+                            {else}
+                                {$answer['normal_date']}
+                            {/if}
+                        </span>
+                    {/loop $answers_for_this}
+                </div>
+            {/if}
+        </div>
+    </div>

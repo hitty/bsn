@@ -1,0 +1,221 @@
+<h1 class="pageTitle">Агентства</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/access/agencies/add/">
+    <h3>Новое агентство</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/access/agencies/edit/{$data_mapping['id']['value']}/">
+    <h3>Агентство #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    
+    <fieldset class="main-office-add">
+        <p title="Головной офис">
+            <label>Головной офис</label>
+            <span class="lf fieldwrapper" id="autocomplete_inputbox">
+                <input type="text" class="autocomplete_input autocomplete" id="head_input" value="{$head_office_title}" data-url="/admin/access/agencies/heads/{$data_mapping['id']['value']}/" autocomplete="off" data-input="id_main_office">
+            </span>
+            <span class=inputbox_clear id="head_clear">ОЧИСТИТЬ</span>
+        </p>
+    </fieldset>
+    
+    {if!empty $data_mapping['id']['value']}
+        <fieldset>
+            <h3>Загрузка логотипа агентства #{$data_mapping['title']['value']}</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/access/agencies/photos/" data-session-id="{php:echo session_id();}"/>
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>        
+    {/if}
+    {if!empty $weekday_hours}
+    <fieldset class="working-time">
+        {loop $weekday_hours,$key,$item}
+            <div class="working-day">
+                <span class="day-title">{$item['ru_title']}</span>
+                <span class="{if!empty $item['begin']}checked{/if} switcher" data-day="{$key}"><span class="circled"></span></span>
+                <input class="datetimepicker active-date end" type="text" value="{if!empty $item['end']}{$item['end']}{/if}" {ifempty $item['begin']}disabled="disabled"{/if}>
+                <input class="datetimepicker active-date begin" type="text" value="{if!empty $item['begin']}{$item['begin']}{/if}" {ifempty $item['begin']}disabled="disabled"{/if}>
+                <input class="radio applications-processing" name="applications_processing" value="{$item['applications_processing']}" {ifeq $item['applications_processing'],1}checked="checked"{/if} type="checkbox" title="Обработка заявок в этот день (да/нет)" {ifempty $item['begin']}disabled="disabled"{/if}>
+            </div>
+        {/loop $weekday_hours}
+    </fieldset>
+    {/if}
+    <p>
+        {if!empty $data_mapping['id']['value']}<input type="submit" value="Сохранить" name="submit">
+        {else} <input type="submit" value="Сохранить и добавить фото" name="submit">{/if}
+    </p>         
+</form>
+{if!empty $published_objects}
+    {loop $published_objects,$k,$v}
+        <input type="hidden" name="{$v['type']}" value="{$v['cnt']}" class="packets_objects_counter" />
+    {/loop $published_objects}
+{/if}
+<script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+<div id="map-box"></div>
+<script>
+    jQuery(document).ready(function(){
+        //сдвигаем кнопку "очистить" ближе к полям ввода
+        $("#head_clear").offset({ top: jQuery('#head_input').offset().top, left: jQuery('#head_input').offset().left+jQuery('#head_input').width()+30});
+        //сдвигаем карту правее поля "адрес"
+        $('#map-box').offset({top:jQuery('#p_field_title').offset().top+10,left:jQuery('#addr').offset().left+jQuery('#addr').width()+20});
+        //сдвигаем блок с временем работы по дням под карту
+        //jQuery('.worktimes').after("<div class='worktimes-box'></div>");
+        jQuery('.worktimes').after(jQuery('.working-time').css('position','relative').css('margin','0 auto'));
+        //$('.working-time').offset({top:jQuery('#map-box').offset().top,left:jQuery('#map-box').offset().left+jQuery('#map-box').width()+50});
+        
+        //очитска inputbox и поля, где был id введенного агентства
+        jQuery('#head_clear').click(function(){
+            jQuery('#id_main_office').val(0);
+            jQuery('#head_input').val('');
+        });
+        
+        //карта и геолокация
+        if(jQuery('#map-box').length > 0){
+            ymaps.ready(function () {
+                var _element = jQuery('#map-box');
+                var _lat_el = jQuery('#lat');
+                var _lng_el = jQuery('#lng');
+                var _lat = _lat_el.val();
+                var _lng = _lng_el.val();
+                if(parseInt(_lat)==0 && parseInt(_lng)==0){
+                   _lat = 59.938014; 
+                   _lng = 30.307489; 
+                }
+                myMap = new ymaps.Map('map-box', {
+                        center: [_lat, _lng], 
+                        zoom: 14
+                });
+                myMap.controls.add('typeSelector').add('smallZoomControl', { left: 5, top: 5 }); 
+
+                // Создаем метку и задаем изображение для ее иконки
+                placemark = new ymaps.Placemark([_lat, _lng], {
+                    hintContent: 'Передвиньте отметку для точного определения местоположения.'
+                }, {
+                    iconImageHref: '/img/layout/map_icons/add_icon.png', 
+                    iconImageSize: [39, 50],
+                    iconImageOffset: [-18, -50], 
+                    draggable: true
+                });
+                myMap.geoObjects.add(placemark);  
+
+                //Отслеживаем событие перемещения метки
+                placemark.events.add("dragend", function (e) {            
+                    coords = this.geometry.getCoordinates();
+                    myMap.setCenter([coords[0].toFixed(4), coords[1].toFixed(4)]);
+                        _lat_el.val(coords[0].toFixed(4));
+                        _lng_el.val(coords[1].toFixed(4));            
+                }, placemark);
+                filltxtAddress();
+            });
+        }
+        
+        //корректировка карты по строке
+        function filltxtAddress(){
+            var _lat_el = jQuery('#lat');
+            var _lng_el = jQuery('#lng');
+            var _addr = jQuery('#addr').val();
+            if(typeof ymaps !== 'undefined'){
+                ymaps.geocode(_addr, { results: 1 }).then(function (res) {
+                    // Выбираем первый результат геокодирования
+                    var _geoObject = res.geoObjects.get(0);
+                    if(_geoObject!=null){
+                        var _coords = _geoObject.geometry.getCoordinates();
+                        myMap.setCenter([_coords[0].toFixed(4), _coords[1].toFixed(4)]);
+                        placemark.geometry.setCoordinates([_coords[0].toFixed(4), _coords[1].toFixed(4)]);
+                        _lat_el.val(_coords[0].toFixed(4));
+                        _lng_el.val(_coords[1].toFixed(4));
+                    }
+                });
+            }
+        }
+        
+        //корректируем карту по снятии фокуса с адреса
+        jQuery('#addr').on('change',function(){
+            filltxtAddress();
+        });
+        
+        if(jQuery('.datetimepicker').length>0){
+            jQuery('.datetimepicker').datetimepicker();
+        }
+        jQuery('.working-time').find('input.datetimepicker').datetimepicker({
+          datepicker:false,
+          format:'H:i',
+            allowTimes:[
+              '8:00',  '8:30',
+              '9:00',  '9:30',
+              '10:00', '10:30',
+              '11:00', '11:30',
+              '12:00', '12:30',
+              '13:00', '13:30',
+              '14:00', '14:30',
+              '15:00', '15:30',
+              '16:00', '16:30',
+              '17:00', '17:30',
+              '18:00', '18:30',
+              '19:00', '19:30',
+              '20:00', '20:30',
+              '21:00', '21:30',
+              '22:00', '22:30',
+              '23:00', '23:30',
+             ],
+          onChangeDateTime:function(dp,$input){
+              $input.attr('value',$input.val())
+          }
+        });
+        
+        
+        jQuery('.p_field_open_hours').each(function(){
+            var _this = jQuery(this);
+            _this.children('span').children('.switcher').on('click',function(){
+                jQuery(this).toggleClass('checked');
+                if(jQuery(this).hasClass('checked')) {
+                    jQuery(this).siblings('input').attr('disabled',false).addClass('active-date');
+                } else {
+                    jQuery(this).siblings('input').attr('disabled','disabled').removeClass('active-date');
+                }
+            })
+        })
+        jQuery('.applications-processing').on('click',function(){
+            if(jQuery(this).attr('checked')!==undefined) jQuery(this).removeAttr('checked').val('2');
+            else jQuery(this).attr('checked','checked').val('1');
+        });
+        jQuery('.switcher').on('click',function(){
+            jQuery(this).toggleClass('checked');
+            if(jQuery(this).hasClass('checked')){
+                jQuery(this).siblings('input').attr('disabled',false);
+                jQuery(this).siblings('input.datetimepicker').addClass('active-date');
+            } 
+            else jQuery(this).siblings('input').attr('disabled','disabled').removeClass('active-date');
+        });
+        jQuery('input[type="submit"]').on('click',function(){
+            var _times = new Array();
+            jQuery('.working-day').each(function(){
+                if(jQuery(this).children('.switcher').hasClass('checked'))
+                    _times.push(jQuery(this).children('.switcher').attr('data-day')+","+jQuery(this).children('.active-date.begin').val()+","+jQuery(this).children('.active-date.end').val()+","+jQuery(this).children('.applications-processing').val());
+                else _times.push(jQuery(this).children('.switcher').attr('data-day')+",0,0,0");
+            });
+            if(jQuery('#working_times').length == 0) jQuery('#id_main_office').after('<input type="hidden" id="working_times" name="working_times" value="">');
+            jQuery('#working_times').val(JSON.stringify(_times));
+        });
+        //для кастомизации datetimepicker
+        jQuery('.xdsoft_datetimepicker').addClass('time-only');
+    });
+</script>

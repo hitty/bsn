@@ -1,0 +1,62 @@
+<h1 class="pageTitle">Пользователи телеграмного ботопоиска</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table apps">
+    <script type="text/javascript">
+        function filter_activate(){
+            /*
+            var __filter_status = document.getElementById('f_status').value;
+            
+            var __url = '{root:/admin/service/applications/}';
+            var __get = new Array();
+            if(__filter_status!=0) __get.push('f_status='+__filter_status);
+            
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+            */
+        }
+    </script>
+    <div class="filter_line wide">
+        <div class="total-found">Всего найдено: {$total_found}</div>
+    </div>
+    {if!empty $list}
+        <table class="telegram_users-table">    
+            <colgroup>
+                <col class="col2" width="24%">
+                <col class="col2" width="25%">
+                <col class="col2" width="25%">
+                <col class="col2" width="25%">
+                <col class="col2" width="1%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Telegram_userinfo</th>
+                    <th>Средние в день</th>
+                    <th>Поисковых запросов</th>
+                    <th>Был последний раз</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" class="{ifeq $item['advanced'],1}advanced{/if}">
+                        <td align="left">
+                            <span>ID телеграма<i>{$item['telegram_id']}</i></span>
+                            <span>Имя<i>{$item['full_name']}</i></span>
+                            <span>Логин телеграма<i>{$item['telegram_name']}</span>
+                        </td>
+                        <td>
+                            <span>Команд в день<i>{$item['total_avg_day']}</i></span>
+                            <span>Поисковых запросов в день<i>{$item['searches_avg_day']}</i></span>
+                        </td>
+                        <td>{$item['searches']}</td>
+                        <td>{$item['last_seen']}</td>
+                        <td class="small_icons ac">
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

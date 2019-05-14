@@ -1,0 +1,51 @@
+.ajax-graphics{
+    width:760px;
+    display: inline-block;
+    overflow:hidden;
+    margin-top:20px;
+}
+div .type-pie {
+    height: 335px;
+}
+span.graphics-container{
+    display: block;
+    height: 200px;    
+}
+span.graphics-container text{
+    font-size: 9px;
+}
+span.graphics-container-wide{
+    display: block;
+    width: 750px;
+    height: 200px;    
+}
+div.type-column{
+    width: 760px;
+}
+div.type-column span.graphics-container{
+    width: 760px;
+}
+.ajax-graphics p.graphics-help{
+    font-size:11px;
+    margin:0;
+    padding:1px;
+    color:#999;
+}
+ 
+.ajax-graphics-tabs{
+    padding: 10px 0 0 0;
+    text-align: center;
+}
+.ajax-graphics-tabs li{
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #1e88e5;
+    border-bottom: 1px dashed #1e88e5;
+    cursor: pointer;
+}
+.ajax-graphics-tabs li.active{
+    color: #333333;
+    border-bottom: none;
+}

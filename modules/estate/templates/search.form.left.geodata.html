@@ -1,0 +1,72 @@
+            {ifempty $form_data['geodata']}
+                {php:$show_districts = empty($form_data['regions']) || $form_data['regions']!=47}
+                {if!eq $estate_type,'country'}
+                    {if!empty $show_districts}
+                        {php:$districts = $form_filter['districts'];}
+                        {php:$reset = false;}
+                        {loop $districts,$k,$item}
+                            {if!empty $item['active']}{php:$reset = true;}{/if}    
+                        {/loop $districts}
+                        
+                        <div class="block">
+                            <span class="title on">Районы города</span>
+                            <div class="data{ifempty $reset} expanded{/if} districts"  data-type="districts">
+                                <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$districts['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                                {loop $districts,$k,$item}
+                                    {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                    {if!empty $show_link}
+                                        <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if} data-id="{$item['id']}">{$item['title']}</a>
+                                        {ifempty $reset} {ifeq $k,4}<span class="expand dashed-link-blue">Показать остальные</span>{/if}{/if}
+                                    {else}
+                                        <span data-id="{$item['id']}" class="geodata-items" data-link="{$item['url']}"></span>
+                                    {/if}
+                                {/loop $districts}
+                            </div>                                    
+                        </div>
+                    {/if}
+                {/if}
+
+                {php:$show_district_areas = empty($form_data['regions']) || $form_data['regions']!=78}
+                {if!empty $show_district_areas}
+                    {php:$district_areas = $form_filter['district_areas'];}
+                    {php:$reset = false;}
+                    {loop $district_areas,$k,$item}
+                        {if!empty $item['active']}{php:$reset = true;}{/if}    
+                    {/loop $district_areas}
+                    
+                    <div class="block">
+                        <span class="title on">Районы ЛО</span>
+                        <div class="data{ifempty $reset} expanded{/if} district-areas"  data-type="district_areas">
+                            <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$district_areas['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                            {loop $district_areas,$k,$item}
+                                {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                                {if!empty $show_link}
+                                    <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if} data-id="{$item['id']}">{$item['title']}</a>
+                                {/if}   
+                                {ifempty $reset} {ifeq $k,4}<span class="expand dashed-link-blue">Показать остальные</span>{/if}{/if}
+                            {/loop $district_areas}
+                        </div>                                    
+                    </div>
+                {/if}
+                
+                {php:$subways = $form_filter['subways'];}
+                {php:$reset = false;}
+                {loop $subways,$k,$item}
+                    {if!empty $item['active']}{php:$reset = true;}{/if}    
+                {/loop $subways}
+                
+                <div class="block">
+                    <span class="title on">Станции метро</span>
+                    <div class="data{ifempty $reset} expanded{/if} subways"  data-type="subways">
+                        <span class="{if!empty $reset}reset{else}multi{/if}" data-url="{$subways['reset_url']}">{if!empty $reset}Сбросить этот фильтр{else}Выбрать несколько{/if}</span>
+                        {loop $subways,$k,$item}
+                            {php:$show_link = !empty($item['url']) && (empty($reset) || !empty($item['active']))}
+                            {if!empty $show_link}
+                                <a data-id="{$item['id']}" href="{$item['url']}" title="{$item['title']}"{if!empty $item['active']} class="on"{/if} data-id="{$item['id']}">{$item['title']}</a>
+                                {ifempty $reset} {ifeq $k,4}<span class="expand dashed-link-blue">Показать остальные</span>{/if}{/if}
+                            {/if}
+                        {/loop $subways}
+                    </div>                                    
+                </div>
+            {/if}
+           

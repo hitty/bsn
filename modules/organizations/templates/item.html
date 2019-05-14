@@ -1,0 +1,125 @@
+{php:$payed_format = true}
+{php:$agency_id = $info['id']}
+<div class="organization-item">
+
+<article itemscope itemtype="http://schema.org/Product" class="card clearfix organizations">
+    <div class="pretitle">
+        {if!empty $info['doverie_years']}
+            <span title="Призер конкурса Доверие потребителя" class="doverie-years br3">
+                победитель конкурса «доверие потребителя» в {$info['doverie_years']}
+            </span>
+        {/if}
+    </div>
+    <h1 class="mtitle" itemprop="name">{$info['title']}</h1>
+    {if!empty $info['activities']}
+        <div class="specialization-list">
+            {php: $activities = $info['activities'];}
+            {loop $activities,$key,$actty}
+                <span class="item">{$actty['title']}</span>{if!empty $activities[$key+1]},{/if}
+            {/loop $activities}
+            &nbsp;
+            <div class="objects-count">
+                {ifgt $amounts['objects'],0}/ <span class=" br3 scroll-to transition" data-target="objects" data-tab-ref=".objects">Объекты<sup>{$amounts['objects']}</sup></span>{/if}
+                {ifgt $amounts['housing_estates'],0}/ <span class=" br3 scroll-to transition" data-target="objects" data-tab-ref=".housing-estates">Жилые комплексы<sup>{$amounts['housing_estates']}</sup></span>{/if}
+                {ifgt $amounts['apartments'],0}/ <span class=" br3 scroll-to transition" data-target="objects" data-tab-ref=".apartments">Апартаменты<sup>{$amounts['apartments']}</sup></span>{/if}
+                {ifgt $amounts['business_centers'],0}/ <span class=" br3 scroll-to transition" data-target="objects" data-tab-ref=".business-centers">Бизнес-центры<sup>{$amounts['business_centers']}</sup></span>{/if}
+            </div>
+        </div>
+    {/if}
+
+    <div class="central-main-content">
+        <div class="photo">
+            {if!empty $info['agency_photo']}
+                <img src="{static:/}{$info['agency_photo_folder']}/{$info['agency_photo']}" alt="{quoted:$info['title']}"/>
+            {/if}
+        </div>
+        {if!empty $info['description']}
+            <div class="notes-wrap col-3 bbox">
+                {$info['description']}
+            </div>
+        {/if}
+        <div class="contacts-wrap clearfix">
+
+            {if!empty $info['advert_phone'] || $info['phone_1']}
+                <span class="phone-wrap">
+                    {if!empty $info['advert_phone']} {$info['advert_phone']} {else} {$info['phone_1']} {/if}
+                </span>             
+            {/if}
+            <span data-url="/applications/popup/?agency_id={$info['id']}" class="button blue popup bbox" data-url="/applications/popup/" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }" data-location="organization-application" >Оставить заявку</span>        
+            {if!empty $info['email']}
+                <a href="mailto:{$info['email']}" class="email-wrap button white bbox">
+                    Отправить email    
+                </a>             
+            {/if}
+            {if!empty $info['url']}
+                <br/><span class="external-link url" data-link="{$info['url']}">Перейти на сайт компании</span>             
+            {/if}
+        </div>
+    </div>
+</article>
+        
+{if!empty $total_objects}        
+<section class=" central-main-content card" name="objects">
+    <div class="left-part">    
+        <div class="objects central">
+            <span class="title">В продаже</title>
+            <div class="filter" data-content-container=".tabs-wrapper">
+                {ifgt $amounts['objects'],0}<span class=" br3" data-tab-ref=".objects">Объекты</span>{/if}
+                {ifgt $amounts['housing_estates'],0}<span class=" br3" data-tab-ref=".housing-estates">Жилые комплексы</span>{/if}
+                {ifgt $amounts['apartments'],0}<span class=" br3" data-tab-ref=".apartments">Апартаменты</span>{/if}
+                {ifgt $amounts['business_centers'],0}<span class=" br3" data-tab-ref=".business-centers">Бизнес-центры</span>{/if}
+            </div>
+            
+            <div class="tabs-wrapper clearfix">
+                
+                {ifgt $amounts['objects'],0}
+                    <div class="tab objects">
+                        {include /modules/organizations/templates/estate_search_form_tiny.html}
+                        <div id="ajax-search-results" class="ajax-search-results tiny objects"></div>
+                    </div>
+                {/if}  
+                
+                {ifgt $amounts['housing_estates'],0}
+                    <div class="tab housing-estates">
+                        <div class="ajax-search-results housing-estates tiny"></div>
+                        <script>
+                            getPendingContent('.ajax-search-results.housing-estates','/zhiloy_kompleks/?search_form=1&developer={$agency_admin_id}&only_objects=1');
+                            _opened_listelector = null;
+                        </script>
+                    </div>
+                {/if}
+                {ifgt $amounts['apartments'],0}
+                    <div class="tab apartments">
+                        <div class="ajax-search-results apartments tiny"></div>
+                        <script>
+                            getPendingContent('.ajax-search-results.apartments','/apartments/?search_form=1&developer={$agency_admin_id}&only_objects=1');
+                            _opened_listelector = null;
+                        </script>
+                    </div>
+                {/if}
+                {ifgt $amounts['business_centers'],0}
+                    <div class="tab business-centers">
+                        <div class="ajax-search-results business-centers tiny"></div>
+                        <script>
+                            getPendingContent('.ajax-search-results.business-centers','/business_centers/?search_form=1&agency={$agency_admin_id}');
+                            _opened_listelector = null;
+                        </script>
+                    </div>
+                {/if}       
+            </div>
+            {ifgt $housing_estate_objects['count'],0}
+                {include /modules/housing_estates/templates/estate_search_form_tiny.html}
+                <div class="ajax-search-results tiny housing-estate-objects"></div>
+            {else}
+                
+            {/if}
+        </div>
+    </div>
+    
+    <div class="right-part">    
+        <div class="manager-wrapper br3">
+            {block organizations/company/{$info['chpu_title']}/block/manager/}            
+        </div>
+    </div>
+</section>
+{/if}

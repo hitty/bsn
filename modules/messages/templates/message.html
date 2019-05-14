@@ -1,0 +1,21 @@
+{php:$system = !empty($msg_list) && $msg_list[0]['is_system']==1;}
+<div class="dialoginfo">                   
+    <span class="user text-overflow">Диалог с {$recipient['name']}{if!empty $auth['id_group']}{ifeq $auth['id_group'],101} <a href="/admin/access/users/?filter_id={$recipient['id']}">Перейти</a>{/if}{/if}</span>
+    <span class="delete" data-icon="delete" data-id="{$recipient['msg_id']}" title="Удалить диалог"></span>
+</div>
+<ul class="messageslist">
+
+{if!empty $msg_list}
+    {loop $msg_list,$key,$message}
+        {if!empty $message['message']}
+            {include /modules/messages/templates/block.item.html}
+        {/if}
+    {/loop $msg_list}
+
+{/if}
+</ul>
+<script>
+    /* var el = new SimpleBar( jQuery('.messageslist')[0] ) ;   */
+</script>
+
+

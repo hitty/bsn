@@ -1,0 +1,411 @@
+body{
+    background: #F3F3F3
+}
+#background.fixed{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;    
+    z-index: 99990;
+}
+header {
+    background-image: url(/modules/konkurs_doverie/img/doverie-golosovanie-header-2019.jpg);
+    background-color: #f26522;
+    width: 100%;
+    padding: 20px 0 0 0;
+    height: 290px;
+    margin: 60px 0 0 0;
+    position: relative;
+}
+
+header .mainlogo {
+    background: url(/modules/konkurs_doverie/img/doverie-golosovanie-main-image-2019.png) no-repeat;
+    margin: 0 auto 40px auto;
+    position: relative;
+    width: 670px;
+    height: 165px;
+}
+
+header .bottom-wrap {
+    position: absolute;
+    bottom: 0;
+    padding: 10px 0;
+    background: rgba(0,0,0,.2);
+    left: 0;
+    right: 0;
+}
+
+header .bottom-wrap .content {
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    justify-content:center;
+}
+
+header .bottom-wrap .logo {
+    display: block;
+    width: 160px;
+    height: 60px;
+    border: none;    
+}
+
+header .bottom-wrap .logo.komissiya {
+    background: url('/modules/konkurs_doverie/img/doverie-golosovanie-logos-komissiya.png') no-repeat 0 0;
+    margin-left: 20px;
+}
+
+header .bottom-wrap .logo.kpn {
+    background: url('/modules/konkurs_doverie/img/doverie-golosovanie-logos-komissiya-2018.png') no-repeat 0 0;
+    margin-left: 20px;
+}
+
+header .bottom-wrap .logo.bsn {
+    background: url('/modules/konkurs_doverie/img/doverie-golosovanie-logos-bsn.png') no-repeat 0 0;
+}
+
+header .bottom-wrap .logo.gud {
+    background: url('/modules/konkurs_doverie/img/doverie-golosovanie-logos-gud.png') no-repeat 0 0;
+    width: 200px;
+}
+header.with-shadow:after{
+    display: none;
+}
+.topmenu-navigator{
+    position: fixed;
+    height: 60px;
+    background: #1e88e5;
+    z-index: 100;
+    top: 0;
+    width: 100%;
+    -webkit-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -o-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+.konkurs-wrapper {
+    margin: 40px auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+    flex-wrap: wrap;
+    align-items: inherit;
+}
+.shadow-hover:before{
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;    
+}
+.konkurs-wrapper h2{
+    font-size: 30px;
+    font-weight: normal;    
+}
+.konkurs-wrapper .item {
+    padding: 20px;
+    position: relative;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    cursor: pointer;
+    margin: 10px;
+    background: #fff;
+}
+
+.konkurs-wrapper .item .bg {
+    background: #E7E7E7;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.konkurs-wrapper .item .bg .members {
+    text-align: center;
+    font-size: 40px;
+    /* padding-top: 20px; */
+}
+
+.konkurs-wrapper .item .bg .members span {
+    font-size: 16px;
+    display: block;
+}
+
+.konkurs-wrapper .item:hover .members,.konkurs-wrapper .item .bg .button {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.konkurs-wrapper .item .bg .button {
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    width: auto;
+    display: block;
+}
+
+.konkurs-wrapper .item:hover .bg {
+    background: url('/modules/konkurs_doverie/img/doverie-page-2019-item-bg.jpg') no-repeat #f26522;
+}
+
+.konkurs-wrapper .item:not(.voted):hover .bg .button {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+.konkurs-wrapper .item .bg .members,.konkurs-wrapper .item .bg .button,.konkurs-wrapper .item.none-voted .bg .voted-for {
+    display: none;
+}
+
+.konkurs-wrapper .item.none-voted .bg .members,.konkurs-wrapper .item .bg .voted-for {
+    display: block;
+    width: 100%;
+}
+
+.konkurs-wrapper .item .bg .voted-for {
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+}
+
+.konkurs-wrapper .item .bg .voted-for b {
+    font-weight: bold;
+    color: #f26522;
+    ;display: block;
+    font-size: 18px;
+    line-height: 18px;
+    padding-top: 10px;
+}
+
+.konkurs-wrapper .item:hover .bg .voted-for,.konkurs-wrapper .item:hover .bg .voted-for b {
+    color: #fff;
+}
+
+.konkurs-wrapper .item .title {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: left;
+    color: #000;
+    padding-top: 10px;
+}
+
+footer {
+    background: none;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px 0;
+    color: #818181;
+    text-align: center;      
+    box-shadow: none;
+}
+
+
+.modal-inner div:last-of-type div:last-of-type{
+    margin-bottom: 0;
+}
+.modal-inner .title {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 20px;
+    color: #1e88e5;
+}
+
+.modal-inner .title {
+}
+
+.modal-inner .external-link {
+}
+
+.modal-inner h2 {
+}
+
+.modal-inner .content {
+    width: 100%;
+    margin: 40px 0 0 0;
+}
+.konkurs-clauses{
+    margin: 40px 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+.konkurs-clauses:first-of-type{
+    margin-top: 0;
+}
+.konkurs-clauses h2{
+    padding: 40px 0 20px 0;
+    line-height: 34px;
+}
+.konkurs-clauses h2:first-of-type{
+    padding-top: 0;
+}
+.konkurs-clauses p {
+    padding: 0 0 20px 0;
+}
+.konkurs-clauses p:last-of-type{
+    padding: 0;
+}
+.konkurs-clauses .promo {
+    background: #f26522;
+    color: #fff;
+    padding: 40px 40px 40px 220px;
+    position: relative;
+    margin: 40px 0;
+}
+
+.konkurs-clauses .promo:before {
+    content:"";
+    display: block;
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    background: url(/modules/konkurs_doverie/img/badge.png) no-repeat;
+    width: 126px;
+    height: 153px;
+}
+
+.konkurs-clauses .promo h2 {
+    color: #fff;
+}
+
+.konkurs-clauses .notes {
+    margin: 40px 0 0 0;
+    font-style: normal;
+    font-size: 14px;
+}
+
+.konkurs-clauses .notes p {
+    padding-bottom: 10px;
+}
+.konkurs-clauses .companies {
+    margin-top: 40px;
+}
+
+.konkurs-clauses .companies .button {
+    display: block;
+    width: 233px;
+    margin-top: 20px;
+}
+
+.konkurs-clauses .companies .logo.bsn {
+    background: url(/modules/konkurs_doverie/img/doverie-golosovanie-logos-bsn.png) no-repeat 0 0;
+    display: inline-block;
+    width: 170px;
+    height: 46px;
+    position: relative;
+    top: -21px;
+}
+/* members wrapper */
+.members-wrapper{
+    width: 800px;
+}
+.members-wrapper h2{
+    color:#f26522; 
+    padding-bottom: 20px;  
+}
+
+.modal-inner .list {
+    border: 1px solid #ebebeb;
+}
+
+.modal-inner .list .item {
+    position: relative;
+    padding: 0 20px;
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
+    justify-content:flex-start;
+}         
+.modal-inner .list.can-vote .item{
+    cursor: pointer;
+}
+.modal-inner .list .item .title{
+    font-size: 16px;
+    line-height: 18px;
+    color:#000;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    width: 536px;
+}
+.modal-inner .list .item:hover .title,
+.modal-inner .list .item.active .title{
+    color:#f26522;
+}
+.modal-inner .list .item:after{
+    content:'';
+    position: absolute;
+    bottom: -1px;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: #ebebeb;
+    display: block;
+}
+.modal-inner .list .item:hover:after{
+    display: none;
+}
+.modal-inner .list .item:hover{
+    color:#1e88e5;
+}
+.modal-inner .list .item:hover .text{
+    color:#818181;
+}
+.modal-inner .list .item:before,
+.modal-inner .list .item:hover:before{
+    border-color: #fff;    
+}
+.modal-inner .button.orange{
+    margin-top: 40px;
+    background-color:#f26522;
+}
+.modal-inner .button.orange.inactive{
+    display: none;
+}
+.modal-inner .list .item [data-icon]{
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+.modal-inner .list .item [data-icon]:before,
+.modal-inner .list .item i{
+    opacity: 0;
+}
+.modal-inner .list:not(.can-vote) .item.active i,
+.modal-inner .list .item.active [data-icon]:before,
+.modal-inner .list.can-vote .item [data-icon]:before{
+    opacity: 1;
+}
+.modal-inner .list .item i{
+    display: block;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    color:#f26522;
+}
+.modal-inner .list .item i{
+    
+}
+.modal-inner .list .item [data-icon]:before{
+    margin: 0px 10px 0 0;
+    font-size: 22px;    
+}
+.modal-inner .list .item.active,
+.modal-inner .list .item:hover{
+    color:#f26522;
+}
+.modal-inner .list .item.active [data-icon]:before{
+    content: "radio_button_checked";
+    color:#f26522;     
+}
+
+

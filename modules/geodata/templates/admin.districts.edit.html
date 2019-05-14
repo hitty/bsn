@@ -1,0 +1,41 @@
+<h1 class="pageTitle">География / Городские районы</h1>
+    <script type="text/javascript">
+        function filter_activate(){
+			var __filter_parent = document.getElementById('f_parent').options[document.getElementById('f_parent').selectedIndex].value;
+            var __url = '{root:/admin/geodata/districts/$form_parameter/}';
+            var __get = new Array();
+			if(__filter_parent!='') __get.push('f_parent='+__filter_parent);
+            if(__get.length>'') __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+
+    {ifempty $data_mapping['id']['value']}
+        <form class="form_default" method="post" action="/admin/geodata/districts/add/{if!empty $get_string}?{$get_string}{/if}">
+        <h3>Новая запись</h3>
+    {else}
+        <form class="form_default" method="post" action="/admin/geodata/districts/edit/{$data_mapping['id']['value']}/{if!empty $get_string}?{$get_string}{/if}">
+        <h3>id #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+    {/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+</form>

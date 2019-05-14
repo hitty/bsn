@@ -1,0 +1,15 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день!            
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Поступила заявка на обратный звонок по формату Overlay. <br /><br />
+        <a href="https://www.bsn.ru/admin/advert_objects/tgb_overlay/phones/edit/{$item['id_parent']}/">Заявка в админке</a><br /><br />
+        <a href="{$item['ref']}">Страница, с которой поступила заявка</a>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

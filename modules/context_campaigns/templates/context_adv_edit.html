@@ -1,0 +1,151 @@
+<!--<h1 class="pageTitle">Контекстная рекламная кампания "{$campaign_info['title']}"</h1>-->
+<h1 class="pageTitle">Личный кабинет</h1>
+<!--форма кампании-->
+<form class="form_default" method="post" action="/members/context_campaigns/{$data_mapping_campaign['id']['value']}/">
+    <h3>Контекстная рекламная кампания #{$data_mapping_campaign['id']['value']} &quot;{$data_mapping_campaign['title']['value']}&quot;</h3>
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /modules/members/templates/form.context_campaign.html}
+<!--форма объявления-->
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/context_campaigns/{$campaign_id}/add/">
+    <h3>Новое объявление</h3>
+{else}
+    <form class="form_advertisement" method="post" action="/admin/advert_objects/context_campaigns/{$campaign_id}/edit/{$data_mapping['id']['value']}/">
+    <h3>Объявление #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <div style="display:none" id="places_data_box">{$places_data}</div>
+    <!--таргетинг - только при редактирвании уже созданной кампании-->
+    {if!empty $data_mapping['id']['value']}
+      <!--  <fieldset>
+            <h3>Таргетинг для контекстной рекламной кампании #{$data_mapping['id']['value']}</h3>
+            <div id="targetings_list" class="targetings_list" data-id_object="{$data_mapping['id']['value']}">
+                <div class="tg object_type">
+                    <div class="type-live-box" data-type="type_objects_live">
+                        <span class="tg-title">Тип объекта</span>
+                        {if!empty $targeting_data['type_objects_live']}
+                            {php: $object_types = $targeting_data['type_objects_live'];}
+                            {loop $object_types,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['type_objects_live'][$key]['value']} selected{/if}" {if!empty $targeting_data['type_objects_live'][$key]['id_tag']}id = {$targeting_data['type_objects_live'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="1"{/if}>{$value['title']}</span>
+                            {/loop $object_types}
+                        {/if}
+                    </div>
+                    <div class="type-commercial-box" data-type="type_objects_commercial">
+                        <span class="tg-title">Тип объекта</span>
+                        {if!empty $targeting_data['type_objects_commercial']}
+                            {php: $object_types = $targeting_data['type_objects_commercial'];}
+                            {loop $object_types,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['type_objects_commercial'][$key]['value']} selected{/if}" {if!empty $targeting_data['type_objects_commercial'][$key]['id_tag']}id = {$targeting_data['type_objects_commercial'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="3"{/if}>{$value['title']}</span>
+                            {/loop $object_types}
+                        {/if}
+                    </div>
+                    <div class="type-country-box" data-type="type_objects_country">
+                        <span class="tg-title">Тип объекта</span>
+                        {if!empty $targeting_data['type_objects_country']}
+                            {php: $object_types = $targeting_data['type_objects_country'];}
+                            {loop $object_types,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['type_objects_country'][$key]['value']} selected{/if}" {if!empty $targeting_data['type_objects_country'][$key]['id_tag']}id = {$targeting_data['type_objects_country'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="4"{/if}>{$value['title']}</span>
+                            {/loop $object_types}
+                        {/if}
+                    </div>
+                </div>
+                <div class="tg price">
+                    <b>Нижняя граница цены (тыс.руб.):</b>
+                    <input type="text" class="price-input" id="input-price-floor" value="{$data_mapping['price_floor']['value']}">
+                </div>
+                <div class="tg price">
+                    <b>Верхняя граница цены (тыс.руб.):</b>
+                    <input type="text" class="price-input" id="input-price-top" value="{$data_mapping['price_top']['value']}">
+                </div>
+                {ifin $data_mapping['estate_type']['value'],1,2}
+                    <div class="tg rooms" data-type="rooms">
+                        <span class="tg-title">Комнатность</span>
+                        {if!empty $targeting_data['rooms']}
+                            {php: $rooms = $targeting_data['rooms'];}
+                            {loop $rooms,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['rooms'][$key]} selected{/if}" {if!empty $key}id = {$key}{/if}>{$value}</span>
+                            {/loop $rooms}
+                        {/if}
+                    </div>
+                {/if}
+                {ifin $data_mapping['estate_type']['value'],1,2,3}
+                    <div class="tg subways" data-type="subways">
+                        <span class="tg-title">Метро</span>
+                        {if!empty $targeting_data['subways']}
+                            {php: $subways = $targeting_data['subways'];}
+                            {loop $subways,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['subways'][$key]['value']} selected{/if}" {if!empty $targeting_data['subways'][$key]['id_tag']}id = {$targeting_data['subways'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="1234"{/if}>{$value['title']}</span>
+                            {/loop $subways}
+                        {/if}
+                    </div>
+                {/if}
+                {ifin $data_mapping['estate_type']['value'],1,2,3}
+                    <div class="tg districts" data-type="districts">
+                        <span class="tg-title">Район СПБ</span>
+                        {if!empty $targeting_data['districts']}
+                            {php: $districts = $targeting_data['districts'];}
+                            {loop $districts,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['districts'][$key]['value']} selected{/if}" {if!empty $targeting_data['districts'][$key]['id_tag']}id = {$targeting_data['districts'][$key]['id_tag']}{else}data-source-id="{$key}" data-restrictions="123"{/if}>{$value['title']}</span>
+                            {/loop $districts}
+                        {/if}
+                    </div>
+                {/if}
+                {ifin $data_mapping['estate_type']['value'],1,2,3,4}
+                    <div class="tg district_areas" data-type="district_areas">
+                        <span class="tg-title">Район ЛО</span>
+                        {if!empty $targeting_data['district_areas']}
+                            {php: $district_areas = $targeting_data['district_areas'];}
+                            {loop $district_areas,$key,$value}
+                                <span class="tg-item{if!empty $targeting_list['district_areas'][$key]['value']} selected{/if}" {if!empty $targeting_data['district_areas'][$key]['id_tag']}id = {$targeting_data['district_areas'][$key]['id_tag']}{else}data-source-id="{$key}"{/if}>{$value['title']}</span>
+                            {/loop $district_areas}
+                        {/if}
+                    </div>
+                {/if}
+            </div>
+        </fieldset>-->
+        <fieldset>
+            <h3 id="pictures_requirements">Загрузка картинок для контекстной рекламной кампании #{$data_mapping['id']['value']} {if!empty $item_height}(Размеры {$item_width}px x {$item_height}px){/if}</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/advert_objects/context_campaigns/{$campaign_id}/photos/" data-session-id="{php:echo session_id();}" {if!empty $item_height}data-height="{$item_height}" data-width="{$item_width}"{/if}/>
+            <input type="hidden" name="id_priority" value="0"/>
+        </fieldset>
+    {/if}
+</form>

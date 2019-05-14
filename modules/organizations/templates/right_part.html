@@ -1,0 +1,18 @@
+<div class="right-column">
+    <div id="right-column">
+        {ifempty $payed_format}
+            <div id="right-top-banner" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Баннер']); }catch(e){}"></div>
+            <div id="context-block-right"></div>
+            <div class="right-tgb" id="right-tgb-data" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Правый ТГБ']); }catch(e){}"></div>
+            <div id="right-bottom-banner"></div>
+            <div id="right-google-ad" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Google Adsense']); }catch(e){}"></div>
+        {else}
+            {block estate/payed/{$id_agency}/}
+            <div class="right-column-fixed">
+                <div class="application-wrapper">
+                    {include /modules/applications/templates/form_expanded.html}
+                </div>
+            </div>
+        {/if}
+    </div>
+</div> <!--/.right-column-->

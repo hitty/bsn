@@ -1,0 +1,15 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Здравствуйте, <b>{$item['user_name']}</b>!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Спасибо за регистрацию на вебинар <b>{$item['title']}.</b><br /> 
+        Начало вебинара <b>{$item['date_w']}</b> в <b>{$item['time_w']}</b>.<br /> <br />
+        Обсудить тему с участниками можно <a href="https://www.bsn.ru/webinars/{$item['url']}/#comments" title="">тут</a>. <br /><br /> 
+        Персональную ссылку для участия мы вышлем вам за сутки до начала. Следите за новостями!
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

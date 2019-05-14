@@ -1,0 +1,569 @@
+.rating-wrap {
+}
+
+.rating-text {
+    margin: 40px auto 80px auto;
+}
+
+.rating-text .dashed-link-blue {
+    display: inline;
+    position: relative;
+}
+
+.rating-description {
+    width: 720px;
+}
+
+.rating-description h2 {
+    padding: 0 0 20px 0px;
+}
+
+.rating-description .text {
+    line-height: 22px;
+}
+
+.rating-description .text p {
+    padding-bottom: 20px;
+}
+
+.rating-description .text p:last-of-type {
+    padding-bottom: 0;
+}
+
+.rating-wrap .rating-list {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+.rating-wrap .rating-list li {
+    float: left;
+}
+
+.rating-wrap .rating-list li a {
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    display: block;
+    width: 360px;
+    height: 18px;
+    overflow: hidden;
+}
+
+.rating-wrap .rating-list li a:hover,.rating-wrap .rating-list li a.active {
+    color: #fff;
+    background: #1e88e5;
+}
+
+.rating-wrap .content {
+    width: 680px;
+    padding: 0;
+}
+
+.rating-wrap .article-snippet {
+    margin: 20px 10px 20px 0;
+}
+
+.rating-wrap .article-snippet.content-last-data .item {
+    margin: 0;
+}
+#housing-estates-rating-block{
+    margin: 40px 10px 0 10px;
+}
+.rating-wrap .housing-estates-rating-inner {
+    margin: 20px 0 10px 0;
+    float: right;
+    width: 100%;
+}
+
+.rating-wrap .housing-estates-rating-inner.bottom-gradient-overflow {
+    overflow: hidden;
+    height: 250px;
+}
+
+.rating-wrap .content {
+    margin: 10px 0;
+}
+
+.housing-estates-rating-inner {    
+}
+
+.housing-estates-rating-inner .item {
+position: relative;
+    padding: 0;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 80px;
+    height: 80px;
+    border-bottom: 1px solid #e6e6e6;
+    width: 580px;
+    background: #fff;
+    float: left;        
+}
+.housing-estates-rating-inner .item.right{
+    float: right;    
+}   
+.housing-estates-rating-inner .item:last-of-type{
+    border-bottom: none;
+}
+.housing-estates-rating-inner .item .inner {
+    position: relative;
+    width: 580px;
+    height: 80px;
+    display: block;
+    float: left;
+    padding: 0 20px;
+}
+.housing-estates-rating-inner .item .inner:hover{
+    z-index: 10;
+}
+.housing-estates-rating-inner .item span {
+    float: left;
+    display: block;
+    width: 130px;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    transition: none;
+    -o-transition: none;
+    position: relative;
+}
+
+.housing-estates-rating-inner .item span.text-overflow {
+}
+
+.housing-estates-rating-inner .item .number {
+    font-size: 30px;
+    width: 40px;
+    text-align: center;
+    margin: 0 10px 0 -10px;
+}
+
+.housing-estates-rating-inner .item .title {
+    width: 420px;
+    height: 80px;
+    display: block;
+    float: left;
+    max-height: 80px;
+}
+.housing-estates-rating-inner .item .title b{
+    display: block;
+    line-height: 30px;
+    margin-top: 12px;
+}
+.housing-estates-rating-inner .item .title .text {
+    color:#818181;                                       
+}
+.housing-estates-rating-inner .item .rating {
+    float: right;
+    width: auto;
+    font-size: 18px;
+    font-size: 30px;
+}
+
+.housing-estates-rating-inner .item:hover .rating {
+    color: #000;
+}
+
+.housing-estates-rating-inner .item .rating i {
+    padding: 10px;
+}
+
+.housing-estates-rating-inner .item:hover .rating i {
+    background: #fff324;
+}
+
+.housing-estates-rating-inner .item .before-abs{
+    position: absolute;
+    width: calc( 100% + 20px );
+    height: 100%;
+    z-index: 10;
+    border: none;    
+    left: 0;
+}
+
+.rating-mainpage .content-wrapper {
+    margin: 40px 0 0 0;
+}
+
+.read-next.dashed-link-blue {
+    position: relative;
+    top: -4px;
+    left: 65px;
+    display: none;
+}
+
+.rating-wrap .housing-estates-rating-inner.bottom-gradient-overflow + .read-next.dashed-link-blue {
+    display: inline-block;
+}
+
+.rating-wrap .description {
+    padding: 20px 0;
+    float: left;
+}
+
+.rating-wrap .description h2 {
+    font-size: 20px;
+}
+
+#housing-estates-last-comments {
+    padding: 20px 0;
+    float: none;
+    width: 760px;
+    overflow: auto;
+    height: auto;
+}
+
+#housing-estates-last-comments h2 {
+    background: #969696;
+}
+
+#housing-estates-last-comments .item {
+    width: 370px;
+    float: left;
+}
+
+#housing-estates-last-comments .item:nth-child(2n+1) {
+    float: right;
+}
+
+.rating-wrap #map {
+    position: relative;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    right: auto;
+    width: 680px;
+    height: 500px;
+    display: block;
+    margin: 20px 0 20px 0;
+}
+
+h2.housing-estates-title,h2.map-title {
+    background: #969696;
+    margin: 40px 0 0 0;
+}
+
+.ajax-search-results.housing-estates {
+    opacity: 1!important;
+    visibility: visible!important;
+    display: block!important;
+}
+
+.all-objects {
+    margin: 15px auto;
+    display: block;
+    width: 430px;
+}
+
+.housing-estates-rating-inner .housing-estate-item {
+    position: absolute;
+    right: -600px;
+    background: #fff;
+    padding: 0;
+    top: -40px;
+    color: #000;
+    width: 580px;
+    opacity: 0;
+    z-index: -1;
+    visibility: hidden;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+    height: 400px;
+}
+.housing-estates-rating-inner .item.right .housing-estate-item{
+    right: auto;
+    left: -600px;    
+}
+.housing-estates-rating-inner .item:hover .housing-estate-item {
+    opacity: 1;
+    z-index: 10;
+    visibility: visible;   
+}
+
+.housing-estates-rating-inner .item:hover .housing-estate-item .arrow {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -10px;
+    top: 70px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8.5px 10px 8.5px 0;
+    border-color: transparent #ffffff transparent transparent;
+    line-height: 0px;
+    _border-color: #000000 #ffffff #000000 #000000;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+.housing-estates-rating-inner .item.right:hover .housing-estate-item .arrow{
+    left: auto;
+    right: -10px;
+    border-width: 8.5px 0 8.5px 10px;
+    border-color: transparent transparent transparent #ffffff;    
+}
+.housing-estates-rating-inner .housing-estate-item .left-part{
+    float: left;
+    padding: 20px;
+    width: 260px;
+}
+.housing-estates-rating-inner .housing-estate-item .right-part{
+    float: left;
+    padding: 20px;
+    width: 240px;
+    position: relative;
+    height: 380px;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -ms-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+.housing-estates-rating-inner .housing-estate-item div:last-of-type {
+    padding-bottom: 0;
+}
+
+.housing-estates-rating-inner .housing-estate-item span {
+    float: none;
+    display: block;
+    line-height: 20px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.housing-estates-rating-inner .housing-estate-item .img {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);   
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -ms-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;    
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-title {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-title .rating {
+    background: #fff324;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 15px 0 20px 0;
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-title .rating i {
+    background: #fff324;
+    display: block;
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-values {
+    padding: 0;
+}
+
+.housing-estates-rating-inner .housing-estate-item .img .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;          
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -ms-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;     
+}
+.housing-estates-rating-inner .housing-estate-item .img .background:before{
+    content:"";
+    position:absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba( 0, 0, 0, .5 );
+    display: block;      
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -ms-border-radius: 0 3px 3px 0;
+    -o-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+.housing-estates-rating-inner .housing-estate-item .rating-values .rating-item {
+    font-size: 12px;
+    line-height: 14px;
+    height: 28px;
+    padding: 0;
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-values .rating-item:before {
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-values .rating-item .title {
+    font-size: 14px;
+    width: 195px;
+    float: left;
+    height: auto;
+    color: #818181;
+    background: #fff;
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-values .rating-item .value {
+    float: right;
+    width: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    background: #fff;
+}
+
+.housing-estates-rating-inner .housing-estate-item .rating-values h3 {
+    line-height: 24px;
+    font-size: 16px;
+    padding: 0 0 15px 0;
+}
+
+.housing-estates-rating-inner .description {
+    line-height: 24px;
+    font-size: 16px;
+    padding-top: 14px;
+}
+
+.housing-estates-rating-inner .description div {
+    display: inline;
+    position: relative;
+    z-index: 100;
+}
+
+.housing-estates-rating-inner .housing-estate-item .addr-wrap {
+    padding: 0 0 20px 0;
+    position: relative;
+    z-index: 10;
+    color: #fff;
+    
+}
+.housing-estates-rating-inner .housing-estate-item .addr-wrap .txt-addr{
+    font-size: 16px;
+}
+.housing-estates-rating-inner .housing-estate-item .addr-wrap .subway {
+    color: #fff;
+    padding-top: 5px;
+    font-size: 14px;
+}
+
+.housing-estates-rating-inner .housing-estate-item .addr-wrap .subway:before {
+    position: relative;
+    top: 2px;
+}
+
+.housing-estates-rating-inner .housing-estate-item .agency-info {
+    padding: 20px 0;
+    margin: 0;
+    line-height: 18px;
+    font-size: 14px;
+    border-top: 1px solid #ddd;
+}
+
+.housing-estates-rating-inner .housing-estate-item .agency-info .phone {
+    padding-top: 5px;
+    color: #818181;
+}
+
+.housing-estates-rating-inner .housing-estate-item .objects {
+    border-top: 1px solid #ddd;
+    padding-top: 0;
+    padding: 20px 0;
+    position: relative;
+    z-index: 10;
+    color: #fff;
+    font-size: 16px;
+}
+
+.housing-estates-rating-inner .housing-estate-item .objects .object {
+    padding-top: 20px;
+    clear: both;
+}
+
+.housing-estates-rating-inner .housing-estate-item .objects .object .rooms {
+    display: inline-block;
+    width: 109px;
+    line-height: 14px;
+    margin: 0 1px 0 0;
+    padding: 0;
+    float: left;
+    color: #fff;
+    position: relative;
+}
+
+.housing-estates-rating-inner .housing-estate-item .objects .object .rooms i {
+    padding: 1px;
+}
+
+.housing-estates-rating-inner .housing-estate-item .objects .object b {
+    display: inline-block;
+    font-weight: normal;
+    font-size: 16px;
+    width: 120px;
+    line-height: 14px;
+    margin: 0;
+    padding: 0;
+    float: right;
+}
+
+.housing-estates-rating-inner .housing-estate-item .objects .object .rur {
+    float: none;
+    display: inline-block;
+    width: 10px;
+    line-height: 14px;
+}
+.housing-estates-rating-inner .housing-estate-item:nth-child(2n):before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: -20px;    
+}
+.housing-estates-rating-inner .housing-estate-item:nth-child(2n+1):before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -20px;
+}
+
+.rating-types-tabs h2{
+    display: block;
+    margin: 0 10px 0 0;
+    float: left;
+}
+.filter.select-class{
+    float: right;
+    margin-top: 15px;
+    position: relative;
+    z-index: 100;
+}
+.list-selector.inactive{
+    display: none;    
+}
+.rating-mainpage #map-search-results {
+    width: 100%;
+    height: 500px;
+}
+.rating-mainpage .district-text span {
+    display: none
+}
+
+.rating-mainpage .district-text .active {
+    display: inline
+}
+.rating-mainpage .select-district{
+    width: 370px;
+    margin: 10px 0 0 0;    
+}

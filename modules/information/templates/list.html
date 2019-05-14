@@ -1,0 +1,18 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+<div class="category-title">Раздел: {$list[0]['category_title']}</div>
+<div class="information-category-list">
+    <ul class="category_{$list[0]['category_id']} without-header">
+    {if!empty $list}
+    {if!empty $amounts_included}
+        {loop $list,$lk,$item}
+            <li><a href="/service/information/{$item['chpu_title']}/" title="{$item['docs_title']}">{$item['docs_title']}</a><sup>{$item['amount']}</sup></li>
+        {/loop $list}
+    {else}
+        {loop $list,$lk,$item}
+            <li><a href="/service/information/{$item['chpu_title']}/" title="{$item['docs_title']}">{$item['docs_title']}</a></li>
+        {/loop $list}
+    {/if}
+    {/if}
+    </ul>
+</div>
+<a href="/service/information/" class="button grey back-to-main">Вернуться к списку разделов</a>

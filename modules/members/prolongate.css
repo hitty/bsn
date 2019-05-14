@@ -1,0 +1,281 @@
+/*730x1460*/
+html{
+    height:100%;
+    background-color:#e6e6e6;
+}
+.head-block{
+    display:block;
+    margin:0 auto;
+    overflow:hidden;
+    margin-bottom:40px;
+    position:relative;
+}
+.head-block span{
+    display:block;
+    margin: 0 auto;
+}
+.head-block .circle-for-shadow{
+    width:350px;
+    height:350px; 
+    position:absolute;
+    border-radius:300px;
+    background: radial-gradient(at center, rgba(0,0,0,0.1),rgba(0,0,0,0.07),rgba(0,0,0,0.01),rgba(0,0,0,0.00),#FFFFFF 100%);
+    top:-160px;
+    left:170px;
+    z-index:1;
+}
+.head-block .head-block__image{
+    background: url("//st1.bsn.ru/img/layout/prolongate.png") no-repeat 0px 0px;
+    height:150px;
+    width:150px;
+    margin-bottom:20px;
+    position:relative;
+    z-index:5;
+}
+.head-block .head-block__title{
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+.head-block .head-block__discount-title{
+    display:inline-block;
+    border: 1px solid #e70101;
+    text-transform:uppercase;
+    color:#e70101;
+    font-size:14px;
+    padding:4px 10px;
+    font-weight:bold;
+}
+.objects-block{
+    display:table;
+    margin:0 auto;
+    width:630px;
+    min-width:630px;
+    max-width:630px;
+    padding-bottom:30px;
+    position:relative;
+    margin-bottom:50px;
+}
+.objects-block:after{
+    content:"";
+    display:block;
+    border-top:1px solid black;
+    width:110px;
+    height:0px;
+    position:absolute;
+    right:0px;
+    bottom:25px;
+}
+.objects-block .objects-block__status-box{
+    padding-bottom:20px;
+    margin-bottom:30px;
+    position:relative;
+}
+.objects-block .objects-block__status-box:after{
+    content:"";
+    display:block;
+    border-top:1px solid black;
+    width:110px;
+    height:0px;
+    position:absolute;
+    right:0px;
+    bottom:14px;
+}
+.objects-block .objects-block__status-box .box_title{
+    display:block;
+    text-align:left;
+    font-size:16px;
+    padding:0px 10px;
+    padding-left:40px;
+    position:relative;
+    height:40px;
+    line-height: 40px;
+    margin-bottom:15px;
+    font-weight:bold;
+    text-transform: capitalize;
+}
+.objects-block .objects-block__status-box .box_title:before{
+    content: "";
+    position: absolute;
+    display: block;
+    background: url("//st1.bsn.ru/img/layout/icons22.png") no-repeat 0px -1194px;
+    height: 25px;
+    width: 25px;
+    left: 10px;
+    top: 7px;
+}
+.objects-block .objects-block__status-box .box_element{
+    padding: 5px 0px;
+    display: block;
+    text-align: left;
+    height: 20px;
+    
+}
+.objects-block .objects-block__status-box .box_element span:not(.rur){
+    display:inline-block;
+    float:left;
+    padding-right:10px;
+    line-height:16px;
+}
+.objects-block .objects-block__status-box .box_element .id{
+    width:80px;
+    font-size:16px;
+}
+.objects-block .objects-block__status-box .box_element .tags_data{
+    width:160px;
+    padding:0px 10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:14px;
+}
+.objects-block .objects-block__status-box .box_element .address{
+    color:#848484;
+    width:240px;
+    padding-right:20px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:14px;
+}
+.objects-block .objects-block__status-box .box_element .cost{
+    font-weight:900;
+    font-size:16px;
+    float:right;
+}
+.objects-block .objects-block__status-box .box_element .cost span{
+    font-weight:initial;
+    margin-left:2px;
+}
+.objects-block .objects-block__status-box .box_total-sum{
+    font-size:20px;
+    font-weight:bold;
+    margin: 10px 0px 0px 0px;
+}
+.objects-block .objects-block__status-box.raising:after,
+.objects-block .objects-block__status-box.promo:after{
+    border-color:#1e88e5
+}
+.objects-block .objects-block__status-box.raising .box_title,
+.objects-block .objects-block__status-box.promo .box_title{
+    color:#FFF;
+    background-color:#1e88e5;
+}
+.objects-block .objects-block__status-box.raising .box_title:before{
+    background-position: 0px -1220px;
+}
+.objects-block .objects-block__status-box.raising .box_total-sum,
+.objects-block .objects-block__status-box.raising a,
+.objects-block .objects-block__status-box.promo .box_total-sum,
+.objects-block .objects-block__status-box.promo a{
+    color:#1e88e5;
+}
+.objects-block .objects-block__status-box.premium:after{
+    border-color:#EFCD30;
+}
+.objects-block .objects-block__status-box.premium .box_title{
+    background-color:#EFCD30;
+    color:#FFF;
+}
+.objects-block .objects-block__status-box.premium .box_total-sum,
+.objects-block .objects-block__status-box.premium a{
+    color:#EFCD30;
+}
+.objects-block .objects-block__status-box.vip:after{
+    border-color:#86709D;
+}
+.objects-block .objects-block__status-box.vip .box_title{
+    color:#FFF;
+    background-color:#86709D;
+}
+.objects-block .objects-block__status-box.vip .box_total-sum,
+.objects-block .objects-block__status-box.vip a{
+    color:#86709D;
+}
+
+.objects-block .objects-block__status-box .box_element{
+    
+}
+.objects-block .objects-block__status-box .box_total-sum{
+    display:block;
+    position: absolute;
+    left: 520px;
+}
+.objects-block .objects-block__total-sum{
+    display: block;
+    font-size:20px;
+    position: absolute;
+    left: 455px;
+    margin-top: 10px;
+}
+.objects-block .objects-block__total-sum i{
+    font-weight:bold;
+}
+.objects-pay-block{
+    margin:0 auto 30px auto;
+    width:630px;
+    height:180px;
+    background-color:#f6fbe8;
+}
+.objects-pay-block span:not(.rur){
+    display:block;
+    position:relative;
+}
+.objects-pay-block .objects-pay-block__title{
+    font-size:16px;
+    top:30px;
+}
+.objects-pay-block .objects-pay-block__sum{
+    top:40px;
+    font-size:24px;
+}
+.objects-pay-block .objects-pay-block__sum i{
+    font-weight:bold;
+    font-style:initial;
+    margin-right:3px;
+}
+.objects-pay-block .button.prolongate-pay,
+.objects-pay-block .button.to-auth{
+    top:60px;
+}
+.result-head-block{
+    position:relative;
+    overflow:hidden;
+    padding-top:40px;
+}
+.result-head-block span{
+    display:block;
+    margin: 0 auto;
+}
+.result-head-block .circle-for-shadow{
+    width:350px;
+    height:350px; 
+    position:absolute;
+    border-radius:300px;
+    background: radial-gradient(at center, rgba(0,0,0,0.1),rgba(0,0,0,0.07),rgba(0,0,0,0.01),rgba(0,0,0,0.00),#FFFFFF 100%);
+    top:-160px;
+    left:170px;
+    z-index:1;
+}
+.result-head-block .result-head-block__image{
+    background: url("//st1.bsn.ru/img/layout/accept_icon.png") no-repeat 0px 0px;
+    height:120px;
+    width:120px;
+    margin-bottom:40px;
+    position:relative;
+    z-index:5;
+}
+.result-head-block .result-head-block__title{
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:5px;
+    line-height:30px;
+}
+.result-head-block .result-head-block__expenditures-title{
+    display:inline-block;
+    font-size:16px;
+    margin-bottom:40px;
+}
+.button.blue.result-home{
+    padding:8px 20px;
+}

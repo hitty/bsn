@@ -1,0 +1,23 @@
+<div class="app-choosing-wrapper br3" data-url="/applications/in_work/{$item['id']}/">
+    <span class="closebutton" data-icon="close"></span>
+    <span class="title">Взять заявку в работу</span>
+    
+    <span class="title-text">
+        Во всех спорных ситуациях, например, когда заявитель не отвечает на звонок, мы конечно же вернем деньги!
+    </span>
+    <div class="choosing-block flex">
+        <div class="standart">
+            <span class="title">Стандарт</span>
+            <span class="cost">{if!empty $item['cost']}{$item['cost']} рублей{else}Бесплатно{/if}</span>
+            <span class="description">Заявка остается в общем пуле и доступна всем</span>
+            <button class="button grey" value="Выбрать" data-cost="{$item['cost']}">Выбрать</button>
+        </div>
+        <i class="hr-right"></i>
+        <div class="exclusive">
+            <span class="title">Эксклюзив</span>
+            <span class="cost">{if!empty $item['exclusive_cost']}{$item['exclusive_cost']} рублей{else}Бесплатно{/if}</span>
+            <span class="description">Заявка доступна только вам</span>
+            <button class="button blue" value="Выбрать" data-cost="{$item['exclusive_cost']}">Выбрать</button>
+        </div>
+    </div>
+</div>

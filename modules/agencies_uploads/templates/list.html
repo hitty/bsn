@@ -1,0 +1,71 @@
+{if!empty $list}   
+    <table cellpading="1">  
+        <colgroup>
+            <col class="col1" width="20%">
+            <col class="col2" width="25%">
+            {ifempty $auth['agency']}<col class="col1" width="15%">{/if}
+            <col class="col2" width="5%">
+            <col class="col1" width="15%">
+            {ifeq $list[0]['show_call_link'],1}<col class="col2"></col>{/if}
+        </colgroup>
+        <thead>
+            <tr>
+                <th><span>Дата и время</span></th>
+                <th><span>Контакт</span></th>
+                {ifempty $auth['agency']}<th><span>Компания</span></th>{/if}
+                <th><span>Длина</span></th>
+                <th><span>Теги</span></th>
+                {ifeq $list[0]['show_call_link'],1}<th>Аудио</th>{/if}
+            </tr>
+        </thead>
+        <tbody>
+            {loop $list,$key,$item}
+                <tr id="{$item['id']}">
+                    <td data-order="{$item['call_date']}">{$item['normal_date']}</td>
+                    <td class="phone-box">
+                        <span class="user-call-number">{$item['user_call_number']}</span>
+                        <span data-id="{$item['id']}" class="phone-number">{if!empty $item['num_from']}{$item['num_from']}{else}не определен{/if}</span>
+                        {if!empty $auth['agency']}
+                            {if!empty $item['show_phone']}
+                                <span data-link="/members/calls/inwork/{$item['id']}/" class="inwork" data-cost="{$item['cost']}">показать номер</span>
+                            {/if}   
+                        {/if}
+                    </td>
+                    {ifempty $auth['agency']}<td>{$item['agency_title']}</td>{/if}
+                    <td>{$item['call_duration']}</td>
+                    <td>
+                        {if!empty $auth['agency']}
+                            <div class="tags-list-edit">
+                                {loop $tags,$k,$tag}
+                                    {php:$string = $item['tags']}
+                                    <span data-id="{$tag['id']}" class="tag tag-{$tag['id']}{php:echo !empty($item['tags']) && in_array($tag['id'], $item['tags'])?' active':'';}">{$tag['title']}</span>
+                                {/loop $tags}
+                                <span class="more-box-arrow"></span>
+                            </div>
+                            <span class="tag tag-add{ifempty $item['tags']} active{/if}">Добавить</span>
+                        {/if}
+                        {loop $tags,$k,$tag}
+                            {php:$string = $item['tags']}
+                            <span data-id="{$tag['id']}" class="tag tag-{$tag['id']}{php:echo !empty($item['tags']) && in_array($tag['id'], $item['tags'])?' active':'';}">{$tag['title']}</span>
+                        {/loop $tags}
+                    </td>
+                    {ifeq $item['show_call_link'],1}
+                    <td>
+                        {if!empty $item['file_link']}
+                            <div class="play-call-record" id="{$item['id']}_audio_start" title="Прослушать запись"></div>
+                            <div class="download-call-record" id="{$item['id']}_audio_download" title="Скачать запись"></div>
+                            <div class="hidden-link" id="{$item['id']}_link">{$item['file_link']}</div>
+                        {/if}
+                    </td>
+                    {/if}
+                </tr>
+            {/loop $list}
+        </tbody>
+    </table>
+    {php:$ajax_search = true;}             
+    {include /templates/includes/paginator.html}    
+{else}
+    <div class="no-results-found">
+        Звонки не найдены
+    </div>
+{/if}

@@ -1,0 +1,46 @@
+<div class="question-form">
+    <a id="add_form" name="add_form"></a>
+    <form method="post" action="/{quoted:$form_vars['url']}/#add_form" id="simple-form" enctype="multipart/form-data">
+        <div class="single-selector">
+            <span class="selector-title {if!empty $errors['title']}required error{/if}">
+                Имя * {if!empty $errors['title']}<span class="error_tip"> ({$errors['title']})</span>{/if}
+            </span>
+            <input type="text" name="p_title" value="{quoted:$form_vars['title']}"/>
+        </div>
+        <div class="single-selector">
+            <span class="selector-title {if!empty $errors['email']}required error{/if}">
+                Email * {if!empty $errors['email']}<span class="error_tip"> ({$errors['email']})</span>{/if}
+            </span>
+            <input type="email" name="p_email" value="{quoted:$form_vars['email']}"/>
+        </div>
+        
+        <div class="single-selector">
+            <span class="selector-title">
+                Категория
+            </span>
+            <select name="category"{if!empty $errors['category']} class="error"{/if}>
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $form_vars['category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </div>
+                
+        <div class="single-selector">
+            <span class="selector-title {if!empty $errors['text']}required error{/if}">
+                Текст-сопровождение к работе
+            </span>
+            <textarea id="text" name="text"style="height:39px;">{$form_vars['text']}</textarea>
+        </div>
+        <div class="single-selector phone">
+            <span class="selector-title {if!empty $errors['image']}required error{/if}">
+                Загрузите фотографию (расширения *.jpg, *.jpeg, *.gif, *.png) {if!empty $errors['image']}<span class="error_tip"> ({$errors['image']})</span>{/if}
+            </span>
+            <input type="file" name="image" value="{quoted:$form_vars['image']}"/>
+        </div>        
+
+            <button type="submit" class="submit" name="submit" value="отправить вопрос">отправить</button>
+    </form>
+</div>
+
+
+

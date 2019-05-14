@@ -1,0 +1,13 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{if!empty $list}
+{loop $list,$lk,$item}
+    <div class="offices_item">  
+        <h3>{$item['title']}</h3>
+        {if!empty $item['addres']}<p><span>Адрес:</span> {$item['addres']}</p>{/if}
+        {if!empty $item['phones']}<p><span>Телефон:</span> {$item['phones']}</p>{/if}
+        {if!empty $item['email']}<p><span>Email:</span> <a href="mailto:{$item['email']}" title="">{$item['email']}</a></p>  {/if}
+        {if!empty $item['url']}<p><span>Сайт:</span> <span class="external-link" data-link="{$item['url']}" title="">{$item['url']}</span></p>{/if}
+        {if!empty $item['headman']}<p><span>Руководитель:</span> {$item['headman']}</p> {/if}
+    </div>
+{/loop $list}
+{/if}

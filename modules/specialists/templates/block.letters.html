@@ -1,0 +1,22 @@
+<div class="dictionary-letters">
+    {if!empty $letters_ru}
+        {loop $letters_ru,$lk,$letter}
+            {ifeq $letter_current, $letter}
+            <span class="selected">{$letter}</span>
+            {else}
+            <a href="/specialists/search/{$l_subst_ru[$lk]}/">{$letter}</a>
+            {/if}
+        {/loop $letters_ru}
+    {/if}
+</div>
+<div class="dictionary-letters">
+    {if!empty $letters_en}
+        {loop $letters_en,$lk,$letter}
+            {ifeq $letter_current, $letter}
+            <span class="selected">{$letter}</span>
+            {else}
+            <a href="/specialists/search/{$letter}/" >{$letter}</a>
+            {/if}
+        {/loop $letters_en}
+    {/if}
+</div>

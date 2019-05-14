@@ -1,0 +1,30 @@
+<div class="total-amount">Найдено: {if!empty $list}{php:echo count($list);}{else}0{/if}</div>
+<div class="list_table tagged_news">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="20%">
+                <col class="col1" width="20%">
+                <col class="col2" width="60%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Код для вставки</th>
+                    <th>Дата</th>
+                    <th>Заголовок</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" {ifeq $item['published'],2}class="archive"{/if}>
+                        <td>{article_link {$item['id']}}</td>
+                        <td>{$item['datetime']}</td>
+                        <td><a href="/{$content_type}/{$item['category_code']}/{$item['region_code']}/{$item['id']}/" target="_blank">{$item['title']}</a></td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

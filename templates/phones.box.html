@@ -1,0 +1,32 @@
+{if!empty $info['agency_advert_phone']}
+<script type="text/javascript">
+var __cs = __cs || [];
+__cs.push(["setAccount", "D9r7kvRp51o_EZ6sc4ng3Yh4kB8xgoNW"]);
+__cs.push(["setHost", "//server.comagic.ru/comagic"]);
+</script>
+<script type="text/javascript" async src="//app.comagic.ru/static/cs.min.js"></script>
+{/if}
+
+{ifempty $agency}
+    <p class="phone" data-source="seller_phone">8 {$item['seller_phone']}</p>
+{else}
+    {ifempty $info['agency_advert']}   
+        {if!empty $info['agency_advert_phone']}
+            <p class="phone" data-source="comagic_phone">{$info['agency_advert_phone']}</p>
+        {else}
+            {if!empty $item['seller_phone']}
+                {if!empty $item['seller_phone']}<p class="phone" data-source="seller_phone">8 {$item['seller_phone']}</p>{/if}
+            {/if}
+        {/if}
+    {else}
+        {if!empty $item['seller_phone']}
+            {if!empty $item['seller_phone']}<p class="phone{if!empty $info['agency_advert_phone']} comagic_phone_{$item['id_user']}{/if}" data-source="seller_phone">8 {$item['seller_phone']}</p>{/if}
+        {/if}
+    {/if}
+
+{/if}
+<div class="response-box">
+    <span class="title">Оцените звонок</span>
+    <span class="up transition" data-icon="thumb_up" data-id="{$id_click}"></span>
+    <span class="down transition" data-icon="thumb_down" data-id="{$id_click}"></span>
+</div>

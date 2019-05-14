@@ -1,0 +1,59 @@
+<h1 class="pageTitle">Вертикальный баннер (баннеры)</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/tgb_vertical/add/" enctype="multipart/form-data">
+    <h3>Новый баннер</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/tgb_vertical/edit/{$data_mapping['id']['value']}/"  enctype="multipart/form-data">
+    <h3>Баннер #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+ {if!empty $data_mapping['id']['value']}
+   	
+    <p class="title_row">Изображение (40x500 px)</font></p>
+    <p style="display:block; clear:both;" id="p_field_position_in_head" title="если задана ссылка на картинку, то загруженное изображение не выводится, т.е. приоритет у ссылки на картинку">
+        <label style="text-align:center; padding-top:1px; width:40px; border:1px dashed #aaa; height:500px; margin-bottom:5px; float:left; display: block;">
+        	 {if!empty $img_link_double}
+            	<img src="{$img_link_double}" alt="" width="40" />
+             {elseif!empty $data_mapping['img_src']['value']}
+             	<img src="{static:/}{$img_folder}/{$data_mapping['img_src']['value']}" alt="" width="40" />
+             {/if}
+        </label>
+        
+        <span class="lf fieldwrapper">
+            Ссылка на картинку <input type="text" placeholder="" value="{$img_link_double}" name="img_link_double" id="img_link_double" class="lf">
+         <br />
+        Загрузить изображение
+
+            <input type="file" placeholder="" value="{$data_mapping['img_src']['value']}" name="img_src" id="img_src" class="lf">
+            {if!empty $data_mapping['img_src']['error']}
+                <span class="small_text red">{$data_mapping['img_src']['error']}</span>
+            {/if}
+        </span>
+    </p>
+    {/if}  
+    <p>
+        {if!empty $data_mapping['id']['value']}<input type="submit" value="Сохранить" name="submit">
+        {else} <input type="submit" value="Сохранить и добавить фото" name="submit">{/if}
+    </p>  
+    
+</form>

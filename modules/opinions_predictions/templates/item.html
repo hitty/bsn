@@ -1,0 +1,87 @@
+<article itemscope itemtype="http://schema.org/NewsArticle" class="clearfix col-3 central-main-content br3 opinions" >
+  <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://www.bsn.ru/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/" />
+    <div class="content-wrapper">
+        <div class="image-info br3">
+            <div class="news-main-photo bg-cover-top br3 lazy" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" data-src="{static:/}{$img_folder}/big/{$item['experts_subfolder']}/{$item['experts_photo']}">
+                {include /templates/includes/breadcrumbs.html}
+                <div itemprop="description">
+                    <p class="expert">
+                        <strong>{$item['expert_title']}</strong>
+                        <br />{$item['expert_company']}, {$item['agency_title']}
+                    </p>
+                    <h1 itemprop="headline">
+                        «{$item['annotation']}»
+                    </h1>
+                </div>
+
+                <div class="smallnotes clearfix wide">
+                    <time  data-icon="schedule" datetime="{$item['normal_date']}" data-icon="schedule">{$item['normal_date']}</time>
+                    <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+                    <span class="comments_count" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+                </div>
+
+                <meta itemprop="url" content="https:{static:/}{$img_folder}/med/{$item['experts_subfolder']}/{$item['experts_photo']}">
+                <meta itemprop="width" content="355">
+                <meta itemprop="height" content="236">            
+
+                {if!empty $item['photo_source']}<span class="photo-source">Источник фото: {$item['photo_source']}</span>{/if}
+            </div>
+        </div>
+        
+        <div class="bigtext clearfix">
+            {$item['text']}    
+            
+            <div class="smallnotes bottom clearfix">
+                {if!empty $item['author']}<span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person" data-icon="create">{$item['author']}</span>{/if}
+                {if!empty $item['author_url']}<span class="source">Источник: <span class="external-link" data-link="{$item['author_url']}" title="{quoted:$item['title']}">{$item['author_url']}</span></span>{/if}
+                <div id="social-buttons-content" data-icon="share">
+                    <script src="https://yastatic.net/share2/share.js" async="async"></script>
+                    <div class="ya-share2" data-size="s" data-services="vkontakte,facebook,twitter,odnoklassniki,gplus" data-counter></div>
+                </div>
+            </div>  
+            
+        </div>    
+        
+        {ifempty $item['author']}<p style="display: none;" itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="BSN.ru"/></p>{/if}
+        <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
+            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+              <img src="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
+              <meta itemprop="url" content="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+              <meta itemprop="width" content="146">
+              <meta itemprop="height" content="40">
+            </div>
+            <meta itemprop="name" content="BSN.ru">
+        </div>    
+        <meta itemprop="datePublished" content="{$item['date']}T12:00:00"/>
+        <meta itemprop="dateModified" content="{$item['date']}T12:00:00"/>   
+    </div>    
+    
+     {include /modules/comments/templates/init.html}  
+     
+</article>
+
+<!--noindex-->
+{php:$direct_type = '2rows_content';}
+{include /templates/yandex.direct.html}
+<!--/noindex-->
+   
+{if!empty $similar_list}
+    {php:$list = $similar_list;}
+    
+    <div id="content-list" class="central-wrapper">
+        <h2 class="inner-wrapper">Последние публикации экспертов по {$item['estate_title_genitive']} недвижимости</h2>
+        <div class="content-wrapper row-3 clearfix">
+            {include /modules/opinions_predictions/templates/block.html}    
+        </div>
+    </div>
+
+{/if}
+{if!empty $prev_next_list}
+    {php:$list = $prev_next_list;}
+    <div id="content-list" class="central-wrapper">
+        <h2 class="inner-wrapper">Другие <span class="tolower">{$list[0]['type_title']}</span></h2>
+        <div class="content-wrapper row-3 clearfix">
+            {include /modules/opinions_predictions/templates/block.html}    
+        </div>
+    </div>
+{/if} 

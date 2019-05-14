@@ -1,0 +1,153 @@
+<div class="housing-estates-rating-inner clearfix" >
+{loop $list, $rk, $ritem}
+    {php:$right = $rk % 2 == 1 }
+    {php:$top = (int)( $rk % 2 ) * 80 }
+    <div class="item {if!empty $right} right{/if} clearfix bbox" data-id="{$ritem['id']}">
+        <div class="inner  br3 shadow-hover transition bbox">
+            <a class="before-abs" href="/zhiloy_kompleks/{$ritem['chpu_title']}/" target="_blank"></a>
+            <span class="number">{php:echo $rk+1}</span>
+            <div class="title text-overflow">
+                <b>{$ritem['title']}</b>
+                <span class="text">
+                    {if!empty $ritem['class_title']}{$ritem['class_title']}{/if}
+                    {if!empty $ritem['years']} / {$ritem['years']}{/if}
+                    
+                    {php:$show_agency_info = !empty($ritem['item']['agency_title']) || !empty($ritem['item']['agency_advert_phone'])}
+                    {if!empty $show_agency_info}
+                        {ifempty $ritem['item']['agency_advert']}
+                            {if!empty $ritem['item']['agency_title']}
+                                {if!eq $ritem['item']['agency_title'],'Частное лицо'}
+                                    / {$ritem['item']['agency_title']}
+                                {/if}
+                            {/if}
+                        {/if}                    
+                    {/if}                    
+                </span>
+            </div>
+            <span class="rating"><i class="br3 transition">{squareformat:$ritem['rating']}</i></span>
+                
+                <div class="housing-estate-item br3 shadow">
+                    <i class="arrow"></i>
+                    <a class="before-abs" href="/zhiloy_kompleks/{$ritem['chpu_title']}/"></a>
+
+                    <div class="left-part">
+                        <div class="rating-title">
+                            Оценка этого ЖК:
+                            <span class="rating"><i class="br3 transition">{squareformat:$ritem['rating']}</i></span>
+                        </div>
+                        
+                        <div class="rating-values">
+                            <h3>Детали</h3>
+                            <div class="rating-item clearfix">
+                                <span class="title text-overflow">Транспортная доступность</span>
+                                <span class="value">{$ritem['rating_transport']}</span>
+                            </div>
+                            
+                            <div class="rating-item clearfix">
+                                <span class="title text-overflow">Инфраструктура</span>
+                                <span class="value">{$ritem['rating_infrastructure']}</span>
+                            </div>
+                            
+                            <div class="rating-item clearfix">
+                                <span class="title text-overflow">Надежность</span>
+                                <span class="value">{$ritem['rating_safety']}</span>
+                            </div>
+                            
+                            <div class="rating-item clearfix">
+                                <span class="title text-overflow">Экологичность</span>
+                                <span class="value">{$ritem['rating_ecology']}</span>
+                            </div>
+                            
+                            <div class="rating-item clearfix">
+                                <span class="title text-overflow">Соотношение цена/качество</span>
+                                <span class="value">{$ritem['rating_quality']}</span>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="description">
+                            <div class="dashed-link-blue popup" data-location="rating-how-to-zhk" data-url="/popups/zhiloy_kompleks_rating/">
+                                Как мы составляем рейтинг?
+                            </div>
+                        
+                        </div>
+                    </div>
+
+                    <div class="right-part">
+
+                        <div class="img br3">
+                            
+                            <span class="background bg-cover br3 lazy"  data-src="{static:/}img/uploads/med/{$ritem['photo']['subfolder']}/{$ritem['photo']['name']}"></span>
+                                
+                                
+                        </div>
+                        
+                        <div class="addr-wrap">
+                            {if!empty $ritem['item']['address']}
+                                <span class="txt-addr" data-title="{if!empty $ritem['item']['district']}Санкт-Петербург {elseif!empty $ritem['item']['district_area']}Ленинградская область, {$ritem['item']['district_area']} район{else}Санкт-Петербург, {/if}{if!empty $ritem['item']['address']}, {$ritem['item']['address']}{/if}" data-zoom="city">
+                                    {if!empty $ritem['item']['district']}
+                                        {if!empty $district_link}
+                                            <a href="/{$district_link['pretty_url']}/" title="{$district_link['h1_title']}" class="grey-border-bottom">{$ritem['item']['district']} район</a>,
+                                        {else}
+                                            {$ritem['item']['district']} район,
+                                        {/if}
+                                        
+                                    {elseif!empty $ritem['item']['district_area']}
+                                        {if!empty $district_area_link}
+                                            <a href="/{$district_area_link['pretty_url']}/" title="{$district_area_link['h1_title']}" class="grey-border-bottom">{$ritem['item']['district_area']} район ЛО</a>,
+                                        {else}
+                                            {$ritem['item']['district_area']} район ЛО,
+                                        {/if}
+                                        
+                                    {/if}
+                                    {if!empty $ritem['item']['address']}{$ritem['item']['address']}{/if}
+                                </span>
+                            {/if}  
+                            {if!empty $ritem['item']['subway']}
+                                <span class="subway{if!empty $ritem['item']['subway_line_color']} {$ritem['item']['subway_line_color']}{/if}">
+                                    {if!empty $subway_link}
+                                        <a href="/{$subway_link['pretty_url']}/" title="{$subway_link['h1_title']}" class="grey-border-bottom">{$ritem['item']['subway']}</a>
+                                    {else}
+                                        {$ritem['item']['subway']}
+                                    {/if}
+                                </span>
+                            {/if}
+
+                        </div>    
+
+                     
+                        {if!empty $ritem['objects']}
+                            {php:$objects = $ritem['objects']}
+                            {php:$max_cost = 0;}
+                            {php:$min_cost = 9999999;}                        
+                            <div class="objects">
+                                <span style="font-size: 16px;">Объекты в продаже</span>
+                                {loop $objects, $o, $object}
+                                    {if!empty $object['cost']}  
+                                        <div class="object clearfix">
+                                            <span class="rooms">
+                                                <i>{ifeq $object['rooms_sale'],0}Студии
+                                                {else}{$object['rooms_sale']}к.кв
+                                                {/if}
+                                                </i>
+                                            </span>
+                                            <b>от {numberformat:$object['cost']} <span class="rur">a</span></b>
+                                            {if!empty $object['max_cost']}{ifgt $object['max_cost'], $max_cost} {php:$max_cost = $object['max_cost']}{/if}{/if}
+                                            {if!empty $object['cost']}{iflt $object['cost'], $min_cost} {php:$min_cost = $object['cost']}{/if}{/if}
+                                        </div>
+                                    {/if}
+                                {/loop $objects}        
+                           </div>
+                        {/if}            
+                    </div>
+
+                
+                </div>
+               
+        </div>
+        
+        
+        
+    </div>
+{/loop $list}
+</div>

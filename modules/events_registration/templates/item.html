@@ -1,0 +1,41 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{if!empty $submit_succ}
+     <div style="text-align: center;"><span>Вы зарегистрированы на {$forum_title} </span></div>
+    {if!empty $sendmail_succ}
+        {if!empty $invited_text}
+            <div style="text-align: center;"><span>{$invited_text}</span></div>
+            <div style="text-align: center;"><span>Благодарим за регистрацию!</span></div>
+        {/if}
+    {/if}
+{else}          
+    {if!empty $botobor_msg}
+        <span class="error">{$botobor_msg}</span>
+    {else}
+        {if!empty $calendar_item}<article class="gray-border news">{/if}
+            <h2 id="registration-form">
+                {if!empty $calendar_item}Зарегистрироваться на мероприятие: «{$h1}»
+                {else}Регистрационная форма:
+                {/if}
+            </h2>
+            {$form}
+            
+            
+            {if!empty $calendar_item}
+                {if!empty $photos}
+                    <div class="news-main-photo">
+                        <img src="/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" alt="{$calendar_item['title']}" />
+                    </div>
+                {/if}
+                <div class="bigtext">
+                    <p><strong>Дата:</strong> {$calendar_item['datebegin']} {if!eq $calendar_item['dateend'],''}- {$calendar_item['dateend']}{/if}</p>
+                    {if!empty $calendar_item['city']}<p><strong>Место:</strong> {$calendar_item['city']}, {$calendar_item['place']}</p>{/if}
+                    {if!empty $calendar_item['time']}<p><strong>Время:</strong> {$calendar_item['time']}</p>{/if}
+
+                    
+                    <p>{$calendar_item['text']}</p> 
+                </div>   
+            {/if}        
+
+        {if!empty $calendar_item}</article> {/if}
+    {/if}
+{/if}

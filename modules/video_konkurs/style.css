@@ -1,0 +1,772 @@
+/* HEADER */
+body,
+html{
+    font-family: 'Open Sans', sans-serif;
+}
+header{
+    width:100%;
+    height:834px;
+    position: relative;
+    padding:0;
+}
+header .text-img{
+    position: absolute;
+    left: 50%;
+    margin-left: -475px;
+    top: 100px;
+    z-index: 100;
+}
+
+#parallax{
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    overflow: hidden;
+}
+#parallax .parallax-layer.bg{
+    background: url('https://st.bsn.ru/img/layout/video_landing/main-bg.jpg') no-repeat center;
+    background-size:2203px 900px;
+    position:absolute;
+    top:0;
+    left:0;
+    width:2203px;
+    height:837px;
+}
+#parallax .parallax-layer.small-bg{
+    background: url('https://st.bsn.ru/img/layout/video_landing/main-small.png') no-repeat center;
+    position: absolute;
+    left: 0px;
+    top: 157px;
+    width: 502px;
+    height: 273px;
+}
+#parallax .parallax-layer.hand{
+    background: url('https://st.bsn.ru/img/layout/video_landing/hand-with-phone.png') no-repeat center;
+    position:absolute;
+    left: 0;
+    top: 0;
+    width:1150px;
+    height:566px;
+}
+header.small #parallax .parallax-layer{
+    display: none;
+}
+header .phone-wrap{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 50%;
+    margin-left: -257px;
+    top: 50%;
+    margin-top: -150px;
+    
+}
+header .hand-wrap{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 50%;
+    margin-left: -276px;
+    top: 50%;
+    margin-top: -150px;
+    
+}
+#upload-wrap .get-money:before,
+#upload-form:before,
+header:after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 106px;
+    margin-left: -28px;
+    display: block;
+    width: 56px;
+    height: 60px;
+    background: url('https://st.bsn.ru/img/layout/video_landing/red_circle.png') no-repeat center;
+}
+header:not(.small):before {
+  content: "";
+  height: 96px;
+  width: 2px;
+  position: absolute;
+  background: #d81919;
+  left: 50%;
+  margin-left: -1px;
+  bottom: 21px;
+  z-index: 10;
+}
+header .content{
+    width:960px;
+    margin: 0 auto;
+    text-align: center;
+    background: none;
+    padding: 0;
+    line-height: 76px;    
+}
+header .content .back {
+    float: left;
+    color: #fff;
+    padding-left: 20px;
+}
+header .content .back:before {
+    content: "←";
+    position: absolute;
+    left: 0;
+}
+header .content .logo{
+    background: url('https://st.bsn.ru/img/layout/video_landing/logo.gif') no-repeat center;
+    width: 178px;
+    height:74px;
+    display: inline-block;
+    text-decoration:none;
+}
+.content .social {
+    font-size: 24px;
+    float: right;
+    display: table;
+    height: 40px;
+    color:  #969696;
+}
+
+.content .social span {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 10px;
+    vertical-align: middle;
+    
+    
+    
+    
+    
+    text-decoration: none;
+}
+
+.content .social span {
+    color: #fff;
+}
+header.small{
+    height: 380px;
+    background: url('https://st.bsn.ru/img/layout/video_landing/main-bg.jpg') no-repeat top;
+}
+header.small:after{
+    display: none;
+}
+@font-face {
+    font-family: 'Grands';
+    src: url('/css/fonts/Grands.eot');
+    src: url('/css/fonts/Grands.eot?#iefix') format('embedded-opentype'),url('/css/fonts/Grands.svg#Grands') format('svg'),url('/css/fonts/Grands.woff') format('woff'),url('/css/fonts/Grands.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.content .social [data-icon]:before {
+    font-family: 'Grands';
+    content: attr(data-icon);
+    speak: none;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+.content .social [class^="icon-"]:before, 
+.content .social [class*=" icon-"]:before {
+    font-family: 'Grands';
+    font-style: normal;
+    speak: none;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+}
+.icon-YouTube:before {
+    content: "\e000";
+}
+
+.icon-Vkontakte:before {
+    content: "\e002";
+}
+
+.icon-VK:before {
+    content: "\e003";
+}
+
+.icon-twitter:before {
+    content: "\e005";
+}
+
+.icon-LiveJournal:before {
+    content: "\e016";
+}
+
+.icon-facebook:before {
+    content: "\e021";
+}
+
+.icon-YouTube-play:before {
+    content: "\e027";
+}
+.content .social .icon-facebook:hover {
+    color: #3F5FAA;
+}
+
+.content .social .icon-VK:hover {
+    color: #4C75A3;
+}
+
+.content .social .icon-twitter:hover {
+    color: #3AA9DE;
+}
+
+.content .social .icon-YouTube-play:hover {
+    color: #DA2724;
+}
+
+/* UPLOAD WRAP */
+#upload-wrap{
+    width:100%;
+    background: url('https://st.bsn.ru/img/layout/video_landing/upload_bg.jpg') repeat;
+    text-align:center;
+    position: relative;
+}
+
+#upload-wrap:before{
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -30px;
+    margin-left: -28px;
+    display: block;
+    width: 56px;
+    height: 60px;
+    background: url('https://st.bsn.ru/img/layout/video_landing/red_circle.png') no-repeat center;
+}
+#upload-form{
+    width: 580px;
+    margin: 0 auto;
+    padding: 40px 0 130px 0;
+    text-align: center;
+    position: relative;
+}
+#upload-wrap .get-money:after,
+#upload-form:after {
+    content: "";
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    background: #d81919;
+    left: 50%;
+    margin-left: -1px;
+}
+#upload-form:before {
+    bottom: 25px;
+}
+#video-landing h2,
+#video-landing h3{
+    font-size:44px;
+    font-family: 'Century Gothic';
+}
+#upload-wrap h2{
+    padding: 0;
+}
+#video-landing h3{
+    font-size:27px;
+    font-weight: normal;
+}
+#video-landing h3 .red{
+    color:#d81919;
+}
+#upload-form input[type="text"],
+#upload-form input[type="phone"],
+#upload-form input[type="email"]{
+    font-family: 'Open Sans';
+    font-size: 18px;
+    padding: 15px 10px 15px 50px;
+    border: 1px solid #2d74b2;
+    margin: 10px;
+    display: inline-block;
+    font-weight: 400;
+    background-image: url('https://st.bsn.ru/img/layout/video_landing/icons.png');
+    background-repeat: no-repeat;
+    float:left;
+    width: 260px;
+    height:54px;
+}
+#upload-form input#name{
+    background-position: 12px 15px;
+}
+#upload-form input#email{
+    background-position: 12px -45px;
+}
+#upload-form input#estate_complex_title{
+    background-position: 12px -105px;
+    margin:0;
+    width:215px;
+}
+.complex-tabs{
+  position: absolute;
+  top: -5px;
+  right: 0px;
+  width: 45px;
+}
+.complex-tabs span{
+    font-size: 16px;
+    padding: 4px 10px 3px 10px;
+    cursor: pointer;
+    color:#2d74b2;
+    display: inline-block;
+    width: 44px;
+}
+.complex-tabs .selected{
+   background: #2d74b2 ;
+   color:#fff;
+}
+#upload-form input#phone{
+    background-position: 12px -165px;
+}
+#upload-form .checkbox:after,
+#upload-form input#phone:after{
+    content: "";
+    clear: both;
+    display: table;
+}
+#upload-form .estate-complex-wrap{
+    display: inline-block;
+    width: 260px;
+    float: left;
+    padding:0;
+    margin:10px;
+    position:relative;
+    margin-bottom: 40px;
+}
+#upload-form .estate-complex-wrap a{
+    float: left;
+    color: #d81919;
+    background: url('https://st.bsn.ru/img/layout/video_landing/icons.png') no-repeat -8px -234px;
+    padding: 5px 0 0px 16px;
+    top:50px;
+    position: absolute;
+    width: 110px;
+    left: 0;    
+}
+#upload-form .checkbox{
+    margin: 30px auto 20px auto;
+    clear: both;
+    display: block;
+    width: 265px;
+}
+#upload-form .errors-list{
+    color:#D81919;
+    font-weight: bold;
+    position:relative;
+    font-size:18px;
+}
+#upload-form button{
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+    font-size: 18px;
+    padding: 26px 20px 26px 55px;
+    width: 270px;
+    display: block;
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1px;
+    box-shadow: none;
+    background: url('https://st.bsn.ru/img/layout/video_landing/upload_icon.png') no-repeat 65px 16px #D81919;
+}
+#upload-form button[disabled="disabled"]{
+    opacity:.5;
+    cursor: default;
+}
+#upload-form .upload-info{
+    width: 270px;
+    margin: 0 auto;
+    height: 54px;
+    clear: both;
+    text-align: left;  
+    position: relative
+}
+#upload-form .upload-info span{
+    position: absolute;
+    width: 155px;
+    font-size: 11px;
+    right: 0;
+    top: 0;
+    line-height: 10px;
+} 
+#upload-form .custom-file-input {
+    color: transparent;
+    width: 104px;
+    border: none;
+}
+#upload-form .custom-file-input.red-border{
+    border: none!important;
+}
+#upload-form .custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+#upload-form .custom-file-input::before {
+    content: 'Файл';
+    color: black;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #999;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    border: 2px solid #2d74b2;
+    width: 84px;
+    text-align: center;
+    height: 28px;
+    line-height: 30px;
+}
+#upload-form .custom-file-input:hover::before {
+  border-color: black;
+}
+#upload-form .custom-file-input:active {
+  outline: 0;
+}
+#upload-form .custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #EEEEEE); 
+}
+#upload-wrap #social-buttons-content{
+    float: none;
+    margin: 0 auto;
+    border: 2px solid #d81919;
+    padding: 10px;
+    width: 250px;
+}
+
+#upload-wrap .get-money{
+    padding: 120px 0 40px 0;
+    position:relative;
+}
+#upload-wrap .get-money:before{
+    bottom: 160px;
+}
+#upload-wrap .get-money:after{
+    bottom: 205px;    
+}
+ /* footer */
+ footer{
+     background: #0088cc;
+     width: 100%;   
+     margin:0;
+     padding:0;  
+     min-height:0px;
+}
+ footer .content{
+    background: #0088cc;
+    width: 960px;
+    margin: 0 auto;
+    border-top: 5px solid #fff;
+    padding: 10px 0;
+    color: #fff;
+    font-family: 'Century Gothic Bold';
+    font-size: 18px;
+}
+footer .content a{
+    font-size: 14px;
+    font-family: 'Century Gothic';
+    color:#fff;
+    margin-left: 20px;
+}
+footer .content .social{
+   height:20px; 
+}
+footer .content .social{
+    float: right;
+    text-align: right;
+    line-height: 21px;
+    display: block;
+    width: 200px;
+}
+/* MOVIES */
+#movies-wrap{
+    background: #0088cc;    
+    color:#fff;
+    padding: 40px 0;
+}
+#movies-wrap .movies,
+#movies-list {
+    width: 96%;
+    margin: 0 auto;
+}
+#movies-wrap .movies{
+    margin: 0px auto 30px auto;
+}
+#movies-list{
+    height:auto;
+    overflow: visible;
+}
+#movies-wrap .movies + #movies-list{
+    overflow: hidden;
+    height: 330px;
+}
+#movies-wrap .movies:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#movies-wrap .movies h3 {
+    color: #fff;
+}
+
+#movies-wrap .movies .show-all {
+    float: right;
+    color: #fff;
+    font-size: 27px;
+    font-family: 'Century Gothic Bold';
+    text-transform: uppercase;
+}
+
+#movies-list .item {
+    width: 460px;
+    color: #fff;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    margin: 0 20px 20px 0;
+}
+
+#movies-list .item img{
+    display: block;
+    margin-bottom: 10px;
+}
+#movies-list .item .title{
+    font-family: 'Century Gothic';
+    font-size: 18px;
+    color: #fff;
+}
+#movies-list .item .user{
+    font-family: 'Century Gothic';
+    font-size: 12px;
+    margin-top: 5px;
+    background: url('https://st.bsn.ru/img/layout/video_landing/user_icon.png') no-repeat 0px 4px;
+    padding-left: 12px;
+}
+#movies-list .item .number{
+    font-family: 'Century Gothic';
+    font-size: 12px;
+    margin-top: 5px;
+    background: url('https://st.bsn.ru/img/layout/video_landing/icons.png') no-repeat -7px -267px;
+    padding-left: 14px;
+    margin-right: 40px;
+}
+#movies-list .item .likes{
+    float: right;
+    border: 2px solid #fff;
+    font-size: 14px;
+    font-family: 'Century Gothic Bold';
+    padding: 5px 10px 5px 25px;
+    border-radius: 63px;
+    cursor: pointer;
+    background: url('https://st.bsn.ru/img/layout/video_landing/like_icons.png') no-repeat 8px 0px;
+    
+    
+    
+    
+        
+    margin-top: 6px;
+    -webkit-margin-top: -15px;
+}
+#movies-list .item .likes:hover{
+    background-color: rgba(255,255,255,.2);
+}
+#movies-list .item .likes.active{
+    background-color: #fff;
+    color:#000;
+    background-position: 8px -27px;
+}
+#upload-wrap .upload-complete{
+    width: 850px;
+    margin: 0 auto;
+    padding: 50px;
+    font-size: 18px;
+}
+ .waiting{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0 10px 25px;
+    background: url('https://st.bsn.ru/img/layout/waiting.gif') no-repeat 10px 17px;
+    width: 252px;
+    margin: 0 auto;    
+    display: block;
+}
+ .waiting.inactive{
+    display: none;
+ }
+#upload-form .typewatch_popup_list{
+    top: 54px;
+    bottom: auto;
+    left: 1px;
+    text-align: left;
+}
+#upload-form .typewatch_popup_list li{
+    padding: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 16px;    
+}
+#movies-wrap .show-more{
+    display: block;
+    margin: 50px auto 0 auto;
+    font-size: 27px;
+    font-family: 'Century Gothic Bold';
+    border-bottom: 1px dashed #fff;
+    
+    
+    
+    
+    
+    width: 235px;
+    cursor: pointer;
+    position:relative;
+}
+#movies-wrap .show-more:before{
+    content:"Показать еще 10";
+    position:absolute;
+    top:-35px;
+    left:0;
+    display:block;
+    width:235px;
+    -webkit-transition: all .3s, background none;
+    -moz-transition: all .3s, background none;
+    -o-transition: all .3s, background none;
+    -ms-transition: all .3s, background none;
+    transition: all .3s, background none;    
+}
+#movies-wrap .show-more.waiting-button,
+#movies-wrap .show-more:hover{
+    border-bottom: 1px dashed transparent;
+}
+#movies-wrap .show-more.waiting-button:before{
+    content:"Подождите";
+    text-align: right;
+    background: url('https://st.bsn.ru/img/layout/waiting.gif') no-repeat 47px 14px;
+}
+#movies-wrap .search-filters{
+    width: 1060px;
+    margin: 0px auto 40px auto;    
+}
+#movies-wrap .search-filters .orderby{
+    
+}
+#movies-wrap .search-filters .orderby span{
+    text-transform: uppercase;
+    margin-right: 40px;    
+    font-family: 'Century Gothic';
+    font-size:18px;
+}
+#movies-wrap .search-filters .orderby a{
+    color:#fff;  
+    position: relative;  
+    margin-right: 40px;
+    font-size:14px;
+    padding: 7px 10px;
+}
+
+#movies-wrap .search-filters .orderby .down:after,
+#movies-wrap .search-filters .orderby .up:after{
+  content: "▾";
+  position: absolute;
+  right: -14px;
+  top: 0px;
+  display: block;
+  height: 33px;
+  font-size: 16px;
+  background-color: #006090;  
+  padding: 0 10px 0 0;
+  line-height: 33px;
+}
+#movies-wrap .search-filters .orderby .up,
+#movies-wrap .search-filters .orderby .down{
+  background-color: #006090;  
+}
+#movies-wrap .search-filters .orderby .up:after{
+    content: "▴";
+}
+.to-main{
+    color: #fff;
+    float: right;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-family: 'Century Gothic Bold';
+    padding-left: 50px;
+    background: url('https://st.bsn.ru/img/layout/video_landing/cloud.png') no-repeat 13px 0px;
+}
+.to-main:hover{
+    color:#fff;
+}
+@media (min-width: 960px) {
+    #movies-wrap .movies .show-all{
+        margin-right: 74px;
+    }
+    #movies-wrap .movies h3{
+        margin-left: 67px;
+    }
+    #movies-wrap .movies,
+    #movies-list{
+        width: 1200px;
+    }
+    #movies-list .item{
+        margin:0 68px 30px 68px;
+    }
+}
+
+@media (min-width: 1520px) {
+    #movies-wrap .movies,
+    #movies-list{
+        width: 1480px;
+    }
+    #movies-list .item{
+        margin:0 1% 20px 1%;    
+    }
+}
+.splayer:after{
+    content:"";
+    clear:both;
+    display: table;
+}
+#offer-wrap{
+    background: #0088cc;
+}
+#offer-wrap .text{
+    color: #fff;
+    padding: 40px 0;
+    width:960px;
+    margin:0 auto;
+    
+}
+#offer-wrap .text h2,
+#offer-wrap .text h3,
+#offer-wrap .text a{
+    color:#fff;
+}
+#offer-wrap .text h3{
+    margin-top:20px;
+}
+#offer-wrap .text li{
+    display: table;
+    position: relative;
+    margin:0 0 10px 10px;
+}
+#offer-wrap .text li:before{
+    width: 4px;
+    height: 4px;
+    border-radius: 10px;
+    content: "";
+    left: -8px;
+    top: 7px;
+    background: #fff;
+    display: block;
+    position: absolute;
+}

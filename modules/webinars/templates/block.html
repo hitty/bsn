@@ -1,0 +1,26 @@
+{if!empty $list}
+    {if!eq $paginator['active_page'], 1}
+        {if!empty $ajax_pagination}
+            <div class="page-separator clearfix"></div>
+        {/if}
+    {/if}
+    
+    {loop $list,$lk,$item}
+        <div class="item webinars br3 shadow-hover main bbox transition">
+            <span class="internal-link" data-link="/webinars/{$item['url']}/"></span>
+            <span class="image br3 bg-cover" data-icon="play_circle_outline" style="background-image: url({static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']});" {ifeq $content_type, 'bsntv'}data-icon="play_circle_outline"{/if} ></span>
+            <div class="content">
+                 <p class="smallnotes clearfix">
+                    <time  data-icon="schedule" datetime="{$item['e_date']}" data-icon="schedule">{$item['normal_date']}</time>
+                    <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+                    <span class="comments_count" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_amount']}</span>
+                </p>  
+                <a href="/webinars/{$item['url']}/" title="подробнее">{$item['title']}</a>
+            </div>
+        </div>
+    {/loop $list}
+    {if!empty $ajax_pagination}
+        <div class="clearfix"></div>
+        <span class="center-button-block ajax-pagination button grey clearfix" data-link="{$ajax_url}">Еще вебинары</span>
+    {/if}
+{/if}

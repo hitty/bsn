@@ -1,0 +1,13 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Здравствуйте,{if!empty $item['name']} {$item['name']}{/if}{if!empty $item['lastname']} {$item['lastname']}{/if}</b>!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+В теме «{$item['title']}» ({$item['comments_types_title']}), пользователь {$author_name} <a href="https://www.bsn.ru{$item['link']}#comment{$id}">ответил на ваш комментарий</a>.
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

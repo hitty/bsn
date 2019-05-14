@@ -1,0 +1,12 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body class="map"{if!empty $debug} id="debug"{/if}>
+    {php:$map_mode = true}
+    {include /templates/includes/main_header_part.html} 
+    {include /templates/includes/estate_search_form.html}
+    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug" type="text/javascript"></script>
+    <div id="total-objects" class="waiting"></div>
+    <div id="last-visited-page" class="button blue with-shadow"  onclick="javascript:history.back();" data-icon="arrow_back"></div>
+    <div id="map-search-results" class="estate-list {$estate_type}"></div>
+</body>
+</html>

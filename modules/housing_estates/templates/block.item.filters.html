@@ -1,0 +1,8 @@
+    <div class="filter scroll">
+        {if!empty $photos}<span class="active" data-tab-ref=".gallery-box">Галерея</span>{/if}
+        <span {ifempty $photos}class="active"{/if} data-tab-ref=".description">Описание</span>
+        {ifgt $housing_estate_objects_count,0}<span class="objects-title" data-tab-ref=".objects" {ifempty $payed_format}data-with-target="true"{/if} onclick="try { yaCounter21898216.reachGoal('flatclick');return true; }catch (err) {  }">Квартиры<sup>{$housing_estate_objects_count}</sup></span>{/if}
+        {if!empty $progresses}<span   data-tab-ref=".progresses-gallery-thumbs">Ход строительства</span>{/if}
+        <span   data-tab-ref=".infrastructure">Инфраструктура</span>
+        <span class="comments-title" data-tab-ref=".comments">Отзывы<sup>{$item['comments_count']}</sup></span>
+    </div>

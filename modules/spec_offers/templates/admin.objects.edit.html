@@ -1,0 +1,137 @@
+<h1 class="pageTitle">Спецпредложения / объекты</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/spec_offers/objects/add/" enctype="multipart/form-data">
+    <h3>Новое событие</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/spec_offers/objects/edit/{$data_mapping['id']['value']}/"  enctype="multipart/form-data">
+    <h3>Событие #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+ {if!empty $data_mapping['id']['value']}
+   	
+    <p class="title_row">Управление фотографиями в основном разделе, на главной и в разделе недвижимости <font size="-2">(pазмер картинки масштабируется до 110x110px и 150x150px)</font></p>
+    <p style="display:block; clear:both;" id="p_field_position_in_head" title="если задана ссылка на картинку, то загруженное изображение не выводится, т.е. приоритет у ссылки на картинку">
+        <label style="text-align:center; padding-top:1px; width:181px; border:1px dashed #aaa; height:110px; margin-bottom:5px;">
+        	 {if!empty $main_img_link_double}
+            	<img src="{$main_img_link_double}" alt="" width="110" height="110" />
+             {elseif!empty $data_mapping['main_img_src']['value']}
+             	<img src="/{$main_img_folder}/{$data_mapping['main_img_src']['value']}" alt="" width="110" height="110" />
+             {/if}
+        </label>
+        
+        <span class="lf fieldwrapper">
+            Ссылка на картинку <input type="text" placeholder="" value="{$main_img_link_double}" name="main_img_link_double" id="main_img_link_double" class="lf">
+         <br />
+        Загрузить изображение
+
+            <input type="file" placeholder="" value="{$data_mapping['main_img_src']['value']}" name="main_img_src" id="main_img_src" class="lf">
+        </span>
+    </p>
+    <p class="title_row">Управление фотографиями на главной в шапке<font size="-2">(pазмер картинки масштабируется до 180x90px)</font></p>
+    <p style="display:block; clear:both;" id="p_field_position_in_head" title="если задана ссылка на картинку, то загруженное изображение не выводится, т.е. приоритет у ссылки на картинку">
+        <label style="text-align:center; padding-top:1px; width:180px; border:1px dashed #aaa; height:90px;">
+        	 {if!empty $head_img_link_double}
+            	<img src="{$head_img_link_double}" alt="" width="180" height="90" />
+             {elseif!empty $data_mapping['head_img_src']['value']}
+             	<img src="/{$head_img_folder}/{$data_mapping['head_img_src']['value']}" alt="" width="180" height="90" />
+             {/if}
+        </label>
+        
+        <span class="lf fieldwrapper">
+            Ссылка на картинку <input type="text" placeholder="" value="{$head_img_link_double}" name="head_img_link_double" id="head_img_link_double" class="lf">
+         <br />
+        Загрузить изображение
+            <input type="file" placeholder="" value="" name="head_img_src" id="head_img_src" class="lf">
+        </span>
+    </p>    
+    
+	
+        <p class="title_row">Кредитные клики Пинголы</font></p>   
+        <p>
+            {if!empty $manager}<p>{$manager['name']}, у вас остаток лимита: <span id="manager-limit">{$manager['pingola_credit_limit']}</span></b></p> {/if}
+            <p  id="spec-object-credits" data-id="{$data_mapping['id']['value']}">
+                {php:$disabled = $manager['pingola_credit_limit']==0 || !empty($banner_credits['id_object']) || !empty($disabled);}
+                <input type="text" id="limit" name="limit" value="{if!empty $banner_credits['limit']}{$banner_credits['limit']}{/if}" {if!empty $disabled}disabled="disabled"{/if} placeholder="общее количество кликов за период" max="{$manager['pingola_credit_limit']}" />
+                <input type="text" class="datetimepicker" id="bc_date_start" name="bc_date_start" value="{if!empty $banner_credits['date_start']}{$banner_credits['date_start']}{/if}" {if!empty $disabled}disabled="disabled"{/if} placeholder="начало периода"/>
+                <input type="text" class="datetimepicker" id="bc_date_end" name="bc_date_end" value="{if!empty $banner_credits['date_end']}{$banner_credits['date_end']}{/if}" {if!empty $disabled}disabled="disabled"{/if} placeholder="конец периода"/>
+                <span id="day-limit">{if!empty $banner_credits['day_limit']}Ежедневный расход кликов: <span class="day-limit">{$banner_credits['day_limit']}</span>{/if}</span>
+                <button id="save-values" style="display:none;">Сохранить</button>
+            </p>
+        </p>
+    
+    {/if}  
+    <p>
+        {if!empty $data_mapping['id']['value']}<input type="submit" value="Сохранить" name="submit">
+        {else} <input type="submit" value="Сохранить и добавить фото" name="submit">{/if}
+    </p>    
+</form>
+<script>
+ jQuery(document).ready(function(){
+     var _date_start = _date_end = _limit = _day_limit = _manager_limit = '';
+     if(jQuery('.datetimepicker').length>0){
+        
+         jQuery('.datetimepicker').datetimepicker({
+              timepicker:false,
+              format:'m/d/y',
+              minDate:0,
+              timepicker:false,
+              onChangeDateTime:function(dp,$input){
+                $input.attr('value',$input.val());
+                checkValues();
+              }
+        });
+    }
+    jQuery('#limit').on('change',checkValues);
+    function checkValues(){
+        _limit = Math.floor(jQuery('#limit').val());
+        _date_start = jQuery('input[name=bc_date_start]').val();
+        _date_end = jQuery('input[name=bc_date_end]').val();
+        _manager_limit = Math.floor(jQuery('#manager-limit').text());
+
+        if(_date_start!=null && _date_start!='' && _date_end!=null && _date_end!='' && _limit>0 && _limit<=_manager_limit){
+            var date1 = new Date(_date_start);
+            var date2 = new Date(_date_end);
+            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+            _day_limit = Math.ceil(_limit/diffDays);
+            jQuery('#day-limit').html('Ежедневный расход кликов: <span class="day-limit">'+_day_limit+'</span>');
+            jQuery('#save-values').fadeIn(200);
+        } else {
+            jQuery('#save-values').fadeOut(200);
+        }
+    }
+
+    jQuery('#save-values').on('click',function(){
+        var _button = jQuery(this);
+        getPending('/admin/advert_objects/spec_offers/objects/banner_credit/',{limit:_limit, date_start:_date_start, date_end:_date_end, manager_limit:_manager_limit, day_limit:_day_limit, id_object:jQuery('#spec-object-credits').data('id')})
+        jQuery('#manager-limit').text(_manager_limit-_limit);
+        _button.fadeOut(50);
+        jQuery('#limit').attr('disabled','disabled');
+        jQuery('input[name=bc_date_start]').attr('disabled','disabled');
+        jQuery('input[name=bc_date_end]').attr('disabled','disabled');
+        
+        return false;
+    })    
+            
+});
+</script>

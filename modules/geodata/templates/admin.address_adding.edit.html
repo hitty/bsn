@@ -1,0 +1,109 @@
+<h1 class="pageTitle">Улица</h1>
+    <form class="form_default" method="post" action="/admin/service/geodata/address_adding/edit/{$data_mapping['id']['value']}/{if!empty $get_string}?{$get_string}{/if}" {if!empty $added_to_base}data-cannot-save="true"{/if}>
+    <h3>id #{$data_mapping['id']['value']} &quot;{$data_mapping['offname']['value']} {$data_mapping['shortname']['value']}&quot;
+    {if!empty $added_to_base}
+        {ifempty $data_mapping['id_geodata']['value']} - добавлена в базу
+        {else}привязана к объекту {$data_mapping['id_geodata']['value']} в базе
+        {/if}
+    {/if}</h3>
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+</form>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('#id_region').on('change',function(){
+            if(jQuery(this).val() == 78){
+                jQuery('#txt_area').prop( "disabled", true );
+                jQuery('#id_area').val(0);
+                jQuery('#txt_area').val("");
+                
+                jQuery('#id_city').val(0);
+                jQuery('#txt_city').val("");
+                
+                jQuery('#id_place').val(0);
+                jQuery('#txt_place').val("");
+                
+                jQuery('#txt_district').prop( "disabled", false );
+            }else{
+                jQuery('#txt_area').prop( "disabled", false );
+                
+                jQuery('#id_city').val(0);
+                jQuery('#txt_city').val("");
+                
+                jQuery('#id_place').val(0);
+                jQuery('#txt_place').val("");
+                
+                jQuery('#txt_district').prop( "disabled", true );
+                jQuery('#id_district').val(0);
+                jQuery('#txt_district').val("");
+            }
+        });
+        jQuery('.lf.fieldwrapper input').on('blur',function(){
+            var _this_geo_level =jQuery(this).attr('class').replace('typewatch','').replace('lf','').trim();
+            if(jQuery(this).val() == ''){
+                if(_this_geo_level == 'street') jQuery('#id_geodata').val(0);
+                else jQuery('#id_' + _this_geo_level).val(0);
+            }
+            jQuery('.address-add').addClass('disabled')
+        });
+        jQuery('#txt_street').on('blur',function(){
+            if(jQuery(this).val() == '') jQuery('#id_geodata').val(0);
+            jQuery('.address-add').removeClass('disabled')
+        });
+        
+        //если добавлено в базу, нельзя редактировать
+        if(jQuery('form.form_default').attr('data-cannot-save') !== undefined){
+            jQuery('input[type="submit"]').remove();
+        }else{
+            //вставляем кнопку "сохранить и добавить"
+            jQuery('input[name="submit"]').after('<button class="address-add" data-href="/admin/service/geodata/address_adding/add/' + window.location.href.split('/')[8] + '">Добавить в базу</button>');
+            if(jQuery('#id_geodata').val() > 0) jQuery('.address-add').addClass('disabled');
+            jQuery('.address-add').on('click',function(){
+                if(jQuery(this).hasClass('disabled')) return false;
+                if(!confirm('Вы уверены, что нужно добавить этот адрес?')) return false;
+                var _this = jQuery(this);
+                jQuery.ajax({
+                    type: "POST", async: true,
+                    dataType: 'json', url: _this.attr('data-href'),
+                    data: {ajax: true},
+                    success: function(msg){
+                        if(typeof(msg)=='object') {
+                            if(msg.ok) {
+                                if(msg.ids !== undefined && msg.ids.length > 0){
+                                    alert('Адрес успешно добавлен в базу')
+                                } else alert("Ошибка: " + msg.error);
+                            } else alert('Ошибка: '+msg.error);
+                        } else alert('Ошибка!');
+                    },
+                    error: function(){
+                        alert('Server connection error!');
+                    },
+                    complete: function(){
+                    }
+                });
+                return false;
+            });
+        }
+        
+        
+    });
+</script>

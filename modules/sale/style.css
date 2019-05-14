@@ -1,0 +1,87 @@
+.mainpage .sale-wrapper{
+    float: left;
+    height: 480px;
+    background-image: url('/img/layout/sale-bg.jpg');
+    width: 960px;
+    position: relative;
+    padding: 40px;
+}
+.mainpage .sale-wrapper:before{
+    background: rgba(0,0,0,.5);
+    z-index: 0;
+}
+.mainpage .sale-wrapper h2{
+    color: #fff;
+    position: relative;
+    width: 600px;
+    float: left;
+}
+.mainpage .sale-wrapper .button.red{
+    float: right;
+    width: 200px;
+    margin-top: 20px;
+}
+.mainpage .sale-wrapper #bsn-sale{
+    clear: both;
+    width: 880px;
+}
+.mainpage .sale-wrapper #bsn-sale-objects{
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+    overflow: hidden;   
+    padding-top: 40px;
+}
+.mainpage .sale-wrapper #bsn-sale .offer-item {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    width: 280px;
+    height: 270px;
+    background: #fff;
+    padding: 10px;
+    font-size: 16px;
+}
+.mainpage .sale-wrapper #bsn-sale .offer-item .offer-values {
+    clear: both;
+    line-height: 38px;
+}
+.mainpage .sale-wrapper #bsn-sale .offer-item .offer-values .ov-timer {
+    font-size: 18px;
+    font-weight: bold;
+    float: left;
+    padding: 0 6px 0 0;
+}
+
+.mainpage .sale-wrapper #bsn-sale .offer-item .offer-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+.mainpage .sale-wrapper #bsn-sale .offer-item .rooms-quantity {
+    padding: 0 0 10px 0;
+}
+.mainpage .sale-wrapper #bsn-sale .offer-item .offer-img img{
+    display: block;    
+}
+.mainpage .sale-wrapper #bsn-sale .offer-item .offer-img .offer-img-address{
+    background: rgba(0,0,0,.5);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    height: auto;
+    width: auto;
+    color: #fff;   
+    text-align: left; 
+}
+.mainpage .sale-wrapper #bsn-sale .offer-item .offer-img .offer-img-address .address-marker{
+    display: none;
+}

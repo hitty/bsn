@@ -1,0 +1,88 @@
+<h2 class="settings-h1">Тарифы</h2>
+
+<div class="radio-group period-choose">
+
+
+    {loop $discounts,$rlk,$rlt}
+        <span class="label{ifeq $rlt['months'],1} on{/if}" data-discount="{$rlt['discount']}" data-period="{$rlt['months']}">
+            на {suffix:$rlt['months'],'месяц','','а','ев'}
+            {ifgt $rlt['discount_text'],0}<span class="discount">Скидка {$rlt['discount_text']}</span>{/if}
+        </span>
+
+    
+    {/loop $discounts}
+    
+</div>                
+
+<table class="tarifs-table">
+    
+    {loop $list,$key,$item}
+        {if!empty $item['values']}
+        <tr {ifempty $item['title']}class="titles-row"{/if}{ifeq $key,1}class="row-tall"{/if}{ifeq $key,$list_length}class="row-tall"{/if}>
+            <td class="row-title">
+                {if!empty $item['title']}
+                    {$item['title']}
+                {/if}
+            </td>
+            {php: $td = $item['values'];}
+            {loop $td,$td_key,$td_value}
+                <td class="tarif-{$list[0]['values'][$td_key]}{ifeq $td_key,$popular_tarif_num} active{/if}" data-tarif="{$list[0]['values'][$td_key]}" {ifin $key,2,3} data-in-month={$td_value}{/if}>
+                    
+                    {ifeq $item['title'],'Звонки, заявки'}
+                        {ifeq $td_value,1}<span class="service-check" data-icon="done"></span>{/if}
+                    {else}
+                        {$td_value}
+                    {/if}
+                </td>
+            {/loop $td}
+        </tr>
+        {/if}
+    {/loop $list}
+    
+    <tr class="full-cost">
+        <td class="row-title">Стоимость</td>
+        {loop $costs,$key,$item}
+            <td data-source="{$key}" class="prices" data-tarif="{$list[0]['values'][$key]}" >
+                <span class="new-price" data-fcost="{$list['cost'][$key]}">{numeric:$list['cost'][$key]} Р</span>
+                <span class="old-price hidden" data-cost="{$item}">{numeric:$item} Р</span>
+            </td>
+        {/loop $costs}
+    </tr>
+
+    <tr class="buttons-row">
+        <td class="row-title"></td>
+        {loop $tarifs,$k,$item}
+            <td data-tarif="{$list[0]['values'][$k]}"{ifeq $k,$popular_tarif_num}class="active"{/if}>
+                {ifempty $auth['tarif_title']}
+                    <button data-id="{$item['id']}" class="grey">Выбрать</button>
+                {elseifeq $auth['id_tarif'],$item['id']}<b>Подключен до {$auth_data['tarif_end']}</b>
+                {/if}
+            </td>
+        {/loop $tarifs}
+    </tr>
+</table>
+
+<i class="table-hover active tarif-s br3" data-tarif="S"></i>
+<i class="table-hover tarif-b br3" data-tarif="B"></i>
+<i class="table-hover tarif-n br3" data-tarif="N"></i>
+
+<div class="tarifs-text">
+    <div class="item active" data-tarif="S">
+        <span class="title">Тариф<b>S</b></span>
+        <span class="text">Наиболее оптимальный тариф. Возможность размещать до 20 объектов. Применение услуги «Промо» на любые 2 объекта (выделение в результатах поиска; в 3 раза больше просмотров), услуги «Премиум» -  на 2 объекта(выделение в результатах поиска + закрепление на первых позициях; в 5 раз больше просмотров)</span>
+    </div>
+
+    <div class="item" data-tarif="B">
+        <span class="title">Тариф<b>B</b></span>
+        <span class="text">Экономичный тариф. Размещение 10 активных объектов. Возможность применения услуги «Промо» на 1 объект (позволяет выделять ваше объявление  среди других, гарантирует в 3 раза больше просмотров).</span>
+    </div>
+    
+    <div class="item" data-tarif="N">
+        <span class="title">Тариф<b>N</b></span>
+        <span class="text">Для большого количества предложений. Размещение 50 активных объектов. Применение услуги «Промо» на любые 5 объектов (выделение в результатах поиска; в 3 раза больше просмотров), услуги «Премиум» - на 5 объектов (выделение в результатах поиска + закрепление на первых позициях; в 5 раз больше просмотров)</span>
+    </div>
+</div> 
+
+<div class="block-blue-border">Для оплаты по безналичному расчету обращайтесь в отдел продаж <a href="mailto:sales@bsn.ru" title="Отдел продаж">sales@bsn.ru</a></div>
+
+{if!eq $auth['id_tarif'],$item['id']}<span class="pseudo-element" data-url="" data-location=""></span>{/if}

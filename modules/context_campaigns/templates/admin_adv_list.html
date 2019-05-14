@@ -1,0 +1,85 @@
+<h1 class="pageTitle">Контекстные рекламные блоки кампании "{$campaign_info['title']}"</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['move']}
+    {iflt $results['move'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Перемещение элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Перемещение элемента #{$results['move']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/advert_objects/context_campaigns/{$campaign_id}/add/" class="button">Добавить</a></div>
+<script type="text/javascript">
+    function filter_activate(){
+        var __filter_title = document.getElementById('f_title').value;
+        var __filter_status = document.getElementById('f_status').options[document.getElementById('f_status').selectedIndex].value;
+        var __url = '{root:/admin/advert_objects/context_campaigns/'+jQuery('.adv-list').attr('data-campaign-id')+'}';
+        var __get = new Array();
+        if(__filter_title!='') __get.push('f_title='+__filter_title);
+        if(__filter_status!=0) __get.push('f_status='+__filter_status);
+        if(__get.length>0) __url = __url+'?'+__get.join('&');
+        document.location.href = __url;
+    }
+</script>
+<div class="filter_line">
+    <label>
+        Заголовок:
+        <input id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()" placeholder="часть заголовка" type="text">
+    </label>
+    <label>
+        Статус:
+        <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+            <option value="0">все</option>
+            <option value="1" {ifeq $get_array['f_status'],1} selected{/if}>активные</option>
+            <option value="2" {ifeq $get_array['f_status'],2} selected{/if}>в архиве</option>
+            <option value="3" {ifeq $get_array['f_status'],3} selected{/if}>на модерации</option>
+        </select>
+    </label>
+</div>
+
+    <div class="adv-list" data-campaign-id="{$campaign_info['id']}">
+    {if!empty $list}
+        {loop $list,$key,$item}
+            <div class="context-adv {$item['published']}">
+                <div class="main-photo{ifempty $item['photo']} nophoto{/if}">
+                    {if!empty $item['photo']}<div class="campaign-img-box"><img src="/{$img_folder}/big/{$item['folder']}/{$item['photo']}"></div>{/if}
+                </div>
+                <div class="bottom-panel">
+                    <span class="adv-title"><i>#{$item['id']}</i> <i>{$item['title']}</i></span>
+                    <span class="adv-shows">Показы: <i>{ifempty $item['shows']}0{else}{$item['shows']}{/if}</i></span>
+                    <span class="adv-clicks">Клики: <i>{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</i></span>
+                    <span class="adv-clicks">CTR: <i>{ifempty $item['CTR']}0%{else}{$item['CTR']}%{/if}</i></span>
+                    <div class="small_icons ac" data-id="{$item['id']}">
+                        <a href="/admin/advert_objects/context_campaigns/{$campaign_id}/edit/{$item['id']}/" title="Редактировать"><span class="ico_edit">Редактировать</span></a>
+                        <!--<a title="Просмотр"><span class="ico_view">Просмотр</span></a>-->
+                        <!--<a href="/admin/advert_objects/context_campaigns/{$campaign_id}/stats/{$item['id']}/" title="Статистика"><span class="ico_stats">Статистика</span></a>-->
+                        {ifeq $item['published'],"moderation"}<span class="need-moderation">Модерация</span>{/if}
+                        <a title="Копировать" class="copy"><span class="ico_copy" data-href="/admin/advert_objects/context_campaigns/{$campaign_id}/copy/{$item['id']}/">Копировать</span></a>
+                        <a title="Удалить" class="del"><span class="ico_del" data-href="/admin/advert_objects/context_campaigns/{$campaign_id}/del/{$item['id']}/">Удалить</span></a>
+                    </div>
+                </div>
+            </div>
+        {/loop $list}
+        
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+    </div>

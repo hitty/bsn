@@ -1,0 +1,70 @@
+<div class="favorites-wrapper">
+    <h2 id="members-h2"><i class="title">Избранное</i></h2>
+    
+    {if!empty $full_list} 
+        <div class="filter switch-types" data-content-container=".middle-panel">
+        {loop $object_types,$obj_alias,$object}
+            {if!empty $full_list[$obj_alias]}                               
+                <span data-tab-ref=".fstab{$object['key']}">
+                    {$object['short_name']}<sup>{$amount_list[$obj_alias]}</sup>
+                </span>      
+            {/if}
+        {/loop $object_types}
+        </div>
+        
+        <div class="middle-panel estate-list"> 
+        
+            {php:$list = !empty($full_list['live'])?$full_list['live']:array()}
+            {if!empty $list}
+                {php:$estate_type = 'live'}
+                <div class="tab fstab1" data-type="live">
+                    {loop $list,$k,$item}{php:$item['in_favorites'] = 1}{include /modules/estate/templates/list.block.item.html}{/loop $list}
+                </div>
+            {/if}
+            {php:$list = !empty( $full_list['build'] ) ? $full_list['build'] : array()}
+            {if!empty $list}
+                {php:$estate_type = 'build'}
+                <div class="tab fstab2" data-type="build">
+                    {loop $list,$k,$item}{php:$item['in_favorites'] = 1}{include /modules/estate/templates/list.block.item.html}{/loop $list}
+                </div>
+            {/if}
+            {php:$list = !empty($full_list['commercial'])?$full_list['commercial']:array()}
+            {if!empty $list}
+                {php:$estate_type = 'commercial'}
+                <div class="tab fstab3" data-type="commercial">
+                    {loop $list,$k,$item}{php:$item['in_favorites'] = 1}{include /modules/estate/templates/list.block.item.html}{/loop $list}
+                </div>
+            {/if}
+            {php:$list = !empty($full_list['country'])?$full_list['country']:array()}
+            {if!empty $list}
+                {php:$estate_type = 'country'}
+                <div class="tab fstab4" data-type="country">
+                    {loop $list,$k,$item}{php:$item['in_favorites'] = 1}{include /modules/estate/templates/list.block.item.html}{/loop $list}
+                </div>
+            {/if}
+            {php:$list = !empty($full_list['zhiloy_kompleks'])?$full_list['zhiloy_kompleks']:array()}
+            {if!empty $list}                     
+                {php:$estate_type = 'zhiloy_kompleks'}      
+                <div class="tab fstab5" data-type="zhiloy_kompleks">
+                    {loop $list,$k,$item}{php:$item['in_favorites'] = 1}{include /modules/housing_estates/templates/list.block.item.html}{/loop $list}
+                </div>
+            {/if}
+            {php:$list = !empty($full_list['cottedzhnye_poselki'])?$full_list['cottedzhnye_poselki']:array()}
+            {if!empty $list}
+                {php:$estate_type = 'cottedzhnye_poselki'}
+                <div class="tab fstab6" data-type="cottedzhnye_poselki">
+                    {loop $list,$k,$item}{php:$item['in_favorites'] = 1}{include /modules/cottages/templates/list.block.item.html}{/loop $list}
+                </div>
+            {/if}
+            {php:$list = !empty($full_list['business_centers'])?$full_list['business_centers']:array()}
+            {if!empty $list}
+                {php:$estate_type = 'business_centers'}
+                <div class="tab fstab7" data-type="business_centers">
+                    {loop $list,$k,$item}{php:$item['in_favorites'] = 1}{include /modules/business_centers/templates/list.block.item.html}{/loop $list}
+                </div>
+            {/if}
+        </div>
+    {else}
+        <div class="empty-results">На данный момент у вас нет объектов в избранном</div>
+    {/if}
+</div>

@@ -1,0 +1,40 @@
+<form class="account-form active registration" name="through_auth_form" method="POST" action="/registration/">
+    <span class="title">Регистрация</span>
+    <div class="row">
+        <input type="text" id="login_email" name="login_email" value="" placeholder="Email" required="required" />
+    </div>
+    <div class="row">
+        <input type="text" id="reg_name" name="login_name" value="" placeholder="Имя" required="required"/>
+    </div>
+    <!--div class="row">
+        <span class="promocode-title">Промокод</span>
+        <input type="text" id="reg_promo" name="login_promo" value="{if!empty $form_data['promo']}{$form_data['promo']}{/if}" placeholder="Промокод" {if!empty $errors['login_promo']}class="red-border"{/if}/>
+    </div-->
+    
+    <div class="row single-selector terms">
+        <input type="hidden" name="terms" id="terms" value="2">
+        <label class="selector-title checkbox">
+            <input type="checkbox" id="checkbox_terms" class="lf" name="checkbox_terms" value="2" rel="terms" data-true-value="1" data-false-value="2">
+            Принимаю условия                                            
+        </label>
+        <a href="/terms_of_service/" title="Условия соглашения" target="_blank">соглашения</a>
+    </div>   
+
+    <div class="row">
+        <button type="submit" value="Зарегистрироваться" id="submit_button" name="submit" class="blue send disabled" >Зарегистрироваться</button>
+    </div>
+        
+
+        
+    <div class="row lostpassword">
+        <span>Уже есть аккаунт?</span>
+        <span class="popup dashed-link-blue" data-url="/authorization/popup/" data-location="popup-authorization" data-redirect="true">Войти</span>
+    </div>
+
+    <!--div class="row bottom-container">
+        {ifempty $not_show_social_authorization}
+            {php:$auth_type = 'authorization';}
+            {include /templates/social_authorization.html}
+        {/if}
+    </div-->
+</form>

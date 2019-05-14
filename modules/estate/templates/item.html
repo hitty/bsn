@@ -1,0 +1,274 @@
+<div class="estate-item">
+    {if!empty $print}<a id="print">Печать</a>{/if}
+    <h1 class="mtitle card-title" itemprop="name">
+        {ifeq $estate_type, 'build'}{ifeq $item['rooms_sale'],0}студия{else}{$item['rooms_sale']}х-комнатная квартира{/if}{elseifeq $estate_type, 'live'}{ifeq $item['id_type_object'],1}{ifeq $item['rooms_total'],0}студия{else}{$item['rooms_total']}-комнатная квартира{/if}{elseifeq $item['id_type_object'],2}{iflte $item['rooms_sale'],1}Комната{else}{suffix:$item['rooms_sale'],'комнат','а','ы',''}{/if}<span>в {$item['rooms_total']}-комнатной кв.</span>{else}{$info['type_object']}{/if}{else}{$info['type_object']}{/if}{ifin $estate_type, 'build','live'}{else}{/if}{php:$rooms = ($estate_type == 'live' && $item['id_type_object'] == 2)}{php:$show_squares = (!empty($item['square_full']) && $item['square_full']>0) || (!empty($item['square_ground']) && $item['square_ground']>0) || (!empty($item['square_usefull']) && $item['square_usefull']>0);}{if!empty $show_squares}{if!empty $rooms}{ifgt $item['square_live'],1}, {squareformat:$item['square_live']} м<sup>2</sup>{/if}{else}{ifgt $item['square_full'],0}, {squareformat:$item['square_full']} м<sup>2</sup>{elseifgt $item['square_usefull'],0}{squareformat:$item['square_usefull']} м<sup>2</sup>{elseifgt $item['square_ground'],0}{squareformat:$item['square_ground']} сот.{/if}{/if}{/if}{ifgt $item['level'],0}{if!empty $show_squares}, {/if}{ifeq $estate_type,'country'}{suffix:$item['level'], 'этаж', '', 'а', 'эй'}{else}{$item['level']} этаж{/if}{/if}
+    </h1>
+
+    {php:$show_message_box = true;}
+    {include /modules/estate/templates/contacts.block.html}            
+
+    <article itemscope itemtype="http://schema.org/Product" class="card col-4 central-main-content br3">
+        {ifin $item['published'],2,4}
+            <div class="notation">
+                {ifeq $item['published'],2}Объект в архиве{else}Объект у вас в черновике{/if}</p>
+            </div>
+        {/if}
+        <div class="central">
+
+            <link itemprop="url" href="{$this_page_url}">
+
+            <div class="info-wrap">
+                <span class="object-id">ID: {$item['id']}</span>                
+                {block abuses/block/?estate_type=1&id_object={$item['id']}&id_user={$item['id_user']}}
+                {ifempty $print}
+                    <span data-id="{$item['id']}" data-type="{$estate_type}" data-icon="{ifeq $item['in_favorites'],1}star{else}star_border{/if}" class="star{ifeq $item['in_favorites'],1} in-favorites{/if} transition" data-link="/favorites/?type={$estate_type}">
+                       {ifeq $item['in_favorites'],1}Удалить из избранного{else}В избранное{/if}
+                    </span>
+                {/if}
+            </div>        
+            
+            <div class="addr-wrap br3 left-part section">
+                <span class="title">Адрес</span>
+                <span class="txt-addr" data-title="{if!empty $info['district']}Санкт-Петербург {elseif!empty $info['district_area']}Ленинградская область, {$info['district_area']} район{else}Санкт-Петербург, {/if}{if!empty $item['address']}, {$item['address']}{/if}" data-zoom="{ifeq $item['id_region'],78}city{else}region{/if}">
+                    {if!empty $info['district']}
+                        {if!empty $district_link}
+                            <a href="/{$district_link['pretty_url']}/" title="{$district_link['h1_title']}" class="grey-border-bottom">{$info['district']} район</a>,
+                        {else}
+                            {$info['district']} район,
+                        {/if}
+                        
+                    {elseif!empty $info['district_area']}
+                        {if!empty $district_area_link}
+                            <a href="/{$district_area_link['pretty_url']}/" title="{$district_area_link['h1_title']}" class="grey-border-bottom">{$info['district_area']} район ЛО</a>,
+                        {else}
+                            {$info['district_area']} район ЛО,
+                        {/if}
+                    {/if}
+                    
+                    {if!empty $info['city']}
+                        {if!empty $city_link}
+                            <a href="/{$city_link['pretty_url']}/" title="{$city_link['h1_title']}" class="grey-border-bottom">{$info['city']}</a>,
+                        {else}
+                            {$info['city']}
+                        {/if}
+                    {/if}
+                    
+                    {ifeq $item['id_user'], '29298'}
+                        {$item['txt_addr']}
+                    {else}
+                        {if!empty $info['place']}
+                            
+                            {if!empty $place_link}
+                                <a href="/{$place_link['pretty_url']}/" title="{$place_link['h1_title']}" class="grey-border-bottom">{$info['place']}</a>
+                            {else}
+                                {$info['place']}
+                            {/if}
+                        {/if}
+                        
+                        {if!empty $info['street']}
+                            {if!empty $street_link}
+                                <a href="/{$street_link['pretty_url']}/" title="{$street_link['h1_title']}" class="grey-border-bottom">{$info['street']}</a>
+                            {else}
+                                {$info['street']}
+                            {/if}
+                        {/if}
+                    {/if}
+                    
+                    
+                </span>
+                {if!empty $info['subway']}
+                    <span class="subway{if!empty $info['subway_line_color']} {$info['subway_line_color']}{/if}">
+                        {if!empty $subway_link}
+                            <a href="/{$subway_link['pretty_url']}/" title="{$subway_link['h1_title']}" class="grey-border-bottom">{$info['subway']}</a>
+                        {else}
+                            {$info['subway']}
+                        {/if}
+                        {if!empty $item['way_time']} - {$item['way_time']} {if!empty $info['way_type']}{$info['way_type']}{/if}{/if}
+                    </span>
+                {/if}
+                
+            </div>
+
+            <div class="price-wrap right-part section">
+                
+                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">
+                {if!eq $estate_type, 'inter'}    
+                    <span>{numberformat:$item['cost']} Р</span>
+                    {ifeq $deal_type,'rent'} <span class="rent">{ifeq $item['by_the_day'],1} / сут.{else} / мес.{/if}</span>{/if}
+                    <meta  itemprop="price" content="{$item['cost']}" />
+                    <meta  itemprop="priceCurrency" content="RUB" />
+                {else}
+                    <span>{numberformat:$info['cost']}</span> 
+                    <span class="inter-currency">{if!eq $info['id_currency'],1}{quoted:$info['currency_title']}{/if}
+                        {ifeq $info['rent'],1} / {quoted:$info['cost_type_title']}{/if}
+                        <meta  itemprop="price" content="{$item['cost']}">
+                        {if!eq $info['id_currency'],1}<meta  itemprop="priceCurrency" content="{quoted:$item['currency_title']}">{/if}
+                    </span>
+                {/if}
+                </div>
+                {ifeq $deal_type,'sell'}
+                    {if!empty $item['cost2meter']}
+                        <span class="price-per-meter">{do:echo number_format($item['cost2meter'],0,'.',' ')} руб. за м<sup>2</sup></span>
+                    {else}
+                        {ifgt $item['square_full'],0}<span class="price-per-meter">{do:echo number_format($item['cost']/$item['square_full'],0,'.',' ')} руб. за м<sup>2</sup></span>{/if}
+                    {/if}
+                {/if}
+
+                {if!empty $objects_in_price}
+                    <span class="objects-same-money" >
+                        За эти же деньги<br />
+                        <a href="/live/sell/flats/?min_cost={php:echo (int)($item['cost']*0.9);}&max_cost={php:echo (int)($item['cost']*1.1)}" title="Поиск квартир за те же деньги" onclick="try{ yaCounter21898216.reachGoal('same_money'); return true; }catch(err){ }">{$objects_in_price}</a>
+                    </span>
+                {/if}
+            </div>
+            
+            {if!empty $photos}
+                <div class="clearfix"></div>
+                {php:$gallery_type='big';}
+                {php:$hash = substr(md5(mt_rand(0,10000)), 0, 5);} 
+                {include /templates/gallery.html}
+                
+            {/if}
+            
+            <meta itemprop="description" content="{$titles['description']}" />
+            
+            {if!eq $estate_type, 'inter'}
+            <div class=" clearfix"></div>
+            <section class="properties-wrap br3">
+                 <div class="title">Характеристики</div>
+                {if!empty $info['housing_estate']}<p><span><b>{ifeq $info['apartments'],2}ЖК{else}Апартаменты{/if}</b></span><i><a href="/zhiloy_kompleks/{$info['housing_estate_chpu']}/" title="{$info['housing_estate']}">{$info['housing_estate']}</a></i></p>{/if}
+                {if!empty $info['cottage']}<p><span><b>Коттеджный поселок</b></span><i><a href="/cottedzhnye_poselki/{$info['cottage_chpu']}/" title="{$info['cottage']}">{$info['cottage']}</a></i></p>{/if}
+                {if!empty $info['business_center']}<p><span><b>Бизнес-центр</b></span><i><a href="/business_centers/{$info['business_center_chpu']}/" title="{$info['business_center']}">{$info['business_center']}</a></i></p>{/if}
+                
+                {if!empty $item['contractor']}{ifeq $item['contractor'],1}<p><span><b>Квартира в подряде</b></span><i>Да</i></p>{/if}{/if}
+                {if!empty $item['asignment']}{ifeq $item['asignment'],1}<p><span><b>Квартира по переуступке</b></span><i>Да<b class="new br3">Новинка</b></i></p>{/if}{/if}
+                {ifgt $item['square_full'],0}<p><span><b>Площадь</b></span><i>{squareformat:$item['square_full']} м<sup>2</sup></i></p>{/if}
+                {ifgt $item['square_live'],0}<p><span><b>Жилая</b></span><i>{squareformat:$item['square_live']} м<sup>2</sup></i></p>{/if}
+                {if!empty $item['square_rooms']}<p><span><b>Комнаты</b></span><i>{$item['square_rooms']} м<sup>2</sup></i></p>{/if}
+                {ifgt $item['square_kitchen'],0}<p><span><b>Кухня</b></span><i>{squareformat:$item['square_kitchen']} м<sup>2</sup></i></p>{/if}
+                {ifgt $item['square_usefull'],0}<p><span><b>Полезная</b></span><i>{squareformat:$item['square_usefull']} м<sup>2</sup></i></p>{/if}
+                {ifgt $item['square_ground'],0}<p><span><b>Участок</b></span><i>{squareformat:$item['square_ground']} сот.</i></p>{/if}
+                
+                {if!empty $info['building_type']}<p><span><b>Тип дома</b></span><i>{$info['building_type']}</i></p>{/if}
+                {ifgt $item['ceiling_height'],0}<p><span><b>Высота потолков</b></span><i>{do:echo number_format($item['ceiling_height'],1,'.',' ')} м</i></p>{/if}
+                {if!empty $item['level']}<p><span><b>Этаж</b></span><i>{$item['level']}</i></p>{/if}
+                {if!empty $item['level_total']}<p><span><b>Этажей в доме</b></span><i>{$item['level_total']}</i></p>{/if}
+                {if!empty $info['toilet']}<p><span><b>Санузел</b></span><i>{$info['toilet']}</i></p>{/if}
+                {if!empty $info['facing']}<p><span><b>Ремонт</b></span><i>{$info['facing']}</i></p>{/if}
+                {if!empty $info['decoration']}<p><span><b>Отделка</b></span><i>{$info['decoration']}</i></p>{/if}
+                {if!empty $info['window']}<p><span><b>Окна</b></span><i>{$info['window']}</i></p>{/if}
+                {if!empty $info['elevator']}<p><span><b>Лифт</b></span><i>{$info['elevator']}</i></p>{/if}
+                {if!empty $info['balcon']}<p><span><b>Балкон</b></span><i>{$info['balcon']}</i></p>{/if}
+                {if!empty $info['developer_status']}<p><span><b>Статус застройщика</b></span><i>{$info['developer_status']}</i></p>{/if}
+                {if!empty $info['build_complete']}<p><span><b>Срок сдачи</b></span><i>{$info['build_complete']}</i></p>{/if}
+                {ifeq $item['build_in_operation'],1}<p><span><b>Дом введен в эксплуатацию.</i></p>{/if}
+                {ifeq $item['installment'],1}
+                    {ifgt $item['first_payment'],0}<p><span><b>Первый взнос</b></span><i>{do:echo number_format($item['first_payment'],0,'.',' ')}%.</i></p>{/if}
+                    {if!empty $item['installment_months']}<p><span><b>Срок рассрочки</b></span><i>до {$item['installment_months']}  месяцев</i></p>
+                    {elseif!empty $item['installment_years']}<p><span><b>Срок рассрочки</b></span><i>до {$item['installment_years']} лет
+                    {/if}
+                {/if}
+                {ifeq $item['wash_mash'],1}<p><span><b>Стиральная машина</b></span><i>есть</i></p>{/if}
+                {ifeq $item['refrigerator'],1}<p><span><b>Холодильник</b></span><i>есть</i></p>{/if}
+                {ifeq $item['furniture'],1}<p><span><b>Мебель</b></span><i>есть</i></p>{/if}
+                {ifeq $item['phone'],1}<p><span><b>Телефон</b></span><i>есть</i></p>{/if}
+                {if!empty $info['ownership']}<p><span><b>Право собственности</b></span><i>{$info['ownership']}</i></p>{/if}
+                {if!empty $info['year_build']}<p><span><b>Год постройки дома</b></span><i>{$info['year_build']}</i></p>{/if}
+                {if!empty $item['rooms']}<p><span><b>Комнат в доме</b></span><i>{$item['rooms']}</i></p>{/if}
+                {if!empty $info['construct_material']}<p><span><b>Материал стен</b></span><i>{$info['construct_material']}</i></p>{/if}
+                {if!empty $info['roof_material']}<p><span><b>Материал крыши</b></span><i>{$info['roof_material']}</i></p>{/if}
+                {if!empty $info['heating']}<p><span><b>Тип отопления</b></span><i>{$info['heating']}</i></p>{/if}
+                {if!empty $info['electricity']}<p><span><b>Электроснабжение</b></span><i>{$info['electricity']}</i></p>{/if}
+                {if!empty $info['water_supply']}<p><span><b>Водоснабжение</b></span><i>{$info['water_supply']}</i></p>{/if}
+                {if!empty $info['gas']}<p><span><b>Газоснабжение</b></span><i>{$info['gas']}</i></p>{/if}
+                {if!empty $info['toilet']}<p><span><b>Тип санузла</b></span><i>{$info['toilet']}</i></p>{/if}
+                {if!empty $info['bathroom']}<p><span><b>Баня/сауна</b></span><i>{$info['bathroom']}</i></p>{/if}
+                {if!empty $info['building_progress']}<p><span><b>Готовность постройки</b></span><i>{$info['building_progress']}</i></p>{/if}
+                {if!empty $info['river']}<p><span><b>Тип водоема</b></span><i>{$info['river']}</i></p>{/if}
+                {if!empty $info['garden']}<p><span><b>Сад/огород</b></span><i>{$info['garden']}</i></p>{/if}
+                {ifgt $item['ceiling_height'],0}<p><span><b>Высота потолков</b></span><i>{squareformat:$item['ceiling_height']} м</i></p>{/if}
+                {if!empty $item['phones_count']}<p><span><b>Кол-во телефонных линий</b></span><i>{$item['phones_count']}</i></p>{/if}
+                {ifeq $item['parking'],1}<p><span><b>Парковка</b></span><i>есть</i></p>{/if}
+                {ifeq $item['security'],1}<p><span><b>Охрана</b></span><i>есть</i></p>{/if}
+                {ifeq $item['service_line'],1}<p><span><b>Мебель</b></span><i>есть</i></p>{/if}
+                {ifeq $item['canalization'],1}<p><span><b>Канализация</b></span><i>есть</i></p>{/if}
+                {ifeq $item['hot_water'],1}<p><span><b>Горячая вода</b></span><i>есть</i></p>{/if}
+                {ifeq $item['electricity'],1}<p><span><b>Электричество</b></span><i>есть</i></p>{/if}
+                {ifeq $item['heating'],1}<p><span><b>Отопление</b></span><i>есть</i></p>{/if}
+                {if!empty $item['transport_entrance']}<p><span><b>Транспортная доступность</b></span><i>{$item['transport_entrance']}</i></p>{/if}
+                {if!empty $item['rent_duration']}<p><span><b>Срок аренды</b></span><i>{$item['rent_duration']}</i></p>{/if}
+                {if!empty $info['enter']}<p><span><b>Вход</b></span><i>{$info['enter']}</i></p>{/if}
+                {if!empty $info['floor']}<p><span><b>Тип пола</b></span><i>{$info['floor']}</i></p>{/if}
+                {if!empty $info['hot_water']}<p><span><b>Горячее водоснабжение</b></span><i>{$info['hot_water']}</i></p>{/if}
+                {if!empty $info['enter']}<p><span><b>Вход</b></span><i>{$info['enter']}</i></p>{/if}            
+            </section>
+            {/if}
+            
+            {if!eq $item['notes'],''}
+                <section class="notes-wrap clearfix " style="height: auto;">
+                    <h2>Описание от продавца</h2>
+                    <div class="notes-content clearfix">{$item['notes']}</div>
+                </section>
+                <section class="notes-wrap">
+                    {if!empty $item['text_description']}
+                        <h2>Описание объекта</h2>
+                        <div class="notes-auto clearfix">{strip:$item['text_description']}</div>
+                    {/if}
+                </section>
+            {/if}                   
+            <div class="clearfix"></div>
+            
+            {block /infrastructure/list/}
+            
+        </div>
+           
+    </article>   
+     
+    {ifempty $print}    
+        {if!empty $credit_calculator}
+            <section class="credit-tgb-wrapper clearfix">
+                {block tgb/estate_list/{$estate_type}}
+                <div class="credit-wrap col-2 br3">
+                    {include /modules/credit_calculator/templates/block.html}
+                    
+                </div>
+                {if!empty $right_banner}
+                    <div class="banner-right col-1 br3">
+                        <div id="right-top-banner" class="br3" data-url="/ab/right/top/" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Баннер']); }catch(e){}"></div>
+                    </div>
+                {else}
+                    {block tgb/estate_list/{$estate_type}}
+                {/if}
+                
+            </section>
+       
+        {/if}
+    {/if}
+    
+    {ifeq $item['published'],1}
+      
+        {ifempty $print}
+            <!--noindex-->
+            {php:$direct_type = '2rows_estate';}
+            {include /templates/yandex.direct.html}
+            <!--/noindex-->
+            <section class=" central-main-content card" name="objects">
+                <div class="left-part">    
+                    <div class="central tiny">
+                        {block estate/similar/{$estate_type}/{$item['id']}/}
+                    </div>
+                </div>
+            </section>
+              
+        {/if}
+    {else}
+            <section class=" central-main-content" name="objects">
+                <div class="left-part">    
+                    <div class="objects central tiny">
+                        {block estate/similar/{$estate_type}/{$item['id']}/}
+                    </div>
+                </div>
+            </section>
+            
+    {/if}   
+</div>

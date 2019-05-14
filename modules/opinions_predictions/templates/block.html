@@ -1,0 +1,15 @@
+{if!empty $list}
+    {if!eq $paginator['active_page'], 1}
+        {if!empty $ajax_pagination}
+            <div class="page-separator clearfix"></div>
+        {/if}
+    {/if}
+
+    {loop $list,$lk,$item}
+        {include /modules/opinions_predictions/templates/block.item.html}
+    {/loop $list}
+    {if!empty $ajax_pagination}
+        <div class="clearfix"></div>
+        <span class="center-button-block ajax-pagination button grey clearfix" data-link="{$ajax_url}">Еще мнения</span>
+    {/if}    
+{/if}

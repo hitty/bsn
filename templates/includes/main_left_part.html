@@ -1,0 +1,17 @@
+{ifempty $payed_format}
+<div class="left-column">
+    <div id="left-column" >
+        {ifempty $mainpage}
+            {ifempty $left_vip_not_show}
+                {ifempty $new_design}{block estate/vip/left/}
+                {else}{block estate/vip/left/new/}
+                {/if}
+            {/if}
+        {/if}
+        
+        <div class="left-tgb tgb-list" id="left-tgb-data" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'ТГБ']);}catch(e){}">
+           
+        </div>
+    </div>
+</div> <!--/.left-column-->
+{/if}

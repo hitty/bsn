@@ -1,0 +1,80 @@
+<h1 class="pageTitle">География / Городские районы</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/geodata/districts/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+			var __filter_parent = document.getElementById('f_parent').options[document.getElementById('f_parent').selectedIndex].value;
+            var __url = '{root:/admin/geodata/districts/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+			if(__filter_parent!='') __get.push('f_parent='+__filter_parent);
+            if(__get.length>'') __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Название:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть названия">
+        </label>
+        <label>
+            Город:
+            <select id="f_parent" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                {loop $parents,$key,$val}
+                    <option value="{$val['parent_id']}" {ifeq $get_array['parent'],$val['parent_id']} selected="selected"{/if}>{$val['offname']}</option>
+                {/loop $parents}
+            </select>
+        </label>   
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="60%">
+                <col class="col2" width="15%">
+                <col class="col1" width="20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Город</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['title']}</td>
+                        <td>{$item['offname']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/geodata/districts/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/geodata/districts/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

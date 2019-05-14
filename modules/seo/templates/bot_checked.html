@@ -1,0 +1,37 @@
+{ifempty $only_table}
+<h1 class="pageTitle">{ifeq $action,1}И{else}Неи{/if}ндексированные {$bot_alias} страницы робота ({$total_count})</h1>
+<a href="export-to-xls" target="_blank">Экспорт в XLS</a>
+<div class="list_table today-stats">
+{/if}
+    {if!empty $bot_checked}
+        <table>    
+            <colgroup>
+                <col class="col2" width="30%">
+                {ifeq $action,1}<col class="col1" width="10%">{/if}
+                <col class="col1" width="10%">
+                <col class="col1" width="10%">
+                <col class="col1" width="10%">
+            </colgroup>
+            <thead>
+                <th>URL</th>
+                {ifeq $action,1}<th>Дата захода робота</th>{/if}
+                <th>Показано роботу</th>
+                <th>Заходов робота</th>
+                <th>Проверено на индексацию</th>
+            </thead>
+            <tbody>
+                {loop $bot_checked,$key,$item}
+                    <tr id="item_{$item['id']}" class="">
+                        <td><a href="{$item['full_url']}" target="_blank">{$item['url']}</a></td>
+                        {ifeq $action,1}<td>{$item['date_out']}</td>{/if}
+                        <td>{$item['shown_total']}</td>
+                        <td>{$item['bot_visits_total']}</td>
+                        <td>{$item['index_checked']}</td>
+                    </tr>
+                {/loop $bot_checked}
+            </tbody>
+        </table>
+    {/if}
+{ifempty $only_table}
+</div>
+{/if}

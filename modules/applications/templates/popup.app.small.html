@@ -1,0 +1,110 @@
+<div class="public-application-wrapper">
+    <form action="/applications/add/" method="POST">
+        <span class="title">Оставить заявку</span>
+
+        <div class="row">
+            <input type="text" name="fio" value="" placeholder="Ваше имя" required="required" />
+        </div>
+
+        <div class="row">
+            <input type="text" name="phone" class="phone" value="" placeholder="Телефон" required="required" />
+        </div>
+
+        <div class="row">
+            <input type="email" name="email" value="" placeholder="Email (необязательно)"/>
+        </div>
+        
+        {if!empty $estate_type}
+            <input id="estate_type" name="estate_type" value="{$estate_type}" type="hidden" />
+        {else}
+            <div class="row">
+                <div class="list-selector application-estate-type">
+                    <a href="#" class="pick">Тип недвижимости</a>
+                    <a href="#" class="select">...</a>
+                    <input id="estate_type" name="estate_type" value="" required="required" type="hidden">
+                    <ul class="list-data" data-simplebar="init">
+                        <li class="selected" data-value="">Тип недвижимости</li>
+                        <li data-value="2">Новостройки</li>
+                        <li data-value="1">Жилая</li>
+                        <li data-value="3">Коммерческая</li>
+                        <li data-value="4">Загородная</li>
+                    </ul>
+                </div>
+            </div>
+        {/if}        
+
+        {ifempty $realtor_application}
+            {if!empty $deal_type}
+                <input id="deal_type" name="deal_type" value="{$deal_type}" type="hidden">
+            {else}
+                <div class="row">
+                    <div class="list-selector application-deal-type">
+                        <a href="#" class="pick">Тип сделки</a>
+                        <a href="#" class="select">...</a>
+                        <input id="deal_type" name="deal_type" value="" required="required" type="hidden">
+                        <ul class="list-data" data-simplebar="init">
+                            <li class="selected" data-value="">Тип сделки</li>
+                            <li data-value="1">Аренда</li>
+                            <li data-value="2">Покупка</li>
+                            <li data-value="3">Сдам</li>
+                            <li data-value="4">Продам</li>
+                        </ul>
+                    </div>
+                </div>
+            {/if}
+            
+        {else}
+            <div class="row">
+                <div class="list-selector grey app_realtor_help_type">
+                    <a href="#" class="pick" title="выберите">Вид помощи</a>
+                    <a href="#" class="select">...</a>
+                    <input id="realtor_help_type" name="realtor_help_type" value="" required="required" type="hidden">
+                    <ul class="list-data" data-simplebar="init">
+                        <li class="selected" data-value="">Вид помощи</li>
+                        <li data-value="1">Купить недвижимость</li>
+                        <li data-value="2">Продать недвижимость</li>
+                        <li data-value="3">Сопровождение сделки</li>
+                        <li data-value="4">Получить ипотечный кредит</li>
+                        <li data-value="5">Сдать в аренду</li>
+                        <li data-value="6">Арендовать недвижимость</li>
+                    </ul>
+                </div>        
+            </div>        
+        {/if}
+
+        {if!empty $id}
+            <input id="id" name="id" value="{$id}" type="hidden" />
+        {elseif!empty $item['id']}
+            <input id="id" name="id" value="{$item['id']}" type="hidden" />
+        {/if}
+        
+        {if!empty $agency_id}
+            <input id="agency_id" name="agency_id" value="{$agency_id}" type="hidden" />
+        {/if}
+
+        {if!empty $agent_id}
+            <input id="agent_id" name="agent_id" value="{$agent_id}" type="hidden" />
+        {/if}
+
+        
+        
+        <div class="row">
+            <textarea name="user_comment" id="user-comment" placeholder="Комментарий (необязательно)"></textarea>
+        </div>
+        
+        {ifempty $realtor_application}
+            <div class="row clearfix">
+                <input type="radio" name="user_type" value="1" checked="checked" id="user_type_1"> 
+                <label class="radio" for="user_type_1">Я - частное лицо</label>
+                <input type="radio" name="user_type" value="2" id="user_type_2"> 
+                <label class="radio" for="user_type_2">Я - агент</label>
+            </div>
+        {/if}
+        
+        <div class="row">
+            <button class="send" value="Отправить">Отправить</button>
+        </div>
+        
+        
+    </form>
+</div> 

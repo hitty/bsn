@@ -1,0 +1,11 @@
+
+{ifempty $only_objects}
+    <div class="statistic-box">
+        <div class="sb-info">       
+                <b>{$full_count_text}</b>
+        </div>
+    </div>
+{/if}
+{if!empty $list}
+    {include /modules/promotions/templates/list.block.html}
+{/if}

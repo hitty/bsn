@@ -1,0 +1,31 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день{if!empty $data['name']}, <b>{$data['name']}</b>{/if}!
+    </td>
+</tr>
+<tr style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+    <td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">Создан новый вопрос в сервисе Консультант.</td>
+</tr>
+<tr>
+    <td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+        <p>Автор: {$env['author']}</p>
+        <p>Дата: {$env['datetime']}</p>
+        <p>Раздел: {$env['section']}</p>
+        <p>Текст: {$env['text']}</p><br />
+        <br />
+        <a href="http://{$env['host']}/members/conversions/consults/">Ответить на вопрос</a>
+    </td>
+    <td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+        {if!empty $reg_data}
+            Мы зарегистрировали Вас на портале <a href="{$env['url']}">{$env['host']}</a>
+            Регистрация будет считаться завершенной при первом входе в созданный аккаунт.<br /><br />
+            Данные для входа:<br />
+            <font size="+1">
+            Логин: {$reg_data['email']}<br />
+            Пароль: {$reg_data['password']}<br />
+            </font>
+        {/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

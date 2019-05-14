@@ -1,0 +1,166 @@
+<h1 class="pageTitle">География </h1>
+<div class="list_table address_adding">
+
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_user = document.getElementById('f_user').value;
+            var __filter_agency = document.getElementById('f_agency').value;
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_status = document.getElementById('id_status').options[document.getElementById('id_status').selectedIndex].value;
+            var __filter_format = document.getElementById('id_format').options[document.getElementById('id_format').selectedIndex].value;
+            var __url = '{root:/admin/service/geodata/address_adding/}';
+            var __get = new Array();
+            if(__filter_user!='') __get.push('f_user='+__filter_user);
+            if(__filter_agency!='') __get.push('f_agency='+__filter_agency);
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__filter_format!='') __get.push('f_format='+__filter_format);
+            if(__get.length>'') __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Часть адреса:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть адреса">
+        </label>   
+        <label>
+            Статус:
+            <select id="id_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                <option value="1" {ifeq $get_array['f_status'],1} selected="selected"{/if}>Не добавленные</option>
+                <option value="2" {ifeq $get_array['f_status'],2} selected="selected"{/if}>Добавленные</option>
+            </select>
+        </label>
+        <label>
+            Формат:
+            <select id="id_format" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                {loop $formats,$key,$val}
+                    <option value="{$key}" {ifeq $get_array['f_format'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $formats}
+            </select>
+        </label>
+        <label>
+            Пользователь:
+            <input type="text" id="f_user" value="{$get_array['f_user']}" onchange="filter_activate()"  placeholder="ID пользователя">
+        </label>   
+        <label>
+            Агентство:
+            <input type="text" id="f_agency" value="{$get_array['f_agency']}" onchange="filter_activate()"  placeholder="ID агентства">
+        </label>   
+    </div>
+    
+    {if!empty $list}
+        <table class="addresses-adding">    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="10%">
+                <col class="col1" width="35%">
+                <col class="col1" width="25%">
+                <col class="col2" width="20%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Формат</th>
+                    <th>Клиент</th>
+                    <th>Источник</th>
+                    <th>Распознанный адрес</th>
+                    <th>Улица</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" {if!empty $item['added']}class="address-added"{/if}>
+                        <td>{$item['file_format']}</td>
+                        <td>{if!empty $item['agency_id']}<a href="/admin/access/agencies/edit/{$item['agency_id']}/" target="_blank">#{$item['agency_id']}<br/> {$item['agency_title']}</a>
+                            {else}<a href="/admin/access/users/edit/{$item['user_id']}/" target="_blank">#{$item['user_id']} {if!empty $item['user_name']}{$item['user_name']}{/if}</a>
+                            {if!empty $item['user_email']}<span>{$item['user_email']}</span>{/if}{/if}
+                            <span>{$item['date_in_formatted']}</span>
+                            </td>
+                        <td><xmp class="addr-source">{$item['addr_source']}</xmp></td>
+                        <td class="addr-readed">{$item['address']}</td>
+                        <td class="addr-info">
+                            <span>{$item['offname']} {$item['shortname']}</span>
+                            {if!empty $item['addr_variants']}
+                                <span class="addr-variants adding" data-href="/admin/service/geodata/address_adding/match/{$item['id']}/">
+                                <b>У нас уже есть:</b>
+                                {php:$variants = $item['addr_variants'];}
+                                {loop $variants,$k,$var}
+                                    <span class="a-level-group">
+                                        {php: $a_level_group = $var;}
+                                        {loop $a_level_group,$i,$addr}
+                                            <i {ifempty $item['added']}class="addr-variant"{/if} data-id="{$addr['id']}">{$addr['txt_addr']}</i>
+                                        {/loop $a_level_group}
+                                    </span>
+                                {/loop $variants}
+                                </span>
+                            {/if}
+                            {if!empty $item['added']}
+                                <div class="added-addr-info">
+                                {ifempty $item['id_geodata']}
+                                    <b>адрес добавлен в базу</b>
+                                {else}
+                                    <b>назначен адрес:</b>
+                                    <span>{$item['matched_address']}</span>
+                                {/if}
+                                </div>
+                            {/if}
+                        </td>
+                        <td class="small_icons ac">
+                            {ifempty $item['added']}<a href="/admin/service/geodata/address_adding/add/{$item['id']}/" title="Добавить"><span class="ico_add">Добавить</span></a>{/if}
+                            {ifempty $item['added']}
+                                {if!empty $item['addr_variants']}
+                                    <a title="Показать варианты"><span class="ico_variants">Показать варианты</span></a>
+                                {/if}
+                                <a href="/admin/service/geodata/address_adding/edit/{$item['id']}/" title="Изменить" target="_blank"><span class="ico_edit">Изменить</span></a>
+                            {/if}
+                            <a href="/admin/service/geodata/address_adding/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+<script>
+    jQuery(document).ready(function(){
+        //назначаем объектам выбранный адрес
+        jQuery('.addr-variant').on('click',function(){
+            var _target = jQuery(this);
+            if(_target.attr('data-id')===undefined) return false;
+            if(!confirm("Вы уверены что хотите назначить в соответствие адресу \""+_target.parents('td').siblings('.addr-readed').html() + ' ' + _target.parents('.addr-variants').siblings().html()+"\" адрес \""+_target.html()+"\" ")) return false;
+            //18862375
+            jQuery.ajax({
+                type: "POST", async: true,
+                dataType: 'json', url: _target.parents('.addr-variants').attr('data-href'),
+                data: {ajax: true,
+                       geo_id:_target.attr('data-id')},
+                success: function(msg){
+                    if(typeof(msg)=='object') {
+                        if(msg.ok) {
+                            if(msg.res){
+                                alert('адрес назначен');
+                                _obj = _target.parents('tr');
+                                _obj.fadeOut(500,function(){
+                                    _obj.remove();
+                                });
+                            }
+                        } else alert('Ошибка: '+msg.error);
+                    } else alert('Ошибка!');
+                },
+                error: function(){
+                    alert('Server connection error!');
+                },
+                complete: function(){
+                }
+            });
+        });
+    });
+</script>

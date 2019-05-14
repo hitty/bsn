@@ -1,0 +1,20 @@
+
+{if!empty $list}
+    {loop $list, $k, $item}
+        <div class="message-item">
+            <a href="/members/messages/#{if!empty $item['id_parent']}{$item['id_parent']}{else}{$item['id']}{/if}" title="Перейти в диалог"></a>
+            <div class="title">НОВОЕ СООБЩЕНИЕ <i class="close"></i></div>
+            <div class="message-content">
+                {if!empty $item['photo']}
+                    <img src="{static:/}img/uploads/med/{$item['photo_subfolder']}/{$item['photo']}" class="avatar" alt=""/>
+                {else}
+                    <span class="user-avatar-color small" style="background-color: {$item['avatar_color']};">
+                        <img src="{static:/}img/layout/user-ava-image-{ifeq $item['sex'],1}male{else}female{/if}-small.png" alt="{if!empty $auth_data['name']}{$auth_data['name']}{/if}{if!empty $auth_data['lastname']} {$auth_data['lastname']}{/if}" />
+                    </span>
+                {/if}
+                <div class="name">{$item['name']}</div>
+                <div class="text">{stripall:$item['message']}</div>
+            </div>
+        </div>
+    {/loop $list}
+{/if}

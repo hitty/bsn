@@ -1,0 +1,67 @@
+<h1 class="pageTitle">Автописьма на события</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/service/mailers/add/" class="button">Добавить событие</a>
+</div>
+<div class="list_table">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="1%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col1" width="10%">
+                <col class="col2" width="15%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Заголовок</th>
+                    <th>Периодичность</th>
+                    <th>Время</th>
+                    <th>Получатели</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>
+                            {if!empty $item['photo']}
+                                <a href="/{$photo_folder}/big/{$item['photo']}" target="_blank">
+                                    <img src="/{$photo_folder}/sm/{$item['photo']}" alt="{quoted:$item['title']}" width="55"/>
+                                </a>
+                            {/if}
+                        </td>
+                        <td>
+                            {$item['title']}
+                        </td>
+                        <td>{$item['period']}</td>
+                        <td>{$item['time']}</td>
+                        <td>{$item['receipt']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/service/mailers/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/service/mailers/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

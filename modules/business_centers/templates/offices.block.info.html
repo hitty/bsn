@@ -1,0 +1,59 @@
+{if!empty $item}
+    <div class="info">
+    <h3>
+        Характеристики
+        {if!empty $item['id_object']}<span class="external-link" data-link="http://{php:echo Host::$host}/commercial/{$item['id_object']}/">Подробнее об этом офисе</span>{/if}
+    </h3>
+    <div class="params">
+        <div class="cost-info">
+            {if!empty $item['number']}<span class="number">№: <b>{$item['number']}</b></span>{/if}
+            <span class="square">Площадь: <b>{squareformat:$item['square']}</b> м<sup>2</sup></span>
+            <span class="cost"><b>{numberformat:$item['cost']}</b> руб/мес</span>
+            <span class="cost_meter">Ставка: <b>{numberformat:$item['cost_meter']}</b> руб/м<sup>2</sup></span>
+        </div>
+        <span id="application-button" class="button green" data-id={$item['id']} data-type="offices">Оставить заявку</span>
+        <div class="bc-info">
+            {if!empty $item['level']}<span>Этаж <b>{$item['level']}</b></span>{/if}
+            {ifgt $item['floor'],0}<span>Высота потолков <b>{squareformat:$item['floor']}</b> м</span>{/if}
+            {if!empty $item['facing_title']}<span>Ремонт <b>{$item['facing_title']}</b></span>{/if}
+            {if!empty $item['id_object']}
+                {ifeq $item['in_favorites'],1}
+                    <span data-id="{$item['id_object']}" class="star in-favorites internal-link" data-link="/favorites/?type=commercial">
+                        <span class="star-label internal-link"></span>
+                    </span>
+                {else}
+                    <span data-id="{$item['id_object']}" data-type="commercial" class="star" data-link="/favorites/?type=commercial">
+                        <span class="star-label dashed"></span>
+                    </span>
+                {/if}
+            {/if}
+        </div>
+    </div>
+    {if!empty $photos}   
+        <div class="offices-photos" data-type="{if!empty $offices_photos}business_centers_offices{else}commercial{/if}" data-photo-title="Офис {squareformat:$item['square']} м2 - {numberformat:$item['cost']} руб/мес">
+            <div class="thumbs-wrap">
+                <div class="thumbs-list">
+                {php:$pos = 0;}
+                    {loop $photos,$pk,$pv}
+                        <a class="{ifeq $pv['main_photo'],'true'}active {/if}" href="{static:/}{$img_folder}/big/{$pv['subfolder']}/{$pv['name']}" title="" data-id="{$pv['id']}">
+                            <img src="{static:/}{$img_folder}/{if!empty $offices_photos}sm{else}med{/if}/{$pv['subfolder']}/{$pv['name']}" alt="Офис площадью {squareformat:$item['square']} м2 за {numberformat:$item['cost']} руб/мес"/>
+                        </a>
+                        {php:$pos++}
+                    {/loop $photos}
+                </div>
+            </div>
+        </div>
+        {literal}
+            <script>
+                jQuery(document).ready(function(){
+                        jQuery('.offices-photos').photogallery({
+                            gptype: jQuery('.offices-photos').data('type'),
+                            title: jQuery('.offices-photos').data('photo-title'),
+                            no_direct: true
+                        });
+                })
+            </script>
+        {/literal}
+    {/if}
+    </div>
+{/if}

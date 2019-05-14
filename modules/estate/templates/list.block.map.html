@@ -1,0 +1,78 @@
+{if!empty $list}
+    {php:$first_item = $list[0]}
+    <div class="map-wrapper">
+        <div class="address-wrap">
+            {if!empty $first_item['txt_addr']}<span class="address">{$first_item['txt_addr']}</span>{/if}
+                
+            {php:$district = !empty($first_item['district']) || !empty($first_item['district_area'])}
+            
+            {if!empty $first_item['subway']}
+                <span class="subway {$first_item['subway_line_color']}">{$first_item['subway']} 
+                    {if!empty $first_item['way_time']} 
+                        - {suffix:$first_item['way_time'],'минут','а','ы',''} {ifeq $first_item['id_way_type'],2} пешком{else} на траспорте{/if}
+                    {/if}
+                </span>
+            {elseif!empty $district}<span class="district">{if!empty $first_item['district']}{$first_item['district']} район{elseif!empty $first_item['district_area']}{$first_item['district_area']} район ЛО{/if}</span>{/if}
+            
+        </div>
+        <div class="list">
+            {loop $list,$lkey,$item}
+                <div class="item internal-link br3 transition" data-new-tab="true" data-link="/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" data-img-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}">
+
+                        <span class="type-object text-decoration">
+                        {ifeq $estate_type, 'build'}
+                            {ifeq $item['rooms_sale'],0}студия{else}{$item['rooms_sale']}ккв{/if}
+                        {elseifeq $estate_type, 'live'}
+                            {ifeq $item['id_type_object'],1}
+                                    {ifeq $item['rooms_total'],0}студия{else}{$item['rooms_total']}ккв{/if}
+                            {elseifeq $item['id_type_object'],2}
+                                {ifeq $item['rooms_sale'],1}Комната
+                                {else}{suffix:$item['rooms_sale'],'комнат','а','ы',''}
+                                {/if}
+                                 <span>в {$item['rooms_total']} ккв.</span>
+                            {else}
+                                {$item['type_object']}
+                            {/if}                                        
+                        {else}
+                            {if!empty $item['type_object_short']}
+                                {$item['type_object_short']}
+                            {else}
+                                {$item['type_object']}
+                            {/if}
+                        {/if}
+                        </span>
+                        
+                    {ifgt $item['square_full'],0}
+                        <span class="full-square">    
+                            {squareformat:$item['square_full']} м<sup>2</sup>
+                        </span>
+                    {/if}
+                    {ifgt $item['level'],0}
+                        <span class="level">
+                            {$item['level']} этаж
+                        </span>
+                    {/if}
+                
+                    <span class="cost">
+                        {if!empty $item['min_cost_objects']}
+                            {ifeq $item['min_cost_objects'], $item['max_cost_objects']}
+                                {numberformat:$item['min_cost_objects']} 
+                            {else}
+                                <b>от</b> {numberformat:$item['min_cost_objects']} <b>до</b> {numberformat:$item['max_cost_objects']} 
+                            {/if}
+                        {else}
+                            {numberformat:$item['cost']} 
+                        {/if}
+                         Р
+                    </span>
+                    
+                </div>
+            {/loop $list}
+        </div>
+        {php:$count = count($list)}
+        {ifgt $count,5}
+            <a href="{$requested_url}" class="show-all-variants" target="_blank">Все объекты по этому адресу ({ifempty $paginator}{$count}{else}{$paginator['items_count']}{/if})</a>
+        {/if}
+    </div>
+{/if}
+       

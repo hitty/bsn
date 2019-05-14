@@ -1,0 +1,165 @@
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+         jQuery('li',jQuery('.list-data')).click(filter_activate);
+         var __filter_time_period="";
+         if ($('#csf-week')[0].checked) __filter_time_period = "week";
+         if ($('#csf-month')[0].checked) __filter_time_period = "month";
+         if (__filter_time_period=""){
+             jQuery('#csf-month')[0].checked=false;
+             jQuery('#csf-week')[0].checked=false;
+             setCookie('fixed_time_period', "",15,'/');
+         } 
+         
+         //фикс для фильтра по компаниям
+         {ifempty $id_agency}
+             {if!empty $get_array['f_agency']}
+                jQuery('#f_agency')[0].value={$get_array['f_agency']};
+             {/if}
+         {/if}
+         $('#list-advcompaigns li').each(function( index ){
+          $(this).removeClass('selected');
+         });
+         $("li[value='{$get_array['f_agency']}']").addClass('selected');
+         if ($("li[value='{$get_array['f_agency']}']")[0]!=null){
+             $(".pick")[0].innerHTML = $("li[value='{$get_array['f_agency']}']")[0].innerHTML;
+         }
+    })
+    function filter_activate(){
+        //фильтр по рекламным компаниям
+        {ifempty $id_agency}
+            var __filter_agency = jQuery('li.selected')[0].value;
+        {/if}
+        //фильтр "неделя/месяц"
+        if ($('#csf-week')[0].checked) var __filter_time_period = "week";
+        if ($('#csf-month')[0].checked) var __filter_time_period = "month";
+        var __url = '{root:/admin/sale/stats/}';
+        var __get = new Array();
+        {ifempty $id_agency}
+            if(__filter_agency>0) __get.push('f_agency='+__filter_agency);
+        {/if}
+        if(__filter_time_period>0) __get.push('f_time_period='+__filter_time_period);
+        if(__get.length>0) __url = __url+'?'+__get.join('&');
+        document.location.href = __url;
+    }
+</script>                                       
+<div class="top-preview-panel" style="height: 131px;">
+    <h1 class="pageTitle">Статистика</h1>
+    <div class="filter_line">
+        {ifempty $id_agency}
+        <label class="csf-choose-company" id="choose-adv-campaign">
+            <span class="label-title">Компания:</span>
+            <div class="list-selector select-agency" id="select-campaign">
+                <a href="#" class="pick">Любой</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="f_agency" name="f_agency"  onchange="filter_activate()"/>
+                <ul class="list-data" id="list-advcompaigns">
+                    <li value="0">Все</li>
+                    {loop $agencies,$key,$item}
+                        <li value="{$item['id']}">{$item['title']}</li>
+                    {/loop $agencies}
+                </ul>
+            </div>
+        </label>
+        {/if}
+        <label class="csf-period">
+            <div class="csf-period-item stat1 st-week">
+                <input type="radio" id="csf-week" name="cfs-period">
+                <label for="csf-week">Неделя</label>
+            </div>
+            <div class="csf-period-item stat1 st-month">
+                <input type="radio" id="csf-month" name="cfs-period">
+                <label for="csf-month" href="?page={$page}&time_period=week">Месяц</label>
+            </div>
+        </label>
+        
+        <label class="csf-period-input">
+            <div class="csf-period-item"><input type="text" id="date_from" name="Дата начала" class="datetimepicker date"  value=""></div>
+            <div class="csf-period-divide">—</div>
+            <div class="csf-period-item"><input type="text" id="date_till" name="Дата окончания" class="datetimepicker date"  value=""></div>
+        </label>
+        <label class="record-box">
+            <audio class="call-record" id="a_player" src="" type="audio/mp3" controls></audio>
+        </label>
+    </div>
+</div>         
+
+<div class="stats-table">
+    {if!empty $list}
+        <table class="tablesorter" cellpading="1">  
+            <colgroup>
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col1" width="10%">
+                <col class="col2" width="20%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><span>дата и время</span></th>
+                    <th><span>контакт</span></th>
+                    <th><span>продолжительность</span></th>
+                    <th><span>теги</span></th>
+                    <th>аудио</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="{$item['id']}">
+                        <td>{$item['call_date']}</td>
+                        <td>
+                            <div class="phone-box">
+                                <div><span class="phone-icon"></span><span class="phone-number">{$item['num_from']}</span></div>
+                            </div>
+                        </td>
+                        <td>{$item['call_duration']}</td>
+                        <td id="tags">
+                            {if!empty $item['tags']}
+                                {php:$tags_list=$item['tags']}
+                                {loop $tags_list,$key,$tag_item}
+                                    <span id="{$tag_item['tag_id']}" class="tag tag-{$tag_item['tag_id']}">
+                                        {if!empty $tag_item['tag_text']}
+                                            <label class="tag-text">{$tag_item['tag_text']}</label>
+                                        {else}
+                                            <label class="tag-text"></label>
+                                        {/if}
+                                    </span>
+                                {/loop $tags_list}
+                            {else}
+                                <span class="tag tag-add"><label>Добавить</label></span>
+                            {/if}
+                        </td>
+                        <td>
+                            {if!empty $item['file_link']}
+                            <div class="audio-cell">
+                                <div class="audio-controls">
+                                    <div class="play-call-record" id="{$item['id']}_audio_start" title="Прослушать запись"></div>
+                                    <div class="download-call-record" id="{$item['id']}_audio_download" title="Скачать запись"></div>
+                                </div>
+                                <div class="hidden-link" id="{$item['id']}_link">{$item['file_link']}</div>
+                            </div>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+
+<label class="tagmenu">
+    <table>
+        {loop $list_tags,$key,$item}
+            <tr><td><input id="{$item['comagic_id']}_tag" class="tag-checkbox" type="checkbox"></td><td id="{$item['comagic_id']}_title">{$item['call_title']}</td></tr>
+        {/loop $list_tags}
+    </table>
+    <div class="hidden-call-id"></div>
+</label>
+<script>
+         var _add_options = {
+             "columnDefs": [
+                { "orderable": false, "targets": [4]}
+              ]
+         };        
+</script>

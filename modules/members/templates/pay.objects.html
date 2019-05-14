@@ -1,0 +1,205 @@
+<!--<h1 id="members-h1">Личный кабинет</h1>-->
+<h2 id="members-h2">Оплата услуг</h2>
+    <div id="item-edit-form" class="pay-wrap">
+    {ifeq $complete,'start'}
+        {if!empty $wrong_params}
+                <div class="pay-error">
+                    <p>Неверные входные данные.</p>
+                </div>
+        {else}
+            <h3 class="btitle red">Выбранные платные услуги</h3>
+            <ul class="object-statuses" name="object-statuses">
+                {if!empty $payed_rent}
+                    <li data-value="8"  class="payed-rent active" >
+                        Аренда <span>10<span class="rur">a</span></span>
+                        <p>
+                            <i class="adv-text">Платное размещение</i>
+                            Объявления по аренде размещаются только на платной основе.
+                            <div class="payed-rent-wrap">
+                                Размещение на 
+                                <div class="list-selector payed-rent grey">
+                                    <a href="#" class="pick">7</a>
+                                    <a href="#" class="select">...</a>
+                                    <input type="hidden" name="payed_rent" id="payed-rent" value="7" />
+                                    <ul class="list-data" data-simplebar="init">
+                                        <li data-value="7" data-cost="70">1 неделю</li>
+                                        <li data-value="14" data-cost="140">2 недели</li>
+                                        <li data-value="30" data-cost="300">1 месяц</li>
+                                    </ul>
+                                </div>                                      
+                            </div>
+                        </p>
+                    </li>
+                {elseifeq $status, 5}
+                    <li data-value="5"  class="standart-extended active">
+                        Обычное размещение <span>{ifeq $summ,0}входит в тариф{else}150<span class="rur">a</span>{/if}</span>
+                        <p>
+                            Лимит бесплатных публикаций для вашего аккаунта "Частное лицо" исчерпан.
+                            Для специалистов недвижимости рекомендуем подключить <a href="/help/13_akkaunt/22_tarify/" target="_blank" title="выгодный тариф">выгодный тариф</a> и экономить на размещении объектов.
+                            <br />
+                            
+                            {if!empty $auth_data['agency_admin']}
+                            {else}Размещение на <b>30 дней</b>.
+                            {/if}
+                        </p>
+                    </li>
+                {elseifeq $status, 3}
+                    <li data-value="3"  class="promo active">
+                        Услуга  «ПРОМО» <span>{ifeq $summ,0}входит в тариф{else}450<span class="rur">a</span>{/if}</span>
+                        <p>
+                            <i class="adv-text">В <b>3</b> раза больше просмотров</i>
+                            Выделение в результатах поиска среди других объявлений. 
+                            <br />
+                            {php:$agency_admin_free_object = !empty($auth_data['agency_admin']) && $auth_data['agency_admin'] == 1 && $summ == 0}
+                            {if!empty $agency_admin_free_object}
+                                Для объектов из XML файла применяется по умолчанию на <b>1 сутки</b>.
+                                <label class="agency-object-long checkbox">
+                                    <input type="checkbox" class="lf" name="agency_object_long" value="2" rel="agency_object_long_pay" data-true-value="1" data-false-value="2">
+                                    Размещение на 30 дней                                                  
+                                </label>                                     
+                            {else}Размещение на <b>30 дней</b>.
+                            {/if}
+                        </p>
+                    </li>
+                {elseifeq $status, 4}
+                    <li data-value="4"  class="premium active" >
+                        Услуга  «ПРЕМИУМ» <span>{ifeq $summ,0}входит в тариф{else}900<span class="rur">a</span>{/if}</span>
+                        <p>
+                            <i class="adv-text">В <b>5</b> раз больше просмотров.</i>
+                            Выделение в результатах поиска + закрепление на первых позициях. 
+                            <br />
+                            {php:$agency_admin_free_object = !empty($auth_data['agency_admin']) && $auth_data['agency_admin'] == 1 && $summ == 0}
+                            {if!empty $agency_admin_free_object}
+                                Для объектов из XML файла применяется по умолчанию на <b>1 сутки</b>.
+                                <label class="agency-object-long checkbox">
+                                    <input type="checkbox" class="lf" name="agency_object_long" value="2" rel="agency_object_long_pay" data-true-value="1" data-false-value="2">
+                                    Размещение на 30 дней                                                  
+                                </label>                                     
+                            {else}Размещение на <b>30 дней</b>.
+                            {/if}
+                        </p>
+                    </li>
+                {elseifeq $status, 6}
+                    <li data-value="6"  class="vip active" >
+                        Услуга  «VIP» <span>{ifeq $summ,0}входит в тариф{else}490<span class="rur">a</span>{/if}</span>
+                        <p>
+                            <i class="adv-text">Максимальный охват аудитории</i>
+                            Ротация объявления в специальном блоке на главной странице, а также в сквозном блоке на всех страницах сайта (кроме главной).
+                            <br />
+                            {php:$agency_admin_free_object = !empty($auth_data['agency_admin']) && $auth_data['agency_admin'] == 1 && $summ == 0}
+                            {if!empty $agency_admin_free_object}
+                                Для объектов из XML файла применяется по умолчанию на <b>1 сутки</b>.
+                                <label class="agency-object-long checkbox">
+                                    <input type="checkbox" class="lf" name="agency_object_long" value="2" rel="agency_object_long_pay" data-true-value="1" data-false-value="2">
+                                    Размещение на 7 дней                                                  
+                                </label>                                     
+                            {else}Размещение на <b>7 дней</b>.
+                            {/if}
+                        </p>
+                    </li>
+                {elseifeq $status, 1}
+                    <li data-value="1"  class="raising active" >
+                        Поднятие<span class="cost-for-one"><i>30</i><span class="rur">a</span></span>
+                        <p>
+                            <i class="adv-text">Временная эффективность</i>
+                            Поднятие объявления в результатах поиска -  эффективный инструмент продвижения вашего объекта за минимальные деньги.
+                            <div class="raising-period-wrap">
+                                Размещение на 
+                                <div class="list-selector raising-period grey">
+                                    <a href="#" class="pick">1</a>
+                                    <a href="#" class="select">...</a>
+                                    <input type="hidden" name="raising_period" id="raising-period" value="1" />
+                                    <ul class="list-data" data-simplebar="init">
+                                        <li data-value="1">1 день</li>
+                                        <li data-value="5">5 дней</li>
+                                    </ul>
+                                </div>                                      
+                            </div>
+                        </p>
+                    </li>
+                {/if} 
+            </ul>                   
+            <div class="objects-wrap">
+                <h3>Объекты <i>{$total_objects}</i></h3>
+                <div class="objects-list">
+                    {loop $objects_list,$key,$i}
+                        {if!empty $i}
+                            {php: $estate_type_list = $i}
+                            {loop $estate_type_list,$k,$item}
+                                <div class="object" data-id="{$item['id']}" data-type="{$key}">
+                                    {if!empty $item['photo']['name']}
+                                        <img src="{static:/}{$img_folder}/sm/{$item['photo']['subfolder']}/{$item['photo']['name']}" alt="{$item['header']}"/>{else}<img src="{static:/}img/layout/no-photo-small.gif" alt=""/>
+                                    {/if}
+                                    <span class="info">
+                                        <span class="link-box"><a href="/{$key}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" target="_blank">{$item['txt_addr']}</a></span>
+                                        <span class="details">{$item['object_type']}{if!empty $item['level']}, этаж {$item['level']}{if!empty $item['level_total']}/{$item['level_total']}{/if}{/if}</span>
+                                    </span>
+                                    <span class="actions">
+                                        {ifgt $total_objects,1}
+                                            <span class="delete"><i>Удалить</i></span>
+                                        {/if}
+                                    </span>
+                                </div>
+                            {/loop $estate_type_list}
+                        {/if}
+                    {/loop $objects_list}
+                </div>
+            </div>
+            <div class="pay-total">
+                Итого:
+                {if!empty $payed_objects}
+                    <span class="calculate payed">
+                        <i>{suffix:$payed_objects,'объект','','а','ов'}</i>X
+                        <b>{ifeq $summ, 0}0{elseifeq $status, 5}150{elseifeq $status,4}900{elseifeq $status,3}450{elseifeq $status,1}30{elseifeq $status,6}490{/if} Р</b>
+                    </span>
+                {/if}
+                {if!empty $free_objects}
+                    +<span class="calculate free">
+                        <i>{suffix:$free_objects,'объект','','а','ов'}</i>X <b>0 Р</b>
+                    </span>
+                {/if}
+                <p class="total-summ">= <i><i>{$summ}</i> Р</i></p>
+                <form method="post" action="success/" id="pay-form">
+                    <input type="hidden" name="id_object" value='{$affected_objects}'/>
+                    <input type="hidden" name="obj_type" value="{$obj_type}"/>
+                    <input type="hidden" name="status" value="{$status}"/>
+                    <input type="hidden" name="summ" value="{$summ}"/>
+                    <input type="hidden" name="agency_object_long" value=""/>
+                    <input type="submit" name="paying" value="Применить" class="button green{ifgt $summ_difference,0} disabled{/if}"/>
+                </form>
+                {ifgt $summ_difference,0}
+                    <span class="pay-not-enough-money">
+                        Для оплаты услуги не хватает {$summ_difference} Р. <a href="/members/pay/balance/?summ={$summ_difference}">Пополнить баланс?</a>
+                    </span>
+                {/if}
+            </div>
+        {/if}        
+    {elseifeq $complete,'success'}
+            {if!empty $not_enough_balance}
+                <div class="pay-error">
+                    <p>Не хватает денег на счете.</p>
+                </div>
+            {elseif!empty $wrong_object}
+                <div class="pay-error">
+                    <p>Данный объект принадлежит другому пользователю.</p>
+                </div>
+            {elseif!empty $alredy_payed}
+                <div class="pay-error">
+                    <p>Вы уже оплатили данный объект.</p>
+                </div>
+            {elseif!empty $wrong_params}
+                <div class="pay-error">
+                    <p>Неверные входные данные.</p>
+                </div>
+            {else}
+                <div class="pay-success">
+                    {if!eq $status,5}
+                        <p>К объектам ID:{$affected_ids} подключена услуга «{$status_title}» </p>
+                    {else}<p>Объекты ID:{$affected_ids} успешно опубликованы.</p>
+                    {/if}
+                    Спасибо!
+                </div>
+            {/if}
+    {/if}
+    </div>
+    

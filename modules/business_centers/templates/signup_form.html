@@ -1,0 +1,27 @@
+<div class="signup-view-form-container">
+        <form method="post" action="" id="simple-form" class="signup-form">
+            <h1>Оставьте заявку</h1>
+            <div class="single-selector name">
+                <span class="selector-title {if!empty $errors['q_name']}required error{/if}">
+                    Имя * {if!empty $errors['q_name']}<span class="error_tip"> ({$errors['q_name']})</span>{/if}
+                </span>
+                <input type="text" name="q_name" value="{quoted:$form_vars['name']}" required="required"/>
+            </div>
+            <div class="single-selector phone">
+                <span class="selector-title {if!empty $errors['q_phone']}required error{/if}">
+                    Контактный телефон* (10 цифр) {if!empty $errors['q_phone']}<span class="error_tip"> ({$errors['q_phone']})</span>{/if}
+                </span>
+                <input type="text" name="phone" id="phone" value="{quoted:$form_vars['email']}" required="required"/>
+            </div>
+                    
+            <div class="single-selector login">
+                <span class="selector-title {if!empty $errors['q_text']}required error{/if}">
+                    Ваш вопрос {if!empty $errors['q_text']}<span class="error_tip"> ({$errors['q_text']})</span>{/if}
+                </span>
+                <textarea id="text" name="q_text"style="height:100px;">{$form_vars['text']}</textarea>
+            </div>
+            <button type="submit" class="submit" name="submit" value="отправить">отправить</button>
+        </form>
+        <a class="closebutton">Закрыть</a>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<h1 class="pageTitle">Агентства</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/access/agencies/add/" class="button">Добавить агентство</a></div>
+<div class="list_table transactions">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter = document.getElementById('tbl_filter').value;
+            var __filter_id = document.getElementById('tbl_filter_id_user').value;
+            var __filter_id_agency = document.getElementById('tbl_filter_id_agency').value;
+            var __filter_advert_phone = document.getElementById('tbl_filter_advert_phone').value;
+            var __url = '{root:/admin/access/agencies/}';
+            if(__filter!='') __url = __url + '?filter='+document.getElementById('tbl_filter').value;
+            if(__filter_id!='') __url = __url + '?filter_id='+document.getElementById('tbl_filter_id_user').value;
+            if(__filter_id_agency!='') __url = __url + '?filter_id_agency='+document.getElementById('tbl_filter_id_agency').value;
+            if(__filter_advert_phone!='') __url = __url +((__filter!='')?'&':'?') +'filter_advert_phone='+document.getElementById('tbl_filter_advert_phone').value;
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <!--
+        <label>
+            Поиск:
+            <input type="text" id="tbl_filter" value="{$get_array['filter']}" onchange="filter_activate()"  placeholder="Название агентства" size="70">
+        </label>
+        <label>
+            Менеджер:
+            <select id="tbl_filter_advert_phone" onchange="filter_activate()" style="width: 150px;">
+                <option value="">не выбран</option>
+                {loop $managers_list,$k,$item}
+                    <option value="$item['id']"{ifeq $get_array['filter_manager'],$item['id']} selected="selected"{/if}>{$item['name']}</option>
+                {/loop $managers_list}
+            </select>
+        </label>
+        -->
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="30%">
+                <col class="col1" width="30%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Менеджер</th>
+                    <th>Пользователь/Агентство</th>
+                    <th>Сумма</th>
+                    <th>Время</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td><span class="small_text">{$item['manager_name']}</span></td>
+                        <td><span class="small_text">{if!empty $item['agency_title']}АН {$item['agency_title']}{else}пользователь {$item['user_title']}{/if}</span></td>
+                        <td><span class="small_text">{$item['sum']}</span></td>
+                        <td><span class="small_text">{$item['datetime']}</span></td>
+                        <td class="small_icons ac">
+                            <a href="/admin/access/agencies/transactions/approve/{$item['id']}/" title="Подтвердить"><span class="ico_accept">Подтвердить</span></a>
+                            <a href="/admin/access/agencies/transactions/delete/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

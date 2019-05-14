@@ -1,0 +1,80 @@
+<div class="title-wrap clearfix">
+    <ul class="submenu-wrap">
+        {if!empty $photos}<li class="scroll-to transition-text" data-target="gallery">ГАЛЕРЕЯ</li>{/if}
+        <li class="scroll-to transition-text" data-target="characteristics">ХАРАКТЕРИСТИКИ</li>
+        {if!eq $item['notes'],''}<li class="scroll-to transition-text" data-target="notes">ОПИСАНИЕ</li>{/if}
+        <li class="scroll-to transition-text" data-target="infrastructure">ИНФРАСТРУКТУРА</li>            
+    </ul>
+</div>            
+<div class="estate-item">
+    {include /modules/cottages/templates/item.block.contacts.html}     
+ 
+    <article itemscope itemtype="http://schema.org/Product" class="card col-4 central-main-content br3">
+        <link itemprop="url" href="https://www.bsn.ru/{$current_page['real_path']}/" />
+        <meta itemprop="description" content="{$titles['description']}" />
+
+        <div class="central">
+
+            <link itemprop="url" href="{$this_page_url}" />
+            
+        
+            <section class="info-wrap">
+                <span class="object-id">ID: {$item['id']}</span>                
+                {block abuses/block/?estate_type=6&id_object={$id}&id_user={$item['id_user']}}
+                {ifempty $print}
+                    <span data-id="{$item['id']}" data-type="cottedzhnye_poselki" data-icon="{ifeq $item['in_favorites'],1}star{else}star_border{/if}" class="star{ifeq $item['in_favorites'],1} in-favorites{/if} transition" data-link="/favorites/?type=cottedzhnye_poselki">
+                       {ifeq $item['in_favorites'],1}Удалить из избранного{else}В избранное{/if}
+                    </span>
+                    {if!empty $item['site']}
+                        <span class="external-link site transition" data-icon="launch" data-link="{$item['site']}?utm_source=bsn&utm_medium=cottedzhnye_poselki">На сайт объекта</span>
+                    {/if}
+
+                {/if}    
+            </section>
+            {include /modules/cottages/templates/item.block.address.html}
+
+            
+            {if!empty $photos}
+                <section>
+                <div class="clearfix" name="gallery"></div>      
+                <div class="title">Галерея</div>
+                {php:$gallery_type='big';}
+                {php:$hash = substr(md5(mt_rand(0,10000)), 0, 5);} 
+                {include /templates/gallery.html}
+                </section>
+                
+            {/if}
+            
+            
+            <div class="left-part">       
+            
+                
+                {include /modules/cottages/templates/item.block.properties.html}
+                
+                <section class="notes-wrap" name="notes" style="height: auto;">
+                    {if!eq $item['notes'],''}
+                        <h2>Описание коттеджного поселка «{$item['title']}»</h2>
+                        {strip:$item['notes']}
+                    {/if}
+                </section> 
+            </div>       
+            
+            <div class="right-part">
+            </div>
+            
+            <div class="clearfix"></div>
+            {block /infrastructure/list/}      
+
+        </div>
+    </article>
+</div>
+ 
+{ifempty $payed_format}
+    {ifempty $print}
+        <!--noindex-->
+        {php:$direct_type = '2rows_estate';}
+        {include /templates/yandex.direct.html}
+        <!--/noindex-->
+    {/if}   
+ {/if}      
+{if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}

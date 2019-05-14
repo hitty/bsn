@@ -1,0 +1,161 @@
+.o-wrap .offer-item{
+    text-align: center;
+}
+.o-wrap .offer-price {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 13px;
+    margin-bottom: 3px;
+}
+.o-wrap .offer-old-price {
+    display: none;
+}
+.o-wrap  .offer-old-price:before {
+    border-bottom: 2px solid #b80000;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 38%;
+    position:relative;
+}
+
+.o-wrap .rooms-quantity {
+    font-size: 12px;
+    font-weight: normal;
+}
+.o-wrap .rooms-quantity span {
+    font-weight: bold;
+}
+.o-wrap .offer-values{
+    display: none;
+}
+
+.o-wrap .offer-sticker{
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    top:80px;
+    padding-left:6px;
+    text-align: left;
+}
+.o-wrap .offer-sticker .sticker-left {
+    display: none;
+}
+.o-wrap .offer-sticker .sticker-right{
+    height: 20px;
+    top: 0px;
+    background-position: 33px 26px!important;
+}
+.o-wrap .offer-phone{
+    background: url(/img/layout/offer-phone-pingola.png) #fff;
+}
+
+.o-wrap .offer-phone.disabled span {
+  top: -4px;
+  right: 0;
+}
+.o-wrap .offer-phone.disabled span.next-date {
+    font-size: 11px;
+    top: 7px;
+}  
+.o-wrap .offer-phone:first-letter{
+    font-weight: normal;    
+    color: #ababab;
+}
+/* VERTICAL */
+.o-wrap{
+    width:198px;
+    height:148px;
+    border:1px solid #ddd;
+}
+.o-wrap .offer-item{
+    width:180px;
+    margin:5px auto;
+} 
+
+
+.o-wrap .offer-img img{
+    width:180px;
+    height:100px;
+} 
+
+.o-wrap .offer-phone{
+    width: 149px;
+    padding-left: 10px;
+    line-height: 18px;
+    background: none;
+    /* position: relative; */
+    float: right;
+    text-align: right;
+    font-size: 13px;
+}
+.o-wrap .offer-phone:before{
+    content: "Звоните";
+    position: absolute;
+    left: -20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+}
+.o-wrap .ov-timer{
+    font-weight: bold;
+    font-size:13px;
+}
+.o-wrap .offer-phone.disabled{
+}
+.o-wrap .rooms-quantity {
+  position: absolute;
+  z-index: 10;
+  color: #fff;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,.5);
+  font-size: 12px;
+}
+
+/* HORIZONTAL */
+.o-wrap.horizontal{
+    width: 498px;
+    height: 150px;
+    overflow: hidden;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+}
+.o-wrap.horizontal .offer-item {
+  width: 150px;
+  margin: 5px 7px;
+  float: left;
+}
+.o-wrap.horizontal .offer-img img{
+    width: 150px;
+}
+.o-wrap.horizontal .offer-phone{
+    float:none;
+    text-align: center;    
+    padding:0;
+}
+.o-wrap.horizontal .offer-phone:before{
+    content:"";
+}
+.o-wrap.horizontal .offer-phone.disabled span{
+   left: 23px;
+   top: -2px;
+   right:auto;
+}
+.o-wrap.horizontal .offer-phone.disabled span.next-date{
+    top: 9px;
+}
+o-wrap .offer-sticker {
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    top: 80px;
+    padding-left: 6px;
+    text-align: left;
+}
+
+
+
+

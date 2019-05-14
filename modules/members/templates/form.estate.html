@@ -1,0 +1,150 @@
+    {loop $data_mapping,$key,$field}
+        
+        {ifempty $field['nodisplay']}
+            
+            {ifeq $field['fieldtype'];'title_block'}{ifempty $field['hidden']}<h3 class="btitle{if!empty $field['class']} {$field['class']}{/if} clearfix">{$field['tip']}</h3>{/if}
+            {elseifeq $field['fieldtype'];'title_row'}{ifempty $field['hidden']}<span class="selector-title">{$field['tip']}</span>{/if}
+            {elseifeq $field['fieldtype'];'hidden'}
+                <span  id="span_field_{$key}" data-rel="{$key}" class="hidden-input">
+                    <input type="hidden" id="{$key}" name="{$key}" value="{quoted:$field['value']}" class="{ifempty $field['allow_empty']}required{/if}" {ifempty $field['allow_empty']}required="required"{/if} />
+                </span>
+            {else}
+                {ifin $field['fieldtype'],'text','password'}
+                    <div class="single-selector {$key}{if!empty $field['unactive']} unactive{/if} clearfix" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if} "   id="span_field_{$key}" data-rel="{$key}">
+                            {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        </span>
+                        {php:$value=!empty($field['value'])&&(Convert::ToInt($field['value'])>0||($field['type']==TYPE_STRING&&$field['value']!=''))?$field['value']:''}
+                        <input type="{$field['fieldtype']}" id="{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf{if!empty $field['autocomplete']} autocomplete{/if}{if!empty $field['error']} red-border{/if}" {if!empty $field['autocomplete']}autocomplete="off"{/if} name="{$key}" value="{quoted:$value}" placeholder="{$field['placeholder']}" {if!empty $field['disabled']} disabled="disabled"{/if} {if!empty $field['max']}maxlength="{$field['max']}"{/if} {if!empty $field['min']}minlength="{$field['min']}"{/if} {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['url']} data-url="{$field['url']}"{/if} {if!empty $field['input']} data-input="{$field['input']}"{/if}  {ifempty $field['allow_empty']}required="required"{/if}/>
+                        {if!empty $field['autocomplete']}
+                            <i data-icon="clear"  class="clear-input{ifempty $field['value']} hidden{/if}"></i>
+                        {/if}        
+                        {if!empty $field['error']}<span class="error">{$field['error']}</span>{/if}                
+                    </div>
+                {elseifeq $field['fieldtype'];'select'}
+                        {php:$selectloop=$field['values']}
+                        <div class="single-selector {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                            <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if}  id="span_field_{$key}" data-rel="{$key}" >{$field['label']}{ifempty $field['allow_empty']} *{/if}</span>
+                            <div class="list-selector {$key} {if!empty $field['unactive']} unactive{/if} clearfix"  >
+                                <a href="#" class="pick">{$selectloop[0]}</a>
+                                <a href="#" class="select">...</a>
+                                <input type="hidden" id="{$key}" name="{$key}" value="{$field['value']}"  {ifempty $field['allow_empty']}required="required"{/if}/>
+                                <ul class="list-data" data-simplebar="init">
+                                    {loop $selectloop,$rlk,$rlt}
+                                        <li data-value="{$rlk}">{$rlt}</li>
+                                    {/loop $selectloop}
+                                </ul>
+                            </div>
+                        </div>
+                    
+                {elseifeq $field['fieldtype'];'plaintext'}
+                    <span id="text_{$key}" class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext">{quoted:$field['value']}</span>
+                    
+                {elseifeq $field['fieldtype'];'textarea'}
+                    <div class="single-selector{if!empty $field['class']} {$field['class']}{/if} {$key} clearfix " {if!empty $field['hidden']} style="display:none;"{/if}>
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if}  id="span_field_{$key}" data-rel="{$key}">
+                            {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        </span>
+
+                        {if!empty $field['editor']}
+                            <textarea class="CKEdit{ifeq $field['editor'];'small'}Small{else}Big{/if}{if!empty $field['class']} {$field['class']}{/if}" id="ckedit_{$key}" name="{$key}">{quoted:$field['value']}</textarea>
+                        {else}
+                            <textarea class="{if!empty $field['class']}{$field['class']} {/if}lf" id="{$key}" name="{$key}">{quoted:$field['value']}</textarea>
+                        {/if}
+                    </div>
+                {elseifeq $field['fieldtype'];'radio'}
+                    {if!empty $field['values']}
+                        {php:$radioloop=$field['values']}
+                        <div class="single-selector clearfix {$key}" {if!empty $field['hidden']} style="display:none;"{/if}>
+                            <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if}  id="span_field_{$key}" data-rel="{$key}" >
+                                {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                            </span>
+                            <div class="radio-group">
+                            {loop $radioloop,$rlk,$rlt}     
+                                <label {ifeq $rlk,$field['value']} class="on"{/if} for="{$key}_{$rlk}">
+                                    <input type="radio" name="{$key}" value="{$rlk}" id="{$key}_{$rlk}" {ifeq $rlk,$field['value']} checked="checked"{/if} {ifempty $field['allow_empty']}required="required"{/if} /> {$rlt} 
+                                </label> 
+                            {/loop $radioloop}
+                            </div>
+                        </div>
+                    {/if}
+                {elseifeq $field['fieldtype'];'email'}
+                    <div class="single-selector {$key} clearfix" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if}  id="span_field_{$key}" data-rel="{$key}">
+                            {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        </span>
+                        {php:$value=!empty($field['value'])&&(Convert::ToInt($field['value'])>0||($field['type']==TYPE_STRING&&$field['value']!=''))?$field['value']:''}
+                        <input type="email" id="{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} name="{$key}" value="{quoted:$value}" placeholder="{$field['placeholder']}"  {ifempty $field['allow_empty']}required="required"{/if} />
+                    </div>
+                {elseifeq $field['fieldtype'];'phone'}
+                    <div class="single-selector {$key} clearfix" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if}  id="span_field_{$key}" data-rel="{$key}">
+                            {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        </span>
+                        {php:$value=!empty($field['value'])&&(Convert::ToInt($field['value'])>0||($field['type']==TYPE_STRING&&$field['value']!=''))?$field['value']:''}
+                        <input type="phone" id="{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} name="{$key}" value="{quoted:$value}" placeholder="{$field['placeholder']}" {ifempty $field['allow_empty']}required="required"{/if} />
+                    </div>
+                {elseifeq $field['fieldtype'];'plaintext+button'}
+                    <div class="custom-selector addrselector {$key} clearfix " {if!empty $field['hidden']} style="display:none;"{/if}>
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if}  id="span_field_{$key}" data-rel="{$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                            {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        </span>
+                        <span class="select" data-mode="{$key}">Выбрать</span>
+                        <input type="hidden" id="{$key}"  name="{$key}" value="{$field['value']}" {ifempty $field['allow_empty']}required="required"{/if} />
+                        <input type="text" id="show_{$key}"  name="show_{$key}" value="{$field['value']}" disabled="disabled" />
+                    </div>
+                {elseifeq $field['fieldtype'],'map'}
+                    <script src="//api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU"></script>
+                    <div id="map-box" class="clearfix"></div>
+                {elseifeq $field['fieldtype'],'div'}
+                    <div class="{if!empty $field['class']} {$field['class']}{/if}"></div>
+                {elseifeq $field['fieldtype'];'checkbox_set'}
+                    <div class="row checkbox-row single-selector clearfix {$key}">
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" id="span_field_{$key}" data-rel="{$key}">
+                            {$field['title']}    
+                        </span>
+                        <div class="checkbox-set" {if!empty $field['hidden']} style="display:none;"{/if} >
+                            <input type="hidden" name="{$key}" id="{$key}" value="{if!empty $field['value']}{$field['value']}{/if}" />
+                            {php:$selectloop = $field['values']}
+                            {loop $selectloop,$rlk,$rlt}
+                                <label class="checkbox">
+                                    {if!empty $field['value']}
+                                        {do:$set_up=$field['value']%(pow(2,$rlk))>=pow(2,$rlk-1)}
+                                    {else}
+                                        {do: $set_up = false}
+                                    {/if}
+                                    <input class="radio" type="checkbox" name="{$key}_set[{$rlk}]" value="1"{if $set_up}checked="checked"{/if} /> {$rlt}<br />
+                                </label>
+                            {/loop $selectloop}
+                        </div>                                         
+                    </div>                     
+             
+                {elseifeq $field['fieldtype'];'checkbox_list'}
+                    <div class="row checkbox-row single-selector clearfix {$key}">
+                        
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" id="span_field_{$key}" data-rel="{$key}">
+                            {$field['title']}    
+                        </span>
+                        
+                        <div class="checkbox-set" {if!empty $field['hidden']} style="display:none;"{/if} >
+                            <input type="hidden" name="{$key}" id="{$key}" value="{if!empty $field['value']}{$field['value']}{/if}" />
+                            {php:$selectloop = $field['values']}
+                            {loop $selectloop,$rlk,$rlt}
+                                <label class="checkbox">
+                                    <input class="radio" type="checkbox" name="{$rlk}" value="1" {ifeq $data_mapping[$rlk]['value'],1}checked="checked"{/if} /> {$rlt}<br />
+                                </label>
+                            {/loop $selectloop}
+                        </div>  
+                                                               
+                    </div>    
+                {elseifeq $field['fieldtype'];'social_text'}
+                    <div class="social-attach-selector {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        {php:$value=Convert::ToInt($field['value']);}
+                        <span class="selector-title disabled {ifeq $value,0}active{/if}" {if!empty $field['link']}onclick="popupwindow('{$field["link"]}', 'Авторизоваться', '740', '530');"{/if}>{$field['title']}</span>
+                        <span class="selector-title enabled {ifgt $value,0}active{/if}">Отвязать</span>
+                        <input type="hidden" id="{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" value="{quoted:$value}" placeholder="{$field['placeholder']}">
+                    </div>                                     
+                {/if}
+            {/if}
+        {/if}
+    {/loop $data_mapping} 

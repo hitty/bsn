@@ -1,0 +1,43 @@
+.expert-opinions h3{
+    font-size: 14px;
+    line-height: 16px;
+}
+.expert-opinions .item-image{
+    width: 70px;
+}    
+.expert-opinions .item-image img{
+    width:70px;
+    height:90px;
+    padding:0px 5px 0px 0px;
+}
+.expert-opinions .item-info .author {
+    color: #000;
+    font-size: 12px;
+    margin-bottom:5px;
+    font-style: italic;
+}
+article .news-main-photo{
+    
+}
+article .news-main-photo h1{
+    font-size: 32px;
+    line-height: 38px;    
+}
+article .news-main-photo .expert{
+    color: #fff;
+    text-align: center;
+    z-index: 10;
+    position: relative;
+    font-size: 18px;
+    padding-top: 240px;    
+}
+article .news-main-photo .expert strong{
+    font-size: 44px;
+    font-weight: normal;
+    line-height: 64px;    
+}
+.content-wrapper .item:not(.big) .image{
+    width: 240px;
+    height: 220px;
+    margin-left: 20px;    
+}

@@ -1,0 +1,11 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+<ul class="news-category-list">
+{if!empty $list}
+{loop $list,$lk,$item}
+    <li><span>-</span> <a href="/partners_articles/{$item['code']}/" title="{quoted:$item['title']}">{$item['title']}</a></li>
+{/loop $list}
+{/if}
+</ul>
+
+
+

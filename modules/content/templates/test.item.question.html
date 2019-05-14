@@ -1,0 +1,26 @@
+<div class="question">
+    <span class="title">{$question['title']}</span>
+    {php:$questions = $question['questions']}
+    <div class="list" data-step="{$question['position']}" data-id-question="{$question['id_parent']}">
+        {loop $questions,$q,$qitem}
+            <div class="item" data-id-answer="{$qitem['id']}">
+                <span class="title" data-icon="radio_button_unchecked">{$qitem['question']}</span>
+            </div>
+        {/loop $questions}
+    </div>
+    <div class="actions clearfix">
+        {ifeq $total_questions,$question['position']}
+            <span class="button blue to-results">К результатам теста</span>
+        {else}<span class="button blue to-step" data-step="{php: echo $question['position'] + 1}">Следующий вопрос</span>{/if}
+        {if!empty $item['test_steps']}
+            <div class="steps paginator-type-{$item['test_steps']}">
+                {loop $list,$k,$qlitem}
+                
+                    <span{iflt $k,$question['position']} class="active"{/if}></span>
+                {/loop $list}
+            </div>
+        {/if}
+    </div>
+    
+</div>
+    

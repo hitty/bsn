@@ -1,0 +1,41 @@
+{if!empty $search_list}
+    <div class="other-queries">
+        {ifempty $only_objects}
+        <span class="title">
+            {ifempty $from_archive_page}
+                По вашему запросу ничего не найдено!
+            {else}
+                Объект, который вы хотите просмотреть, уже в архиве!
+            {/if}
+            <br />
+            Но вы можете ознакомиться с объектами по близким характеристикам:
+        </span>
+        {/if}
+        
+        {loop $search_list,$l,$litem}
+            <div class="query"> 
+                <span class="query-title">
+                    {if!empty $litem['title']}
+                         {$litem['title']}
+                    {/if}
+                </span>
+                <div class="estate-list">
+                    {php:$list = $litem['list']}
+                    {loop $list, $k, $item}
+                        {include /modules/estate/templates/list.block.item.html}
+                    {/loop $list}
+
+                </div>
+                {ifgt $litem['count'], 3}<span class="button grey internal-link" data-link="{$litem['link']}">Все {$litem['count']} {suffix_word:$litem['count'],'объект','','а','ов'}</span>{/if}
+            </div>
+        {/loop $search_list}
+    </div>
+{else}
+    {ifempty $only_objects}
+        <div class="other-queries">
+            <span class="title">
+                По вашему запросу ничего не найдено!
+            </span>
+        </div>
+    {/if} 
+{/if} 

@@ -1,0 +1,22 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{php:echo trim($item['name'])}</b>!            
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        <img src="{ifempty $item['img_link']}{static:/}img/uploads/tgb/{$item['img_src']}{else}{$item['img_link']}{/if}" alt="{quoted:$item['title']}" />
+        <br />
+        ID {$item['id']}  <br />
+        Всего заказано: {suffix:$item['clicks_limit'],'клик','','а','ов'} <br />
+        {ifgt $item['clicks_limit'], $total_clicks}
+            Текущее значение: {suffix:$total_clicks,'клик','','а','ов'}
+        {else}
+            Статус: В архиве
+        {/if}
+        <br />
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

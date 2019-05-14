@@ -1,0 +1,45 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Здравствуйте, {$env['author']}!<br>
+    </td>
+</tr>
+{ifempty $env['answer_id']}
+    {if!empty $reg_data}
+        <tr><td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+        Мы зарегистрировали Вас на портале <a href="{$env['url']}">{$env['host']}</a><br>
+        
+        Регистрация будет считаться завершенной при первом входе в созданный аккаунт.<br>
+        Данные для входа:<br/>
+        <font size="+1">
+        Логин: {$reg_data['email']}<br />
+        Пароль: {$reg_data['password']}<br />
+        </font>
+        <br>
+        Ваш вопрос в сервисе Консультант на {$env['host']} отправлен на модерацию.
+        <br>
+        <b>После прохождения модерации Вашим вопросом, Вы получите уведомление на указанный Email.</b>
+        </td></tr>
+    {else}
+        <tr><td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+        Ваш вопрос в сервисе Консультант на {$env['host']} прошел модерацию. {if!empty $env['delayed_answer']}Вопрос поступит специалисту в его рабочее время{/if}
+        </br></br>
+        <p>ID {$env['ID']}</p>
+        <p>Автор: {$env['author']}</p>
+        <p>Email: {$env['login']}</p>
+        <p>Дата: {$env['datetime']}</p>
+        <p>Раздел: {$env['section']}</p>
+        <p>Текст: {$env['text']}</p>
+        <br>
+        <b>После публикации ответа нашего специалиста, Вы получите уведомление на указанный Email.</b>
+        </td></tr>
+    {/if}
+{else}
+    <tr><td>
+    Поступил ответ на Ваш вопрос «{$env['title']}» в сервисе Консультант на сайте {$env['host']}.
+    <br>
+    <br>
+    Для просмотра ответа, пройдите по <a href="https://www.bsn.ru/service/consultant/{$env['category']}/#{$env['ID']}">ссылке</a>
+    </td></tr>
+{/if}
+{include /modules/mailers/templates/simple.footer.html}

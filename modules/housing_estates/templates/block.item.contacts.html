@@ -1,0 +1,93 @@
+
+ {php:$housing_estate_contacts = !empty($item['seller_title']) || !empty($item['developer_title']);}
+
+ {if!empty $housing_estate_contacts}
+        <div class="contacts-wrap clearfix br3 shadow">
+        {ifempty $info}     
+            {php:$info = $item}
+        {/if} 
+        
+            {if!eq $item['published'],1}
+                <div class="archive-object">Объект в архиве</div>
+            {else}
+
+                <div class="contacts-info text-overflow br3">
+                    {if!empty $info['agency_photo_name']}
+                        <img src="{static:/}img/uploads/sm/{$info['agency_subfolder']}/{$info['agency_photo_name']}" alt="{$info['agency_title']}" class="logo" />
+                    {/if}
+                    {ifempty $info['agency_advert']}
+                        {if!empty $info['agency_title']}
+                            {if!eq $info['agency_title'],'Частное лицо'}
+                                <span class="internal-link agency-name" data-link="/organizations/company/{$info['agency_chpu_title']}/">
+                                    {$info['agency_title']}
+                                </span>
+                            {/if}
+                        {/if}
+                    {/if}
+
+                    {if!empty $item['seller_name']}
+                        {if!empty $info['agency_title']}
+                            {if!empty $info['user_tarif']}<a href="/specialists/{$item['id_user']}/" title="Специалист {$item['seller_name']}" target ="blank" class="name">{$item['seller_name']}</a>
+                            {else}<p class="name">{$item['seller_name']}</p>
+                            {/if}
+                        {elseif!eq $info['agency_title'],$item['seller_name']}
+                            {if!empty $info['user_tarif']}
+                                <a href="/specialists/{$item['id_user']}/" title="Специалист {$item['seller_name']}" target ="blank" class="name">{$item['seller_name']}</a>
+                            {else}<p class="name">{$item['seller_name']}</p>
+                            {/if}
+                        {else}<p class="name">{$item['seller_name']}</p>
+                        {/if}
+                    {/if}      
+                    {ifempty $info['agency_advert']}
+                        <div class="agency-info">
+                        {if!empty $info['agency_title']}
+                                    {if!empty $info['exclusive_seller']}
+                                        {if!empty $info['seller_title']}<p class="exclusive-agency">Эксклюзивный продавец</p>
+                                        {else}<p class="agency">Компания</p>
+                                        {/if}
+                                        
+                                    {elseif!empty $info['seller_title']}
+                                        <p class="agency">Продавец</p>
+                                    {else}
+                                        <p class="agency">Компания</p>
+                                    {/if}
+                                </p>
+                                {if!empty $info['doverie_years']}<p><span title="Призер конкурса Доверие потребителя" class="doverie-badge"><span>{$info['doverie_years']}</span></span></p>{/if}
+                        {else}
+                            {if!empty $info['user_tarif']}<p class="seller">Специалист</p>
+                            {else}<p class="seller">Частное лицо</p>
+                            {/if}
+                            
+                        {/if}
+                        </div>
+                    {/if}     
+
+                </div>
+                
+                {ifempty $no_phones}         
+                {if!empty $item['seller_phone']}
+                    <div class="phone-wrap">
+                        {ifempty $print}
+                            <p class="hidden-phone" id="{if!empty $info['agency_advert_phone']}comagic_phone{else}seller_phone{/if}">
+                                <span onClick="if(!_debug)  try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Показать телефон']); return true; }catch(err){ }" class="button blue" data-icon="phone">Показать телефон</span>
+                                
+                            </p>
+                        {else} <p class="phone">8 {$item['seller_phone']}</p>
+                        {/if}
+                        <p class="shown-phone"></p>
+                    </div>
+                {/if}
+                
+                {ifempty $print}
+                    <span data-url="/applications/popup/?estate_type={$estate_type}&id={$item['id']}&deal_type={$deal_type}" class="button grey popup application" data-location="estate-application" data-icon="message" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }">Оставить заявку</span>
+                {/if}
+                
+            {/if}
+            
+            
+
+                
+            {/if}
+    </div>
+ {/if}                  
+ 

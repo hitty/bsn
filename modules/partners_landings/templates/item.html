@@ -1,0 +1,104 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+<div class="header">
+    <div class="central-column">
+        <a href="/" class="logo" title="На главную">&nbsp;</a>
+        <span class="button popup white" data-url="/{$current_page['requested_url']}/?action=popup">Оставить заявку</span>
+        {if!empty $item['advert_phone']}<span class="phone call_phone_1">{$item['advert_phone']}</span>{/if}
+    </div>
+</div>
+<div class="central-column">
+    <section class="main-info clearfix">
+
+        <div class="left-part">
+            <div class="content">
+                <h1>{$item['title']}</h1>
+                <span class="address">{$item['address']}</span>
+                
+                <div class="main-params">
+                    {if!empty $item['square']}<span>Площадь {squareformat:$item['square']} м<sup>2</span>{/if}
+                    {if!empty $item['floor']}<span>Потолки {$item['floor']} м</span>{/if}
+                    {if!empty $item['level']}<span>Этаж {$item['level']}{if!empty $item['level_total']} (из {$item['level_total']}){/if}</span>{/if}
+                    {if!empty $item['power']}<span>Мощность {$item['power']} КВт</span>{/if}
+                    <a data-element="#params" class="dashed-link-blue">Еще</a>
+                </div>
+                
+                <span class="cost">{numberformat:$item['cost']} Р</span>
+                <span class="cost2meter">{numberformat:$item['cost2meter']} Р/кв.м.</span>
+            </div>
+            
+        </div>
+
+        <div class="right-part">
+        
+            {if!empty $photos}
+                <div class="photos flex">
+                    {loop $photos,$pk,$pv}
+                        <a data-fancybox="images" class="transition before-abs br3" data-icon="search" href="{static:/}img/uploads/partners_landings/big/{$pv['subfolder']}/{$pv['name']}" title="{quoted:$titles['header']}" rel="fancybox-thumb" itemscope itemtype="http://schema.org/ImageObject">
+                            <img src="{static:/}img/uploads/partners_landings/big/{$pv['subfolder']}/{$pv['name']}" class="br3" alt="{quoted:$titles['header']}"/>
+                            <img itemprop="contentUrl" src="{static:/}img/uploads/partners_landings/big/{$pv['subfolder']}/{$pv['name']}" alt="" style="display: none;" />
+                            <meta itemprop="name" content="{quoted:$metadata['title']}">
+                            <meta itemprop="description" content="{quoted:$metadata['description']}">
+                        </a>
+                    {/loop $photos}
+                </div>
+            {/if}
+            
+            <div class="description">{$item['content']}</div>
+            
+            <div class="params">
+                <h2 class="title" name="params" id="params">Характеристики</h2>
+                {$item['params']}
+            </div>
+
+            
+        </div>
+    </section>
+
+    <section class="housing-estate-info clearfix">
+
+        <div class="left-part bg-cover" style="background: url('/img/layout/partners_landings/yes-img.png');">
+        
+            <div class="text bbox" data-icon="whatshot">
+                {$item['housing_estate_description']}
+            </div>
+        
+        </div>
+
+        <div class="right-part">
+        
+            <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+            <div class="map-box" id="map-box" data-lat="{if!empty $item['lat']}{$item['lat']}{/if}" data-lng="{if!empty $item['lng']}{$item['lng']}{/if}" data-address="{$item['short_address']}"></div>
+        </div>
+    </section>
+    
+    {if!empty $item['advert_phone']}
+    <section class="phone-bottom clearfix">
+        <div class="left-part">Заинтересовало?<br />Звоните нам!</div>
+        <div class="right-part">
+            <b class="phone call_phone_1">{$item['advert_phone']}</b>
+            Наш телефон работает с 10 до 19 часов ежедневно,<br />кроме выходных.
+        </div>
+        
+    </section>
+    {/if}
+</div> 
+
+{literal}
+    <script type="text/javascript">
+    (function (w, d, nv, ls) {
+    var lwait = function (w, on, trf, dly, ma, orf, osf) {var pfx = "ct_await_", sfx = "_completed";if (!w[pfx + on + sfx]) {var ci = clearInterval, si = setInterval, st = setTimeout, cmld = function() {if (!w[pfx + on + sfx]) { w[pfx + on + sfx] = true;if ((w[pfx + on] && (w[pfx + on].timer))) { ci(w[pfx + on].timer);w[pfx + on] = null;}orf(w[on]);}};if (!w[on] || !osf) {if (trf(w[on])){cmld();} else {if (!w[pfx + on]) {w[pfx + on] = {timer: si(function () {if (trf(w[on]) || ma < ++w[pfx + on].attempt) {cmld();}}, dly), attempt: 0};}}} else {if (trf(w[on])) {cmld();} else {osf(cmld);st(function(){lwait(w, on, trf, dly, ma, orf);}, 0);}}} else {orf(w[on]);}};
+    var ct = function (w, d, e, c, n) { var a = 'all', b = 'tou', src = b + 'c' + 'h'; src = 'm' + 'o' + 'd.c' + a + src; var jsHost = "https://" + src, s = d.createElement(e); var jsf = function (w, d, s, h, c, n) { s.async = 1; s.src = jsHost + "." + "r" + "u/d_client.js?param;" + (c ? "client_id" + c + ";" : "") + "ref" + escape(d.referrer) + ";url" + escape(d.URL) + ";cook" + escape(d.cookie) + ";attrs" + escape("{\"attrh\":" + n + ",\"ver\":171110}") + ";"; var p = d.getElementsByTagName(e)[0]; p.parentNode.insertBefore(s, p); }; if (!w.jQuery) { var jq = d.createElement(e);jq.src = jsHost + "." + "r" + 'u/js/jquery-1.7.min.js'; jq.onload = function () {lwait(w, 'jQuery', function (obj) {return (obj ? true : false);}, 30, 100, function () {jsf(w, d, s, jsHost, c, n);});}; var p = d.getElementsByTagName(e)[0]; p.parentNode.insertBefore(jq, p); } else { jsf(w, d, s, jsHost, c, n);}};
+    var gaid = function (w, d, o, ct, n) {if (!!o) {lwait(w, o, function (obj) {return (obj && obj.getAll ? true : false);}, 200, (nv.userAgent.match(/Opera|OPR\//) ? 10 : 20), function (gaCounter) {var clId = null;try {var cnt = gaCounter && gaCounter.getAll ? gaCounter.getAll() : null;clId = cnt && cnt.length > 0 && !!cnt[0] && cnt[0].get ? cnt[0].get('clientId') : null;} catch (e) {console.warn("Unable to get clientId, Error: " + e.message);}ct(w, d, 'script', clId, n);}, function (f) {w[o](function () {f(w[o]);})});} else {ct(w, d, 'script', null, n);}};
+    var cid = function () {try {var m1 = d.cookie.match('(?:^|;)\\s*_ga=([^;]*)');if (!(m1 && m1.length > 1)) return null;var m2 = decodeURIComponent(m1[1]).match(/(\d+\.\d+)$/);if (!(m2 && m2.length > 1)) return null;return m2[1]} catch (err) {}}();
+    if (cid === null && !!w.GoogleAnalyticsObject) {
+        if (w.GoogleAnalyticsObject == 'ga_ckpr') w.ct_ga = 'ga'; else w.ct_ga = w.GoogleAnalyticsObject;
+        if (typeof Promise !== "undefined" && Promise.toString().indexOf("[native code]") !== -1) { new Promise(function (resolve) {var db, on = function () {resolve(true)}, off = function () {resolve(false)}, tryls = function tryls() {try {ls && ls.length ? off() : (ls.x = 1, ls.removeItem("x"), off());} catch (e) {nv.cookieEnabled ? on() : off();}}; w.webkitRequestFileSystem ? webkitRequestFileSystem(0, 0, off, on) : "MozAppearance" in d.documentElement.style ? (db = indexedDB.open("test"), db.onerror = on, db.onsuccess = off) : /constructor/i.test(w.HTMLElement) ? tryls() : !w.indexedDB && (w.PointerEvent || w.MSPointerEvent) ? on() : off();}).then(function (pm) {
+            if (pm) {gaid(w, d, w.ct_ga, ct, 2);} else {gaid(w, d, w.ct_ga, ct, 3);}})} else {gaid(w, d, w.ct_ga, ct, 4);}
+    } else {ct(w, d, 'script', cid, 1);}})
+    (window, document, navigator, localStorage);
+    </script>
+{/literal}
+{php:$wide_format = true}
+        

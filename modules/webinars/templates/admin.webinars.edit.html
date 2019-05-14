@@ -1,0 +1,44 @@
+{if!empty $h1}<h1 class="pageTitle">{$h1}</h1>{/if}
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/service/webinars/add/">
+    <h3>Новое событие</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/service/webinars/edit/{$data_mapping['id']['value']}/">
+    <h3>Событие</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <fieldset>
+        <h3>Загрузка фотографий для вебинара #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+        <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/service/webinars/photos/" data-session-id="{php:echo session_id();}" />
+        
+        <input type="hidden" name="id_priority"/>   
+    </fieldset>
+</form>
+<script>
+jQuery(document).ready(function(){
+    if(jQuery('#file_upload').length>0){
+        jQuery('#file_upload').uploadifive({'queueSizeLimit':200
+        });
+    }
+});
+</script>

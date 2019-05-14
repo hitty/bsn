@@ -1,0 +1,21 @@
+<h1 class="pageTitle">Статистика объектов в личном кабинете</h1>
+<script type="text/javascript">
+var _chart_url = '/admin/service/stats/cabinet_stats/';
+var _params_ids = ["f_estate_type","date_start","date_end"];
+</script>
+<div class="filter_line" style="text-align: left;">
+    <label>
+        Выбор типа недвижимости:
+        <select id="f_estate_type" style="width: 270px; ">
+            <option value="0">выберите тип недвижимости</option>
+            <option value="1"{ifeq $get_array['estate_type'],1} selected="selected"{/if}>Жилая</option>
+            <option value="2"{ifeq $get_array['estate_type'],1} selected="selected"{/if}>Нововстройки</option>
+            <option value="3"{ifeq $get_array['estate_type'],1} selected="selected"{/if}>Коммерческая</option>
+            <option value="4"{ifeq $get_array['estate_type'],1} selected="selected"{/if}>Загородная</option>
+        </select>
+    </label>
+</div>
+<div id="cabinet-stats">
+{include admin/templates/admin.stat_chart_cabinet.html}
+</div>
+<div id="result_info_stats"></div>

@@ -1,0 +1,347 @@
+<div class="left-column">
+    <aside>
+        <ul class="members-menu">
+            {if!empty $authorized}
+                <li class="user-info">
+                    <span class="user-fio">
+                        <div class="user-avatar{if!empty $auth['user_photo']} active{/if}">
+                            <img src="{if!empty $auth['user_photo']}/{$auth['user_photo_folder']}/big/{$auth['user_photo']}{else}/img/layout/no_avatar_med.gif{/if}" class="avatar" alt="{if!empty $auth_data['name']}{$auth_data['name']}{/if}{if!empty $auth_data['lastname']} {$auth_data['lastname']}{/if}"/>
+                            <span class="sex-select user-avatar-color medium male{ifeq $auth_data['sex'],2} female{/if}" style="background-color: {$auth_data['avatar_color']};">
+                                <img src="{static:/}img/layout/user-ava-image-male-med.png" class="img-male" alt="" />
+                                <img src="{static:/}img/layout/user-ava-image-female-med.png" class="img-female" alt="" />
+                            </span>
+                        </div>
+                        {if!empty $auth_data['name']}
+                            {if!empty $auth_data['id_tarif']}
+                                <a class="user-name-link" href="/specialists/{$auth_data['id']}/" title="посмотреть свою страницу" target="blank">{$auth_data['name']}{if!empty $auth_data['lastname']} {$auth_data['lastname']} {/if}</a>
+                            {else}
+                                {$auth_data['name']}{if!empty $auth_data['lastname']} {$auth_data['lastname']} {/if}
+                            {/if}
+                        {/if}
+                        
+                        <i class="user-type clearfix {if!empty $auth['agency']}agency{elseif!empty $auth_data['id_tarif']}specialist{/if}">
+                            {if!empty $auth_data['id_tarif']}
+                                специалист
+                            {elseif!empty $auth['agency']}
+                                агентство
+                            {else}
+                                частное лицо
+                            {/if}
+                        </i>
+                        {if!empty $auth_data['id_agency']}
+                            <span class="agency-text">Вы являетесь {ifeq $auth_data['agency_admin'],1}администратором{else}сотрудником{/if}</span>
+                            <span class="agency-title"><a href="/organizations/company/{$auth_data['chpu_title']}/" title="посмотреть страницу компании" target="blank">{$auth_data['agency_title']}</a></span>
+                        {/if}
+                    </span>
+                    <span class="balance">
+                        <b>{if!empty $auth_data['balance']}{numeric:$auth_data['balance']}{else}0{/if}</b> <span class="rur">a</span>
+                        <a href="/members/pay/balance/" title="Пополнить баланс" class="button green">+</a>
+                    </span>
+                    {if!empty $auth['id_tarif']}
+                        <span class="tarif{if!empty $auth_data['tarif_title']} selected{/if}">
+                            {if!empty $auth_data['tarif_title']}
+                                <i class="tarif-title">{$auth_data['tarif_title']}</i>
+                                <span class="tarif-end">Подключен до {$auth_data['tarif_end']}</span>
+                                <ul class="tarif-info">
+                                    {if!empty $total_payed_objects}
+                                        <li>Платные объекты:<span>{$total_payed_objects}</span></li>
+                                    {/if}
+                                    <li>Объекты:<span>{$total_published_objects} <i>из {$auth_data['active_objects']}</i></span></li>
+                                    {php:$services = !empty($auth_data['promo_left']) || !empty($auth_data['premium_left']) || !empty($auth_data['vip_left']);}
+                                    {if!empty $services}
+                                        <li>Услуги</li>
+                                        {if!empty $auth_data['promo_available']}
+                                            <li class="promo">«Промо»
+                                                <span>
+                                                    {ifempty $auth_data['promo_left']}{$auth_data['promo_available']}
+                                                    {else} {php:echo $auth_data['promo_available'] - $auth_data['promo_left']}
+                                                    {/if}
+                                                    <i>из {$auth_data['promo_available']}</i>
+                                                </span></li>
+                                        {/if}
+                                        {if!empty $auth_data['premium_available']}
+                                            <li class="premium">«Премиум»
+                                                <span>
+                                                    {ifempty $auth_data['premium_left']}{$auth_data['premium_available']}
+                                                    {else} {php:echo $auth_data['premium_available'] - $auth_data['premium_left']}
+                                                    {/if}
+                                                    <i>из {$auth_data['premium_available']}</i>
+                                                </span>
+                                            </li>
+                                        {/if}
+                                        {if!empty $auth_data['vip_available']}
+                                            <li class="premium">«VIP»
+                                                <span>
+                                                    {ifempty $auth_data['vip_left']}{$auth_data['vip_available']}
+                                                    {else} {php:echo $auth_data['vip_available'] - $auth_data['vip_left']}
+                                                    {/if}
+                                                    <i>из {$auth_data['vip_available']}</i>
+                                                </span>
+                                            </li>
+                                        {/if}
+                                    {/if}
+                                </ul>
+                            {else}
+                                <a href="/members/tarifs/" title="Подключить тариф">тариф не выбран</a>
+                            {/if}
+                        </span>
+                    {elseifeq $auth_data['agency_admin'],1}
+                        <span class="tarif{if!empty $auth_data['packet_title']} selected{/if}">
+                            {if!empty $auth_data['packet_title']}
+                                <i class="tarif-title">{$auth_data['packet_title']}</i>
+                                {if!empty $auth_data['agency_tarif_end']}<span class="tarif-end">Подключен до {$auth_data['agency_tarif_end']}</span>{/if}
+                                <ul class="tarif-info packet">
+                                
+                                    {php: $unlim_text = ($auth_data['id_tarif'] == 7 ? '<span class="unlimit" title="Безлимит">&#8734;</span>' : '0');}
+                                    
+                                    <li class="title">Жилая</li>
+                                    {ifempty $count_list['published_sell']['live_sell']}
+                                        <li>продажа<span>0 <i>из {if!empty $auth_data['live_sell_objects']}{$auth_data['live_sell_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                    {else}
+                                        {if!empty $count_list['published_sell']['live_sell_payed']}
+                                            <li>продажа платная<span>{$count_list['published_sell']['live_sell_payed']}</span></li>
+                                        {/if}
+                                        {if!empty $count_list['published_sell']['live_sell_free']}
+                                            <li>продажа<span>{$count_list['published_sell']['live_sell_free']} <i>из {if!empty $auth_data['live_sell_objects']}{$auth_data['live_sell_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                        {/if}
+                                    {/if}
+                                    {ifempty $count_list['published_rent']['live_rent']}
+                                        <li>аренда<span>0 <i>из {if!empty $auth_data['live_rent_objects']}{$auth_data['live_rent_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                    {else}
+                                        {if!empty $count_list['published_rent']['live_rent_payed']}
+                                            <li>аренда платная<span>{$count_list['published_rent']['live_rent_payed']}</span></li>
+                                        {/if}
+                                        {if!empty $count_list['published_rent']['live_rent_free']}
+                                            <li>аренда<span>{$count_list['published_rent']['live_rent_free']} <i>из {if!empty $auth_data['live_rent_objects']}{$auth_data['live_rent_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                        {/if}
+                                    {/if}
+                                    
+                                    <li class="title">Новостройки</li>
+                                    {ifempty $count_list['published']['build']}
+                                        <li>продажа<span>0 <i>из {if!empty $auth_data['build_objects']}{$auth_data['build_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                    {else}
+                                        {if!empty $count_list['published']['build_payed']}
+                                            <li>продажа платная<span>{$count_list['published']['build_payed']}</span></li>
+                                        {/if}
+                                        {if!empty $count_list['published']['build_free']}
+                                            <li>продажа<span>{$count_list['published']['build_free']} <i>из {if!empty $auth_data['build_objects']}{$auth_data['build_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                        {/if}
+                                    {/if}
+                                    
+                                    <li class="title">Коммерческая</li>
+                                    {ifempty $count_list['published_sell']['commercial_sell']}
+                                        <li>продажа<span>0 <i>из {if!empty $auth_data['commercial_sell_objects']}{$auth_data['commercial_sell_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                    {else}
+                                        {if!empty $count_list['published_sell']['commercial_sell_payed']}
+                                            <li>продажа платная<span>{$count_list['published_sell']['commercial_sell_payed']}</span></li>
+                                        {/if}
+                                        {if!empty $count_list['published_sell']['commercial_sell_free']}
+                                            <li>продажа<span>{$count_list['published_sell']['commercial_sell_free']} <i>из {if!empty $auth_data['commercial_sell_objects']}{$auth_data['commercial_sell_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                        {/if}
+                                    {/if}
+                                    {ifempty $count_list['published_rent']['commercial_rent']}
+                                        <li>аренда<span>0 <i>из {if!empty $auth_data['commercial_rent_objects']}{$auth_data['commercial_rent_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                    {else}
+                                        {if!empty $count_list['published_rent']['commercial_rent_payed']}
+                                            <li>аренда платная<span>{$count_list['published_rent']['commercial_rent_payed']}</span></li>
+                                        {/if}
+                                        {if!empty $count_list['published_rent']['commercial_rent_free']}
+                                            <li>аренда<span>{$count_list['published_rent']['commercial_rent_free']} <i>из {if!empty $auth_data['commercial_rent_objects']}{$auth_data['commercial_rent_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                        {/if}
+                                    {/if}
+                                    
+                                    <li class="title">Загородная</li>
+                                    {ifempty $count_list['published_sell']['country_sell']}
+                                        <li>продажа<span>0 <i>из {if!empty $auth_data['country_sell_objects']}{$auth_data['country_sell_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                    {else}
+                                        {if!empty $count_list['published_sell']['country_sell_payed']}
+                                            <li>продажа платная<span>{$count_list['published_sell']['country_sell_payed']}</span></li>
+                                        {/if}
+                                        {if!empty $count_list['published_sell']['country_sell_free']}
+                                            <li>продажа<span>{$count_list['published_sell']['country_sell_free']} <i>из {if!empty $auth_data['country_sell_objects']}{$auth_data['country_sell_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                        {/if}
+                                    {/if}
+                                    {ifempty $count_list['published_rent']['country_rent']}
+                                        <li>аренда<span>0 <i>из {if!empty $auth_data['country_rent_objects']}{$auth_data['country_rent_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                    {else}
+                                        {if!empty $count_list['published_rent']['country_rent_payed']}
+                                            <li>аренда платная<span>{$count_list['published_rent']['country_rent_payed']}</span></li>
+                                        {/if}
+                                        {if!empty $count_list['published_rent']['country_rent_free']}
+                                            <li>аренда<span>{$count_list['published_rent']['country_rent_free']} <i>из {if!empty $auth_data['country_rent_objects']}{$auth_data['country_rent_objects']}{else}{$unlim_text}{/if}</i></span></li>
+                                        {/if}
+                                    {/if}
+                                    
+                                    <li class="title">Услуги</li>
+                                    <li>сотрудники
+                                        <span>
+                                            {$agency_limit['staff_number']}
+                                            <i> из {ifeq $auth_data['staff_number'],-1}∞{else}{$auth_data['staff_number']}{/if}</i>
+                                        </span>
+                                    </li>
+                                    <li>«промо»<span>{$agency_limit['promo']}<i> из {$auth_data['promo']}</i></span></li>
+                                    <li>«премиум»<span>{$agency_limit['premium']}<i> из {$auth_data['premium']}</i></span></li>
+                                    <li>«VIP»<span>{$agency_limit['vip']}<i> из {$auth_data['vip']}</i></span></li>
+                                    {if!empty $auth_data['business_center']}{ifeq $auth_data['business_center'],1}<li>БЦ<span>да</span></li>{/if}{/if}
+                                    <li class="inactive">акция*<span>0 <i> из {$auth_data['action']}</i></span></li>
+                                    <li class="inactive">промо видео*<span>0 <i> из 2</i></span></li>
+                                    <li class="note">* В разработке</li> 
+                                </ul>
+                                
+                            {else}
+                                пакет не выбран
+                            {/if}
+                        </span>
+                        
+                    {/if}
+                </li>
+                {loop $authmenu,$mmkey,$mmitem}
+                    <li class="{$mmitem['class']}{if!empty $mmitem['active']} active{/if}">
+                        {if!empty $authorized}
+                             <a href="/{$mmitem['url']}/" title="{$mmitem['title']}">
+                                {$mmitem['title']}
+                            </a>
+                        {else}
+                             <span class="nonauth">{$mmitem['title']}</span>
+                        {/if}
+                        
+                        {if!empty $show_amount}{if!empty $mmitem['amount']}<i class="amount">{numberformat:$mmitem['amount']}</i>{/if}
+                        {else}{if!empty $mmitem['amount']}<i class="amount">{numberformat:$mmitem['amount']}</i>{/if}
+                        {/if}
+                        {ifeq $mmitem['url'],'members/cabinet'}
+                            {if!empty $cabinet}
+                                {if!empty $count_list}
+                                    {php:$status_title=!empty($status['title'])?$status['title']:'';}
+                                    {php:$show_amount=(!empty($page_type) && $page_type == 'agencies_uploads' ) || !empty($step_number)}
+                                    <ul class="members-objects-count">
+                                        <li class="{ifeq $status_title,'published'}active{/if}" data-status="published">
+                                            {if!empty $count_list['published_total']}
+                                                <a href="/members/cabinet/?status=published" data-additional-href="">Опубликованы<span>{if!empty $show_amount}{$count_list['published_total']}{else}0{/if}</span></a>
+                                            {else}
+                                                <span class="empty-section">Опубликованы<span>0</span></span>
+                                            {/if}
+                                        </li>
+                                        <li class="{ifeq $status_title,'moderation'}active{/if}" data-status="moderation">
+                                            {if!empty $count_list['moderation_total']}
+                                                <a href="/members/cabinet/?status=moderation" data-additional-href="">На модерации<span>{if!empty $show_amount}{$count_list['moderation_total']}{else}0{/if}</span></a>
+                                            {else}
+                                                <span class="empty-section">На модерации<span>0</span></span>
+                                            {/if}
+                                        </li>
+                                        <li class="{ifeq $status_title,'archive'}active{/if}" data-status="archive">
+                                            {if!empty $count_list['archive_total']}
+                                                <a href="/members/cabinet/?status=archive" data-additional-href="">В архиве<span>{if!empty $show_amount}{$count_list['archive_total']}{else}0{/if}</span></a>
+                                            {else}
+                                                <span class="empty-section">В архиве<span>0</span></span>
+                                            {/if}
+                                        </li>
+                                        <li class="{ifeq $status_title,'draft'}active{/if}" data-status="draft">
+                                            {if!empty $count_list['draft_total']}
+                                                <a href="/members/cabinet/?status=draft" data-additional-href="">Черновик<span>{if!empty $show_amount}{$count_list['draft_total']}{else}0{/if}</span></a>
+                                            {else}
+                                                <span class="empty-section">Черновик<span>0</span></span>
+                                            {/if}
+                                        </li>
+                                    </ul>
+                                {/if}
+                            {/if}
+                        {elseifeq $mmitem['url'],'members/conversions'}
+                            {if!empty $conversions}
+                                <ul class="members-objects-count">
+                                    {ifempty $common_user}
+                                        {ifempty $consultant_user}
+                                            <li class="calls">
+                                                    <a href="/members/conversions/calls/" title="Звонки">Звонки<span>{if!empty $calls_total}{$calls_total}{else}0{/if}</span></a>
+                                            </li>
+                                        {/if}
+                                    {/if}
+                                    {ifempty $consultant_user}
+                                        <li class="applications{if!empty $cabinet_page}{ifeq $cabinet_page,'applications'} active{/if}{/if}">
+                                                <a href="/members/conversions/applications/" title="Заявки">Заявки<span>{if!empty $apps_total}{$apps_total}{else}0{/if}</span></a>
+                                        </li>
+                                    {/if}
+                                    <li class="consults{if!empty $cabinet_page}{ifeq $cabinet_page,'consults'} active{/if}{/if}">
+                                            <a href="/members/conversions/consults/" title="Консультации">Консультации<span>{if!empty $consults_total}{$consults_total}{else}0{/if}</span></a>
+                                    </li>
+                                </ul>
+                            {/if}
+                        {elseifeq $mmitem['url'],'members/office'}
+                            {if!empty $left_menu_office}
+                                <ul class="members-objects-count">
+                                    <li class="staff{ifeq $page_type,'office_staff'} active{/if}">
+                                        <a href="/members/office/staff/" title="Сотрудники">Сотрудники</a>
+                                    </li>
+                                    {ifeq $auth_data['agency_admin'],1}
+                                        <li class="{ifeq $page_type,'agencies_uploads'}active{/if} upload-objects">  
+                                            <a href="/members/office/agencies_uploads/">Загрузка / выгрузка<span></span></a>
+                                        </li>
+                                        {if!empty $auth_data['business_center']}
+                                            {ifeq $auth_data['business_center'],1}
+                                                <li class="{ifeq $page_type,'business_centers'}active{/if}">
+                                                    <a href="/members/office/business_centers/">Бизнес-Центры</a>
+                                                </li>                                        
+                                                <li class="{ifeq $page_type,'business_centers_renters'}active{/if}">
+                                                    <a href="/members/office/business_centers/renters/">Арендаторы</a>
+                                                </li>                                        
+                                            {/if}
+                                        {/if}
+                                                    
+                                    {/if}
+                                </ul>
+                            {/if}
+                        {/if}
+                   </li>
+                   {/loop $authmenu}
+                    <li class="auth-logout"><a href="/logout/" title="Выход" onclick="document.through_auth_form.submit();return false;">Выход</a></li>
+                    <li class="add-question"><a href="/members/messages/support/" class="button"  title="Задать вопрос">Задать вопрос<div>отправить вопрос поддержке</div></a></li>
+                {else}
+                    <li class="cabinet">
+                        <span class="nonauth">Объекты</span>
+                        <ul class="members-objects-count">
+                            <li class="">
+                                <span class="empty-section">Опубликованы<span>0</span></span>
+                            </li>
+                            <li class="">
+                                <span class="empty-section">На модерации<span>0</span></span>
+                            </li>
+                            <li class="">
+                                <span class="empty-section">В архиве<span>0</span></span></li>
+                            <li class="">
+                                <span class="empty-section">Черновик<span>0</span></span>
+                            </li>
+                        </ul>
+                    </li>
+                {/if}          
+        </ul> 
+    </aside>   
+</div>
+<script>
+    jQuery(document).ready(function(){
+        //опрелеление координат плавающей левой панели          
+        jQuery('.balance').each(function(){
+            var _this = jQuery(this);
+            var _height = _this.offset().top - parseInt(jQuery('header').height());
+            var _menu_height = parseInt(jQuery('.members-menu').height()) - parseInt(jQuery('.members-menu .user-info .user-fio').height());
+            jQuery('aside', jQuery('.left-column')).css('min-height', jQuery('.members-menu').height()+'px');
+            _check_scroll = false;
+            jQuery(window).scroll(function(){
+                var _footer_top = parseInt(jQuery('footer').offset().top);
+                var _top = parseInt(jQuery(this).scrollTop());
+                if (_top + _menu_height > _footer_top) {
+                    jQuery('.members-menu').removeClass('scrolled').addClass('scrolled-bottom');
+                    _check_scroll = true;
+                } else if (_top > _height) {
+                    jQuery('.members-menu').addClass('scrolled').removeClass('scrolled-bottom');
+                    _check_scroll = true;
+                } else if(_check_scroll == false){
+                    jQuery('.members-menu').removeClass('scrolled').removeClass('scrolled-bottom');
+                } else _check_scroll = false;
+                return false;
+            });    
+        })
+        //список по тарифу
+        jQuery('.members-menu .user-info .tarif.selected .tarif-title').on('click', function(){
+            jQuery(this).parent().toggleClass('active');
+        })
+    })
+</script>

@@ -1,0 +1,176 @@
+                    {php:$status_text = $item['status']==3 ? 'Промо' : ( $item['status']==4 ? 'Премиум' : ( $item['status']==6 ? 'VIP' : ( $item['status']==7 ? 'Акция' : 'Стандарт'  )));}
+                    {php:$deal_type = !empty( $deal_type ) ? $deal_type : ( $item['rent'] == 1 ? 'rent' : 'sell' )}
+                    <div class="item shadow-hover transition clearfix {if!empty $item['total_variants']} with-variants{/if}{if!empty $members_page}{ifeq $auth['id'],$item['id_user']} can-edit{/if}{/if}"  onClick="try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(err){ }" data-id="{$item['id']}" data-group-id="{$item['group_id']}"{if!empty $item['rooms_sale']}data-rooms="{$item['rooms_sale']}"{elseifeq $item['rooms_sale'],0}data-rooms="{$item['rooms_sale']}"{/if}  itemscope itemtype="http://schema.org/Product" {ifempty $members_page}data-link="/{$estate_type}/{$deal_type}/{$item['id']}/{if!eq $item['published'],1}?show=true{/if}" data-new-tab="true"{/if}>
+                        {php:$photos = $item['photos']}
+                        <div class="photo bbox bg-cover br3{ifempty $photos} lazy{/if}" {ifempty $photos}data-src="//st1.bsn.ru/img/layout/no-photo-med.gif"{/if}>
+                            {if!empty $photos}
+                            <div class="image-list">
+                                {loop $photos,$pk,$pv} 
+                                <div class="image-item">
+                                    <div class="image-wrapper bg-cover transition lazy" data-src="{if!empty $pv['name']}{ifeq $estate_type,'inter'}http://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}{elseif!empty $pv['complex_photo']}{static:/}{$img_folder}/med/{$pv['complex_subfolder']}/{$pv['complex_photo']}{/if}">
+                                       {ifgt $item['photos_count'],5}
+                                            {ifeq $pk,4}
+                                                <div class="more">
+                                                    <span class="more-text" data-icon="crop_original_black">Ещё {php:echo $item['photos_count'] - 5} фото</span>
+                                                </div>
+                                            {/if}
+                                        {/if}
+                                    </div>
+                                    {ifgt $item['photos_count'],1}<div class="image-button"></div>{/if}
+                                </div>
+                                {/loop $photos}
+                            </div>
+                            {/if}
+                        </div>
+                        <div class="info">    
+                            <div class="main-params-wrap flex">
+                                <a href="/{$estate_type}/{$deal_type}/{$item['id']}/{if!eq $item['published'],1}?show=true{/if}" title="" target="_blank">
+                                <span class="type-object">
+                                    {ifeq $estate_type, 'build'}
+                                        {ifeq $item['rooms_sale'],0}студия{else}{$item['rooms_sale']}-комнатная{/if}
+                                    {elseifeq $estate_type, 'live'}
+                                        {ifeq $item['id_type_object'],1}
+                                                {ifeq $item['rooms_total'],0}студия{else}{$item['rooms_total']}-комнатная{/if}
+                                        {elseifeq $item['id_type_object'],2}
+                                            {iflte $item['rooms_sale'],1}Комната
+                                            {else}{suffix:$item['rooms_sale'],'комнат','а','ы',''}
+                                            {/if}
+                                             <span>в {$item['rooms_total']}-комнатной кв.</span>
+                                        {else}
+                                            {$item['type_object']}
+                                        {/if}                                        
+                                    {else}
+                                        {if!empty $item['type_object_short']}
+                                            {$item['type_object_short']}
+                                        {else}
+                                            {$item['type_object']}
+                                        {/if}
+                                    {/if}
+                                </span>
+                                {php:$rooms = ($estate_type == 'live' && $item['id_type_object'] == 2)}
+                                {php:$show_squares = (!empty($item['square_full']) && $item['square_full']>0) || (!empty($item['square_ground']) && $item['square_ground']>0) || (!empty($item['square_usefull']) && $item['square_usefull']>0);}
+                                {if!empty $show_squares}
+                                    <span class="full-square">                                                              
+                                        {if!empty $rooms}
+                                            {ifgt $item['square_live'],1}, {squareformat:$item['square_live']} м<sup>2</sup>
+                                                {ifgt $item['square_full'],0}{if!eq $item['square_full'],$item['square_live']}<span>в {squareformat:$item['square_full']} м<sup>2</sup></span>{/if}{/if}
+                                            {/if}
+                                        {else}
+                                            {ifgt $item['square_full'],0} , {squareformat:$item['square_full']} м<sup>2</sup>
+                                            {elseifgt $item['square_usefull'],0} , {squareformat:$item['square_usefull']} м<sup>2</sup>
+                                            {elseifgt $item['square_ground'],0} , {squareformat:$item['square_ground']} сот.
+                                            {/if}
+                                        {/if}
+                                    </span>
+                                {/if}
+                                {ifeq $estate_type,'commercial'}
+                                    {ifgt $item['level'],0}
+                                            ,
+                                            {ifeq $estate_type,'country'}{suffix:$item['level'], 'этаж', '', 'а', 'эй'}
+                                            {else}{$item['level']} этаж
+                                            {/if}
+                                        </span>
+                                    {/if}
+                                {/if}
+                                {if!empty $only_objects}
+                                    <span class="level">
+                                        {ifgt $item['level'],0}
+                                            , {ifeq $estate_type,'country'}{suffix:$item['level'], 'этаж', '', 'а', 'эй'}
+                                            {else}{$item['level']} этаж
+                                            {/if}
+                                        {/if}    
+                                    </span>
+                                {/if}
+                                </a>
+                                
+                                <span class="cost" {if!empty $item['min_cost_objects']}itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer"{else}itemprop="offers" itemscope itemtype="http://schema.org/Offer"{/if}>
+                                    {if!eq $estate_type, 'inter'}
+                                        {numberformat:$item['cost']} 
+                                        <meta  itemprop="price" content="{$item['cost']}">
+                                        <meta  itemprop="priceCurrency" content="RUB">                       
+                                        P
+                                        {if!empty $item['min_cost_objects']}<meta  itemprop="lowprice" content="{$item['min_cost_objects']}">{/if}
+                                        {ifeq $item['rent'],1} <span class="rent">{ifeq $item['by_the_day'],1} / сут.{else} / мес.{/if}</span>{/if}
+                    
+                                    {else}
+                                        {numberformat:$item['cost']} 
+                                        {if!eq $item['id_currency'],1}{quoted:$item['currency_title']}{/if}
+                                        {ifeq $item['rent'],1} / {quoted:$item['cost_type_title']}{/if}
+                                        <meta  itemprop="price" content="{$item['cost']}">
+                                        {if!empty $item['min_cost_objects']}<meta  itemprop="lowprice" content="{$item['min_cost_objects']}">{/if}
+                                        {if!eq $item['id_currency'],1}<meta  itemprop="priceCurrency" content="{quoted:$item['currency_title']}">{/if}
+                                        {ifeq $deal_type,'rent'}{/if}
+                                    {/if}
+                                </span>      
+                            </div>
+                            {if!empty $members_page}<span class="object-id">ID: {$item['id']}</span>{/if}
+                            
+                                <div class="address-wrap">
+                                    {if!eq $estate_type,'inter'}
+                                        <a class="title text-overflow" href="/{$estate_type}/{$deal_type}/{$item['id']}/" target="_blank" title="{$item['header']}">
+                                            {if!empty $item['txt_addr']}{$item['txt_addr']}{/if}
+                                            {if!eq $estate_type,'commercial'}
+                                                {ifgt $item['level'],0}
+                                                        ,
+                                                        {ifeq $estate_type,'country'}{suffix:$item['level'], 'этаж', '', 'а', 'эй'}
+                                                        {else}{$item['level']} этаж
+                                                        {/if}
+                                                    </span>
+                                                {/if}
+                                            {/if}
+                                        </a> 
+                                        {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                                        
+                                        {if!empty $item['subway']}
+                                            <span class="subway {$item['subway_line_color']}">{$item['subway']} 
+                                                {if!empty $item['way_time']} 
+                                                    - {suffix:$item['way_time'],'минут','а','ы',''} {ifeq $item['id_way_type'],2} пешком{else} на траспорте{/if}
+                                                {/if}
+                                            </span>
+                                        {elseif!empty $district}<span class="district">{if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}</span>{/if}
+                                    {else}
+                                        <a class="title text-overflow" href="/inter/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" target="_blank" title="{quoted:$item['address']}">
+                                            {quoted:$item['address']}
+                                        </a>
+                                        {if!empty $item['country_title']}
+                                            <span class="country">
+                                                {if!empty $item['country_photo']}<img src="http://interestate.ru//img/uploads/sm/{$item['country_subfolder']}/{$item['country_photo']}" alt="{quoted:$item['country_title']}"/>{/if}
+                                                {quoted:$item['country_title']}
+                                                {if!empty $item['region_title']}, {$item['region_title']}{/if}
+                                            </span>
+                                        {/if}
+
+                                    {/if}
+                                </div>
+                            
+                            {ifempty $only_objects}
+                            <div class="actions">
+                                <span data-id="{$item['id']}" data-type="{$estate_type}" title="{ifeq $item['in_favorites'],1}Удалить из избранного{else}В избранное{/if}" data-icon="{ifeq $item['in_favorites'],1}star{else}star_border{/if}" class="star{ifeq $item['in_favorites'],1} in-favorites{/if} transition" data-link="/favorites/?type={$estate_type}">
+                                    <span class="star-label"></span>
+                                </span>
+                                {if!eq $status_text,'Стандарт'}<div class="status tag br3{ifeq $item['status'],3} promo{elseifeq $item['status'],4} premium{elseifeq $item['status'],6} vip{/if}">{$status_text}</div>{/if}
+                                {if!empty $item['raising_days_left']}<span class="raising tag bbox br3" data-icon="arrow_upward_black" title="Объект поднят"></span>{/if}
+                                {ifempty $item['id_agency']}<span class="user tag bbox br3" title="Объявление от частного лица" data-icon="person_outline_black">&nbsp;</span>{/if}
+                                {if!empty $item['contractor']}{ifeq $item['contractor'],1}<span class="contractor tag bbox br3" title="Квартира в подряде">В подряде</span>{/if}{/if}
+                                {if!empty $item['asignment']}{ifeq $item['asignment'],1}<span class="asignment tag bbox br3" title="Квартира по переуступке">По переуступке</span>{/if}{/if}
+                                {if!empty $item['total_variants']}
+                                    <div class="total-variants-wrap">
+                                        <span class="total-variants-info">
+                                            <span class="expand" data-icon="arrow_drop_down_black"></span>
+                                            <span class="hide" data-icon="arrow_drop_up_black"></span>
+                                            Еще {$item['total_variants']} {suffix_word:$item['total_variants'],'так','ая','ие','их'} же {suffix_word:$item['total_variants'],'квартир','а','ы',''} в этом доме
+                                        </span>
+                                    </div>
+                                {/if}
+                            </div>
+                            {/if}
+                        </div>
+                        <link itemprop="url" href="https://www.bsn.ru/{$estate_type}/{$deal_type}/{$item['id']}/">
+                        <meta itemprop="name" content="{$item['header']}" />
+                        <meta itemprop="description" content="{$item['header']}" />
+                        <link itemprop="image" href="{if!empty $item['photo']}{ifeq $estate_type,'inter'}http://interestate.ru/{else}https://st1.bsn.ru{static:/}{/if}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{elseif!empty $item['complex_photo']}https://st1.bsn.ru{static:/}{$img_folder}/med/{$item['complex_subfolder']}/{$item['complex_photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" />
+                        {if!empty $item['total_variants']}
+                            <div class="variants-wrap"></div>
+                        {/if}                        
+                        {if!empty $members_page}{include /modules/members/templates/objects.list.edit.block.html}{/if}
+                    </div>

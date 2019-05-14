@@ -1,0 +1,84 @@
+<h1 class="pageTitle">Статьи</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/content/information/add/" enctype="multipart/form-data">
+    <h3>Новая Статьь</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/content/information/edit/{$data_mapping['id']['value']}/" enctype="multipart/form-data">
+    <h3>Статьь #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $data_mapping['id']['value']}
+        <fieldset>
+            <p class="title_row" title="Чтобы обновить файл необходимо загрузить новый">Прикрепленный файл</font></p>
+            <p title="Презентация (pdf)" id="p_field_fileattach">
+                <label class="required">Файл</label>
+                <span class="lf fieldwrapper">
+                   <input type="file" placeholder="" value="{$data_mapping['fileattach']['value']}" name="fileattach" id="fileattach" class="lf" style="width: 250px; display: inline-block;">
+                   {if!empty $data_mapping['fileattach']['value']}
+                        <span class="attached-file">
+                            <a href="/{$docs_folder}/{$data_mapping['fileattach']['value']}">Посмотреть файл</a>
+                            <span class="delete-file" data-id="{$data_mapping['id']['value']}" data-type="fileattach" title="Удалить файл"></span>
+                        </span>
+                   {/if}          
+                </span>                                
+            </p> 
+            <p title="Если прикреплен файл, то обязательно название" id="p_field_filename">
+                <label>Название файла</label>
+                <span class="lf fieldwrapper">
+                    <input type="text" class="lf" id="filename" name="filename" value="{$data_mapping['filename']['value']}" placeholder="">
+                    <span class="tip-text green">Если прикреплен файл, то обязательно название</span>
+                </span>
+            </p>            
+        </fieldset>
+        <fieldset>
+            <p class="title_row">Как добавить галерею внутри текста статьи:</font></p>
+            <p>1. Загрузить фотографии (у первой фотографии номер 1)</p>
+            <p>2. Выделить в тексте статьи место и поставить туда курсор</p>
+            <p>3. Вставить код галереи: <span class="code"></span>  (где 1-первая фотография загруженной фотогалереи, 5-соотв-но 5)</p>
+        </fieldset>
+		<fieldset>
+            <p class="title_row">Фотогалерея</font></p>
+            <h3>Загрузка фотографий для Статьи #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/content/information/photos/" data-session-id="{php:echo session_id();}" />
+            
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>
+    {/if}
+</form>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+    jQuery('#id_category').change(function(){
+        if(jQuery(this).val() == 31 || jQuery(this).val() == 37){
+            jQuery('#p_field_video_link').slideDown(50);
+            jQuery('#p_field_direct_video_link').slideDown(50);
+        } else {
+            jQuery('#p_field_video_link').slideUp(50);
+            jQuery('#p_field_direct_video_link').slideUp(50);
+        }
+    });
+    jQuery('#id_category').change();
+});
+</script>
+    

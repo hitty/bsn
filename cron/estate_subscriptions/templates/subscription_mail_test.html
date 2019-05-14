@@ -1,0 +1,79 @@
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-utf8">
+<title></title>
+<style>
+*{
+    padding:0;
+    margin:0;
+}
+.fiximg{
+    display:block;
+}
+</style>
+</head>
+<body>
+<div id="mailsub">
+<font face="arial" color="#000000">
+<a href="http://{$host}/"><img src="http://{$host}/img/layout/logo.png" width="180" height="50" border="0" class="fiximg"></a>
+<br><br>
+Здравствуйте{if!empty $user['name']}, {$user['name']}{/if}!
+<br /><br />
+По вашему поисковому запросу <a href="http://{$host}/{$list_url}&id_subscription={$subscription_id}">{$full_title}</a> есть обновление - <b>{$new_objects}</b>.
+<br /><br />
+</font>
+{loop $list,$k,$item}
+    <table cellpadding="0" cellspacing="0" style="width:730px;border-top:1px solid #f3f3f3{ifeq $k,$lines_show};border-bottom:1px solid #f3f3f3{/if}">
+        <tr>
+            <td valign="top" style="width:175px;padding:13px">
+                <table cellpadding="0" cellspacing="0" style="width:175px;background-color: #aaa"><tr><td valign="middle" width="100%" height="19" style="color:#fff;font-family:arial;font-size:12px;text-align:center">&nbsp;[{if!eq $item['photos_count'],0}<a href="http://{$host}/{$estate_type_str}/{$deal_type}/{$item['oid']}/?utm_campaign=email_subscribe&utm_source=bsn" style="color:#fff;text-decoration:none;font-family:arial;font-size:12px;">еще {$item['photos_count']} фото</a>{elseifempty $item['photo_url']}без фото{else}1 фото{/if}]&nbsp;</td></tr></table>
+                <a href="http://{$host}/{$estate_type_str}/{$deal_type}/{$item['oid']}/?utm_campaign=email_subscribe&utm_source=bsn"><img src="{ifempty $item['photo_url']}http://{$host}/img/mail/nophoto.png{else}{$item['photo_url']}{/if}" width="175" height="130" border="0" align="left" class="fiximg"/></a>
+            </td>
+            <td valign="top" style="width:405px;padding:10px;margin:0">
+                <table cellpadding="0" cellspacing="0" width="100%" height="100%">
+                    <tr>
+                        <td valign="top" height="108">
+                            <a href="http://{$host}/{$estate_type_str}/{$deal_type}/{$item['oid']}/?utm_campaign=email_subscribe&utm_source=bsn" style="color:#0088cc;font-family:arial;font-size:18px;font-weight:bold;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px;text-decoration:none;text-align: top">{$item['txt_addr']}</a>
+                            <p style="margin:0; padding:5px 0px 20px 0px;font-family:arial;color:#000000;">{if!eq $item['rooms_sale'],'0'}{$item['rooms_sale']}{ifin $item['rooms_sale'],2,3,4}х{/if}{ifgt $item['rooms_sale'],4}и{/if}-комнатная квартира{if!eq $item['level_total'],'0'}, этаж {$item['level']}/{$item['level_total']}{/if}{/if}</p>
+                            {if!empty $item['subway_name']}
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td valign="middle"><img src="http://{$host}/img/mail/metro.png" width="22" height="22" align="left" border="0" class="fiximg"></td>
+                                    <td valign="middle" style="font-family:arial;color:#000000;">{$item['subway_name']}{if!eq $item['way_time'],'0'}, {$item['way_time']} {if!empty $item['way_type']}{$item['way_type']}{/if}{/if}</td></tr></table>
+                            {/if}
+                            {if!eq $item['district_title'],''}<span style="font-family:arial;color:#999999">{$item['district_title']} район</span>{/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="44" valign="bottom">
+                            <table cellpadding="0" cellspacing="0" style="border-collapse:collapse; border:none;">
+                                <tr>
+                                    <td valign="top" style="width:70px;height:100%;background-color:#999999"><p style="height:15px;background-color:#999999;text-align:center;color:#fff;font-family:arial;font-size:14px;line-height:20px;font-weight:bolder;margin:0px !important;padding:0px !important;padding-top:2px !important">&nbsp;{ifeq $item['rent'],'1'}АРЕНДА{else}ПРОДАЖА{/if}&nbsp;</p></td>
+                                    <td nowrap valign="bottom" style="width:265px;font-family:arial;font-size:24px;text-align:center;font-weight:bold;color:#000000;line-height:20px;white-space:nowrap;">{do:echo number_format($item['cost'],0,'.',' ')} р.</td>
+                                    <td style="width:22px" valign="bottom"><img src="http://{$host}/img/mail/square.png" width="22" height="22" align="left" class="fiximg"/></td><td style="font-family:arial;font-size:16px;color:#000000;line-height: 14px;white-space: nowrap">{$item['square_full']}&nbsp;м<sup>2</sup></td></tr></table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="top" style="padding:10px">
+                <table cellpadding="0" cellspacing="0" style="border-bottom:1px solid #f3f3f3">
+                    <tr>
+                        <td width="5%"><img src="http://{$host}/img/mail/id.png" width="22" height="22" border="0" align="left" class="fiximg"/></td>
+                        <td valign="middle" align="left" style="padding-left:10px"><a href="http://{$host}/{$estate_type_str}/{$deal_type}/{$item['oid']}/?utm_campaign=email_subscribe&utm_source=bsn" style="color:#c0c0c0;font-size:14px;font-family:arial;text-decoration:none">{$item['oid']}</a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{/loop $list}
+{ifeq $all_variant_link,1}<a href="http://{$host}/{$list_url}&id_subscription={$subscription_id}">Посмотреть все варианты</a><br />{/if}
+<br />
+<font face="arial">
+Управлять своими подписками вы можете в <a href="http://{$host}/objects_subscriptions/">личном кабинете</a>
+<p>Спасибо, что доверяете нам!
+<br>
+<br>
+Команда <a href="http://{$host}/">BSN.ru</a></p>
+</font>
+</div>
+</body></html>

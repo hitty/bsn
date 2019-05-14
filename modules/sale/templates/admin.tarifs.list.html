@@ -1,0 +1,66 @@
+<h1 class="pageTitle">Настройки / тарифы</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/sale/tarifs/add/" class="button">Добавить запись</a>
+</div>
+<div class="list_table">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Тариф</th>
+                    <th>Соединений</th>
+                    <th>Стоимость соединения</th>
+                    <th>Стоимость тарифа</th>
+                    <th>Предоплата</th>
+                    <th>Стоимость соединения сверх лимита</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td> {$item['id']}</td>
+                        <td>{$item['title']}</td>
+                        <td>{$item['connection_limit']}</td>
+                        <td>{$item['connection_cost']}</td>
+                        <td>{$item['month_cost']}</td>
+                        <td>{$item['prepay']}</td>
+                        <td>{$item['over_limit_cost']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/sale/tarifs/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/sale/tarifs/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

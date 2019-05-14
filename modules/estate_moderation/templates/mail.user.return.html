@@ -1,0 +1,13 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день, <b>{$letter_data['user_title']}</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Ваш объект: #{$letter_data['object_id']}, {$letter_data['object_title']} не прошел модерацию:<br />
+        {$letter_data['moderation_title']}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

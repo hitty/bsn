@@ -1,0 +1,45 @@
+{if!empty $list}
+    <div class="staff-list">
+        {loop $list,$k,$item}
+        <div class="item transition clearfix{ifeq $item['user_status'],'waiting_agent'} waiting-agent{/if}{ifeq $item['status'],2} inactive{/if} {if!empty $item['short']}short{/if} shadow-hover" data-id="{$item['id']}">
+            <div class="img">
+                {if!empty $item['photo']}
+                    <img src="{static:/}{$img_folder}/sm/{$item['subfolder']}/{$item['photo']}" class="avatar" alt=""/>
+                {else}
+                    <div class="avatar" data-icon="person_outline"></div>
+                {/if}
+                <span class="online{ifeq $item['last_activity'],'online'} green{/if}" data-title="{if!eq $item['last_activity'],'online'}был онлайн {$item['last_activity']}{else}онлайн{/if}">{ifeq $item['last_activity'],'online'}<i></i>{/if}</span>
+                <span class="rating"></span>
+            </div>
+            {if!empty $auth['id']}
+                <span class="internal-link button grey message" data-icon="chat_bubble_outline" data-link="/members/messages/{if!empty $item['message_id']}view/{$item['message_id']}{else}add/{$item['id']}{/if}/" data-new-tab="true"></span>
+            {/if}
+            <div class="info" >
+                <div class="manage">
+                    {ifempty $item['id_tarif']}
+                        <span class="name text-overflow">{$item['name']} {$item['lastname']}</span>
+                    {else}
+                        <a href="/specialists/{$item['id']}/" target="blank" class="name text-overflow">{$item['name']} {$item['lastname']}</a>
+                    {/if}
+                    
+                    {ifeq $item['user_status'],'agent'}
+                        <span class="specialization">{if!empty $item['specializations_row']}Специализация<div class="specializations-popup">{$item['specializations_row']}</div>{/if}</span>
+                    {/if}
+                </div>
+                {ifeq $item['user_status'],'agent'}
+                    {ifempty $item['short']}
+                        <span class="agent-phone">{if!empty $item['phone']}{$item['phone']}{/if}</span>
+                    {/if}
+                    <span class="agent-email"><a href="mailto:{$item['email']}" title="Написать сотруднику">{if!empty $item['email']}{$item['email']}{/if}</a></span>
+                    {ifgt $item['objects_count'],0}
+                        <!--span class="agent-objects">{suffix:$item['objects_count'],'объект','','а','ов'}</span-->
+                    {else}
+                        <!--span class="agent-objects">{suffix:$item['objects_count'],'объект','','а','ов'}</span-->
+                    {/if}
+                {/if}
+            </div>
+            
+        </div>
+        {/loop $list}
+    </div>  
+{/if}

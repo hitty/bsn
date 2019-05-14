@@ -1,0 +1,20 @@
+{include /modules/mailers/templates/simple.header.html}
+
+    <tr> <!-- content - title -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+            {$letter_starting}
+        </td>
+    </tr>
+    <tr> <!-- content - text -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left"> 
+            {php: $apps_amount = count($apps_list);}
+            В общий доступ поступили следющие заявки:
+            {loop $apps_list,$key,$item}
+                <p>Объект: <a href="{$data['object_url']}">{$item['object_title']}</a></p>
+            {/loop $apps_list}
+            <br />
+            <p>Вы можете взять {iflt $apps_amount,2}ее{else}их{/if} в работу на общих основаниях, если {iflt $apps_amount,2}ее{else}их{/if} не успеет взять в работу другой специалист.</p>
+        </td>
+    </tr>
+  
+{include /modules/mailers/templates/simple.footer.html}

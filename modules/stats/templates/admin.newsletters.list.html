@@ -1,0 +1,38 @@
+<h1 class="pageTitle">Статистика рассылок</h1>
+
+<div class="list_table">
+    
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="50%">
+                <col class="col1" width="10%">
+                <col class="col2" width="20%">
+                <col class="col1" width="20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Дата начала отправки</th>
+                    <th>Отослано</th>
+                    <th>Открыто</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td>{$item['title']}</td>
+                        <td>{$item['normal_date']}</td>
+                        <td style="text-align:left"><a href="/admin/service/stats/newsletters/send/{$item['id']}/">{$item['total_send']}</a></td>
+                        <td style="text-align:left"><a href="/admin/service/stats/newsletters/open/{$item['id']}/">{$item['total_open']}</a></td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}            
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+    
+            

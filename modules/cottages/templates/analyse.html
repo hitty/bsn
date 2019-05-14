@@ -1,0 +1,81 @@
+<script>
+jQuery(document).ready(function(){
+     getGraphicsContent(['#graphic-7'], ['/country/analytics/graphics/7/']);
+     getGraphicsContent(['#graphic-8'], ['/country/analytics/graphics/8/']);
+     getGraphicsContent(['#graphic-9'], ['/country/analytics/graphics/9/']);
+     getGraphicsContent(['#graphic-10'], ['/country/analytics/graphics/10/']);
+     getGraphicsContent(['#graphic-11'], ['/country/analytics/graphics/11/']);
+     getGraphicsContent(['#graphic-12'], ['/country/analytics/graphics/12/']);
+});
+</script>
+<article class="central-wrapper">
+    <h1>Анализ спроса в малоэтажных загородных комплексах на {$analytics['normal_date']} г.</h1>
+    {if!empty $members_list}
+        <div id="country-members-list">
+            <h2><span class="title">Участники информационного обмена</span></h2>
+            {loop $members_list,$mk,$ml}
+                <p>
+                    {$ml['name']}
+                    {php:$members_sub_list=$ml['activity'];}
+                    {loop $members_sub_list,$msk,$msv}
+                        <span>{$msv}</span>
+                    {/loop $members_sub_list}
+                </p>
+            {/loop $members_list}
+        </div>
+    {/if}
+    <div class="bigtext">
+        <p><strong>Динамика продаж за последние 12 мес.</strong></p>
+        <div class="ajax-graphics type-column" style="width: 540px;">
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-7" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        <p><strong>Структура продаж за последние 3 мес.</strong></p>
+        <div class="ajax-graphics type-column" style="width: 540px;">
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-8" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        {$analytics['tblock_1']}
+        <h3>Сделки с землей</h3>
+        <p><strong>Средняя стоимость покупаемых участков</strong></p>
+        <div class="ajax-graphics type-column">
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-9" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        <p><strong>Средняя площадь приобретаемых участков</strong></p>
+        <div class="ajax-graphics type-column">
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-10" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        {$analytics['tblock_3']}
+        <h3>Сделки с домами</h3>
+        <p><strong>Средние цены покупаемых домовладений</strong></p>
+        <div class="ajax-graphics type-column">
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-11" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        <p><strong>Средние площади покупаемых домовладений</strong></p>
+        <div class="ajax-graphics type-column">
+            <ul class="ajax-graphics-tabs"></ul>
+            <span id="graphic-12" class="graphics-container"></span>
+            <p class="graphics-help"></p>
+        </div>
+        {$analytics['tblock_4']}
+        <h3>Информационный обмен</h3>
+        {$analytics['tblock_5']}
+        {$analytics['tblock_6']}
+        {$analytics['tblock_7']}
+        {if!empty $archive_ids}
+            <p style="margin-top: 20px;">
+                Архив: 
+                {loop $archive_ids,$ak,$av}
+                    <a href="/country/analyse/{$av['id']}/">{$av['name']}</a> |
+                {/loop $archive_ids}
+            </p>
+        {/if}
+</article>

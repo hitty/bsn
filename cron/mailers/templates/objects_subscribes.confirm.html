@@ -1,0 +1,30 @@
+{include /modules/mailers/templates/simple.header.html}
+
+    <tr> <!-- content - title -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left">  
+            Добрый день{if!empty $item['full_name']}, {$item['full_name']}{/if}!
+            </td>
+    </tr>
+    <tr> <!-- content - text -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left"> 
+            По Вашим подпискам:
+
+            <ul>
+            {loop $urls_list,$k,$v}
+                <li><a href="{$v}" target="_blank">{$titles_list[$k]}</a></li><br />
+            {/loop $urls_list}
+            </ul>
+            есть обновления, но вы не просматривали их {suffix: $item['days_not_seen'], 'д','ень','ня','ней'}.<br /><br />
+            
+            Пожалуйста, подтвердите Ваш интерес к каждой подписке на BSN.ru!<br />
+            Для этого зайдите в <a href="https://www.bsn.ru/objects_subscriptions/">Личный Кабинет</a> в раздел Подписки и перейдите по ссылке каждой подписки, чтобы посмотреть новые варианты по Вашему запросу.<br /><br />
+            {ifempty $item['days_remain']}
+            Уже завтра неактуальные для Вас подписки удалятся автоматически.
+            {else}
+            Через {suffix:$item['days_remain'],'д','ень','ня','ней'} неактуальные для Вас подписки удалятся автоматически.
+            {/if}
+        </td>
+    </tr>
+  
+{include /modules/mailers/templates/simple.footer.html}
+                            

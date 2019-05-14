@@ -1,0 +1,56 @@
+{if!empty $list} 
+    {if!empty $h1}<h1 class="o-objects">{$h1}</h1>{/if}
+    <div id="bsn-sale-objects" class="o-wrap {$position} {$item['offer_type_color']} {$partner}-block">
+    {if!empty $h2}
+        <h2>
+            {$h2}
+            <a href="http://sale.bsn.ru?utm_campaign=test&utm_source=bsn_all" class="all_applications">Все предложения</a>
+        </h2>
+    {/if}
+    {loop $list,$k,$item}
+        <div class="offer-item" data-type-id="{$item['id_offer_type']}" data-id="{$item['id']}">
+            <a href="http://sale.bsn.ru/campaign/{$item['chpu_title']}/?utm_source={$utm}&utm_campaign=test" title="{$item['title']}" class="common-link"></a>
+            {ifeq $item['id_offer_type'],1}
+                <div class="offer-sticker green">
+                    <div class="sticker-left"></div>{$item['action_title']}<div class="sticker-right"></div>
+                </div>
+            {elseifeq $item['id_offer_type'],2}
+                <div class="offer-sticker orange">
+                    <div class="sticker-left"></div>до <span>{$item['discount']}</span> %<div class="sticker-right"></div>
+                </div>
+            {elseifeq $item['id_offer_type'],3}
+                <div class="offer-sticker blue">
+                    <div class="sticker-left"></div>рассрочка <span>{$item['installment']}</span> %<div class="sticker-right"></div>
+                </div>
+            {/if}
+            <div class="offer-values">
+                <div class="ov-text">Акция действует</div>
+                <div class="ov-timer" data-date-end="{$item['date_end']}">00:00:00</div>
+            </div>
+
+            <div class="offer-img">
+                <img src="http://sale.bsn.ru/{$campaigns_img_folder}/sm/{$item['subfolder']}/{$item['photo']}" alt="">
+            </div>
+            <div class="offer-price">
+                {if!empty $item['min_cost']}
+                    {if!empty $item['min_cost']}от {do:echo number_format($item['min_cost'],0,'.',' ')} <span class="rur">a</span>{/if}
+                {else}Цена не указана
+                {/if}                
+            </div>
+            <div class="rooms-quantity"><span>{$item['offer_type']}</span>{if!empty $item['offer_type_suffix']}{$item['offer_type_suffix']}{/if}</div>
+            {if!empty $item['agency_advert_phone']}
+                <div class="offer-phone{ifempty $item['open_hour']} disabled{/if}">
+                    <span class="phone">{$item['agency_advert_phone']}</span>
+                    {ifempty $item['open_hour']}
+                        {if!empty $item['next_day']}<span class="next-date">звоните в {$item['next_day']} с {$item['next_hour_begin']}</span>{/if}
+                    {/if}
+                </div>
+            {/if}
+            <div class="offer-img-address">
+                        {$item['txt_addr']}
+                        <div class="address-marker"></div>
+            </div>
+    {/loop $list}
+    </div>
+  
+{/if}

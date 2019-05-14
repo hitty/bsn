@@ -1,0 +1,105 @@
+{php:$payed_format = true}
+{php:$agent_id = $info['id']}
+
+
+<article itemscope itemtype="http://schema.org/Product" class="card {ifempty $payed_format}central-main-content {/if}br3 clearfix">
+    
+    {if!empty $info['parent_agency_title']}
+        <div class="pretitle">
+            Является сотрудником компании 
+            <span class="internal-link agency-name" data-link="{$info['parent_agency_url']}">{$info['parent_agency_title']}</span>
+        </div>
+    {/if}
+
+    <div class="photo">
+        {if!empty $info['user_photo']}
+            <img src="/{$info['user_photo_folder']}/{$info['user_photo']}" class="internal-link" alt="{quoted:$info['title']}" data-link="/specialists/{$info['id']}/" data-new-tab="true"/>
+        {else}
+            <span class="avatar" data-icon="person_outline"></span>
+        {/if}
+        <span class="online{ifeq $info['last_activity'],'online'} green{/if}" data-title="{if!eq $info['last_activity'],'online'}был{ifeq $info['sex'],2}а{/if} онлайн {$info['last_activity']}{else}онлайн{/if}">{ifeq $info['last_activity'],'online'}<i></i>{/if}</span>
+    </div>
+    <h1 class="mtitle" itemprop="name">{$info['title']}</h1>
+
+    {if!empty $info['specializations']}
+        <div class="specialization-list">
+            <span class="title">Специализация:</span>
+            {php: $specializations = $info['specializations'];}
+            {loop $specializations,$key,$actty}
+                <span class="item">{$actty['title']}</span> {if!empty $specializations[$key+1]},{/if}
+            {/loop $specializations}
+        </div>
+    {/if}
+    
+    <div class="contacts-wrap clearfix">
+
+        {if!empty $info['phone']}
+            <span class="phone-wrap">
+                {$info['phone']}
+            </span>             
+        {/if}
+        {if!empty $info['email']}
+            <a href="mailto:{$info['email']}" class="email-wrap button grey">
+                Отправить email    
+            </a>             
+        {/if}
+        {if!empty $info['url']}
+            <span class="url-wrap">
+                {$info['url']}
+            </span>             
+        {/if}
+        
+        {if!empty $info['doverie_years']}
+            <span title="Призер конкурса Доверие потребителя" class="doverie-badge">
+                <span>{$info['doverie_years']}</span>
+            </span>
+        {/if}
+        {if!empty $info['description']}
+            <div class="description">{$info['description']}</div>
+        {/if}
+        
+
+    </div>
+
+    <div class="right-wrap bbox with-shadow br3 central-main-content">
+        <div class="form-blue">
+            {if!empty $lawyer}
+                {include /modules/consults/templates/popup.form.wide.html}
+                <script>jQuery(document).ready(function(){ jQuery( '.form-blue form' ).formSubmit(); } )</script>
+            {elseif!empty $estator}
+                {include /modules/applications/templates/popup.app.wide.html}
+                <script>jQuery(document).ready(function(){ jQuery( '.public-application-wrapper form' ).formSubmit(); } )</script>
+            {/if}
+        </div>
+    </div>
+    
+    <div class="left-wrap bbox with-shadow br3 central-main-content">
+    
+    {if!empty $lawyer}
+        {if!empty $amounts['answers']}
+            <h2>Консультации</h2>
+            <div class="consultant-list" data-id="{$info['id']}"></div>
+            <script>
+                getPendingContent(".consultant-list", window.location.href.replace(/\#.*$/,'') + "answers_list/",false,false,false,false);
+                _opened_listelector = null;
+            </script>
+        {/if}
+    {/if}
+    {if!empty $estator}
+        {if!empty $amounts['objects']}
+            <h2>Объекты в продаже</h2>
+        {/if}
+        {if!empty $amounts['objects']}
+            {include /modules/specialists/templates/estate_search_form_tiny.html}
+            <div id="ajax-search-results" class="ajax-search-results objects"></div>
+        {/if}
+    {/if}
+        
+    </div>
+    
+    
+
+
+    
+</article>
+ 

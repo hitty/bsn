@@ -1,0 +1,139 @@
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+{if!empty $mailer_title}<title>{$mailer_title}</title>{/if}
+{literal}
+<style>
+div, td { font-family: Arial, Helvetica, sans-serif; text-align:left; font-size:16px; color:#000;}
+body {width:100%!important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; color:#000; margin:0; padding:0;font-family: Arial, Helvetica, sans-serif; color:#333;font-size:16px;}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+</style>
+{/literal}
+</head>
+<body>
+<center style="background: #ffffff;">
+<table class="wrapper" width="680" border="0" cellspacing="0" cellpadding="0" style="background: #ffffff;;padding:0 20px 20px 20px;margin:0;font-family: Arial, Helvetica, sans-serif; " >
+     <tr>
+        <td>
+            <table class="wrapper" width="680" border="0" cellspacing="0" cellpadding="20" style="background: #fff;padding:0;margin:0;font-family: Arial, Helvetica, sans-serif; " >
+                <tr style="height: 183px;">
+                    <td colspan="2">
+                        <img class="fiximg" src="https://st1.bsn.ru/img/layout/housing-estates-rating-head-mail.gif" border="0" width="680" height="183" align="left">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <table width="600" border="0" cellspacing="0" cellpadding="0" align="center" style="background: #fff; padding: 0; margin:0;">
+                            <tr><td colspan="2" height="20"></td></tr>
+ 
+                            <tr> <!-- content - title -->
+                                <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+                                    {php:$show_name = !empty($user_info['name']) || !empty($user_info['lastname'])}
+                                    Здравствуйте{if!empty $show_name}, {if!empty $show_name}{$user_info['name']} {$user_info['lastname']}{else}noname{/if}{/if}!
+                                </td>
+                            </tr>
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:15px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    Портал BSN.ru проводит новый экспертный рейтинг строящихся жилых комп-
+                                    лексов Санкт-Петербурга и Ленобласти. В рамках рейтинга специалисты
+                                    рынка недвижимости оценивают строящиеся объекты и делятся мнением о
+                                    ситуации с жилищным строительством в конкретных локациях.
+                                </td>
+                            </tr>
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    Примеры публикаций по итогам рейтингов 2015 и 2016 гг. можно посмотреть <a href="https://www.bsn.ru/articles/liveestate/17199_reyting_zhilyh_kompleksov_pushkinskogo_i_kolpinskogo_rayonov/" target="_blank" style="color:#1e88e5;">тут</a> и <a href="https://www.bsn.ru/articles/liveestate/17186_reyting_zhilyh_kompleksov_vsevolozhska_i_okrestnostey/" target="_blank" style="color:#1e88e5;">тут</a> (другие публикации можно найти в разделе <a href="https://www.bsn.ru/articles/" target="_blank" style="color:#1e88e5;">«Статьи»</a>).
+                                </td>
+                            </tr>                            
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    Приглашаем {if!empty $show_name}Вас{else}представителя Вашей компании{/if} выступить в качестве эксперта и оценить строящиеся жилые комплексы {$user_info['district_title_genitive']}
+                                </td>
+                            </tr>                            
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:18px; line-height: 30px;color:#1e88e5;" align="left"> 
+                                    Процедура голосования:    
+                                </td>
+                            </tr>                            
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:0 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    1) Перейдите по <a href="https://www.bsn.ru/zhiloy_kompleks/votes/?invite_code={$user_info['token']}" target="_blank" style="color:#1e88e5;">ссылке</a>*;<br />
+                                    2) Оцените на сайте каждый ЖК по 5 критериям;<br />
+                                    3) Сформулируйте краткое резюме (пару строк) со своим мнением о ситуации с новостройками в районе.<br />
+                                    4) Прикрепите ваше фото
+                                </td>
+                            </tr>                            
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px; color:#818181;" align="left"> 
+                                    * <a href="https://www.bsn.ru/zhiloy_kompleks/votes/?invite_code={$user_info['token']}" target="_blank" style="color:#1e88e5;">Ссылка</a> для голосования работает с различных устройств и ip-адресов, система сразу сохраняет ваши оценки, голосовать не обязательно сразу, можно зайти несколько раз.
+                                </td>
+                            </tr>                            
+
+                            <tr>
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    <a href="https://www.bsn.ru/zhiloy_kompleks/votes/?invite_code={$user_info['token']}"><img src="https://st1.bsn.ru/img/layout/housing-estates-rating-button-mail.gif" /></a>
+                                </td>
+                            </tr>
+
+                                    
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    По итогам экспертной оценки будет подготовлена публикация для раздела
+                                    «Аналитика» сайта, в которой будут указаны общие оценки каждого комп-
+                                    лекса, эксперты и их мнение о ЖК района в целом (оценки от эксперта,
+                                    выставленные каждому комплексу, упоминаться не будут).
+                                </td>
+                            </tr>                            
+
+                                    
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    <img src="https://st1.bsn.ru/img/layout/housing-estates-rating-criteria-mail.gif" />
+                                </td>
+                            </tr>                            
+
+                                    
+                            <tr>
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    <a href="https://www.bsn.ru/zhiloy_kompleks/votes/?invite_code={$user_info['token']}"><img src="https://st1.bsn.ru/img/layout/housing-estates-rating-button-mail.gif" /></a>
+                                </td>
+                            </tr>
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    Дедлайн для голосования по текущему рейтингу {$user_info['normal_date']}
+                                </td>
+                            </tr>                            
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    Если у Вас появились вопросы или сложности по участию в рейтинге, мы всегда рады помочь. 
+
+                                </td>
+                            </tr>                            
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px;" align="left"> 
+                                    Контакты для связи:<br />
+                                    Анопренко Надежда<br />
+                                    <a href="mailto:pr@bsn.ru" style="color:#1e88e5;">pr@bsn.ru</a><br />
+                                    +7-921-554-77-60
+
+                                </td>
+                            </tr>                            
+
+                            <tr> 
+                                <td valign="top" style="border-collapse:collapse; padding:35px 0 0 0; font-size:16px; line-height: 30px; color:#818181;" align="left"> 
+                                    Если вас не интересует участие в Рейтинге, просто не отвечайте на это . Спасибо за внимание и хорошего дня!                                
+                                </td>
+                            </tr>                            
+                           
+{include /modules/mailers/templates/simple.footer.html}
+                            

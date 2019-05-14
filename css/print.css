@@ -1,0 +1,14 @@
+body, body.rmb{
+  background:none;
+  padding-top: 50px;
+}
+.content-print{
+    width:800px;
+    margin-top: -30px;
+}   
+.content-print #print{
+    margin-bottom:20px;
+}
+#c2d_start_button{
+    display:none !important;
+}

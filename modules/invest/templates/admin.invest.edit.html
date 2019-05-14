@@ -1,0 +1,98 @@
+<h1 class="pageTitle">Презентация</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/content/invest/add/" id="item_edit_form">
+    <h3>Новый объект</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/content/invest/edit/{$data_mapping['id']['value']}/" id="item_edit_form" novalidate>
+    <h3>Объект #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $data_mapping['site']['value']}<p><a href="{$data_mapping['site']['value']}" target="_blank">Сайт</a></p>{/if}
+    
+    <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+    <div id="map-box" class="squared"></div>
+    
+	{ifempty $data_mapping['id']['value']}
+        <input type="submit" value="Сохранить и добавить фото" name="submit">
+    {else}
+        <input type="submit" value="Сохранить" name="submit">
+        <fieldset>
+            <h3>Загрузка фотографий для объекта #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/content/invest/photos/" data-session-id="{php:echo session_id();}" />
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>
+    {/if}     
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    
+    //карта и геолокация
+    if(jQuery('#map-box').length > 0){
+        
+        $('#map-box').offset({top:jQuery('#p_field_title').offset().top+10,left:jQuery('#title').offset().left+jQuery('#title').width()+50});
+        
+        ymaps.ready(function () {
+            var _element = jQuery('#map-box');
+            var _lat_el = jQuery('#lat');
+            var _lng_el = jQuery('#lng');
+            var _lat = _lat_el.val();
+            var _lng = _lng_el.val();
+            if(parseInt(_lat) == 0 && parseInt(_lng) == 0){
+               _lat = 59.938014; 
+               _lng = 30.307489; 
+            }
+            myMap = new ymaps.Map('map-box', {
+                    center: [_lat, _lng], 
+                    zoom: 14
+            });
+            myMap.controls.add('typeSelector').add('smallZoomControl', { left: 5, top: 5 }); 
+
+            // Создаем метку и задаем изображение для ее иконки
+            placemark = new ymaps.Placemark([_lat, _lng], {
+                hintContent: 'Передвиньте отметку для точного определения местоположения.'
+            }, {
+                iconImageHref: '/img/layout/map_icons/add_icon.png', 
+                iconImageSize: [39, 50],
+                iconImageOffset: [-18, -50], 
+                draggable: true
+            });
+            myMap.geoObjects.add(placemark);  
+
+            //Отслеживаем событие перемещения метки
+            placemark.events.add("dragend", function (e) {            
+                coords = this.geometry.getCoordinates();
+                myMap.setCenter([coords[0].toFixed(4), coords[1].toFixed(4)]);
+                    _lat_el.val(coords[0].toFixed(4));
+                    _lng_el.val(coords[1].toFixed(4));            
+            }, placemark);
+        });
+        
+        //fileuploader init
+        if(jQuery('#file_upload').length>0){
+            jQuery('#file_upload').uploadifive({
+                'queueSizeLimit':6
+            });
+        }    
+    }
+});
+</script>

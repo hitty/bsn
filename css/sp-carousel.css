@@ -1,0 +1,76 @@
+.sp-slider{
+    overflow: hidden;
+    margin: 20px 0;
+    padding: 25px 10px 0 43px;
+    position: relative;
+    border: 1px solid #ccc;
+}
+#sp-carousel-remove .short, #sp-carousel-remove1 .short{display: inline;}
+#sp-carousel-remove .full, #sp-carousel-remove1 .full{display: none;}
+#sp-carousel-remove.fullview .short, #sp-carousel-remove1.fullview .short{display: none;}
+#sp-carousel-remove.fullview .full, #sp-carousel-remove1.fullview .full{display: inline;}
+.sp-slider-progressbar, .sp-slider-progressbar1{margin-top:3px;height:7px;width:0;background:#eee;}
+.sp-slider .carousel-btn-prev,
+.sp-slider .carousel-btn-next,
+.sp-slider .carousel-btn-prev1,
+.sp-slider .carousel-btn-next1{
+    position: absolute;
+    background: #e6e6e6 url(//st.bsn.ru/img/layout/jcarousel-arrows.png) no-repeat 0 59px;
+    width: 32px;
+    height: 258px;
+    cursor: pointer;
+    top: -1px;
+    border: 1px solid #e7e7e7;
+}
+.sp-slider .carousel-btn-next,
+.sp-slider .carousel-btn-next1{
+    right: -1px;
+    background-position: -128px 108px;
+}
+.sp-slider .carousel-btn-prev,
+.sp-slider .carousel-btn-prev1{
+    left: -1px;
+    background-position: 0 108px;
+}
+
+.sp-carousel .carousel-item{
+    width: 160px;
+    height: 210px;
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+}
+.sp-carousel .carousel-item a,
+.sp-carousel .carousel-item span{
+    display: block;
+    height: 210px;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 160px;
+    text-align: left;
+    font-size:14px;
+    color:#990000;    
+}
+.sp-carousel .carousel-item a:hover,
+.sp-carousel .carousel-item span:hover{
+    color:#d71d1d;
+    text-decoration: underline;
+}
+.sp-carousel .carousel-item img{
+    width: 150px;
+    height: 150px;
+}
+.sp-slider #sp-carousel{
+    left:0px;
+}
+
+.central-wrapper #sp-carousel-remove,
+.central-wrapper #sp-carousel-remove1{
+    height: 20px;
+    font-size: 12px;
+    text-align: right;
+    position: absolute;
+    top: 2px;
+    right: 53px; 
+    z-index:10;  
+ }

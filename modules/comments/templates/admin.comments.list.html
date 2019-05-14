@@ -1,0 +1,137 @@
+<h1 class="pageTitle">Модерация комментариев</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_status = document.getElementById('f_status').value;
+            var __filter_parent_type = document.getElementById('f_parent_type').value;
+            var __url = '{root:/admin/content/comments/}';
+            var __get = new Array();
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__filter_parent_type!='') __get.push('f_parent_type='+__filter_parent_type);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Статус комментария:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>
+        <label>
+            Тип:
+            <select id="f_parent_type" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                {loop $parent_types,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_parent_type'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $parent_types}
+            </select>
+        </label>
+
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="15%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col1" width="25%">
+                <col class="col2" width="10%">
+                <col class="col1" width="15%">
+                <col class="col1" width="15%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Email</th>
+                    <th>Дата</th>
+                    <th>Комментарий</th>
+                    <th>Тип</th>
+                    <th>Опубликовать</th>
+                    <th><label><span>Выбрать</span> <input type="checkbox" id="selectall"/></label></th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['author_name']}</td>
+                        <td>{$item['author_email']}</td>
+                        <td>{$item['normal_datetime']}</td>
+                        <td>
+                        	<div style="font-size:12px; max-height:45px;overflow:hidden;">
+                            	{$item['comments_text']}
+                            </div>
+                        </td>
+                        <td>
+                            {if!empty $item['link']}
+                                <a href="{$item['link']}" target="_blank">{$item['parent_type']}</a>
+                            {else}
+                                {$item['parent_type']}
+                            {/if}
+                        </td>
+                         <td>
+                            {php:$text = array();}
+                            {ifeq $item['comments_isnew'],1}<span style="color:red; font-size: 10px;" class="moderate">не отмодерирован</span>{php:$text[]='модерация'}
+                            {else}<span style="color:green; font-size: 10px;" class="moderate">отмодерирован</span>
+                            {/if} <br />
+                            
+                            {ifeq $item['comments_active'],2}
+                                <span style="color:red; font-size: 10px;" class="active">не показывается</span><br />
+                                {php:$text[]='публикация'}
+                            {else}<span style="color:green; font-size: 10px;" class="active">показывается</span>
+                            {/if} 
+                            {if!empty $text}
+                                <span class="moderate-comment button" data-id={$item['id']}>{php:echo implode('+',$text)}</span>
+                            {/if}
+                            
+
+                            
+                         </td>
+                        <td align="center"><input type="checkbox" class="case" name="case" value="{$item['id']}" /></td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/comments/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/comments/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+                <tr class="del_all_checked">
+                	<td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                    	<a href="/admin/content/comments/del//" title="Удалить выбранные" style="width: 150px;display: block;">
+                        	<span class="del_checked">Удалить выбранные</span>
+                        </a>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,81 @@
+    <!--<h1 id="members-h1">Личный кабинет</h1>-->
+    <h2 id="members-h2">Анкета сотрудника</h2>
+    {php:$can_add_staff = $action == 'edit' || !empty($can_add_staff)}
+    {ifempty $can_add_staff}
+        <div class="no-results-found">
+            Лимит на добавление сотрудников исчерпан.
+        </div>
+    {else}
+        {if!empty $form_submit}
+            {if!empty $errors}
+                <div class="notification msgerror" id="scroll_to_message">
+                    Ошибка. Проверьте правильность заполнения формы.
+                </div>
+            {else}
+                {if!empty $saved}
+                    <div class="notification msgsuccess" id="scroll_to_message">
+                        Данные сохранены.
+                    </div>
+                {else}
+                    <div class="notification msgalert" id="scroll_to_message">
+                        Ошибка записи в БД.
+                    </div>
+                {/if}
+            {/if}
+        {/if}
+         <div id="staff-edit" class="action {$action}">
+             {if!empty $data_mapping['id']['value']}
+                <form name="personalinfo" id="simple-form" method="POST" action="/members/office/staff/edit/{$data_mapping['id']['value']}/" class="grey" >
+             {else}
+                <form name="personalinfo" id="simple-form" method="POST" action="/members/office/staff/add/" class="grey" >
+             {/if}
+                <input type="hidden" name="submit_form" id="submit_form" value="1" />
+                <div class="lrmp">
+                    <h3 class="btitle">Личные данные</h3>
+                    <div class="single-selector find-email">
+                        <span class="selector-title required ">E-mail *</span>
+                        
+                        {ifeq $action,'add'}
+                            <input type="email" id="find-email" class="lf" required="required" name="find-email" value="{if!empty $data_mapping['email']['value']}{$data_mapping['email']['value']}{/if}" placeholder="Введите email сотрудника">
+                            <span class="invite-staff button grey inactive">Привязать аккаунт</span>
+                        {else}
+                            <span id="find-email">{if!empty $data_mapping['email']['value']}{$data_mapping['email']['value']}{/if}</span>
+                            <span class="hire-staff button grey" data-id="{$data_mapping['id']['value']}">Отвязать аккаунт</span>
+                        {/if}
+                        <div class="action-wrap"></div>
+                        <span class="comment"></span>
+                    </div>
+                    {php:$show_form = ($action == 'edit' && $full_info['can_edit'] == 1) || $action == 'add'}
+                    {if!empty $show_form}{include /templates/includes/form.simple.html}{/if}
+                </div>
+                <div class="rmp">
+                    {ifeq $action,'edit'}
+                        {ifeq $full_info['can_edit'],1}
+                            <div class="status-switcher">
+                                <span>Активен</span>
+                                <i{ifeq $data_mapping['status']['value'],1} class="active"{/if}></i>
+                                <span>Неактивен</span>
+                            </div>
+                            <div id="sex-select" class="sex-select male{ifeq $data_mapping['sex']['value'],2} female{/if}" style="background-color:{$info['avatar_color']};">
+                                <img src="{static:/}img/layout/user-ava-image-male-big.png" class="img-male" alt="" />
+                                <img src="{static:/}img/layout/user-ava-image-female-big.png" class="img-female" alt="" />
+                                <span>Нажмите сюда, <br />чтобы загрузить фото.</span>
+                            </div>
+                            <p id="file-upload-info">
+                                <h3 class="btitle">Фото профиля</h3>
+                                <input type="file" name="file_upload" id="file_upload" data-id="{if!empty $data_mapping['id']['value']}{$data_mapping['id']['value']}{else}0{/if}" data-url="/members/personalinfo/photos/" data-session-id="{php:echo session_id();}" />
+                            </p>
+                            <h3 class="btitle">Пол</h3>
+                            <p>
+                                <input type="radio" name="sex" value="1" {ifeq $data_mapping['sex']['value'],1}checked="checked"{/if} id="sex_1"> 
+                                <label class="radio-group" for="sex_1">Мужчина</label>
+                                <input type="radio" name="sex" value="2" {ifeq $data_mapping['sex']['value'],2}checked="checked"{/if}  id="sex_2"> 
+                                <label class="radio-group" for="sex_2">Женщина</label>
+                            </p>
+                        {/if}
+                    {/if}
+                </div>
+                <input type="hidden" name="submit_form" id="submit_form" value="1" />
+            </form>
+        </div>
+    {/if}

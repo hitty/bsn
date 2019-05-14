@@ -1,0 +1,73 @@
+<div class="content-mainpage">
+    <h1>{if!empty $h1}{$h1}{else}БСН-ТВ{/if}</h1>
+    <div class="search-form-container">
+        {include modules/search/templates/search.form.html}
+    </div>
+
+    <ul class="content-category-list">
+        {if!empty $categories}
+        {loop $categories,$lk,$item}
+            <li>
+                {ifeq $category['id'],$item['id']}<span class="active">{$item['title']}</span>
+                {else}<a href="/bsntv/{$item['code']}/" title="{quoted:$item['title']}">{$item['title']}</a>
+                {/if}
+                <span class="count">{$item['news_count']}</span>
+            </li>
+        {/loop $categories}
+        {/if}
+    </ul>
+    <div class="inner-wrapper content-last">
+        <div class="header-last">
+            <h4 class="header blue">Популярное</h4>
+            {ifempty $category['id']}
+            <div class="filter ajax-tabs-container" data-content-container="#content-last-data" data-url="/bsntv/block/">
+                <!--
+                <span class="active" data-param="bsntv_mainpage/days">За сутки</span>
+                <span data-param="bsntv_mainpage/week">За неделю</span>
+                -->
+                <span class="active" data-param="bsntv_mainpage/month">За месяц</span>
+                <span data-param="bsntv_mainpage/year">За год</span>
+            </div>
+            {/if}
+        </div>
+        <div id="content-last-data" class="content-last-data">
+            {block bsntv/block/bsntv_mainpage/{if!empty $category['id']}month/{$category['id']}{else}days{/if}}
+        </div> <!--/#content-last-data-->
+    </div> <!--/.news-->
+    
+    <div id="content-list">
+        <h4 class="header blue">{$items_block_title}</h4>    
+        <div class="perpage">
+            Показывать 
+            <div class="list-selector grey" id="count_selector">
+                <a href="#" class="pick">20</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="count_selector" value="20" />
+                <ul class="list-data">
+                    <li data-value="20">20</li>
+                    <li data-value="40">40</li>
+                    <li data-value="60">60</li>
+                </ul>
+            </div>                                    
+        </div>
+        {ifgt $types_count,1}
+            <div class="sorting">
+                {if!empty $counts}
+                    {if!empty $counts['new']}<a class="{ifeq $sortby,1}sb-sorting-pressed{/if}" href="{$new_items_sortlink}">новые</a>{/if}
+                    {if!empty $counts['popular']}<a class="{ifin $sortby,4}sb-sorting-pressed{/if}" href="{$popular_items_sortlink}">популярные</a>{/if}
+                    {if!empty $counts['archive']}<a class="{ifin $sortby,5}sb-sorting-pressed{/if}" href="{$archive_items_sortlink}">архив</a>{/if}
+                {/if}
+            </div>
+        {/if}
+        {if!empty $types_count}
+            {include /modules/bsntv/templates/custom_block.html}
+        {/if}
+    </div>
+   {include /templates/includes/paginator.html}
+</div>    
+
+
+
+<script>
+    
+</script>

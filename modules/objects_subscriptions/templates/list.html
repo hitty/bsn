@@ -1,0 +1,83 @@
+<h2 id="members-h2"><i class="title">Мои подписки</i></h2>
+
+<div class="subscriptions-container">
+    
+    
+    {ifempty $full_list} 
+        <div class="empty-results">На данный момент у вас нет подписок на поисковые запросы.</div>
+    {else}
+    <div class="filter switch-types" data-content-container=".middle-panel">
+        {loop $object_types,$obj_alias,$object}
+            {if!empty $full_list[$obj_alias]}                               
+                <span data-tab-ref=".fstab{$object['key']}">
+                    {$object['name']}<sup>{$amounts[$obj_alias]}</sup>
+                </span>      
+            {/if}
+        {/loop $object_types}
+    </div>
+    {/if}
+    <div class="middle-panel"> 
+    {if!empty $full_list} 
+        {php:$list = !empty($full_list['live'])?$full_list['live']:array()}
+        {if!empty $list}
+            <div class="tab fstab1" data-type="live">
+                {php:$list = !empty($full_list['live'])?$full_list['live']:array()}
+                {include /modules/objects_subscriptions/templates/list.block.html}
+            </div>
+        {/if} 
+        {php:$list = !empty($full_list['build'])?$full_list['build']:array()}
+        {if!empty $list}
+            <div class="tab fstab2" data-type="build">
+                {php:$list = !empty($full_list['build'])?$full_list['build']:array()}
+                {include /modules/objects_subscriptions/templates/list.block.html}
+            </div>
+        {/if}
+        {php:$list = !empty($full_list['commercial'])?$full_list['commercial']:array()}
+        {if!empty $list}
+            <div class="tab fstab3" data-type="commercial">
+                {php:$list = !empty($full_list['commercial'])?$full_list['commercial']:array()}
+                {include /modules/objects_subscriptions/templates/list.block.html}
+            </div>
+        {/if}
+        {php:$list = !empty($full_list['country'])?$full_list['country']:array()}
+        {if!empty $list}
+            <div class="tab fstab4" data-type="country">
+                {php:$list = !empty($full_list['country'])?$full_list['country']:array()}
+                {include /modules/objects_subscriptions/templates/list.block.html}
+            </div>
+        {/if} 
+        {php:$list = !empty($full_list['zhiloy_kompleks'])?$full_list['zhiloy_kompleks']:array()}
+        {if!empty $list}
+            <div class="tab fstab5" data-type="zhiloy_kompleks">
+                {php:$list = !empty($full_list['zhiloy_kompleks'])?$full_list['zhiloy_kompleks']:array()}
+                {include /modules/objects_subscriptions/templates/list.block.html}
+            </div>
+        {/if} 
+        {php:$list = !empty($full_list['cottedzhnye_poselki'])?$full_list['cottedzhnye_poselki']:array()}
+        {if!empty $list}
+            <div class="tab fstab6" data-type="cottedzhnye_poselki">
+                {php:$list = !empty($full_list['cottedzhnye_poselki'])?$full_list['cottedzhnye_poselki']:array()}
+                {include /modules/objects_subscriptions/templates/list.block.html}
+            </div>
+        {/if}
+        {php:$list = !empty($full_list['business_centers'])?$full_list['business_centers']:array()}
+        {if!empty $list}
+            <div class="tab fstab7" data-type="business_centers">
+                {php:$list = !empty($full_list['live']['sell'])?$full_list['live']['sell']:array()}
+                {include /modules/objects_subscriptions/templates/list.block.html}
+            </div>
+        {/if}  
+    {/if}
+    </div>
+</div>
+
+<script>
+    jQuery('#objects-list-title li').on('click',function(){
+        jQuery('#objects-list-title li').removeClass('active');
+        jQuery(this).addClass('active');  
+        jQuery('.tab').hide();
+        jQuery(jQuery(this).attr('data-tab-ref')).show();
+    });
+    jQuery('#objects-list-title .active:first').click();
+    jQuery('.object-row').off();
+</script>

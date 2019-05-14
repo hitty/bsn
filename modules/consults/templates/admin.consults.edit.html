@@ -1,0 +1,31 @@
+<h1 class="pageTitle">Консультации</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/content/consults/add/">
+    <h3>Новый вопрос</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/content/consults/edit/{$data_mapping['id']['value']}/">
+    <h3>Вопрос #{$data_mapping['id']['value']} {if!empty $data_mapping['id_respondent_user']['value']}Персональный вопрос для специалиста #{$respondent_info['user_id']} {$respondent_info['user_full_name']} {if!empty $respondent_info['agency_title']}компании {$respondent_info['agency_title']}{/if}{/if}</h3>
+{/if}
+<a href="/admin/content/consults/" class="button back-to-list">К списку вопросов</a>
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+</form>

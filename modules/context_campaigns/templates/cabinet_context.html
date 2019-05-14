@@ -1,0 +1,228 @@
+<!--{if!empty $h1}<h1 id="members-h1">{$h1}</h1>-->
+<div class="context-list">
+    <button class="green" id="campaign-add-button" value="Создать">Создать рекламную кампанию</button>
+    {/if}
+    <div class="context-list-title">BSN.Target</div>
+</div>
+{php:$count = array_sum($amount_list);}
+{if!empty $count}
+<ul id="objects-list-title" class="context-titles">
+    <li {if!empty $list_all}class="active"{/if} data-tab-ref="#fstab_all">Все</li>
+    <li {if!empty $list_active}class="active"{/if} data-tab-ref="#fstab_active">Активные</li>
+    <li {if!empty $list_moder}class="active"{/if} data-tab-ref="#fstab_moder">На модерации</li>
+    <li {if!empty $list_arch}class="active"{/if} data-tab-ref="#fstab_arch">В архиве</li>
+</ul>   
+{/if}
+{if!empty $count}
+<div class="middle-panel context"> 
+    <div class="tab_c" id="fstab_all" data-type="all">
+    {if!empty $list_all}
+            {loop $list_all,$key,$item}
+                <div class="context-campaign-block {$item['status_alias']}">
+                    <span class="campaign-view">
+                        <i class="campaign-title">{$item['title']}</i>
+                        <i class="date-till">{if!empty $item['status_title']}{$item['status_title']}{else}до {$item['date_end']}{/if}</i>
+                        {if!empty $item['time_left']}<i>{$item['time_left']}</i>{/if}
+                    </span>
+                    <span class="campaign-body" data-id="{$item['id']}">
+                        <span class="campaign-info">
+                            <p class="adv_amount"><i>Объявлений:</i><b>{$item['adv_amount']}</b></p>
+                            <p class="budget"><i>Бюджет:</i><b>{$item['balance']}</b></p>
+                            {php: $big_nums = strlen($item['shows_day']) + strlen($item['shows']);}
+                            <p class="shows{ifgt $big_nums,7} big-nums{/if}"><i>Показы:</i><span><b>{ifempty $item['shows_day']}0{else}{$item['shows']}{/if}</b>/{ifempty $item['shows']}0{else}{$item['shows']}{/if}</span></p>
+                            <p class="clicks"><i>Клики:</i><b>{ifempty $item['clicks_day']}0{else}{$item['clicks']}{/if}</b>/{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</p>
+                            <p class="ctr"><i>CTR:</i><b>{ifempty $item['CTR']}0%{else}{$item['CTR']}%{/if}</b></p>
+                        </span>
+                        <span class="object-actions context" data-id="{$item['id']}">
+                            <!--<i><span class="stats internal-link" data-link="/members/context_campaigns/{$item['id']}/stats/">Статистика</span></i>-->
+                            <i><span class="stats internal-link" data-link="/members/context_campaigns/stats/#{$item['id']}">Статистика</span></i>
+                            {ifeq $item['status_alias'],'moderation'}
+                                <i><span class="moderation-title">На модерации</span>
+                            {else}
+                                <i><span class="edit internal-link" data-link="/members/context_campaigns/{$item['id']}/">Редактировать</span>
+                            {/if}
+                            <span class="delete" data-url="/members/context_campaigns/del/{$item['id']}/"></span></i>
+                        </span>
+                    </span>
+                </div>
+            {/loop $list_all}
+    {/if}
+    </div>
+    <div class="tab_c" id="fstab_active" data-type="all">
+    {if!empty $list_active}
+        {loop $list_active,$key,$item}
+            <div class="context-campaign-block active">
+                <span class="campaign-view">
+                    <i class="campaign-title">{$item['title']}</i>
+                    <i class="date-till">{if!empty $item['date_end']}до {$item['date_end']}{else}}{$item['status_title']}{/if}</i>
+                    {if!empty $item['time_left']}<i>{$item['time_left']}</i>{/if}
+                </span>
+                <span class="campaign-body" data-id="{$item['id']}">
+                    <span class="campaign-info">
+                        <p class="budget"><i>Бюджет:</i><b>{$item['balance']}</b></p>
+                        <p class="shows"><i>Показы:</i><b>{ifempty $item['shows_day']}0{else}{$item['shows']}{/if}</b>/{ifempty $item['shows']}0{else}{$item['shows']}{/if}</p>
+                        <p class="clicks"><i>Клики:</i><b>{ifempty $item['clicks_day']}0{else}{$item['clicks']}{/if}</b>/{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</p>
+                        <p class="ctr"><i>CTR:</i><b>{ifempty $item['CTR']}0%{else}{$item['CTR']}%{/if}</b></p>
+                    </span>
+                    <span class="object-actions context" data-id="{$item['id']}">
+                        <!--<i><span class="stats internal-link" data-link="/members/context_campaigns/{$item['id']}/stats/">Статистика</span></i>-->
+                        <i><span class="stats internal-link" data-link="/members/context_campaigns/stats/#{$item['id']}">Статистика</span></i>
+                        {ifeq $item['status_alias'],'moderation'}
+                            <i><span class="moderation-title">На модерации</span>
+                        {else}
+                            <i><span class="edit internal-link" data-link="/members/context_campaigns/{$item['id']}/">Редактировать</span>
+                        {/if}
+                        <span class="delete" data-url="/members/context_campaigns/del/{$item['id']}/"></span></i>
+                    </span>
+                </span>
+            </div>
+        {/loop $list_active}
+    {else}
+        Нет кампаний
+    {/if}
+    </div>
+    <div class="tab_c" id="fstab_moder" data-type="all">
+    {if!empty $list_moder}
+        {loop $list_moder,$key,$item}
+            <div class="context-campaign-block moderation">
+                <span class="campaign-view">
+                    <i class="campaign-title">{$item['title']}</i>
+                    <i class="date-till">{if!empty $item['date_end']}до {$item['date_end']}{else}}{$item['status_title']}{/if}</i>
+                    {if!empty $item['time_left']}<i>{$item['time_left']}</i>{/if}
+                </span>
+                <span class="campaign-body" data-id="{$item['id']}">
+                    <span class="campaign-info">
+                        <p class="budget"><i>Бюджет:</i><b>{$item['balance']}</b></p>
+                        <p class="shows"><i>Показы:</i><b>{ifempty $item['shows_day']}0{else}{$item['shows']}{/if}</b>/{ifempty $item['shows']}0{else}{$item['shows']}{/if}</p>
+                        <p class="clicks"><i>Клики:</i><b>{ifempty $item['clicks_day']}0{else}{$item['clicks']}{/if}</b>/{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</p>
+                        <p class="ctr"><i>CTR:</i><b>{ifempty $item['CTR']}0%{else}{$item['CTR']}%{/if}</b></p>
+                    </span>
+                    <span class="object-actions context" data-id="{$item['id']}">
+                        <!--<i><span class="stats internal-link" data-link="/members/context_campaigns/{$item['id']}/stats/">Статистика</span></i>-->
+                        <i><span class="stats internal-link" data-link="/members/context_campaigns/stats/#{$item['id']}">Статистика</span></i>
+                        <i><span class="moderation-title">На модерации</span>
+                        <span class="delete" data-url="/members/context_campaigns/del/{$item['id']}/"></span></i>
+                    </span>
+                </span>
+            </div>
+        {/loop $list_moder}
+    {else}
+        Нет кампаний
+    {/if}
+    </div>
+    <div class="tab_c" id="fstab_arch" data-type="all">
+    {if!empty $list_arch}
+        {loop $list_arch,$key,$item}
+            <div class="context-campaign-block archive">
+                <span class="campaign-view">
+                    <i class="campaign-title">{$item['title']}</i>
+                    <i class="date-till">в архиве</i>
+                    {if!empty $item['time_left']}<i>{$item['time_left']}</i>{/if}
+                </span>
+                <span class="campaign-body" data-id="{$item['id']}">
+                    <span class="campaign-info">
+                        <p class="budget"><i>Бюджет:</i><b>{$item['balance']}</b></p>
+                        <p class="shows"><i>Показы:</i><b>{ifempty $item['shows_day']}0{else}{$item['shows_day']}{/if}</b>/{ifempty $item['shows']}0{else}{$item['shows']}{/if}</p>
+                        <p class="clicks"><i>Клики:</i><b>{ifempty $item['clicks_day']}0{else}{$item['clicks_day']}{/if}</b>/{ifempty $item['clicks']}0{else}{$item['clicks']}{/if}</p>
+                        <p class="ctr"><i>CTR:</i><b>{ifempty $item['CTR']}0%{else}{$item['CTR']}%{/if}</b></p>
+                    </span>
+                    <span class="object-actions context" data-id="{$item['id']}">
+                        <!--<i><span class="stats internal-link" data-link="/members/context_campaigns/{$item['id']}/stats/">Статистика</span></i>-->
+                        <i><span class="stats internal-link" data-link="/members/context_campaigns/stats/#{$item['id']}">Статистика</span></i>
+                        {ifeq $item['status_alias'],'moderation'}
+                            <i><span class="moderation-title">На модерации</span>
+                        {else}
+                            <i><span class="edit internal-link" data-link="/members/context_campaigns/{$item['id']}/">Редактировать</span>
+                        {/if}
+                        <span class="delete" data-url="/members/context_campaigns/del/{$item['id']}/"></span></i>
+                    </span>
+                </span>
+            </div>
+        {/loop $list_arch}
+    {else}
+        Нет кампаний
+    {/if}
+    </div>
+</div>
+{/if}
+
+<script>
+    jQuery(document).ready(function(){
+        jQuery('#objects-list-title li').on('click',function(){
+            jQuery('#objects-list-title li').removeClass('active');
+            jQuery(this).addClass('active');
+            jQuery('.tab_c').hide();
+            jQuery(jQuery(this).attr('data-tab-ref')).show();
+        });        
+        //кнопка "Добавить кампанию"
+        jQuery('#campaign-add-button').on('click',function(){
+            var _url = window.location.pathname+"add/";
+            window.location.href = _url;
+        });
+        //кнопка "Удалить кампанию"
+        jQuery('.object-actions.context').children('i').children('.delete').on("click",function(){
+            var _url = jQuery(this).attr('data-url');
+            _block = jQuery(this).parents('.context-campaign-block');
+            if(!confirm('Вы уверены, что хотите удалить кампанию?')) return false
+            jQuery.ajax({
+                type: "POST", async: true,
+                dataType: 'json', cache: false,
+                url: _url,
+                data: {ajax: true},
+                success: function(msg){
+                    if(msg.ok){
+                        //если все хорошо, убираем кампанию
+                        _block.fadeOut(500);
+                        _block.remove();
+                    }
+                },
+                error: function(msg){
+                },
+                complete: function(){
+                }
+            });
+        });
+        //функции для обновления данных по кликам, показам и CTR
+        function refresh_handler() {
+            function refresh(){
+               var _url = window.location.pathname+"campaigns_stats/";
+               //читаем список id объявлений, для которых нужны данные
+               _ids_list = {};
+               _ids_list['ids_list'] = Array();
+               jQuery('context-adv').each(function(){
+                   _ids_list['ids_list'].push(jQuery(this).attr('id').replace(/[^0-9]/,''));
+               });
+               jQuery.ajax({
+                   type: "POST", async: true,
+                   dataType: 'json', cache: false,
+                   url: _url,
+                   data: {ajax: true,ids_list:_ids_list},
+                   success: function(msg){
+                       if(msg.ok){
+                           //если все хорошо, записываем полученные данные
+                           for(i=0;i<msg.data.length;i++){
+                               jQuery('.campaign-body[data-id="'+msg.data[i]['id']+'"]').children('.campaign-info').children('.budget').children('b').html(msg.data[i]['balance']);
+                               jQuery('.campaign-body[data-id="'+msg.data[i]['id']+'"]').children('.campaign-info').children('.shows').children('b').html(msg.data[i]['shows_day']);
+                               jQuery('.campaign-body[data-id="'+msg.data[i]['id']+'"]').children('.campaign-info').children('.clicks').children('b').html(msg.data[i]['clicks_day']);
+                               if(msg.data[i]['ctr'] == null) msg.data[i]['ctr'] = 0;
+                               jQuery('.campaign-body[data-id="'+msg.data[i]['id']+'"]').children('.campaign-info').children('.ctr').children('b').html(msg.data[i]['ctr']+"%");
+                           }
+                       }
+                   },
+                   error: function(msg){
+                       //alert(msg);
+                   },
+                   complete: function(){
+                   }
+               });
+            }
+            refresh();
+            //setInterval(refresh, 30*1000); //every 30 sec
+        }
+        //если есть объявления, запускаем обновление данных
+        if(jQuery('.context-campaign-block').length>0){
+            refresh_handler();
+        }
+        jQuery('#objects-list-title .active:first').click();
+    });
+</script>

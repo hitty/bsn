@@ -1,0 +1,102 @@
+.bbox{
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;    
+    -ms-box-sizing:border-box;    
+    -o-box-sizing:border-box;   
+}
+#ajax-filter{
+    width:200px;
+    font-size: 12px;
+    line-height: 12px; 
+    background: #e6e6e6;      
+}
+#ajax-filter .expand,
+#ajax-filter .reset-filter{
+    padding:8px 10px;
+    background: #1e88e5;
+    color:#fff;
+    text-align: center;  
+}
+#ajax-filter .expand div{
+    display: none;
+    margin:0 auto;
+    border-bottom:1px dashed #fff;
+    cursor:pointer;
+    position: relative;
+}
+#ajax-filter .expand div:hover,
+#ajax-filter .reset-filter:hover{
+    border-bottom:1px solid transparent;
+}
+#ajax-filter .expand .active{
+    display: inline-block;
+}
+#ajax-filter .expand div:before,
+#ajax-filter .reset-filter:before{
+    content: "";
+    position: absolute;
+    left: -18px;
+    top: -6px;
+    width: 16px;
+    height: 16px;
+    background: url('https://st.bsn.ru/img/layout/icons16.png') no-repeat; 
+}
+#ajax-filter .reset-filter{
+    position:relative;
+    background: transparent;
+    padding:0;
+    color:#969696;
+    border-bottom:1px dashed #969696;
+    margin:0 0 8px 7px;
+    cursor: pointer;
+}     
+#ajax-filter .reset-filter:before{
+    top:-4px;
+}
+#ajax-filter .expand .hided:before{
+    background-position: 0px -836px;
+}
+#ajax-filter .expand .shown:before{
+    background-position: 0px -820px;
+}
+#ajax-filter .reset-filter:before{
+    background-position: 0px -854px;
+}
+#ajax-filter .params-wrap{
+    padding:0 20px;  
+}
+#ajax-filter .submit-wrap{
+    text-align: center;
+    padding:20px;  
+}               
+#ajax-filter .submit-wrap .reset-filter{
+    display: inline-block;    
+}
+#submit-ajax-form{
+    width: 100%;    
+}
+
+#ajax-filter .list-selector{
+    width:158px;
+}
+#ajax-filter .selector-title,
+#ajax-filter .list-selector .selector-title{
+    color:#000;
+    font-size:12px;
+    margin-top:20px;
+}
+
+#ajax-filter .range-selector{
+    margin-top:10px; 
+}    
+#ajax-filter .range-selector input{
+    width: 70px;
+    display: inline-block;
+    margin: 0;
+}
+
+
+.xdsoft_datetimepicker{
+    margin:-40px 0 0 -110px;    
+}

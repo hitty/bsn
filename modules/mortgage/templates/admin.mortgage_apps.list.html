@@ -1,0 +1,106 @@
+<h1 class="pageTitle">Заявки на ипотеку </h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/service/mortgage_applications/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_status = document.getElementById('f_status').value;
+            var __url = '{root:/admin/service/mortgage_applications/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url; 
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table class="mortgage-apps">    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col1" width="5%">
+                <col class="col1" width="5%">
+                <col class="col1" width="5%">
+                <col class="col1" width="25%">
+                <col class="col1" width="20%">
+                <col class="col1" width="20%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Время создания</th>
+                    <th>Время модерации</th>
+                    <th>Статус</th>
+                    <th>Место регистрации</th>
+                    <th>Условия платежа</th>
+                    <th>Контакты</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['date_in_formatted']}</td>
+                        <td>{$item['date_moderated_formatted']}</td>
+                        <td>{$item['status_info']}</td>
+                        <td>{$item['registration_title']}</td>
+                        <td>
+                            <span class="payment-conditions vertical-block">
+                                <span>Срок кредитования <i>{$item['mortgage_years']}</i></span>
+                                <span>Первый взнос <i>{$item['first_payment']}</i></span>
+                                <span>Стоимость жилья <i>{$item['estate_price']}</i></span>
+                                <span>Уровень дохода <i>{$item['income_value']}</i></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="contacts vertical-block">
+                                <span>ФИО <i>{$item['fio']}</i></span>
+                                <span>Дата рождения <i>{$item['birthdate_formatted']}</i></span>
+                                <span>Телефон <i>{$item['phone']}</i></span>
+                                <span>Email <i>{$item['email']}</i></span>
+                                <span>Комментарий: <i class="full-comment">{$item['notes']}</i></span>
+                            </span>
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/service/mortgage_applications/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/service/mortgage_applications/show_recieve_info/{$item['id']}/" title="Смотреть ответы банков" target="_blank"><span class="ico_view">Смотреть ответы банков</span></a>
+                            <a href="/admin/service/mortgage_applications/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

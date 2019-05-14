@@ -1,0 +1,9 @@
+{if!empty $list}
+    <ul id="calendar-list">
+        {loop $list,$k,$ev}
+            {include /modules/calendar_events/templates/list.block.item.html}
+        {/loop $list}
+    </ul>
+{else}
+    <p class="bigtext" style="padding: 20px; text-align: center; color:#888;">В данном месяце событий нет!</p>
+{/if}

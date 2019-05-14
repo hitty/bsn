@@ -1,0 +1,235 @@
+/* common correction elements */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+       url(/fonts/MaterialIcons-Regular.woff) format('woff'),
+       url(/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+.icons{
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+[data-icon]::before {
+    content: attr(data-icon);
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+    float: left;
+    margin: 4px 4px 0 0;  
+}
+
+/* стандартная анимация 0.3с на все эффекты */
+.transition,
+.transition:before,
+.transition:after,
+.transition > *{
+    
+    
+    
+    
+    
+}
+.transition-off,
+.transition-off > *{
+    -webkit-transition: all 0!important;
+    -moz-transition: all 0!important;
+    -ms-transition: all 0!important;
+    -o-transition: all 0!important;
+    transition: all 0!important;
+}
+/* фиксированный размер блока */
+.bbox{
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;    
+    -ms-box-sizing:border-box;    
+    -o-box-sizing:border-box;   
+}
+/* убирает эффект float дочерних блоков у главного блока */
+.clearfix:before,
+.clearfix:after{
+    content: "";
+    display: table;
+    clear:both;
+} 
+/* тень при наведении + белый фон блока */ 
+.shadow,
+.shadow-hover:hover{
+    -webkit-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -o-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    background: #fff;
+}
+.shadow-hover:before{
+    content: "";
+    border: 1px solid #fff;
+    position: absolute;
+    top: -1px;
+    bottom: 1px;
+    right: 1px;
+    left: -1px;
+    display: block;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    opacity: 0;
+    
+    
+    
+    
+        
+}
+.shadow-hover:hover:before{
+    opacity: 1;
+}
+.small-shadow,
+.central-main-content{
+    background: #fff;
+    padding: 0;
+    -webkit-box-shadow: 0 4px 5px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 4px 5px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 4px 5px rgba(0,0,0,.2);
+    -o-box-shadow: 0 4px 5px rgba(0,0,0,.2);
+    box-shadow: 0 4px 5px rgba(0,0,0,.2);
+}
+.central-main-content h1{
+    padding: 40px 20px;
+}
+/* равномерное расположение дочерних блоков внутри блока */
+.flex{
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+    overflow: hidden;    
+}
+
+.rur {
+    font-family: 'als_rublregular';
+    line-height: 20px;
+}
+.text{
+    font-size: 16px;
+    line-height: 24px;
+}
+/* текст в строчку с обрезом */
+.text-overflow{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: auto;
+    max-height: 30px;
+    max-width: 600px;
+    width: auto;
+    white-space: nowrap;
+    display: block;
+    
+}
+/* задний фон вписывается в размер блока, не оставляя белых полей */
+.bg-cover{
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;  
+    z-index: 1;  
+}
+/* нижняя серая отбивка */
+.hr-bottom{
+    height: 1px;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    background: #dddddd;
+    display: block;
+    position: absolute;
+    z-index: 0;
+    opacity: 1;
+}
+/* правая серая отбивка */
+.hr-right{
+    width: 1px;
+    top: 20px;
+    bottom: 20px;
+    right: 0;
+    background: #dddddd;
+    display: block;
+    position: absolute;
+    z-index: 0;
+    opacity: 1;
+}
+div:hover > .hr-right, 
+div:hover > .hr-bottom{
+    opacity: 0;
+}
+/* скругление блока 3px */
+.br3{
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+/* спрайт SVG */
+.svg:before {
+    content: "";
+    background-image: url(/img/layout/sprite.svg);
+    background-repeat: no-repeat;
+    background-size: 840px auto;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}    
+/* обертка элемента по всему размера блока */
+.before-abs:before{
+    content:"";
+    display: block;
+    z-index: 0;
+    top:0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    border-radius: 3px;
+} 
+.button.blue{
+    color:#fff;
+    border: none;
+    text-decoration: none;
+}
+.button.white{
+    text-decoration: none;
+}

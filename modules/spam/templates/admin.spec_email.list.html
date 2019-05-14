@@ -1,0 +1,36 @@
+<h1 class="pageTitle">{$page_title}</h1>
+
+<h3>Спец-рассылка. Адреса</h3>
+<form class="form_default" method="post" action="" enctype="multipart/form-data">
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    
+    {if!empty $emails_invalid}
+        <strong>Эти адреса не были сохранены:</strong><br>
+        <div style="color:#ff0000; margin-bottom:15px;">
+            {loop $emails_invalid,$k,$item}
+                {$item}<br />
+            {/loop $emails_invalid}
+        </div>
+    {/if}
+   {include /admin/templates/form_default.html}
+</form>
+    

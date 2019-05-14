@@ -1,0 +1,70 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body class="members">
+    {php:$payed_format = true}
+    {include /templates/includes/main_header_part.html}
+    {if!empty $auth}{include /modules/members/templates/menu.html}{/if}
+    
+    <div class="shadow-wrapper clearfix" id="shadow-wrapper">
+
+        <div class="content">
+            <div class="main-content">
+               
+                {if!empty $invites}
+                    <div id="invite-wrap">
+                    {loop $invites,$i,$invite}
+                        <div class="item" data-id-agency="{$invite['id_agency']}" data-id="{$invite['id']}">
+                            Ваш профиль добавлен к аккаунту компании <a href="/organizations/company/{$invite['id_agency']}_{$invite['chpu_title']}/" title="Перейти на карточку компании" target="_blank">«{$invite['title']}»</a>.
+                            <span class="reject">Отклонить</span>
+                            <span class="accept">Подтвердить</span>
+                        </div>
+                    {/loop $invites}
+                    </div>
+                    
+                {/if}
+                <div class="left-wrapper">
+                    {include /templates/includes/main_menu_part.html}
+                    <div class="central-column payed-format central-main-content br3"> 
+                        {$content}
+                    </div> <!--/.central-column-->
+                    {include /modules/members/templates/left_part.html}
+                </div> <!--/.left-wrapper-->
+                {include /modules/members/templates/right_part.html}
+            </div> <!--/.main-content-->                            
+        </div> <!--/.content-->
+    </div> <!--/.shadow-wrapper-->
+    {include /templates/includes/main_footer_part.html}
+    <div class="application-fixed ask-question">
+        <span id="application-button" data-url="/members/messages/support/" class="button blue bbox shadow transition" data-id="{$item['id']}" data-icon="create">Задать вопрос</span>
+        <div class="form transition">
+            <div class="public-application-wrapper">
+                <form action="/members/messages/send/support/" method="POST">
+                    <span class="title">Задать вопрос в техподдержку</span>
+                    <div class="row">
+                        <textarea name="msgtext" id="msgtext" placeholder="Ваш вопрос" required="required" ></textarea>
+                    </div>       
+                    <div class="row">
+                        <button class="send" value="Отправить">Отправить</button>
+                    </div>
+                    <input type="hidden" name="pid" value="{$support_parent_id}" id="support-parent-id" />
+                    <input type="hidden" name="id" value="3" id="support-recipient-id" />
+                    <input type="hidden" name="support" value="1" />
+                </form>         
+                
+                <script>
+                    jQuery(document).ready(function(){ 
+                            jQuery( '.application-fixed.ask-question form' ).formSubmit(
+                                {
+                                    onFormSuccess: function(data){
+                                        document.location = '/members/messages/#' + data.parentid
+                                    }
+                                }
+                            ) 
+                    } )
+                </script>
+            </div>
+        </div>
+
+    </div>  
+</body>
+</html>

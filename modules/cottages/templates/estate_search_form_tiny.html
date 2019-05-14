@@ -1,0 +1,54 @@
+<form class="fast-search form-blue tiny" id="fast-search-form" action="/" method="post">
+    <div class="form-container">
+       {php:$ajax_search = true;}
+        <div class="row">
+            <div class="list-selector select-object-type">
+                <a href="#" class="pick">выберите тип объекта</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="objects_group" id="estate-object-type" value="" />
+                <div class="list-data">
+                        {php:$count = 0;}
+                        {php:$deal_type = '';}
+                        {loop $cottage_objects,$k,$citem}
+                            {if!eq $deal_type,$citem['deal_type']}
+                                {if!eq $deal_type, ''}
+                                    </ul></div>
+                                    <div class="right-part">
+                                        <span class="title">{ifeq $citem['deal_type'],'sell'}Купить{else}Снять{/if}</span>
+                                        <span class="title-right"></span>
+                                        <ul class="first-row">
+                                {/if}
+                                {php:$deal_type = $citem['deal_type'];}   
+                            {/if}         
+                            {ifeq $k,0}
+                                <div class="left-part">
+                                    <span class="title">{ifeq $citem['deal_type'],'sell'}Купить{else}Снять{/if}</span>
+                                    <span class="title-right"></span>
+                                    <ul class="first-row">
+                                    
+                            {/if}
+                            <li data-type="country" data-deal="{$citem['deal_type']}"  data-title="{ifeq $citem['deal_type'],'sell'}Купить{else}Снять{/if} {$citem['title']}" data-value="{$citem['id_type_group']}-country-{$citem['deal_type']}" data-url="country/{$citem['deal_type']}/{$citem['alias']}/">{$citem['title']}<sup>{$citem['cnt']}</sup></li>
+                        {/loop $cottage_objects}
+                        </ul>
+                    </div>
+                </div>
+            </div> <!--/.list-selector .select-object-type-->
+            
+        </div> <!--/.row-->
+        <div class="middle-panel">
+
+            <div class="tab" data-estate-type="country" data-deal="">
+                <div class="row">
+                    <div class="interval-selector price-selector">
+                        От <input type="text" name="from_value" id="from_value_country" value="{if!empty $form_data['min_cost']}{$form_data['min_cost']}{/if}" />
+                        до <input type="text" name="to_value" id="to_value_country" value="{if!empty $form_data['max_cost']}{$form_data['max_cost']}{/if}" />
+                        тыс.руб.
+                    </div> 
+                    <button title="Найти">Найти</button>
+                </div> <!--/.row-->
+                <input type="hidden" value="{$id}" name="cottage">
+            </div> <!--/#country-->         
+            
+        </div> <!--/#country--> 
+    </div>
+</form>  

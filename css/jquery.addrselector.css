@@ -1,0 +1,161 @@
+/**
+* Cascade style sheets for
+* Address selector jQuery plugin
+*/
+#addrselector{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+}
+#addrselector-wrapper{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #888;
+    z-index: 991;
+    opacity: .5;
+}
+#addrselector-box{
+    font-size: 13px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    width: 960px;
+    margin-left: -500px;
+    min-height: 50px;
+    max-height: 510px;
+    padding: 20px;
+    background: #fff;
+    z-index: 992;
+    overflow:hidden;
+    opacity: 1;
+    box-shadow: 0 3px 9px #555; 
+    -moz-box-shadow: 0 3px 9px #555; 
+    -webkit-box-shadow: 0 3px 9px #555; 
+    -o-box-shadow: 0 3px 9px #555; 
+}
+#addrselector-topline{
+    padding: 20px 140px 20px 20px;
+    border-bottom: 1px dotted #999;
+    min-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 993;
+    background-color: #fff;
+}
+#addrselector-topline.wait{background-image: url("/admin/img/spinner.gif"); background-repeat:  no-repeat; background-position: 50% 50%;}
+
+#addrselector-topline .address{
+    padding-bottom: 5px;
+}
+#addrselector-topline .district,
+#addrselector-topline .subway {
+    display: inline-block;
+    padding: 0 40px 0 10px;
+}
+#addrselector-topline a{
+    cursor: pointer;
+}
+#addrselector-topline .address a{
+    display: inline-block;
+    padding: 0 10px;
+    border-right: 1px dotted #aaa;
+}
+#addrselector-topline span{
+    display: inline-block;
+    padding: 0 10px;
+    color: #666;
+}
+#addrselector-box .commitbutton {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    z-index: 995;
+    height: 18px;
+    right: 30px;
+    top: 10px;
+    width: 60px;
+    padding: 5px 15px;
+    background: #ddd;
+    border: 1px solid #bbb;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #888; 
+}
+#addrselector-box .commitbutton:hover {
+    background: #e4e4e4;
+    color: #000; 
+    box-shadow: 0 0 1px #aaa;
+}
+#addrselector-box .closebutton {
+    cursor: pointer;
+    display: inline-block;
+    height: 8px;
+    position: absolute;
+    z-index: 995;
+    right: 5px;
+    top: 5px;
+    width: 8px;
+    padding: 2px;
+    overflow: hidden;
+    text-indent: -10000px;
+    background: transparent url("/admin/img/close.png") no-repeat 2px 2px;
+    border-radius: 2px 2px 2px 2px;
+}
+
+.dropdownlist{
+    margin-top: 70px;
+    max-height: 440px;
+    overflow: auto;
+}
+.dropdownlist .title{
+    font-size: 125%;
+    font-weight: bold;
+    color: #666;
+    padding-bottom: 10px;
+}
+.dropdownlist a{
+    cursor: pointer;
+    display: block;
+    padding: 0 10px;
+}
+.dropdownlist a.selected{
+    background: #3A66BC;
+    color: #fff;
+}
+.dropdownlist .column1,
+.dropdownlist .column2,
+.dropdownlist .column3,
+.dropdownlist .column4 {
+    width: 220px;
+    padding: 0 5px 10px;
+    float: left;
+}
+.dropdownlist .abc_block {
+    padding-bottom: 5px;
+}
+.dropdownlist .abc_block .letter{
+    font-size: 16px;
+    font-weight: bold;
+    color: #888;
+}
+#district-dropdown,
+#subway-dropdown{display: none;}
+
+.clearfix:after{
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+    font-size: 0;
+    content: '.';
+}

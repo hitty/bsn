@@ -1,0 +1,22 @@
+{if!empty $list}
+    {if!eq $paginator['active_page'], 1}
+        {if!empty $ajax_pagination}
+            <div class="page-separator clearfix"></div>
+        {/if}
+    {/if}
+    {if!empty $search_title}
+        <h2 class="inner">{ifeq $content_type,'articles'}Статьи{elseifeq $content_type,'bsntv'}Видео{else}Новости{/if} за {$search_title} года</h2>
+    {/if}
+    {php:$prev_big_image=false}
+    {php:$count_items=0}
+    
+    {loop $list,$lk,$item}
+        {include /modules/content/templates/block.item.html}
+    {/loop $list}
+    {if!empty $ajax_pagination}
+        <div class="clearfix"></div>
+        <span class="center-button-block ajax-pagination button grey clearfix" data-link="{$ajax_url}">Еще {ifeq $content_type,'articles'}статьи{elseifeq $content_type,'bsntv'}видео{else}новости{/if}</span>
+    {/if}
+{elseif!empty $show_empty_results}
+    <div class="empty-results">Ничего не нашлось</div>
+{/if}

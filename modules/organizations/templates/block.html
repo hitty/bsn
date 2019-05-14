@@ -1,0 +1,14 @@
+{if!empty $list}
+    <div class="list-selector" id="activity">
+        <a href="#" class="pick">Все виды деятельности</a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" name="activity" value="{$form_data['activity']}">
+        <ul class="list-data" data-simplebar="init">
+            <li data-value="">Все виды деятельности</li>
+            {loop $list,$lk,$item}
+                {php:$value=$item[0]+1}
+                <li data-value="{$value}" {ifeq $form_data['activity'],$value}class="selected"{/if}>{$item[1]['title']}</li>
+            {/loop $list}
+        </ul>
+    </div>     
+{/if}

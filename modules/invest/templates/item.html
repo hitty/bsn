@@ -1,0 +1,23 @@
+<article>
+    <div class="header">
+        <h1>{$item['title']}</h1>
+        <span>{$item['status_title']} // {$item['category_title']}</span>
+    </div>
+    <div class="info">
+        <div class="description{ifempty $photos} wide{/if}">
+            <div class="slim"><div class="text-wrap">{$item['description']}</div></div>
+        </div>
+        {if!empty $photos}
+        <div class="photos">
+            {loop $photos,$k,$photo}      
+                <a href="{static:/}img/uploads/big/{$photo['subfolder']}/{$photo['name']}" rel="fancybox-thumb" title="">
+                    <img src="{static:/}img/uploads/med/{$photo['subfolder']}/{$photo['name']}" alt=""/>
+                </a>
+                
+            {/loop $photos}
+        
+        </div>        
+        {/if}
+    </div>
+    
+</article>

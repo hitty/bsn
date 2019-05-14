@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru" itemscope itemtype="http://webmaster.yandex.ru/vocabularies/term-def.xml">
+<head itemscope itemtype="http://schema.org/WebSite">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if!empty $mailer_title}<title>{$mailer_title}</title>{/if}
+{literal}
+<style>
+div, td { font-family: 'Roboto', Arial, Helvetica, sans-serif; text-align:left; font-size:16px; color:#000;}
+body {width:100%!important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; color:#000; margin:0; padding:0;font-family: 'Roboto', Arial, Helvetica, sans-serif; color:#333;font-size:16px;}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+</style>
+{/literal}
+</head>
+<body>
+<center style="background: #F8F8F8;">
+
+<table class="wrapper" width="580" border="0" cellspacing="0" cellpadding="0" style="background: #fff;padding:0;margin:0;font-family: 'Roboto', Arial, Helvetica, sans-serif; ">
+    <tbody><tr>
+        <td>
+            <table width="580" border="0" cellspacing="0" cellpadding="0" align="center" style="background: #F8F8F8; padding: 0; margin:0;">
+                <tbody><tr><td colspan="2" height="40" style="background: #F8F8F8;"></td></tr>
+                <tr style="height: 40px;background: #F8F8F8;">
+                    <td colspan="2">
+                        <table width="100%">
+                            <tbody><tr>
+                                
+                                <td align="left" style="text-align:left" valign="middle" width="90">
+                                    <img class="fiximg" src="https://st1.bsn.ru/img/layout/mailer/logo.png" border="0" width="70" height="20" align="left">
+                                </td>
+                                
+                                <td align="left" valign="middle" width="{ifempty $curdate}490{else}290{/if}" style="text-align:left; color: #000; font-size: 18px; line-height: 21px;">
+                                    {if!empty $mailer_type}{$mailer_type}{else}Уведомление{/if}
+                                </td>
+                                
+                                {if!empty $curdate}
+                                    <td align="right" valign="middle" width="200" style="text-align:right; color: #818181; font-size: 18px; line-height: 21px;">
+                                        {$curdate}    
+                                    </td>    
+                                {/if}
+                                
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                <tr><td colspan="2" height="40" style="background: #F8F8F8;"></td></tr>
+                <tr>
+                    <td colspan="2">
+                        <table width="580" border="0" cellspacing="0" cellpadding="0" align="center" style="background: #F8F8F8; padding: 0; margin:0; border-radius: 3px;">
+ 
+ 
+ 
+
+                            <tr>
+                            {if!empty $main_news}
+                                <td colspan="3" valign="top" style="background: url(https://st1.bsn.ru/img/uploads/mailers/{$main_news['photo']}); border-collapse:collapse; padding:0; border-radius: 3px;" width="580" height="250" align="left"> 
+                                    
+                                    <a href="https://www.bsn.ru/news/{$main_news['category_code']}/{$main_news['region_code']}/{$main_news['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$main_news['title']}" target="_blank" style="text-decoration:none; margin: 0; display: block; padding: 20px; width: 540px; height: 210px;border-radius: 3px;">
+                                        <span style="display: block; text-decoration:none; color:#fff; font-size: 30px; line-height: 40px; height: 190px;border-radius: 3px;">{stripall:$main_news['title']}</span>
+                                        <span style="display: block; text-decoration:none; color: #1e88e5; font-size: 14px; font-weight: bold;">Новость дня</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr height="20"><td></td></tr>
+                            {/if}
+                            
+                            <tr>
+                            {php:$k=1}
+
+                            {if!empty $list}
+                                 {loop $list,$k,$item}
+                                    {php:$break = $k%2 == 0}
+                                    <td valign="top" style="background: #fff; border-collapse:collapse; padding:0; border-radius: 3px;" width="280" height="210" align="left"> 
+                                        {ifeq $item['type'],'news'}
+                                            <a href="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width: 240px; height: 170px; ">{stripall:$item['title']}</a>
+                                        {elseifeq $item['type'],'articles'}
+                                            <a href="https://www.bsn.ru/articles/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width: 240px; height: 170px;">{stripall:$item['title']}</a>
+                                        {elseifeq $item['type'],'bsntv'}
+                                            <a href="https://www.bsn.ru/bsntv/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width: 240px; height: 170px;">{stripall:$item['title']}</a>
+                                        {elseifeq $item['type'],'doverie'}
+                                            <a href="https://www.bsn.ru/doverie/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width: 240px; height: 170px;">{stripall:$item['title']}</a>
+                                        {elseifeq $item['type'],'opinions'}
+                                            <a  href="https://www.bsn.ru/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/" title="подробнее" style="font-size: 18px; line-height: 28px; color:#000000; text-decoration: none; padding:20px; width: 240px; height: 170px; display: block;">{$item['expert_title']}<br />
+                                            <span style="font-size: 16px; line-height: 22px; color:#000000; text-decoration: none; display: block; padding: 10px 0 0 0;">«{$item['annotation']}»</span></a>    
+                                        {/if}
+                                    </td>
+                                    {ifempty $break}</tr><tr height="20"><td></td></tr><tr>
+                                    {else}<td width="20" height="170"></td>{/if}
+                                    {php:$k = $k+1}
+                                 {/loop $list}                                                        
+                            {/if}     
+                            
+                            </tr>
+
+{include /modules/mailers/templates/simple.footer.html}  

@@ -1,0 +1,13 @@
+{php:$error_404  = true;}
+{include /templates/includes/main_head_part.html}
+</head>
+<body class="clearcontent" itemscope itemtype="http://schema.org/WebPage">
+    
+    {php:$payed_format = true;}
+    {include /templates/includes/main_header_part.html}
+    <div class="central-wrapper">
+        {$content}
+    </div>
+    {include /templates/counters.html}
+</body>
+</html>

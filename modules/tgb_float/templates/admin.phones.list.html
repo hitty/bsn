@@ -1,0 +1,61 @@
+<h1 class="pageTitle">Звонки во float-баннер</h1>
+<div class="list_table tgb-float_phones">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_status = document.getElementById('f_status').value;
+            var __url = '{root:/admin/advert_objects/tgb_float/}';
+            var __get = new Array();
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="1%">
+                <col class="col2" width="15%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col2" width="15%">
+                <col class="col1" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата поступления</th>
+                    <th>Телефон</th>
+                    <th>Страница</th>
+                    <th>Компания, баннер</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" {ifeq $item['status'],1}class="lead"{else}{ifeq $item['status'],2}class="spam"{/if}{/if}>
+                        <td>{$item['id']}</td>
+                        <td>{$item['datetime_sended']}</td>
+                        <td>{$item['phone']}</td>
+                        <td><a href="{$item['referer']}" target="_blank">{$item['referer']}</a></td>
+                        <td><a href="/admin/access/agencies/edit/{$item['agency_id']}/" target="_blank">{$item['agency_title']} #{$item['agency_id']}</a>, <br />"{$item['title']}" #{$item['id_parent']}</td>
+                        <td class="small_icons ac">
+                            {ifeq $item['status'],0}
+                                <a href="/admin/advert_objects/tgb_float/phones/to_called/{$item['id']}/" title="В отработанные"><span class="ico_to_called">В отработанные</span></a>
+                                <a href="/admin/advert_objects/tgb_float/phones/to_spam/{$item['id']}/" title="В некорректные"><span class="ico_to_spam">В некорректные</span></a>
+                            {else}
+                                <a href="/admin/advert_objects/tgb_float/phones/restore/{$item['id']}/" title="Восстановить"><span class="ico_restore">Восстановить</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,66 @@
+
+{if!empty $vip_list}
+    <div class="objects-vip {$block_type}">
+    <h4>
+        {ifeq $block_type,'main'}
+            Витрина объектов
+            <a class="internal-link" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" title="Как разместить объявление в этом блоке?">Как разместить объявление в этом блоке?</a>
+            <span class="refresh">Обновить</span>
+        {else}
+            Витрина объектов
+        {/if}
+    </h4>
+    {loop $vip_list,$key,$item}
+        <div class="item">
+            <a href="/{$item['type']}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" title="{$item['object_type']}" target="_blank" data-src="{if!empty $item['photo']}{static:/}img/uploads/sm/{$item['subfolder']}/{$item['photo']}{else}{static:/}img/layout/no-photo-small.gif{/if}" class="item-image lazy">
+                
+            </a>
+            <a class="a-h3" href="/{$item['type']}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" target="_blank" title="{$item['obj_type']}">
+                {$item['obj_type']}{if!empty $item['txt_addr']}, {$item['txt_addr']}{/if}
+            </a>
+            <div class="vip-params">
+                {if!empty $item['subway']}
+                    <p class="metro-station">
+                        {$item['subway']}
+                    </p>
+                {/if}
+                {ifeq $block_type,'main'}
+                    {if!empty $item['district']}
+                        <p class="district">
+                            {$item['district']} район
+                        </p>
+                    {/if}
+                {/if}
+                <p class="full-square-wrap">
+                    <span class="full-square">
+                        {ifgt $item['square_full'],0}{squareformat:$item['square_full']} м<sup>2</sup>{/if}
+                    </span>
+                    {php:$show_squares = (!empty($item['square_live']) && $item['square_live']>0) || (!empty($item['square_kitchen']) && $item['square_kitchen']>0) || (!empty($item['square_ground']) && $item['square_ground']>0) || (!empty($item['square_usefull']) && $item['square_usefull']>0);}
+                    {if!empty $show_squares}
+                        
+                        <span class="squares">
+                            {if!empty $item['square_live']}{ifgt $item['square_live'],0}<span>Жилая: <b>{squareformat:$item['square_live']}</b> м<sup>2</sup></span>{/if}{/if}   
+                            {if!empty $item['square_kitchen']}{ifgt $item['square_kitchen'],0}<span>Кухня: <b>{squareformat:$item['square_kitchen']}</b> м<sup>2</sup></span>{/if}{/if}
+                            {if!empty $item['square_ground']}{ifgt $item['square_ground'],0}<span>Участок: <b>{squareformat:$item['square_ground']}</b> сот.</span>{/if}{/if}  
+                            {if!empty $item['square_usefull']}{ifgt $item['square_usefull'],0}<span>Полезная: <b>{squareformat:$item['square_usefull']}</b> м<sup>2</sup></span>{/if}{/if}
+                        </span>
+                    {/if}
+                </p>
+            </div>
+            <p class="price">
+                <span class="deal-type">{ifeq $item['rent'],1}Аренда{else}Продажа{/if}</span>
+                {numberformat:$item['cost']}<span class="rur">a</span>{ifeq $item['rent'],1}/{ifeq $item['by_the_day'],1}день{else}мес.{/if}{/if}
+            </p>
+            
+        </div>
+    {/loop $vip_list}
+    </div>
+{/if}
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.refresh', jQuery('#objects-vip-main')).on('click', function(){
+            getPendingContent('#objects-vip-main','/estate/vip/main/',false,true,'undefined');
+            return false;
+        })
+    })
+</script>

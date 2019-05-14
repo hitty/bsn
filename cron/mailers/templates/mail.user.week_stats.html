@@ -1,0 +1,158 @@
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>{$newsletter_title}</title>
+{literal}
+<style>
+div, td { font-family: Arial, Helvetica, sans-serif; text-align:left; font-size:16px; color:#000;}
+body {width:100%!important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; color:#000; margin:0; padding:0;font-family: Arial, Helvetica, sans-serif; color:#333;font-size:16px;}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+</style>
+{/literal}
+</head>
+<body>
+<center style="background: #e6e6e6;">
+<table class="wrapper" width="570" border="0" cellspacing="0" cellpadding="0" style="background: #e6e6e6;;padding:20px;margin:0;font-family: Arial, Helvetica, sans-serif; " >
+     <tr height="20"><td></td></tr>
+     <tr>
+        <td>
+            <table class="wrapper" width="570" border="0" cellspacing="0" cellpadding="20" style="background: #fff;padding:0;margin:0;font-family: Arial, Helvetica, sans-serif; " >
+                <tr>
+                    <td>
+                        <table width="570" border="0" cellspacing="0" cellpadding="0" align="center" style="background: #fff; padding: 0; margin:0;">
+                            
+                            <!---->
+                            <tr style="height: 40px;margin-bottom:20px;display:block;">
+                                <td align="left" style="text-align:left" valign="middle" width="150" colspan="2">
+                                    <img class="fiximg" src="https://www.bsn.ru/img/layout/bsn_logo_small.png" border="0" width="146" height="40" align="left">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="border-collapse:collapse; padding:20px 0px 20px 0px; font-size:24px; line-height: 26px;" align="left"> 
+                                Здравствуйте{if!empty $info['name']}, <b>{$info['name']}{if!empty $info['name']} {$info['lastname']}{/if}</b>{/if}!<br>
+                                </td>
+                            </tr>
+                            <tr style="display:block;margin-top:-10px;">
+                                <td colspan="2" style="max-width:600px!important;width:600px!important;font-size:17px;">
+                                    Ваше объявление <a href="{$object_info['link']}" target="_blank">ID {$object_info['id']}</a> {$object_info['object_title']} опубликовано в каталоге уже {suffix: $object_info['days_ago_published'],'д','ень','ня','ней'}.<br />
+                                    Предлагаем ознакомиться со статистикой:
+                                </td>
+                            </tr>
+                            <tr>                         
+                                <td valign="top" style="border-collapse:collapse; padding:15px 0; font-size:18px; line-height: 20px;" align="left">
+                                    <img src="{$chart_src}" style="width:600px!important;margin:0 auto!important;display:block!important;">
+                                    <br />
+                                    <table style="width:600px!important;max-width:600px!important;border-collapse:separate!important;vertical-align: top!important;margin: 0px auto 30px auto!important;">
+                                        <tr>
+                                            <td colspan="2"><img src="//st1.bsn.ru/img/layout/object-statuses-mail_invitation_white.png" style="display:block;float:left;margin-bottom:40px!important;"><br /><br /><br /></td>
+                                        </tr>
+                                        {ifeq $object_info['status'],2}
+                                            <tr data-value="4" class="promo" style="width:600px!important;max-width:600px!important;padding-bottom:30px!important;">
+                                                <td style="width:60px!important;max-width:60px!important;display:inline-block;float:left;margin-bottom:40px!important;" valign="top">
+                                                    <img src="//st1.bsn.ru/img/layout/object-statuses-mail_promo.png" style="">
+                                                </td>
+                                                <td style="display:inline-block!important;float:left!important;padding-left:15px;" valign="top">
+                                                    <p style="margin:0px 0px 5px 0px;display:block!important;">Промо</p>
+                                                    <img src="//st1.bsn.ru/img/layout/object-statuses-mail_label_promo.png">
+                                                    <p style="margin:10px 0px 0px 0px;font-size:15px;">Выделение в результатах поиска среди других объявлений.<br>Размещение на 30 дней.</p>
+                                                </td>
+                                            </tr>
+                                            <tr style="padding-bottom:15px;"><td colspan="2"><img src="//st1.bsn.ru/img/layout/object-statuses-mail_grayline.png" style="background-repeat: repeat-y!important;"></td></tr>
+                                            <p style="display:block;width:100%!important;"></p>
+                                            <tr data-value="4" class="premium" style="width:600px!important;max-width:600px!important;">
+                                                <td style="width:60px!important;max-width:60px!important;display:inline-block;float:left;margin-bottom:40px!important;" valign="top">
+                                                    <img src="//st1.bsn.ru/img/layout/object-statuses-mail_premium.png" style="">
+                                                </td>
+                                                <td style="display:inline-block!important;float:left!important;padding-left:15px;" valign="top">
+                                                    <p style="margin:0px 0px 5px 0px;display:block!important;">Премиум</p>
+                                                    <img src="//st1.bsn.ru/img/layout/object-statuses-mail_label_premium.png">
+                                                    <p style="margin:10px 0px 0px 0px;font-size:15px;">Выделение в результатах поиска + закрепление на первых <br/>позициях. Размещение на 30 дней.</p>
+                                                </td>
+                                            </tr>
+                                            <tr style="padding-bottom:15px;"><td colspan="2"><img src="//st1.bsn.ru/img/layout/object-statuses-mail_grayline.png" style="background-repeat: repeat-y!important;"></td></tr>
+                                            <br />
+                                            <tr data-value="6" class="vip" style="width:600px!important;max-width:600px!important;height:135px!important;">
+                                                <td style="width:60px!important;max-width:60px!important;display:inline-block;float:left;margin-bottom:40px!important;" valign="top">
+                                                    <img src="//st1.bsn.ru/img/layout/object-statuses-mail_vip.png" style="">
+                                                </td>
+                                                <td style="display:inline-block!important;float:left!important;max-width:400px!important;padding-left:15px;">
+                                                    <p style="margin:0px 0px 5px 0px;display:block!important;">VIP</p>
+                                                    <img src="//st1.bsn.ru/img/layout/object-statuses-mail_label_vip.png">
+                                                    <p style="margin:10px 0px 0px 0px;font-size:15px;width:500px;display:block;">Ротация объявления в специальном блоке на главной странице, <br />а также в сквозном блоке на всех страницах сайта (кроме главной).<br>Размещение на 7 дней.</p>
+                                                </td>
+                                            </tr>
+                                            <tr style="padding-bottom:15px;"><td colspan="2"><img src="//st1.bsn.ru/img/layout/object-statuses-mail_grayline.png" style="background-repeat: repeat-y!important;"></td></tr>
+                                            <br />
+                                        {/if}
+                                        <tr data-value="4" class="premium" style="width:600px!important;max-width:600px!important;">
+                                            <td style="width:60px!important;max-width:60px!important;display:inline-block;float:left;margin-bottom:10px!important;" valign="top">
+                                                <img src="//st1.bsn.ru/img/layout/object-statuses-mail_raise.png" style="display:block!important;margin-bottom:15px;">
+                                            </td>
+                                            <td style="display:inline-block!important;float:left!important;height:100%!important;height:60px!important;padding-left:15px;">
+                                                <p style="margin:0px 0px 5px 0px;display:block!important;">Поднятие объекта</p>
+                                                <img src="//st1.bsn.ru/img/layout/object-statuses-mail_label_raise.png">
+                                                <p style="margin:10px 0px 0px 0px;font-size:15px;">Поднятие объявления в результатах поиска на 1 или 5 дней.</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="background-color:#E4F4D6!important;heigth:130px!important;width:610px!important;height:90px!important;padding-top:40px!important;margin:0 auto;">
+                                        <div style="background: url('//st1.bsn.ru/img/layout/object-statuses-mail_button.png') no-repeat 0 0!important;display:block!important;height:50px!important;width:275px!important;margin:0px auto!important;position:relative!important;top:40px!important;">
+                                            <a href="{$object_info['pay_link']}" style="position:relative;display:block;height:50px!important;width:100%!important;z-index:0;text-align:center;line-height: 50px!important;font-size: 18px!important;color:#000!important;text-decoration:none!important;" title="Подключить платные услуги" target="_blank">Подключить платные услуги</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" height="20"></td></tr>
+                            <tr> <!-- content - footer -->
+                                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0; font-size:18px;line-height: 20px;" align="left"> 
+                                    С уважением,<br /><b>команда BSN.ru</b>  
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" height="20"></td></tr>
+                            <tr> 
+                                <td colspan="2" align="center" style="text-align:center; padding-top: 0;padding-bottom:0px;">
+                                    <table width="100%" cellspacing="4">
+                                        <tr>
+                                            <td width="25%" align="center" style="text-align: center;"><a href="https://www.bsn.ru/about/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">О проекте</a></td>
+                                            <td width="25%" align="center"style="text-align: center;"><a href="https://www.bsn.ru/contacts/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Контакты</a></td>
+                                            <td width="25%" align="center" style="text-align: center;"><a href="https://www.bsn.ru/advertising/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Реклама</a></td>
+                                            <td width="25%" align="center" style="text-align: center;"><a href="https://www.bsn.ru/news/blog/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" style="font-size: 24px; color:#1e88e5; text-decoration: underline;">Блог</a></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" height="20"></td></tr>
+                            <tr> 
+                                <td colspan="2" align="center" style="text-align:center; padding-top: 0;">
+                                    <table width="100%" cellspacing="4">
+                                        <tr>
+                                            <td width="10%"></td>
+                                            <td width="10%"></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//vk.com/bsn_ru" title="BSN.ru во Вконтакте" style="width:32px; height:30px;"  border="0"><img src="//st1.bsn.ru/img/layout/mailer/vk.png" alt="BSN.ru во Вконтакте" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//www.facebook.com/pages/Bsnru/484773664932728" title="BSN.ru в Facebook" style="width:32px; height:30px;"  border="0"><img src="//st1.bsn.ru/img/layout/mailer/fb.png" alt="BSN.ru в Facebook" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//www.youtube.com/channel/UCs-JHz_clECjieYwzi0irMw" title="BSN.ru в Youtube" style="width:32px; height:30px;"  border="0"><img src="//st1.bsn.ru/img/layout/mailer/yt.png" alt="BSN.ru в Youtube" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//twitter.com/bsn_ru" title="BSN.ru в Twitter" style="width:32px; height:30px;"  border="0"><img src="//st1.bsn.ru/img/layout/mailer/tw.png" alt="BSN.ru в Twitter" border="0" /></a></td>
+                                            <td width="10%" align="center" style="text-align: center;"><a href="//t.me/bsn_ru" title="BSN.ru в Telegram" style="width:32px; height:30px;"  border="0"><img src="https://st1.bsn.ru/img/layout/mailer/tg.png" alt="BSN.ru в Telegram" border="0" /></a></td>
+                                            <td width="10%"></td>
+                                            <td width="10%"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" height="20"></td></tr>
+                        </table>  
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+     <tr height="20"><td></td></tr>
+</table>
+</center>
+</body>
+</html>

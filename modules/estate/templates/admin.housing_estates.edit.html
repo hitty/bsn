@@ -1,0 +1,180 @@
+<h1 class="pageTitle" {if!empty $data_mapping['id']['value']}data-id="{$data_mapping['id']['value']}{/if}">Жилые комплексы</h1>
+
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/estate/housing_estates/add/" id="item_edit_form" novalidate>
+    <h3>Новый объект</h3>
+{else}
+    
+    <form class="form_default" method="post" action="/admin/estate/housing_estates/edit/{$data_mapping['id']['value']}/" id="item_edit_form" novalidate>
+    <h3>Объект #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <fieldset>
+        <p title="Старый девелопер">
+            <label>Старый девелопер</label>
+            <span class="lf fieldwrapper">
+                {$data_mapping['developer']['value']}
+            </span>
+        </p>
+        <p title="Новый девелопер">
+            <label>Новый девелопер</label>
+            <span class="lf fieldwrapper" id="autocomplete_inputbox">
+                <input type="text" class="autocomplete_input autocomplete" id="user_input" value="{if!empty $agency_title}{php:echo str_replace('"','',$agency_title)}{/if}" data-url="/admin/estate/housing_estates/agencies/list/" size="40" autocomplete="off" data-input="id_user">
+            </span>
+            <span class=inputbox_clear id=user_clear>ОЧИСТИТЬ</span>
+        </p>
+        <p title="Продавец">
+            <label>Продавец</label>
+            <span class="lf fieldwrapper" id="autocomplete_inputbox">
+                <input type="text" class="autocomplete_input autocomplete" id="seller_input" value="{if!empty $seller_title}{php:echo str_replace('"','',$seller_title)}{/if}" data-url="/admin/estate/housing_estates/agencies/list/" size="40" autocomplete="off" data-input="id_seller">
+            </span>
+            <span class=inputbox_clear id=seller_clear>ОЧИСТИТЬ</span>
+        </p>
+        <p title="Является ли продавец эксклюзивным" id="p_field_exclusive_seller">
+            <label>Эксклюзивный продавец</label>
+            <span class="lf fieldwrapper">
+                <span style="white-space: nowrap;"><input type="radio" name="exclusive_seller" value="1" {ifeq $data_mapping['exclusive_seller']['value'],1}checked="checked"{/if}> да </span> 
+                <span style="white-space: nowrap;"><input type="radio" name="exclusive_seller" value="2" {ifeq $data_mapping['exclusive_seller']['value'],2}checked="checked"{/if}{ifempty $data_mapping['exclusive_seller']['value']}checked="checked"{/if}> нет </span> 
+                <span class="tip-text green">Является ли продавец эксклюзивным</span>
+            </span>
+        </p>        
+        <p title="Рекламное агентство">
+            <label>Рекламное агентство</label>
+            <span class="lf fieldwrapper" id="autocomplete_inputbox">
+                <input type="text" class="autocomplete_input autocomplete" id="advert_input" value="{if!empty $advert_agency_title}{php:echo str_replace('','',$advert_agency_title)}{/if}" data-url="/admin/estate/housing_estates/agencies/list/" size="40" autocomplete="off" data-input="id_advert_agency">
+            </span>
+            <span class=inputbox_clear id="advert_clear">ОЧИСТИТЬ</span>
+        </p>
+    </fieldset>
+    {if!empty $data_mapping['site']['value']}<p><a href="{$data_mapping['site']['value']}" target="_blank">Сайт</a></p>{/if}
+    
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset>
+            <h3>Загрузка фотографий для объекта #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/housing_estates/photos/" data-session-id="{php:echo session_id();}" />
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>   
+        <div class="progress-wrap" data-max-id="{ifempty $max_progress_id}0{else}{$max_progress_id}{/if}" data-session-id={php:echo session_id();}>
+            <fieldset>
+                <h3>Фотогалерея хода строительства</h3>
+                <span class="button add">Добавить</span>
+            </fieldset>
+            <div class="progress-list">
+                {if!empty $progresses}
+                    {loop $progresses,$kp,$pitem}
+                        <fieldset class="item_{$pitem['id']}" data-id="{$pitem['id']}"> 
+                        Выберите дату:
+                        <select class="month-select">
+                            {loop $months,$m,$month}
+                                <option value="{$m}" {ifeq $pitem['month'],$m} selected="selected"{/if}>{$month}</option>
+                            {/loop $months}
+                        </select>
+                        <select class="year-select">
+                            {loop $years,$y,$year}
+                                <option value="{$year}" {ifeq $pitem['year'],$year} selected="selected"{/if}>{$year}</option>
+                            {/loop $years}
+                        </select>
+                        <span class="original-photo" style="margin-left: 20px;">
+                            Оригинальные фото
+                            <select class="original_photo-select">
+                                    <option value="1" {ifeq $pitem['original_photo'],1} selected="selected"{/if}>Да</option>
+                                    <option value="2" {ifeq $pitem['original_photo'],2} selected="selected"{/if}>Нет</option>
+                            </select>
+                            
+                        </span>
+                        <span class="delete-item" title="Удалить запись"></span>
+                        <input type="file" name="file_upload" id="file_upload_{$pitem['id']}" data-id="{$pitem['id']}" data-url="/admin/estate/housing_estates/progresses/photos/" data-session-id="{php:echo session_id();}" />    
+                        </fieldset>
+                    {/loop $progresses}
+                {/if}
+            </div>
+        </div>
+        
+        
+    {/if}     
+    <div class="last-change-block">
+        <div>Последние изменения:</div>
+        <div>{$last_change_user}</div>
+        <div>{$last_change}</div>
+        <div class="comment">Комментарий: <br /><br />{$last_change_comment}</div>
+    </div>
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('input[name="installment"]').change(function(){
+        if(jQuery(this).val() == 1){
+            jQuery('#p_field_installment_months').slideDown(50);
+        } else {
+            jQuery('#p_field_installment_months').slideUp(50);
+        }
+    });
+    
+    jQuery('#advanced').on("change",function(){
+        manageAdvancedDates();
+        //прячем поле "показ телефона" в зависимости от выделенности карточки
+        if(jQuery(this).children('option[selected]').val() == 1) jQuery('#p_field_show_phone').show().find('#show_phone').val(2);
+        else jQuery('#p_field_show_phone').hide().children('#show_phone').val(1);
+    });
+    
+    if(jQuery('#advanced').children('option[selected]').val() == 2) jQuery('#p_field_show_phone').show();
+    else jQuery('#p_field_show_phone').hide().children('#show_phone').val(1);
+    
+    manageAdvancedDates();
+    function manageAdvancedDates(){
+        var _el = jQuery('#advanced');
+        var _val = _el.val();
+        var _date_start = jQuery('#p_field_date_start');
+        var _date_end = jQuery('#p_field_date_end');
+        
+        if(_val==2) {
+            _date_start.hide();
+            _date_end.hide();
+        } else {
+            _date_start.show();
+            _date_end.show();
+            
+        }
+    }
+    
+    //сдвигаем кнопки "очистить" ближе к полям ввода
+    $("#user_clear").offset({ top: jQuery('#user_input').offset().top, left: jQuery('#user_input').offset().left+jQuery('#user_input').width()+30});
+    $("#seller_clear").offset({ top: jQuery('#seller_input').offset().top, left: jQuery('#seller_input').offset().left+jQuery('#seller_input').width()+30});
+    $("#advert_clear").offset({ top: jQuery('#advert_input').offset().top, left: jQuery('#advert_input').offset().left+jQuery('#advert_input').width()+30});
+    
+    //очитска inputbox и поля, где был id введенного агентства
+    jQuery('#user_clear').click(function(){
+        jQuery('#id_user').val(0);
+        jQuery('#user_input').val('');
+    });
+    jQuery('#seller_clear').click(function(){
+        jQuery('#id_seller').val(0);
+        jQuery('#seller_input').val('');
+    });
+    jQuery('#advert_clear').click(function(){
+        jQuery('#id_advert_agency').val(0);
+        jQuery('#advert_input').val('');
+    });
+    
+    
+});
+</script>

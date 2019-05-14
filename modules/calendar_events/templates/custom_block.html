@@ -1,0 +1,28 @@
+{if!empty $list}
+{if!empty $other_events}
+{ifeq $list,$other_events}
+    <div class="header-last">
+        <h4 class="header blue">
+            <a class="internal-link" href="/calendar_events/{$item['chpu_title']}/" title="Другие новости рубрики">Другие статьи рубрики</a>
+        </h4>
+    </div>
+{/if}
+{/if}
+{loop $list,$lk,$item}
+    <div class="item">
+        <p class="smallnotes">
+            <time datetime="{$item['datetime']}">{$item['normal_date']}</time>
+            <a href="/calendar_events/{$item['category_code']}/" title="{$item['category_title']}" class="category">{$item['category_title']}</a>
+            <span class="views_count">{$item['views_count']}</span>
+            <span class="comments_count">{$item['comments_count']}</span>
+        </p>  
+        <a class="a-h3" href="{ifempty $item['link']}/calendar_events/{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее">{$item['title']}</a>
+    </div>
+    {ifeq $lk,9}
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7156959844675281" data-ad-slot="6448273851"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    {/if}
+    
+{/loop $list}
+{/if}

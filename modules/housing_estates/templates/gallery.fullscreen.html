@@ -1,0 +1,34 @@
+<div class="fullscreen-gallery">    
+    {if!empty $photos}
+    <ul class="list">
+        {loop $photos,$pv,$photo}
+            <li class="transition  bg-cover{ifempty $pv} active{/if} lazy" data-id="{php:echo $pv+1}" data-src="/img/uploads/big/{$photo['subfolder']}/{$photo['name']}"></li>
+        {/loop $photos}
+    </ul>
+    <ul class="thumbs-list">
+        {loop $photos,$pv,$photo}
+            <li class="transition br3{ifempty $pv} active{/if}" data-id="{php:echo $pv+1}"></li>
+        {/loop $photos}
+    </ul>
+    <span class="left-arrow transition" data-icon="chevron_left"></span>
+    <span class="right-arrow transition" data-icon="chevron_right"></span>
+    {/if}
+    <div class="title-wrap clearfix">
+        {if!empty $item['doverie_years']}
+            <span class="doverie-years  br3">
+                Участник конкурса «Доверие потребителя» {$item['doverie_years']}    
+            </span>
+        {/if}
+
+        <h1 class="mtitle" itemprop="name">{ifeq $estate_type,'zhiloy_kompleks'}ЖК{else}Апартаменты{/if} «{$item['title']}»</h1>
+
+        <ul class="submenu-wrap">
+            <li class="scroll-to transition-text" data-target="characteristics">ХАРАКТЕРИСТИКИ</li>
+            <li class="scroll-to transition-text" data-target="infrastructure">ИНФРАСТРУКТУРА</li>
+            {if!empty $progresses}<li class="scroll-to transition-text" data-target="progresses">ХОД СТРОИТЕЛЬСТВА</li>{/if}
+            {ifgt $housing_estate_objects['count'],0}<li class="scroll-to transition-text" data-target="objects">ОБЪЕКТЫ В ПРОДАЖЕ </li>{/if}
+            {ifempty $housing_estate_expert}<li class="scroll-to transition-text" data-target="comments">ОТЗЫВЫ</li>{/if}
+        </ul>
+        
+    </div>  
+</div>

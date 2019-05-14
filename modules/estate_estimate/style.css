@@ -1,0 +1,293 @@
+.estate-evaluation .row {
+    margin: 0 0 20px 0;
+}
+
+.estate-evaluation .row input {
+    width: 100%;
+    height: 40px;
+}
+
+.estate-evaluation .list-selector {
+    width: 100%;
+}
+
+.estate-evaluation .object-type {
+    font-size: 12px;
+    line-height: 24px;
+    color: #1e88e5;
+    text-transform: uppercase;
+    border-bottom: 2px solid #1e88e5;
+}
+
+.estate-evaluation .rooms-count,.estate-evaluation .square {
+    display: inline-block;
+}
+
+.estate-evaluation .square {
+    float: right;
+    width: 110px;
+}
+
+.estate-evaluation .address-wrap {
+    position: relative;
+    height: 40px;
+}
+
+.estate-evaluation .address-wrap div {
+    margin-right: 2%;
+    width: 23%;
+    float: left;
+}
+
+.estate-evaluation .address-wrap .house {
+    width: 25%;
+}
+
+.estate-evaluation .address-wrap div:last-of-type {
+    margin-right: 0;
+}
+
+.estate-evaluation input[name="square"] {
+    width: 110px;
+}
+
+.estate-evaluation .purpose-wrap {
+    margin-top: 60px;
+}
+
+.estate-evaluation .note {
+    color: #1e88e5;
+    border-left: 5px solid #1e88e5;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.estate-evaluation button {
+    position: absolute;
+    width: 660px;
+    margin-top: 57px;
+}
+
+.estate-estimate-wrapper .info {
+    font-size: 18px;
+    line-height: 30px;
+    display: block;
+    float: left;
+    width: 400px;
+    padding-right: 40px;
+    border-right: 1px solid #E6E6E6;
+    ;}
+
+.estate-estimate-wrapper form {
+    padding: 0 40px;
+    display: block;
+    float: left;
+    width: 330px;
+}
+
+.estate-estimate-wrapper #card-map-wrapper {
+    width: 290px;
+    display: block;
+    float: left;
+    height: 450px;
+    background: #eee;
+    margin-top: 45px;
+}
+
+.estate-estimate-wrapper .form-note {
+    display: block;
+    color: #818181;
+    clear: both;
+    padding-top: 20px;
+    position: absolute;
+}
+
+.notification-accept {
+    color: #333;
+    font-size: 20px;
+    margin: 235px auto 0px;
+    text-align: center;
+    position: relative;
+    background: #fff;
+}
+
+.notification-accept:after {
+    content: "";
+    position: absolute;
+    display: block;
+    height: 120px;
+    width: 120px;
+    top: -150px;
+    background: url('https://st.bsn.ru/img/layout/accept_icon.png') no-repeat 0px 0px;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.notification-accept.public:after {
+    top: -170px;
+    left: 50%;
+}
+
+#estimate-result {
+    color: #d71d1d;
+    padding: 0 0 20px 0;
+    font-size: 18px;
+    width: 660px;
+    float: right;
+}
+
+.estimate-again {
+    display: block;
+    width: 160px;
+    margin: 20px auto;
+    display: none;
+}
+
+.estimate-result-wrap {
+}
+
+.estimate-result-wrap .address {
+}
+
+.estimate-result-wrap .results,.estimate-result-wrap .estimate-info {
+    float: left;
+    width: 540px;
+    display: block;
+}
+
+.estimate-info .title {
+    font-size: 24px;
+    line-height: 29px;
+    display: block;
+}
+
+.estimate-result-wrap .estimate-info li {
+    /* padding-bottom: 20px; */
+    /* font-size: 16px; */
+    /* color: #818181; */
+    font-size: 18px;
+    /* font-weight: bold; */
+    line-height: 30px;
+}
+
+.estimate-result-wrap .estimate-info li b {
+    font-weight: bold;
+    color: #000;
+}
+
+.estimate-result-wrap {
+}
+
+.estimate-result-wrap .address {
+}
+
+.estimate-result-wrap .estimate-info {
+}
+
+.estimate-result-wrap .estimate-info li {
+}
+
+.estimate-result-wrap .estimate-info li b {
+}
+
+.estimate-result-wrap .results {
+}
+
+.estimate-result-wrap .estimate-info li.title {
+    font-size: 24px;
+    line-height: 29px;
+    color: #000;
+    padding-bottom: 23px;
+}
+
+.estimate-result-wrap .results .costs {
+    background: #d2e7fa;
+    margin: 30px 0 20px 0;
+    text-align: center;
+    height: 120px;
+}
+
+.estimate-result-wrap .results .costs i {
+    color: #818181;
+    /* font-family: Roboto; */
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+}
+
+.estimate-result-wrap .results span {
+}
+
+.estimate-result-wrap .results .title {
+    font-size: 24px;
+    line-height: 29px;
+    color: #000;
+}
+
+.estimate-result-wrap .results span b {
+}
+
+.estimate-result-wrap .results .date {
+}
+
+.estimate-result-wrap .results .date:after {
+}
+
+.estimate-result-wrap .results .average-cost {
+    font-size: 30px;
+    /* font-weight: bold; */
+    color: #1e88e5;
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    top: 30px;
+    float: left;
+}
+
+.estimate-result-wrap .results .average-cost span {
+    font-size: 30px;
+    /* font-weight: bold; */
+    color: #1e88e5;
+    padding-right: 10px;
+}
+
+.estimate-result-wrap .actual-date {
+    display: block;
+    padding: 13px 0 0 0;
+    width: 300px;
+    text-align: left;
+    color: #818181;
+    font-size: 16px;
+}
+
+.estimate-result-wrap .estimate-another {
+}
+
+.estimate-result-wrap .button {
+    float: right;
+}
+
+.estimate-add-object {
+    padding: 20px;
+    border: 1px solid #1e88e5;
+}
+
+.estimate-add-object h3 {
+    color: #1e88e5;
+    font-size: 18px;
+}
+.estimate-result-content .text{
+    margin-top: 60px;
+    display: block;
+    color: #818181;
+    font-size: 14px;
+    line-height: 24px;    
+}
+.ymaps-2-1-50-controls__control {
+    top: 10px!important;
+}

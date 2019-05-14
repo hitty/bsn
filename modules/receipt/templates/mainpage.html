@@ -1,0 +1,28 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror" id="scroll_to_message">
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess" id="scroll_to_message">
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert" id="scroll_to_message">
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+     <div id="personalinfo">
+         <form name="personalinfo" id="simple-form" method="POST" action="" >
+            {include /templates/includes/form.simple.html}
+            {ifempty $not_show_submit_button}
+            <p>
+                <button class="button" type="submit" name="submit" value="Выписать квитанцию">Выписать квитанцию</button>
+            </p>
+            {/if}
+        </form>
+    </div>

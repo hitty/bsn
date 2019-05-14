@@ -1,0 +1,111 @@
+<h1 class="pageTitle">Жилые комплексы</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_published = document.getElementById('f_published').value;
+            var __filter_manager = document.getElementById('f_manager').value;
+            var __filter_coords = document.getElementById('f_coords').value;
+            var __url = '{root:/admin/estate/housing_estates/}';
+            var __get = new Array();
+            if(__filter_published!=0) __get.push('f_published='+__filter_published);
+            if(__filter_manager!=0) __get.push('f_manager='+__filter_manager);
+            if(__filter_coords!=0) __get.push('f_coords='+__filter_coords);
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+
+        <label>
+            Застройщик:
+            <select id="f_developer" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $developers,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_developer'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $developers}
+            </select>
+        </label>
+ 
+        <label>
+            Состояние:
+            <select id="f_published" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_published'],1} selected="selected"{/if}}>опубликовано</option>
+                <option value="2"{ifeq $get_array['f_published'],2} selected="selected"{/if}}>в архиве</option>
+            </select>
+        </label>
+        <label>
+            На карте:
+            <select id="f_coords" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_coords'],1} selected="selected"{/if}}>есть</option>
+                <option value="2"{ifeq $get_array['f_coords'],2} selected="selected"{/if}}>нет</option>
+            </select>
+        </label>
+        <label>
+            Менеджер:
+            <select id="f_manager" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">любой</option>
+                {loop $managers,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_manager'],$key} selected="selected"{/if}}>{$val}</option>
+                {/loop $managers}
+            </select>
+        </label>
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="10%">
+                <col class="col2" width="35%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col2" width="20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Адрес</th>
+                    <th>Корпуса</th>
+                    <th>Сроки сдачи</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}"{ifeq $item['published'],2} class="inactive"{/if}>
+                        <td align="center">
+                        	{if!empty $item['photo']}<img src="//st1.bsn.ru/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
+                            {$item['id']}
+                        </td>
+                        <td>{$item['title']}</td>
+                        <td>
+                            {$item['txt_addr']}
+                            {ifgt $item['lat'],0} <span title="Есть на карте"><img src="/admin/img/success.png" width="18" alt="Есть на карте" /></span> {/if}
+                            <br /><span style="font-style:italic;font-size: 10px ; color:#999;">Менеджер: {$managers[$item['id_manager']]}</span>
+                        </td>
+                        <td class="col_sm">{$item['korpuses']}</td>
+                        <td class="col_sm">{$item['build_complete']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/housing_estates/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/housing_estates/del/{$item['id']}/?{$get_string}" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            {ifeq $item['published'],1}
+                                <a href="/admin/estate/housing_estates/archive/{$item['id']}/?{$get_string}" title="В архив"><span class="ico_archive">В архив</span></a>
+                            {else}
+                                <a href="/admin/estate/housing_estates/restore/{$item['id']}/?{$get_string}" title="Восстановить"><span class="ico_restore">Восстановить</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

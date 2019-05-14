@@ -1,0 +1,154 @@
+<div class="central-wrapper">
+    {if!empty $h1}
+        {ifempty $ajax_mode}
+            <h1>{$h1}</h1>
+        {/if}
+    {/if}   
+    {if!empty $links_list}
+        {php:$show_catalog = count($form_data)<3 && (( !empty($links_type_row) && $links_type_row == 2 ) || ( empty($form_data['rooms']) && $links_type_row == 3 ) || !empty($form_data['geodata_selected']))}
+        {if!empty $show_catalog}
+            <div class="catalog-item">
+                <div class="object-types-list links{if!empty $form_data['geodata_selected']} simple-view{/if}">
+                    {php:$geodata = !empty($show_geodata) || isset($form_data['rooms'])}
+                    {if!empty $links_type_row}
+                        {ifeq $links_type_row, 2}
+                            <ul>
+                                {php:$llist = $links_list['build']}                
+                                {loop $llist,$k,$item}
+                                    <li rel="{$item['type']}"><a href="{$k}" title="{$item['title']}">{$item['title']}</a><sup>{numberformat:$item['filled']}</sup></li>
+                                {/loop $llist}
+                            </ul>    
+                        {elseifeq $links_type_row, 3}
+                            {ifempty $geodata}
+                                <ul>
+                                    <li><a href="/build/sell/search/?{$rooms_param}&rooms=0" title="Продажа квартир-студий">Квартиры-студии</a></li>
+                                    <li><a href="/build/sell/search/?{$rooms_param}&rooms=1" title="Продажа однокомнатных квартир">Однокомнатные квартиры</a></li>
+                                    <li><a href="/build/sell/search/?{$rooms_param}&rooms=2" title="Продажа двухкомнатных квартир">Двухкомнатные квартиры</a></li>
+                                    <li><a href="/build/sell/search/?{$rooms_param}&rooms=3" title="Продажа трехкомнатных квартир">Трехкомнатные квартиры</a></li>
+                                    <li><a href="/build/sell/search/?{$rooms_param}&rooms=4" title="Продажа многокомнатных квартир">Многокомнатные квартиры</a></li>
+                                </ul>    
+                            {/if}
+                        {/if}
+                    {/if}
+                    {if!empty $geodata}
+                        <div class="filter geodata-links-expand disabled" data-content-container=".geodata-links-wrap">
+                            <span {if!empty $form_data['geodata_selected']}{ifeq $form_data['geodata_selected'],'districts'} class="active"{/if}{/if} data-tab-ref=".districts">По районам Санкт-Петербурга</span>
+                            <span {if!empty $form_data['geodata_selected']}{ifeq $form_data['geodata_selected'],'district_areas'} class="active"{/if}{/if} data-tab-ref=".district-areas">По районам Ленинградской области</span>
+                            <span {if!empty $form_data['geodata_selected']}{ifeq $form_data['geodata_selected'],'subways'} class="active"{/if}{/if} data-tab-ref=".subways">По станциям метро</span>
+                        </div>
+                        <div class="geodata-links-wrap">
+                            <div class="tab districts{if!empty $form_data['geodata_selected']}{ifeq $form_data['geodata_selected'],'districts'} active{/if}{/if}">
+                                {ifempty $form_data['geodata_selected']}<a href="/build/sell/search/?rooms={$rooms}&geodata_selected=districts" title="{$item['title']}"><b>Все по районам города</b></a>{/if}
+                                {php:$districts = $form_filter['districts']}
+                                {loop $districts,$k,$item}
+                                    <a href="/build/sell/search/?{ifempty $show_geodata}rooms={$rooms}&{/if}districts={$item['id']}" title="{$item['title']}">{$item['title']}</a>
+                                {/loop $districts}
+                                <span class="expand dashed-link-blue">Показать все районы</span> 
+                            </div>
+                                  
+                            <div class="tab district-areas{if!empty $form_data['geodata_selected']}{ifeq $form_data['geodata_selected'],'district_areas'} active{/if}{/if}">
+                                {ifempty $form_data['geodata_selected']}<a href="/build/sell/search/?rooms={$rooms}&geodata_selected=district_areas" title="{$item['title']}"><b>Все по районам ЛО</b></a>{/if}
+                                {php:$district_areas = $form_filter['district_areas']}
+                                {loop $district_areas,$k,$item}
+                                    <a href="/build/sell/search/?{ifempty $show_geodata}rooms={$rooms}&{/if}district_areas={$item['id']}" title="{$item['title']}">{$item['title']}</a>
+                                {/loop $district_areas}
+                                <span class="expand dashed-link-blue">Показать все районы</span>
+                            </div>
+                            <div class="tab subways{if!empty $form_data['geodata_selected']}{ifeq $form_data['geodata_selected'],'subways'} active{/if}{/if}">
+                                {ifempty $form_data['geodata_selected']}<a href="/build/sell/search/?rooms={$rooms}&geodata_selected=subways" title="{$item['title']}"><b>Все по станциям метро</b></a>{/if}
+                                {php:$subways = $form_filter['subways']}
+                                {loop $subways,$k,$item}
+                                    <a href="/build/sell/search/?{ifempty $show_geodata}rooms={$rooms}&{/if}subways={$item['id']}" title="{$item['title']}">{$item['title']}</a>
+                                {/loop $subways}
+                                <span class="expand dashed-link-blue">Показать все ст. метро</span>
+                            </div>
+                        </div>   
+                    {/if}
+                </div>
+            </div>
+        {/if}
+    {/if}   
+    
+    {if!empty $build_last_items}
+        {include /modules/estate/templates/block.catalog.main.html}
+      
+        <div id="vip-objects-wrap" onClick="_gaq.push(['_trackEvent', 'Переходы по объектам', 'VIP блоки - лево верх']);">
+             {block estate/vip/main/2}
+         </div>
+
+        {if!empty $list}
+            {include /modules/estate/templates/list.block.build.html}
+        {/if}
+         
+        <div class="inner-wrapper content-last">
+            <div class="header-last">
+                <h4 class="header blue">
+                    <span title="Новости по теме">Новости по теме</span>
+                </h4>
+            </div>
+            <div id="news-last-data" class="content-last-data">
+                {block news/block/build/mainpage}
+            </div> <!--/#content-last-data-->
+        </div> <!--/.news-->       
+        
+        <div class="inner-wrapper content-last">
+            <div class="header-last">
+                <h4 class="header blue">
+                    <span class="internal-link" data-link="/opinions/" title="Мнения экспертов">Мнения, </span> 
+                    <span class="internal-link" data-link="/interview/" title="Интервью">Интервью</span>
+                </h4>
+            </div>
+            
+            <div id="last-opinions-data" class="content-last-data expert-opinions">
+                {block opinions/block/build}
+            </div>
+        </div>      
+    {else}
+        {ifempty $notarget}
+            <script>                             
+                jQuery(document).ready(function(){
+                        {php: $search_parameters = (empty($search_parameters)?"":$search_parameters)}
+                        getPendingContent('#context-block-right','/context_campaigns/block/search-right/','{$search_parameters}',false,false,true);
+                        getPendingContent('#context-block-center','/context_campaigns/block/search-center/','{$search_parameters}',false,false,true);
+                });
+            </script>
+            {if!empty $search_parameters}
+                <div id="context-block-center"></div>
+            {/if}
+        {/if}
+        
+        {if!empty $search_description}
+            <div class="info-box">
+                <strong>Вы искали:</strong> {$search_description}
+            </div>
+        {/if}
+        {if!empty $list}
+            {ifempty $ajax_search_results}
+                {php:$advert_in_estate_list = true;}
+                {include /modules/estate/templates/list.block.build.html}
+            {else}
+                <div class="ajax-search-results left-form-result"></div>
+            {/if}
+            
+        {else}
+            <div class="query-title">
+                По вашему запросу <b>«{$titleSubscribeButton}»</b> ничего не найдено!
+            </div>
+            {if!empty $search_list}
+                <div class="other-queries">
+                    <span class="title">Но вы можете ознакомится со следующими вариантами:</span>
+                    {loop $search_list,$l,$litem}
+                        <div class="item internal-link" data-link="{$litem['link']}" onClick="yaCounter21898216.reachGoal('click_request'); return true;"> 
+                            <span class="count">{$litem['count']}</span>
+                            <p>{suffix_word:$litem['count'],'объект','','а','ов'}: {$litem['title']}</p>
+                            <span class="button grey internal-link" data-link="{$litem['link']}">Перейти</span>
+                        </div>
+                    {/loop $search_list}
+                </div>
+            {/if}        
+        {/if}
+        {ifeq $showSubscribeButton, true}
+            {include /modules/objects_subscriptions/templates/subscribe_panel.html}
+        {/if}
+    {/if}
+</div>

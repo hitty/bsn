@@ -1,0 +1,16 @@
+<div class="help-header"><h1>ПОМОЩЬ</h1></div>
+{include modules/search/templates/search.form.html}
+<div class="help-category-page">
+    <div class="help-category-block-img"><img src="http://{$host}/img/uploads/sm/{$categories_menu[$selected_category]['photo'][0]['subfolder']}/{$categories_menu[$selected_category]['photo'][0]['name']}" border="0" ></div>
+    <div class="help-category-txtblock">
+        <div class="help-category-block-header"><h2>{$categories_menu[$selected_category]['title']}<h2></div>
+        <div class="help-category-block-descrpt"><h3>{$categories_menu[$selected_category]['description']}</h3></div>
+        <div class="help-category-block-article-lst">
+            <ul class="category">
+            {loop $articles,$ckey,$article}
+                <li><a href="http://{$host}/help/{$categories_menu[$selected_category]['chpu_title']}/{$article['chpu_title']}/" >{$article['title']}</a>
+            {/loop $articles}
+            </ul>
+        </div>
+    </div>
+</div>

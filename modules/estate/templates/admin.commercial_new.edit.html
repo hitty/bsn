@@ -1,0 +1,49 @@
+<h1 class="pageTitle">Коммерческие объекты в модерации</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/estate/commercial/new/add/" id="item_edit_form">
+    <h3>Новый объект</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/estate/commercial/new/edit/{$data_mapping['id']['value']}/" id="item_edit_form">
+    <h3>Объект #{$data_mapping['id']['value']} &quot;{$data_mapping['txt_addr']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset>
+            <h3>Загрузка фотографий для объекта #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/commercial/new/photos/" data-session-id="{php:echo session_id();}" />
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>   
+    {/if} 
+    
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('input[name="rent"]').change(function(){
+        if(jQuery(this).val() == 1){
+            jQuery('#p_field_rent_duration').slideDown(50);
+        } else {
+            jQuery('#p_field_rent_duration').slideUp(50);
+        }
+    });
+});
+</script>

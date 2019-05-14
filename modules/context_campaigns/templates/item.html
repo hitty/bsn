@@ -1,0 +1,47 @@
+{if!empty $campaign_data}
+    <i class="advert-bg"></i>
+    <i class="bsn-target-circle"></i>
+    <i class="bsn-target-rectangle"></i>
+    {if!empty $campaign_data['txt_blocks']}
+        {php:unset($campaign_data['txt_blocks']);}
+        {php:$blocks_amount = count($campaign_data);}
+        {loop $campaign_data,$k,$item}
+            <div class="context-block {$item['place_name']} {ifeq $item['block_type'],2}text{/if} {ifeq $blocks_amount,1}centered{/if} external-link" data-id="{$item['id']}" data-link="{$item['url']}">
+                {if!empty $item['folder']}
+                    <span class="context-imgblock"><img src="/img/uploads/big/{$item['folder']}/{$item['name']}" alt="{quoted:$item['name']}"></span>
+                {/if}
+                <span class="context-txtblock {ifempty $item['folder']}centered{/if}">
+                    <span class="context-block-title">{$item['banner_title']}</span>
+                    <span class="context-block-text">{$item['banner_text']}</span>
+                </span>
+                {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+            </div>
+        {/loop $campaign_data}
+    {else}
+        <div class="context-block {$campaign_data['place_name']} {ifeq $campaign_data['block_type'],2}text{/if} external-link" data-id="{$campaign_data['id']}" data-link="{$campaign_data['url']}">
+            <img src="/img/uploads/big/{$campaign_data['folder']}/{$campaign_data['name']}" alt="{quoted:$campaign_data['name']}">
+            {if!empty $campaign_data['get_pixel']}<img src="{$campaign_data['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+        </div>
+    {/if}
+
+    {ifeq $place_alias,'item-pg'}
+        <div class="close-context"></div>
+        <script>
+            jQuery(document).ready(function(){
+                if(jQuery('.context-block.item-pg')){
+                    //если что-то есть, показываем полосу
+                    if(jQuery('.tab.gallery-thumbs').find('.context-box').children().length!=0) jQuery('.tab.gallery-thumbs').find('.context-box').addClass('active');
+                    {ifempty $campaign_data[0]}
+                        {if!eq $campaign_data['block_type'],1}
+                            jQuery('.tab.gallery-thumbs').find('.context-box').addClass('text');
+                        {/if}
+                    {/if}
+                    //блок таргета в развернутой фотографии
+                    if(jQuery('.gallery-box-expanded-image').find('.bsn-target-circle').length>0){
+                        jQuery('.gallery-box-expanded-image').find('.context-box').addClass('active');
+                    }
+                } 
+            });
+        </script>
+    {/if}
+{/if}

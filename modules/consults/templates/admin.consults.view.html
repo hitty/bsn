@@ -1,0 +1,47 @@
+<h1 class="pageTitle">Ответы на вопрос #{$question_info['id']}</h1>
+<a href="/admin/content/consults/" class="button back-to-list">К списку вопросов</a>
+<div class="question-text"><span class="title">Вопрос:</span><span>{$question_info['text']}</span></div>
+<b>Ответы:</b>
+<div class="list_table question-answers">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col1" width="10%">
+                <col class="col1" width="5%">
+                <col class="col1" width="10%">
+                <col class="col2" width="65%">
+                <col class="col2" width="5%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                    <th>Пользователь</th>
+                    <th>Ответ</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['date_in']}</td>
+                        <td>{$item['status_title']}</td>
+                        <td>{if!empty $item['user_id']}<a href="/access/users/edit/{$item['user_id']}/">#{$item['user_id']}</a> {/if}{if!empty $item['user_name']}{$item['user_name']}{/if}</td>
+                        <td>{$item['answer']}</td>
+                        <td class="small_icons ac">
+                            <a href="edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="del/{$item['id']}/" title="Удалить"><span class="ico_del">Убрать в архив</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Пока нет ответов</p>
+    {/if}
+    <div class="caption_line"><a href="add/" class="button">Добавить ответ</a></div>
+</div>

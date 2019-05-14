@@ -1,0 +1,45 @@
+<div class="form">
+    {ifempty $promocode}
+        <span class="title">Актуальный и интересный контент для вас!</span>
+        <span class="user-text">
+            Уважаем{ifeq $info['sex'],1}ый{elseifeq $info['sex'],2}ая{else}ое{/if} <b>{if!empty $info['name']}{$info['name']}{else}пользователь{/if}</b>, <br />
+            с целью улучшения качества работы нашего сайта и оптимизации<br />
+            новостных рассылок для Вас, ответьте, пожалуйста,<br />
+            на следующие вопросы!
+        </span>
+        <form id="simple-form" action="" method="POST">
+            <input type="hidden" name="submit_form" id="submit_form" value="1" />
+            {include /modules/polls/templates/form.html}   
+            {if!empty $registration}
+                <div class="single-selector email " style="position: relative;">
+                    <span class="selector-title required" id="span_field_email" data-rel="email">
+                        Введите свой email                                        
+                    </span>
+                    <input type="email" class="lf" autocomplete="off" id="email" name="email" value="" required="required" placeholder="" data-url="/geodata/regions_list/" data-input="id_region">
+                    <span></span>
+                </div>
+                <div class="single-selector lostpassword">
+                    <label class="selector-title checkbox">
+                        <input class="radio" type="checkbox" name="lostpassword" value="1"> Восстановить пароль<br>
+                    </label>                
+                </div>
+            {/if}
+            <button class="green" type="submit">Отправить анкету и получить бонус</button> 
+        </form>
+    {else}
+        <span class="title">Большое спасибо за ответы!</span>    
+        <img src="{static:/}img/layout/accept_icon.png" alt="" class="accept-icon" />
+        <div class="promocode-block">
+            <span class="title">Промо-код ниже позволит Вам получить {$promocode['summ']} рублей на баланс аккаунта БСН. </span>
+            <span class="text">{$promocode['code']}</span>
+            <span class="button internal-link" data-link="/members/pay/balance/">Применить код</span>
+        </div>
+        {if!empty $lostpawword_success}
+            <div class="recomendations">На указанный вами email мы выслали вам инструкцию по восстановлению пароля</div>
+        {/if}
+        {if!empty $registration_success}
+            <div class="recomendations">На указанный вами email мы выслали вам данные вашего аккаунта</div>
+        {/if}
+    
+    {/if}
+</div>

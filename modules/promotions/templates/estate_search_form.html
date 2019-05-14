@@ -1,0 +1,81 @@
+{if!empty $promotions_amounts}
+{php:$count_geo_items = 0;}
+<div id="geodata-picker-wrap">
+    <div class="close-btn"></div>
+    <div class="filter">
+        <span class="districts-picker" data-type="districts">
+            Санкт-Петербург <i>0</i>
+            <input type="hidden" name="districts" id="districts" value="{$form_data['districts']}" data-url="/geodata/form/districts/" />
+        </span>
+        <span class="district-areas-picker" data-type="district-areas">
+            Ленинградская область <i>0</i>
+            <input type="hidden" name="district_areas" id="district-areas" value="{$form_data['district_areas']}" data-url="/geodata/form/district_areas/" />
+        </span>
+        <span class="subway-picker" data-type="subways">
+            Метро <i>0</i>
+            <input type="hidden" name="subways" id="subways" value="{$form_data['subways']}"  data-url="/geodata/form/subways/" />
+        </span>
+    </div>
+    <span id="reset-geo"><i></i><b>Сбросить фильтр</b></span>
+    <div class="items-list">
+        <div class="items"></div>
+    </div>
+    <div class="location-list">
+        <div class="selected-items districts-list transition" data-type="districts">
+            <h5>Районы Санкт-Петербурга</h5>
+            {php:$districts = $form_filter['districts']}
+            {loop $districts,$k,$item}
+                <div class="item{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+                {php:if(!empty($item['on'])) $count_geo_items++;}
+            {/loop $districts}
+        </div>
+        <div class="selected-items district-areas-list transition" data-type="district-areas">
+            <h5>Районы Ленобласти</h5>
+            {php:$district_areas = $form_filter['district_areas']}
+            {loop $district_areas,$k,$item}
+                <div class="item{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+                {php:if(!empty($item['on'])) $count_geo_items++;}
+            {/loop $district_areas}
+            <span {if!empty $district_areas}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="selected-items subways-list transition" data-type="subways">
+            <h5>Станции метро</h5>
+            {php:$subways = $form_filter['subways']}
+            {loop $subways,$k,$item}
+                <div class="item line-{$item['line_id']}{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+                {php:if(!empty($item['on'])) $count_geo_items++;}
+            {/loop $subways}
+            <span {if!empty $subways}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="geodata-button">
+            <button value="Применить">Применить</button>
+        </div>
+    </div>
+</div>
+
+<form class="fast-search" id="fast-search-form" data-id="{$agency_admin_id}" action="/promotions/" method="post">
+    <div class="form-wrap">
+       
+        <div class="row middle-panel">
+            <div class="radio-group estate-type">
+                             
+                <label for="estate-type-build" title="Новостройки" {ifempty $estate_type}class="on"{elseifeq $estate_type,'build'}class="on"{/if}><input type="radio" value="build" name="estate-type" id="estate-type-build" {ifempty $estate_type}checked{elseifeq $estate_type,'build'}checked{/if}>Новостройки</label>
+                <label for="estate-type-live" title="Жилая" {if!empty $estate_type}{ifeq $estate_type,'live'}class="on"{/if}{/if}><input type="radio" value="live" name="estate-type" id="estate-type-live" {if!empty $estate_type}{ifeq $estate_type,'live'}checked{/if}{/if}>Жилая</label>
+                <label for="estate-type-commercial" title="Коммерческая" {if!empty $estate_type}{ifeq $estate_type,'commercial'}class="on"{/if}{/if}><input type="radio" value="commercial" name="estate-type" id="estate-type-commercial" {if!empty $estate_type}{ifeq $estate_type,'commercial'}checked{/if}{/if}>Коммерческая</label>
+                <label for="estate-type-country" title="Загородная" {if!empty $estate_type}{ifeq $estate_type,'country'}class="on"{/if}{/if}><input type="radio" value="country" name="estate-type" id="estate-type-country" {if!empty $estate_type}{ifeq $estate_type,'country'}checked{/if}{/if}>Загородная</label>
+            </div>                
+                
+                
+            <div class="list-picker location{if!empty $form_data['address']} disabled{/if} bbox">
+                <a href="#" class="pick">Местоположение</a>    
+                <i{ifempty $count_geo_items} class="hidden"{/if}>
+                    {if!empty $count_geo_items}{$count_geo_items}{/if}
+                </i>
+            </div>
+                
+           <button title="Показать" class="find-button">Показать</button>
+        </div><!--/.location-list-->
+    </div>
+</form>
+
+{/if}

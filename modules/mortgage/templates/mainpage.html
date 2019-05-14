@@ -1,0 +1,47 @@
+<h1><span>{if!empty $mainpage_h1}{$mainpage_h1}{/if}</span></h1>
+<div class="mortgage-slogans">
+    <div class="inner flex">
+        <div class="svg"><b>Быстро!</b>Без лишних справок и поручителей</div>
+        <div class="svg"><b>Доступно!</b>Для всего населения</div>
+        <div class="svg"><b>Для вас!</b>Оформите ипотеку, не выходя из дома</div>
+    </div>
+    
+</div>
+<div class="central-main-content central-wrapper br3">
+
+    <div class="mortgage-wrapper">
+        <div class="banks-wrapper clearfix"  >
+            <div class="bsn-secure svg">
+                bsn.secure
+                <span class="notes">Ваши данные в безопасности</span>
+            </div>
+            <span class="title">Желаемая кредитная организация</span>
+            <div class="list">
+                <span class="selected br3" data-icon="check_box">
+                    <img class="br3" src="//st.bsn.ru/img/uploads/sm/44/44950156750002e0bffe0aae15509e3b.png" alt="Банк Санкт-Петербург" data-href="/organizations/company/1592_bank_sanktpeterburg/">
+                </span>
+                <span class="text">Мы активно работаем над добавлением новых партнеров</span>
+            </div>
+        </div>
+
+        <form class="two-columns big-form clearfix" action="/mortgage/add/" method="POST">
+            {include /templates/includes/form.simple.html}
+            
+            <span class="clearfix"></span>
+            <span class="required-text">* - обязательные для заполнения поля</span>
+            
+            <div class="terms clearfix">
+                <div class="single-selector">
+                    <input type="hidden" name="subscribe_news" id="subscribe_news" value="2">
+                    <label class="checkbox">
+                        <input type="checkbox" id="checkbox_subscribe_news" class="lf" name="checkbox_subscribe_news" value="2" rel="subscribe_news" data-true-value="1" data-false-value="2">
+                        Я соглашаюсь с <a href="/terms_of_service/" target="_blank" title="Пользовательское соглашение">условиями обработки персональных данных</a>                                            
+                    </label>
+                </div>                   
+                <button class="blue disabled" value="Отправить заявку">Отправить заявку</button>
+            </div>
+        </form>
+        <script>jQuery(document).ready(function(){ jQuery( '.mortgage-wrapper form' ).formSubmit({scroll_to_error: true}); } )</script>
+    </div>
+    
+</div>

@@ -1,0 +1,15 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{$auth_data['name']}{if!empty $auth_data['lastname']} {$auth_data['lastname']}{/if}</b>!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Ваш объект опубликован {if!empty $object_data['status_text']}{$object_data['status_text']}{/if}
+        {ifeq $object_data['status'],1} до {$raising_datetime}{/if}<br/><br/>
+        Ссылка на карточку объекта: <a href="http://{$object_data['link']}/" title="">{$object_data['link']}/</a><br/>
+        Ссылка по поисковую выдачу с объектом: <a href="http://{$env['host']}/{$object_data['estate_type']}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$object_data['type_object']}/" title="">{$env['host']}/{$object_data['estate_type']}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$object_data['type_object']}/</a>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

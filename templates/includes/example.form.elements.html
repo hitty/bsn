@@ -1,0 +1,110 @@
+<form  style="padding: 20px;">
+            <div class="list-selector" id="count_selector">
+                <a href="#" class="pick">20</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="count_selector" value="20">
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="20" class="selected">20</li>
+                    <li data-value="40">40</li>
+                    <li data-value="60">60</li>
+                </ul>
+            </div>     
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <div class="checkbox-group">
+                <label for="rooms_count_1110_build" title="Студия"><input type="checkbox" value="0" name="rooms_count_1110" id="rooms_count_1110_build">С</label>
+                <label for="rooms_count_1111_build" title="1ккв"><input type="checkbox" value="1" name="rooms_count_1111" id="rooms_count_1111_build">1</label>
+                <label for="rooms_count_1112_build" title="2ккв"><input type="checkbox" value="2" name="rooms_count_1112" id="rooms_count_1112_build">2</label>
+                <label for="rooms_count_1113_build" title="3ккв"><input type="checkbox" value="3" name="rooms_count_1113" id="rooms_count_1113_build">3</label>
+                <label for="rooms_count_1114_build" title="Многокомнатная"><input type="checkbox" value="4" name="rooms_count_1114" id="rooms_count_1114_build">4+</label>
+            </div>         
+            <div class="clearfix" style="padding: 10px 0;"></div>
+
+            <div class="single-selector">
+                <input type="hidden" name="subscribe_news" id="subscribe_news" value="2">
+                <label class="checkbox">
+                    <input type="checkbox" id="checkbox_subscribe_news" class="lf" name="checkbox_subscribe_news" value="2" rel="subscribe_news" data-true-value="1" data-false-value="2">
+                    Новости БСН                                            
+                </label>
+            </div>   
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <div class="radio-group estate-type">
+                             
+                <label for="estate-type-build" title="Новостройки" {ifempty $estate_type}class="on"{elseifeq $estate_type,'build'}class="on"{/if}><input type="radio" value="build" name="estate-type" id="estate-type-build" {ifempty $estate_type}checked{elseifeq $estate_type,'build'}checked{/if}>Новостройки</label>
+                <label for="estate-type-live" title="Жилая" {if!empty $estate_type}{ifeq $estate_type,'live'}class="on"{/if}{/if}><input type="radio" value="live" name="estate-type" id="estate-type-live" {if!empty $estate_type}{ifeq $estate_type,'live'}checked{/if}{/if}>Жилая</label>
+                <label for="estate-type-commercial" title="Коммерческая" {if!empty $estate_type}{ifeq $estate_type,'commercial'}class="on"{/if}{/if}><input type="radio" value="commercial" name="estate-type" id="estate-type-commercial" {if!empty $estate_type}{ifeq $estate_type,'commercial'}checked{/if}{/if}>Коммерческая</label>
+                <label for="estate-type-country" title="Загородная" {if!empty $estate_type}{ifeq $estate_type,'country'}class="on"{/if}{/if}><input type="radio" value="country" name="estate-type" id="estate-type-country" {if!empty $estate_type}{ifeq $estate_type,'country'}checked{/if}{/if}>Загородная</label>
+            </div>                
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <div class="single-selector">
+                <input type="radio" name="sex" value="1" {ifeq $data_mapping['sex']['value'],1}checked="checked"{/if} id="sex_1"> 
+                <label class="radio" for="sex_1">Мужчина</label>
+                <input type="radio" name="sex" value="1" checked="checked" id="sex_2"> 
+                <label class="radio" for="sex_2">Мужчина2</label>
+            </div>   
+            <div class="clearfix" style="padding: 10px 0;"></div>
+
+            <input type="text" name="from_value" id="from_value" value="" placeholder="Контрол - инпут">   
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <textarea placeholder="Контрол - textarea"></textarea>
+        
+        </form>
+        
+        <div class="clearfix" style="padding: 40px 0;"></div>
+        <form class="form-blue" style="background: #d2e7fa; padding: 20px;">
+            <div class="list-selector" id="count_selector">
+                <a href="#" class="pick">20</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="count_selector" value="20">
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="20" class="selected">20</li>
+                    <li data-value="40">40</li>
+                    <li data-value="60">60</li>
+                </ul>
+            </div>     
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <div class="checkbox-group">
+                <label for="rooms_count_2220_build" title="Студия"><input type="checkbox" value="0" name="rooms_count_2220" id="rooms_count_2220_build">С</label>
+                <label for="rooms_count_2221_build" title="1ккв"><input type="checkbox" value="1" name="rooms_count_2221" id="rooms_count_2221_build">1</label>
+                <label for="rooms_count_2222_build" title="2ккв"><input type="checkbox" value="2" name="rooms_count_2222" id="rooms_count_2222_build">2</label>
+                <label for="rooms_count_2223_build" title="3ккв"><input type="checkbox" value="3" name="rooms_count_2223" id="rooms_count_2223_build">3</label>
+                <label for="rooms_count_2224_build" title="Многокомнатная"><input type="checkbox" value="4" name="rooms_count_2224" id="rooms_count_2224_build">4+</label>
+            </div>         
+            <div class="clearfix" style="padding: 10px 0;"></div>
+
+            <div class="single-selector">
+                <input type="hidden" name="subscribe_news" id="subscribe_news" value="2">
+                <label class="selector-title   checkbox">
+                    <input type="checkbox" id="checkbox_subscribe_news" class="lf" name="checkbox_subscribe_news" value="1" checked="checked" rel="subscribe_news" data-true-value="1" data-false-value="2">
+                    Новости БСН                                            
+                </label>
+            </div>   
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <div class="radio-group estate-type">
+                             
+                <label for="estate-type-build1" title="Новостройки" {ifempty $estate_type}class="on"{elseifeq $estate_type,'build'}class="on"{/if}><input type="radio" value="build" name="estate-type" id="estate-type-build1" {ifempty $estate_type}checked{elseifeq $estate_type,'build'}checked{/if}>Новостройки</label>
+                <label for="estate-type-live1" title="Жилая" {if!empty $estate_type}{ifeq $estate_type,'live'}class="on"{/if}{/if}><input type="radio" value="live" name="estate-type" id="estate-type-live1" {if!empty $estate_type}{ifeq $estate_type,'live'}checked{/if}{/if}>Жилая</label>
+                <label for="estate-type-commercial1" title="Коммерческая" {if!empty $estate_type}{ifeq $estate_type,'commercial'}class="on"{/if}{/if}><input type="radio" value="commercial" name="estate-type" id="estate-type-commercial1" {if!empty $estate_type}{ifeq $estate_type,'commercial'}checked{/if}{/if}>Коммерческая</label>
+                <label for="estate-type-country1" title="Загородная" {if!empty $estate_type}{ifeq $estate_type,'country'}class="on"{/if}{/if}><input type="radio" value="country" name="estate-type" id="estate-type-country1" {if!empty $estate_type}{ifeq $estate_type,'country'}checked{/if}{/if}>Загородная</label>
+            </div>                
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <div class="single-selector">
+                <input type="radio" name="sex1" value="1" {ifeq $data_mapping['sex']['value'],1}checked="checked"{/if} id="sex1_1"> 
+                <label class="radio" for="sex1_1">Мужчина</label>
+                <input type="radio" name="sex1" value="2" {ifeq $data_mapping['sex']['value'],1}checked="checked"{/if} id="sex1_2"> 
+                <label class="radio" for="sex1_2">Женщина</label>
+            </div>   
+            <div class="clearfix" style="padding: 10px 0;"></div>
+
+            <input type="text" name="from_value" id="from_value" value="" placeholder="Контрол - инпут">   
+            <div class="clearfix" style="padding: 10px 0;"></div>
+            
+            <textarea placeholder="Контрол - textarea"></textarea>
+        
+        </form>   

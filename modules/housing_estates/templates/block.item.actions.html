@@ -1,0 +1,34 @@
+<div class="object-stats-box bbox">
+    <span class="object-id bbox">ID: {$id}</span>       
+    
+    
+    <!--div class="stat-wrap">
+        <span class="stat-title">
+            <div class="stat-box">
+                <span class="arrow"></span>
+                <p>Показов в поиске: <span class="value">{$item['search_count']}</span></p>
+                <p>Просмотров всего: <span class="value">{$item['views_count']}</span></p>
+            </div>       
+        </span>
+    </div-->
+    {ifeq $item['in_favorites'],1}
+        <span data-id="{$id}" class="star in-favorites" data-link="/favorites/?type=zhiloy_kompleks" title="В избранном">
+            <span class="star-label internal-link"></span>
+        </span>
+    {else}
+        <span title="Добавить в избранное" data-id="{$id}" data-type="zhiloy_kompleks" class="star" data-link="/favorites/?type=zhiloy_kompleks"><span class="star-label dashed"></span></span>
+    {/if}
+    {ifempty $print}
+        {ifeq $item['advanced'],1}
+            {if!empty $item['site']}
+            {php:$site = strstr($item['site'], 'http://')=='' ? 'http://'.$item['site'] : $item['site'];}
+                <span>
+                    <a href="{$site}" class="site"  title="{$item['title']}" target="_blank">Сайт {ifeq $estate_type,'zhiloy_kompleks'}ЖК{elseifeq $estate_type,'business_centers'}БЦ{else}КП{/if}</a>
+                </span>
+            {/if}
+        {/if}
+    {/if}
+    
+    {block abuses/block/?estate_type=5&id_object={$id}&id_user={$item['id_user']}}
+    
+</div>

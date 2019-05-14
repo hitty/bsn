@@ -1,0 +1,17 @@
+<div class="social-authorization">
+    {ifempty $social_only_buttons}
+        <h3>{ifeq $auth_type,'registration'}Регистрация{else}Авторизация{/if} через соцсети:</h3>
+    {/if}
+    {php: $vk_id = Config::Get('social/vk/app_id');}
+    {php: $fb_id = Config::Get('social/fb/app_id');}
+    {php: $ok_id = Config::Get('social/ok/app_id');}
+    {if!empty $social_reverse_buttons}
+        <span onclick="popupNewWindow('//www.odnoklassniki.ru/oauth/authorize?client_id={$ok_id}&amp;redirect_uri={Host::$root_url}%2Fauthorization%2Foklogin%2F&amp;response_type=code', 'Авторизоваться через vk.com', '640', '450');" class="ok br3" title="Авторизоваться через Одноклассники">Авторизоваться через Одноклассники</span>
+        <span onclick="popupNewWindow('https://www.facebook.com/dialog/oauth?client_id={$fb_id}&amp;redirect_uri={Host::$root_url}%2Fauthorization%2Ffblogin%2F&amp;response_type=code', 'Авторизоваться через facebbok.com', '640', '450');" class="fb br3" title="Авторизоваться через Facebook">Авторизоваться через Facebook</span>
+        <span onclick="popupNewWindow('https://oauth.vk.com/authorize?client_id={$vk_id}&amp;redirect_uri={Host::$root_url}%2Fauthorization%2Fvklogin%2F&amp;response_type=code', 'Авторизоваться через vk.com', '640', '530');" class="vk br3" title="Авторизоваться через Вконтакте">Авторизоваться через Вконтакте</span>
+    {else}
+        <span onclick="popupNewWindow('https://oauth.vk.com/authorize?client_id={$vk_id}&amp;redirect_uri={Host::$root_url}%2Fauthorization%2Fvklogin%2F&amp;response_type=code', 'Авторизоваться через vk.com', '640', '530');" class="vk br3" title="Авторизоваться через Вконтакте">Авторизоваться через Вконтакте</span>
+        <span onclick="popupNewWindow('https://www.facebook.com/dialog/oauth?client_id={$fb_id}&amp;redirect_uri={Host::$root_url}%2Fauthorization%2Ffblogin%2F&amp;response_type=code', 'Авторизоваться через facebbok.com', '640', '450');" class="fb br3" title="Авторизоваться через Facebook">Авторизоваться через Facebook</span>
+        <span onclick="popupNewWindow('//www.odnoklassniki.ru/oauth/authorize?client_id={$ok_id}&amp;redirect_uri={Host::$root_url}%2Fauthorization%2Foklogin%2F&amp;response_type=code', 'Авторизоваться через vk.com', '640', '450');" class="ok br3" title="Авторизоваться через Одноклассники">Авторизоваться через Одноклассники</span>
+    {/if}
+</div>

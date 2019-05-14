@@ -1,0 +1,41 @@
+<div class="photokonkurs-wrap">
+    {if!empty $h1}<h1>{$h1}</h1>{/if}
+    {if!empty $list}
+        {php:$category = "";}
+        {php:$pos = 1;}
+        <div class="photokonkurs-list">
+            {loop $list,$k,$item}
+                {if!eq $category, $item['category_title']}
+                    {if!eq $category,''}</div>{/if}
+                    <a name="cat{$pos}" id="cat{$pos}"></a>
+                    <h3 class="btitle" style="display: none;">{$item['category_title']} {if!eq $item['can_vote'],1} (проголосовано){/if}</h3>
+                    <div class="expanded-list-items {ifeq $item['can_vote'],1}vote-for{/if}">
+                    {php:$category = $item['category_title'];}
+                    {php:$pos++;}
+                {/if}
+                    <div class="vote-item {ifempty $item['can_vote']}{ifeq $item['vote_id_member'],$item['id']}voted{/if}{/if}">
+                        <span class="vote-title">№{$item['id']}. <strong>{$item['title']}.</strong> {$item['text']}</span>
+                        <img src="{static:/}{$img_folder}/sm/{$item['subfolder']}/{$item['photo']}" alt="{quoted:$item['title']}">
+                        <span class="wrapper-amount">Голосов:<span class="konkurs-item-amount">{$item['amount']}</span></span>
+                        <p id="{$item['id']}" name="{$konkurs_url}"  onclick="Share.vkontakte('https://www.bsn.ru/konkurs/veselaya_semya_v_poiskah_zilya/','Фотоконкурс «Веселая семья в поисках жилья» #бснпомогает','{static:/}/{$img_folder}/sm/{$item['subfolder']}/{$item['photo']}','Друзья, пожалуйста, проголосуйте за участника под №{$item['id']}')">Голосовать</p>
+                    </div>
+            {/loop $list}
+            </div>
+        </div>
+    {/if} 
+    {if!empty $konkurs_status}
+        {if!empty $info['text_begin_top']}<div class="konkurs-clauses">{$info['text_begin_top']}</div>{/if}
+    {/if}
+    
+    
+
+    <h2>{$h2}</h2>
+    {if!empty $konkurs_status}
+        {if!empty $info['text_begin_bottom']}<div class="konkurs-clauses">{$info['text_begin_bottom']}</div>{/if}
+    {else}
+        <div class="konkurs-clauses">{$info['text_end']}</div>
+    {/if}
+    <script>jQuery(document).ready(function(){ getPendingContent(['#social-buttons-content'], ['/banners/social_buttons/']); });</script>
+    <div id="social-buttons-content"></div>
+</div>
+

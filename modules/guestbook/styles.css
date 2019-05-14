@@ -1,0 +1,63 @@
+.addguestbook_form form{
+    display: block;
+    background: #EEEEEE;
+    border: 1px solid #eee;
+    padding: 10px;
+    clear: both;
+    overflow: hidden;
+    margin-bottom: 20px;
+    width:95%;
+}
+.addguestbook_form form textarea{
+    margin-top: 5px;
+    height: 50px;
+    width:100%;
+}
+.addguestbook_form form input[type="text"], .addguestbook_form form select{
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 0;
+    width:98%;
+}
+.addguestbook_form form select{
+    height:26px;
+}
+.addguestbook_form form button{
+    margin:10px 0px 0px 0px ;
+}
+.error{
+    border-color: #DD0000;
+}
+.guestbookheader{
+    font-weight:bold;
+}
+.guestbookdate{
+    font-size: 10px;
+    font-weight: normal;
+    color: #ADADAC;
+}
+.guestbookrecord{
+    clear: left;
+    text-align: left;
+}
+tr.admin_not_published{
+    background:rgb(252, 215, 215);
+}
+.guestbook-list{
+    border-bottom: 1px dotted #ccc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden; 
+}
+.guestbook-list:last-child{
+    border-bottom: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden; 
+}
+.guestbook-list:nth-child(even){
+    background: #EEEEEE;
+}
+.submit_succ{
+    color:#009900;
+}

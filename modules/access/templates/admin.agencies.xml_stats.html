@@ -1,0 +1,84 @@
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_status = document.getElementById('f_status').value;
+            var __filter_manager = document.getElementById('f_manager').value;
+            var __url = '{root:/admin/access/agencies/xml_stats/}';
+            var __get = new Array();
+            if(__filter_status>0) __get.push('f_status='+__filter_status);
+            if(__filter_manager>0) __get.push('f_manager='+__filter_manager);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <h1 class="pageTitle">Статистика обработки XML</h1>
+    <div class="filter_line">
+        <label>
+            Статус :
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                <option value="3"{ifeq $get_array['f_status'],3} selected="selected"{/if}>не началась</option>
+                <option value="1"{ifeq $get_array['f_status'],1} selected="selected"{/if}>в процессе</option>
+                <option value="2"{ifeq $get_array['f_status'],2} selected="selected"{/if}>завершена</option>
+            </select>
+        </label>    
+        <label>
+            Менеджер :
+            <select id="f_manager" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                {loop $managers,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_manager'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $managers}
+            </select>
+        </label>    
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="10%">
+                <col class="col2" width="2%">
+                <col class="col2" width="2%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="1%">
+                <col class="col2" width="20%">
+                <col class="col2" width="1%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Компания, xml</th>
+                    <th>Менеджер</th>
+                    <th>Время начала выгрузки</th>
+                    <th>Статус</th>
+                    <th>Время обработки</th>
+                    <th>Кол-во обработанных/загруженных</th>
+                    <th>Лог</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td>
+                            {$item['title']} (id: {$item['id']})<br />
+                            <a class="max-width100" href="{$item['xml_link']}" title="{$item['xml_link']}" target="_blank">{$item['xml_link']}</a>
+                        </td>
+                        <td>{$item['manager_name']}</td>
+                        <td>{$item['xml_time']}</td>
+                        <td>
+                            {ifempty $item['status']}не началась
+                            {elseifeq $item['status'],2}<span style="color: green;">завершена</span>
+                            {elseifeq $item['status'],1}<span style="color: red;">в процессе</span>
+                            {/if}
+                        </td>
+                        <td>{ifeq $item['status'],2}{$item['datetime_start']}-{$item['datetime_end']}{elseifeq $item['status'],1}{$item['datetime_start']}{else}-{/if}</td>
+                        <td>{if!empty $item['status']}Всего в файле: {$item['total_amount']}<br />{ifeq $item['status'],2}Выгружено: {$item['total_added']}{elseifeq $item['status'],1}Выгружено на данный момент: {$item['current_amount']}{/if}{/if}</td>
+                        <td>{if!empty $item['status']}<span title="{ifeq $item['status'],2}{stripall:$item['full_log']}{elseifeq $item['status'],1}{stripall:$item['log']}{/if}" style="width:20px; cursor: help; float: left; display: block;">Лог</span>{/if}</td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,19 @@
+<div class="central-main-content br3 clearfix col-3"> 
+    
+    {if!empty $search_description}
+        <div class="info-box">
+            <strong>Вы искали:</strong> {$search_description}
+        </div>
+    {/if}
+
+    <div id="search-results">
+        {php:$advert_in_estate_list=true;}
+        {include /modules/business_centers/templates/list.block.html}
+    </div>
+</div> 
+<section class="credit-tgb-wrapper clearfix">
+    {block tgb/estate_list/{$estate_type}/2}
+    <div class="credit-wrap col-2 br3">
+        {include /modules/credit_calculator/templates/block.html}
+    </div>
+</section>

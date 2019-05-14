@@ -1,0 +1,76 @@
+{if!empty $mainpage_h1}<h1>{$mainpage_h1}</h1>{/if}
+<div class="categories-links flex">
+                                                    
+    <a href="/organizations/?activity=3" title="Застройщики">Застройщики</a>
+    <a href="/mortgage/search/" title="Ипотечный калькулятор">Ипотечный калькулятор</a>
+    <a href="/apartments/" title="Апартаменты">Апартаменты</a>
+    <a href="/build/sell/?contractor=1" title="Квартиры в подряде">Квартиры в подряде</a>
+    <a href="/build/sell/?asignment=1" class="new" title="Квартиры по переуступке">Квартиры по переуступке</a>
+    
+</div>
+
+<section> 
+    {php:$form_shadow = true;}
+    {include /templates/includes/estate_search_form.html}
+</section>
+
+<section id="last-housing-estates-data" class="estate-highlighted-list clearfix">
+    <h2 class="inner-wrapper">Жилые комплексы</h2>
+    {block zhiloy_kompleks/block/mainpage/8}
+</section>
+
+
+
+<section>
+    <div class="col-2 br3 comments-list last-list-wrapper br3 bbox">
+        <h2 class="bg-cover br3"><span>Последние отзывы о ЖК</span></h2>
+        <div class="list"> 
+            {block comments/block/housing_estates}
+        </div>
+    </div>
+    
+    <div class="col-2 br3 organizations-list last-list-wrapper br3 ">
+        <h2 class="bg-cover br3">
+            <span>
+                Застройщики<br />
+                <a class="" href="/organizations/zastr/">Все застройщики</a>
+            </span>
+            
+        </h2>
+
+        <div class="list">
+            {block organizations/mainpage/activitiy/2}
+        </div>
+        
+    </div>
+</section>    
+
+<section class="tgb-list in-row" >
+    {block tgb/top/inrow}
+</section>
+
+<section>
+    <h2 class="inner-wrapper">Статьи и аналитика</h2>
+    <div class="clearfix content-wrapper">
+        {block articles/block/last/liveestate}
+    </div> <!--/#content-last-data-->
+    
+</section> 
+
+<section class="credit-tgb-wrapper clearfix">
+    {block tgb/estate_list/{$estate_type}/2}
+    <div class="credit-wrap col-2 br3">
+        {include /modules/credit_calculator/templates/block.html}
+        
+    </div>
+    {if!empty $right_banner}
+        <div class="banner-right col-1 br3">
+            <div id="right-top-banner" class="br3" data-url="/ab/right/top/" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Баннер']); }catch(e){}"></div>
+        </div>
+    {else}
+        {block tgb/estate_list/{$estate_type}}
+    {/if}
+
+</section>
+
+

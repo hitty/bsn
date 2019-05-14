@@ -1,0 +1,71 @@
+    {loop $data_mapping,$key,$field}
+        {ifempty $field['nodisplay']}
+            {ifeq $field['fieldtype'];'title_row'}<span class="clearfix"></span><span class="title">{$field['tip']}</span>
+            {elseifeq $field['fieldtype'];'hidden'}
+                <input type="hidden" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+            {elseifin $field['fieldtype'],'text','email','phone'}
+                <div class="row {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    {php:$value=!empty($field['value'])&&(Convert::ToInt($field['value'])>0||($field['type']==TYPE_STRING&&$field['value']!=''))?$field['value']:''}
+                    <input type="{$field['fieldtype']}" id="{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {ifempty $field['allow_empty']} required="required"{/if} name="{$key}" value="{quoted:$value}" placeholder="{$field['label']}{ifempty $field['allow_empty']}*{/if}">
+                </div>
+            {elseifeq $field['fieldtype'];'checkbox'}
+                <div class="row single-selector {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    <input type="hidden" name="{$key}" id="{$key}" value="{$field['value']}" />
+                    <label class="checkbox">
+                        <input type="checkbox" id="checkbox_{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" name="checkbox_{$key}" value="{ifeq $field['value'],$field['true_value']}1{else}2{/if}" {ifeq $field['value'],$field['true_value']}checked="checked"{/if} rel="{$key}" data-true-value="{$field['true_value']}" data-false-value="{$field['false_value']}">
+                        {$field['label']}                                           
+                    </label>
+                </div>   
+            {elseifeq $field['fieldtype'];'select'}
+                {php:$selectloop=$field['values']}
+                <div class="row list-selector {$key}"  >
+                    
+                    <a href="#" class="pick">{$selectloop[0]}</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" id="{$key}" name="{$key}" value="{$field['value']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="">{$field['label']}</li>
+                        {loop $selectloop,$rlk,$rlt}
+                            <li data-value="{$rlk}">{$rlt}</li>
+                        {/loop $selectloop}
+                    </ul>
+                </div>
+            {elseifeq $field['fieldtype'];'radio'}
+                {php:$radioloop=$field['values']}
+                <div class="row single-selector">
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if} {if!empty $field['error']}error{/if}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+                    {loop $radioloop,$rlk,$rlt}
+                        <label style="white-space: nowrap;"><input type="radio" name="{$key}" value="{$rlk}"{ifeq $rlk,$field['value']} checked="checked"{/if}> {$rlt} </label> 
+                    {/loop $radioloop}
+                </div>
+            {elseifeq $field['fieldtype'];'checkbox_set'}
+                <div class="row single-selector">
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}">
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+                    <div class="checkbox-set {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        <input type="hidden" name="{$key}" id="{$key}" value="{if!empty $field['value']}{$field['value']}{/if}" />
+                        {php:$selectloop = $field['values']}
+                        {loop $selectloop,$rlk,$rlt}
+                            <label class="checkbox">
+                                {if!empty $field['value']}
+                                    {do:$set_up=$field['value']%(pow(2,$rlk))>=pow(2,$rlk-1)}
+                                {else}
+                                    {do: $set_up = false}
+                                {/if}
+                                <input class="radio" type="checkbox" name="{$key}_set[{$rlk}]" value="1"{if $set_up}checked="checked"{/if} /> {$rlt}<br />
+                            </label>
+                        {/loop $selectloop}
+                    </div>                                         
+                </div>                                         
+            {/if}
+        {/if}
+    {/loop $data_mapping} 

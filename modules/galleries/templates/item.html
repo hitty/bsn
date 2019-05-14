@@ -1,0 +1,22 @@
+<article class="central-wrapper">
+    <h1>{$item['title']}</h1>
+    <div class="bigtext">
+         <p class="smallnotes clearfix">{$item['normal_date']}<span class="views_count" data-icon="visibility">{php:echo $item['views_count']}</span></p>
+        {$item['content']}
+
+        {ifempty $photos}
+            <script>jQuery(document).ready(function(){ getPendingContent(['#social-buttons-content'], ['/banners/social_buttons/']); });</script>
+            <div id="social-buttons-content"></div>    
+        {/if}
+
+    </div>
+    {if!empty $photos}
+        <div class="gallery-left-box">
+            {php:$gallery_type='big_with_thumbs';}
+            {php:$hash = substr(md5(mt_rand(0,10000)), 0, 5);}  {include /templates/gallery.html}
+            <script>jQuery(document).ready(function(){ getPendingContent(['#social-buttons-content'], ['/banners/social_buttons/']); });</script>
+            <div id="social-buttons-content"></div>    
+        </div>
+    {/if}
+</article> 
+{block tgb/block/{$tgb_type}}   

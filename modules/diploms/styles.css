@@ -1,0 +1,18 @@
+.year-block{
+    width:100%;
+    display:inline-block;
+    margin-bottom: 12px;
+}
+.gallery-box .thumbs-list div.year-block a {
+    width: 100px;
+    height: 150px;
+    display:inline-block;
+    margin: 6px;
+}
+.year-title{
+    width:100% !important;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1e88e5;
+    border-bottom: 2px solid rgb(53, 135, 200);
+}

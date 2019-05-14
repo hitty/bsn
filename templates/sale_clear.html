@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="index,follow">
+{if!empty $metadata['title']}<title>{$metadata['title']}</title>{/if}
+{if!empty $metadata['description']}<meta name="description" content="{quoted:$metadata['description']}">{/if}
+{if!empty $metadata['keywords']}<meta name="keywords" content="{quoted:$metadata['keywords']}">{/if}
+{if!empty $css_id}<link rel="stylesheet" href="/css/{$css_id}.css">{/if}
+<link rel="stylesheet" href="/modules/sale/clear.css" media="all">
+{if!empty $js_id}<script src="/js/{$js_id}.js" charset="utf-8"></script>{/if}
+<script src="/js/jquery.min.js" charset="utf-8"></script>
+<script src="/modules/sale/clear.js" charset="utf-8"></script>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600italic,600,700,700italic,800,800italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="content-print">
+    {$content}              
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{if!empty $breadcrumbs}
+    {do:$bcsize=sizeof($breadcrumbs)} 
+        
+        <div class="social-breadcrumbs">
+        {ifgt $bcsize,0}
+            <div class="breadcrumbs clearfix" itemprop="breadcrumb">
+                    {do:$path=array()}
+
+                    {loop $breadcrumbs,$bck,$crumb}
+                        {do:array_push($path,$crumb['url'])}
+                        {do:$url=implode('/',$path)}
+                        {if!empty $bcsize}
+                            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <a href="/{$url}/" title="{$crumb['title']}" itemprop="url"><span itemprop="title">{$crumb['title']}</span></a>
+                            </span>
+                            <span class="rightarrow">→</span>
+                        {/if}
+                    {/loop $breadcrumbs}
+            </div>
+        {/if}
+        </div>
+    
+{/if}

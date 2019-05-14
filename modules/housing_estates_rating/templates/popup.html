@@ -1,0 +1,95 @@
+<div class="rating-vote-wrapper">
+    <form action="/zhiloy_kompleks/votes/popup/{$id}/add/" method="POST" class="housing-estate-votings">
+        <span class="title">Голосование за ЖК «{if!empty $housing_estate_title}{$housing_estate_title}{elseif!empty $item['title']}{$item['title']}{/if}»</span>
+        <div class="row clearfix" data-type="transport">
+            <span class="title">Транспортная доступность</span>
+            <div class="stars">
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+            </div>
+            <input type="hidden" value="" id="transport"  name="transport"/>
+        </div>
+        
+        <div class="row clearfix " data-type="infrastructure">
+            <span class="title">Инфраструктура</span>
+            <div class="stars">
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+            </div>
+            <input type="hidden" value="" id="infrastructure"  name="infrastructure"/>
+        </div>
+        
+        <div class="row clearfix " data-type="safety">
+            <span class="title">Надежность</span>
+            <div class="stars">
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+            </div>
+            <input type="hidden" value="" id="safety"  name="safety"/>
+        </div>
+        
+        <div class="row clearfix " data-type="ecology">
+            <span class="title">Экологичность</span>
+            <div class="stars">
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+            </div>
+            <input type="hidden" value="" id="ecology"  name="ecology"/>
+        </div>
+        
+        <div class="row clearfix " data-type="quality">
+            <span class="title">Соотношение цена/качество</span>
+            <div class="stars">
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+                <span data-icon="star_border"></span>
+            </div>
+            <input type="hidden" value="" id="quality"  name="quality"/>
+        </div>
+      
+        <div class="clearfix">
+            <span class="button disabled">Голосовать за ЖК</span>
+        </div>
+        
+        <input type="hidden" value="{$id}" id="object-id"  name="object_id"/>
+    </form>
+</div>   

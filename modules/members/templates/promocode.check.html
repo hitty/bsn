@@ -1,0 +1,20 @@
+{ifempty $item['id']}
+    <div class="error">Неверный промо-код</div>
+{elseif!empty $item['id_user']}
+    <div class="error">Промо-код уже использован</div>
+{else}
+    {php:$min_summ = !empty($item['min_summ']) && $item['type'] == 2 && $item['min_summ']>$summ;}
+    {if!empty $min_summ}
+        <div class="error">Минимальный платеж {suffix:$item['min_summ'],'рубл','ь','я','ей'}</div>
+    {else}
+        <div class="success">
+            <b>Ваш код принят</b>
+            
+            {ifeq $item['type'],1}
+                Вам будет начислено {suffix:$item['summ'],'рубл','ь','я','ей'}
+            {else}
+                {if!empty $item['min_summ']} При оплате от {suffix:$item['min_summ'],'рубл','ь','я','ей'}, в{else}В{/if}ам будет начислено {$item['percent']}% от суммы пополнения
+            {/if}
+        </div>
+    {/if}
+{/if}

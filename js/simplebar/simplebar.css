@@ -1,0 +1,97 @@
+/*!
+ * 
+ *             SimpleBar.js - v2.4.3
+ *             Scrollbars, simpler.
+ *             https://grsmto.github.io/simplebar/
+ *             
+ *             Made by Adrien Grsmto from a fork by Jonathan Nicol
+ *             Under MIT License
+ *         
+ */
+[data-simplebar] {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch
+    
+}
+
+[data-simplebar=init] {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.simplebar-scroll-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-width: 100%;
+    box-sizing: content-box;
+    display: block!important;
+}
+
+.simplebar-content {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    min-height: 100%;
+    display: block!important;
+    margin: 0!important;
+}
+
+.simplebar-track {
+    z-index: 1;
+    position: absolute!important;
+    right: 0;
+    bottom: 0;
+    width: 9px;
+    background: none;   
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    -ms-border-radius: 9px;
+    -o-border-radius: 9px;
+    border-radius: 9px;
+    margin: 0!important;
+}
+
+.simplebar-scrollbar {
+    position: absolute!important;
+    right: 2px;
+    border-radius: 5px;
+    min-height: 10px;
+    width: 5px;
+    opacity: 0;
+    -webkit-transition: opacity .2s linear;
+    transition: opacity .2s linear;
+    background: #818181;
+    background-clip: padding-box;
+}
+
+.simplebar-track:hover .simplebar-scrollbar {
+    opacity: 0;
+    -webkit-transition: opacity 0 linear;
+    transition: opacity 0 linear
+}
+
+.simplebar-track .simplebar-scrollbar.visible {
+    opacity: 1
+}
+
+.simplebar-track.horizontal {
+    left: 0;
+    width: auto;
+    height: 11px
+}
+
+.simplebar-track.vertical {
+    top: 0
+}
+
+.horizontal.simplebar-track .simplebar-scrollbar {
+    right: auto;
+    top: 2px;
+    height: 7px;
+    min-height: 0;
+    min-width: 10px;
+    width: auto
+}

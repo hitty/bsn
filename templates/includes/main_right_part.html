@@ -1,0 +1,11 @@
+
+<div id="right-column" class="col-1">
+    {if!empty $right_banner}
+        <div class="fixed-column" id="right-top-banner" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Баннер']); }catch(e){}"></div>
+    {else}
+        {block tgb/estate_list/{if!empty $estate_type}{$estate_type}{else}build{/if}/9}
+    {/if}
+</div>
+
+
+

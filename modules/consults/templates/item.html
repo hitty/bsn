@@ -1,0 +1,51 @@
+<script src="/admin/js/ckeditor/ckeditor.js" charset="utf-8"></script>
+<div class="consultant-item zoomed"  itemscope itemtype="http://schema.org/Question">
+    {ifempty $print}
+        <div class="object-share">
+            {if!empty $previous['id']}<a href="/service/consultant/{$item['category_code']}/{$previous['id']}/" class="previous-object" title="Предыдущий объект">Предыдущий вопрос</a>{/if}
+            {if!empty $next['id']}<a href="/service/consultant/{$item['category_code']}/{$next['id']}/" class="next-object">Следующий вопрос</a>{/if}
+            {include /modules/banners/templates/block.share.html}
+        </div>
+    {/if}
+    <div class="question-box{if!empty $my_question} my-question{/if}" data-id="{$item['id']}">
+        {if!empty $h1}<h1>{$h1}</h1>{/if}
+        <div class="info-line">
+            <span class="info-item-author">{$item['question_datetime_formatted']}, {$item['name']}</span>
+            <span class="info-answers {if!empty $item['answers_amount']}blue{/if}">{ifempty $item['answers_amount']}<span>0 ответов</span>{else}<span>{suffix:$item['answers_amount'],'ответ','','а','ов'}</span>{/if}</span>
+            <span class="info-rating">{if!empty $item['rating']}}{$item['rating']}{/if}</span>
+        </div>
+        <div class="question-body" itemprop="name">{$item['question']}</div>
+    </div>
+    <span id="consults-button" class="button green public in-question" data-url="/service/consultant/popup/">Задать вопрос</span>
+    <div class="sorting-box">
+        <div class="answers-amount">{ifempty $item['answers_amount']}0 ответов{else}{suffix:$item['answers_amount'],'ответ','','а','ов'}{/if}</div>
+        {if!empty $item['answers_amount']}
+            <div class="sorting">
+                Сортировать: 
+                <span class="sort{ifeq $sortby,1} down{elseifeq $sortby,2} up{elseifempty $sortby} up{/if}" data-up-value="2" data-down-value="1">По дате</span>
+                <span class="sort{ifeq $sortby,3} down{elseifeq $sortby,4} up{/if}" data-up-value="4" data-down-value="3">По популярности</span>
+            </div>
+        {/if}
+    </div>
+    <div class="answers-list-box">
+        
+        {block service/consultant/block/form/{$item['category_code']}/{$item['id']}}
+    </div>
+    {if!empty $answer_form_info}
+        <div class="answer-form">
+            {if!empty $answer_form_info['user_photo']}
+                <img src="/{$answer_form_info['user_photo_folder']}/{$answer_form_info['user_photo']}" alt="{quoted:$answer_form_info['title']}" />
+            {else}
+                <span class="user-avatar-color medium male{ifeq $answer_form_info['sex'],2} female{/if}" style="background-color: {$answer_form_info['avatar_color']};">
+                    {ifeq $answer_form_info['sex'],2}
+                        <img src="{static:/}img/layout/user-ava-image-female-med.png" class="img-male" alt="" />
+                    {else}
+                        <img src="{static:/}img/layout/user-ava-image-male-med.png" class="img-female" alt="" />
+                    {/if}
+                </span>
+            {/if}
+            <textarea class="CKEditVerySmall" id="answer_text" name="answer_text" placeholder="Ваш ответ">{$form_vars['text']}</textarea>
+            <button class="medium" value="Отправить">Отправить</button>
+        </div>
+    {/if}
+</div>

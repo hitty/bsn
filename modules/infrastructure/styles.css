@@ -1,0 +1,271 @@
+#infrastructure {
+    position: absolute;
+    right: 20px;
+    z-index: 200;
+    background-color: rgba(255,255,255,0.9);
+    top: 65px;
+    padding: 20px 40px;
+    width: 140px;
+    bottom: 20px;
+}
+
+#infrastructure.active + i{
+    display: block;
+}
+     
+#infrastructure ul{
+    
+}
+#infrastructure li {
+    position: relative;
+    text-align: center;
+    display: block;
+    width: 140px;
+    cursor: pointer;
+    cursor: pointer;
+    float: left;
+    text-align: left;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 25px;
+}
+.payed-format #infrastructure li {
+    width: 135px;
+}
+#infrastructure li.active,
+#infrastructure li:hover{
+    color:#1e88e5;
+}
+#infrastructure li:before{
+    margin: 0;
+    top: 7px;
+    left: -3px;
+    font-size: 22px;
+    position: absolute;
+    z-index: 10;
+    content:"check_box_outline_blank";
+}
+#infrastructure li.active:before{
+    content:"check_box";
+}
+#infrastructure li.active:before{
+    opacity: 1;
+
+}
+#infrastructure li.nearest{
+    margin-right: 180px;
+}
+.card-map-wrapper .glyphicon:after,
+#infrastructure li:after {
+    font-family: 'Material Icons';
+    display: block;
+    vertical-align: middle;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+    position: absolute;
+    left: 9px;
+    font-size: 18px;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    line-height: 24px;
+    top: 12px;
+    border-radius: 24px;
+    text-align: center;
+    color: #fff;
+}
+#infrastructure li:after{
+    display: none;
+}
+.card-map-wrapper .glyphicon-shopping-cart:after,
+#infrastructure .shops:after {
+    content: "local_grocery_store";
+    background: #FF7004;
+}
+
+.card-map-wrapper .glyphicon-pencil:after,
+#infrastructure .study:after {
+    background: #D020D0;
+    content: "school";
+}
+
+.card-map-wrapper .glyphicon-deciduous:after,
+#infrastructure .parks:after {
+    background: #009100;
+    content: "local_florist";
+}
+
+.card-map-wrapper .glyphicon-alert:after,
+#infrastructure .sport:after {
+    background: #EECC00;
+    content: "fitness_center";
+}
+.card-map-wrapper .glyphicon-flag:after,
+#infrastructure .cafe:after {
+    background: #6817CE;
+    content: "restaurant";
+}
+.card-map-wrapper .glyphicon-bullhorn:after,
+#infrastructure .medicine:after {
+    background: #FF1717;
+    content: "add";
+}
+.card-map-wrapper .glyphicon-home:after,
+#infrastructure .museums:after {
+    background: #00C9B0;
+    content: "account_balance";
+}
+.card-map-wrapper .glyphicon-film:after,
+#infrastructure .theater:after {
+    background: #007BE3;
+    content: "local_movies";
+}
+
+#infrastructure .nearest:after {
+    content: "place";
+    color:#000;
+}
+#infrastructure .all:after {
+    content: "list";
+    color:#000;
+}
+#infrastructure .title{
+    font-size: 18px;
+    margin: 0 0 20px 0;
+    color: #1e88e5;
+    display: block;    
+}
+.card-map-wrapper .glyphicon:after{
+    left: 0;
+    top: 0;
+    position: absolute;    
+    -webkit-box-shadow: 0px 4px 5px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0px 4px 5px rgba(0, 0, 0, .2);
+    -ms-box-shadow: 0px 4px 5px rgba(0, 0, 0, .2);
+    -o-box-shadow: 0px 4px 5px rgba(0, 0, 0, .2);
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, .2);
+}
+
+.card-map-wrapper [class*="ymaps_https___api_maps_yandex_ru_"]{
+    background: transparent!important;
+    width: 24px!important;
+    height: 24px!important;
+    border-radius: 24px!important;
+}
+.card-map-wrapper.waiting:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 10;
+}
+
+.card-map-wrapper.waiting:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://st.bsn.ru/img/layout/preload.gif') no-repeat center;
+    z-index: 10;
+}
+
+.card-map-wrapper {
+    height: 400px;
+    background: #fafafa;
+}
+
+.infrastructure {
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.infrastructure .categories {
+    max-height: 85px;
+    overflow: hidden;
+}
+
+.infrastructure .categories .item {
+    width: 220px;
+    margin-right: 10px;
+    float: left;
+    font-size: 14px;
+    padding: 20px 0 0 0;
+    color: #818181;
+}
+
+.infrastructure .categories .item:nth-child(3n) {
+    margin: 0;
+}
+
+.infrastructure .categories .item .title {
+    font-size: 16px;
+    color: #1e88e5;
+    display: block;
+    padding-bottom: 5px;
+}
+
+.infrastructure .categories .item i {
+    float: left;
+    width: 30px;
+    height: 80px;
+    margin-right: 5px;
+}
+
+.infrastructure .categories .item .shops {
+    background: url('//st.bsn.ru/img/map_icons/shops.png') no-repeat 0px 0px;
+}
+
+.infrastructure .categories .item .study {
+    background: url('//st.bsn.ru/img/map_icons/study.png') no-repeat 0px 0px;
+}
+
+.infrastructure .categories .item .parks {
+    background: url('//st.bsn.ru/img/map_icons/parks.png') no-repeat 0px 0px;
+}
+
+.infrastructure .categories .item .sport {
+    background: url('//st.bsn.ru/img/map_icons/sport.png') no-repeat 0px 0px;
+}
+
+.infrastructure .categories .item .cafe {
+    background: url('//st.bsn.ru/img/map_icons/cafe.png') no-repeat 0px 0px;
+}
+
+.infrastructure .categories .item .medicine {
+    background: url('//st.bsn.ru/img/map_icons/medicine.png') no-repeat 0px 0px;
+}
+
+.infrastructure .categories .item .museums {
+    background: url('//st.bsn.ru/img/map_icons/museums.png') no-repeat 0px 0px;
+}
+
+.infrastructure .categories .item .theater {
+    background: url('//st.bsn.ru/img/map_icons/theater.png') no-repeat 0px 0px;
+}
+
+.infrastructure .button {
+    border: 1px solid #bcbbb5;
+    position: absolute;
+    z-index: 100;
+    left: 10px;
+    top: 10px;
+}
+
+.infrastructure .button:before {
+    color: #1e88e5;
+}
+.ymaps-2-1-47-copyright,
+.ymaps-2-1-47-copyright > *{
+    display:none!important;
+}

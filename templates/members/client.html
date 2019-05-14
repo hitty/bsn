@@ -1,0 +1,70 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body>
+        {include /templates/includes/main_header_part.html}
+    <div class="shadow-wrapper" id="shadow-wrapper">
+
+        <div class="content">
+            <div class="main-content">
+                {if!empty $system_message}
+                    <div id="system-message">
+                        <a href="/members/messages/view/{$system_message['id_parent']}/" title="Перейти к системным сообщениям">
+                            Системное сообщение
+                            <i title="Скрыть сообщение" data-id={$system_message['id']}>X</i>
+                            <span>{stripall:$system_message['message']}</span>
+                        </a>
+                    </div>
+                <script>
+                    jQuery('#system-message i').click(function(){
+                        var _params = {id:jQuery(this).data('id'), system:1};
+                        getPending('/members/messages/setread/',_params);
+                        jQuery('#system-message').fadeOut(300);
+                        return false;
+                    });
+                </script>
+                {/if}
+                {if!empty $invites}
+                    <div id="invite-wrap">
+                    {loop $invites,$i,$invite}
+                        <div class="item" data-id-agency="{$invite['id_agency']}" data-id="{$invite['id']}">
+                            Ваш профиль добавлен к аккаунту компании <a href="/organizations/company/{$invite['id_agency']}_{$invite['chpu_title']}/" title="Перейти на карточку компании" target="_blank">«{$invite['title']}»</a>.
+                            <span class="reject">Отклонить</span>
+                            <span class="accept">Подтвердить</span>
+                        </div>
+                    {/loop $invites}
+                    </div>
+                    <script>
+                    jQuery('#invite-wrap .item').each(function(){
+                        jQuery('span', jQuery(this)).on('click', function(){
+                            var _parent_wrap = jQuery(this).parents('.item');
+                            var _this = jQuery(this);
+                            jQuery.ajax({
+                                type: "POST", async: true,
+                                dataType: 'json', url: '/members/invite_result/',
+                                data: {ajax: true, type: _this.attr('class'), id: _parent_wrap.data('id'), id_agency: _parent_wrap.data('id-agency')},
+                                success: function(msg){
+                                    if(msg.ok) _parent_wrap.fadeOut(300);
+                                    if(_this.attr('class') == 'accept') {
+                                        if(msg.ok) document.location.reload();
+                                        else if(msg.error_text.length > 0) _parent_wrap.html(msg.error_text);
+                                    }
+                                }
+                            })
+                        })
+                    })
+                    </script>
+                {/if}
+                <div class="left-wrapper">
+                    {include /templates/includes/main_menu_part.html}
+                    <div class="central-column payed-format"> 
+                        {$content}
+                    </div> <!--/.central-column-->
+                    {include /templates/members/left_part.html}
+                </div> <!--/.left-wrapper-->
+                {include /templates/members/right_part.html}
+            </div> <!--/.main-content-->                            
+        </div> <!--/.content-->
+    </div> <!--/.shadow-wrapper-->
+    {include /templates/includes/main_footer_part.html}
+</body>
+</html>

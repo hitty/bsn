@@ -1,0 +1,51 @@
+    {if!empty $errors}
+        <p style="color:#DD0000">Неверно заполнены поля формы!</p>
+    {/if}
+    <form action="/guestbook/add/" method="post" id="addguestbook_form">
+        <input type="text" name="author_fio"
+            {if!empty $errors['author_fio']}
+                class="error"
+                {if!empty $user_input['author_fio']}
+                    value="{$user_input['author_fio']}"
+                {else}
+                    placeholder="*ФИО(обязательное поле)"
+                {/if}
+            {else}
+                {if!empty $user_input['author_fio']}
+                    value={$user_input['author_fio']}
+                {else}
+                    placeholder="*ФИО(обязательное поле)"
+                {/if}
+            {/if}>
+        <input type="text" name="author_email" 
+            {if!empty $errors['author_email']}
+                class="error"
+                {if!empty $user_input['author_email']}
+                    value="{$user_input['author_email']}"
+                {else}
+                    placeholder="*Email(обязательное поле)"
+                {/if}
+            {else}
+                {if!empty $user_input['author_email']}
+                    value={$user_input['author_email']}
+                {else}
+                    placeholder="*Email(обязательное поле)"
+                {/if}
+            {/if}>
+        <textarea name="author_text" 
+            {if!empty $errors['author_text']}
+                class="error"
+                {if!empty $user_input['author_text']}
+                    value="{$user_input['author_text']}"
+                {else}
+                    placeholder="*Ваш текст(обязательное поле)"
+                {/if}
+            {else}
+                {ifempty $user_input['author_text']}
+                    placeholder="*Ваш текст(обязательное поле)"
+                {else}
+                {/if}
+            {/if}>{$user_input['author_text']}</textarea><br>
+        <button type="submit" name="submit" value="submit">добавить</button>
+        <button type="reset">очистить</button>
+    </form>

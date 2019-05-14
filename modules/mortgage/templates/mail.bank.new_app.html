@@ -1,0 +1,65 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    <b>Уважаемый партнёр!</b>    
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Поступила новая заявка:
+        <br /><br />
+        {if!empty $data['estate_type']}
+            <p>Тип недвижимости: {$data['estate_type']}</p>
+        {/if}
+        {if!empty $data['object_link']}
+            <p>Объект: {$data['object_link']}</p>
+        {/if}
+        {if!empty $data['mortgage_years']}
+            <p>Срок кредитования: {$data['mortgage_years']} лет</p>
+        {/if}
+        {if!empty $data['first_payment']}
+            <p>Первоначальный взнос: {$data['first_payment']} руб</p>
+        {/if}
+        {if!empty $data['estate_price']}
+            <p>Стоимость жилья: {$data['estate_price']} руб</p>
+        {/if}
+        {if!empty $data['income_value']}
+            <p>Уровень дохода: {$data['income_value']} руб</p>
+        {/if}
+        {if!empty $data['registration']}
+            <p>Постоянная регистрация: {$data['registration']}</p>
+        {else}
+            {if!empty $data['registration_general']}
+            <p>Постоянная регистрация: {$data['registration_general']}</p>
+            {/if}
+        {/if}
+        {if!empty $data['is_married']}
+            <p>Семейное положение: {$data['is_married']}</p>
+        {/if}
+        {if!empty $data['lastname']}
+            <p>Фамилия: {$data['lastname']}</p>
+        {/if}
+        {if!empty $data['name']}
+            <p>Имя: {$data['name']}</p>
+        {/if}
+        {if!empty $data['patronymic']}
+            <p>Отчество: {$data['patronymic']}</p>
+        {/if}
+        {if!empty $data['birthdate']}
+            <p>Дата рождения: {$data['birthdate']}</p>
+        {/if}
+        {if!empty $data['email']}
+            <p>Email: {$data['email']}</p>
+        {/if}
+        {if!empty $data['phone']}
+            <p>Телефон: {$data['phone']}</p>
+        {/if}
+        {if!empty $data['notes']}
+            <p>Дополнительная информация: {$data['notes']}</p>
+        {/if}
+        <p>
+        
+        </p>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

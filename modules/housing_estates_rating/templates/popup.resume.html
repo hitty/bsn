@@ -1,0 +1,22 @@
+<div class="rating-resume-wrapper">
+    <form action="/zhiloy_kompleks/votes/popup_resume/add/" method="POST" class="housing-estate-resume" enctype="multipart/form-data">
+        <span class="title">Остался последний шаг!</span>
+        <div class="row clearfix" data-type="transport">
+            <textarea required="required" placeholder="Сформулируйте краткое резюме (пару строк) со своим мнениемо ситуации с новостройками в районе (насколько район обеспе&shy;чен новостройками, как оценивается транспортная ситуация,какова обеспеченность социальной и коммерческой инфра&shy;структурой, экологическая ситуация, качество новостроек в дан&shy;ной локации)." name="resume"></textarea>
+        </div>
+        
+        <div class="row user-photo clearfix">
+
+            <div id="file-upload" style="width: 80px; float: left; margin-top: -10px;">
+                <h3 class="btitle">Загрузить фото</h3>
+                <input type="file" name="file_upload" id="file_upload" data-id="{$housing_estate_expert['id']}" data-url="/zhiloy_kompleks/votes/photos/" data-session-id="{php:echo session_id();}" />
+            </div>
+            
+            <span class="text">А еще, прикрепите, пожалуйста, свое фото<br />(jpg, png до 300кб):</span>
+        </div>
+       
+        <div class="clearfix">
+            <span class="button">Отправить отзыв о районе</span>
+        </div>
+    </form>
+</div>   

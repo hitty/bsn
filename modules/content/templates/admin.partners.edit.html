@@ -1,0 +1,37 @@
+<h1 class="pageTitle">Партнеры</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/content/articles/partners/add/">
+    <h3>Новый партнер</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/content/articles/partners/edit/{$data_mapping['id']['value']}/">
+    <h3>Партнер #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $data_mapping['id']['value']}
+		<fieldset>
+            <h3>Загрузка фотографии партнера #{$data_mapping['title']['value']}</h3>
+            <input type="file" name="file_upload" id="file_upload" data-type="content_partners_photos" data-id="{$data_mapping['id']['value']}" data-url="/admin/content/articles/partners/photos/" data-session-id="{php:echo session_id();}"/>
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>        
+    {/if}
+</form>

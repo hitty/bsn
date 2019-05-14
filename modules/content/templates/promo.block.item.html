@@ -1,0 +1,20 @@
+<div class="central-main-content item br3 {if!empty $pitem['background_position']}lazy {ifeq $pitem['background_position'],1}bg-top{elseifeq $pitem['background_position'],2}bg-bottom{elseifeq $pitem['background_position'],4}bg-middle{else}bg-cover{/if}{/if}" style="{if!empty $pitem['height']}height:{$pitem['height']}px;{/if}" {if!empty $pitem['photo']}data-src="/img/uploads/big/{$pitem['subfolder']}/{$pitem['photo']}"{/if} data-id="{$pitem['id']}">
+    <span class="numeric">{ifgt $pitem['position'],0}{$pitem['position']}{/if}</span>
+    <span class="title">{if!empty $pitem['title']}{$pitem['title']}{else}Здесь будет заголовок{/if}</span>
+    <div class="text">{if!empty $pitem['content']}{$pitem['content']}{else}Пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста пример текста{/if}</div>
+    {if!empty $promo_list}
+        {php:$last_item = $p == ( count($promo_list) - 1 )}
+        {if!empty $last_item}
+            {if!empty $item['promo_link']}
+                {if!empty $item['promo_link_text']}
+                    <div class="promo-button" data-id="{$item['id']}" data-type="articles"><span class="button blue external-link" data-link="{$item['promo_link']}">{$item['promo_link_text']} </span></div>
+                {/if} 
+            {/if} 
+            {if!empty $item['promo_subscribe']}
+                {ifeq $item['promo_subscribe'],1}
+                    {include modules/content/templates/subscribe.form.html}
+                {/if} 
+            {/if} 
+        {/if} 
+    {/if} 
+</div>

@@ -1,0 +1,51 @@
+<form class="application-view-form active" action="" method="POST">
+    <span class="form-title">Заявка</span>
+    <a class="closebutton"></a>
+    <div class="name">
+        <span>Ваше имя</span>
+        <input type="text" name="name" required="required">
+        <span>Обязательное поле</span>
+    </div>
+    <div class="phone">
+        <span>Телефон</span>
+        <input type="phone" name="phone" class="phone" required="required" autocomplete="off" maxlength="17">
+        <span>Обязательное поле</span>
+    </div>
+    <div class="email">
+        <span>Email <i>(необязательно)</i></span>
+        <input type="email" name="email" class="email" autocomplete="off">
+        <span>Неправильный email</span>
+    </div>
+    {if!empty $estate_type}
+        {if!eq $estate_type, 'zhiloy_kompleks'}
+            <span>Кто вы</span>
+            <div class="radio-group">
+                <input type="radio" name="user_type" value="1" id="user_type_1" checked="checked"> 
+                <label for="user_type_1">Частное лицо</label>
+                <input type="radio" name="user_type" value="2" id="user_type_2"> 
+                <label for="user_type_2">Агент</label>
+            </div>
+        
+            <div class="single-selector id_work_status">
+                <label class="selector-title checkbox on" data-user-type="1">
+                    <input id="id_work_status" class="lf" name="id_work_status" value="1" checked="checked" rel="subscribe_news" data-true-value="1" data-false-value="2" type="checkbox">
+                    готов работать с агентом
+                </label>
+                <label class="selector-title checkbox on" data-user-type="2">
+                    <input id="id_work_status" class="lf" name="id_work_status" value="4" checked="checked" rel="subscribe_news" data-true-value="4" data-false-value="3" type="checkbox">
+                    только с собственником
+                </label>
+            </div>
+        {/if}
+    {/if}
+    <div class="comment">
+        <span>Комментарий <i>(необязательно)</i></span>
+        <textarea name="user_comment" id="user-comment"></textarea>
+    </div>
+    <div class="button-container">
+        <div class="application-view-form-button">
+            <button class="send" value="{if!empty $payed_format}Оставить заявку{else}Отправить{/if}"  onclick="try{ yaCounter21898216.reachGoal('send_open_app'); return true; }catch(err){ }">{if!empty $payed_format}Оставить заявку{else}Отправить{/if}</button>
+        </div>
+    </div>
+</form>
+{if!empty $payed_format}<span id="application-button" data-url="/applications/popup/" class="button green" data-id={$item['id']} data-type="{$estate_type}" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }">Оставить заявку</span>{/if}

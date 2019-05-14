@@ -1,0 +1,16 @@
+<div class="central-wrapper">
+    <h1>{if!empty $current_page['page_seo_h1']}{$current_page['page_seo_h1']}{else}Каталог недвижимости Санкт-Петербурга за {php:echo date('Y');} год{/if}</h1>
+    <p class="catalog-count">Всего в каталоге: <b>{suffix:$sum,'объект','','а','ов'}</b> </p>
+    
+    {php:$estate_type = 'build'}
+    {php:$estate_mainpage = true}
+    {include /modules/estate/templates/block.catalog.main.html}
+    {php:$estate_type = 'live'}
+    {include /modules/estate/templates/block.catalog.main.html}
+    {php:$estate_type = 'country'}
+    {include /modules/estate/templates/block.catalog.main.html}
+    {php:$estate_type = 'commercial'}
+    {include /modules/estate/templates/block.catalog.main.html}
+
+    
+</div>

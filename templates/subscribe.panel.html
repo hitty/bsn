@@ -1,0 +1,16 @@
+<div class="subscribe-panel br3 bbox" data-icon="mail_outline" 
+    {if!empty $subscription['deal_type']} data-deal-type = "{$subscription['deal_type']}"{/if}
+    {if!empty $subscription['titleSubscribeButton']} data-title="{$subscription['titleSubscribeButton']}"{/if} 
+    {if!empty $subscription['estate_type']} data-estate-type = "{$subscription['estate_type']}"{/if} 
+    {if!empty $subscription['subscription_link']} data-estate-url = "{$subscription['subscription_link']}"{/if} 
+    data-url = "{$subscription['url']}"> 
+    {ifempty $subscription['email']}
+        <form action="" name="subscribe-panel">
+            <input type="email" name="email" id="subscribe_email" placeholder="Ваш email" required="required" />
+            <button class="send" data-icon="mail_outline"> </button>
+        </form>
+    {/if}
+    <div class="subscribe-button subscribe" {if!empty $subscription['email']}data-email="{$subscription['email']}{/if}">
+        <span>{$subscription['text']}</span>
+    </div>
+</div>

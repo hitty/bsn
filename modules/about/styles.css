@@ -1,0 +1,229 @@
+body{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/modules/about/img/bg.jpg');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;  
+    font-family: 'Roboto';    
+    font-weight: 300;
+    color: #fff;
+}
+.content{
+    
+}
+footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 20px;
+    padding: 0;
+    background: none;
+    font-size: 16px;
+}
+.transition{
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+.upgrade-btn {
+    background-color: #9f00ae;
+    cursor: pointer;
+    display: block;
+    font-size: 0;
+    top: 0;
+    right: 63px;
+    padding-left: 63px;
+    position: absolute;
+    text-decoration: none;
+    width: 104px;
+    -webkit-transition: background-color .3s linear;
+    transition: background-color .3s linear;
+}
+
+.rmb .content {
+    width: 1200px;
+    left: 50%;
+    margin-left: -600px;
+    background: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+.content .logo{
+    padding: 10px 20px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 0 0 3px 3px;
+    width: 120px;
+    background: #1e88e5;
+}
+.content .logo span{
+    width: 120px;
+    height: 40px;
+    background: url(/img/layout/bsn-logo-white.svg);
+    background-repeat: no-repeat;
+    background-size: 120px auto;
+    display: block;   
+    margin-top: 3px; 
+}
+.slogans div {
+    width: 660px;
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+}
+.slogans .active{
+    opacity: 1;
+}
+.slogans div[data-id="1"]{
+    top: -360px;
+}
+.slogans .active[data-id="1"] {
+    top: 50%;
+    margin-top: -180px;
+}
+.slogans div[data-id="2"],
+.slogans div[data-id="3"]{
+    top: -344px;
+}
+.slogans .active[data-id="2"],
+.slogans .active[data-id="3"] {
+    top: 50%;
+    margin-top: -172px;  
+}
+
+.slogans div[data-id="4"]{
+    top: -303px;
+}
+.slogans .active[data-id="4"] {
+    top: 50%;
+    margin-top: -155px;
+}
+
+.slogans .bottom {
+    top: 100%!important;
+    opacity: 0;
+}
+
+.slogans .title {
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 60px;
+}
+
+.slogans .text {
+    font-size: 24px;
+    display: block;
+    margin: 40px 0;
+}
+
+.menu {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -260px;
+}
+
+.menu div {
+    width: 260px;
+    height: 130px;
+    position: relative;
+    opacity: .5;
+    cursor: pointer;
+}
+
+.menu div.active,
+.menu div:hover {
+    opacity: 1;
+}
+
+.menu div .title {
+    float: left;
+    font-size: 18px;
+    width: 135px;
+    text-align: right;
+    position: relative;
+    top: 40px;
+}
+
+.menu div .icon {
+    display: block;
+    font-size: 0;
+    top: 10px;
+    right: 0;
+    position: absolute;
+    text-decoration: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+.menu div.active .icon i{
+    border-color: #1e88e5;
+}
+.menu div .icon i {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 0 #1e88e5;
+    display: block;
+    position: absolute;
+    right: 0;
+    height: 100px;
+    width: 100px;
+    -webkit-transition: box-shadow .3s linear;
+    transition: box-shadow .3s linear;
+}
+
+.menu div.active .icon i,
+.menu div:hover .icon i {
+    box-shadow: inset 0 0 0 50px #1e88e5;
+}
+.menu div.active .icon i{
+    background: #1e88e5;
+}
+.menu div .icon i:before{
+    background-image: url(/modules/about/img/sprite.svg);
+    background-repeat: no-repeat;
+    content: '';
+    height: 45px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    width: 45px;
+    -webkit-transition: opacity .3s linear;
+    transition: opacity .3s linear;
+    margin-left: -22px;
+    margin-top: -20px;
+    background-size: 720px auto;
+}
+
+.menu div:hover .icon i:after,
+.menu div .icon i:before {
+    opacity: 1;
+}
+
+
+.menu div[data-id="1"] .icon i:before {
+    background-position: -69px -190px;
+}
+
+.menu div[data-id="2"] .icon i:before {
+    background-position: -128px -190px;
+}
+
+
+.menu div[data-id="3"] .icon i:before {
+    background-position: -186px -187px;
+}
+
+
+.menu div[data-id="4"] .icon i:before {
+    background-position: -11px -187px;
+}

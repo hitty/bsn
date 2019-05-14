@@ -1,0 +1,31 @@
+{if!empty $h1}<h1 class="topspace">{$h1}</h1>{/if}
+{block spec_offers/block/mortgage}
+<div class="sb-info">Найдено ипотечных программ: {$programs_count}</div>
+{if!empty $list}
+    <div class="banks-list">
+        <div class="banks-list-head">
+            <div class="row">
+                <div class="cell col_shortname_program">Банк</div>
+                <div class="cell col_name">Кредит</div>
+                <div class="cell col_market">Рынок</div>
+                <div class="cell col_currency">Валюта</div>
+                <div class="cell col_rate">Ставка</div>
+                <div class="cell col_firstpayment">Первый взнос</div>
+            </div>
+        </div>
+        <div class="banks-list-body">
+            {loop $list,$lk,$lv}
+                <div class="row">
+                    <div class="cell col_shortname_program">{$lv['shortname']}</div>
+                    <div class="cell col_name"><a href="/estate/mortgage/program/{$lv['id']}/" class="a_to_click">{$lv['name']}</a></div>
+                    <div class="cell col_market">{$lv['market']}</div>
+                    <div class="cell col_currency">{$lv['currency']}</div>
+                    <div class="cell col_rate">{$lv['rate']}</div>
+                    <div class="cell col_firstpayment">{$lv['firstpayment']}</div>
+                </div>
+            {/loop $list}
+        </div>
+    
+    </div>
+    {include /templates/includes/paginator.html}
+{/if}

@@ -1,0 +1,29 @@
+<div class="player-wrap">  
+    
+    <div class="player">
+        <div class="fileinfo">
+            <span class="name">{$item['original_name']}</span>
+            <span class="time">({$item['duration']}м)</span>
+            <span class="boxcaption_del"></span>
+        </div>
+        {php:$link = urldecode('http://' . str_replace('http://', '', $item['name']))}
+        {php:$only_player = true}
+        {include /templates/video.player.html}
+        
+    </div>
+</div>
+<div class="file-upload-wrap videos-photos">
+    <p id="file-upload-info">
+        <span class="title">Миниатюры</span>
+        <ul id="upload_photos"><li></li><li></li><li></li></ul>
+        <input type="file" name="file_upload_video_photos" id="file_upload_video_photos" data-id="{$item['id']}" data-url="/members/objects/edit/videos_photos/{$estate}/{$item['id']}/" data-session-id="{php:echo session_id();}" />
+    </p>
+</div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('#file_upload_video_photos').uploadifive({
+                'queueSizeLimit'    : 3
+            }
+        );  
+    })
+</script>

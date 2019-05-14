@@ -1,0 +1,101 @@
+<h1 class="pageTitle">ТГБ / Баннеры</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/banners/add/" enctype="multipart/form-data">
+    <h3>Новый баннер</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/banners/edit/{$data_mapping['id']['value']}/"  enctype="multipart/form-data">
+    <h3>Баннер #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+
+ {if!empty $data_mapping['id']['value']}
+       
+    <p class="title_row">Баннер</font></p>
+    <p style="display:block; clear:both;" id="p_field_position_in_head" title="если задана ссылка на картинку, то загруженное изображение не выводится, т.е. приоритет у ссылки на картинку">
+        <label style="text-align:center; padding-top:1px; width:{if!empty $img_width}{$img_width}{else}145{/if}px; border:1px dashed #aaa; height:auto; margin-bottom:5px;">
+            <img src="{static:/}{$img_folder}/{$data_mapping['img_src']['value']}" alt="" width="{if!empty $img_width}{$img_width}{else}145{/if}" style="display: block;" />
+        </label>
+        
+        <span class="lf fieldwrapper">
+            Загрузить баннер
+            <input type="file" placeholder="" value="{$data_mapping['img_src']['value']}" name="img_src" id="img_src" class="lf">
+            {if!empty $data_mapping['img_src']['error']}
+                <span class="small_text red">{$data_mapping['img_src']['error']}</span>
+            {/if}
+        </span>
+    </p>
+    {/if}  
+    <p>
+        {if!empty $data_mapping['id']['value']}<input type="submit" value="Сохранить" name="submit">
+        {else} <input type="submit" value="Сохранить и добавить фото" name="submit">{/if}
+    </p>  
+    
+</form> 
+ <script>
+ jQuery(document).ready(function(){
+     var _date_start = _date_end = _limit = _day_limit = _manager_limit = '';
+     if(jQuery('.datetimepicker').length>0){
+        
+         jQuery('.datetimepicker').datetimepicker({
+              timepicker:false,
+              format:'m/d/y',
+              minDate:0,
+              timepicker:false,
+              onChangeDateTime:function(dp,$input){
+                $input.attr('value',$input.val());
+                checkValues();
+              }
+        });
+    }
+    jQuery('#limit').on('change',checkValues);
+    function checkValues(){
+        _limit = Math.floor(jQuery('#limit').val());
+        _date_start = jQuery('input[name=bc_date_start]').val();
+        _date_end = jQuery('input[name=bc_date_end]').val();
+        _manager_limit = Math.floor(jQuery('#manager-limit').text());
+
+        if(_date_start!=null && _date_start!='' && _date_end!=null && _date_end!='' && _limit>0 && _limit<=_manager_limit){
+            var date1 = new Date(_date_start);
+            var date2 = new Date(_date_end);
+            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+            _day_limit = Math.ceil(_limit/diffDays);
+            jQuery('#day-limit').html('Ежедневный расход кликов: <span class="day-limit">'+_day_limit+'</span>');
+            jQuery('#save-values').fadeIn(200);
+        } else {
+            jQuery('#save-values').fadeOut(200);
+        }
+    }
+
+    jQuery('#save-values').on('click',function(){
+        var _button = jQuery(this);
+        jQuery('#manager-limit').text(_manager_limit-_limit);
+        _button.fadeOut(50);
+        jQuery('#limit').attr('disabled','disabled');
+        jQuery('input[name=bc_date_start]').attr('disabled','disabled');
+        jQuery('input[name=bc_date_end]').attr('disabled','disabled');
+        
+        return false;
+    })    
+});
+</script>

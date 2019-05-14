@@ -1,0 +1,36 @@
+{loop $list,$key,$item}
+    <div class="item br3 {ifempty $block_type}shadow-hover{elseif!eq $block_type,'left'}shadow-hover{else}shadow{/if} bbox transition">
+        <!--<a href="/{$item['type']}/{ifeq $item['rent'],2}sell{else}rent{/if}/{$item['id']}/" target="_blank" title="{$item['title']}"></a>-->
+        <a class="internal-link" href="/{$item['type']}/{ifeq $item['rent'],2}sell{else}rent{/if}/{$item['id']}/" title="{$item['title']}"></a>
+        <span class="image bg-cover br3 lazy" data-src="{if!empty $item['photo']}{static:/}img/uploads/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}"></span>
+        <div class="content">
+            <div class="title">
+                {ifeq $item['type'],'live'}
+                    {ifeq $item['id_type_object'],1}
+                            {ifeq $item['rooms_sale'],0}студия{else}{$item['rooms_sale']} ккв{/if}
+                    {elseifeq $item['id_type_object'],2}
+                        {$item['rooms_sale']}к в {$item['rooms_total']} ккв
+                    {else}
+                        {if!empty $item['obj_type_short_title']}{$item['obj_type_short_title']}{else}{$item['obj_type']}{/if}
+                    {/if}
+                {else}
+                    {ifeq $item['type'],'build'}
+                        {ifeq $item['rooms_sale'],0}студия{else}{$item['rooms_sale']} ккв{/if}
+                    {else}
+                        <span>{if!empty $item['obj_type_short_title']}{$item['obj_type_short_title']}{else}{$item['obj_type']}{/if}</span>
+                    {/if}
+                {/if}
+                {ifgt $item['square_full'],0}, {squareformat:$item['square_full']} м<sup>2</sup>{/if}
+            </div>
+            <div class="params">
+                <a class="address-link {ifempty $block_type}text-overflow{elseif!eq $block_type,'left'}text-overflow{/if}" href="/{$item['type']}/{ifeq $item['rent'],2}sell{else}rent{/if}/{$item['id']}/" target="_blank" title="{$item['title']}">{$item['txt_addr']}</a>
+            </div>
+            {if!empty $item['cost']}
+                <div class="cost">
+                    {numberformat: $item['cost']}
+                     Р
+                </div>
+            {/if}
+        </div>
+    </div>
+{/loop $list}

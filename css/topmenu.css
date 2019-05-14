@@ -1,0 +1,730 @@
+.topmenu{
+    min-height: 60px;
+    height: 60px;
+    margin: 0px auto;
+    width: 1180px;
+    z-index: 200;
+}
+
+.topmenu:hover{
+    z-index: 1100;
+}
+.with-shadow .topmenu {
+    z-index: 3000;
+}
+
+.with-shadow .topmenu:before {
+    z-index: 150;
+}
+
+.topmenu .logo-box {
+    width: 150px;
+    height: 40px;
+    color: #1e88e5;
+    padding-top: 15px;
+    float: left;
+    z-index: 9600;
+}
+
+.topmenu .logo-box a {
+display: block;
+    z-index: 9700;
+    position: relative;
+    width: 115px;
+    height: 32px;
+    border: none;
+}
+.topmenu .logo-box a:before{
+    width: 115px;
+    height: 32px;
+    background-position: -243px -94px;
+    background-size: 360px;  
+}
+.topmenu .topmenu-wrapper {
+    font-size: 13px;
+    font-weight: bold;
+    z-index: 9500;
+    position: relative;
+    height: 60px;
+}
+
+.topmenu .topmenu-firstlevel {
+    min-height: 40px;
+    line-height: 40px;
+    height: 40px;
+    display: inline-block;
+    display: block;
+    float: right;
+    width: 1030px;
+    margin: 0;
+    padding: 0;
+}
+
+.topmenu .topmenu-firstlevel li {
+    float: left;
+    display: block;
+    margin: 0;
+}
+ 
+.topmenu .topmenu-firstlevel a,
+.topmenu .topmenu-firstlevel .inactive a.active,
+.topmenu .topmenu-firstlevel span {
+    display: block;
+    text-decoration: none;
+    height: 30px;
+    padding: 5px 15px;
+    color: #333333;
+    background: #f3f3f3;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
+    border-radius: 1px;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 1px;
+    -o-border-radius: 1px;
+    position: relative;
+}
+
+.topmenu .topmenu-firstlevel span,.topmenu .topmenu-firstlevel a:hover,.topmenu .topmenu-firstlevel .inactive a:hover,.topmenu .topmenu-firstlevel a.active {
+    background: #d2e7fa;
+    color: #1e88e5;
+}
+
+.topmenu .topmenu-firstlevel li.active-submenu:not(.new):hover,.topmenu .topmenu-firstlevel li.active-submenu:not(.new):hover,.topmenu .topmenu-firstlevel li:hover{
+    z-index: 10001;
+}
+.topmenu-firstlevel:after {
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+}
+
+.topmenu .topmenu-firstlevel li.active-submenu:not(.new):hover > .pseudo-link:after, .topmenu .topmenu-firstlevel li.active-submenu:not(.new):hover > a:after, .topmenu .topmenu-firstlevel li:hover > .topmenu-secondlevel {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.topmenu .topmenu-firstlevel .pseudo-link:after, 
+.topmenu .topmenu-firstlevel a:after {
+    display: none;
+}
+
+.topmenu .topmenu-firstlevel .pseudo-link:after, 
+.topmenu .topmenu-firstlevel a:after {
+    content: "";
+    background: #D2E7FA;
+    left: 0;
+    right: 0;
+    height: 12px;
+    width: 100%;
+    top: 38px;
+    border: none;
+    margin: 0;
+    position: absolute;
+}
+
+
+.topmenu .topmenu-firstlevel .promotions-button {
+    margin-right: 0;
+    width: 140px;
+}
+
+.topmenu .topmenu-firstlevel .promotions-button span {
+    color: #fff;
+    background: #f18d24;
+    border: 3px solid #f18d24;
+    padding: 2px 15px;
+    position: relative;
+    text-align: center;
+    margin-right: 0;
+}
+
+.topmenu li.standalone a:after,
+.topmenu aside,.topmenu aside a:after {
+    display: none;
+}
+
+.topmenu .topmenu-secondlevel {
+    position: absolute;
+    z-index: 2000;
+    left: -100%;
+    right: -100%;
+    background: #D2E7FA;
+    bottom: 0;
+    height: 60px;
+    top: 60px;       
+    margin: 0;
+}
+.topmenu .topmenu-secondlevel ul {
+    padding: 13px 10px;
+    background: #d2e7fa;
+    width: 1160px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    margin-left: -590px;
+}
+
+.topmenu .topmenu-secondlevel li {
+    float: none;
+    margin-right: 0;
+}
+
+.topmenu .topmenu-secondlevel a {
+    font-size: 14px;
+    display: block;
+    background: none;
+    color: #fff;
+    font-weight: normal;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+}
+
+.topmenu .topmenu-secondlevel .new a:before {
+    margin-left: 0;
+    right: 15px;
+    top: 11px;
+    left: auto;
+    width: 37px;
+}
+
+.topmenu .estate .topmenu-secondlevel ul:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.topmenu .topmenu-secondlevel ul {
+    display: flex;
+}
+.topmenu .estate .topmenu-secondlevel ul{
+    justify-content: space-between;
+    text-align: justify;    
+}
+.topmenu .estate .topmenu-secondlevel a {
+    text-transform: none;
+    border-radius: 3px;
+       
+}
+
+.topmenu .topmenu-secondlevel a.active,
+.topmenu .topmenu-secondlevel a:hover {
+    text-decoration: underline;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #FFF;    
+}
+
+.topmenu .topmenu-firstlevel li:hover .topmenu-secondlevel a:after,
+.topmenu .topmenu-secondlevel a:after {
+    display: none;
+}
+
+.topmenu .topmenu-firstlevel li.active > a:after,.topmenu .topmenu-firstlevel li.active > aside {
+    visibility: visible;
+    zoom: 1;filter: alpha(opacity=100);
+    opacity: 1;
+    z-index: 11000;
+}
+
+.topmenu .topmenu-secondlevel-submenu {
+}
+
+.topmenu .topmenu-secondlevel-submenu li {
+}
+
+.topmenu .topmenu-secondlevel-submenu a {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    height: 16px;
+    text-transform: none;
+    position: relative;
+    padding-left: 25px;
+}
+
+.topmenu .user-logo a:before,
+.topmenu .topmenu-secondlevel a:before {
+    content: "";
+    background: #000;
+    position: absolute;
+    left: 10px;
+    top: 16px;
+    width: 2px;
+    height: 2px;
+}
+
+.topmenu .topmenu-firstlevel .promotions-button span,
+.topmenu .topmenu-firstlevel .pseudo-link,
+.topmenu .topmenu-firstlevel a {
+    font-size: 16px;
+    background: none;
+    border: none;
+    padding: 0 19px;
+    box-shadow: none;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.topmenu .topmenu-firstlevel .inactive {
+    opacity: 1;
+}
+
+.topmenu .topmenu-firstlevel li:hover .pseudo-link,.topmenu .topmenu-firstlevel li:hover a {
+    background-color: #d2e7fa;
+    color: #1e88e5;
+    z-index: 30001;
+}
+
+
+.topmenu .estate .topmenu-secondlevel {
+    z-index: 2050;
+    height: 236px;
+}
+
+.topmenu .estate .topmenu-secondlevel ul {
+    z-index: 2060;
+    background: #d2e7fa;
+}
+
+.topmenu .topmenu-firstlevel .promotions-button span {
+    color: #ff992e;
+    position: relative;
+}
+
+.topmenu .topmenu-firstlevel .promotions-button {
+    width: auto;
+}
+
+.topmenu .topmenu-firstlevel .promotions-button span:hover {
+    background: #d2e7fa;
+}
+
+.topmenu .topmenu-firstlevel li .topmenu-secondlevel li {
+    margin: 0;
+}
+
+.topmenu .topmenu-firstlevel li .topmenu-secondlevel a {
+    font-weight: normal;
+    padding: 5px 10px 5px 20px;
+    font-size: 14px;
+    color: #000;
+    line-height: 24px;
+    height: 24px;   
+    margin-top: 0;
+    -webkit-transition: color .2s ease-in-out, background-color .2s ease-in-out;
+    -moz-transition: color .2s ease-in-out, background-color .2s ease-in-out;
+    -ms-transition: color .2s ease-in-out, background-color .2s ease-in-out;
+    -o-transition: color .2s ease-in-out, background-color .2s ease-in-out;
+    transition: color .2s ease-in-out, background-color .2s ease-in-out;     
+}
+
+.topmenu .topmenu-firstlevel li.estate:hover .topmenu-secondlevel a {
+    font-weight: bold;
+    padding: 7px 10px;
+    color: #1e88e5;
+    font-size: 16px;
+}
+
+.topmenu .topmenu-firstlevel li:hover .topmenu-secondlevel a:hover,.topmenu .topmenu-firstlevel li.estate:hover .topmenu-secondlevel a:hover {
+    background: #fff;
+    color: #1e88e5;
+}
+
+.topmenu .topmenu-firstlevel li:hover .topmenu-secondlevel a:hover:before {
+    background: #1e88e5;
+}
+
+.topmenu .topmenu-firstlevel li.estate:hover .topmenu-secondlevel-submenu a {
+    color: #000;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 5px 10px 5px 20px;
+}
+
+.topmenu .topmenu-secondlevel .new a:before, .topmenu .topmenu-firstlevel .new a:before {
+    display: none;
+}
+
+.topmenu .topmenu-firstlevel li.add-button {
+    float: right;
+    display: block;
+    margin: 0 0 0 20px;
+}
+
+.topmenu .topmenu-firstlevel li.add-button a {
+    text-decoration: none;
+    color: #000;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    color: #1e88e5;
+    background: #fff;   
+    font-weight: bold; 
+}
+.topmenu .topmenu-firstlevel li.add-button a:hover{
+    color: #1e88e5;    
+    background-color: #D2E7FA;    
+}
+.topmenu .topmenu-firstlevel li.favorites{
+    float: right;
+    display: none;
+}
+.topmenu .topmenu-firstlevel li.favorites.active{
+    display: block;
+}
+.topmenu .topmenu-firstlevel li.favorites a{
+    
+}
+.topmenu .topmenu-firstlevel li.favorites a:before{
+    line-height: 30px;
+    margin-right: 5px;
+    font-size: 14px;    
+}
+
+.topmenu .user-logo {
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.topmenu .user-logo .avatar {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    z-index: 10;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.topmenu .topmenu-firstlevel .user-logo .user-info {
+    position: absolute;
+    height: 40px;
+    padding: 0;
+    width: 40px;
+}
+.topmenu .topmenu-firstlevel .user-logo .user-avatar{
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background: #ddd;
+    overflow: hidden;
+    padding: 0;
+}
+.topmenu .topmenu-firstlevel .user-logo .user-avatar:before {
+    color: #818181;
+    font-size: 24px;
+    margin: 7px 0 0 8px;
+    text-align: center;
+}
+.topmenu .topmenu-firstlevel .user-logo:hover .auth-submenu {
+    display: block;
+}
+
+.topmenu .topmenu-firstlevel .user-logo:hover {
+    cursor: pointer;
+}
+
+.topmenu .topmenu-firstlevel .user-logo:hover:before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    right: -10px;
+    top: 0;
+    height: 60px;
+    background: #d2e7fa;
+    display: block;
+    cursor: pointer;
+}
+.topmenu .topmenu-firstlevel .user-logo a{
+   
+}
+.topmenu .topmenu-firstlevel .user-logo:hover a {
+    background-color: transparent;
+    color: #000;
+}
+
+ .topmenu .topmenu-firstlevel .auth-submenu{
+    background: #d2e7fa;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    margin-left: -190px;
+    display: none;
+    border-radius: 0px 0px 3px 3px;
+    width: 380px;
+    
+}
+.topmenu .topmenu-firstlevel .auth-submenu:hover{
+    display: table;
+}
+.topmenu .topmenu-firstlevel .auth-submenu .left-wrapper{
+    width: 140px;
+    padding: 10px;
+    display: table-cell;
+}                                                       
+.topmenu .topmenu-firstlevel .auth-submenu .right-wrapper{
+    width: 240px;
+    background: #fff;
+    padding: 0;
+    display: table-cell;
+}
+.topmenu .topmenu-firstlevel .auth-submenu .notifications ul{
+    overflow-y: auto;
+    max-height: 180px;
+    padding: 0 20px;    
+}
+.topmenu .topmenu-firstlevel .auth-submenu .notifications ul li {
+    position: relative;
+    line-height: 14px;
+    padding: 20px 0;
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+    width: 180px;
+    text-align: left; 
+}
+
+.topmenu .topmenu-firstlevel .auth-submenu .notifications ul li i {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -9px;
+    display: none;
+}
+.topmenu .topmenu-firstlevel .notifications ul li:hover i{
+   display: block; 
+}
+.topmenu .topmenu-firstlevel .notifications ul li i:before{
+    color:#e21313;
+    font-size: 18px; 
+    margin: 0;       
+}
+.topmenu .topmenu-firstlevel .auth-submenu .notifications ul li.delete-all {
+    display: block;
+    margin: -1px 0 0 0;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+}
+.topmenu .topmenu-firstlevel .auth-submenu .notifications ul li.empty,
+.topmenu .topmenu-firstlevel .auth-submenu .notifications.hidden ul li.delete-all{
+    display: none;    
+}
+.topmenu .topmenu-firstlevel .auth-submenu .notifications.hidden ul li.empty{
+    display: block;
+}
+.topmenu .topmenu-firstlevel .auth-submenu .notifications.hidden ul li.empty span {
+    display: inline-block;
+    width: 100%;
+    height: 110px;
+    padding: 0;
+    background: transparent;
+    color: #818181;
+    font-size: 16px;
+    font-weight: normal;
+    top: 15px;
+    position: relative;
+    text-align: center;
+    cursor: default;
+}
+.topmenu .topmenu-firstlevel .amount-total{
+    display: none;
+    position: absolute;
+    top: 7px;
+    background-color: #dd0000;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    line-height: 21px;
+    text-align: center;
+    border-radius: 20px;
+    left: 30px;
+    z-index: 31000;
+}
+.topmenu .topmenu-firstlevel .amount-total.active{
+    display:block;
+}
+.topmenu .topmenu-firstlevel .auth-submenu .notifications.hidden ul li.empty span:before {
+    position: absolute;
+    font-size: 70px;
+    color: rgba(0,0,0,.2);
+    z-index: 0;
+    left: 65px;
+    top: 40px;
+}
+.sex-select.male.female .img-male, .sex-select.male .img-female {
+    display: none;
+}
+.user-avatar-color.small img {
+    margin: 0!important;
+}
+.sex-select img {
+    margin: 0 auto;
+    display: block;
+}
+.topmenu .notifications ul li .text {
+    font-size: 14px;
+    line-height: 14px;
+    background: none;
+    color: #000;
+    padding: 0 0 0 1px;
+    margin: 0;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topmenu .topmenu-firstlevel .auth-submenu li {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    float: none;
+}
+
+.topmenu .topmenu-firstlevel .auth-submenu .title {
+    display: block;
+    background: none;
+    color: #1e88e5;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 20px;
+    height: auto;
+    cursor: default;
+}
+
+.topmenu .topmenu-firstlevel .auth-submenu a {
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+    width: 90px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 10px 0 20px;
+    margin: 0;
+}
+
+.topmenu .notifications:hover .auth-submenu a:hover,.topmenu .topmenu-firstlevel .user-logo:hover .auth-submenu a:hover,.topmenu .topmenu-firstlevel .auth-submenu a:hover,.topmenu .topmenu-firstlevel .auth-submenu a.active {
+    background-color: #fff;
+}
+
+.topmenu .topmenu-firstlevel .user-logo .office, .topmenu .topmenu-firstlevel .user-logo .conversions, .topmenu .topmenu-firstlevel .user-logo .finances, .topmenu .topmenu-firstlevel .user-logo .tarifs, .topmenu .topmenu-firstlevel .user-logo .bsn_target {
+    display: none;
+}
+
+.topmenu .topmenu-firstlevel .user-logo:hover .auth-submenu a.personal-info,.topmenu .topmenu-firstlevel .user-logo:hover .auth-submenu a.auth-logout {
+    color: #818181;
+}
+
+
+.topmenu .topmenu-firstlevel .auth-submenu .office,
+.topmenu .topmenu-firstlevel .auth-submenu .conversions,
+.topmenu .topmenu-firstlevel .auth-submenu .finances,
+.topmenu .topmenu-firstlevel .auth-submenu .tarifs,
+.topmenu .topmenu-firstlevel .auth-submenu .bsn_target {
+    display: none;
+}
+
+
+.topmenu .topmenu-firstlevel li.user-logo {
+    float: right;
+    margin: 0 0 0 20px;
+}
+.topmenu .topmenu-firstlevel li.doverie-button{
+    width: 400px;    
+}
+.topmenu .topmenu-firstlevel li.doverie-button a{
+    width: 140px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+.topmenu .topmenu-firstlevel li.doverie-button:hover a{
+    background: none;
+    
+}
+.topmenu .topmenu-firstlevel li.doverie-button img{
+    
+}
+
+.topmenu .topmenu-firstlevel li.auth-login {
+    float: right;
+    margin-top: 10px;
+}
+
+.topmenu .topmenu-firstlevel .auth-login span {
+    background: none;
+    color: #fff;
+    margin: 0 10px 0 0;
+    line-height: 31px;
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}     
+.topmenu .topmenu-firstlevel .auth-login span:before{
+    margin-top: 6px;
+}
+.topmenu .topmenu-firstlevel .auth-login span:hover{
+    background: #D2E7FA;   
+    color:#1e88e5;
+}
+header.short-menu{
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+    background: none;
+    position: absolute;
+}
+header.short-menu .logo{
+    position: absolute;
+    left: 50%;
+    margin-left: -60px;
+    padding: 20px;
+    background: #1e88e5;    
+}
+header.short-menu .topmenu-wrapper{
+    display: none;
+}         
+
+header.short-menu .topmenu .logo-box{
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    background: #1e88e5;
+    padding: 11px 15px 10px 15px;
+    width: 70px;
+    height: auto;    
+}
+header.short-menu .topmenu .logo-box a{
+    width: 70px;
+    height: auto;    
+}
+header.short-menu .topmenu .logo-box a:before{
+    width: 70px;
+    height: 20px;
+    background-position: -144px -54px;
+    background-size: 215px;    
+}

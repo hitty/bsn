@@ -1,0 +1,20 @@
+<form class="mortgage-view-form active" action="" method="POST">
+    <span class="form-title">Заявка</span>
+    <a class="closebutton"></a>
+    <span>Ваше имя</span>
+    <input type="text" name="name" required="required">
+    <span>Обязательное поле</span>
+    <span>Телефон</span>
+    <input type="phone" name="phone" class="phone" required="required" autocomplete="off" maxlength="17">
+    <span>Обязательное поле</span>
+    <span>Email <i>(необязательно)</i></span>
+    <input type="email" name="email" class="email" autocomplete="off">
+    <span>Неправильный email</span>
+    <span>Комментарий <i>(необязательно)</i></span>
+    <textarea name="user_comment" id="user-comment"></textarea>
+    <div class="button-container">
+        <div class="application-view-form-button">
+            <button class="green send" value="Отправить"  onclick="try{ yaCounter21898216.reachGoal('send_open_app'); return true; }catch(err){ }">Отправить</button>
+        </div>
+    </div>
+</form>

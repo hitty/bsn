@@ -1,0 +1,32 @@
+.left-search-form{
+    display:table;
+}
+.left-search-form.waiting{
+    opacity:0.5;
+}
+.left-search-form .form__field-box{
+    position:relative;
+    display:block;
+    overflow:hidden;
+}
+.left-search-form .form__field-box .field-box__title{
+    font-weight:bold;
+}
+.left-search-form .form__field-box .field-box__values{
+    top:0px;
+    display:table;
+    /*position:absolute;*/
+}
+.left-search-form .form__field-box .field-box__values.hided{
+    top:-200px;
+}
+.left-search-form .form__field-box .field-box__values .values__item.checkbox{
+    padding-left:25px;
+    display:block;
+}
+.ajax-search-results.left-form-result{
+    display:table;
+}
+.ajax-search-results.left-form-result.waiting{
+    opacity:0.5;
+}

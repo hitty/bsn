@@ -1,0 +1,36 @@
+<h1 class="pageTitle">Системные сообщения</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/access/users/system_messages/add/" enctype="multipart/form-data">
+    <h3>Новое сообщение</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/access/users/system_messages/edit/{$data_mapping['id']['value']}/">
+    <h3>Системное сообщение #{$data_mapping['id']['value']} </h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+
+    {include /admin/templates/form_default.html}
+
+    <p style="clear:none;">
+        {if!empty $data_mapping['id']['value']}<input type="submit" value="Сохранить" name="submit">
+        {else} <input type="submit" value="Сохранить" name="submit">{/if}
+    </p>
+</form>    

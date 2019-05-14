@@ -1,0 +1,71 @@
+<h1 class="pageTitle">Системные сообщения</h1>
+<div class="caption_line"><a href="/admin/access/users/system_messages/add/" class="button">Добавить сообщение</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_published = document.getElementById('f_published').value;
+            var __filter_title = document.getElementById('f_content').value;
+            var __url = '{root:/admin/access/users/system_messages/'};
+            var __get = new Array();
+            if(__filter_id!='') __get.push('f_id='+__filter_id);
+            if(__filter_published!=0) __get.push('f_published='+__filter_published);
+            if(__filter_title!=0) __get.push('f_content='+__filter_title);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            ID:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID рассылки">
+        </label>
+        <label>
+            Состояние:
+            <select id="f_published" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_published'],'1'} selected="selected"{/if}}>в ожидании рассылки</option>
+                <option value="2"{ifeq $get_array['f_published'],'2'} selected="selected"{/if}}>не активно</option>
+            </select>
+        </label>
+        <label>
+            Содержимое:
+            <input type="text" id="f_content" value="{$get_array['f_content']}" onchange="filter_activate()"  placeholder="Часть содержимого">
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Текст</th>
+                    <th>Дата создания</th>
+                    <th>Состояние</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                        <tr id="item_{$item['id']}" class="active">
+                            <td>{$item['id']}</td>
+                            <td>{$item['content']}</td>
+                            <td>{$item['date']}</td>
+                            <td>
+                                {ifeq $item['receipts'],0}
+                                    {ifeq $item['published'],'1'}в ожидании рассылки{else}не активно{/if}
+                                {else}отослано {$item['receipts']} пользов.
+                                {/if}
+                            </td>
+                            <td class="small_icons ac">
+                                <a href="/admin/access/users/system_messages/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                                <a href="/admin/access/users/system_messages/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            </td>
+                        </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

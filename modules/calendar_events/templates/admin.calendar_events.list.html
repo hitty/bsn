@@ -1,0 +1,106 @@
+<h1 class="pageTitle">Календарь событий</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/content/calendar_events/add/" class="button">Добавить статью</a>
+    <a href="/admin/content/calendar_events/flush_memcache/" class="delete-memcache">Очистить кеш для всех блоков на сайте</a>
+    <a href="/admin/content/calendar_events/delete_memcache/" class="delete-memcache">Очистить кеш календаря</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_category = document.getElementById('f_category').options[document.getElementById('f_category').selectedIndex].value;
+            var __filter_date_begin = document.getElementById('f_date_begin').value;
+            var __filter_date_end = document.getElementById('f_date_end').value;
+            var __url = '{root:/admin/content/calendar_events/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_category!=0) __get.push('f_category='+__filter_category);
+            if(__filter_date_begin!='') __get.push('f_date_begin='+__filter_date_begin);
+            if(__filter_date_end!='') __get.push('f_date_end='+__filter_date_end);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Категория:
+            <select id="f_category" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </label>
+        
+        <label>
+            Дата начала:
+            <input type="date" id="f_date_begin" value="{$get_array['f_date_begin']}" onchange="filter_activate()" placeholder="Дата начала события">
+        </label>
+        <label>
+            Дата окончания:
+            <input type="date" id="f_date_end" value="{$get_array['f_date_end']}" onchange="filter_activate()" placeholder="Дата окончания события">
+        </label>
+
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="65%">
+                <col class="col2" width="15%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Заголовок</th>
+                    <th>Дата  события</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>
+                            {if!empty $item['photo']}<img src="/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
+                            {$item['title']}
+                        </td>
+                        <td>
+                            {if!eq $item['date_end'],'0000-00-00'} 
+                            	{php:echo date('d.m',strtotime($item['date_begin']))."-".date('d.m y',strtotime($item['date_end']))} 
+                            {else} 
+                            	{php:echo date('d.m.y',strtotime($item['date_begin']))}
+                            {/if}
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/calendar_events/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/calendar_events/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

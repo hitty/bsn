@@ -1,0 +1,96 @@
+<div class="organizations-content-box">
+    {if!empty $h1}
+        <h1>{$h1}</h1>
+    {/if}
+    <div class="organizations-filter">
+        <div class="agency_cols" style="">
+            <div class="title-search">
+                <div id="autocomplete_inputbox">
+                    <input type="text" id="autocomplete_input" class="autocomplete" value="" data-url="/specialists/search/" size="40" placeholder="Поиск по имени">
+                </div>
+            </div>
+        </div>
+        <a class="show-all" href="/specialists/" title="Показать всех специалистов">Показать всех</a>
+        <div class="agency_cols">
+            <div class="alphabet-search">
+                <h2 style="margin-top:10px;">По алфавиту</h2>
+                <div class="organizations-letters-list">
+                    {block specialists/block/letters}
+                </div>
+            </div>
+        </div>
+        <div class="agency_cols">
+            <h2>По виду деятельности</h2>
+            <div class="organizations-category-list">
+                {block specialists/block/specializations/}
+            </div>
+        </div>
+        <div class="agency_cols">
+            <h2>По количеству предложений</h2>
+            <div class="organizations-amounts-list">
+                {block specialists/block/amounts/}
+            </div>
+        </div>
+    </div>
+    {ifempty $list}
+    <p class="nobody">Ни одного специалиста не найдено.</p>
+    {else}
+        <div class="result-list">
+            <div class="result-title">
+                <div class="result-total">
+                    <span>Найдено специалистов всего: <i>{$total_found}</i></span>
+                    <span>Показаны <i>{ifempty $paginator['from_item']}1-{$total_found}{else}{$paginator['from_item']}-{$paginator['to_item']}{/if}</i></span>
+                </div>
+                <div class="sb-sort">
+                    <div class="list-selector grey" id="sort_selector">
+                        <a href="#" class="pick">20</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" name="sort_selector" value="{$sortby}" />
+                        <ul class="list-data" data-link="?sortby=">
+                            <li data-value="1">предложений, больше</li>
+                            <li data-value="2">предложений, меньше</li>
+                            <li data-value="3">ответов, больше</li>
+                            <li data-value="4">ответов, меньше</li>
+                        </ul>
+                    </div>                                    
+                </div>
+                <div class="perpage">
+                    Показывать 
+                    <div class="list-selector grey" id="count_selector">
+                        <a href="#" class="pick">20</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" name="count_selector" value="20" />
+                        <ul class="list-data">
+                            <li data-value="20">20</li>
+                            <li data-value="40">40</li>
+                            <li data-value="60">60</li>
+                        </ul>
+                    </div>                                    
+                </div>
+            </div>
+            {loop $list,$lk,$item}
+                <div class="specialist-item">
+                    <div class="specialist-photo">
+                        {if!empty $item['user_photo']}
+                            <img src="/{$item['user_photo_folder']}/{$item['user_photo']}" class="internal-link" alt="{quoted:$item['title']}" data-link="/specialists/{$item['id']}/" data-new-tab="true"/>
+                        {else}
+                            <span class="sex-select user-avatar-color medium male{ifeq $item['sex'],2} female{/if}" style="background-color: {$item['avatar_color']};">
+                                <img src="{static:/}img/layout/user-ava-image-male-med.png" class="img-male" alt="" />
+                                <img src="{static:/}img/layout/user-ava-image-female-med.png" class="img-female" alt="" />
+                            </span>
+                        {/if}
+                    </div>
+                    <div class="specialist-title">
+                        <a href="/specialists/{$item['id']}/" title="подробнее" target="_blank">{$item['title']}</a>
+                        <span>{$item['specializations']}</span>
+                    </div>
+                    <div class="specialist-phone">{$item['phone_1']}</div>
+                    <div class="specialist-objects">{if!empty $item['amount']}{suffix:$item['amount'],'предложени','е','я','й'}{if!empty $item['answers_amount']}<br \>{suffix:$item['answers_amount'],'ответ','','а','ов'}{/if}{else}{if!empty $item['answers_amount']}{suffix:$item['answers_amount'],'ответ','','а','ов'}{/if}{/if}</div>
+                    <div class="specialist-parent_agency">{if!empty $item['parent_agency_title']}<a href="{$item['parent_agency_url']}" title="{$item['parent_agency_title']}" target="blank">{$item['parent_agency_title']}</a>{/if}</div>
+                </div>
+            {/loop $list}
+        </div>
+        {include /templates/includes/paginator.html}
+    {/if}
+</div>
+{block tgb/block/live}

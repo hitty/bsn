@@ -1,0 +1,8 @@
+{if!empty $item}
+        <div class="credit-box search-results">
+            <span class="external-link" data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="search" data-id="{$item['id']}">
+                <img src="{ifempty $item['img_link']}{$img_url['img_link']}{static:/}{$item['img_folder']}/{$item['img_src']}{else}{$item['img_link']}{/if}" alt="{quoted:$item['title']}" />
+                Ипотека
+            </span>
+        </div>
+{/if}

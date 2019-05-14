@@ -1,0 +1,50 @@
+<h1>{$h1}</h1>
+<div class="central-wrapper rating-wrap" data-id="{$item['id']}">
+    {if!empty $list}
+        <ul class="rating-list clearfix transition">
+            {loop $list,$k,$litem}
+                <li><a class="transition{ifeq $litem['id'],$item['id']} active{/if}" href="/service/ratings/{$litem['chpu_title']}/" title="{$litem['title']}">{$litem['title']}</a></li>
+            {/loop $list}
+        </ul>
+    {/if}
+    <div class="content">
+        <div class="article-snippet content-last-data" data-id="40023">
+            <h2>Статьи</h2>
+            <div class="item news inner-wrapper">
+                <a href="{ifempty $articles_item['link']}/articles/{$articles_item['category_code']}/{$articles_item['chpu_title']}/{else}{$articles_item['link']}/{/if}" title="подробнее" class="image" style="background-image: url({static:/}{$img_folder}/med/{$articles_item['subfolder']}/{$articles_item['photo']});">{ifin $articles_item['id_category'],31,32}{if!empty $articles_item['video_link']}<div class="video-layer{ifeq $articles_item['id_category'],32} bsntv{/if}"></div> {else}{if!empty $articles_item['direct_video_link']}<div class="video-layer{ifeq $articles_item['id_category'],32} bsntv{/if}"></div>{/if}{/if}{/if}</a>
+                <div class="content">
+                    <p class="smallnotes">
+                        <time datetime="{$articles_item['datetime']}">{$articles_item['normal_date']}</time>
+                        <a href="/articles/{$articles_item['category_code']}/" title="{$articles_item['category_title']}" class="category">{$articles_item['category_title']}</a>
+                        <span class="views_count">{$articles_item['views_count']}</span>
+                        <span class="comments_count">{$articles_item['comments_count']}</span>
+                    </p>  
+                    <a class="a-h3" href="{ifempty $articles_item['link']}/articles/{$articles_item['category_code']}/{$articles_item['chpu_title']}/{else}{$articles_item['link']}/{/if}" title="подробнее">{$articles_item['title']}</a>
+                </div>
+            </div>
+        </div>
+            
+        <div id="housing-estates-rating-list" class="bottom-gradient-overflow">
+            <h2>
+                Рейтинг
+                <a href="/help/15_obschaya_informaciya/25_golosovanie_za_zhilye_kompleksy/" title="Как мы считаем баллы?">Как мы считаем баллы?</a>
+            </h2>
+            {php:$list = $rating_list}
+            {include /modules/housing_estates/templates/block.rating.list.html}
+        </div>
+        <span class="read-next dashed-link-blue">Смотреть весь топ</span>
+    </div>
+
+    <h2 class="map-title">Жилые комплексы на карте</h2>
+    <script src="http://maps.api.2gis.ru/2.0/loader.js" data-id="dgLoader"></script>
+    <div id="map" class="map"></div> <!--/#map-wrap-->
+
+    {if!empty $comments_list}
+        {php:$list = $comments_list}
+        <div id="housing-estates-last-comments" class="clearfix">
+            <h2>Отзывы</h2>
+            {include /modules/comments/templates/block.last.list.html}
+        </div> <!--/#housing-estates-rating-list-->
+    {/if}
+    
+</div>

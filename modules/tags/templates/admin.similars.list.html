@@ -1,0 +1,140 @@
+<h1 class="pageTitle">Похожие теги</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['move']}
+    {iflt $results['move'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Перемещение элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Перемещение элемента #{$results['move']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="list_table">
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="90%">
+                <col class="col1" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Группы похожих тегов</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td>
+                            {loop $item,$group_key,$group_item}
+                                <span class="similar-tag" data-tag-id = "{$group_item['id']}">{$group_item['title']}<sup>{$group_item['count']}<i class = "remove-button" title = "Убрать тег из группы">X</i></sup></span>
+                            {/loop $item}
+                        </td>
+                        <td class="small_icons ac">
+                            <span class="unite-tags disabled" data-href="/admin/content/tags/similar/">Объединить по выбранному</span>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+<script>
+    jQuery(document).ready(function(){
+        var _target = jQuery(this);
+        //щелкаем по крестику для удаления тега из группы похожих
+        jQuery('.remove-button').click(function(){
+            if(!confirm('Вы уверены, что нужно убрать тег из группы?')) return false;
+            var _url = "/admin/content/tags/similar/remove/" + jQuery(this).parents('.similar-tag').attr('data-tag-id')+'/';
+            var _tr = jQuery(this).parents('tr');
+            var _td = jQuery(this).parents('td');
+            jQuery.ajax({
+                type: "POST", async: true,
+                dataType: 'json', url: _url,
+                data: {ajax: true},
+                success: function(msg){
+                    if(typeof(msg)=='object') {
+                        if(msg.ok) {
+                            _obj = jQuery(this).parents('.similar-tag');
+                            _obj.fadeOut(500,function(){
+                                _obj.remove();
+                            });
+                        } else alert('Ошибка: '+msg.error);
+                    } else alert('Ошибка!');
+                },
+                error: function(msg){
+                    alert('Server connection error!');
+                },
+                complete: function(){
+                }
+            });
+            jQuery(this).parents('.similar-tag').remove();
+            //если тегов два и один из них мы удалили, удаляем и второй, а потом строку
+            if(_td.children().length == 1){
+                jQuery(this).parent().children().first().children('.remove-button').click();
+                _tr.fadeOut(500,function(){
+                                _tr.remove();
+                            });
+            }
+        });
+        jQuery('.similar-tag').click(function(){
+            var _target = jQuery(this);
+            //если тег не выбран в качестве основного, отмечаем его и приглушаем остальные
+            if(!jQuery(this).hasClass('selected')){
+                //убираем выделение всего остального
+                jQuery('.similar-tag').removeClass('selected').removeClass('not-selected');
+                jQuery('tr').removeClass('selected');
+                jQuery('.unite-tags').addClass('disabled');
+                //приглушаем остальные теги в строке
+                jQuery(this).parent().children('.similar-tag').removeClass('selected').addClass('not-selected');
+                //выделяем наш
+                jQuery(this).removeClass('not-selected').addClass('selected');
+                //записываем id невыбранных тегов
+                _not_selected_ids = "";
+                jQuery(this).parent().children('.not-selected').each(function(){
+                    _not_selected_ids += jQuery(this).data().tagId+",";
+                });
+                //устанавливаем кнопке id выбранного тега в скрытое поле
+                jQuery(this).parents('tr').children().last().children().attr('data-selected-id',jQuery(this).data().tagId);
+                //устанавливаем кнопке набор id невыбранных тегов в скрытое поле
+                jQuery(this).parents('tr').children().last().children().attr('data-notselected-id',_not_selected_ids);
+                //показываем кнопку
+                jQuery(this).parents('tr').children().last().children().removeClass('disabled');
+                //отмечаем строку
+                jQuery(this).parents('tr').addClass('selected');
+            }
+            else{
+                //если тег был выбран и мы сняли выделение, возвращаем все в первоначальное состояние
+                jQuery(this).removeClass('selected');
+                jQuery(this).parent().children('.similar-tag').removeClass('not-selected');
+                //скрываем кнопку
+                jQuery(this).parents('tr').children().last().children().addClass('disabled');
+                //убираем с кнопки значение
+                jQuery(this).parents('tr').children().last().children().attr('data-selected-id',0);
+                //убираем с кнопки набор id невыбранных тегов
+                jQuery(this).parents('tr').children().last().children().attr('data-notselected-id',0);
+                //убираем выделение со строки
+                jQuery(this).parents('tr').removeClass('selected');
+            }
+        });
+    });
+</script>

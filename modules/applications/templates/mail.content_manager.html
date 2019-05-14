@@ -1,0 +1,22 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день, <b>{$data['name']}</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Необходимо проверить новую <a href="{$data['edit_url']}" target="_blank">заявку</a>:
+        <br /><br />
+        {if!empty $data['universal_app']}
+            Общая заявка раздела {$data['campaign_title']} {if!empty $data['agency_title']}{if!empty $data['agent']} для специалиста{else} для компании{/if} {$data['agency_title']}{/if}
+        {else}
+            <p>Объект: {$data['campaign_title']}</p>
+        {/if}
+        <p>Имя пользователя: {$data['user_name']}</p>
+        {if!empty $data['user_comment']}
+            <p>Комментарий: {$data['user_comment']}</p>
+        {/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

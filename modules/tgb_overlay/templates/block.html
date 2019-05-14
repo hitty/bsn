@@ -1,0 +1,29 @@
+{if!empty $item}
+    <div class="tgb-overlay-wrap" data-tgb-type="tgb_overlay" data-type="{$item['type']}" data-id="{$item['id']}">
+        <div class="top" data-icon="arrow_upward">
+            <span class="slogan">Реклама</span>
+            <span class="title">{$item['title']}</span>
+        </div>
+        <div {ifeq $item['type'],2}style="background-image: url({ifempty $item['img_link']}{static:/}{$item['img_folder']}/{$item['img_src']}{else}{$item['img_link']}{/if}) ;"{/if} {ifin $item['type'],2,3}class="external-link bottom{ifeq $item['type'],3} text{/if}" data-link="{$item['direct_link']}"{else}class="bottom"{/if}>
+            {ifeq $item['type'],1}
+                <form class="phone-wrap br3" action="/tgb_overlay/add/{$item['id']}/">
+                    <span class="text">Заинтересовало предложение?<br /> Наши менеджеры свяжутся с вами!</span>
+                    {if!empty $item['direct_link']}<span class="internal-link" data-new-tab="true" data-icon="launch" data-link="{$item['direct_link']}">Перейти на страницу акции</span>{/if}
+                    <div class="phone-form row">
+                        <input type="phone" name="tgb-overlay-phone" placeholder="Ваш номер телефона" required="required" />
+                        <span class="button blue">Перезвоните мне</span>
+                    </div>
+                    <!--span class="success">Большое спасибо! Операторы свяжутся с Вами ближайшее время!</span-->
+                </form>
+            {elseifeq $item['type'],3}
+                {$item['text']}
+            {/if}
+            
+            {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;position:absolute;opacity:0;" />{/if}
+            
+        </div>
+    </div>
+    
+        <script>jQuery(document).ready(function(){ jQuery( 'input[type=phone]', jQuery( '.phone-wrap' ) ).mask('8 (999) 999-99-99'); jQuery( '.phone-wrap' ).formSubmit(); } )</script>
+   
+{/if}

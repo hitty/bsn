@@ -1,0 +1,195 @@
+<div class="stats-table adv-list">
+    {if!empty $list}
+        <table class="tablesorter applications {if!empty $common_user}common-user{/if}" cellpading="1">  
+            <colgroup>
+                <col class="col1" width="1%">
+                <col class="col1" width="20%">
+                <col class="col2" width="29%">
+                <col class="col2" width="35%">
+                <col class="col2" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><span class="app-id">ID</span></th>
+                    <th><span class="adv-title">Дата</span></th>
+                    <th><span class="adv-shows">Контакт</span></th>
+                    <th><span class="adv-clicks">Тип заявки</span></th>
+                    <th><span class="adv-ctr"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="{$item['id']}" class="adv-table-row {if!empty $item['comment']}editing{/if} {if!empty $free_apps_for_me}free-for-payed{/if} {ifeq $item['viewed'],2}new-app{/if}">
+                        <td>{if!empty $item['id_parent_app']}{$item['id_parent_app']}{else}{$item['id']}{/if}</td>
+                        <td data-order="{$item['date_normal']}" class="date_in">
+                            <span>{$item['normal_date']}</span>
+                           
+                            <span class="comment">
+                                {if!empty $item['user_comment']}
+                                    <i>Комментарий</i>
+                                {else}
+                                    <i class="no-comment">Нет комментария</i>
+                                {/if}
+                            </span>  
+                            {ifempty $common_user}
+                                {ifempty $item['comment']}
+                                    {if!empty $item['start_date']}
+                                        <i class="add-comment">Заметка</i>
+                                    {/if}
+                                {/if}
+                            {/if}
+                            
+                            <div class="app-comments-block {if!empty $item['comment']}active{/if}">
+                                <span class="user-comment-block">{$item['user_comment']}</span>
+                                {ifempty $common_user}
+                                <span class="comment-block {if!empty $item['comment']}active{/if}">
+                                    <textarea rows="4">{$item['comment']}</textarea>
+                                    <i class="save">Сохранить</i>
+                                    {if!empty $item['comment']}<i class="del">Удалить</i>
+                                    {else}<i class="undo">Отмена</i>{/if}
+                                </span>
+                                {/if}
+                            </div>
+                        </td>
+                        <td class="app-info {if!empty $item['email']}high{/if}">
+                            <span class="app-phone">
+                                {$item['phone']}<br>
+                                {$item['email']}
+                            </span>
+                            <span class="app-name">{$item['name']}</span>
+                            <span class="app-user-type">{$item['user_type_title']}{if!empty $item['work_status_title']},<br/>{$item['work_status_title']}{/if}</span>
+                        </td>
+                        <td class="app-type">
+                            <span class="object-type">{$item['object_type_title']}</span>
+                            {ifempty $item['id_realtor_help_type']}<span class="deal-type {$item['rent_title']}">{$item['rent']}</span>{/if}
+                            {if!empty $item['id_parent']}
+                                {if!empty $item['id_realtor_help_type']}
+                                    Требуется риэлтор. {$item['realtor_help_type_title']}
+                                {else}
+                                    {ifempty $item['target_object_status']}
+                                        <span class="deleted-object">Объект удален</span>
+                                    {else}
+                                        {ifeq $item['target_object_status'],3}
+                                            <span class="deleted-object">Объект на модерации</span>
+                                        {else}
+                                            <a href="{$item['url']}" target="_blank" title="Посмотреть карточку объекта">{if!eq $item['target_object_status'],2}Смотреть {ifeq $item['estate_type'],8}акцию{else}объект{/if}{else}{ifeq $item['estate_type'],8}Акция{else}Объект{/if} в архиве{/if}</a>
+                                        {/if}
+                                    {/if}
+                                {/if}
+                            {/if}
+                            {if!empty $item['user_object']}
+                                {if!empty $item['id_parent']}
+                                    {ifeq $item['estate_type'],8}<span class="your-object">Это ваша акция</span>
+                                    {else}<span class="your-object">Это ваш объект</span>{/if}
+                                    
+                                {else}
+                                    <span class="your-object">Это ваша заявка</span>
+                                {/if}
+                            {/if}
+                            <span class="estate-type {ifeq $item['status'],2}bottomed{/if}">{$item['estate_type_title']}</span>
+                        </td>
+                        <td class="status-info">
+                            {ifeq $app_io,'out'}
+                                <span class="title common-user {ifeq $item['status'],2}new{else}{ifeq $item['status'],3}in-work{else}{ifeq $item['status'],1}finished{/if}{/if}{/if}">
+                                {ifeq $item['status'],2}
+                                    Новая
+                                {else}
+                                    <span>
+                                        <ul class="squares">
+                                        {if!empty $item['start_date']}
+                                            <li class="app-date-start"><i>Принята в работу:</i>{$item['start_date']}</li>
+                                        {/if}
+                                        {if!empty $item['finish_date']}
+                                            <li class="app-date-finish"><i>Завершена:</i>{$item['finish_date']}</li>
+                                        {/if}
+                                        </ul>
+                                    </span>
+                                    <i class="status-title">{$item['status_title']}</i>
+                                {/if}
+                                </span>
+                            {else}
+                                {ifeq $item['status'],2}
+                                    {php:$show_button = !( $auth['id_group'] == 13 && ($item['estate_type'] == 2 || ($item['estate_type'] == 5 && $item['build_complete'] == 'Сдан') ) )}
+                                    {if!empty $item['id_realtor_help_type']}
+                                        {if!empty $can_buy_realtor_apps}
+                                            <span class="button blue in-work realtor" data-can-buy="{$can_buy_realtor_apps}" data-exclusive="{$item['can_be_exclusive']}" low-cost="1000" high-cost="1000">В работу</span>
+                                        {/if}
+                                    {elseif!empty $item['free_for_payed']}
+                                        {if!empty $free_apps_for_me}
+                                            <span class="button blue in-work public free-for-payed" low-cost="{ifempty $item['cost']}0{else}{$item['cost']}{/if}">В работу бесплатно</span>
+                                        {else}
+                                            <span class="gray-info">Бесплатно для клиентов BSN.ru</span>
+                                        {/if}
+                                    {else}
+                                        {if!empty $show_button}<span class="button blue in-work"  low-cost="{ifempty $item['cost']}0{else}{$item['cost']}{/if}" high-cost="{ifempty $item['exclusive_cost']}0{else}{$item['exclusive_cost']}{/if}">В работу</span>{/if}
+                                    {/if}
+                                    
+                                {else}
+                                    <span class="title {$item['status_alias']}">
+                                        <span>
+                                            <ul class="squares">
+                                                {if!empty $item['start_date']}
+                                                    <li class="app-date-start"><i>Принята в работу:</i>{$item['start_date']}</li>
+                                                {/if}
+                                                {if!empty $item['finish_date']}
+                                                    <li class="app-date-finish"><i>Завершена:</i>{$item['finish_date']}</li>
+                                                {/if}
+                                            </ul>
+                                        </span>
+                                        <i class="status-title margined" {ifempty $item['finish_date']}title="Нажмите чтобы закрыть заявку"{/if}>{$item['status_title']}</i>
+                                    </span>
+                                    {if!empty $item['is_exclusive']}<span class="exclusive-badge">Эксклюзив</span>{/if}
+                                {/if}
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <div class="no-results-found">
+            Заявки не найдены
+        </div>
+    {/if}
+</div>
+{include /templates/includes/paginator.html}
+<script>
+    jQuery(document).ready(function(){
+        //инициализируем datatable
+        jQuery('.tablesorter').dataTable({
+            "bPaginate": false,
+            'bInfo': false,
+            "order": [[ 1, "desc" ]],
+            "columnDefs": [{ orderable: false, targets: -1 }]
+        });
+        jQuery('.dataTables_filter').children('label').css('opacity','0');
+        jQuery('span.title.in-work').on('click',function(){
+            if(jQuery(this).hasClass('common-user')) return false;
+            if(!confirm('Завершить заявку?')) return false;
+            var _id = jQuery(this).parents('tr').attr('id');
+            var _url = window.location.href + 'finish/' + _id;
+            jQuery.ajax({
+                type: "POST", async: true,
+                dataType: 'json', cache: false,
+                url: _url,
+                data: {ajax: true},
+                success: function(msg){
+                    if(msg.ok){
+                        //если все хорошо, корректируем количество и щелкаем по вкладке "Завершенные"
+                        jQuery('#objects-list-title').children('.active').children('sup').html(parseInt(jQuery('#objects-list-title').children('.active').children('sup').html()) - 1);
+                        jQuery('#objects-list-title').children().eq(3).children('sup').html(parseInt(jQuery('#objects-list-title').children().eq(3).children('sup').html()) + 1)
+                        jQuery('#objects-list-title').children().eq(3).click();
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    return false;
+                },
+                complete: function(){
+                }
+            });
+        });
+    })
+        
+        
+    
+</script>

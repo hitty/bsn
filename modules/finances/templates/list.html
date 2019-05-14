@@ -1,0 +1,42 @@
+ <h3>История операций</h3>
+{if!empty $list}
+    <table>
+        
+        <tbody>
+            {loop $list,$k,$item}
+                <tr>
+                    <td class="date">{$item['normal_date']}</td>
+                    <td class="service">
+                        {$item['service_title']}
+                        <span class="object">
+                            {ifin $item['estate_type'],'live','build','commercial','country'}
+                                <a href="https://www.bsn.ru/{$item['estate_type']}/{$item['id_parent']}/" title="" target="blank">ID {$item['id_parent']}</a>
+                            {elseifeq $item['obj_type'],'admin_balance'}
+                                {ifeq $item['id_user'],$auth_data['id']}{$item['agency_title']}{else}{$item['user_name']}{/if}
+                            {elseifeq $item['obj_type'],'raising'}
+                                {$item['id_parent']}
+                            {elseifeq $item['obj_type'],'promocode'}
+                                <a href="/admin/access/users/promocodes/edit/{$item['id_parent']}" target="_blank">{$item['id_parent']}</a>
+                            {else}
+                                {$item['object_title']}
+                            {/if}
+                        </span>
+                    </td>
+                    <td class="summ">
+                        {if!empty $item['expenditure']}-{numeric:$item['expenditure']} Р
+                        {elseif!empty $item['income']}{numeric:$item['income']} Р
+                        {else}0 Р
+                        {/if}
+                    </td>
+                </tr>
+            {/loop $list}
+        </tbody>
+        
+    </table>
+    {php:$direct_link_paginator = true;}             
+    {include /templates/includes/paginator.html}    
+{else}
+    <div class="empty-results">
+            Вы еще не совершили ни одной операции
+        </div>
+{/if}

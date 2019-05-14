@@ -1,0 +1,113 @@
+<h4>Очереди объекта #{$object_id} &quot;{$object_info['title']}&quot;</h4>
+<fieldset>
+<div class="queries-edit-box">
+    <div id="object-complete" class="edit-line clearfix">
+
+        <div class="item corpuses-add"><i class="button-box"><i class="add-query" title="Добавить очередь"></i></i></div>
+    </div>
+    {if!empty $object_queries}
+        {loop $object_queries,$num,$object_query}          
+            {php: $num2 = $num + 1;}
+            <div class="query-complete-box clearfix" id="query_{$num2}">
+                <div class="item">
+                    <b>Очередь {$object_query['query_num']}</b>
+                    <select style="width: 90px;" class="num">
+                        {loop $build_complete_list,$k,$item}
+                        <option value="{$item['id']}"{ifeq $object_query['id'],$item['id']} selected="selected"{/if}>{$item['title']}</option>
+                        {/loop $build_complete_list}
+                    </select>
+                </div>
+
+                <div class="title item">
+                    Старт продаж
+                </div>
+                <div class="item">
+                    <b>Месяц</b>
+                    <select style="width: 100px;" class="month">
+                        <option value="0">-выберите-</option>
+                        {loop $months,$k,$item}
+                        <option value="{$item}"{ifeq $object_query['start_month'],$item} selected="selected"{/if}>{$item}</option>
+                        {/loop $months}
+                    </select>
+                </div>
+                <div class="item">
+                    <b>Год</b>
+                    <select style="width: 70px;" class="year">
+                        <option value="0">-выберите-</option>
+                        {loop $years,$k,$item}
+                        <option value="{$item['id']}"{ifeq $object_query['start_year'],$item['id']} selected="selected"{/if}>{$item['title']}</option>
+                        {/loop $years}
+                    </select>
+                </div>
+                
+                
+                <div class="item">
+                    <b>Корпуса</b>
+                    <input class="object-corpuses" type="text" value="{$object_query['corpuses']}"></input>
+                </div>
+                <div  class="item">
+                    {if!empty $num2}
+                        {ifempty $object_queries[$num2]}
+                            <i class="button-box"><i class="delete-query" title="Удалить очередь"></i></i>
+                        {else}
+                            <i class="button-box nodelete"><i class="delete-query nodelete" title="Удалить очередь"></i></i>
+                        {/if}
+                    {/if}
+                </div>
+            </div>
+        {/loop $object_queries}
+    {/if}
+    <div class="hidden-build-complete-content">
+        <div class="query-complete-box clearfix" id="query_{$num2}">
+            <div class="item">
+                <b>Очередь {$object_query['query_num']}</b>
+                <select style="width: 90px;" class="num">
+                    <option value="0">-выберите-</option>
+                    {loop $build_complete_list,$k,$item}
+                    <option value="{$item['id']}">{$item['title']}</option>
+                    {/loop $build_complete_list}
+                </select>
+            </div>
+
+            <div class="title item">
+                Старт продаж
+            </div>
+            <div class="item">
+                <b>Месяц</b>
+                <select style="width: 100px;" class="month">
+                    <option value="0">-выберите-</option>
+                    {loop $months,$k,$item}
+                    <option value="{$item}">{$item}</option>
+                    {/loop $months}
+                </select>
+            </div>
+            <div class="item">
+                <b>Год</b>
+            <select style="width: 70px;" class="year">
+                {loop $years,$k,$item}
+                <option value="{$item['id']}">{$item['title']}</option>
+                {/loop $years}
+            </select>
+            </div>
+            
+            
+            <div class="item">
+                <b>Корпуса</b>
+                <input class = "object-corpuses" type="text" value=""></input>
+            </div>
+            <div  class="item">
+                {if!empty $num2}
+                    {ifempty $object_queries[$num2]}
+                        <i class="button-box"><i class="delete-query" title="Удалить очередь"></i></i>
+                    {else}
+                        <i class="button-box nodelete"><i class="delete-query nodelete" title="Удалить очередь"></i></i>
+                    {/if}
+                {/if}
+            </div>
+        </div>    
+    </div>    
+    
+</div>
+<span class="button" id="save-queries">Сохранить</span>
+<div class="notification"></div>
+</fieldset>

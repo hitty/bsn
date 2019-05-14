@@ -1,0 +1,56 @@
+<span class="button grey search-button" data-icon="search" data-url="/search/popup/"></span>
+<h1 class="centered">{if!empty $h1_title}{$h1_title}{else}Календарь событий{/if}</h1>
+{include modules/search/templates/search.form.html}
+
+{if!empty $dates}
+    {loop $dates,$d,$ditem}
+    <section class="calendar-mainpage">
+        <h2 class="inner">
+            {php: echo Config::Get('months')[$ditem['month']]}
+            {$ditem['year']}
+        </h2>
+        <div class="content-wrapper">
+        {php:$month_list = $list[$ditem['month_year']]}
+        {loop $month_list,$k,$ev}
+            {php:$past_event = empty($ev['active_event']) && !empty($ev['past_event'])}
+            {php:$big = empty($d) && $k <= 1}
+            {php:$hidden = ( empty($d) && $k > 4 ) || ( !empty($d) && $k>2)}
+            {php:$show_more = ( empty($d) && $k==5 ) || ( !empty($d) && $k==3)}
+            {if!empty $show_more}
+                <div class="col-1 item br3 shadow-hover transition show-all">
+                    <div class="content">
+                        <span class="title">Все мероприятия в {php: echo Config::Get('months_prepositional')[$ditem['month']]} {$ditem['year']}</span>
+                        <span class="dashed-link-blue">Показать</span>
+                    </div>
+                </div>
+            {/if}
+            {include /modules/calendar_events/templates/list.block.item.html}
+        {/loop $month_list}
+        </div>
+    </section>
+    {/loop $dates}
+{else}
+    <p class="bigtext" style="padding: 40px 20px 160px 20px; text-align: center; color:#888;">Предстоящих событий не найдено!</p>
+{/if}
+<h2 class="inner">Архив мероприятий</h2>
+<section id="datetime-filter" class="links">
+    <div class="list-selector years-list grey">
+        <a href="#" class="pick"></a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" name="progress_years" value="" />
+        <ul class="list-data" data-simplebar="init">
+            {loop $date_list,$k,$pitem} 
+                    <li data-value="{$k}">{$k}</li>
+            {/loop $date_list}
+        </ul>
+    </div>                 
+    <ul class="list br3">
+        
+        {loop $date_list,$year,$months}
+            {loop $months,$m,$mitem}
+                <li class="item{if!empty $mitem['active']} on{/if}" data-year="{$year}" data-params="?month={$mitem['month_number']}&year={$year}"><a href="/calendar/archive/?month={$mitem['month_number']}&year={$year}">{$mitem['month']}</a></li>
+            {/loop $months}
+        {/loop $date_list}   
+        
+    </ul>
+</section>

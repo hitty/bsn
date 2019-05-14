@@ -1,0 +1,11 @@
+<div class="object-amounts">
+    {if!empty $amounts_list}
+        {loop $amounts_list,$key,$amount}
+            {ifeq $amount_current, $key}
+                <span class="selected">{$amount}</span>
+            {else}
+                <a href="/specialists/{$key}/">{$amount}</a>
+            {/if}
+        {/loop $amounts_list}
+    {/if}
+</div>

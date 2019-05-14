@@ -1,0 +1,38 @@
+<div class="statistic-box">
+    <div class="sb-info">
+    Найдено {suffix:$full_count,'вопрос','','а','ов'} и {suffix:$full_answers_count,'ответ','','а','ов'} {if!empty $paginator} Показаны {$paginator['from_item']}-{$paginator['to_item']}{/if}
+    </div>
+    <div class="perpage">
+        <div class="list-selector grey" id="count_selector">
+            <a href="#" class="pick">20</a>
+            <a href="#" class="select">...</a>
+            <input type="hidden" name="count_selector" value="20" />
+            <ul class="list-data">
+                <li data-value="20">20</li>
+                <li data-value="40">40</li>
+                <li data-value="60">60</li>
+            </ul>
+        </div>                                    
+    </div>
+</div>
+
+<div class="consultant-list">
+{loop $list,$lk,$item}
+    {include /modules/consults/templates/block.item.html}
+{/loop $list}
+</div>
+
+{php:$ajax_search = true;}             
+{include /templates/includes/paginator.html}
+
+<script>
+    jQuery( document ).ready( function() {
+
+        //когда щелкаем "в работу" без авторизации, 
+        jQuery( document ).on( 'click', '.button.blue.authorize', function() {
+            jQuery( '.auth-login' ).click();
+        });
+        
+        jQuery('.total-apps').children('i').html("{ifempty $items_count}0{else}{$items_count}{/if}");
+    })
+</script>

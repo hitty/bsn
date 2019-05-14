@@ -1,0 +1,36 @@
+<h1>Арендаторы</h1>
+<span class="button add">Добавить арендатора</span>
+<div class="renters-list">
+    <div class="list-header">
+        <span data-sort="1" class="up title"><b>Название</b></span>
+        <span data-sort="3" class="contacts" ><b>Контактное лицо</b></span>
+        <span data-sort="5" class="count" ><b>Арендовано, м<sup>2</sup></b></span>
+    </div>
+    <div class="ajax-results"></div>
+</div>
+<div class="edit-button"></div>
+<div class="edit-form-container">
+    <form action="edit" class="edit-form">
+        <span class="closebutton"></span>
+        <div class="title">Арендатор</div>
+        <div class="row">
+            <span class="title">Название компании</span>
+            <input type="text" name="title" value="" required="required" />
+            <span class="error">Обязательное поле</span>
+        </div>
+        <div class="row">
+            <span class="title">Контактное лицо</span>
+            <input type="text" name="name" value="" placeholder="ФИО (необязательное поле)" />
+        </div>
+        <div class="row">
+            <span class="title">Телефон</span>
+            <input type="phone" name="phone" value="" placeholder="Телефон (необязательное поле)" />
+        </div>
+        <input type="hidden" name="id" value=""/>
+        <div class="form-button">
+            <button class="grey cancel" value="Отменить">Отменить</button>
+            <button class="green send" value="Сохранить">Сохранить</button>
+        </div>    
+    </form>
+</div>
+

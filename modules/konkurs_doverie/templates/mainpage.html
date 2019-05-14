@@ -1,0 +1,177 @@
+<meta property="og:title" content="{$info['title']}">
+<meta content="{stripall:$info['text_begin_top']}" property="og:description">
+<img src="https://www.bsn.ru/img/layout/doverie-konkurs-mp.png" style="display: none;" />
+<div class="topmenu-navigator">
+<div class="topmenu">
+    <div class="logo-box">
+        <a href="/" class="svg" title="На главную"></a>
+        
+    </div> 
+    <div class="topmenu-wrapper">
+        <nav>
+            <ul class="topmenu-firstlevel">
+            <li class="estate active-submenu">
+            <span class="pseudo-link transition-off">Каталог</span>
+
+            <aside class="topmenu-secondlevel shadow">
+                <ul>
+                    <li class="category-title">
+                    <span class="br3 category-title">Продажа</span>
+
+                    <div class="topmenu-secondlevel-submenu">
+                                                                    <a href="/build/sell/" title="Квартиры в новостройках" class="br3">Квартиры в новостройках</a>
+                                                                        <a href="/live/sell/" title="Жилая недвижимость" class="br3">Жилая недвижимость</a>
+                                                                        <a href="/commercial/sell/" title="Коммерческая недвижимость" class="br3">Коммерческая недвижимость</a>
+                                                                        <a href="/country/sell/" title="Загородная недвижимость" class="br3">Загородная недвижимость</a>
+                                                                        <a href="/inter/sell/" title="Зарубежная недвижимость" class="br3">Зарубежная недвижимость</a>
+                    </div>
+
+                    </li>
+                    <li class="category-title">
+                    <span class="br3 category-title">Аренда</span>
+
+                    <div class="topmenu-secondlevel-submenu">
+                                                                    <a href="/live/rent/" title="Жилая недвижимость" class="br3">Жилая недвижимость</a>
+                                                                        <a href="/commercial/rent/" title="Коммерческая недвижимость" class="br3">Коммерческая недвижимость</a>
+                                                                        <a href="/country/rent/" title="Загородная недвижимость" class="br3">Загородная недвижимость</a>
+                                                                        <a href="/inter/rent/" title="Зарубежная недвижимость" class="br3">Зарубежная недвижимость</a>
+                    </div>
+
+                    </li>
+                    <li class="category-title">
+                    <span class="br3 category-title">___________</span>
+
+                    <div class="topmenu-secondlevel-submenu">
+                                                                    <a href="/zhiloy_kompleks/" title="Жилые комплексы" class="br3">Жилые комплексы</a>
+                                                                        <a href="/business_centers/" title="Бизнес-центры" class="br3">Бизнес-центры</a>
+                                                                        <a href="/cottedzhnye_poselki/" title="Коттеджные поселки" class="br3">Коттеджные поселки</a>
+                    </div>
+
+                    </li>
+                </ul>
+            </aside>
+            </li>
+            <li class="media active-submenu">
+            <a href="/media/" class=" transition-off">Медиа</a>
+
+            <aside class="topmenu-secondlevel">
+                <ul>
+                    <li>
+                    <a href="/news/" title="Новости рынка" class="br3">Новости рынка</a>
+
+                    </li>
+                    <li>
+                    <a href="/articles/" title="Статьи " class="br3">Статьи </a>
+
+                    </li>
+                    <li>
+                    <a href="/bsntv/" title="БСН-ТВ" class="br3">БСН-ТВ</a>
+
+                    </li>
+                </ul>
+            </aside>
+            </li>
+            <li class="service active-submenu">
+            <a href="/service/" class=" transition-off">Сервисы</a>
+
+            <aside class="topmenu-secondlevel">
+            <ul>
+                <li>
+                <a href="/service/ratings/" title="Рейтинг" class="br3">Рейтинг</a>
+
+                </li>
+                <li class="false">
+                <a href="/estate_estimate/" title="Оценка недвижимости" class="br3">Оценка недвижимости</a>
+
+                </li>
+                <li>
+                <a href="/service/consultant/" title="Консультант" class="br3">Консультант</a>
+
+                </li>
+                <li>
+                <a href="/webinars/" title="Вебинары" class="br3">Вебинары</a>
+
+                </li>
+                <li>
+                <a href="/calendar/" title="Календарь событий" class="br3">Календарь событий</a>
+
+                </li>
+                <li>
+                <a href="/applications/" title="Заявки" class="br3">Заявки</a>
+
+                </li>
+                </ul>
+                </aside>
+                </li>
+                <li class="promotions-button"><span class="internal-link" data-link="//sale.bsn.ru/" title="Акции от застройщиков">Акции</span></li>
+                <li class="add-button">
+                <a class="button grey transition" href="/members/objects/add/" title="Добавить объект">Добавить объект</a>
+                </li>
+
+
+
+            </ul>
+
+        </nav>
+
+    </div>
+</div>
+</div>
+
+<header class="bg-cover">
+    <div class="mainlogo"></div>
+    <div class="bottom-wrap">
+        <div class="content flex">
+            <a href="//bsn.ru/" class="logo bsn"></a>
+            <a href="http://doveriekonkurs.ru/" target="_blank" class="logo kpn"></a>
+            <a href="http://gud-estate.ru/"  target="_blank" class="logo gud"></a>
+        </div>
+    </div>
+</header>
+
+<div class="central-column clearfix categories-list">
+    {if!empty $konkurs_status}
+
+        <h2 class="inner">Номинации</h2>
+        {if!empty $list}
+            {php:$category = "";}
+            {php:$voted_titles = array();}
+                <div class="clearfix flex konkurs-wrapper">
+                    
+                    {php:$count=1;}
+                    {loop $list,$k,$item}
+                        {if!eq $category, $item['category_title']}
+                            <div class="item col-1 transition br3 shadow-hover {if!eq $item['can_vote'],1}voted{else}none-voted {/if}" data-all-votes="{php: echo (!empty($item['all_votes']))?$item['all_votes']:0}" data-location="vote-{$item['id_category']}" data-url="/{$current_page['requested_path']}/{$item['id_category']}/" data-id="{$item['id_category']}">
+                                <div class="bg br3 transition">
+                                    
+                                        <div class="members">
+                                            {$item['members_count']}
+                                            <span>{suffix_word:$item['members_count'],'участник','','а','ов'}</span>
+                                        </div>
+                                        <span class="button white">Голосовать</span>
+                                        <span class="voted-for">Вы отдали свой голос за: <b>{$item['title']}</b></span>
+                                    
+                                </div>
+                                <div class="title">
+                                    {$item['category_title']} 
+                                </div>
+                            </div>
+                            {php:++$count}
+                            {php:$category = $item['category_title'];}
+                        {/if}
+                    {/loop $list}
+                </div>
+        {/if}
+        {if!empty $info['text_begin_top']}
+            <div class="konkurs-clauses clearfix inner">{$info['text_begin_top']}</div>
+        {/if}
+        {if!empty $info['text_begin_bottom']}
+            <div class="konkurs-clauses clearfix inner">{$info['text_begin_bottom']}</div>
+        {/if}
+    {else}
+        <div class="konkurs-clauses clearfix inner">{$info['text_end']}</div>
+    {/if}
+
+    
+
+</div>

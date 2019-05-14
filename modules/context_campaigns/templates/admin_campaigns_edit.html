@@ -1,0 +1,31 @@
+<h1 class="pageTitle">Контекстые рекламные кампании</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/advert_objects/context_campaigns/add/">
+    <h3>Новая контекстная рекламная кампания</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/advert_objects/context_campaigns/edit/{$data_mapping['id']['value']}/">
+    <h3>Контекстная рекламная кампания #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <div style="display:none" id="places_data_box">{$places_data}</div>
+</form>

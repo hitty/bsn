@@ -1,0 +1,54 @@
+{include /templates/includes/main_head_part.html}
+
+</head>
+
+<body id="clear-template" class="on-gray{if!empty $class_for_clear_template} {$class_for_clear_template}{/if}">
+{if!empty $with_header}
+    {include /templates/includes/main_header_part.html}
+{/if}
+{ifempty $debug}
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter21898216 = new Ya.Metrika({
+                        id:21898216,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true,
+                        webvisor:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/21898216" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+{/if}
+    <div class="content">
+        <div class="central-column clear-template">
+            <div class="logo-box">
+                <a href="/" class="top-logo" title="На главную"><img src="{static:/}img/layout/logo-white-206x62.png" alt="BSN.ru" /></a>
+            </div>
+            <div class="uline-shadow" align="center">{$content}</div>
+        </div> <!--/.one-column-->
+    </div> <!--/#content-->
+{ifempty $debug}
+    <script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click;bsn-sale' target=_blank><img src='//counter.yadro.ru/hit;bsn-sale?t18.10;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "' border=0 width=1 height=1 alt='' title='LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня'><\/a>")</script>
+{/if}
+    <script src="/js/{$js_id}.js"></script>              
+    
+</body>
+</html>

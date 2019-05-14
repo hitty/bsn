@@ -1,0 +1,9 @@
+    {php:$id = !empty($pitem['id'] ) ? $pitem['id'] : ( !empty($data_mapping['id']['value']) ? $data_mapping['id']['value'] : 0 ) }
+    <div class="longread-wrapper {if!empty $data_mapping['id']['value']}template {elseifempty $id}template {/if}clearfix" data-id="{$id}" data-session-id="{php:echo session_id();}" >
+        <span class="refresh-item" data-icon="save" title="Обновить запись"></span>
+        <span class="delete-item" title="Удалить запись"></span>
+        <input type="text" placeholder="Заголовок" value="{if!empty $pitem['title']}{$pitem['title']}{/if}" name="longread_title" class="longread-title"/>
+        <input type="text" placeholder="Ссылка" value="{if!empty $pitem['link']}{$pitem['link']}{/if}" name="longread_link" class="longread-link"/>
+        <textarea placeholder="Описание" name="longread_description" class="longread-description">{if!empty $pitem['description']}{$pitem['description']}{/if}</textarea>
+        <input type="file" name="file_upload" id="file_upload_{if!empty $id}{$id}{/if}" data-id="{if!empty $id}{$id}{/if}" data-url="/admin/content/longread/advert/photos/" data-session-id="{php:echo session_id();}" />
+    </div>

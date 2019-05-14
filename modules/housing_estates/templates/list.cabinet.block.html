@@ -1,0 +1,75 @@
+{if!empty $lists['build']}{php:$list = $lists['build'];}
+{elseif!empty $similar_list}{php:$list = $similar_list;}
+{/if}
+    {php:$show_tgb = !empty($ajax_mode) || !empty($advert_in_estate_list);}
+    <div class="estate-list housing-estates">
+        {loop $list,$lkey,$item}
+            {php:$status_text = $item['advanced']==1 ? 'Премиум' : 'Стандарт';}
+            <div data-id="{$item['id']}" class="item{ifeq $item['advanced'],1} payed{/if}"  onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(e){}">
+                <a class="hdr" href="/zhiloy_kompleks/{$item['chpu_title']}/" target="_blank" title="{$item['header']}"></a>
+                <div class="photo bbox {ifgt $item['videos_count'],0} with-video{/if} lazy" data-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" data-photos-count="{ifgt $item['photos_count'],0}{$item['photos_count']}{else}0{/if}">
+                    {php:$media_show = !empty($item['photos_count']) || !empty($item['videos_count']) || !empty($item['comments_objects']);}
+                    {if!empty $media_show}
+                        <div class="media-wrap">
+                            {if!empty $item['photos_count']}<i class="photos" title="Фотографии">{$item['photos_count']}</i>{/if}
+                            {if!empty $item['videos_count']}<i class="videos" title="Видео"></i>{/if}
+                            {if!empty $item['comments_objects']}<i class="comments" title="Комментарии">{$item['comments_objects']}</i>{/if}
+                        </div>
+                    {/if}
+                    {if!empty $item['rating']}
+                        <span class="rating">{php: echo number_format($item['rating'],2);}</span>
+                    {/if}
+                </div>
+                <div class="info">
+                    {ifeq $item['214_fz'],1}<span class="fz"><b>ФЗ 214</b></span>{/if}
+                    <div class="address-wrap">
+                        {php:$total_objects = $item['build_total_objects'] + $item['live_total_objects']}
+                        {if!empty $total_objects}<span class="total-objects">{suffix:$total_objects,'объект','','а','ов'}</span>{/if}
+                        <span class="title{ifeq $item['advanced'],1} right-blue-gradient-overflow{else} right-gradient-overflow{/if}">ЖК «{$item['title']}»</span>
+                        {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                        {if!empty $district}<span class="district">{if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}</span>{/if}
+                        {if!empty $item['subway']}<span class="subway">{$item['subway']}</span>{/if}
+                        {if!empty $item['developer_title']}<span class="estate-complex-seller">{$item['developer_title']}</span>{/if}
+                        
+                    </div>
+                    <div class="tags-price-wrap">
+                        {if!empty $item['min_cost_objects']}
+                            <span class="price">
+                                {ifeq $item['min_cost_objects'], $item['max_cost_objects']}
+                                    {numberformat:$item['min_cost_objects']} 
+                                {else}
+                                    <b>от</b> {numberformat:$item['min_cost_objects']} <b>до</b> {numberformat:$item['max_cost_objects']} 
+                                {/if}
+                                 Р
+                            </span>
+                         {/if}   
+                        <div class="tags-list">
+                            {if!empty $item['class_title']}<span><b>{$item['class_title']}</b> класс</span>{/if}
+                            {ifeq $item['apartments'],1}<span class="apart-hotel"><b>Апартаменты</b></span>{/if}
+                        </div>
+                    </div>                                    
+                    <div class="params">
+                        {ifgt $item['floors'],0}<span><i>Этажи</i>{$item['floors']}</span>{/if}
+                        {if!empty $item['building_type_title']}<span><i>Тип дома</i>{$item['building_type_title']}</span>{/if}
+                        {ifeq $item['low_rise'],1}<span class="binary">Малоэтажный <i></i></span>{/if}
+                        {ifeq $item['elite_building'],1}<span class="binary">Элитный <i></i></span>{/if}
+                        {ifeq $item['playground'],1}<span class="binary">Детская площадка <i></i></span>{/if}
+                        {if!empty $item['parking']}<span><i>Паркинг</i>{$item['parking']}</span>{/if}
+                        {if!empty $item['security']}<span><i>Охрана</i>{$item['security']}</span>{/if}
+
+                    </div>
+                    <div class="actions">
+                        <span data-id="{$item['id']}" data-type="zhiloy_kompleks" class="star del-from-favorites" data-link="/favorites/unclick/">
+                            <span class="star-label dashed">Удалить из избранного</span>
+                        </span>
+                    </div>
+                </div>                                                                                     
+                <div class="right-td-box">
+                    <div class="right-block">
+                        <div class="object-id">{$item['id']}</div>
+                    </div>
+                </div>
+            </div>
+            
+        {/loop $list}
+    </div>

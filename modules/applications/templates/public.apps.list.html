@@ -1,0 +1,101 @@
+
+    
+    {if!empty $list}
+       
+        <div class="list public {if!empty $common_user}common-user{/if}">  
+           
+            {loop $list,$key,$item}  
+                {php:$show_application = ( !empty($item['id_realtor_help_type']) && !empty($auth['id_agency'])) || ( empty($item['id_realtor_help_type']) )}
+                {if!empty $show_application}
+                    <div class="item shadow-hover transition clearfix {if!empty $item['free_for_payed']}{if!empty $free_apps_for_me} free-for-payed{/if}{/if}" id="{$item['id']}">
+                        <div class="left-column">
+                            <span class="id">{$item['id']}</span>
+                            {if!empty $item['date']}
+                                <div class="date-in">
+                                    {$item['date']}
+                                   
+                                </div>
+                            {/if}
+                            {if!empty $item['user_comment']}
+                                <span class="comment transition" data-icon="chat_bubble_outline">
+                                    <span class="active">Комментарий</span>
+                                    <span>Скрыть</span>
+                                </span>
+                            {/if}
+                        </div>
+                        <div class="central-column">
+                            <!--span class="app-phone">{$item['phone']}<br>{$item['email']}</span-->
+                            
+                            <div class="name text-overflow">
+                                {$item['name']}
+                                <span>- {$item['user_type_title']}{if!empty $item['work_status_title']}, {$item['work_status_title']}{/if}</span>
+                            </div>
+
+                            <div class="app-type">
+                                
+                                {ifempty $item['id_realtor_help_type']}
+                                    <span class="deal-type {$item['rent_title']}">{$item['rent']}</span>
+                                {/if}
+
+                                {if!empty $item['object_type_title']}<span class="object-type">, {$item['object_type_title']}</span>
+                                {elseif!empty $item['estate_type_title']}<span class="object-type">, {$item['estate_type_title']}</span>
+                                {/if}
+                                <br />
+                                {if!empty $item['id_realtor_help_type']}
+                                    <span class="realtor">Требуется риэлтор. {$item['realtor_help_type_title']}</span>
+                                {elseif!empty $item['id_parent']}
+                                    <span class="internal-link" data-new-tab="true" data-link="{$item['url']}" data-icon="open_in_new" title="Посмотреть карточку объекта"><b>Смотреть объект</b></a>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="right-column">
+                            {php:$show_button = !( (!empty($auth)) && $auth['id_group'] == 13 && ($item['estate_type'] == 2 || ($item['estate_type'] == 5 && $item['build_complete'] == 'Сдан') ) )}
+                            {if!empty $item['id_realtor_help_type']}
+                                {if!empty $can_buy_realtor_apps}
+                                    <span class="button blue in-work public realtor popup" data-location="buy-application-{$item['id']}" data-url="/applications/popup/buy/{$item['id']}/">Взять в работу</span>
+                                {/if}
+                            {elseif!empty $item['free_for_payed']}
+                                {if!empty $free_apps_for_me}
+                                    <span class="button white">Бесплатная</span>
+                                    <span class="button blue in-work public free-for-payed">Взять в работу</span>
+                                {else}
+                                    <span class="gray-info">Бесплатно для клиентов BSN.ru</span>
+                                {/if}
+                            {else}
+                                {if!empty $show_button}<span class="button blue {if!empty $authorized}in-work public{else}authorize{/if} popup" data-location="buy-application-{$item['id']}" data-url="/applications/popup/buy/{$item['id']}/">Взять в работу</span>{/if}
+                            {/if}
+                        </div>
+                        {if!empty $item['user_comment']}
+                            <span class="clearfix"></span>
+                            <span class="user-comment br3">{$item['user_comment']}</span>
+                        {/if}
+                        
+                    </div>
+                    
+                {/if}
+            {/loop $list}
+            
+        </div>
+    {else}
+        <div class="no-results-found">
+            Заявки не найдены
+        </div>
+    {/if}
+
+{if !$authorized}
+<!--noindex-->
+    
+<!--/noindex-->
+{/if}      
+{php:$ajax_search = true;}             
+{include /templates/includes/paginator.html}
+<script>
+    jQuery(document).ready(function(){
+        //когда щелкаем "в работу" без авторизации, 
+        jQuery(document).on('click', '.button.blue.authorize', function(){
+            jQuery('.auth-login').click();
+        });
+        
+        jQuery('#apps_list .list .popup').each(function(){ jQuery(this).popupWindow() });
+    })
+</script>

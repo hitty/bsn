@@ -1,0 +1,199 @@
+{if!empty $wide_format}
+    {ifeq $item['id_category'],'27'}
+        <div class="longread-title bg-cover lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
+            <div class="text">
+                
+                <div class="title{ifeq $item['title_position'],1} position-left{elseifeq $item['title_position'],2} position-right{else} position-center{/if}">
+                    {include /templates/includes/breadcrumbs.html}
+                    <h1 itemprop="headline">
+                        {$item['title']}
+                    </h1>
+
+                    <div class="smallnotes clearfix{ifin $content_type, 'bsntv','doverie'}{if!empty $item['video_link']} wide{/if}{elseifeq $content_type,'blog'} wide{/if}">
+                        <time  data-icon="schedule" datetime="{$item['normal_date']}" data-icon="schedule">{$item['normal_date']}</time>
+                        {if!empty $item['author']}<span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person" data-icon="create">{$item['author']}</span>{/if}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {else}
+        <h1 class="bg-cover{if!empty $promo} promo-title{/if} lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
+            <span>{$item['title']}</span>
+        </h1>
+    {/if}    
+{/if}
+
+<article itemscope itemtype="http://schema.org/NewsArticle" class="clearfix col-3 {ifempty $promo}central-main-content {/if}br3 {$content_type}{if!empty $wide_format} central-wrapper{/if}{ifeq $item['id_category'],'27'} longread{/if}" >
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/"/>
+    
+    {if!empty $promo}
+        {include /modules/content/templates/promo.item.html}
+    {else}
+        <div class="content-wrapper">
+
+            
+            {if!eq $item['id_category'],'27'}
+                {if!empty $item['video_link']}
+                    <div class="video-box" itemscope itemtype="http://schema.org/VideoObject">
+                        {include /templates/includes/breadcrumbs.html}
+                        {ifempty $wide_format}
+                            <h1 itemprop="headline">
+                                {$item['title']}
+                            </h1>
+                        {/if}
+
+                         <div class="smallnotes clearfix">
+                            <time  data-icon="schedule" datetime="{$item['normal_date']}" data-icon="schedule">{$item['normal_date']}</time>
+                            <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+                            <span class="comments_count" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+                        </div>
+
+                        <iframe width="880" height="495" src="//www.youtube.com/embed/{$item['video_link']}" frameborder="0" allowfullscreen ></iframe>
+                    </div>
+                {/if}
+                <div class="image-info br3">
+                
+                    {ifempty $wide_format}
+                        
+                        {ifempty $item['video_link']}
+                            <div {if!empty $video}style="display:none"{else}class="news-main-photo bg-cover br3 lazy"{/if} itemprop="image" itemscope itemtype="https://schema.org/ImageObject" {if!empty $photos}data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}"{/if}>
+
+                                
+                                {if!eq $item['id_category'],'27'}
+
+                                    {include /templates/includes/breadcrumbs.html}
+                                    {ifempty $wide_format}
+                                        <h1 itemprop="headline">
+                                            {$item['title']}
+                                        </h1>
+                                    {/if}
+
+                                    <div class="smallnotes clearfix{ifin $content_type, 'bsntv','doverie'}{if!empty $item['video_link']} wide{/if}{elseifeq $content_type,'blog'} wide{/if}">
+                                        <time  data-icon="schedule" datetime="{$item['normal_date']}" data-icon="schedule">{$item['normal_date']}</time>
+                                        <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+                                        <span class="comments_count" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+                                    </div>
+                                {/if}
+
+
+                                <link itemprop="url" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" />
+                                <link itemprop="contentUrl" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" />
+                                <meta itemprop="width" content="800">
+                                <meta itemprop="height" content="600">            
+                                {if!empty $item['photo_source']}<span class="photo-source">Источник фото: {$item['photo_source']}</span>{/if}
+                            </div>
+                            
+                        {/if}
+                       
+                    {/if}
+
+                </div>
+            {/if}
+            
+            <div class="bigtext clearfix">
+                 {ifeq $item['id_category'],'27'}
+                    <p class="annotation">{$item['content_short']}</p>
+                 {/if}
+                 
+                {$item['content']}
+                <div class="smallnotes bottom clearfix">
+                    {if!eq $item['id_category'],'27'}
+                        {if!empty $item['author']}<span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person" data-icon="create">{$item['author']}</span>{/if}
+                        {if!empty $item['author_url']}<span class="source">Источник: <span class="external-link" data-link="{$item['author_url']}" title="{quoted:$item['title']}">{$item['author_url']}</span></span>{/if}
+                    {/if}
+                    
+                    <div id="social-buttons-content" data-icon="share">
+                        <script src="https://yastatic.net/share2/share.js" async="async"></script>
+                        <div class="ya-share2" data-size="s" data-services="vkontakte,facebook,twitter,odnoklassniki,gplus" data-counter></div>
+                    </div>
+                </div>
+                {ifempty $item['author']}<p style="display: none;" itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="BSN.ru"/></p>{/if}
+            </div>
+
+        </div>   
+        {/if}
+    
+        <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
+            <meta itemprop="address" content="г. Санкт-Петербург, ул. Большая Посадская, д.16, лит.А, пом.15Н, офис 101">
+            <meta itemprop="telephone" content="+7 (812) 655-02-13">
+            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+              <img src="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
+              <link itemprop="url" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png" />
+              <link itemprop="contentUrl" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png" />
+              <meta itemprop="width" content="146">
+              <meta itemprop="height" content="40">
+            </div>
+            <meta itemprop="name" content="BSN.ru">
+        </div>    
+        <meta itemprop="datePublished" content="{$item['datetime']}"/>
+        <meta itemprop="dateModified" content="{$item['datetime']}"/> 
+    {if!eq $item['id_category'],'27'}
+        {ifempty $promo}
+            {ifeq $item['show_comments'],1}
+                {include /modules/comments/templates/init.html}
+            {/if}
+        {/if}
+    {/if}
+    </article> 
+
+{if!eq $item['id_category'],'27'}
+    {ifempty $promo}
+        <!--noindex-->
+        {php:$direct_type = '2rows_content';}
+        {include /templates/yandex.direct.html}
+        <!--/noindex-->
+
+        {php:$allsmall = true;}
+        {if!empty $last_news}
+            {php:$list = $last_news;}
+            {php:$count = count($list)}
+            <div class="clearfix"></div>
+            <section id="content-list">
+                <h2 class="inner-wrapper">Популярное по теме</h2>
+                <div class="content-wrapper row-3 clearfix">
+                    {include /modules/content/templates/block.html}    
+                </div>
+            </section>
+        {/if}
+
+        {if!empty $prev_next_list}
+            {php:$list = $prev_next_list;}
+            <section id="content-list" class="central-wrapper">
+                <h2 class="blue">Другие новости рубрики</h2>
+                <div class="content-wrapper row-3 clearfix">
+                    {include /modules/news/content/block.html}    
+                </div>
+            </section>
+        {/if}
+    {/if}
+
+        {literal}
+        <script type="text/javascript">
+          (function (a, b, c, d, e, f, g, h) {
+            g = b.createElement(c);
+            g.src = d;
+            g.type = "application/javascript";
+            g.async = !0;
+            h = b.getElementsByTagName(c)[0];
+            h.parentNode.insertBefore(g, h);
+            a[f] = [];
+            a[e] = function () {
+              a[f].push(Array.prototype.slice.apply(arguments));
+            }
+          }) (window, document, "script", (document.location.protocol === "https:" ? "https:" : "http:") + "//cdn01.nativeroll.tv/js/seedr-player.min.js", "SeedrPlayer", "seedrInit");
+        </script>
+
+        <script>
+          SeedrPlayer({
+            container: '.post',
+            desiredOffset:    50,
+            gid:    '5981ee575f366eaa2d8b45a9',
+            onError: function(e) {
+                // место для заглушки (неообязательно)
+            }
+          });
+        </script>  
+        {/literal}  
+{/if}
+ 

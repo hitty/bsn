@@ -1,0 +1,22 @@
+<article itemscope itemtype="http://schema.org/NewsArticle" class="test-wrapper{ifeq $item['test_gradient'],1} with-gradient{/if}{ifeq $item['test_blur'],1} with-blur{/if}" data-id="{$item['id']}" >
+    <span class="bg bg-cover lazy" data-src="{static:/}img/uploads/originals/{$photos[0]['subfolder']}/{$photos[0]['name']}"></span>
+    <div class="content">
+        <h1>{$item['title']}</h1>
+        {if!empty $item['test_partner_text']}
+            <div class="spon promo-button" data-id="{$item['id']}" data-type="articles">
+                {$item['test_partner_text']}
+            </div>                            
+        {/if}
+        <div class="central-main-content br3 with-shadow">
+            
+        <span class="annotation text">{$item['content_short']}</span>
+        <span class="button blue to-step" data-step="1">Начать тест</span>
+        <div id="social-buttons-content">
+            <span class="title">Поделиться тестом с друзьями:</span>
+            <script src="https://yastatic.net/share2/share.js" async="async"></script>
+            <div class="ya-share2" data-size="m" data-services="vkontakte,facebook,twitter,odnoklassniki,gplus" data-counter></div>
+        </div>
+        
+    </div>
+    {if!empty $item['photo_source']}<span class="photo-source">{$item['photo_source']}</span>{/if}
+</article>

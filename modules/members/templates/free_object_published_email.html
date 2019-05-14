@@ -1,0 +1,23 @@
+<font face="arial">
+<table width="800" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" align="center">
+<tr>
+    <td width="20"></td>
+    <td align="left" height="50" width="200">
+<a href="{$env['url']}"><img src="{$env['url']}img/layout/logo.png" width="180" height="50"></a>
+</td>
+    <td width="20"></td>
+<td valign="middle">
+
+</td>
+    <td width="20"></td>
+</tr>
+<tr>
+    <td colspan="5" height="20"><hr></td>
+</tr>
+<tr>
+    <td></td>
+    <td colspan="3">Здравствуйте!</br> Ваш объект опубликован {if!empty $object_data['status_text']}{$object_data['status_text']}{/if}, вы можете просмотреть объявление по ссылке: {$object_data['link']}</td>
+</tr>
+</table>
+</font>
+<p>С уважением,<br>администрация портала <a href="{$env['url']}">{$env['host']}</a></p>

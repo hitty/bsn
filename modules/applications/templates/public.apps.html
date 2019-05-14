@@ -1,0 +1,56 @@
+
+<div class="applications-wrapper br3">
+    <span data-url="/applications/popup/wide/" class="button popup" data-location="public-application" onclick="try{ /*yaCounter21898216.reachGoal('click_app'); return true;*/ }catch(err){ }">Оставить заявку</span>
+    
+    <div class="description-block clearfix br3">
+        <p class="left-part">
+            <span class="title">Что такое сервис заявок?</span>
+            На этой странице вы можете оставить заявку по любому типу недвижимости и типу сделки. Агентства недвижимости и профессионалы рынка свяжутся с вами и предложат различные варианты.  Вам останется только выбрать лучшее предложение.
+        </p>
+        <p class="right-part bbox br3">
+            <span class="title">Важно!</span>
+            Обращаем ваше внимание: ваши контактные данные скрыты от всех и доступны только тем компаниям или специалистам, которые взяли вашу заявку в работу.
+        </p>
+    </div>
+    
+    
+    
+    <div id="left-column">
+        <div class="col-3 br3">
+            
+            <div class="statistic-box clearfix">
+                <div class="sb-info"></div>        
+                <div class="sb-sort list-selector estate-type">
+                    <a href="#" class="pick">Тип недвижимости</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" id="filter_estatetype" name="filter_estatetype" value="{$get_parameters['filter_estatetype']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="">Тип недвижимости</li>
+                        <li data-value="2">Новостройки</li>
+                        <li data-value="1">Жилая</li>
+                        <li data-value="3">Коммерческая</li>
+                        <li data-value="4">Загородная</li>
+                    </ul>
+                </div>
+                <div class=" sb-sort list-selector estate-type">
+                    <a href="#" class="pick">Тип сделки</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" id="filter_dealtype" name="filter_dealtype" value="{$get_parameters['filter_dealtype']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="">Тип сделки</li>
+                        <li data-value="1">Аренда</li>
+                        <li data-value="2">Покупка</li>
+                        <li data-value="3">Сдам</li>
+                        <li data-value="4">Продам</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div id="ajax-search-results"></div> 
+        </div>
+    </div>
+    {include /templates/includes/main_right_part.html}
+    
+    
+    
+</div>

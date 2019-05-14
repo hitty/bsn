@@ -1,0 +1,19 @@
+{include /modules/mailers/templates/simple.header.html}
+
+    <tr> <!-- content - title -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+        Уважаемый партнёр! <br /> Поступил <a href="https://www.bsn.ru/members/conversions/calls/">входящий звонок:</a>!    
+        </td>
+    </tr>
+    <tr> <!-- content - text -->
+        <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left"> 
+        {if!empty $item['hidden_num_from']}
+            {$item['hidden_num_from']}
+        {else}
+            {$item['num_from']}
+        {/if}, {$item['call_date']}        
+        </td>
+    </tr>
+  
+{include /modules/mailers/templates/simple.footer.html}
+                            

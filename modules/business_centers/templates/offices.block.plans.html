@@ -1,0 +1,48 @@
+{if!empty $list}  
+    <div class="plans">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" {if!empty $imginfo}style="height:{$imginfo[1]}px;"{/if}>
+            {loop $list,$k,$item}
+                {ifeq $item['draw_type'],'poly'}
+                    <polygon class="item{ifeq $item['status'],1} {ifempty $members_page}rented{else}can-rent{/if}{/if}{ifeq $item['object_type'],2} storeroom{/if}" points="{$item['coords']}" data-id="{$item['id']}">
+                        {if!empty $members_page}
+                            {ifgt $item['square'], 0}{/if} 
+                        {/if}
+                    </polygon>
+                {else}
+                    {php:$coords = explode(" ", str_replace(',','',$item['coords']))}
+                    <rect class="item{ifeq $item['status'],1} {ifempty $members_page}rented{else}can-rent{/if}{/if}{ifeq $item['object_type'],2} storeroom{/if}" x="{$coords[0]}" y="{$coords[1]}" width="{php:echo $coords[2]-$coords[0]}" height="{php:echo $coords[3]- $coords[1]}" data-id="{$item['id']}">
+                        {if!empty $members_page}
+                            {ifgt $item['square'], 0}{/if} 
+                        {/if}                    
+                    </rect>
+                {/if}
+            {/loop $list} 
+        </svg>
+        {if!empty $list}
+            {php:$item = $list[0];}
+            {ifeq $item['show_img'],1}
+                <div class="plans-background" style="background: url('/{$img_folder}/{$item['img_link']}') no-repeat center;"></div>
+            {/if}
+            <div class="compas">
+                <span class="north">С</span>
+                <span class="south">Ю</span>
+                <span class="left-dot"></span>
+                <span class="right-dot"></span>
+                <span class="center-rectangle"></span>
+                <div class="arrow" style="-ms-transform: rotate({$item['angle_from_north']}deg);-webkit-transform: rotate({$item['angle_from_north']}deg);transform: rotate({$item['angle_from_north']}deg);"></div>
+            </div>
+            {if!empty $item['street_to_north']}
+                <div class="street-name north">{$item['street_to_north']}</div>
+            {/if}
+            {if!empty $item['street_to_east']}
+                <div class="street-name east">{$item['street_to_east']}</div>
+            {/if}
+            {if!empty $item['street_to_south']}
+                <div class="street-name south">{$item['street_to_south']}</div>
+            {/if}
+            {if!empty $item['street_to_west']}
+                <div class="street-name west">{$item['street_to_west']}</div>
+            {/if}
+        {/if}
+     </div>
+{/if}

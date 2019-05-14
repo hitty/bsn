@@ -1,0 +1,97 @@
+<div class="cabinet-wrap">
+    <!--<h1 id="members-h1">Личный кабинет</h1>-->
+    <div class="add-object-steps step-{$step_number}">
+        <h2 id="members-h2">Добавление объекта</h2>
+        <span class="step-1">1 - Тип</span>
+        <span class="step-2">2 - Описание</span>
+        <span class="step-3">3 - Характеристики</span>
+    </div>
+    {if!empty $auth_data}
+        {php:$error_status = !empty($objects_limit) && !empty($error);}
+        {if!empty $error_status}
+            <div class="notification msgerror" id="scroll_to_message">
+                К сожалению, Вы уже добавлили максимальное количество объектов. ({$user_total} из {$objects_limit})
+            </div>
+            {ifeq $objects_limit,3}
+                <div class="central-top-text">
+                    <p>Авторизованный пользователь имеет возможность разместить до 3 объектов в базу данных по всем видам недвижимости <strong>БЕСПЛАТНО</strong>.</p>
+                    <p>Если   вы   хотите   разместить   более   3-х   объектов, предлагаем воспользоваться   размещением  объектов  на  <a href="https://www.bsn.ru/advertising/" title="" target="_blank">коммерческой  основе</a></p>
+
+                </div>{/if}
+            {else}
+            {ifeq $step_number,1}
+                <ul id="estate-types-list">
+                    {php:$show_live_sell = !empty($auth_data['id_agency']) || !empty($auth_data['id_tarif']) || $auth_data['live_sell_objects'] > $count_list['published_sell']['live_sell'] || ($auth_data['id_tarif'] == 7 && $auth_data['live_sell_objects'] == 0) || (empty($auth_data['id_tarif']) && empty($auth_data['id_agency']) && !empty($can_add))}
+                    {php:$show_live_rent = !empty($auth_data['id_agency']) || !empty($auth_data['id_tarif']) || ($auth_data['live_rent_objects'] > 0 && $auth_data['live_rent_objects'] > $count_list['published_rent']['live_rent']) || (empty($auth_data['id_tarif']) && empty($auth_data['id_agency']) && !empty($can_add))}
+                    {php:$show_live_sell = true;}
+                    {php:$show_live_rent = true;}
+                    {php:$show_live = !empty($show_live_sell) || !empty($show_live_rent)}
+                    {if!empty $show_live}
+                    <li>
+                        <span>Жилая</span>
+                        {if!empty $show_live_sell}<a href="/members/objects/add/live/sell/" class="button grey" title="Продажа жилой недвижимости">Продажа</a>{/if}
+                        {if!empty $show_live_rent}<a href="/members/objects/add/live/rent/" class="button grey" title="Аренда жилой недвижимости">Аренда</a>{/if}
+                    </li>
+                    {/if}
+                    {php:$show_country_sell = !empty($auth_data['id_agency']) || !empty($auth_data['id_tarif']) || $auth_data['country_sell_objects'] > $count_list['published_sell']['country_sell'] || ($auth_data['id_tarif'] == 7 && $auth_data['country_sell_objects'] == 0) || (empty($auth_data['id_tarif']) && empty($auth_data['id_agency']) && !empty($can_add))}
+                    {php:$show_country_rent = !empty($auth_data['id_agency']) || !empty($auth_data['id_tarif']) || $auth_data['country_rent_objects'] > $count_list['published_rent']['country_rent'] || ($auth_data['id_tarif'] == 7 && $auth_data['country_rent_objects'] == 0) || (empty($auth_data['id_tarif']) && empty($auth_data['id_agency']) && !empty($can_add))}
+                    {php:$show_country_sell = true;}
+                    {php:$show_country_rent = true;}
+                    {php:$show_country = !empty($show_country_sell) || !empty($show_country_rent)}
+                    {if!empty $show_country}
+                    <li>
+                        <span>Загородная</span>
+                        {if!empty $show_country_sell}<a href="/members/objects/add/country/sell/" class="button grey" title="Продажа загородной недвижимости">Продажа</a>{/if}
+                        {if!empty $show_country_rent}<a href="/members/objects/add/country/rent/" class="button grey" title="Аренда загородной недвижимости">Аренда</a>{/if}
+                    </li>
+                    {/if}                
+                    {php:$show_build = !empty($auth_data['id_agency']) || !empty($auth_data['id_tarif']) || $auth_data['build_objects'] > $count_list['published']['build'] || ($auth_data['id_tarif'] == 7 && $auth_data['build_objects'] == 0) || (empty($auth_data['id_tarif']) && empty($auth_data['id_agency']) && !empty($can_add))}
+                    {php:$show_build = true;}
+                    {if!empty $show_build}
+                    <li>
+                        <span>Новостройки</span>
+                        <a href="/members/objects/add/build/sell/" class="button grey" title="Продажа новостроек">Продажа</a>
+                    </li>
+                    {/if}
+                    {php:$show_commercial_sell = !empty($auth_data['id_agency']) || !empty($auth_data['id_tarif']) || $auth_data['commercial_sell_objects'] > $count_list['published_sell']['commercial_sell'] || ($auth_data['id_tarif'] == 7 && $auth_data['commercial_sell_objects'] == 0) || (empty($auth_data['id_tarif']) && empty($auth_data['id_agency']) && !empty($can_add))}
+                    {php:$show_commercial_rent = !empty($auth_data['id_agency']) || !empty($auth_data['id_tarif']) || $auth_data['commercial_rent_objects'] > $count_list['published_rent']['commercial_rent'] || ($auth_data['id_tarif'] == 7 && $auth_data['commercial_rent_objects'] == 0) || (empty($auth_data['id_tarif']) && empty($auth_data['id_agency']) && !empty($can_add))}
+                    {php:$show_commercial_sell = true;}
+                    {php:$show_commercial_rent = true;}
+                    {php:$show_commercial = !empty($show_commercial_sell) || !empty($show_commercial_rent)}
+                    {if!empty $show_commercial}
+                    <li>
+                        <span>Коммерческая</span>
+                        {if!empty $show_commercial_sell}<a href="/members/objects/add/commercial/sell/" class="button grey" title="Продажа коммерческой недвижимости">Продажа</a>{/if}
+                        {if!empty $show_commercial_rent}<a href="/members/objects/add/commercial/rent/" class="button grey" title="Аренда коммерческой недвижимости">Аренда</a>{/if}
+                    </li>
+                    {/if}
+                       
+                </ul>
+            {/if}
+        {/if}
+    {else}
+        {ifeq $step_number,1}
+            <ul id="estate-types-list">
+                <li>
+                    <span>Жилая</span>
+                    <a href="/members/objects/add/live/sell/" class="button grey" title="Продажа жилой недвижимости">Продажа</a>
+                    <a href="/members/objects/add/live/rent/" class="button grey" title="Аренда жилой недвижимости">Аренда</a>
+                </li>
+                <li>
+                    <span>Загородная</span>
+                    <a href="/members/objects/add/country/sell/" class="button grey" title="Продажа загородной недвижимости">Продажа</a>
+                    <a href="/members/objects/add/country/rent/" class="button grey" title="Аренда загородной недвижимости">Аренда</a>
+                </li>
+                <li>
+                    <span>Новостройки</span>
+                    <a href="/members/objects/add/build/sell/" class="button grey" title="Продажа новостроек">Продажа</a>
+                </li>
+                <li>
+                    <span>Коммерческая</span>
+                    <a href="/members/objects/add/commercial/sell/" class="button grey" title="Продажа коммерческой недвижимости">Продажа</a>
+                    <a href="/members/objects/add/commercial/rent/" class="button grey" title="Аренда коммерческой недвижимости">Аренда</a>
+                </li>
+            </ul>
+        {/if}
+    {/if}
+</div>

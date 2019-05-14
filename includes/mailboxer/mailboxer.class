@@ -1,0 +1,328 @@
+<?php
+class mailboxer
+{
+	protected $OUTPUT_CHARSET = 'koi8-r';
+	protected $DEFAULT_MESSAGE_CHARSET = 'cp1251';
+	protected $current_part_deep = 0;
+	protected $parts_idx = array();
+	protected $msg_count = 0;
+	protected $msgno = 0;
+	protected $errors = array();
+
+	function __construct($pop3_server, $pop3_login, $pop3_passwd, $offline = false, &$opened_mbox = false) //{{{
+	{
+		if($offline === false)
+		{
+			if(!$this->mbox = imap_open("{" . $pop3_server . "/pop3/novalidate-cert}INBOX", $pop3_login, $pop3_passwd))
+			{
+				throw new Exception('Could not connect. Error was: ' . imap_last_error());
+			}
+			else
+			{
+				$this->msg_count = imap_num_msg($this->mbox);
+			}
+			array_push($this->errors, imap_errors());
+		}
+		else if($opened_mbox !== false)
+		{
+			$this->mbox =& $opened_mbox;
+		}
+	} //}}}
+
+	function msg_count() //{{{
+	{
+		return $this->msg_count;
+	} //}}}
+
+	function imap_decode($str,$encoding) //{{{
+	{
+		global $parse_mail_errors;
+		//yeah, yeah, dirty hack
+ 		if (substr($str,0,5)=="begin") $encoding=6;
+
+		switch($encoding):
+			case 5: // other
+			default:
+				//echo " Unsupporded encoding: " . $encoding . "\n";
+				echo 'Unsupported encoding ' . $encoding;
+				return false;
+				break;
+			case 0: // 7bit
+				return mb_convert_encoding($str,'8bit','7bit');
+				break;
+			case 1: // 8bit
+			case 2: // binary
+				return $str;
+				break;
+			case 3: //base64
+				return base64_decode($str);
+				break;
+			case 4: // quoted-printable
+				return quoted_printable_decode($str);
+				break;
+			case 6: // uuencode
+				//echo $str;
+				$tmp = explode("\n",$str);
+				unset($tmp[0]);
+				unset($tmp[sizeof($tmp)]);
+				unset($tmp[sizeof($tmp)]);
+				$out = '';
+				foreach($tmp as $tmp0)
+				{
+					$out .= convert_uudecode($tmp0);
+				}
+				unset($tmp,$tmp0);
+				return $out;
+				break;
+		endswitch;
+	} //}}}
+
+	function mime_decode($str) //{{{
+	{
+		$decoded = imap_mime_header_decode($str);
+		$return = '';
+
+		foreach($decoded as $decoded_part)
+		{
+			if($decoded_part->charset == 'default')
+			{
+				$return .= @iconv($this->DEFAULT_MESSAGE_CHARSET, $this->OUTPUT_CHARSET . '//IGNORE', $decoded_part->text);
+			}
+			else
+			{
+				$return .= @iconv($decoded_part->charset,$this->OUTPUT_CHARSET . '//IGNORE',$decoded_part->text);
+			}
+		}
+
+		return $return;
+	} //}}}
+
+	function fetch_message($num) //{{{
+	{
+		$this->parts_idx = array();
+		$this->current_part_deep = 0;
+
+		$info = imap_headerinfo($this->mbox,$num);
+
+		$mess = new stdClass;
+
+		// setting msgno
+			$this->msgno = (int) $info->Msgno;
+
+		// constructing date
+			$mess->date = isset($info->date) ? $info->date : isset($info->Date) ? $info->Date : date('Y-m-d H:i:s');
+
+		// constructing subject
+			$mess->subject = isset($info->subject) ? $this->mime_decode($info->subject) : NULL;
+
+		// constructing from
+			$mess->from_name = isset($info->from[0]->personal) ? $this->mime_decode($info->from[0]->personal) : NULL;
+			$mess->from_addr = $info->from[0]->mailbox . '@' . $info->from[0]->host;
+
+		// constructing reply_to
+			$mess->replyto_name = isset($info->reply_to[0]->personal) ? $this->mime_decode($info->reply_to[0]->personal) : NULL;
+			$mess->replyto_addr = $info->reply_to[0]->mailbox . '@' . $info->reply_to[0]->host;
+
+		// constructing sender address
+			$mess->sender_name = isset($info->senderp[0]->personal) ? $this->mime_decode($info->sender[0]->personal) : NULL;
+			$mess->sender_addr = $info->sender[0]->mailbox . '@' . $info->sender[0]->host;
+
+		//echo str_repeat("*",150) . "\n";
+		//echo "Fetching.. [$msgno] $from :: $subject\n";
+
+		$msgstructure = imap_fetchstructure($this->mbox,$this->msgno);
+
+		//print_r($msgstructure);
+
+		switch($msgstructure->type):
+			case 1: // multipart
+				$mess->parts = $this->fetch_mess_parts($msgstructure->parts);
+				break;
+			case 0: // text (plain or html)
+				$mess->parts[0] = new stdClass;
+				$mess->parts[0]->content = @iconv($this->getParam($msgstructure,'charset'), $this->OUTPUT_CHARSET . '//IGNORE', $this->fetch_data($msgstructure->encoding));
+				$mess->parts[0]->type = $msgstructure->type;
+				$mess->parts[0]->subtype = $msgstructure->subtype;
+				break;
+			case 2: // message
+				$mess->parts[0] = new stdClass;
+				$mess->parts[0]->content = $this->fetch_data($msgstructure->encoding);
+				$mess->parts[0]->type = $msgstructure->type;
+				$mess->parts[0]->subtype = $msgstructure->subtype;
+				break;
+			case 3: // application
+				$mess->parts[0] = new stdClass;
+				$mess->parts[0]->content = $this->fetch_data($msgstructure->encoding);
+				$mess->parts[0]->type = $msgstructure->type;
+				$mess->parts[0]->subtype = $msgstructure->subtype;
+				break;
+			case 4: // audio
+				$mess->parts[0] = new stdClass;
+				$mess->parts[0]->content = $this->fetch_data($msgstructure->encoding);
+				$mess->parts[0]->type = $msgstructure->type;
+				$mess->parts[0]->subtype = $msgstructure->subtype;
+				break;
+			case 5: // image
+				$mess->parts[0] = new stdClass;
+				$mess->parts[0]->content = $this->fetch_data($msgstructure->encoding);
+				$mess->parts[0]->type = $msgstructure->type;
+				$mess->parts[0]->subtype = $msgstructure->subtype;
+				break;
+			case 6: // video
+				$mess->parts[0] = new stdClass;
+				$mess->parts[0]->content = $this->fetch_data($msgstructure->encoding);
+				$mess->parts[0]->type = $msgstructure->type;
+				$mess->parts[0]->subtype = $msgstructure->subtype;
+				break;
+			case 7: // other
+			default:
+				//echo " ERROR. Type of message doesn multipart (" . $msgstructure->type . ", " . $msgstructure->subtype . ")\n";
+				//array_push($parse_mail_errors,'Type of message does not multipart (no attachments)');
+				$t_type = false;
+				break;
+		endswitch;
+
+		return $mess;
+	} //}}}
+
+	function getParam($partobj,$param_name) //{{{
+	{
+		if($partobj->ifparameters)
+		{
+			foreach($partobj->parameters as $param)
+			{
+				if(strtolower($param->attribute) == strtolower($param_name))
+				{
+					return $param->value;
+				}
+			}
+		}
+
+		return false;
+	} //}}}
+
+	function fetch_data($encoding,$get_part = false) //{{{
+	{
+		$part_index = ($get_part === false) ? implode('.',$this->parts_idx) : $get_part;
+		if($part_index == '') $part_index = 1;
+		return $this->imap_decode(imap_fetchbody($this->mbox,$this->msgno,$part_index), $encoding);
+	} //}}}
+
+	function fetch_mess_parts($parts) //{{{
+	{
+		$parts_fetched = array();
+
+		foreach($parts as $current_part_idx => $current_part)
+		{
+			if(isset($this->parts_idx))
+			{
+				foreach($this->parts_idx as $key => $val)
+				{
+					if($key > $this->current_part_deep)
+					{
+						unset($this->parts_idx[$key]);
+					}
+				}
+			}
+
+			$this->parts_idx[$this->current_part_deep] = $current_part_idx+1;
+
+			$part = new stdClass;
+
+			$part->type = $current_part->type;
+			$part->subtype = $current_part->subtype;
+			if($tmp = $this->getParam($current_part, 'name')) { $part->filename = $tmp; }
+
+			switch($current_part->type):
+				case 1: // multipart
+					$this->current_part_deep++;
+					$parts_inside = $this->fetch_mess_parts($current_part->parts);
+					foreach($parts_inside as $part_inside)
+					{
+						$parts_fetched[] = $part_inside;
+					}
+					$this->current_part_deep--;
+					break;
+
+				case 0: // text
+					if($this->getParam($current_part,'charset'))
+					{
+						$part->content = iconv($this->getParam($current_part,'charset'),$this->OUTPUT_CHARSET.'//IGNORE',$this->fetch_data($current_part->encoding));
+					}
+					else
+					{
+						$part->content = $this->fetch_data($current_part->encoding);
+					}
+
+					//$part->content = $this->fetch_data($current_part->encoding);
+					//echo 'fetched text!:' . $part->content;
+					break;
+				case 5: // gif
+					$part->content = $this->fetch_data($current_part->encoding);
+					break;
+				default:
+					$part->content = $this->fetch_data($current_part->encoding);
+					break;
+			endswitch;
+
+			// sending current part into output array;
+				$parts_fetched[] = $part;
+		}
+
+		return $parts_fetched;
+
+	} //}}}
+
+	function fetch_complete_message($msgno) //{{{
+	{
+		$headers = imap_headerinfo($this->mbox,$msgno);
+		$complete = 'From ' . $headers->fromaddress . ' ' . $headers->date . "\n";
+		$complete .= str_replace("\r\n","\n",imap_fetchbody($this->mbox, $msgno, false));
+		return $complete;
+	} //}}}
+
+	function save_file($msgno, $path, $prefix) //{{{
+	{
+		$extension = '.raw';
+		$contents = scandir($path);
+		unset($contents[0],$contents[1]);
+
+		$indexes = array(0);
+		foreach($contents as $item)
+		{
+			if(preg_match("/^" . $prefix . "([0-9]{8})" . str_replace('.','\.',$extension) . "$/",$item,$matches))
+			{
+				array_push($indexes, (int) $matches[1]);
+			}
+			else
+			{
+				continue;
+			}
+		}
+
+		$next_index = str_pad(max($indexes) + 1, 8, 0, STR_PAD_LEFT);
+		$next_filename = $path . '/' . $prefix . $next_index . $extension;
+
+		$mailbody = $this->fetch_complete_message($msgno);
+		$fp = fopen($next_filename,'a+');
+		fwrite($fp,$mailbody);
+		fclose($fp);
+
+		return $next_filename;
+	} //}}}
+
+	function delete($msgno) //{{{
+	{
+		global $DELETE;
+		if($DELETE)
+		{
+			imap_delete($this->mbox,$msgno);
+		}
+	} //}}}
+
+	function __destruct() //{{{
+	{
+		imap_close($this->mbox,CL_EXPUNGE);
+	} //}}}
+}
+?>

@@ -1,0 +1,41 @@
+{if!empty $list}
+    {loop $list,$key,$item}
+      
+        <div class="col-1 item br3 shadow-hover bbox transition">
+            <a class="internal-link" href="/zhiloy_kompleks/{$item['chpu_title']}/"></a>
+            <span class="image bg-cover br3 lazy" data-src="//st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}"></span>
+            
+            <div class="content">
+                {if!empty $item['title']}<div class="title text-overflow transition-text">«{$item['title']}»</div>{/if}
+                {php:$show_class_apart = !empty($item['class_title']) || $item['apartments'] == 1}
+                {if!empty $item['total_objects']}
+                    <div class="rooms">
+                        {if!empty $item['rooms_group']}
+                                {$item['rooms_group']}
+                                {if!eq $item['rooms_group'],'студия'}-ккв{/if}
+                        {else}
+                            {if!eq $item['rooms_sale'],0} {$item['rooms_sale']} {if!eq $item['rooms_sale'],'студия'}-ккв{/if}
+                            {else} студия
+                            {/if}
+                            
+                        {/if}
+                    </div>
+                {/if}
+                {if!empty $show_class_apart}
+                    <div class="class-title">
+                        {if!empty $item['class_title']}{$item['class_title']} класс{/if}{ifeq $item['apartments'],1}, Апартаменты{/if}
+                        
+                    </div>
+                {/if}
+                
+                {if!empty $item['min_cost_objects']}
+                    <div class="cost">
+                        от {numberformat: $item['min_cost_objects']}
+                         Р
+                    </div>
+                {/if}
+                
+            </div>
+        </div>
+    {/loop $list}
+{/if}

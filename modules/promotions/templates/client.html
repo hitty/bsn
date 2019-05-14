@@ -1,0 +1,17 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body class="promotions-mainpage">
+    {php:$payed_format = true}
+    {include /templates/includes/main_header_part.html}
+       
+        <div class="shadow-wrapper" id="shadow-wrapper">
+            <div class="promotions-wrapper" >
+                
+                {$content}
+                {if!empty $metadata['seo_text']}{ifempty $noindex}<div class="central-text">{$metadata['seo_text']}</div>{/if}{/if}
+            </div>
+        </div>
+    {include /templates/includes/main_footer_part.html}
+    
+</body>
+</html>

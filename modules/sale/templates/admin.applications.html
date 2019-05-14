@@ -1,0 +1,158 @@
+<div class="finance">
+    <h1 class="pageTitle">Заявки</h1>
+    <div class="filter_line">
+        <label class="csf-choose-company" id="choose-adv-campaign">
+            <span class="label-title">Кампания:</span>
+            <div class="list-selector select-agency" id="select-campaign">
+                <a href="#" class="pick" title="Все">Все</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="f_agency" name="f_agency" onchange="filter_activate()" value="">
+                <ul class="list-data" id="list-advcompaigns">
+                    <li value="0" class="">Все</li>
+                    <li value="2">Тестовая кампания</li>
+                    <li value="3">Тестовая кампания</li>
+                    <li value="4">Тестовая кампания</li>
+                    <li value="5">Тестовая кампания</li>
+                </ul>
+            </div>
+        </label>
+        <label class="csf-period">
+            <div class="csf-period-item stat1 st-week">
+                <input type="radio" id="csf-week" name="cfs-period">
+                <label for="csf-week">Неделя</label>
+            </div>
+            <div class="csf-period-item stat1 st-month">
+                <input type="radio" id="csf-month" name="cfs-period">
+                <label for="csf-month" href="?page=&amp;time_period=week">Месяц</label>
+            </div>
+        </label>
+
+        <label class="csf-period-input">
+            <div class="csf-period-item"><input type="text" id="date_from" name="Дата начала" class="datetimepicker date" value=""></div>
+            <div class="csf-period-divide">—</div>
+            <div class="csf-period-item"><input type="text" id="date_till" name="Дата окончания" class="datetimepicker date" value=""></div>
+        </label>
+    </div>
+
+<div class="orders-box">
+    <div class="st-choose">
+        <div class="st-selected">Выбрано: <span>68</span></div>
+        <div class="st-output">на странице по: <a href="" src="#">10</a> <a href="" src="#" class="active">20</a> <a href="" src="#">50</a></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="orders-main">
+        <div class="om-item">
+            <div class="omi-col-1">
+                <div class="omi-img">
+                    <img src="/img/layout/omi.jpg" alt="">
+                </div>
+                <div class="omi-status new">новая</div>
+            </div>
+            <div class="omi-col-2">
+                <div class="omi-order">№ 3425</div>
+                <div class="omi-time">20:15</div>
+                <div class="omi-date">15.12.2014 </div>
+            </div>
+            <div class="omi-col-3">
+                <div class="omi-title">
+                    <div class="omi-div">Рекламная кампания</div>
+                    <div class="omi-string green">
+                        <span></span><a href="#">в работу</a>
+                    </div>
+                    <div class="omi-delete"></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="omi-name">Имя: ***</div>
+                <div class="omi-phone">Телефон: +7 (916) 238-XX-XX</div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="om-item">
+            <div class="omi-col-1">
+                <div class="omi-img">
+                    <img src="/img/layout/omi.jpg" alt="">
+                </div>
+                <div class="omi-status work">в работе</div>
+            </div>
+            <div class="omi-col-2">
+                <div class="omi-order">№ 3425</div>
+                <div class="omi-time">20:15</div>
+                <div class="omi-date">15.12.2014 </div>
+            </div>
+            <div class="omi-col-3">
+                <div class="omi-title">
+                    <div class="omi-div">Рекламная кампания</div>
+                    <div class="omi-string green">
+                        
+                    </div>
+                    <div class="omi-delete"></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="omi-name">Имя: Константин Константинопольский</div>
+                <div class="omi-phone">Телефон: +7 (921) 238-48-93</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="omi-comment">
+                Перезвонить в четверг!
+                <div class="comment-edit"></div>
+            </div>
+        </div>
+        <div class="om-item">
+            <div class="omi-col-1">
+                <div class="omi-img">
+                    <img src="/img/layout/omi.jpg" alt="">
+                </div>
+                <div class="omi-status new">новая</div>
+            </div>
+            <div class="omi-col-2">
+                <div class="omi-order">№ 3425</div>
+                <div class="omi-time">20:15</div>
+                <div class="omi-date">15.12.2014 </div>
+            </div>
+            <div class="omi-col-3">
+                <div class="omi-title">
+                    <div class="omi-div">Рекламная кампания</div>
+                    <div class="omi-string brown">
+                        <span></span><a href="#">комментировать</a>
+                    </div>
+                    <div class="omi-delete"></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="omi-name">Имя: ***</div>
+                <div class="omi-phone">Телефон: +7 (916) 238-XX-XX</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="omi-comment-area">
+                <textarea></textarea>
+                <a href="#">сохранить</a>
+            </div>
+        </div>
+    </div>
+    <div class="sp-pagination">
+        <div class="sp-pagination-item left">
+            <a href="#">&lt;</a>
+        </div>
+        <div class="sp-pagination-item active">
+            <a href="#">1</a>
+        </div>
+        <div class="sp-pagination-item">
+            <a href="#">2</a>
+        </div>
+        <div class="sp-pagination-item">
+            <a href="#">3</a>
+        </div>
+        <div class="sp-pagination-item">
+            <a href="#">...</a>
+        </div>
+        <div class="sp-pagination-item">
+            <a href="#">34</a>
+        </div>
+        <div class="sp-pagination-item">
+            <a href="#">35</a>
+        </div>
+        <div class="sp-pagination-item right">
+            <a href="#">&gt;</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

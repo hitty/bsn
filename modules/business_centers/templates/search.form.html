@@ -1,0 +1,63 @@
+<form class="fast-search form-blue" id="fast-search-form" action="/business_centers/" method="post">
+    <div class="top-panel">
+        <div class="search-title">
+            Поиск Бизнес-центров
+        </div>
+    </div>
+    <div class="middle-panel">
+        <div class="rmp">
+            <div class="lrmp">
+                <div class="list-picker district-picker">
+                    <a href="#" class="pick">Район СПб <span class="counter off">[<span class="count">0</span>]</span></a>
+                        {ifempty $form_data['districts']}
+                            <a href="#" class="btn plus">+</a>
+                        {else}
+                            <a href="#" class="btn cross">x</a>
+                        {/if}
+                    <input type="hidden" name="districts" value="{$form_data['districts']}" data-url="/geodata/districts/" />
+                </div>
+                <div class="list-picker district-area-picker">
+                    <a href="#" class="pick">Район ЛО <span class="counter off">[<span class="count">0</span>]</span></a>
+                    {ifempty $form_data['district_areas']}
+                        <a href="#" class="btn plus">+</a>
+                    {else}
+                        <a href="#" class="btn cross">x</a>
+                    {/if}
+                    <input type="hidden" name="district_areas" value="{$form_data['district_areas']}" data-url="/geodata/district_areas/" />
+                </div>
+                <div class="list-picker subway-picker">
+                    <a href="#" class="pick">Метро <span class="counter off">[<span class="count">0</span>]</span></a>
+                        {ifempty $form_data['subways']}
+                            <a href="#" class="btn plus">+</a>
+                        {else}
+                            <a href="#" class="btn cross">x</a>
+                        {/if}
+                    <input type="hidden" name="subways" value="{$form_data['subways']}" data-url="/geodata/subways/" />
+                </div>
+            </div>
+            <div class="rrmp">
+                <div class="title-selector">
+                    <input type="text" name="title" id="title" value="{$form_data['title']}" placeholder="Название" />
+                </div> 
+                Класс: <div class="checkbox-group class-count">   
+                    <label for="class_a" title="Класс A"{if!empty $form_data['class']['a']} class="on"{/if}><input type="checkbox" value="a" name="class_a" id="class_a" {if!empty $form_data['class']['a']}checked="checked" {/if}/>A</label>
+                    <label for="class_b" title="Класс B"{if!empty $form_data['class']['b']} class="on"{/if}><input type="checkbox" value="b" name="class_b" id="class_b" {if!empty $form_data['class']['b']}checked="checked" {/if}/>B</label>
+                    <label for="class_bplus" title="Класс bplus"{if!empty $form_data['class']['b+']} class="on"{/if}><input type="checkbox" value="bplus" name="class_bplus" id="class_bplus" {if!empty $form_data['class']['b+']}checked="checked" {/if}/>B+</label>
+                    <label for="class_c"  title="Класс C"{if!empty $form_data['class']['c']} class="on"{/if}><input type="checkbox" value="c" name="class_c" id="class_c" {if!empty $form_data['class']['c']}checked="checked" {/if}/>C</label>
+                    <label for="class_no" title="Без класса" {if!empty $form_data['class']['no']} class="on"{/if}><input type="checkbox" value="no" name="class_no" id="class_no" {if!empty $form_data['class']['no']}checked="checked" {/if}/>-</label>
+                </div> 
+                
+                <div style="white-space:nowrap;display:inline-block;">
+                </div>
+            </div>
+        </div>
+    </div> <!--/.middle-panel-->
+    <div class="bottom-panel">
+        <div class="rbp">
+            <button class="button" type="submit" name="submit" value="Искать">Искать</button>
+          
+        </div>
+    </div>
+    
+    
+</form>

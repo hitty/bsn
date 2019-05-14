@@ -1,0 +1,33 @@
+<h1 class="pageTitle">Пополнение баланса агентства</h1>
+<form class="form_default" method="post" action="/admin/access/agencies/replenish_balance/{$agency_info['id']}/">
+    <h3>Агентство #{$agency_info['id']} &quot;{$agency_info['title']}&quot;</h3>
+    <h4>Текущий баланс: {$agency_info['balance']}</h4>
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    {if $admin_transaction}
+                    Баланс пополнен.
+                    {else}
+                    Ваша транзакция ожидает подтверждения администратором. Оповестите его, пожалуйста.
+                    {/if}
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <p>
+        <input type="submit" value="Пополнить" name="submit">
+    </p>         
+</form>

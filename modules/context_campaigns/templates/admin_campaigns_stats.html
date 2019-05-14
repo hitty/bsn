@@ -1,0 +1,53 @@
+<h1 class="pageTitle">Статистика рекламной кампании "{$campaign_info['title']}"</h1>
+<div class="context-wrap" id="result_info_stats">
+    {if!empty $list}
+    <table>
+        <thead>
+            <tr>
+                <th width="50"><span>ID</span></th>
+                <th width="200"><span>Объявление</span></th>
+                <th width="200"><span>Место размещения</span></th>
+                <th width="200"><span>Клики(сегодня/всего)</span></th>
+                <th width="200"><span>Просмотры(сегодня/всего)</span></th>
+                <th width="200"><span>CTR(%)</span></th>
+                <th width="200"><span>Списания(руб.)</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {loop $list,$k,$item}
+                <tr>
+                    <td class="date-item">{$item['id']}</td>
+                    <td class="date-item">{$item['title']}</td>
+                    <td class="date-item">{$item['place_title']}</td>
+                    <td class="object-item">{ifempty $item['clicks_day']}0{else}{$item['clicks_day']}{/if}/{ifempty $item['clicks_full']}0{else}{$item['clicks_full']}{/if}</td>
+                    <td class="object-item">{ifempty $item['shows_day']}0{else}{$item['shows_day']}{/if}/{ifempty $item['shows_full']}0{else}{$item['shows_full']}{/if}</td>
+                    <td class="object-item">{$item['CTR']}</td>
+                    <td class="object-item">{$item['money_spent']}</td>
+                </tr>
+            {/loop $list}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    Всего объявлений: {php:echo count($list);}
+                </td>
+                <td class="total-clicks">
+                    {$total['c_day']}/{$total['c_full']}
+                </td>
+                <td class="total-shows">
+                    {$total['s_day']}/{$total['s_full']}
+                </td>
+                <td class="avg-CTR">
+                    {$total['CTR']}
+                </td>
+                <td class="total-expenditure">
+                    <i>Итого (руб.):</i>
+                    {numeric:$total['expenditure']}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    {else}
+        У кампании пока нет объявлений.
+    {/if}
+</div>

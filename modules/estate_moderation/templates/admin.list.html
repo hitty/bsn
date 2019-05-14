@@ -1,0 +1,68 @@
+<h1 class="pageTitle">Объекты от частных лиц (модерация)</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_user_id = document.getElementById('f_user_id').value;
+            var __url = '{root:/admin/estate/estate_moderation/}';
+            var __get = new Array();
+            if(__filter_id!='') __get.push('f_id='+__filter_id);
+            if(__filter_user_id!='') __get.push('f_user_id='+__filter_user_id);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            ID:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID объекта">
+        </label>
+        <label>
+            ID пользователя:
+            <input type="text" id="f_user_id" value="{$get_array['f_user_id']}" onchange="filter_activate()"  placeholder="ID пользователя">
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="10%">
+                <col class="col1" width="5%">
+                <col class="col2" width="35%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col2" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Время поступления</th>
+                    <th>Пользователь</th>
+                    <th>Объект</th>
+                    <th>Выделение</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td align="center"><a href="/{$item['estate']}/{$item['rent_alias']}/{$item['id']}/" target="_blank">{$item['id']}</a></td>
+                        <td>{$item['date_change_formatted']}</td>
+                        <td>{$item['user_info']}</td>
+                        <td>{$item['object_info']}</td>
+                        <td>{$item['object_highlighting']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/estate_moderation/edit/{$item['estate']}_{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/estate_moderation/pass/{$item['estate']}_{$item['id']}/" title="Пропустить"><span class="ico_pass">Пропустить</span></a>
+                            <a href="/admin/estate/estate_moderation/stop/{$item['estate']}_{$item['id']}/" title="Вернуть"><span class="ico_stop">Вернуть</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

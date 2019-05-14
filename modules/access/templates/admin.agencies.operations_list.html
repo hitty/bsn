@@ -1,0 +1,63 @@
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            {ifempty $id_agency} 
+                var __filter_agency = document.getElementById('f_agency').value;
+            {/if}
+            var __date_start = document.getElementById('f_date_start').value;
+            var __date_end = document.getElementById('f_date_end').value;
+            var __url = '{root:/admin/sale/finances/}';
+            var __period = jQuery('input[name=f_period]:checked').val();
+            var __get = new Array();
+            
+            {ifempty $id_agency} 
+                if(__filter_agency >0) __get.push('f_agency='+__filter_agency);
+            {/if}
+            if(__period>0) __get.push('f_period='+__period);
+            if(__date_start!=null && __date_start!='') __get.push('f_date_start='+__date_start);
+            if(__date_end!=null && __date_end!='') __get.push('f_date_end='+__date_end);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <h1 class="pageTitle">Операции с агентствами</h1>
+    <div class="filter_line">
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="20%">
+                <col class="col2" width="20%">
+                <col class="col1" width="10%">
+                <col class="col2" width="20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата</th>
+                    <th>Компания</th>
+                    <th>Пользователь</th>
+                    <th>Тип операции</th>
+                    <th>Данные операции</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td>{$item['id']}</td>
+                        <td>{$item['datetime']}</td>
+                        <td><a href="/admin/access/agencies/edit/{$item['agency_id']}/">{$item['agency_title']}</a></td>
+                        <td><a href="/admin/access/users/edit/{$item['user_id']}/">#{$item['user_id']}</a> {$item['user_title']}</td>
+                        <td>{$item['operation_title']}</td>
+                        <td>{$item['operation_info']}</td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

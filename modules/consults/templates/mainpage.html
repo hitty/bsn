@@ -1,0 +1,26 @@
+<div class="text-form-container small-shadow br3 clearfix">
+    <div class="text">
+        <h2>Что такое «Консультации»?</h2>
+        Сервис "Консультации по недвижимости" на портале БСН.ру - это бесплатные ответы от профессиональных юристов, советы по совершению сделок с жильем и ипотеке.
+    </div>
+    <div class="consult-mainform">
+        {include /modules/consults/templates/popup.form.wide.html}
+        <script>jQuery(document).ready(function(){ jQuery( '.consult-mainform form' ).formSubmit(); } )</script>
+    </div>
+</div>
+
+<section>
+<h2 class="inner">Темы консультаций</h2>
+<div class="content-wrapper categories-titles row-3 clearfix">
+    {if!empty $list}
+        {loop $list,$lk,$item}
+            <div class="item {$item['code']} br3 shadow-hover transition col-1 bbox" >
+                <a class="internal-link" href="/service/consultant/{$item['code']}/"></a>
+                <span class="icon-block"></span>
+                <a href="/service/consultant/{$item['code']}/" title="{quoted:$item['title']}">{$item['title']}</a>
+                <span class="questions-amount">{if!empty $item['amount']}{suffix:$item['amount'],'вопрос','','а','ов'}{/if}</span>
+            </div>
+        {/loop $list}
+    {/if}
+</div>
+</section>

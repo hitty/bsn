@@ -1,0 +1,245 @@
+<div class="stats-table adv-list">
+    {if!empty $list}
+        <table class="tablesorter" cellpading="1">  
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col1" width="45%">
+                <col class="col2" width="10%">
+                <col class="col2" width="9%">
+                <col class="col2" width="9%">
+                <col class="col2" width="13%">
+                <col class="col2" width="9%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><span class="adv-title">ID</span></th>
+                    <th><span class="adv-title">Название объявления</span></th>
+                    <th><span class="adv-shows">Показы</span></th>
+                    <th><span class="adv-clicks">Клики</span></th>
+                    <th><span class="adv-ctr">CTR %</span></th>
+                    <th><span class="adv-ctr">Расходы, руб.</span></th>
+                    <th class='statuses'><span class="display-statuses" title="Выделить все/снять выделение"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="{if!empty $item['is_total']}total{else}{$item['id_context']}{/if}" data-color="{$item['color']}" class="adv-table-row">
+                        <td>{ifempty $item['is_total']}{$item['id_context']}{/if}</td>
+                        <td data-order="{$item['call_date']}" class="title" data-color="{$item['color']}"><i style="background-color:{$item['color']}"></i>{$item['title']}</td>
+                        <td>{$item['shows']}</td>
+                        <td>{$item['clicks']}</td>
+                        <td>{$item['ctr']}</td>
+                        <td>{ifempty $item['fin']}0{else}{$item['fin']}{/if}</td>
+                        <td class="display-status {if!empty $item['active']}active{/if}"><i {if!empty $item['active']}class="active" style="background-color:{$item['color']}"{/if}></i></td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+<script>
+    //инициализируем datatable
+    jQuery(document).ready(function(){
+        
+        function getGraphicData(_first_call){
+            
+            //var _campaign_id = parseInt(jQuery('#filter_campaign').val().replace(/[^0-9]*/,''));
+            var _campaign_id = jQuery('#main_filter_campaign').children('li.active').attr('data-id');
+            var _url = '/members/context_campaigns/'+_campaign_id+'/stats/gr-all/';
+            //собираем значения фильтров
+            var _date_start = jQuery('.range-selector').children('#filter_date_start').val();
+            var _date_end = jQuery('.range-selector').children('#filter_date_end').val();
+            var _group_by = jQuery('.groupby').children('#filter_groupby').val();
+            
+            //собираем (при необходимости) значения с выделенных строк
+            
+            //вкладка текущей кампании
+            
+            var _selected = {};
+            _selected.ids_list="";
+            _selected.colors_list="";
+            //_selected_list = "";
+            var _selected_ids = "";
+            //собираем id отмеченных
+            jQuery('#advs_table').children('.adv-list').children('.dataTables_wrapper').children('.tablesorter').children('tbody').children('tr').children('td.display-status.active').each(
+            function(){
+                if(jQuery(this).parent().hasClass('disabled')) return false;
+                if(_selected.ids_list.length<1){
+                    _selected.ids_list = jQuery(this).parents('tr').attr('id');
+                    _selected.colors_list = jQuery(this).parents('tr').children('.title').attr('data-color');
+                }
+                else{
+                    _selected.ids_list += ',' + jQuery(this).parents('tr').attr('id');
+                    _selected.colors_list += ',' + jQuery(this).parents('tr').children('.title').attr('data-color');
+                }
+                //если это первый вызов, заносим в фильтр id выделенных (первых пяти)
+                if(_first_call) _selected_ids += ',' + jQuery(this).parents('tr').attr('id');
+            });
+            //если это первый вызов, заполняем data-value вкладки кампании списком id выделенных
+            if(_first_call){
+                //вкладка текущей кампании
+                var _this_campaign_li = jQuery('#main_filter_campaign').children('li.selected');
+                //читаем список из вкладки и стираем его
+                var _selected_list = _this_campaign_li.attr('data-value').split('?')[1].split('&')[2];
+                if(_selected_list!==undefined) _this_campaign_li.attr('data-value',_this_campaign_li.attr('data-value').replace('&' + _selected_list,''));
+                //пишем новый список выделенных
+                _this_campaign_li.attr('data-value',_this_campaign_li.attr('data-value') + "&advs_selected=" + _selected_ids.substring(1, _selected_ids.length));
+            }
+            
+            //если в таблице что-то есть, рисуем графики
+            if(jQuery('#advs_table').children('.adv-list').children('.dataTables_wrapper').length>0){
+                jQuery.ajax({
+                    type: "POST", async: true,
+                    dataType: 'json', cache: false,
+                    url: _url,
+                    data: {ajax: true,date_start:_date_start,date_end:_date_end,group_by:_group_by,ids:_selected.ids_list,colors:_selected.colors_list},
+                    success: function(_data){
+                        //если все хорошо, то по полученным данным рисуем сразу все графики
+                        if(_data.ok){
+                            var _gr_list = _data['global_result'];
+                            var _group_by = _data['group_by'];
+                            if(_gr_list.length>0)
+                                for(var i=0;i<_gr_list.length;i++){
+                                    drawGraphic(_gr_list[i],_group_by);
+                                }
+                            if(jQuery('.chart.active').length>0) jQuery('.chart.active').click();
+                            else jQuery('.chart.line').click();
+                        }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        return false;
+                    },
+                    complete: function(){
+                    }
+                });
+            }
+            else{
+                //если данных нет, стираем подписи к осям
+                jQuery('.x-title').html("");
+                jQuery('.y-title').html("");
+            }
+        }
+        
+        //рисуем график по считанным данным
+        function drawGraphic(list,_group_by){
+            if(list){
+                //если загрузилось, рисуем график
+                var data = new google.visualization.DataTable();
+                //читаем набор полей
+                var fields=list['fields'];
+                for (k=0;k<fields.length;k++){
+                    data.addColumn(fields[k][0], fields[k][1]);
+                }
+                
+                //var _id_campaign = parseInt(jQuery('#filter_campaign').val().replace(/[^0-9]*/,''));
+                var _id_campaign = jQuery('#main_filter_campaign').children('li.active').attr('data-id');
+                
+                var _x_title = "";
+                switch(_group_by){
+                    case 'day': _x_title = "Дни";break;
+                    case 'week': _x_title = "Недели";break;
+                    case 'month': _x_title = "Месяцы";break;
+                }
+                //определяем тип графика и задаем опции
+                if (list['type']=='Line'){
+                    var options = {'width':list['width']||'100%',
+                                    fontSize: 11,
+                                    'title':"title",
+                                   'height':list['height']||'100%',
+                                   'hAxis' : {
+                                                showTextEvery:(list['show_every']||1),
+                                                title:_x_title
+                                             },
+                                    legend:{position: 'right'},
+                                    legend:'none',
+                                    colors:list['colors']||null,
+                                    'chartArea':{left:50,top:10,width:"80%"},
+                                    'showTextEvery':1,
+                                   'animation':{duration: 500,easing: 'out'}};
+                    //собираем название элемента, куда пихнем график
+                    var _elem_id = "";
+                    if(list['selection']){
+                        _elem_id += _id_campaign + "-graphic-" + list['selection'] + "-" + list['type'].substring(0,1).toLowerCase();
+                    }
+                    var chart = new google.visualization.LineChart(document.getElementById(_elem_id));
+                } else if (list['type']=='Pie'){
+                    if(list['is3D']==undefined) list['is3D'] = true;
+                    var options = {'width':list['width']||'400',
+                                   'height':list['height']||'200',
+                                    top:0,
+                                    fontSize: 11,
+                                    left:0,
+                                    pieSliceText: 'none',
+                                    'legend':{position: list['legend_position']||'right'},
+                                    is3D: list['is3D'],
+                                    colors:list['colors']||null,
+                                    'chartArea':{left:50,top:10,width:"100%"},
+                                    'animation':{duration: 500,easing: 'out'}};
+                    //собираем название элемента, куда пихнем график
+                    var _elem_id = "";
+                    if(list['selection']){
+                        _elem_id += _id_campaign + "-graphic-" + list['selection'] + "-" + list['type'].substring(0,1).toLowerCase();
+                    }
+                    var chart = new google.visualization.PieChart(document.getElementById(_elem_id));
+                } else if (list['type']=='Column'){
+                    var options = {'width':list['width']||'100%',
+                                    fontSize: 11,
+                                   'height':list['height']||'100%',
+                                   'legend':{position: list['legend_position']||'bottom'},
+                                   'hAxis' : {showTextEvery:list['show_every']||1,title:_x_title},
+                                    title : list['v_axe_title']||'',
+                                    colors : list['colors']||null,
+                                    'chartArea':{left:50,top:10,width:"90%"},
+                                    'vAxis':{title : list['v_axe_title']||''},
+                                    axisTitlesPosition:'out',
+                                    'showTextEvery':1,
+                                   'animation':{duration: 500,easing: 'out'}};
+                    //собираем название элемента, куда пихнем график
+                    var _elem_id = "";
+                    if(list['selection']){
+                        _elem_id += _id_campaign + "-graphic-" + list['selection'] + "-" + list['type'].substring(0,1).toLowerCase();
+                    }
+                    var chart = new google.visualization.ColumnChart(document.getElementById(_elem_id));
+                }
+                
+                try{
+                    data.addRows(list['data']);
+                    //dateFormatter.format(data,0);
+                    chart.draw(data, options);
+                }
+                catch(e){
+                    //alert(JSON.stringify(e));
+                }
+            }
+            return true;
+        }
+        
+        //преобразуем дату в формат dd.mm.yy
+        function DateFormat(today){
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+
+            var yy = today.getFullYear().toString().substr(2,2);
+            if(dd<10){
+                dd='0'+dd
+            } 
+            if(mm<10){
+                mm='0'+mm
+            }
+            var date_str = dd+'.'+mm+'.'+yy;
+            return date_str;
+        }                
+        
+        jQuery('.tablesorter').dataTable({
+            "bPaginate": false,
+            'bInfo': false,
+            "order": [[ 2, "desc" ]],
+            "columnDefs": [{ orderable: false, targets: -1 }]
+        });
+        jQuery('.dataTables_filter').children('label').css('opacity','0');
+        
+        getGraphicData(true);
+    });
+</script>

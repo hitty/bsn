@@ -1,0 +1,103 @@
+<h1 class="pageTitle">{$content_title}</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/content/{$content_type}/add/">
+    <h3>Новая {$content_title_prepositional}</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/content/{$content_type}/edit/{$data_mapping['id']['value']}/">
+    <h3>{$content_title_prepositional} #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $data_mapping['id']['value']}
+        {if!eq $content_type,'longread'}
+        <fieldset>
+            <h3>Теги для {$content_title} #{$data_mapping['id']['value']}</h3>
+            <div id="tags_list" class="news-tags" data-id_object="{$data_mapping['id']['value']}">
+                {loop $tags_list,$tkey,$tag}
+                    <div class="tag_item">
+                        <span class="tag_id">{$tag['id']}</span>
+                        <span class="tag_title">{$tag['title']}</span>
+                        <span class="tag_close" title="Удалить">удалить</span>
+                    </div>
+                {/loop $tags_list}
+            </div>
+            <div id="tags_inputbox">
+                <input type="text" id="tag_add_input" class="tags_autocomplette" value="" data-url="/admin/content/{$content_type}/tags/"><input type="button" id="tag_add_btn" value="Добавить">
+            </div>
+            <div class="tagged-articles-block">
+                <span class="search-title">Статьи по выбранным тегам:</span>
+                <div class="search-results"></div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <p class="title_row">Как добавить ссылку-сниппет на другую статью внутри текста:</font></p>
+            <p>1. Найти ID статьи, на которую нужно сослаться (можно воспользоваться поиском по тегам. Для поиска по тегам, кликните на те из тегов статьи, по которым хотите искать.)</p>
+            <p>2. Выделить в тексте статьи место и поставить туда курсор</p>
+            <p>3. Вставить код статьи: {article_link X}  (где X - ID статьи на которую ссылаемся)</p>
+            <p>4. По умолчанию блок прижмется влево, если нужно прижать вправо - добавьте после ID букву "r"</p>
+        </fieldset>
+        <fieldset>
+            <p class="title_row">Как добавить галерею внутри текста статьи:</font></p>
+            <p>1. Загрузить фотографии (у первой фотографии номер 1)</p>
+            <p>2. Выделить в тексте статьи место и поставить туда курсор</p>
+            <p>3. Вставить код галереи: <span class="code"></span>  (где 1-первая фотография загруженной фотогалереи, 5-соотв-но 5)</p>
+        </fieldset>  
+        {else}
+            <fieldset>
+                <p class="title_row">Как добавить рекламный блок внутри статьи:</p>
+                <p>1. Добавить рекламные блоки</p>
+                <p>2. Выделить в тексте статьи место и поставить туда курсор</p>
+                <p>3. Вставить код {literal}{advert}{/literal}</p>
+            </fieldset>  
+
+        {/if}      
+		<fieldset>
+            <h3>Загрузка фотографий #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/content/{$content_type}/photos/" data-session-id="{php:echo session_id();}" />
+            
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>
+    {/if}
+</form>
+
+{literal}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('input[name="paid"]').change(function(){
+        if(jQuery(this).val() == 1){
+            jQuery('#p_field_show_comments').slideDown(50);
+        } else {
+            jQuery('#p_field_show_comments').slideUp(50);
+        }
+    });
+    
+    if(jQuery('.code').length!=0) jQuery('.code').text('{gallery:1-5}');    
+});
+</script>
+{/literal}    
+
+{ifeq $content_type, 'articles'}
+    {include /modules/content/templates/admin.promo.item.html}
+    {include /modules/content/templates/admin.test.item.html}
+{elseifeq $content_type,'longread'}
+    {include /modules/content/templates/admin.advert.item.html}
+{/if}

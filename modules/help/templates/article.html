@@ -1,0 +1,33 @@
+<div class="help-header"><h1>ПОМОЩЬ</h1></div>
+{include modules/search/templates/search.form.html}
+<div class="help-article-spec help-article-back-top">&#8592;<a href="http://{$host}/help/{$categories_menu[$article['id_category']]['chpu_title']}/">Назад к разделу</a></div>
+<div class="help-article-page">
+    <h1 class="help-article-header">{$article['title']}</h1>
+    <div class="help-article-text">{$article['text']}</div>
+    <div class="help-article-spec">
+        <div class="help-article-back">&#8592;<a href="http://{$host}/help/{$categories_menu[$article['id_category']]['chpu_title']}/">Назад к разделу</a></div>
+        {ifempty $already_voted}
+        <div class="help-article-useful"><a href="http://{$host}/help/{$categories_menu[$article['id_category']]['chpu_title']}/{$article['chpu_title']}/useful/"><div class="icon"></div>Статья была полезна</a></div>
+        <div class="help-article-unuseful"><a href="http://{$host}/help/{$categories_menu[$article['id_category']]['chpu_title']}/{$article['chpu_title']}/useless/"><div class="icon"></div>Статья была бесполезна</a></div>
+        {/if}
+        {ifeq $already_voted,'useful'}
+        <div class="help-article-useful useful-voted">
+        {/if}
+        {ifeq $already_voted,'useless'}
+        <div class="help-article-unuseful useless-voted">
+        {/if}
+        {if!empty $already_voted}
+        <div class="icon"></div><div class="text">Спасибо, ваш голос был учтен</div></div>
+        {/if}
+        <div class="help-article-views"><div class="icon"></div><span id="vcount">{$article['views_count']}</span>&nbsp;<span id="views">просмотров</span></div>
+    </div>
+</div>
+<script language="javascript">
+<!--
+function ending(number, titles){
+    cases = [2, 0, 1, 1, 1, 2];
+    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
+}
+document.getElementById('views').innerHTML = ending(document.getElementById('vcount').innerHTML, ['просмотр', 'просмотра', 'просмотров']);
+//-->
+</script>

@@ -1,0 +1,26 @@
+<article class="central-wrapper topgray">
+    <h1>{$h1}</h1>
+    <div class="gallery-box">
+        <div class="thumbs-list">
+        {php: $year=0;}
+        {loop $list, $key, $item}
+            
+                {if!eq $year,$item['year']}
+                    {ifeq $year,0}
+                        <div class=year-block>
+                    {else}
+                        </div>
+                        <div class=year-block>
+                    {/if}
+                    
+                    {php: $year=$item['year']}
+                    <p class=year-title> {$item['year']} год</p>
+                {/if}
+                <a href="{static:/}{$img_folder}/big/{$item['subfolder']}/{$item['name']}" data-id="{$item['id']}">
+                    <img src="{static:/}{$img_folder}/sm/{$item['subfolder']}/{$item['name']}"/>
+                </a>
+            
+        {/loop $list}
+        </div>
+    </div>
+</article>

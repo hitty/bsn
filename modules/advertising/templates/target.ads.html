@@ -1,0 +1,181 @@
+<div id="wrapper">
+    <header class="inner-page__top">
+        <nav class="tiny-controls fontsforweb_fontid_9785">
+            <a href="/" class="tiny-controls__wlogo"></a>
+            <div class="tiny-controls__text">
+                Другие виды размещения рекламы:
+            </div>
+            <div class="tiny-controls__item media">
+                <a href="/advertising/media_ads/" class="icon_text">Медийная</a>
+            </div>
+            <div class="tiny-controls__item lines">
+                <a href="/advertising/line_ads/" class="icon_text">Строчная</a>
+            </div>
+            <div class="tiny-controls__item misc">
+                <a href="/advertising/misc/" class="icon_text">Прочее</a>
+            </div>
+        </nav>
+    </header>
+    <section class="inner-page__content">
+        <div class="content-central fontsforweb_fontid_9785">
+            <span class="icon target"></span>
+            <span class="header">Таргетированная реклама на bsn.ru</span>
+            <span class="sub-header">Управляйте своими объявлениями, показывайте их только  вашей целевой аудитории.</span>
+            <a href="https://www.bsn.ru/contacts/" class="button-green-big">Купить рекламу</a>
+            <div class="left-column">
+                <div class="column__text-block" data-img="bsn-ads-target2" data-left="105" data-top="308">
+                    <span class="text-block__title"><span>Блок над результатами поиска</span><span class="title-placeholder"><i class="placeholder"></i></span></span>
+                    <div class="text-subblock">
+                        <span class="subblock__description">Показывается выше всех объявлений.</span>
+                    </div>
+                </div>
+                <div class="column__text-block" data-img="bsn-ads-target3" data-left="105" data-top="308">
+                    <span class="text-block__title"><span>Блок справа</span><span class="title-placeholder"><i class="placeholder"></i></span></span>
+                    <div class="text-subblock">
+                        <span class="subblock__description">Показывается в правой колонке.</span>
+                    </div>
+                </div>
+                <div class="column__text-block" data-img="bsn-ads-target1" data-left="105" data-top="308">
+                    <span class="text-block__title"><span>Блок в карточке объекта</span><span class="title-placeholder"><i class="placeholder"></i></span></span>
+                    <div class="text-subblock">
+                        <span class="subblock__description">Показывается в карточке объекта.</span>
+                    </div>
+                </div>
+                <div class="column__text-block" data-img="bsn-ads-target-segmented-users" data-left="105" data-top="308">
+                    <span class="text-block__title"><span>Аудитория</span><span class="title-placeholder"><i class="placeholder"></i></span></span>
+                    <div class="text-subblock">
+                        <span class="subblock__subtitle">Различные параметры таргетирования для объявлений:</span>
+                        <div class="subblock_line bt">
+                            <span class="line__title">Тип сделки(аренда/продажа)</span>
+                        </div>
+                        <div class="subblock_line bt">
+                            <span class="line__title">Тип недвижимости (жилая, новостройки, загородная,<br> коммерческая)</span>
+                        </div>
+                        <div class="subblock_line bt">
+                            <span class="line__title">Тип объекта (квартира, дом, офис,...)</span>
+                        </div>
+                        <div class="subblock_line bt">
+                            <span class="line__title">Метро</span>
+                        </div>
+                        <div class="subblock_line bt">
+                            <span class="line__title">Район города</span>
+                        </div>
+                        <div class="subblock_line bt">
+                            <span class="line__title">Район области</span>
+                        </div>
+                        <div class="subblock_line bt">
+                            <span class="line__title">Стоимость (нижняя и верхняя граница)</span>
+                        </div>
+                       <span class="subblock__description">Контроль бюджета в рамках каждой РК.</span>
+                    </div>
+                </div>
+                <div class="column__text-block" data-img="bsn-ads-target-statistics" data-left="105" data-top="308">
+                    <span class="text-block__title"><span>Анализ результатов</span><span class="title-placeholder"><i class="placeholder"></i></span></span>
+                    <div class="text-subblock">
+                        <span class="subblock__subtitle">Подробная статистика и отчеты</span>
+                        <span class="subblock__description">В Личном Кабинете по каждой рекламной кампании можно просматривать подробную статистику и формировать различные отчеты.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column">
+                <span class="example-image-box media clear"><span class="example-image"></span></span>
+                <div class="contacts">
+                    <span class="contacts__phone-box"><span class="phone-box__phone-number">+7 812 655 02 13</span><span class="phone-box__email">sales@bsn.ru</span></span>
+                    <span class="contacts__docs-box">
+                        <div><span class="docs_blue">pdf</span><a href="/img/docs/bsn-target-module-presentation-update.pdf" target="blank" class="docs reqts">Презентация BSN.Target</a></div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.column__text-block').on('mouseenter',function(){
+            if(jQuery(this).hasClass('hovered')) return false;
+            jQuery(this).addClass('hovered');
+            var _img_url = jQuery(this).attr('data-img');
+            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px"); 
+            //координаты начала линии вправо
+            var _line_start_left = parseInt(jQuery(this).offset().left) + jQuery(this).width();
+            var _line_start_top = parseInt(jQuery(this).offset().top) + Math.floor(jQuery(this).height()/2);
+            //координаты конца линии читаем из элемента
+            var _line_end_left = parseInt(jQuery('.example-image').offset().left) + parseInt(jQuery(this).attr('data-left'));
+            var _line_end_top = parseInt(jQuery('.example-image').offset().top) + parseInt(jQuery(this).attr('data-top'));
+            //длина линии и угол наклона
+            var _line_length = Math.floor(Math.sqrt( (_line_end_left - _line_start_left)*(_line_end_left - _line_start_left) + (_line_start_top - _line_end_top)*(_line_start_top - _line_end_top) ));
+            var _line_angle = Math.floor(Math.atan(Math.abs(_line_end_top - _line_start_top)/Math.abs(_line_end_left - _line_start_left)) * 180/Math.PI);
+            //+2 - поправка на границу области
+            if(_line_end_top<_line_start_top)
+                jQuery(this).children('.line').css('transform','rotate(-'+_line_angle+'deg)').css('width',_line_length+'px').css('right','-'+(_line_length+2)+'px');
+            else
+                jQuery(this).children('.line').css('transform','rotate('+_line_angle+'deg)').css('width',_line_length+'px').css('right','-'+(_line_length+2)+'px');
+        });
+        jQuery('.column__text-block').on('mouseleave',function(){
+            jQuery(this).removeClass('hovered');
+            var _img_url = jQuery(this).attr('data-img');
+            jQuery('.example-image').removeClass('media');
+            jQuery('.example-image-box').addClass('clear');
+            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
+        });
+        //картинка с образцом теперь ездит
+        jQuery(document).on('scroll',function(){
+            var _scroll_position = jQuery(window).scrollTop();
+            if((_scroll_position+jQuery(window).height()<2200)){
+                jQuery('.example-image-box').css('position','relative');
+                jQuery('.contacts').css('position','relative');
+                var _contacts_position = _scroll_position + jQuery('.example-image-box').height();
+                if(_scroll_position>265){
+                    jQuery('.example-image-box').offset({
+                                                        top:_scroll_position});
+                    jQuery('.contacts').offset({
+                                                            top:_contacts_position});
+                }
+                else{
+                    _contacts_position = 265 + jQuery('.example-image-box').height();
+                    jQuery('.example-image-box').offset({
+                                                        top:265});
+                    jQuery('.contacts').offset({
+                                                        top:_contacts_position});
+                }
+                //перерисовываем стрелочку
+                var _hovered_block = jQuery('.column__text-block.hovered');
+                //если при скролле мы держим мышку над одним из блоков
+                if(_hovered_block.length>0){
+                    //координаты начала линии вправо
+                    var _line_start_left = parseInt(_hovered_block.offset().left) + _hovered_block.width();
+                    var _line_start_top = parseInt(_hovered_block.offset().top) + Math.floor(_hovered_block.height()/2);
+                    //координаты конца линии читаем из элемента
+                    var _line_end_left = parseInt(jQuery('.example-image').offset().left) + parseInt(_hovered_block.attr('data-left'));
+                    var _line_end_top = parseInt(jQuery('.example-image').offset().top) + parseInt(_hovered_block.attr('data-top'));
+                    //длина линии и угол наклона
+                    var _line_length = Math.floor(Math.sqrt( (_line_end_left - _line_start_left)*(_line_end_left - _line_start_left) + (_line_start_top - _line_end_top)*(_line_start_top - _line_end_top) ));
+                    var _line_angle = Math.floor(Math.atan(Math.abs(_line_end_top - _line_start_top)/Math.abs(_line_end_left - _line_start_left)) * 180/Math.PI);
+                    //+2 - поправка на границу области
+                    if(_line_end_top<_line_start_top)
+                        _hovered_block.children('.line').css('transform','rotate(-'+_line_angle+'deg)').css('width',_line_length+'px').css('right','-'+(_line_length+2)+'px');
+                    else
+                        _hovered_block.children('.line').css('transform','rotate('+_line_angle+'deg)').css('width',_line_length+'px').css('right','-'+(_line_length+2)+'px');
+                    }
+                }
+        });
+        //предзагрузка картинок чтобы не мигало в хроме
+        function preload(arrayOfImages) {
+            $(arrayOfImages).each(function(){
+                (new Image()).src = this;
+            });
+        }
+
+        // Usage:
+
+        preload([
+            '//st1.bsn.ru/img/layout/adv_examples_200x480.png',
+            '//st1.bsn.ru/img/layout/adv_examples_topline.png',
+            '//st1.bsn.ru/img/layout/adv_examples_tall.png',
+            '//st1.bsn.ru/img/layout/adv_examples_float.png',
+            '//st1.bsn.ru/img/layout/adv_examples_tgb-1.png',
+            '//st1.bsn.ru/img/layout/adv_examples_tgb-2.png',
+            '//st1.bsn.ru/img/layout/adv_examples_calc.png'
+        ]);
+    });
+</script>

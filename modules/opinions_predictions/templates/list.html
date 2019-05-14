@@ -1,0 +1,50 @@
+<span class="button grey search-button" data-icon="search" data-url="/search/popup/"></span>
+<h1 class="centered">{if!empty $mainpage_h1}{$mainpage_h1}{else}Мнения{/if}</h1>
+{include modules/search/templates/search.form.html}
+
+<section class="content-mainpage content-list">
+    {ifempty $list}
+        <p>на данный момент новостей нет</p>
+    {else}
+        {php:$content_type = 'opinions'}
+        <div class="content-wrapper row-3 clearfix">
+            {include /modules/opinions_predictions/templates/block.html}
+            <div class="clearfix ajax-pagination-wrapper"></div>
+            <span class="center-button-block ajax-pagination button grey clearfix" data-link="{$paginator['link']}{$paginator['right']}">Еще мнения</span>
+        </div>
+    {/if}
+</section>
+
+<section class="subscribe-content-wrapper">
+    <span class="title">Интересно читать наши материалы?</span>
+    {include /templates/subscribe.panel.html}
+</section>
+<section class="tgb-list in-row">
+    {block tgb/top/4}
+</section>
+
+
+
+
+<section id="datetime-filter" class="links">
+    <div class="list-selector years-list grey">
+        <a href="#" class="pick"></a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" name="progress_years" value="" />
+        <ul class="list-data" data-simplebar="init">
+            {loop $date_list,$k,$pitem} 
+                    <li data-value="{$k}">{$k}</li>
+            {/loop $date_list}
+        </ul>
+    </div>                 
+    <ul class="list br3">
+        
+        {loop $date_list,$year,$months}
+            {loop $months,$m,$mitem}
+                <li class="item{if!empty $mitem['active']} on{/if}" data-year="{$year}" data-params="?month={$mitem['month_number']}&year={$year}"><a href="/{$content_type}/archive/?month={$mitem['month_number']}&year={$year}{if!empty $category['url']}&category={$category['url']}{/if}">{$mitem['month']}</a></li>
+            {/loop $months}
+        {/loop $date_list}   
+        
+    </ul>
+</section>
+ 

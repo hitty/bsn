@@ -1,0 +1,97 @@
+<a href="/promotions/" title="Все акции" class="grey all-promotions">Вернуться к списку всех акций</a>
+<article class="promotion-item">
+    <div class="item-wrapper">
+        <div class="left-wrapper">
+            <div class="agency-info">
+                <img src="/{$basic_img_dolder}/sm/{$item['subfolder']}/{$item['photo']}" alt="{stripall:$item['title']}" class="main-img">
+                {if!empty $item['agency_photo']}<img src="/{$basic_img_dolder}/sm/{$item['agency_subfolder']}/{$item['agency_photo']}" alt="{$item['agency_title']}" class="agency-img">{/if}
+                <span class="internal-link agency-title" data-link="/organizations/company/{$item['agency_chpu_title']}/" title="{$item['agency_title']}">{$item['agency_title']}</span>
+                {if!empty $item['id_tarif']}{if!empty $item['agency_phone']}<span class="phone">{$item['agency_phone']}</span>{/if}{/if}
+                <span id="application-button" class="button green" data-id={$item['id']} data-type="promotion-{$item['estate_type']}">Оставить заявку</span>
+            </div>
+        </div>
+        <div class="right-wrapper">
+            <div class="date">
+                {ifeq $item['published'],1}Акция действительна до {$item['normal_date_end']}
+                {else}Акция завершена
+                {/if}
+            </div>
+            <h1>{stripall:$item['title']}</h1>
+            <div class="address">
+                {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                {if!empty $district}<span class="district">{if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}</span>{/if}
+                {if!empty $item['subway']}<span class="subway">{$item['subway']}</span>{/if}
+            </div>
+            <script>jQuery(document).ready(function(){ getPendingContent(['.social-buttons .buttons'], ['/banners/social_buttons/big/']); });</script>  
+            <div class="text notes-box">
+                {$item['description']}
+                {if!empty $item['url']}<span class="external-link" data-link="{$item['url']}">Подробности акции</span>{/if}
+            </div>
+            
+            {if!empty $item['object_types']}
+                <div id="promotions-objects">
+                    <h2>Акционные объекты</h2>
+                    <div class="filter">
+                        {ifin $item['estate_type'],'live','build'}
+                            <span class="active" data-type="{$item['estate_type']}"  data-value="/{$item['estate_type']}/sell/?id_promotion={$item['id']}">Все</span>
+                            {loop $object_types,$k,$type}
+                                <span data-type="{$item['estate_type']}" data-value="/{$item['estate_type']}/sell/?id_promotion={$item['id']}&rooms={$type}">{$object_types_array[$type]}</span>
+                            {/loop $object_types}    
+                        {else}
+                            <span class="active" data-type="{$item['estate_type']}"  data-value="/{$item['estate_type']}/sell/?id_promotion={$item['id']}">Все</span>
+                            {loop $object_types,$k,$type}
+                                <span data-type="{$item['estate_type']}" data-value="/{$item['estate_type']}/sell/?id_promotion={$item['id']}&obj_type={$object_id_types[$k]}">{$object_title_plurals[$k]}</span>
+                            {/loop $object_types}
+                        {/if}
+                    </div>
+                </div>
+                <div class="statistic-box">
+                    <div class="sb-sort">
+                        <div class="list-selector grey" id="sort_selector">
+                            <a href="#" class="pick">{$sortby}</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="sort_selector" value="{$sortby}" />
+                            <ul class="list-data" data-link="">
+                                <li data-value="">сначала заполненные</li>
+                                <li data-value="23">сначала новые</li>
+                                <li data-value="1">цена, от меньшей</li>
+                                <li data-value="2">цена, от большей</li>
+                                {ifin $item['estate_type'],'live','build'}
+                                    <li data-value="3">комнат, от меньшей</li>
+                                    <li data-value="4">комнат, от большей</li>
+                                {/if}
+                                <li data-value="7">общая площадь, от меньшей</li>
+                                <li data-value="8">общая площадь, от большей</li>
+                                {ifin $item['estate_type'],'live','build'}
+                                    <li data-value="9">жилая площадь, от меньшей</li>
+                                    <li data-value="10">жилая площадь, от большей</li>
+                                    <li data-value="11">площадь кухни, от меньшей</li>
+                                    <li data-value="12">площадь кухни, от большей</li>
+                                {/if}
+                                <li data-value="13">метро, от А</li>
+                                <li data-value="14">метро, от Я</li>
+                                <li data-value="24">район города, от А</li>
+                                <li data-value="25">район города, от Я</li>
+                            </ul>
+                        </div>                                    
+                    </div>
+                    <div class="sb-quote">
+                        Показывать 
+                        <div class="list-selector grey" id="count_selector">
+                            <a href="#" class="pick">{$View_count}</a>
+                            <a href="#" class="select">...</a>
+                            <input type="hidden" name="count_selector" value="{$View_count}" />
+                            <ul class="list-data" data-simplebar="init">
+                                <li data-value="20"{ifeq $View_count,20}class="selected"{/if}>20</li>
+                                <li data-value="40"{ifeq $View_count,40}class="selected"{/if}>40</li>
+                                <li data-value="60"{ifeq $View_count,60}class="selected"{/if}>60</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="promotions-estate-list">
+                </div>
+            {/if}
+        </div>             
+    </div>
+</article>

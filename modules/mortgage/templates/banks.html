@@ -1,0 +1,40 @@
+{if!empty $h1}<h1 class="topspace">{$h1}</h1>{/if}
+{block spec_offers/block/mortgage}
+<form class="banks-search" id="banks-search-form" action="/estate/mortgage/banks/" method="get">
+    <span class="selector-title">Город</span>
+    <div class="list-selector select-regions">
+        <a href="#" class="pick">Любой</a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" id="regions" name="regions" value="{$selected_region}" />
+        <ul class="list-data" data-simplebar="init">
+            {loop $regions,$dk,$dv}
+                <li data-value="{$dv['id']}">{$dv['title']}</li>
+            {/loop $regions}
+        </ul>
+    </div>
+    <div class="rbp">
+        <button class="button" type="submit" name="submit" value="Искать">Искать</button>
+    </div>    
+</form>
+<div class="sb-info">Найдено ипотечных банков: {$banks_count}</div>
+{if!empty $list}
+    <div class="banks-list">
+        <div class="banks-list-head">
+            <div class="row">
+                <div class="cell col_shortname">Сокращенное название банка</div>
+                <div class="cell col_fullname">Полное название банка</div>
+                <div class="cell col_programcount">Ипотечных программ</div>
+            </div>
+        </div>
+        <div class="banks-list-body">
+            {loop $list,$lk,$lv}
+                <div class="row">
+                    <div class="cell col_shortname"><a href="http://www.bsn.ru/estate/mortgage/programs/?ipo_bankid={$lv['id']}&ipo_regionid={$selected_region}" class="a_to_click">{$lv['shortname']}</a></div>
+                    <div class="cell col_fullname">{$lv['fullname']}</div>
+                    <div class="cell col_programcount">{$lv['programcount']}</div>
+                </div>
+            {/loop $list}
+        </div>
+    
+    </div>
+{/if}

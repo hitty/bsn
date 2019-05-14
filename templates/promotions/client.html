@@ -1,0 +1,76 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body>
+    <div class="content promotion">
+        <div class="main-content">
+            
+            {if!empty $invites}
+                <div id="invite-wrap">
+                {loop $invites,$i,$invite}
+                    <div class="item" data-id-agency="{$invite['id_agency']}" data-id="{$invite['id']}">
+                        Ваш профиль добавлен к аккаунту компании <a href="/organizations/company/{$invite['id_agency']}_{$invite['chpu_title']}/" title="Перейти на карточку компании" target="_blank">«{$invite['title']}»</a>.
+                        <span class="reject">Отклонить</span>
+                        <span class="accept">Подтвердить</span>
+                    </div>
+                {/loop $invites}
+                </div>
+                <script>
+                jQuery('#invite-wrap .item').each(function(){
+                    jQuery('span', jQuery(this)).on('click', function(){
+                        var _parent_wrap = jQuery(this).parents('.item');
+                        var _this = jQuery(this);
+                        jQuery.ajax({
+                            type: "POST", async: true,
+                            dataType: 'json', url: '/members/invite_result/',
+                            data: {ajax: true, type: _this.attr('class'), id: _parent_wrap.data('id'), id_agency: _parent_wrap.data('id-agency')},
+                            success: function(msg){
+                                if(msg.ok) _parent_wrap.fadeOut(300);
+                                if(_this.attr('class') == 'accept') {
+                                    if(msg.ok) document.location.reload();
+                                    else if(msg.error_text.length > 0) _parent_wrap.html(msg.error_text);
+                                }
+                            }
+                        })
+                    })
+                })
+                </script>
+            {/if}
+            <div class="left-wrapper">
+                <div class="left-column">
+                    <div class="back-to-search">
+                        <a href="/{$search_query}" title="Вернуться к поиску">Вернуться к поиску</a>
+                    </div>
+                    <div class="promotion-header">
+                        <img src="{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}" alt="">
+                        <div class="promotion-contacts">
+                            <span class="agency-logo"></span>
+                            <span class="agency-title">{$item['agency_title']}</span>
+                            <span class="promotion-phone">{phone:$item['agency_phone']}</span>
+                        </div>
+                    </div>
+                    <div class="promotions-another-this">
+                        {if!empty $promotions_another_this}
+                            {loop $promotions_another_this,$key,$promotion_another}
+                                <span class="promotion-another">{$promotion_another['title']}</span>
+                            {/loop $promotions_another_this}
+                        {/if}
+                    </div>
+                    <div class="promotions-another">
+                        {if!empty $promotions_another_this}
+                            {loop $promotions_another_this,$key,$promotion_another}
+                                <span class="promotion-another">{$promotion_another['title']}</span>
+                            {/loop $promotions_another_this}
+                        {/if}
+                    </div>
+                </div>
+                <div class="central-column payed-format"> 
+                    {$content}
+                </div> <!--/.central-column-->
+                
+            </div> <!--/.left-wrapper-->
+            
+        </div> <!--/.main-content-->                            
+    </div> <!--/.content-->
+    {include /templates/includes/main_footer_part.html}
+</body>
+</html>

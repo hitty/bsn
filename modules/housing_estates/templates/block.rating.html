@@ -1,0 +1,14 @@
+{php:$list = $rating_list}
+{include /modules/housing_estates/templates/block.rating.list.html}                                                                                  
+{if!eq $action, 'rating_mainpage'}
+    <a class="center-button-block button grey" href="/service/ratings/" >Смотреть рейтинги по районам</a>
+{/if}   
+{if!empty $articles_list}
+<section id="content-list">
+    <h2 class="inner-wrapper">Статьи</h2>
+    <div class="content-wrapper row-3 clearfix">
+        {php:$list = $articles_list}
+        {include /modules/content/templates/block.html}    
+    </div>
+</section>
+{/if}

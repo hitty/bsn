@@ -1,0 +1,24 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Здравствуйте!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Новая регистрация на мероприятие: <a href="https://www.bsn.ru/calendar/{$item['chpu_title']}/" title="" style="text-decoration: none; font-size: 22px; font-weight: bold; color:#1e88e5;">«{$item['title']}»</a>
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Данные участника:<br /><br />
+        ФИО: <b>{$info['name']}</b><br />
+        Телефон: <b>{$info['phone']}</b><br />
+        Email: <b>{$info['email']}</b><br />
+        {if!empty $info['company']}Компания: <b>{$info['company']}</b><br />{/if}
+        {if!empty $info['job']}Должность: <b>{$info['job']}</b><br />{/if}
+        {if!empty $info['comment']}Комментарий: <b>{$info['comment']}</b><br />{/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

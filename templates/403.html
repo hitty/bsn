@@ -1,0 +1,41 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body id="clear-template">
+    
+    {include /templates/includes/main_header_part.html}
+    
+    <div class="shadow-wrapper" id="shadow-wrapper">
+    
+        <div class="content error-403">
+                    
+                    <h2>Доступ к странице ограничен. Пожалуйста, авторизуйтесь!</h2>
+                    {if!empty $authorized}
+                        <p>Вашего уровня доступа не достаточно для доступа к этой странице.</p>
+                        <form method="post" class="standart small-shadow br3" action="{$curent_page['requested_url']}">
+                            <input type="submit" name="logoff" value="Выход">
+                        </form>
+                    {else}
+                       
+                        <form method="post" class="standart small-shadow br3" action="/{$current_page['requested_url']}/" id="members-form">
+                            <div class="row">
+                                <input type="text" name="auth_login" value="" autocomplete="off" required="required" placeholder="Электронная почта / логин">
+                            </div>
+                            <div class="row">
+                                <input type="password" name="auth_passwd" value="" autocomplete="off" required="required" placeholder="Пароль">
+                            </div>
+                            <div class="row">
+                                <label for="auth_cookie_save" class="checkbox small"><input type="checkbox" id="auth_cookie_save" name="auth_cookie_save" value="1"> Запомнить меня</label>
+                            </div>
+                            <div class="row">
+                                <button type="submit" value="commit" name="submit" class=" send ">Войти</button>
+                            </div>
+                        </form>
+                    {/if}
+        </div> <!--/#content-->
+    </div>
+    
+    {include /templates/includes/main_footer_part.html}
+    
+</body>
+</html>
+    

@@ -1,0 +1,88 @@
+<div class="edit-wrapper item-{$item['id']}">
+    {ifeq $auth['id'],$item['id_user']}
+    {ifempty $favorites}
+        <div class="info-wrapper">
+            
+            {ifempty $favorites}
+                {ifeq $item['published'],1}
+                    <span class="object-date">
+                            
+                            Добавлено <i>{$item['date_in_normal']}</i>
+                    </span>
+                   
+                    <span class="days-left">Осталось  {suffix:$item['days_left'],'д','ень','ня','ней'}</span>
+                    {ifeq $item['status'],2}
+                        <span class="extension" data-link="/members/objects/extension/{$estate_type}/{$item['id']}/">Продлить на месяц</span>
+                    {/if}
+                {/if}
+
+                <span class="views">{suffix:$item['views_count'],'просмотр','','а','ов'}</span>
+                {/if}       
+        </div>
+            
+        <div class="actions">
+            <div class="content">
+                {ifeq $item['published'],1}
+                    <span class="edit internal-link" data-icon="remove_red_eye" data-link="/{$estate_type}/{$deal_type}/{$item['id']}/" data-new-tab="true">Смотреть</span>
+                {/if}
+                <a  class="edit" data-icon="edit" href="/members/objects/edit/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/">Редактировать</a>
+                {ifeq $item['published'], 1}
+                    {if!eq $item['raising_status'],1}<span class="make-raising popup br3" data-icon="publish" data-url="/members/pay_object/{$estate_type}/{$item['id']}/?status=1" data-location="pay-raise-{$estate_type}-{$item['id']}">Поднять объект</span>{/if}
+                    <span class="archive" data-icon="archive" data-link="/members/objects/archive/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/"><i>Убрать в архив</i></span>
+                {/if}
+                {ifin $item['published'],2,4}
+                    <span class="publish internal-link" data-icon="publish" data-link="/members/objects/edit/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/?step=3#object-statuses">Опубликовать</span>
+                {/if}
+                <span class="delete" data-icon="delete" data-link="/members/objects/delete/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/"><i>Удалить</i></span>
+            </div>
+        </div>
+
+        
+        <div class="statuses">
+            {ifin $item['status'],2,5,8}
+                <span class="make-promo br3 popup" data-icon="highlight" data-url="/members/pay_object/{$estate_type}/{$item['id']}/?status=3" data-location="pay-promo-{$estate_type}-{$item['id']}">Сделать «Промо»</span>
+                <span class="make-premium popup br3" data-icon="whatshot" data-url="/members/pay_object/{$estate_type}/{$item['id']}/?status=4" data-location="pay-premium-{$estate_type}-{$item['id']}">Сделать «Премиум»</span>
+                <span class="make-vip popup br3" data-icon="flash_on"  data-url="/members/pay_object/{$estate_type}/{$item['id']}/?status=6" data-location="pay-vip-{$estate_type}-{$item['id']}">Сделать «VIP»</span>
+            {/if}
+                
+        </div>
+        <script>
+            var _id = {$item['id']}
+        </script>
+        
+        <script>
+            
+            jQuery('.item-' + _id + ' .popup').each(function(){ 
+                jQuery(this).popupWindow(
+                    {
+                        popupCallback:function(data){
+                            var _cost = parseInt(data.cost);
+                            var _balance_el = jQuery('.menu-wrapper .content .balance span');
+                            var _balance = parseInt( _balance_el.text().replace(' ', '') );
+                            _balance_el.text( ( _balance - _cost ) + ' Р')
+                            if( jQuery( '.paginator span.active' ).length > 0 ) {
+                                var _link = jQuery( '.paginator span.active' ).attr( 'data-active-link' );
+                                jQuery('.statistic-box, .paginator').remove();
+                                getPendingContent( '.estate-list',  _link ) ;
+                            }
+                            else jQuery('.fast-search.tiny.ajax-form').submit();
+                        }
+                    }
+                ) 
+            });
+        </script>
+    {else}
+        <div class="actions">
+            <span data-id="{$item['id']}" data-type="live" class="star del-from-favorites" data-link="/favorites/unclick/">
+                <span class="star-label dashed">Удалить из избранного</span>
+            </span>
+        </div>
+    {/if}
+    {/if}
+
+</div>
+<div class="object-weight br3">
+    <b>Заполненность</b>
+    <span class="weight"><span style="width: {$item['weight']}%"></span></span>
+    <i>{$item['weight']}%</i>
+</div>

@@ -1,0 +1,28 @@
+{if!empty $tgb_list}
+
+<div class="central-wrapper">
+    <div class="sp-list">
+        <ul>
+            {loop $tgb_list,$tk,$item}
+                <li class="sp-item" data-type="{$item['type']}" data-id="{$item['id']}">
+                    {ifeq $item['link_type'],'external'}
+                        <span class="external-link" data-link="{$item['direct_link']}" title="{quoted:$item['title']}" {if!empty $ga_number} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'ТГБ2 в выдаче {$ga_number}']); }catch(e){}"{/if}>
+                            <img src="{$item['photo']}" alt="{quoted:$item['title']}" />
+                            {$item['title']}
+                            {if!empty $item['agent_title']}<p class="agent-title">{$item['agent_title']}</p>{/if}
+                        </span>
+                    {else}
+                        <a href="{$item['direct_link']}" title="{quoted:$item['title']}" {if!empty $ga_number} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'ТГБ2 в выдаче {$ga_number}']); }catch(e){}"{/if}>
+                            <img src="{$item['photo']}" alt="{quoted:$item['title']}" />
+                            {$item['title']}
+                            {if!empty $item['agent_title']}<p class="agent-title">{$item['agent_title']}</p>{/if}
+                        </a>
+                    {/if}
+                    {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+                </li>
+            {/loop $tgb_list}
+        </ul>
+    </div>
+</div>
+ 
+{/if}

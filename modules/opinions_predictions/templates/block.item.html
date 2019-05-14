@@ -1,0 +1,12 @@
+<div class="item opinions col-1 br3 shadow-hover transition">
+    <a class="internal-link" href="/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/"></a>
+    <span class="image br3 bg-cover-top-mid lazy" data-src="{static:/}img/uploads/{ifempty $mainpage}med{else}big{/if}/{$item['experts_subfolder']}/{$item['experts_photo']}"></span>
+    <div class="content">
+         <span class="title transition-text">{$item['expert_title']}: {$item['annotation']}</span>
+    </div>
+     <p class="smallnotes clearfix">
+        <time  data-icon="schedule" datetime="{$item['datetime']}" data-icon="schedule">{$item['normal_date']}</time>
+        <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+        <span class="comments_count" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+    </p>  
+</div>

@@ -1,0 +1,80 @@
+<h1 class="pageTitle">Квартиры / Комнаты</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/estate/live/add/" id="item_edit_form">
+    <h3>Новый объект</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/estate/live/edit/{$data_mapping['id']['value']}/" id="item_edit_form">
+    <h3>Объект #{$data_mapping['id']['value']} &quot;{$data_mapping['txt_addr']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка: {if!empty $error_text}{$error_text}{/if}. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset class="upload-block photos">
+            <h3>Загрузка фотографий для объекта #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/live/photos/" data-session-id="{php:echo session_id();}" />
+            <input type="hidden" name="id_priority"/>   
+            <input type="hidden" id="photos_order" name="photos_order" value="">
+        </fieldset>   
+    {/if}     
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('select#id_type_object').on('change',function(){
+        if(jQuery(this).val() == 1){
+            jQuery('#p_field_rooms_sale').slideUp(50);
+        } else {
+            jQuery('#p_field_rooms_sale').slideDown(50);
+        }
+    });
+    jQuery('input[name="rent"]').change(function(){
+        if(jQuery(this).val() == 1){
+            jQuery('#p_field_rent_duration').slideDown(50);
+            jQuery('#p_field_by_the_day').slideDown(50);
+        } else {
+            jQuery('#p_field_rent_duration').slideUp(50);
+            jQuery('#p_field_by_the_day').slideUp(50);
+        }
+    });
+    jQuery('input[name=elite]').on('change',function(){
+        if(jQuery(this).val() == 2){
+            jQuery('#p_field_elite_status').slideUp(50);
+        } else {
+            jQuery('#p_field_elite_status').slideDown(50);
+        }
+    });    
+   
+    //чтобы можно было перетаскивать фотки
+    if(jQuery.isFunction(jQuery('#file_upload_queue').sortable)){
+        jQuery('#file_upload_queue').sortable({
+            items: "li:not(.uploadifyButton)",
+            stop: function( event, ui ) {
+                _photos_order = [];
+                jQuery('.upload-block.photos .itemsContainer').each(function(){
+                    _photos_order.push(jQuery(this).attr('data-id_obj'));
+                });
+                jQuery('#photos_order').val(_photos_order.join(','));
+            }
+        });
+        jQuery('#file_upload_queue').disableSelection();
+    }else{alert('sortable failed');}
+});
+</script>

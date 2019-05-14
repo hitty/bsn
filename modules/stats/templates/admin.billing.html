@@ -1,0 +1,103 @@
+<h1 class="pageTitle">Биллинг {ifeq $agency_type,'advertising'}рекламных {/if}агентств</h1>
+    {ifeq $agency_type,'advertising'} {php:$id_billing=1;}
+    {else} {php:$id_billing=2;} <p style="display: block; margin:5px 0 10px 0; font-weight: bold; color:#ff0000;">Для обычных агентств выводится только информация об Элитных, Промо и Премиум объектах, а также Аренда Жилой</p>
+    {/if}
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_user_id = document.getElementById('f_user_id').value;
+            var __url = '/admin/service/stats/billing/'+{$id_billing}+'/';
+            var __get = new Array();
+            if(__filter_user_id!='') __get.push('f_user_id='+__filter_user_id);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line" style="text-align: left;">
+        <label >
+            Выбор агентства:
+            <select id="f_user_id" onchange="filter_activate()" style="width: 270px; ">
+                <option value="0">выберите агентство</option>
+                {loop $agencies,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_user_id'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $agencies}
+            </select>
+        </label>
+    </div>
+    {ifgt $get_array['f_user_id'],0}
+    <form method="post" action="" class="form_default" style="margin-top: 10px;;">
+        <input type="hidden" value="ok" name="process"> 
+        Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$info['date_start']}"> 
+        по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$info['date_end']}">
+        <input type="submit" value="показать" name="submit" style="display:none;" id="submitButton" style="margin-left: 0px;" />
+    </form>
+    {/if}
+
+        {if!empty $form_submit}
+        {ifempty $stats}<p style="padding: 10px 0;">За данный промежуток времени статистики нет</p>
+        {else}
+        <div id="result_info_stats">
+            <table width="500" cellspacing="0" cellpadding="10">
+              <tbody>
+                  <tr>
+                    <th width="100">Дата</th>
+                    {ifeq $agency_type,'advertising'}
+                        <th width="100">Всего</th>
+                        <th width="100">Обычных</th>
+                    {/if}
+                    <th width="100">Промо</th>
+                    <th width="100">Премиум</th>
+                    <th width="100">VIP</th>
+                    {if!eq $agency_type,'advertising'}<th width="100">Аренда жилой</th>{/if}
+                  </tr>
+                        {php:$total_normal=0}
+                        {php:$total_promo=0}
+                        {php:$total_premium=0}
+                        
+                        {php:$total_live_rent=0}
+                        {php:$total_vip=0}
+                        {loop $stats,$key,$item}
+                        <tr>
+                            <td>{$item['month_date']}</td>
+                            {ifeq $agency_type,'advertising'}
+                                <td>{php:echo $item['normal']+$item['promo']+$item['premium']+$item['vip'];}</td>
+                                <td>{$item['normal']}</td>
+                            {/if}
+                            <td>{$item['promo']}</td>
+                            <td>{$item['premium']}</td>
+                            <td>{$item['vip']}</td>
+                            {if!eq $agency_type,'advertising'}<td>{$item['live_rent']}</td>{/if}
+                        </tr>
+                        {php:$total_normal=$total_normal+$item['normal']}
+                        {php:$total_promo=$total_promo+$item['promo']}
+                        {php:$total_premium=$total_premium+$item['premium']}
+                        {php:$total_vip=$total_vip+$item['vip']}
+                        {if!eq $agency_type,'advertising'}{php:$total_live_rent=$total_live_rent+$item['live_rent']}{/if}
+                    {/loop $stats} 
+                  <tr>
+                    <th>Всего</th>
+                    {ifeq $agency_type,'advertising'}
+                        <th>{php:echo $total_normal+$total_promo+$total_premium+$total_vip;}</th>
+                        <th>{$total_normal}</th>
+                    {/if}
+                    <th>{$total_promo}</th>
+                    <th>{$total_premium}</th>
+                    <th>{$total_vip}</th>
+                    {if!eq $agency_type,'advertising'}<th>{$total_live_rent}</th>{/if}
+                  </tr>
+                  <tr >
+                    <th style="font-size:13px;">В среднем за период</th>
+                    {ifeq $agency_type,'advertising'}
+                        <th style="font-size:12px;">{php:echo (integer)(($total_normal+$total_promo+$total_premium)/count($stats));}</th>
+                        <th style="font-size:12px;">{php:echo (integer)(($total_normal)/count($stats));}</th>
+                    {/if}
+                    <th style="font-size:12px;">{php:echo (integer)(($total_promo)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_premium)/count($stats));}</th>
+                    <th style="font-size:12px;">{php:echo (integer)(($total_vip)/count($stats));}</th>
+                    {if!eq $agency_type,'advertising'}<th style="font-size:12px;">{php:echo (integer)(($total_live_rent)/count($stats));}</th>{/if}
+                  </tr>
+            </tbody>
+            </table>
+          </div> 
+          {/if}   
+    {/if}    

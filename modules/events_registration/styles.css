@@ -1,0 +1,70 @@
+.addevent_form form{
+    display: block;
+    background: #EEEEEE;
+    border: 1px solid #eee;
+    padding: 10px;
+    clear: both;
+    overflow: hidden;
+    margin-bottom: 20px;
+    width:95%;
+    
+}
+.field{
+    float:top;
+}
+.field label{
+    padding-top:5px;
+    float:left;
+    width:25%;
+}
+.field span{
+    display:inline-block;
+}
+.field span input[type="text"]{
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    margin-left:5px;
+    width:295% !important;
+}
+.field span textarea{
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    margin-left:5px;
+    width:255% !important;
+}
+
+.addevent_form form textarea{
+    margin-top: 5px;
+    height: 50px;
+    /*width:99%;*/
+}
+.addevent_form form .buttonbox{
+    margin-top: 5px;
+    margin-left:30%;
+}
+.addevent_form form button{
+    margin:10px 0px 0px 0px ;
+}
+.error{
+    border-color: #DD0000;
+}
+.events-list{
+    border-bottom: 1px dotted #ccc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden; 
+}
+.events-list:last-child{
+    border-bottom: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden; 
+}
+.events-list:nth-child(even){
+    background: #EEEEEE;
+}
+.submit_succ{
+    color:#009900;
+}

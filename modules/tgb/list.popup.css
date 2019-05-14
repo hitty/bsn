@@ -1,0 +1,828 @@
+.modal-inner .tgb-popup,
+.modal-inner .app-choosing-wrapper,
+.modal-inner .tgb-popup{
+    width:470px;
+    height:440px;
+    z-index: 1000000;
+    position: fixed;
+    left:50%;
+    float: none;
+    color: #fff;
+    background: #fff;
+    margin: -150px 0 0 -300px;
+    top: 50%;
+    padding: 30px;
+    background: #fff;
+    opacity: 0;
+    transition: margin .3s, opacity .3s;
+    -webkit-transition: margin .3s, opacity .3s;
+    -moz-transition: margin .3s, opacity .3s;
+    -ms-transition: margin .3s, opacity .3s;
+    -o-transition: margin .3s, opacity .3s;    
+    text-indent: -2000;   
+}
+.modal-inner .app-choosing-wrapper{
+    left:40%;
+}
+.modal-inner .app-choosing-wrapper .title-text{
+    display:block;
+    margin-bottom:20px;
+    margin-top:40px;
+}
+.modal-inner .app-choosing-wrapper{
+    width:460px;
+    height:360px;
+    color:black;
+}
+.modal-inner .app-choosing-wrapper .choosing-block{
+    display:block;
+}
+.modal-inner .app-choosing-wrapper .choosing-block div{
+    display:inline-block;
+    border:1px solid #d8d8d8;
+    width:228px;
+    height:200px;
+    float:left;
+}
+.modal-inner .app-choosing-wrapper .choosing-block .exclusive-app{
+    background: -webkit-linear-gradient(#f1f9db, #ffffff);
+    background: -o-linear-gradient(#f1f9db, #ffffff);
+    background: -moz-linear-gradient(#f1f9db, #ffffff);
+    background: linear-gradient(#f1f9db, #ffffff);
+    border-left-width:0px;
+}
+.modal-inner .app-choosing-wrapper div span{
+    display:block;
+}
+.modal-inner .app-choosing-wrapper .choosing-block span{
+    margin-left:20px;
+}
+.modal-inner .app-choosing-wrapper .choosing-block span.unavailable{
+    color: #EB2726;
+    font-weight: bold;
+    width: 100%;
+    margin-left: 0px;
+    text-align: center;
+    margin-top:21px;
+}
+.modal-inner .app-choosing-wrapper .choosing-block div .title{
+    font-size:26px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.modal-inner .app-choosing-wrapper .choosing-block div .cost{
+    font-size:16px;
+    color:#000000;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+.modal-inner .app-choosing-wrapper .choosing-block div .description{
+    margin-bottom:10px;
+    min-height:37px;
+    max-width:190px;
+}
+.modal-inner .app-choosing-wrapper .choosing-block div .button{
+    margin-left:20px;
+    width:190px;
+    font-weight:bold;
+    padding-top:9px;
+}
+.right-column.handbook-page.payed .application-wrapper application-view-form.public,
+.modal-inner .tgb-popup.public,
+.modal-inner .tgb-popup.public{
+    height:350px;
+    width:480px;
+    left:42%;
+}
+.modal-inner .button-container,
+.modal-inner .button-container{
+    position:relative;
+    bottom:0px;
+}
+.modal-inner .button-container .tgb-popup-button,
+.modal-inner .button-container .tgb-popup-button{
+    top: 23px;
+    z-index: 100;
+    opacity: 1;
+    width: 260px;
+    padding: 0px;
+    height: 70px;
+    text-align: center;
+    position: absolute;
+    transition: margin 0.3s ease 0s, opacity 0.3s ease 0s;
+    background: none repeat scroll 0% 0% #FFF;
+    left: -20px;
+}
+.modal-inner .button-container .tgb-popup-button.public,
+.modal-inner .button-container .tgb-popup-button.public{
+    width:520px
+}
+.right-column.handbook-page.payed .application-wrapper .tgb-popup.public .left-column,
+.modal-inner .tgb-popup .left-column,
+.modal-inner .tgb-popup .left-column,
+.modal-inner .tgb-popup .right-column,
+.modal-inner .tgb-popup .right-column{
+    width:48%;
+    display:inline-block;
+    margin-top:0px;
+}
+.modal-inner .tgb-popup .right-column,
+.modal-inner .tgb-popup .right-column{
+    padding-left:19px;
+}
+.right-column.handbook-page.payed .application-wrapper .tgb-popup.public .left-column,
+.modal-inner .tgb-popup .left-column,
+.modal-inner .tgb-popup .left-column{
+    float:left;
+}
+.right-column.handbook-page.payed .application-wrapper .tgb-popup.public .list-selector,
+.modal-inner .tgb-popup .list-selector,
+.modal-inner .tgb-popup .list-selector{
+    color:#000000;
+    width:220px;
+    margin-top:0px;
+    margin-bottom: 14px;
+}
+.right-column.handbook-page.payed .application-wrapper .tgb-popup.public .list-selector.app_estate_type,
+.modal-inner .tgb-popup .list-selector.app_estate_type,
+.modal-inner .tgb-popup .list-selector.app_estate_type{
+    margin-bottom:16px;
+}
+.modal-inner .button-container .vote-sum,
+.modal-inner .button-container .vote-sum{
+    display: inline-block;
+    height: 32px;
+    width: 60px;
+    background-color: #ffe324;
+    color: #000;
+    position: absolute;
+    top: 18px;
+    font-size: 25px;
+    font-weight: bold;
+    left: 20px;
+    text-align: center;
+    padding-top: 3px;
+}
+.modal-inner .tgb-popup-button button,
+.modal-inner .tgb-popup-button button{
+    margin-top:17px;
+    width:218px;
+    font-weight:bold;
+}
+.modal-inner .app-choosing-wrapper.active,
+.modal-inner .tgb-popup.active,
+.modal-inner .tgb-popup.active{
+    text-indent: 0;   
+    z-index:119900;
+    margin-top: -220px;
+    opacity:1;
+}    
+.modal-inner .tgb-popup.wide-message,
+.modal-inner .tgb-popup.wide-message{
+    width:300px !important;
+    height:350px;
+}
+.modal-inner .tgb-popup.wide-message .worktime-for-app,
+.modal-inner .tgb-popup.wide-message .worktime-for-app{
+    font-size:16px;
+    font-weight:normal;
+    margin-top:40px;
+}
+.tgb-popup input[type="text"],
+.tgb-popup input[type="phone"],
+.tgb-popup textarea, 
+.tgb-popup input{
+    font-size: 14px;
+    width: 220px;
+    margin-bottom: 15px;
+}
+.tgb-popup textarea{
+    min-width:220px;
+    max-width:220px;
+    width:220px;
+    min-height:70px;
+    max-height:70px;
+    height:70px;
+    resize: none;
+}
+.right-column textarea{
+    min-height:110px;
+    max-height:110px;
+    height:110px;
+}
+.tgb-popup{
+    display: block;
+    background: #fff;
+    z-index: 10;
+    position: relative;
+    padding: 20px;
+    width: 450px;  
+}         
+.tgb-popup.expanded{
+    width: 220px;
+}
+.tgb-popup .form-title{
+    display: block;
+    width: 100%;
+    height: 30px;
+    color: #FFF;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    top: -60px;
+    margin-top:50px;
+}
+
+.app-choosing-wrapper .form-title:before,
+.tgb-popup .form-title:before{
+    content:"";
+    display:block;
+    position:absolute;
+    width:530px;
+    height:170px;
+    z-index:-5;
+    top:-20px;
+    left:-30px;
+}
+.tgb-popup.mortgage .form-title:before{
+    height:100px;
+}
+.tgb-popup.public .form-title:before{
+    width:520px;
+}
+.app-choosing-wrapper .form-title:before{
+    width:520px;
+    left:-30px;
+}
+.tgb-popup span i{
+    margin-left:5px;
+    font-size:12px;
+    font-style: normal;
+}
+.voting-view-form h2 + .closebutton,
+.tgb-popup h2 + .closebutton{
+    display: none;
+}
+.modal-inner .tgb-popup{
+    box-shadow:none;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    -o-box-shadow:none;
+    -ms-box-shadow:none;
+}
+.modal-inner .tgb-popup h2 + .closebutton{
+    display: block;
+}
+
+.tgb-popup.active .closebutton{
+    right: -30px;
+    top: 0px;
+    color: #FFF;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+.tgb-popup.active .closebutton:before{
+    font-size: 18px;
+    margin: 1px;
+}
+.tgb-popup.active .closebutton:hover{
+    background-color:#FFFFFF;
+    color:#000;
+}
+.tgb-popup.active .closebutton:hover:after{
+    color:#000!important;
+}
+.tgb-popup input + span,
+.tgb-popup .list-selector + span{
+    position:absolute;
+    color: #dd0000;
+    width: 130px;
+    color: #dd0000;
+    opacity:0;
+    filter:alpha(opacity=0);
+    -webkit-transition: opacity .5s ease;
+    -moz-transition: opacity .5s ease;
+    -ms-transition: opacity .5s ease;
+    -o-transition: opacity .5s ease;
+    transition: opacity .5s ease;
+    margin-top: -15px;
+    font-size: 10px;
+}
+.tgb-popup .list-selector + span.active,
+.tgb-popup input + span.active{
+    opacity:1;
+    filter:alpha(opacity=100);
+}
+.tgb-popup .field-box{
+    position:relative;
+}
+.tgb-popup.public .list-selector + span.active,
+.tgb-popup.public input + span.active{
+    left:0px;
+    bottom:0px;
+}
+.notification-accept{
+    color: #333;
+    font-size: 20px;
+    margin: 235px auto 0px;
+    text-align: center;
+    position: relative;
+}
+.wide-message .notification-accept{
+    margin-top:205px;
+}
+.notification-accept.voting{
+    margin-top:200px;
+}
+.notification-accept:after{
+    content: "";
+    position: absolute;
+    display: block;
+    height: 120px;
+    width: 120px;
+    top: -150px;
+    background: url('https://st.bsn.ru/img/layout/accept_icon.png') no-repeat 0px 0px;
+    left: 50%;
+    margin-left: -60px;
+}
+.notification-accept.public:after{
+    top:-170px;
+    left:50%;
+}
+
+.tgb-popup .form-title{
+    position:relative;
+    color:#FFFFFF;
+    font-size:14px;
+    text-align:center;
+    padding-top:15px;
+}
+.tgb-popup .form-title .logo{
+    display: block;
+    width: 120px;
+    height: 40px;
+    margin: 10px auto 0px auto;
+}
+.tgb-popup .form-title .info{
+    display:inline-block;
+    height:40px;
+    width:100%;
+    margin-top:-18px;
+}
+.tgb-popup .form-title .info span{
+    display:block;
+}
+.tgb-popup .form-title .info .title{
+    font-size:20px;
+    font-weight:100;
+    display:inline-block;
+    position:relative;
+    top:-7px;
+}
+.tgb-popup .form-title .info .phone{
+    font-size:45px;
+    font-weight:bold;
+}
+
+.tgb-popup .form-title .internal-link{
+    display:block;
+    position:absolute;
+    right:10px;
+    bottom:-20px;
+    color:#FFFFFF;
+    font-size:14px;
+}
+.tgb-popup.active .top-block{
+    width: 100%;
+    height: 270px;
+    display: inline-block;
+    margin-top:48px;
+}
+.tgb-popup.active .top-block .promotion-block{
+    height:50%;
+}
+.tgb-popup.active .top-block .promotion-block .tgb{
+    width:200px;
+    height:134px;
+    display:inline-block;
+    margin:0px;
+    float:left;
+}
+.tgb-popup.active .top-block .promotion-block .company-page{
+    width: 230px;
+    height: 134px;
+    position:relative;
+    margin-left:40px;
+    display: inline-block;
+    background-color:#e2e2e2;
+    text-align:center;
+    border-radius:3px;
+}
+.tgb-popup.active .top-block .promotion-block .company-page:before{
+    content:"";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    display: block;
+    background-color: transparent;
+    z-index: 1;
+    left: -30px;
+    border-top: 67px solid transparent;
+    border-bottom: 67px solid transparent;
+    border-right: 30px solid #e2e2e2;
+}
+.tgb-popup.active .top-block .promotion-block .company-page span{
+    display:block;
+    font-size:14px;
+    color:#000000;
+}
+.tgb-popup.active .top-block .promotion-block .company-page span.block-title{
+    font-size:24px;
+    padding:10px 10px 0px 10px;
+    font-weight:bold;
+}
+.tgb-popup.active .top-block .promotion-block .company-page .button{
+    width: 200px;
+    margin: 15px auto 10px auto;
+    padding:8px 20px;
+    font-weight:bold;
+}
+.tgb-popup.active .top-block .callback-block{
+    color:#000000;
+    border:1px solid #E7E7E7;
+    height:110px;
+    overflow:hidden;
+    padding-bottom:10px;
+    border-radius:3px;
+    margin-bottom:10px
+}
+.tgb-popup.active .top-block .callback-block .title{
+	color:#000;
+    display:block;
+    font-size:24px;
+    font-weight:bold;
+}
+.tgb-popup.active .top-block .callback-block span{
+	color:#000;
+    font-size:14px;
+}
+.tgb-popup.active .top-block .callback-block div{
+    margin-top:25px;
+}
+.tgb-popup.active .top-block .callback-block input{
+    margin: 0px 20px 0px 0px;
+    display:inline-block;
+}
+.tgb-popup.active .top-block .callback-block button.send{
+    padding:0px 20px;
+    font-weight:bold;
+    font-size:17px;
+}
+.tgb-popup.active .top-block .callback-block .callback-success-notify{
+    top: 40px;
+    left: 30px;
+    position: relative;
+    line-height: 40px;
+}
+.tgb-popup.active .top-block .callback-block #application-button{
+    position:relative;
+    top:40px;
+    right:30px;
+}
+.comagic-call-button-handset{
+	display:none;
+}
+.tgb-popup.active .top-block .callback-block  .comagic-common-form-panel-container{
+	margin: 0px!important;
+    position: relative!important;
+    padding: 0px!important;
+    width: 490px!important;
+    height: 152px!important;
+    min-height: 152px;
+    top: 0px!important;
+    left: 0px!important;
+}
+.comagic-call-button-handset{
+    display:none;
+	opacity:0;
+}
+.comagic-callbutton-site-phone.comagic-common-form-panel.comagic-top{
+    left:0px!important;
+    top:0px!important;
+    margin:0px!important;
+    margin-top:0px!important;
+    position:relative;
+}
+.comagic-common-form-panel-container .comagic-common-form-panel-header{
+    position:relative!important;
+}
+.comagic-callbutton-site-phone.comagic-common-form-panel.comagic-top .comagic-common-form-panel-container{
+	position: relative!important;
+	margin:0px!important;
+    width: 490px!important;
+    left: 0px!important;
+    height: 152px!important;
+    min-height: 152px!important;
+	background-color: #fff!important;
+    background-image: none!important;
+	border: none!important;
+    box-shadow: none!important;
+    padding:10px 14px 14px 14px!important;
+}
+.comagic-callbutton-site-phone.comagic-common-form-panel.comagic-top .comagic-common-form-panel-container .comagic-common-form-panel-items.comagic-common-form-panel-items-few{
+	width:240px!important;
+	display:inline-block!important;
+	margin-top: 10px!important;
+    margin-right: 0px!important;
+    float:left;
+    position:relative;
+}
+.comagic-callbutton-site-phone.comagic-common-form-panel.comagic-top .comagic-common-form-panel-container .comagic-common-form-panel-buttons{
+	display: inline-block!important;
+    margin: 0px!important;
+    height: 43px!important;
+    vertical-align: -webkit-baseline-middle!important;
+    margin-top: 10px!important;
+}
+
+.comagic-callbutton-site-phone.comagic-common-form-panel.comagic-top .comagic-common-form-panel-container .comagic-common-form-panel{
+    z-index: 200002!important;
+    position: relative!important;
+    left: 0px!important;
+    top: 0px!important;
+    margin: 0px!important;
+}
+.comagic-callbutton-site-phone.comagic-common-form-panel.comagic-top .comagic-common-form-panel-container .comagic-common-form-panel .comagic-common-form-panel-container{
+    margin: 0px!important;
+    position: relative!important;
+    padding: 20px!important;
+    width: 449px!important;
+    height: 69px!important;
+    min-height: 69px!important;
+    background-color: rgb(255, 255, 255)!important;
+    background-image: none!important;
+    border-radius: 0px!important;
+    box-shadow: none!important;
+    top: 0px!important;
+    left: 0px!important;
+    border: none!important;
+}
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-items.comagic-common-form-panel-items-few{
+    width: 250px!important;
+    display: inline-block!important;
+    margin-top: 5px!important;
+    margin-right: 30px!important;
+}
+
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-container .comagic-common-form-panel-items.comagic-common-form-panel-items-few .comagic-field-container{
+    position:absolute;
+    top:0px;
+}
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-container .comagic-common-form-panel-items.comagic-common-form-panel-items-few .comagic-field-container,
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-container .comagic-common-form-panel-items.comagic-common-form-panel-items-few .comagic-field-container .comagic-field-wrapper{
+    margin:0px!important;
+}
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-items.comagic-common-form-panel-items-few .comagic-field-container{
+    height:37px;
+}
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-items.comagic-common-form-panel-items-few .comagic-field-container input{
+    font-size:18px;
+    height:35px;
+    display:block;
+}
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-buttons{
+    display: inline-block!important;
+    margin: 5px 0px 0px!important;
+    height: 43px!important;
+    vertical-align: -webkit-baseline-middle!important;
+}
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-buttons .comagic-common-button{
+    background:rgb(169, 215, 29)!important!important;
+    top:0px!important;
+    box-shadow:none!important;
+    width:160px!important;
+    font-weight:bold!important;
+    height:23px!important;
+    line-height:24px!important;
+}
+.comagic-common-form-panel.comagic-callbutton-site-phone .comagic-common-form-panel-buttons .comagic-common-button span{
+    font-size:15px;
+}
+.comagic-common-form-panel-container .comagic-common-form-panel-footer{
+    top: 5px!important;
+    right: 5px!important;
+    margin: 0px!important;
+    display: none!important;
+}
+.comagic-common-form-panel-container .comagic-common-form-panel-footer a{
+    color:initial!important;
+}
+input[name="cmg-phone"]{
+    width:220px!important;
+}
+.tgb-popup .form-title .logo{
+    background-size:contain!important;
+}
+.tgb-popup .form-title:before, 
+.tgb-popup .top-block .company-page .button, 
+.tgb-popup.active .closebutton {
+    background-color:#FF0D29;
+}
+.tgb-popup .closebutton:after{
+    color:#FFF!important;
+}
+.callback-show{
+    position: fixed;
+    display:none;
+    top: 100px;
+    right: 300px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #FF0D29;
+    color: #FFF;
+    cursor:pointer;
+}
+.callback-show.active{
+    display:block;
+    z-index:2000000;
+}
+.callback-show:after{
+    content:"";
+    position:absolute;
+    background:url("/img/layout/phone-callback.png") no-repeat;
+    top:10px;
+    left:10px;
+    display:block;
+    height:30px;
+    width:30px;
+    animation-name: callback-show-animation;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+}
+@keyframes callback-show-animation {
+    0%   {transform: rotate(0deg);}
+    50%  {transform: rotate(-45deg);}
+    100% {transform: rotate(-0deg);}
+}
+
+
+.tgb.with-popup .title-wrap.with-popup{
+    text-align:left;
+    width:180px;
+}
+
+.tgb-list.tgb-list-estate .tgb.with-popup .title-wrap .agency-title,
+.tgb-list.in-row .tgb.with-popup .title-wrap .agency-title,
+.right-tgb .tgb.with-popup .title-wrap .agency-title,
+.left-tgb .tgb.with-popup .title-wrap .agency-title{
+    font-size:14px;
+    font-weight:initial;
+    margin-bottom: 5px;
+    overflow: hidden;
+    max-height: 60px;
+    display: block;
+}
+.tgb-list.tgb-list-estate .tgb.with-popup .title-wrap .agency-phone,
+.tgb-list.in-row .tgb.with-popup .title-wrap .agency-phone,
+.right-tgb .tgb.with-popup .title-wrap .agency-phone,
+.left-tgb .tgb.with-popup .title-wrap .agency-phone{
+    margin-bottom: 25px;
+    font-size:16px;
+    overflow: hidden;
+    white-space:nowrap;
+    max-height: 40px;
+    display: block;
+}
+.tgb-list.tgb-list-estate .tgb.with-popup .title-wrap .agency-callback,
+.tgb-list.in-row .tgb.with-popup .title-wrap .agency-callback,
+.right-tgb .tgb.with-popup .title-wrap .agency-callback,
+.left-tgb .tgb.with-popup .title-wrap .agency-callback{
+    font-size:12px;
+    font-weight:normal;
+    overflow: hidden;
+    max-height: 20px;
+    display: block;
+}
+.tgb-popup .callback-block:before{
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;  
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, .7);
+    display: block;
+    z-index: -1;
+    border-radius: 3px;         
+    opacity: 0;
+}
+.tgb-popup .callback-block.waiting{
+    position: relative;
+}
+.tgb-popup .callback-block.waiting:before{
+    z-index: 100;
+    opacity: 1;
+}
+.tgb-popup .callback-block.waiting:after{
+    content: "Подождите";
+    font-size: 16px;
+    text-align: center;
+    width: 90px;
+    background: url('https://st.bsn.ru/img/layout/waiting.svg') left no-repeat;
+    padding-left: 20px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-left: -45px;
+    opacity: 1;
+    z-index: 200;
+}
+
+.comagic-sitephone-label_skin_button.comagic-sitephone-label--top,
+.comagic-widget.comagic-sitephone-label.comagic-sitephone-label_skin_button,
+.comagic-sitephone-label.comagic-sitephone-label--left,
+.comagic-sitephone__tool-buttons .comagic-sitephone__tool-buttons__button.comagic-sitephone__tool-buttons__button-close{
+    display: none;
+}
+
+.modal-inner .comagic-sitephone{
+position: relative;
+    left: 0px;
+    top: 0px;
+    margin: 0px;
+    background: none;
+    box-shadow: none;
+    width: 100%;
+    margin: 0;
+    max-width: 100%;
+}
+.modal-inner .comagic-sitephone__container{
+    margin: 0px;
+    position: relative;
+    padding:20px;
+    width: 449px;
+    height: 69px;
+    min-height: 69px;
+    background-color:#fff;
+    background-image:none;
+    border-radius: 0px;
+    background-image: none;
+    box-shadow: none;
+    top: 0px;
+    left: 0px;
+}
+.modal-inner .comagic-sitephone__header{
+    margin-top:0px;
+}
+.modal-inner .comagic-sitephone__container{
+    position: relative;
+    margin:0px;
+    width: 449px;
+    left: 0px;
+    height: 69px;
+    min-height: 69px;
+    background-color: #fff;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+.modal-inner .comagic-field-container .comagic-field{
+    border-color:#E7E7E7;
+}
+.modal-inner .comagic-sitephone__items.comagic-sitephone__items-few{
+    width:250px;
+    display:inline-block;
+    margin-top: 5px;
+    margin-right: 30px;
+}
+.modal-inner .comagic-sitephone__buttons{
+    display: inline-block;
+    margin: 0px;
+    height: 43px;
+    vertical-align: -webkit-baseline-middle;
+    margin-top: 5px;
+}
+.modal-inner .comagic-sitephone__field.comagic-sitephone__field-phone{
+    width: 50%;
+    float: left;
+    margin: 10px 0 0 0;
+}
+.modal-inner .comagic-sitephone__button{
+    width: 45%;
+    float: right;
+    margin: 10px 0 0 0;    
+}
+.modal-inner .comagic-sitephone__background-submit-popup{
+    top: -50px;
+    z-index: 100;
+}

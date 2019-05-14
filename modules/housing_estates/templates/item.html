@@ -1,0 +1,175 @@
+
+<div class="estate-item estate-complex">
+    
+    {include /modules/housing_estates/templates/block.item.contacts.html}     
+
+    <article itemscope itemtype="http://schema.org/Product" class="card col-4 central-main-content br3 ">
+        <link itemprop="url" href="https://www.bsn.ru/{$current_page['real_path']}/" />
+        <meta itemprop="description" content="{$titles['description']}" />
+
+        <div class="central">
+
+            <link itemprop="url" href="{$this_page_url}">
+            
+        
+            <div class="info-wrap">
+                <span class="object-id">ID: {$item['id']}</span>                
+                {block abuses/block/?estate_type=5&id_object={$item['id']}&id_user={$item['id_user']}}
+                {ifempty $print}
+                    <span data-id="{$item['id']}" data-type="zhiloy_kompleks" data-icon="{ifeq $item['in_favorites'],1}star{else}star_border{/if}" class="star{ifeq $item['in_favorites'],1} in-favorites{/if} transition" data-link="/favorites/?type=zhiloy_kompleks">
+                       {ifeq $item['in_favorites'],1}Удалить из избранного{else}В избранное{/if}
+                    </span>
+                    {if!empty $item['site']}
+                        <span class="external-link site transition" data-icon="launch" data-link="{$item['site']}?utm_source=bsn&utm_medium=zhiloy_kompleks">На сайт объекта</span>
+                    {/if}
+
+                {/if}    
+            </div> 
+            
+            <div class="left-part">    
+                {ifgt $housing_estate_objects['count'],0}
+                    <div class="offers clearfix transition section{if!empty $housing_estate_expert} inactive{/if}" itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+                        {php:$max_cost = 0;}
+                        {php:$min_cost = 9999999;}
+                        {loop $housing_estate_objects, $o, $object}
+                            {if!empty $object['cost']}
+                            <div class="item br3" data-rooms="{$object['rooms_sale']}">
+                                <span class="rooms transition">
+                                    {ifeq $object['rooms_sale'],0}Студии
+                                    {else}{$object['rooms_sale']}-к.кв
+                                    {/if}
+                                   
+                                </span>
+                                <b>от {numberformat:$object['cost']} <span class="rur">a</span></b>
+                                {if!empty $object['max_cost']}{ifgt $object['max_cost'], $max_cost} {php:$max_cost = $object['max_cost']}{/if}{/if}
+                                {if!empty $object['cost']}{iflt $object['cost'], $min_cost} {php:$min_cost = $object['cost']}{/if}{/if}
+                            </div>
+                            {/if}
+                        {/loop $housing_estate_objects}
+                        {if!empty $max_cost}<meta itemprop="highPrice" content="{$max_cost}" />{/if}
+                        {if!eq $min_cost, '9999999'}<meta itemprop="lowPrice" content="{$min_cost}" />{/if}
+                        <meta itemprop="priceCurrency" content="RUB" />
+                    
+                        {ifempty $info['agency_advert']}
+                            {if!empty $info['agency_title']}
+                                {if!eq $info['agency_title'],'Частное лицо'}
+                                    <div itemprop="seller" itemscope itemtype="http://schema.org/Organization" style="display: none;">
+                                        <meta itemprop="name" content="{$info['agency_title']}" />
+                                    </div>
+                                {/if}
+                            {/if}
+                        {/if}
+                    </div>
+                {/if}
+                
+                <div class="addr-wrap br3 section">                                                    
+                    {include /modules/housing_estates/templates/item.block.address.html}
+                </div>    
+                
+                <div class="properties-wrap br3 section inline">
+                    <div class="title" name="characteristics">Характеристики</div>
+                    {if!empty $item['class_title']}<p><span><b>Класс</b></span><i>{$item['class_title']}</i></p>{/if}
+                    {if!empty $housing_estate_expert}
+                        {if!empty $item['seller_title']}<p><span><b>Продавец</b></span><i><a target="_blank" href="/organizations/company/{$info['seller_chpu_title']}/">{$item['seller_title']}</a></i></p>{/if}
+                        {if!empty $item['developer_title']}<p><span><b>Застройщик</b></span><i><a target="_blank" href="/organizations/company/{$info['developer_chpu_title']}/">{$item['developer_title']}</a></i></p>{/if}
+                    {/if}
+                    {if!empty $item['building_type']}<p><span><b>Тип дома</b></span><i>{$item['building_type']}</i></p>{/if}
+                    {if!empty $queries['query_from']}<p><span><b>Сроки сдачи</b></span><i>{if!empty $queries['query_from']}от {$queries['query_from']}{/if}{if!empty $queries['query_to']}{if!eq $queries['query_from'], $queries['query_to']} до {$queries['query_to']}{/if}{/if}{if!empty $queries['query_complete']}, есть сданные{/if}</i></p>{/if}
+                    {ifgt $item['floors'],0}<p><span><b>Этажность</b></span><i>{$item['floors']}</i></p>{/if}
+                    {ifeq $item['low_rise'],1}<p><span><b>Малоэтажный</b></span><i>Да</i></p>{/if}
+                    {ifeq $item['elite_building'],1}<p><span><b>Элитный</b></span><i>Да</i></p>{/if}
+                    {ifeq $item['playground'],1}<p><span><b>Детская площадка</b></span><i>Да</i></p>{/if}
+                    {if!empty $item['parking']}<p><span><b>Паркинг</b></span><i>{$item['parking']}</i></p>{/if}
+                    {if!empty $item['security']}<p><span><b>Охрана</b></span><i>{$item['security']}</i></p>{/if}
+                    {ifgt $item['lifts'],0}<p><span><b>Пассажирских лифтов</b></span><i>{ifgt $item['service_lifts'],0}{php:echo $item['lifts'] - $item['service_lifts']}{else}{$item['lifts']}{/if}</i></p>{/if}
+                    {ifgt $item['service_lifts'],0}<p><span><b>Грузовых лифтов</b></span><i>{$item['service_lifts']}</i></p>{/if}                    
+                    {ifeq $item['214_fz'],1}<p><span><b>ФЗ 214</b></span><i>Да</i></p>{/if}
+                </div>   
+                
+                <div class="section" style="height: auto;">
+                    {ifempty $print}
+                        <div class="title">Описание</div>
+                        {if!empty $payed_format}
+                            <div class="notes-wrap">
+                                {$item['notes_default']}
+                                {$item['notes']}
+                            </div>
+                        {else}
+                            {if!empty $item['notes_default']}
+                                <div class="notes-wrap">{$item['notes_default']}</div>
+                            {elseif!empty $item['notes']}
+                                <div class="notes-wrap">{$item['notes']}</div>
+                            {/if}
+                        {/if}
+                    {else}
+                    
+                        <div class="title">Описание</div>
+                        {if!empty $payed_format}
+                            <div class="notes-wrap">
+                                {$item['notes_default']}
+                                {$item['notes']}     
+                            </div>
+                        {else}
+                            {if!empty $item['notes_default']}
+                                <div class="notes-wrap">{$item['notes_default']}</div>
+                            {elseif!empty $item['notes']}
+                                <div class="notes-wrap">{$item['notes']}</div>
+                            {/if}
+                        {/if}
+                    {/if}
+                </div>  
+            </div>  
+            
+            <div class="right-part">
+            </div>
+            
+            <div class="clearfix"></div>
+            {block /infrastructure/list/}      
+            
+            {if!empty $progresses}
+               <div class="progress-gallery-wrap section" name="progresses" >
+                    <span class="title">Ход строительства</span>
+                    <ul class="filter ajax-tabs-container" data-content-container=".progress-gallery" data-url="/{$estate_type}/block/gallery/{$item['id']}/?id=">
+                        {loop $progresses,$p,$pitem}
+                            <span class="item" data-query="{$pitem['id']}">{php:echo $months[$pitem['month']]} ' {$pitem['year']}</span>
+                        {/loop $progresses}
+                    </ul>
+                    <div class="progress-gallery"></div>
+                </div>
+            {/if}
+            
+        </div>       
+            
+    </article>
+    
+    {ifempty $housing_estate_expert}
+        {ifgt $housing_estate_objects['count'],0}
+            <section class=" central-main-content card" name="objects">
+                <div class="left-part">    
+                    <div class="objects central">
+                        <span class="title">Квартиры в {ifeq $estate_type,'zhiloy_kompleks'}ЖК{else}апартаментах{/if} «{$item['title']}»</title>
+                        {ifgt $housing_estate_objects['count'],0}
+                            {include /modules/housing_estates/templates/estate_search_form_tiny.html}
+                            <div id="ajax-search-results" class="ajax-search-results tiny objects"></div>
+                        {else}
+                            
+                        {/if}
+                    </div>
+                </div>
+                
+                <div class="right-part">    </div>
+    
+            </section>
+        {/if}
+    {/if}
+            
+    
+</div>
+{ifempty $housing_estate_expert}
+    <section class=" central-main-content card">
+        <div class="comments housing-estates clearfix central" name="comments">
+            {php:$only_comments = false;}
+            {include /modules/comments/templates/init.html}
+        </div>
+    </section>
+{/if}

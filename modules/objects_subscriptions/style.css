@@ -1,0 +1,88 @@
+.central-main-content{
+    background: none;
+}
+.notification.msgerror{
+    text-align: center;
+    margin-top: 10px;
+}
+.subscriptions-list {
+    margin: 20px -20px;
+}
+
+.subscriptions-list .item {
+    position: relative;
+    padding: 20px;
+}
+.subscriptions-list .item.inactive{
+    opacity: 0.8;
+}
+.subscriptions-list .item .confirm,
+.subscriptions-list .item.inactive .button.internal-link{
+    display: none;
+}
+.subscriptions-list .item.inactive .confirm{
+    display: block;
+    line-height: 13px;
+}
+.subscriptions-list .left-part {
+    display: inline-block;
+    float: left;
+    width: 140px;
+}
+
+.subscriptions-list .left-part .id {
+    font-size: 16px;
+    display: block;
+}
+.subscriptions-list .item:hover .left-part .id{
+    color:#1e88e5l
+}
+.subscriptions-list .left-part .date {
+    padding: 5px 0 0 0;
+    color: #818181;
+    display: block;
+}
+
+.subscriptions-list .central-part {
+    display: inline-block;
+    float: left;
+    width: 380px;
+    margin-right: 20px;
+}
+
+.subscriptions-list .central-part .text {
+}
+
+.subscriptions-list .central-part .count {
+    font-size: 14px;
+    color: #818181;
+    display: block;
+    margin-top: 20px;
+}
+.subscriptions-list .central-part .count.with-objects{
+    color:#dd0000;
+}
+.subscriptions-list .right-part {
+    display: inline-block;
+    float: left;
+    width: 140px;
+}
+
+.subscriptions-list .right-part .button {
+    color: #fff;
+    width: 140px;
+}
+
+.subscriptions-list .right-part .object-unsubscribe {
+    position: absolute;
+    bottom: 20px;
+    color: #818181;
+}
+.subscriptions-list .right-part .object-unsubscribe:before{
+    margin: 0;
+    font-size: 16px;
+    margin: -1px 2px 0 0;
+}
+.subscriptions-list .right-part .object-unsubscribe:hover{
+    color:#dd0000;
+}

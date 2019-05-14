@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>{$metadata['title']}</title>
+<meta name="description" content="{$metadata['description']}">
+<meta name="keywords" content="{$metadata['keywords']}">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<!--[if lt IE 9]> 
+<script src="/js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="/admin/css/{$css_id}/" media="all">
+<script src="/admin/js/ckeditor/ckeditor.js" charset="utf-8"></script>
+<script src="/admin/js/{$js_id}/" charset="utf-8"></script>
+</head>
+<body>
+    <div id="main-container">
+        <header>
+            <div class="header-space"></div>
+            <div class="header-container">
+                <img class="logo-image" src="/admin/img/logo.png" alt="логотип админки">
+            </div>
+            <div class="tabmenu">
+                <ul>
+                    <li{iflike $current_page['requested_path'],'admin/pages'} class="current"{/if}>
+                        <a href="/admin/pages/">
+                            <span>Страницы</span>
+                        </a>
+                    </li>
+                    <li{iflike $current_page['requested_path'],'admin/access'} class="current"{/if}>
+                        <a href="/admin/access/">
+                        <span>Доступ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{root:/}" target="_blank">
+                        <span>Перейти на сайт</span>
+                        </a>
+                    </li>
+                    <li{if!like $current_page['requested_path'],'admin/'} class="current"{/if}>
+                        <a href="/admin/">
+                            <span>Изменения в проектах</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="accountinfo">
+                <h3>{$auth['name']} {$auth['lastname']}</h3>
+                <small>{$auth['email']}</small>
+                <p>
+                    <a href="/admin/access/users/edit/{$auth['id']}/">Личный кабинет</a>
+                    <a href="/{$current_page['requested_url']}/" onclick="document.logout_form.submit();return false;">Выход</a>
+                </p>
+                <form action="/{$current_page['requested_url']}/" name="logout_form" id="logout_form" method="post"><input type="hidden" name="logoff" value="true"></form>
+            </div>
+        </header>
+
+        <aside>
+            <ul>
+            {php:$prev_level=0}
+            {php:$counter=0}
+            {loop $leftmenu,$key,$item}
+                {ifgt $item['level'],$prev_level}
+                    {php:echo str_repeat('<ul>',$item['level']-$prev_level)}
+                {elseiflt $item['level'],$prev_level}
+                    {php:echo str_repeat('</li></ul>',$prev_level-$item['level'])}
+                    </li>
+                {elseif $counter}
+                    </li>
+                {/if}
+                <li{if $item['opened']} class="opened{if $item['active']} current{/if}"{/if}>
+                <a href="/{$item['url']}/" {if!empty $item['class']} class="{$item['class']}"{/if}>{$item['title']}</a>
+                {php:$counter++}
+                {php:$prev_level=$item['level']}
+            {/loop $leftmenu}
+            {php:echo str_repeat('</li></ul>',$prev_level+1)}
+        </aside>
+        <article>
+            <div class="wrapper">
+                {$module_content}
+            </div>
+            <div class="separator"></div>
+        </article>
+    </div>
+    <footer></footer>
+</body>
+</html>

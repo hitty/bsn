@@ -1,0 +1,167 @@
+<h1 class="pageTitle">Статистика финансов</h1>
+<script type="text/javascript">
+var _chart_url = '/admin/service/stats/finances_stats/';
+var _params_ids = ["date_start","date_end"];
+</script>
+<script type="text/javascript">
+    function filter_activate(_source){
+        if(jQuery('.button.pressed') && _source == undefined)
+            var __button_pressed = jQuery('.button.pressed').attr('data-period');
+        var __filter_userID = document.getElementById('f_userID').value;
+        var __filter_date_start = document.getElementById('date_start').value;
+        var __filter_date_end = document.getElementById('date_end').value;
+        var __filter_estate_type = document.getElementById('f_estate_type').options[document.getElementById('f_estate_type').selectedIndex].value;
+        var __filter_service_type = document.getElementById('f_service_type').options[document.getElementById('f_service_type').selectedIndex].value;
+        var __filter_income_type = document.getElementById('f_income_type').options[document.getElementById('f_income_type').selectedIndex].value;
+        var __url = '{root:/admin/service/stats/finances_stats}';
+        var __get = new Array();
+        if(__filter_userID!='') __get.push('f_userID='+__filter_userID);
+        if(__filter_date_start.length>0 && __filter_date_end.length>0){
+            __get.push('f_date_start='+__filter_date_start);
+            __get.push('f_date_end='+__filter_date_end);
+        }
+        else 
+        if(__button_pressed) __get.push('button_pressed='+__button_pressed);
+        __get.push('f_date_start='+__filter_date_start);
+        __get.push('f_date_end='+__filter_date_end);
+        if(__filter_estate_type!="all" && __filter_estate_type!="") __get.push('f_estate_type='+__filter_estate_type);
+        if(__filter_service_type!="all" && __filter_service_type!=0) __get.push('f_service_type='+__filter_service_type);
+        //если выбран фильтр по типу зачисления, дополнительно фильтруем по типу операции(зачисление)
+        if(__filter_income_type!="all" && __filter_income_type!=0){
+            __get.push('f_income_type='+__filter_income_type);
+        }
+        if(__get.length>0){
+            __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }else if(window.location.href.indexOf('?')>0) document.location.href = __url+"/";
+    }
+    jQuery('#f_userID').on('change',function(){
+        filter_activate("change_date");
+    });
+    jQuery('#f_estate_type').on('change',function(){
+        filter_activate("change_date");
+    });
+</script>
+<div class="filter_line" style="text-align: left;">
+    <label>
+        Тип недвижимости:
+        <select id="f_estate_type" onchange="filter_activate()" style="width: 150px;">
+            <option value="all"{ifeq $get_array['f_estate_type'],""} selected="selected"{/if}>все</option>
+            <option value="live"{ifeq $get_array['f_estate_type'],"live"} selected="selected"{/if}>Жилая</option>
+            <option value="commercial"{ifeq $get_array['f_estate_type'],"commercial"} selected="selected"{/if}>Коммерческая</option>
+            <option value="country"{ifeq $get_array['f_estate_type'],"country"} selected="selected"{/if}>Загородная</option>
+            <option value="build"{ifeq $get_array['f_estate_type'],"build"} selected="selected"{/if}>Стройка</option>
+        </select>
+    </label>
+    <label>
+        Услуги:
+        <select id="f_service_type" onchange="filter_activate()" style="width: 150px;">
+            <option value="all"{ifeq $get_array['f_service_type'],""} selected="selected"{/if}>все</option>
+            <option value="balance"{ifeq $get_array['f_service_type'],"balance"} selected="selected"{/if}>Пополнение баланса</option>
+            <option value="tarif"{ifeq $get_array['f_service_type'],"tarif"} selected="selected"{/if}>Подключение тарифа</option>
+            <option value="context_banner"{ifeq $get_array['f_service_type'],"context_banner"} selected="selected"{/if}>БСН Таргет</option>
+            <option value="payed_object"{ifeq $get_array['f_service_type'],"payed_object"} selected="selected"{/if}>Платный объект</option>
+            <option value="promo"{ifeq $get_array['f_service_type'],"promo"} selected="selected"{/if}>Промо</option>
+            <option value="premium"{ifeq $get_array['f_service_type'],"premium"} selected="selected"{/if}>Премиум</option>
+            <option value="vip"{ifeq $get_array['f_service_type'],"vip"} selected="selected"{/if}>Vip</option>
+            <option value="application"{ifeq $get_array['f_service_type'],"application"} selected="selected"{/if}>Заявка</option>
+            <option value="call"{ifeq $get_array['f_service_type'],"call"} selected="selected"{/if}>Звонок</option>
+            <option value="raising"{ifeq $get_array['f_service_type'],"raising"} selected="selected"{/if}>Поднятие</option>
+            <option value="promocode"{ifeq $get_array['f_service_type'],"promocode"} selected="selected"{/if}>Промокод</option>
+            <option value="payed_rent"{ifeq $get_array['f_service_type'],"payed_rent"} selected="selected"{/if}>Аренда платная</option>
+        </select>
+    </label>
+    <label>
+        Тип зачисления:
+        <select id="f_income_type" onchange="filter_activate()" style="width: 150px;">
+            <option value="all"{ifeq $get_array['f_income_type'],""} selected="selected"{/if}>все</option>
+            <option value="robokassa"{ifeq $get_array['f_income_type'],"robokassa"} selected="selected"{/if}>Робокасса</option>
+            <option value="admin"{ifeq $get_array['f_income_type'],"admin"} selected="selected"{/if}>Админка</option>
+        </select>
+    </label>
+    <label>
+        ID Пользователя:
+        <input type="text" id="f_userID" value="{$get_array['f_userID']}" onchange="filter_activate()"  placeholder="ID пользователя">
+    </label>
+</div>
+<div class="finances-stats">
+    <div class="showSpecStats date-filter">
+        <div class="form_default">
+            <input type="hidden" value="ok" name="process" onchange="filter_activate()">
+            Дата: с <input type="text" size="10" id="date_start" name="date_start" value="{$get_array['f_date_start']}" onchange="filter_activate()">
+            по <input type="text" size="10" id="date_end" name="date_end"  class="dateChoose" value="{$get_array['f_date_end']}" onchange="filter_activate()">
+            <span class="button{ifeq $button_pressed,'day'} pressed{/if}" data-period="day">сегодня</span>
+            <span class="button{ifeq $button_pressed,'week'} pressed{/if}" data-period="week">неделя</span>
+            <span class="button{ifeq $button_pressed,'month'} pressed{/if}" data-period="month">месяц</span>
+            <span class="button{ifeq $button_pressed,'quarter'} pressed{/if}" data-period="quarter">квартал</span>
+            <span class="button{ifeq $button_pressed,'year'} pressed{/if}" data-period="year">год</span>
+            <span class="spinner"></span>
+        </div>
+        <div class="separator"></div>
+    </div>
+</div>
+<div class="finances-wrap" id="result_info_stats">
+    {if!empty $list}
+    <table>
+        <thead>
+            <tr>
+                <th width="200"><span>Дата</span></th>
+                <th width="200"><span>Услуга</span></th>
+                <th width="200"><span>ID пользователя</span></th>
+                <th width="200"><span>Объект</span></th>
+                <th width="200"><span>Списание (руб.)</span></th>
+                <th width="200"><span>Зачисление (руб.)</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {loop $list,$k,$item}
+                <tr>
+                    <td class="date-item">{$item['normal_date']}</td>
+                    <td class="service-item">{$item['service_title']}</td>
+                    <td class="id-user"><a href="https://www.bsn.ru/admin/access/users/edit/{$item['id_user']}/">ID {$item['id_user']}</a></td>
+                    <td class="object-item">
+                        {ifin $item['estate_type'],'live','build','commercial','country'}
+                            <a href="https://www.bsn.ru/{$item['estate_type']}/{$item['id_parent']}/" title="" target="blank">ID {$item['id_parent']}</a>
+                        {elseifeq $item['obj_type'],'admin_balance'}
+                            {ifeq $item['id_user'],$auth_data['id']}{$item['agency_title']}{else}{$item['user_name']}{/if}
+                        {elseifeq $item['obj_type'],'raising'}
+                            {$item['id_parent']}
+                        {elseifeq $item['obj_type'],'promocode'}
+                            <a href="/admin/access/users/promocodes/edit/{$item['id_parent']}" target="_blank">{$item['id_parent']}</a>
+                        {elseifeq $item['obj_type'],'context_banner'}
+                            {ifempty $item['context_campaign_id']}
+                                ID {$item['id_parent']}
+                            {else}
+                                <a href="/admin/advert_objects/context_campaigns/{$item['context_campaign_id']}/edit/{$item['id_parent']}/" title="" target="blank">ID {$item['id_parent']}</a>
+                            {/if}
+                            
+                        {else}
+                            {$item['object_title']}
+                        {/if}
+                    </td>
+                    <td class="expenditure-item">{if!empty $item['expenditure']}{numeric:$item['expenditure']}{/if}</td>
+                    <td class="income-item">{if!empty $item['income']}{numeric:$item['income']}{/if}</td>
+                </tr>
+            {/loop $list}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    Всего транзакций: {php:echo $total['total'];}
+                </td>
+                <td class="total-expenditure">
+                    <i>Итого (руб.):</i>
+                    {numeric:$total['total_exp']}
+                </td>
+                <td class="total-income">
+                    <i>Итого (руб.):</i>
+                    {numeric:$total['total_inc']}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    {include /admin/templates/table_paginator.html}
+    {else}
+        Пока вы не совершали финансовых операций на сайте.
+    {/if}
+</div>

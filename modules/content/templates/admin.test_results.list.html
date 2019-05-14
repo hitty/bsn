@@ -1,0 +1,8 @@
+    
+    {if!empty $list}
+        {loop $list,$k,$pitem}
+            {include /modules/content/templates/admin.test.results.item.html}
+        {/loop $list}
+    {/if}
+    
+    <span class="add test-results-add" data-icon="add">Добавить вариант</span>

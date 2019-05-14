@@ -1,0 +1,26 @@
+{if!empty $list}
+    {if!empty $news_title}
+        <div class="header-last">
+            <h4 class="header blue">
+                <a class="internal-link" href="/bsntv/{$item['category_code']}/" title="{ifempty $news_title}Другие видео рубрики{else}{$news_title}{/if}">{ifempty $news_title}Другие видео рубрики{else}{$news_title}{/if}</a>
+            </h4>
+        </div>
+    {/if}
+    {loop $list,$lk,$item}
+        <div class="item">
+            <p class="smallnotes clearfix">
+                <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['normal_date']}</time>
+                <a href="/bsntv/{$item['category_code']}/" title="{$item['category_title']}" class="category">{$item['category_title']}</a>
+                <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+                <span class="comments_count" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+            </p>  
+            <a class="a-h3" href="{ifempty $item['link']}/bsntv/{$item['category_code']}/{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее">{$item['title']}</a>
+        </div>
+        {ifeq $lk,9}
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7156959844675281" data-ad-slot="6448273851"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        {/if}
+        
+    {/loop $list}
+{/if}

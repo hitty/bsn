@@ -1,0 +1,83 @@
+{php:$show_tgb = !empty($partner_count) || !empty( $list) }
+{if!empty $show_tgb}
+    {ifeq $action,'estate_list'}
+        <div class="tgb-list-estate tgb-list in-row"  data-estate-type="{$estate_type}">
+    {elseifin $action,'left','right'}
+        <div class="tgb-wrap">
+    {/if}
+    {php:$index=0}
+    {if!empty $partner_count}
+        <script>_index = _blockcampaign = 0;</script>
+        {loop $partner_count,$p,$s}
+           {iflt $index,$count}
+               <script type='text/javascript'><!--//<![CDATA[
+               var m3_u = (location.protocol=='https:'?'https://adaurum.ru/view/www/delivery/ajs.php':'//adaurum.ru/view/www/delivery/ajs.php');
+               var m3_r = Math.floor(Math.random()*99999999999);
+               if (!document.MAX_used) document.MAX_used = ',';
+               document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+               document.write ("?zoneid=79&amp;blockcampaign=1");
+               document.write ('&amp;cb=' + m3_r);
+               if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+               document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+               document.write ("&amp;loc=" + escape(window.location));
+               if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+               if (document.context) document.write ("&context=" + escape(document.context));
+               if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+               document.write ("'><\/scr"+"ipt>");
+               //]]>--></script><noscript><a href='//adaurum.ru/view/www/delivery/ck.php?n=af4008c8&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='//adaurum.ru/view/www/delivery/avw.php?zoneid=79&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=af4008c8' border='0' alt='' /></a></noscript>
+           {/if}
+        {php:++$index}
+        {/loop $partner_count}
+    {/if}  
+    {loop $list,$key,$item}
+        {if!empty $item['title']}
+            {ifgt $count,$index}
+            {ifeq $item['link_type'],'external'}
+                <div class="tgb col-1"{if!empty $mainpage_new} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{elseif!empty $mainpage} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{/if}>
+                    <span class="external-link br3{if!empty $item['with_popup']} disabled{/if}" data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="tgb" data-id="{$item['id']}" data-position="">
+                        <div class="tags">
+                            {if!empty $item['slogan_1']}<span class="tag br3">{$item['slogan_1']}</span><span class="clearfix"></span>{/if}
+                            {if!empty $item['slogan_2']}<span class="tag br3">{$item['slogan_2']}</span>{/if}
+                        </div>
+                        {php:$_index = rand(0,1);}
+                        <img class="br3" src="{ifempty $item['photo']}{$img_url[$_index]}{static:/}img/uploads/tgb/{$item['img_src']}{else}{$item['photo']}{/if}" alt="{quoted:$item['title']}" />
+                        {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+                        {if!empty $item['with_popup']}
+                            <span class="annotation transition-text">
+                                {$item['agency_title']}
+                                {$item['agency_phone']}
+                            </span>
+                            <span class="title">Кликните, и мы перезвоним!</span>
+                        {else}
+                            {if!empty $item['annotation']}<span class="annotation transition-text">{$item['annotation']}</span>{/if}
+                            <span class="title">{$item['title']}</span>
+                        {/if}
+                    </span>
+                </div>
+            {else}
+                <div class="tgb br3 transition{if!empty $item['with_popup']} with-popup{/if}"{if!empty $mainpage_new} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{elseif!empty $mainpage} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{/if}>
+                    <a href="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="tgb" data-id="{$item['id']}" data-position="">
+                        {php:$_index = rand(0,1);}
+                        <img src="{ifempty $item['photo']}{$img_url[$_index]}{static:/}img/uploads/tgb/{$item['img_src']}{else}{$item['photo']}{/if}" alt="{quoted:$item['title']}" />
+                        {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+                        
+                        {if!empty $item['annotation']}<span class="annotation">{$item['annotation']}</span>{/if}
+                        <span class="title">{$item['title']}</span>
+                    </a>
+                </div>
+            {/if}
+        {/if}
+        {php:++$index}
+        {/if}
+    {/loop $list}
+  
+    {ifin $action,'left','right','estate_list'}</div>{/if}
+{else}
+    {if!empty $action}
+        {ifeq $action,'estate_list'}
+            <div class="empty-list"></div>
+        {/if}
+    {/if}
+{/if}
+
+

@@ -1,0 +1,8 @@
+{if!empty $similar_list}
+    <div class="estate-list">
+        <h2 class="header"><span>Похожие объекты</span></h2>
+        {loop $similar_list,$lkey,$item}
+            {include /modules/estate/templates/list.block.item.html}
+        {/loop $similar_list}
+    </div>
+{/if}

@@ -1,0 +1,34 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{if!empty $list}
+    <ul id="specoffers-list">
+    {loop $list,$key,$item}
+        <li class="central-block dotted" data-type="{$item['type']}" data-id="{$item['id']}">
+            <div class="item-image">
+                {ifeq $item['link_type'],'external'}
+                    <span class="external-link" data-link="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        <img src="{$item['photo']}" alt="{quoted:$item['title']}" border="1" />
+                    </span>
+                {else}
+                    <a href="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        <img src="{$item['photo']}" alt="{quoted:$item['title']}" border="1" />
+                    </a>
+                {/if}
+            </div>
+            <div class="item-info">
+                {ifeq $item['link_type'],'external'}
+                    <span class="external-link" data-link="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        {$item['title']}
+                    </span>
+                {else}
+                    <a href="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        {$item['title']}
+                    </a>
+                {/if}
+            </div>
+            {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+        </li>
+    {/loop $list}
+    </ul>
+{else}
+    <p>Запрошенные данные не найдены</p>
+{/if}  

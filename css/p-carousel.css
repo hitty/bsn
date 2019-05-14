@@ -1,0 +1,90 @@
+.partners-box .p-carousel-wrapper{
+    overflow: hidden;
+    padding:0 20px;
+    position: relative;
+    height: 110px;
+}
+
+.partners-box .carousel-item {
+    display: block;
+    float: left;
+    width: 200px;
+    height: 110px;
+    margin: 0 10px;
+}
+.partners-box .carousel-item span{
+    display: block;
+    width: 200px;
+    height: 110px;
+    text-indent: -10000px;
+    overflow: hidden;
+    margin: 0 auto;
+    
+}
+/**
+ *  Horizontal Buttons
+ */
+.partners-box .carousel-btn-prev,
+.partners-box .carousel-btn-next {
+    position: absolute;
+    background: transparent url(//st1.bsn.ru/img/layout/jcarousel-arrows.png) no-repeat 0 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    top: 43px;
+}
+.partners-box .carousel-btn-next {
+    right: 0;
+    background-position: -128px 0;
+}
+.partners-box .carousel-btn-prev {
+    left: 0;
+    background-position: 0 0;
+}
+
+.partners-box .carousel-btn-next:hover,
+.partners-box .carousel-btn-next:focus {
+    background-position: -160px 0;
+}
+
+.partners-box .carousel-btn-next:active {
+    background-position: -192px 0;
+}
+
+.partners-box .carousel-btn-prev:hover, 
+.partners-box .carousel-btn-prev:focus {
+    background-position: -32px 0;
+}
+.partners-box .carousel-btn-prev:active {
+    background-position: -64px 0;
+}
+
+/* partners sprites */
+.partners-box .carousel-item span.partner_gud{
+    background: transparent url(//st1.bsn.ru/img/layout/all_partners.png) no-repeat 0 50%;
+    width: 140px;
+}
+.partners-box .carousel-item span.partner_bsnexpo{
+    background: transparent url(//st1.bsn.ru/img/layout/all_partners.png) no-repeat -830px 50%;
+    width: 175px;
+}
+.partners-box .carousel-item span.partner_interestate{
+    background: transparent url(//st1.bsn.ru/img/layout/all_partners.png) no-repeat -338px 50%;
+    width: 135px;
+}
+.partners-box .carousel-item span.partner_doverie{
+    background: transparent url(//st1.bsn.ru/img/layout/all_partners.png) no-repeat -1004px 50%;
+    width: 187px;
+}
+.partners-box .carousel-item span.partner_stroitel{
+    background: transparent url(//st1.bsn.ru/img/layout/all_partners.png) no-repeat -1193px 50%;
+    width: 200px;
+}
+.partners-box .carousel-item span.partner_arspb{
+    background: transparent url(//st1.bsn.ru/img/layout/all_partners.png) no-repeat -1393px 50%;
+    width: 200px;
+}
+.partners-box .carousel-item span.partner_dizbook{
+    background: transparent url(//st1.bsn.ru/img/layout/all_partners.png) no-repeat -1593px 50%;
+    width: 200px;
+}

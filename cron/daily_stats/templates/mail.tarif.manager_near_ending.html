@@ -1,0 +1,14 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день, <b>{$item['manager_name']}</b>!
+    </td>
+</tr>
+<tr>                         
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size: 18px; line-height: 30px;" align="left"> 
+    Заканчивается срок действия тарифа "{$item['tarif_title']}" для агентства #{$item['agency_id']} {$item['agency_title']}. <br /><br />
+    
+    Срок окончания тарифа - {$item['formatted_actualized_tarif_end']}<br /><br />
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

@@ -1,0 +1,15 @@
+<div class="application-sent-wrapper success">
+    <span class="title">{if!empty $title}{$title}{else}Спасибо за обращение!{/if}</span>
+    <i data-icon="mood"></i>
+    {if!empty $text}<div class="text">{$text}</div>{/if}
+</div>
+
+
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.abuse-title').remove();
+        jQuery('.abuse-sended').addClass('active');
+        
+    })
+</script>
+

@@ -1,0 +1,58 @@
+{if!empty $close_window}
+    <script>
+        var _ref = getParameterByName('r');
+        if(_ref == '' || _ref == 'null' || _ref === null)  _ref = 'cabinet';
+        if(window.opener === null) {
+            window.location = "/members/"+_ref+"/";
+        } else {
+            window.opener.location.reload();
+            window.close();
+            
+        }
+    </script>
+{/if}
+
+</head>
+{if!empty $error}
+    <div class="notification msgerror" id="scroll_to_message">
+       Неверная электронная почта/логин или пароль
+    </div>
+{/if}
+{if!empty $attach_account}
+        <div class="account-form attach">
+            <span class="form-title">
+                Привяжите свой профиль на BSN.ru к аккаунту в социальной сети.
+            </span>
+            <ul class="attach-account">
+                <li><a href="/authorization/attach_account/" title="Уже есть аккаунт на BSN.ru">Уже есть аккаунт на BSN.ru</a></li>
+                <li><a href="/registration/attach_account/" title="Создать аккаунт на BSN.ru">Создать аккаунт на BSN.ru</a></li>
+            </ul>
+            <span class="text">Используйте все возможности сайта более эффективно!</span>
+        </div>
+{else}
+<form class="account-form active authorization" name="through_auth_form" method="POST" action="">
+    <span class="form-title">Вход</span>
+    <div class="notification msgsuccess">Ок. Осуществляется вход!</div>
+    <div class="notification msgerror">Пара логин-пароль неверная!</div>
+    
+    <span class="data-block">
+        <span>Логин <span class="internal-link" data-link="/registration/" title="Зарегистрироваться" id="auth_registration">Зарегистрироваться</span></span>
+        <input type="text" id="auth_login" name="auth_login" value="{if!empty $auth_login}{$auth_login}{/if}" placeholder="Электронная почта / логин" / {if!empty $errors['auth_login']}class="red-border"{/if}>
+        {if!empty $errors['auth_login']}<span class="error-tip">{$errors['auth_login']}</span>{/if}
+    </span>
+    <span class="data-block small">
+        <span>Пароль <span class="internal-link" data-link="/lostpassword/" title="Напомнить пароль" id="auth_lost_passwd">Напомнить</span></span>
+        <input type="password" id="auth_passwd" name="auth_passwd" value="" placeholder="Пароль" / {if!empty $errors['auth_password']}class="red-border"{/if}>
+        {if!empty $errors['auth_password']}<span class="error-tip">{$errors['auth_password']}</span>{/if}
+    </span>
+    <label for="auth_cookie_save" class="checkbox remember-me"><input type="checkbox" id="auth_cookie_save" name="auth_cookie_save" value="1" /> Запомнить меня</label>
+    
+    <div class="bottom-container">
+        <button type="submit" value="Войти" id="submit_button" name="submit" class="green send">Войти</button>
+        {ifempty $not_show_social_authorization}
+            {php:$auth_type = 'authorization';}
+            {include /templates/social_authorization.html}
+        {/if}
+    </div>
+</form>
+{/if}

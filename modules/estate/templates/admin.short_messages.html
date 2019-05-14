@@ -1,0 +1,44 @@
+{if!empty $results['remoderate']}
+    {iflt $results['remoderate'];0}
+        <div class="notification msgerror"><a class="close">Close</a>
+            Ошибка. Отправка элемента на ремодерацию не выполнена.
+        </div>
+    {else}
+        <div class="notification msgsuccess"><a class="close">Close</a>
+            Отправка элемента #{$results['delete']} на ремодерацию произведено успешно.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror"><a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess"><a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['archive']}
+    {iflt $results['archive'];0}
+        <div class="notification msgerror"><a class="close">Close</a>
+            Ошибка. Отправка в архив не выполнена.
+        </div>
+    {else}
+        <div class="notification msgsuccess"><a class="close">Close</a>
+            Элемент #{$results['delete']} успешно отправлен в архив.
+        </div>
+    {/if}
+{/if}
+{if!empty $results['restore']}
+    {iflt $results['restore'];0}
+        <div class="notification msgerror"><a class="close">Close</a>
+            Ошибка. Восстановление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess"><a class="close">Close</a>
+            Элемент #{$results['delete']} успешно восстановлен из архива.
+        </div>
+    {/if}
+{/if}

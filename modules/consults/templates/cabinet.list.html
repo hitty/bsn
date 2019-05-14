@@ -1,0 +1,100 @@
+{if!empty $list}
+    <div class="stats-table adv-list consults consults-list">
+        {loop $list,$key,$item}
+            <div class="consultant-item" data-id="{$item['id']}">
+                <div class="info-line">
+                    <span class="line__general">
+                        <span>{$item['id']}</span>
+                        <span>{$item['question_datetime_formatted']}</span>
+                    </span>
+                    <span class="line__title">
+                   
+                        <span class="question-title">
+                            {if!empty $item['title']}{$item['title']}{else}{$item['question']}{/if}
+                        </span>
+                        
+                    </span>
+                    <span class="line__controls">
+                        <button class="blue">Смотреть вопрос</button>
+                    </span>
+                </div>
+                <div class="dropdown-box">
+                    <span class="question-author">{$item['name']}</span>
+                    <div class="dropdown-box__question">{$item['question']}</div>
+                    
+                        <div class="dropdown-box__answers-list">
+                        {if!empty $answers_list[$key]}
+                            {php: $answers_for_this = $answers_list[$key];}
+                            {loop $answers_for_this,$answers_key,$answer}
+                                <div class="answer-box">
+                                    <span>{$answer['answer']}</span>
+                                </div>
+                                <span class="answer-author">
+                                    {if!empty $answer['user_info']}
+                                        {$answer['user_info']} {if!empty $answer['normal_date']}- {$answer['normal_date']}{/if}
+                                    {else}
+                                        {$answer['normal_date']}
+                                    {/if}
+                                </span>
+                            {/loop $answers_for_this}
+                            {/if}  
+                        </div>
+                    
+                    <span class="answer-button" data-icon="lightbulb_outline" data-url="/members/conversions/consults/answer-form/{$item['id']}">Дать свой ответ</span>
+                    
+                </div>
+            </div>
+        {/loop $list}
+        <script>
+            
+            jQuery('.answer-button').each(function(){ 
+                jQuery(this).popupWindow(
+                    {
+                        popupCallback:function(data){
+                           jQuery('.consultant-item[data-id='+data.id+'] .dropdown-box__answers-list').append('<span class="answer-box">' + data.answer + '</span><span class="answer-author">' + data.author + '</span>')
+                        }
+                    }
+                ) 
+            });
+        </script>           
+        {php:$direct_link_paginator = true}
+        {include /templates/includes/paginator.html}
+        <script>
+            jQuery(document).ready(function(){
+                //инициализируем datatable
+                jQuery('span.title.in-work').on('click',function(){
+                    if(jQuery(this).hasClass('common-user')) return false;
+                    if(!confirm('Завершить заявку?')) return false;
+                    var _id = jQuery(this).parents('tr').attr('id');
+                    var _url = window.location.href + 'finish/' + _id;
+                    jQuery.ajax({
+                        type: "POST", async: true,
+                        dataType: 'json', cache: false,
+                        url: _url,
+                        data: {ajax: true},
+                        success: function(msg){
+                            if(msg.ok){
+                                //если все хорошо, корректируем количество и щелкаем по вкладке "Завершенные"
+                                jQuery('#objects-list-title').children('.active').children('sup').html(parseInt(jQuery('#objects-list-title').children('.active').children('sup').html()) - 1);
+                                jQuery('#objects-list-title').children().eq(3).children('sup').html(parseInt(jQuery('#objects-list-title').children().eq(3).children('sup').html()) + 1)
+                                jQuery('#objects-list-title').children().eq(3).click();
+                            }
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown){
+                            return false;
+                        },
+                        complete: function(){
+                        }
+                    });
+                });
+            })
+                
+                
+            
+        </script>
+    {else}
+        <div class="empty-results">
+            Вопросы не найдены
+        </div>
+    {/if}
+</div>

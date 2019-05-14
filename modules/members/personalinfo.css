@@ -1,0 +1,282 @@
+/* PERSONAL INFO */
+#item-edit-form h3:first-of-type{
+    padding-top: 0;
+    border: 0;    
+}
+#item-edit-form .selector-title + input{
+    width: 210px;
+}
+#item-edit-form .selector-title + textarea{
+    
+}
+#item-edit-form .selector-title + .checkbox-set{
+    float: left;
+    width: 360px;
+    margin-top: 7px;
+}
+#item-edit-form .checkbox-set label{
+    display: block;
+    margin-bottom: 10px;
+}
+#item-edit-form .checkbox-row{
+    
+}
+div.bmp, div.lrmp, div.rmp {
+
+}
+#personalinfo .rmp{
+    width: 110px;
+    margin: 0;
+    float: right;
+    position: absolute;
+    right: 80px;
+}
+#personalinfo h3.btitle, 
+#personalinfo h2.btitle{
+    margin-top: 15px;
+}
+#personalinfo label.radio-group{
+    display: inline-block;
+}
+.single-selector.subscribe_news{
+    margin: -5px 0 40px 0;
+}
+#item-edit-form h3.social{
+    position: relative;
+}
+#item-edit-form h3.social:after{
+    content:"Привязать";
+    line-height: 40px;
+    font-size: 16px;
+    position: absolute;
+    top: 87px;
+    color:#000;
+    left: 0;
+}
+#item-edit-form .social-attach-selector + h3{
+    margin-top: 40px;
+}
+.social-attach-selector{
+    padding: 8px 0 20px 36px;
+    margin-bottom: 10px;
+    position: relative;
+    display: block;
+    width: 100px;
+    margin: 0 20px 10px 225px;
+}
+#item-edit-form .social-attach-selector:last-of-type{
+    margin-bottom: 40px;
+}
+#item-edit-form .social-attach-selector span.selector-title{
+    display: none;
+    cursor: pointer;
+    margin: 5px 0 0 0;
+    line-height: 14px;
+    font-size: 14px;
+    line-height: 14px;   
+    width: auto;
+}
+#item-edit-form .social-attach-selector span.selector-title.active{
+    display: inline;
+    border-bottom:1px dashed;
+}
+#personalinfo #item-edit-form .button{
+    margin: 40px auto 20px auto;
+}
+#item-edit-form .social-attach-selector:before{
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+.single-selector.cost{
+    position: relative;
+}
+.crmp .estate-estimate{
+    font-size: 16px;
+    color:#1e88e5;    
+    position: absolute;
+    top: 60px;
+    left: 0;
+}
+.crmp .estate-estimate.hidden{
+    display: none;
+}
+#item-edit-form .social-attach-selector.id_user_vk:before{
+    background: url(//st.bsn.ru/img/layout/vk-logo.svg) no-repeat #6996c7;
+}
+#item-edit-form .social-attach-selector.id_user_facebook:before{
+    background: url(//st.bsn.ru/img/layout/facebook-logo.svg) no-repeat #496194;
+}
+#item-edit-form .social-attach-selector.id_user_ok:before{
+    background: url(//st.bsn.ru/img/layout/ok-logo.svg) no-repeat #ff9c43;
+}
+#item-edit-form .social-attach-selector span.selector-title.disabled{
+    color:#000;
+    border-color:#000;
+}
+#item-edit-form .social-attach-selector span.selector-title.enabled{
+    color:#d00;
+    border-color:#d00;
+}
+#item-edit-form .social-attach-selector span.selector-title:hover{
+    border-color:#fff;    
+}
+#item-edit-form .description.single-selector{
+    height: 80px;
+}
+#personalinfo .rmp h3.btitle{
+    text-align: center;
+    margin-top: 0;
+}
+#personalinfo > #main-photo{
+    width: 110px;
+    height: 110px;
+}
+#personalinfo .file_upload_queue {
+    height: 110px;
+    width: 110px;
+    border: none;
+    position: relative;
+    top: -27px;
+    cursor: pointer;
+}
+#personalinfo .file_upload_queue li,
+#personalinfo .file_upload_queue li .itemsContainer,
+#personalinfo .file_upload_queue li .itemsContainer .mUploadImg_photos{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    max-width: 110px;
+    max-height: 110px;
+    -webkit-border-radius: 110px;
+    -moz-border-radius: 110px;
+    -ms-border-radius: 110px;
+    -o-border-radius: 110px;
+    border-radius: 110px;
+    border: none;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    overflow: visible;
+}
+#personalinfo .file_upload_queue li .itemsContainer .mUploadImg_photos{
+    top: -1px;
+}
+.uploadifyButton:before{
+    color: #000;
+    top: 50%;
+    margin-top: -14px;    
+}
+.uploadifyButton.inactive span{
+    opacity:0.5;
+}
+#personalinfo .file_upload_queue li.uploadifyButton{
+    z-index: 9;
+    cursor:pointer;
+}
+#personalinfo .file_upload_queue li .boxcaption_del{
+    z-index: 12;
+    left: 50%;
+    margin-left: -15px;
+}
+.boxcaption_del:after{
+    display: none;
+}
+.file_upload_queue li:not(.mainPhoto):hover .boxcaption_main,
+form .file_upload_queue .boxcaption_main,
+form .file_upload_queue .boxcaption_rotate{
+    display: none;
+}
+#personalinfo #file-upload-info,
+#personalinfo .fileUploadStat{
+    display: none;
+}
+#personalinfo:not(.wide) .single-selector.show_phone,
+#personalinfo:not(.wide) .single-selector.show_email{
+    display:none;
+}
+#personalinfo.wide .single-selector.phone,
+#personalinfo.wide .single-selector.email{
+    width:49%;
+    display:inline-block;
+}
+#personalinfo.wide .single-selector.show_phone,
+#personalinfo.wide .single-selector.show_email{
+    width: 49%;
+    display: inline-block;
+    text-align: center;
+}
+#sex-select{
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    background-color: #e6e6e6;
+    margin-top: 45px;
+    z-index: 2;
+    -webkit-border-radius: 110px;
+    -moz-border-radius: 110px;
+    -ms-border-radius: 110px;
+    -o-border-radius: 110px;
+    border-radius: 110px;
+}
+
+.sex-select span{
+    position:absolute;
+    top:180px;
+    left:0;
+    right:0;
+    z-index:2;
+    color:#fff;
+    text-align: center;
+    
+}
+#personalinfo .file_upload_queue li span{
+    display: none;
+}
+#personalinfo .itemsContainer .progress {
+    width: 106px;
+    margin: 0;
+    height: 3px;
+    padding: 0;
+    position: relative;
+    top: 60%;
+    left: 2px;
+}
+#personalinfo .itemsContainer .progress-bar{
+    height:2px;
+}
+#uploadInput{
+    
+}
+#item-edit-form .file_upload_queue li.uploadifyButton span{
+    text-indent: -10000%;
+}       
+#item-edit-form .file_upload_queue .boxcaption-wrap{
+    top: 110px;
+    z-index: 1000;
+}
+#item-edit-form .checkbox-row.career{
+    height: 155px;    
+}
+#item-edit-form .checkbox-row.specializations{
+    height: 237px;    
+}
+#item-edit-form .checkbox-row.newsletters{
+    height: 190px;    
+}
+#item-edit-form .checkbox-row.notifications_list{
+    height: 160px;
+}
+#item-edit-form .button{
+    width: 200px;
+    margin: 0 auto;
+}

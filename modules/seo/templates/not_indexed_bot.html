@@ -1,0 +1,95 @@
+<h1 class="pageTitle">Неиндексированные страницы <b>{$bot_alias}</b></h1>
+<div class="caption_line">
+    <span class="button add-page-to-index">Добавить запись</span>
+    <span class="button add-pages-from-file">Добавить из файла</span>
+</div>
+<fieldset class="page-index-add">
+    <p title="Страница для индексирования">
+        <label>Страница для индексирования</label>
+        <span class="lf fieldwrapper" id="autocomplete_inputbox">
+            <input type="text" class="autocomplete_input autocomplete" id="autocomplete_input_add" data-input="autocomplete_value" value="{$page_url}" data-url="/admin/pages/not_indexed/pages_to_add/" autocomplete="off">
+        </span>
+        <input class="input-value" id="autocomplete_value" value=""></input>
+        <span class="button add">Добавить</span>
+        <span class="button check">Проверить</span>
+        <span class=inputbox_clear id="head_clear">ОЧИСТИТЬ</span>
+    </p>
+</fieldset>
+<fieldset class="pages-add-from-file {if!empty $total_rows}active{/if}">
+    <form class="upload-datafile" action="/admin/seo/not_indexed/{$bot_alias}/" method="post" enctype='multipart/form-data'>
+        <input type="file" placeholder="" value="" name="file_src" id="file_src" class="lf">
+        <!--<input value="Сохранить" name="submit" type="submit">-->
+    </form>
+    {if!empty $total_rows}
+        <span class="upload-result">
+            <span>Всего обработано: {$total_rows}</span>
+            <span>Всего загружено: {$total_added}</span>
+            {if!empty $importerrors_list}
+                <span>Всего ошибок: {$total_errors}</span>
+                <span>Ошибки:</span>
+                <span class="errors-block">
+                {loop $importerrors_list,$k,$i}
+                    <i>{$i}</i>
+                {/loop $importerrors_list}
+                </span>
+            {/if}
+        </span>
+    {/if}
+</fieldset>   
+
+<span>Найдено: {$total_found}</span>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_status = document.getElementById('f_status').value;
+            var __url = '{root:/admin/seo/not_indexed/'+document.location.href.split('/')[6]+'}';
+            var __get = new Array();
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Статус
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_status'],1} selected="selected"{/if}}>Добавлена</option>
+                <option value="2"{ifeq $get_array['f_status'],2} selected="selected"{/if}}>Не добавлена</option>
+            </select>
+        </label>
+    </div>
+    {if!empty $bot_pages}
+        <table>    
+            <colgroup>
+                <col class="col2" width="30%">
+                <col class="col1" width="40%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <th>URL</th>
+                <th>Заголовок</th>
+                <th>Дата поступления</th>
+                <th>Дата индексирования</th>
+                <th>&nbsp;</th>
+            </thead>
+            <tbody>
+                {loop $bot_pages,$key,$item}
+                    <tr id="item_{$item['id']}" class="not-indexed-page {if!empty $item['date_out']}removed{else}{if!empty $item['bad_page']} bad-page{/if}{/if}">
+                        <td><a href="{$item['link_url']}" title="{$item['title']}">{$item['url']}</a></td>
+                        <td>{$item['title']}</td>
+                        <td>{$item['date_in']}</td>
+                        <td>{$item['date_out']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/seo/not_indexed/{$bot_alias}/del/{$item['id']}/" title="Удалить" target="_blank"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $bot_pages}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {/if}
+</div>

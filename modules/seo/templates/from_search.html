@@ -1,0 +1,44 @@
+<h1 class="pageTitle">Переходы с поиска</h1>
+<span class="from-search-totals">
+    <span>Всего переходов: {$totals['total']}</span>
+    {loop $crawlers,$key,$item}
+        <span>Всего переходов c {$item}: {php: echo $totals[$item."tm"]}</span>
+    {/loop $crawlers}
+</span>
+<div class="list_table">
+    {if!empty $from_search}
+        <table>    
+            <colgroup>
+                <col class="col2" width="40%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <th>URL</th>
+                <th>GoogleBot</th>
+                <th>YandexBot</th>
+                <th>MailruBot</th>
+                <th>поиск Google</th>
+                <th>поиск Yandex</th>
+                <th>поиск Mailru</th>
+            </thead>
+            <tbody>
+                {loop $from_search,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['url']}</td>
+                        <td>{$item['google_stack']}</td>
+                        <td>{$item['yandex_stack']}</td>
+                        <td>{$item['mailru_stack']}</td>
+                        <td>{$item['googletm']}</td>
+                        <td>{$item['yandextm']}</td>
+                        <td>{$item['mailrutm']}</td>
+                    </tr>
+                {/loop $from_search}
+            </tbody>
+        </table>
+    {/if}
+</div>

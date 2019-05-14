@@ -1,0 +1,11 @@
+<div class="search-form-container transition">
+    <span class="closebutton button" data-icon="close"></span>
+    <div id="search-line">
+        <form action="/search/" method="get" name="search" class="grey">
+            <input type="text" name="query" value="{$data['query']}" placeholder="Введите фразу для поиска" autocomplete="off" {ifempty $index_types}class="big-input"{/if} />
+            <input type="hidden" name="sort" value="{$data['sort']}" />
+            <input type="hidden" id="content-type" name="content_type" value="{$content_type}" />
+        </form> 
+        <div class="ajax-search-results content-wrapper clearfix"></div>
+    </div>
+</div>

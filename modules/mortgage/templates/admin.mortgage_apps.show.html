@@ -1,0 +1,66 @@
+<h1 class="pageTitle">Заявка на ипотеку #{$app_id}</h1>
+<div class="caption_line"><a href="/admin/service/mortgage_applications/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_status = document.getElementById('f_status').value;
+            var __url = '{root:/admin/service/mortgage_applications/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url; 
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table class="mortgage-apps">    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col1" width="50%">
+                <col class="col1" width="45%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Банк</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td class="inline-info">
+                            <span>{$item['title']}</span>
+                            <span><img class="bank_image" src="{static:/}{$item['img']}" alt="{$item['title']}"></span>
+                        </td>
+                        <td class="ajax-radio" data-url="save-mortgage_app-status/">
+                            <span style="white-space: nowrap;"><input type="radio" name="status_{$item['id']}" value="1" {ifeq $item['status'],1}checked{/if}> ответ не получен </span>
+                            <span style="white-space: nowrap;"><input type="radio" name="status_{$item['id']}" value="2" {ifeq $item['status'],2}checked{/if}> принята </span>
+                            <span style="white-space: nowrap;"><input type="radio" name="status_{$item['id']}" value="3" {ifeq $item['status'],3}checked{/if}> отклонена </span>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

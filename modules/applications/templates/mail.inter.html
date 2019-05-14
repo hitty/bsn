@@ -1,0 +1,63 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td colspan="2">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
+            <tr style=""><td height="20"></td></tr>
+            <tr> 
+                <td valign="top" style="border-collapse:collapse; font-size:18px; line-height: 20px;" align="left"> 
+                <b>Здравствуйте!</b>
+                <br />У вас новая заявка на зарубежную недвижимость с сайта BSN.ru:
+                </td>
+            </tr>
+            <tr style=""><td height="20"></td></tr>
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0px 0; font-size:24px; " align="left"> 
+                    ID: {$info['id']}
+                </td>
+            </tr>
+            <tr style=""><td height="10"></td></tr>
+            {if!empty $parameters['name']}
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0px 0; font-size:24px; " align="left"> 
+                    Имя: {$parameters['name']}
+                </td>
+            </tr>
+            <tr style=""><td height="10"></td></tr>
+            {/if}
+            {if!empty $parameters['phone']}
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0px 0; font-size:24px; " align="left"> 
+                    Телефон: {$parameters['phone']}
+                </td>
+            </tr>
+            <tr style=""><td height="10"></td></tr>
+            {/if}
+            {if!empty $parameters['email']}
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0px 0; font-size:24px; " align="left"> 
+                    Email: {$parameters['email']}
+                </td>
+            </tr>
+            <tr style=""><td height="10"></td></tr>
+            {/if}
+            {if!empty $parameters['user_comment']}
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0px 0; font-size:24px; " align="left"> 
+                     Комментарий: {$parameters['user_comment']}
+                </td>
+            </tr>
+            <tr style=""><td height="10"></td></tr>
+            {/if}
+
+            <tr style=""><td height="20"></td></tr>
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0px 0; font-size:24px; " align="left"> 
+                    <a href="http://interestate.ru/estate/{$info['id']}/" >Ссылка</a> на объект 
+                </td>
+            </tr>
+           
+            
+        </table>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.fotter.html}

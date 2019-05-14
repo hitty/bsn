@@ -1,0 +1,43 @@
+<h1 class="vertical-align">Результат оценки стоимости квартиры</h1>
+<section class="estimate-result-wrap full-width-column clearfix">
+    <div class="central-main-content br3">
+        
+        <div class="estimate-result-content">
+            
+            <ul class="estimate-info clearfix">
+                <li class="title">Ваш объект</li>
+                <li>Тип: <b>квартира</b></li>
+                <li>Адрес: <b>{$item['geodata_title']}{if!empty $item['house']}, дом {$item['house']}{/if}{if!empty $item['corp']}, корпус {$item['corp']}{/if}</b></li>
+                {if!empty $item['rooms_total']}<li> Комнат: <b>{$item['rooms_total']}</b></li>{/if}
+                {if!empty $item['square']}<li> Площадь, (м<sup>2</sup>): <b>{$item['square']}</b></li>{/if}
+                {if!empty $item['building_type_title']}<li> Тип дома: <b>{$item['building_type_title']}</b></li>{/if}
+                {php:$level = !empty($item['level']) || !empty($item['level_total']) }
+                {if!empty $level}
+                    <li>
+                        Этаж: <b>{if!empty $item['level']}{$item['level']}{else}-{/if}{if!empty $item['level_total']} из {$item['level_total']}{/if} </b>
+                    </li>
+                {/if}
+            </ul>
+
+            <div class="results br3">
+                <span class="title">Примерная стоимость</span>
+                <div class="costs">
+                    <span class="average-cost"><i>Квартиры</i>{numberformat:$costs['avg_cost']} <span class="rur">a</span>*</span>
+                    <span class="average-cost"><i>Квадратного метра</i>{numberformat:$costs['avg_cost2meter']} <span class="rur">a</span>/м<sup>2</sup></span>
+                </div>
+                <a href="/estate_estimate/" class="button estimate-another grey" title="Оценить другой объект">Оценить другой объект</a>
+                <div class="actual-date">Данные актуальны на {php:echo date('d.m.Y')}</div>
+
+            </div>
+            
+            <i class="clearfix"></i>
+                
+            <p class="text">*Это автоматическая оценка объекта недвижимости, основанная на статистических данных о средней цене предложения в том или ином районе. Результат не является оценкой рыночной стоимости объекта недвижимости, производимой в соответствии с Федеральным законом "Об оценочной деятельности в Российской Федерации» N 135-ФЗ от 29.07.1998. Стоимость объекта недвижимости при заключении сделки может существенно отличаться от указанной выше. Для установления рыночной стоимости объекта недвижимости вам необходимо обратиться к профессиональному оценщику.</p>    
+        </div>
+    </div>
+  
+</section>
+
+<section class="tgb-list in-row">
+    {block tgb/top/inrow}
+</section>

@@ -1,0 +1,115 @@
+<article class="gray-border news" itemscope itemtype="http://schema.org/Article">
+  <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://www.bsn.ru/bsntv/{$item['category_code']}/{$item['chpu_title']}/"/>
+    <h1 itemprop="headline">
+        {$item['title']}
+    </h1>
+    <p class="annotation" itemprop="description">{stripall:$item['content_short']}</p>
+    <p class="smallnotes clearfix">
+        {ifeq $item['exclusive'],'1'}
+            <span class = "news-exclusive">эксклюзив</span>
+        {/if}
+        {ifeq $item['comment'],'1'}
+            <span class = "news-comment">комментарий</span>
+        {/if}
+        {ifeq $item['report'],'1'}
+            <span class = "news-report">репортаж</span>
+        {/if}
+        <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['normal_date']}</time>
+        <span class="views_count" data-icon="visibility">{php:echo $item['views_count']}</span>
+        {ifeq $item['show_comments'],1}<a href="#comments" class="comments_count">{suffix:$item['comments_count'],'комментари','й','я','ев'}</a>{/if}
+    </p>  
+    {php:$video = (!empty($item['video_link']) || !empty($item['direct_video_link']));}
+    {if!empty $video}
+        <div class="video-box" itemscope itemtype="http://schema.org/VideoObject">
+            {if!empty $item['direct_video_link']}
+                {php:$link = 'http://' . str_replace('http://', '', $item['direct_video_link'])}
+                {php:$poster = "https://st1.bsn.ru/img/uploads/big/".$item['subfolder']."/".$item['photo']}
+                {php:$title = $item['title']}
+                {include /templates/video.player.html}
+            {else}
+                <iframe width="737" height="550" src="//www.youtube.com/embed/{$item['video_link']}" frameborder="0" allowfullscreen></iframe>
+            {/if}
+            <meta itemprop="name" content="{stripall:$item['title']}" />
+            <meta itemprop="description" content="{stripall:$item['content_short']}" />
+            <meta itemprop="thumbnailUrl" content="{$poster}" />
+            <meta itemprop="uploadDate" content="{$item['datetime']}" />
+            <meta itemprop="contentUrl" content="{php:echo !empty($item['direct_video_link']) ? 'http://' . str_replace('http://', '',  $item['direct_video_link']) : $item['video_link']}">            
+            <meta itemprop="interactionCount" content="{$item['views_count']}">  
+            <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
+                <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                  <img src="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
+                  <link itemprop="url" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+                  <link itemprop="contentUrl" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+                  <meta itemprop="width" content="146">
+                  <meta itemprop="height" content="40">
+                </div>
+                <meta itemprop="name" content="BSN.ru">
+            </div>    
+                      
+        </div>
+    {/if}
+    {if!empty $photos}
+        <div {if!empty $video}style="display:none"{else}class="news-main-photo"{/if} itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+            <img src="//st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" alt="{ifeq $item['id'],35638}Автор карты — архитектор Дмитрий Якубович{else}{$item['title']}{/if}" />
+            <link itemprop="url" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
+            <link itemprop="contentUrl" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
+            <meta itemprop="width" content="800">
+            <meta itemprop="height" content="600">            
+        </div>
+    {/if}
+    <div class="bigtext">
+        {$item['content']}
+        
+        <ul class="authors">
+            <li>{if!empty $item['author']}<p itemprop="author" itemscope itemtype="https://schema.org/Person">Автор: <strong itemprop="name">{$item['author']}</strong></p>{/if}</li>
+            <li>{if!empty $item['author_url']}<p>Источник: <span class="external-link" data-link="{$item['author_url']}" title="{quoted:$item['title']}">{$item['author_url']}</span></p>{/if}</li>
+        </ul>
+        {include /modules/banners/templates/block.share.right.html}
+    </div>
+    {if!empty $tags}
+        <div class="tagslist">
+            {loop $tags,$pk,$pv}
+                {if!empty $pv['id']}<span><a href="/bsntv/tags/{$pv['id']}/" title="{$pv['title']}">{$pv['title']}</a><sup>{$pv['tag_count']}</sup></span>{/if}
+            {/loop $tags}
+            
+        </div>
+    {/if}
+    {ifempty $item['author']}<p style="display: none;" itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="BSN.ru"/></p>{/if}
+    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
+        <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+          <img src="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
+          <link itemprop="url" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+          <link itemprop="contentUrl" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+          <meta itemprop="width" content="146">
+          <meta itemprop="height" content="40">
+        </div>
+        <meta itemprop="name" content="BSN.ru">
+    </div>    
+    <meta itemprop="datePublished" content="{$item['datetime']}"/>
+    <meta itemprop="dateModified" content="{$item['datetime']}"/>       
+    {ifeq $item['show_comments'],1}
+        {include /modules/comments/templates/init.html}
+    {/if}
+    
+    <!--noindex-->
+    {php:$direct_type = '2rows_content';}
+    {include /templates/yandex.direct.html}
+    <!--/noindex-->
+</article> 
+{if!empty $last_news}
+    {php:$list = $last_news;}
+    {php:$news_title = "Последние видео рубрики"}
+    <div id="content-list">{include /modules/bsntv/templates/custom_block.html}</div>
+{/if}
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7156959844675281" data-ad-slot="6448273851"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+{if!empty $prev_next_list}
+
+    {php:$list = $prev_next_list;}
+    {php:$news_title = "Другие видео рубрики"}
+    <div id="content-list">{include /modules/bsntv/templates/custom_block.html}</div>
+{/if}
+ 

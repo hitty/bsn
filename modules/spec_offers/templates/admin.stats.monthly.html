@@ -1,0 +1,22 @@
+<h1 class="pageTitle">Статистика показов ТГБ в разделе по месяцам</h1>
+{if!empty $stats}
+    <div class="spec-offers-monthly-col">
+        <p>-</p>
+        <p>Жилая+Новостройки</p>
+        <p>Коммерческая</p>
+        <p>Загородная</p>
+    </div>
+    {php:$count=0;}
+    {loop $stats, $k, $item}
+        {php:$change_column = $count%3==0;}
+        {if!empty $change_column}<div class="spec-offers-monthly-col"><p>{$item['month_date']}</p>{/if}
+        <p>{$item['amount']}</p>
+        {php:$change_column = $count%3==2;}
+        {if!empty $change_column}</div>{/if}        
+        {php:++$count;}
+    {/loop $stats}
+    </div>
+{/if}
+
+
+

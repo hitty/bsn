@@ -1,0 +1,137 @@
+<fieldset>
+    {loop $data_mapping,$key,$field}
+        {ifempty $field['nodisplay']}
+            
+                {ifeq $field['fieldtype'];'title_row'}<p class="title_row {if!empty $field['class']}{$field['class']}{/if}">{$field['tip']}
+                {elseifeq $field['fieldtype'];'tip_row'}<p class="tip_row">{$field['tip']}
+                {elseifeq $field['fieldtype'];'hidden'}
+                    <input type="hidden" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {else}
+                <p
+                	{if!empty $field['tip']} title="{$field['tip']}"{/if}
+                	{if!empty $field['error']} class="error"{/if}
+                	{if!empty $field['hidden']} style="display:none;"{/if} 
+                	id="p_field_{$key}"
+                >
+                <label{ifempty $field['allow_empty']} class="required"{/if}>{$field['label']}{ifempty $field['allow_empty']} *{/if}</label>
+                <span class="lf fieldwrapper">
+                {ifeq $field['fieldtype'];'plaintext'}
+                    <span id="text_{$key}" class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext">{quoted:$field['value']}</span>
+                {elseifeq $field['fieldtype'];'text'}
+                    <input type="text" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {ifeq $field['class'],'autocomplete_input'}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}" {if!empty $field['disabled']} disabled="disabled"{/if} {if!empty $field['url']} data-url="{$field['url']}"{/if} {if!empty $field['input']} data-input="{$field['input']}"{/if} {if!empty $data_mapping['id']['value']}data-id="{$data_mapping['id']['value']}"{/if} {if!empty $field['default']}value={$field['default']}{/if}>
+                    {ifeq $field['class'],'autocomplete_input'}
+                        <i class="clear-input{ifempty $field['value']} hidden{/if}"></i>
+                    {elseif!empty $field['autocomplete']}
+                        <i class="clear-input{ifempty $field['value']} hidden{/if}"></i>
+                    {/if}
+                {elseifeq $field['fieldtype'];'email'}
+                    <input type="email" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}">
+                {elseifeq $field['fieldtype'];'phone'}
+                    <input type="phone" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}">
+                {elseifeq $field['fieldtype'];'password'}
+                    <input type="password" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'textarea'}
+                    {if!empty $field['editor']}
+                        <textarea class="CKEdit{ifeq $field['editor'];'small'}Small{else}Big{/if}{if!empty $field['class']} {$field['class']}{/if}" id="ckedit_{$key}" name="{$key}">{quoted:$field['value']}</textarea>
+                    {else}
+                        <textarea class="{if!empty $field['class']}{$field['class']} {/if}lf" id="{$key}" name="{$key}" {ifempty $field['allow_empty']} required="required"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} {if!empty $field['disabled']} disabled="disabled"{/if}>{quoted:$field['value']}</textarea>
+                    {/if}
+                {elseifeq $field['fieldtype'];'radio'}
+                    {php:$radioloop=$field['values']}
+                    {loop $radioloop,$rlk,$rlt}
+                        <span style="white-space: nowrap;"><input type="radio" name="{$key}" value="{$rlk}"{ifeq $rlk,$field['value']} checked="checked"{/if}> {$rlt} </span> &nbsp;&nbsp;&nbsp;&nbsp;
+                    {/loop $radioloop}
+                {elseifeq $field['fieldtype'];'select'}
+                    {php:$selectloop=$field['values']}
+                    <select class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" id="{$key}">
+                        {loop $selectloop,$rlk,$rlt}
+                            <option value="{$rlk}"{ifeq $field['value'],$rlk} selected="selected"{/if}
+                            {if!empty $field['attributes']}
+                                {php: $this_attrs = $field['attributes'];}
+                                {loop $this_attrs, $this_attr_key,$this_attr_value}
+                                    {if!eq $this_attr_value[$rlk],NULL}
+                                        {$this_attr_key}="{$this_attr_value[$rlk]}" 
+                                    {/if}
+                                {/loop $this_attrs}
+                            {/if}>{$rlt}</option>
+                        {/loop $selectloop}
+                    </select>
+                {elseifeq $field['fieldtype'];'plaintext+button'}
+                    <span class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext" id="text_{$key}">{quoted:$field['value']}</span>
+                    <button id="btn_{$key}">{$field['tip']}</button>
+                {elseifeq $field['fieldtype'];'text+button'}
+                    <input type="text" class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" value="{quoted:$field['value']}">
+                    <button id="btn_{$key}">{$field['tip']}</button>
+                {elseifeq $field['fieldtype'];'upload'}
+                    <input type="file" class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" value="{quoted:$field['value']}">
+                    {if!empty $field['value']}
+                        <span class="attached-file">
+                            <a href="/{php:echo Config::Get('docs_folders')}/{$field['value']}">Посмотреть файл</a>
+                            <span class="delete-file" data-id="{$data_mapping['id']['value']}" data-type="{$key}" title="Удалить файл"></span>
+                        </span>
+                    {/if}          
+                {elseifeq $field['fieldtype'];'date'}
+                    <input type="date" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'datetime'}
+                    <input type="text" value="{quoted:$field['value']}" class="datetimepicker" name="{$key}" />
+                {elseifeq $field['fieldtype'];'time'}
+                    <input type="time" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+
+
+                {elseifeq $field['fieldtype'];'checkbox'}
+                    <input type="hidden" name="{$key}" id="{$key}" value="{$field['value']}" />
+                    <input type="checkbox" id="checkbox_{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}" name="checkbox_{$key}" value="1" {ifeq $field['value'],$field['true_value']}checked="checked"{/if} rel="{$key}" data-true-value="{$field['true_value']}" data-false-value="{$field['false_value']}">
+                {elseifeq $field['fieldtype'];'set'}
+                    <input type="hidden" name="{$key}" value="{$field['value']}" />
+                    {php:$selectloop=$field['values']}
+                    {loop $selectloop,$rlk,$rlt}
+                        {do:$set_up=$field['value']%(pow(2,$rlk))>=pow(2,$rlk-1)}
+                        <input class="radio" type="checkbox" name="{$key}_set[{$rlk}]" value="1"{if $set_up}checked="checked"{/if} /> {$rlt}<br />
+                    {/loop $selectloop}
+                {elseifeq $field['fieldtype'],'query_edit_block'}
+                    <div class="object-queries-edit"></div>
+                {elseifeq $field['fieldtype'],'rich_checkbox_set'}
+                    <input type="hidden" name="{$key}" value="{$field['value']}" />
+                    {php:$selectloop=$field['values']}
+                    <div class="checkbox-set {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    {php:$field_value = (!empty($field['value']) ? explode(',',$field['value']) : array());}
+                    {loop $selectloop,$rlk,$rlt}
+                        <div class="radio-block">
+                        
+                            {php: $set_up = in_array($rlk,$field_value);}
+                            <div class="checkbox">
+                                <input class="checkbox rich-set-element" type="checkbox" data-id="{$rlk}" value="1"{if $set_up}checked="checked"{/if} /> 
+                                <span class="radio-line_title">{$rlt['title']}</span>
+                                {if!empty $rlt['img']}<img class="radio-line_image" src="{static:/}{$rlt['img']}" alt="{$rlt['title']}">{/if}
+                            </div>
+                        </div>
+                    {/loop $selectloop}
+                    </div>
+                {elseifeq $field['fieldtype'],'map'}
+                    <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+                    <div id="map-box" class="br3"></div>
+                {else}
+                    {quoted:$field['value']}
+                {/if}
+                {if!empty $field['error']}
+                    <span class="small_text red">{$field['error']}</span>
+                {/if}
+                {if!empty  $field['tip']}
+                    {if!eq $field['tip'], $field['label']}
+                        <span class="tip-text green">{$field['tip']}</span>
+                    {/if}
+                {/if}
+                {ifeq $field['fieldtype'],'text'}
+                    <span class="count-letters"></span>
+                {/if}
+                </span>
+                </p>
+            {/if}
+        {/if}    
+    {/loop $data_mapping} 
+    {ifempty $not_show_submit_button}
+    <p>
+        <input type="submit" value="Сохранить" name="submit">
+    </p>
+    {/if}
+</fieldset>

@@ -1,0 +1,7 @@
+<div class="estate-highlighted-list">
+    {if!empty $payed_list}
+        <h4>Горячие предложения</h4>
+        {php: $list = $payed_list;}
+        {include /modules/estate/templates/block.payed.objects.html}
+    {/if}
+</div> 

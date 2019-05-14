@@ -1,0 +1,291 @@
+<div class="properties-wrap br3 inline" name="characteristics">
+    {ifgt $item['u_count'],0}
+                <section itemprop="offers">
+                    <p class="title" >Участки</p>
+                    {if!empty $item['u_cost_ub']}<meta itemprop="lowPrice" content="{$item['u_cost_ub']}" />{/if}
+                    {if!empty $item['u_cost_ue']}<meta itemprop="highPrice" content="{$item['u_cost_ue']}" />{/if}
+                    <meta itemprop="priceCurrency" content="RUB" />
+                    {ifgt $item['u_count'],0}<p><span><b>Количество участков</b></span><i>{stripall:$item['u_count']}</i></p>{/if}
+                    {php:$cost = $item['u_cost_ub']>0 || $item['u_cost_ue']>0}
+                    {if!empty $cost}
+                        <p><span><b>Цена за участок</b></span><i>
+                        {if!eq  $item['u_cost_ub'],$item['u_cost_ue']}
+                            {if!empty $item['u_cost_ub']}от {numberformat:$item['u_cost_ub']}{/if}
+                            {if!empty $item['u_cost_ue']}до {numberformat:$item['u_cost_ue']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['u_cost_ub']}{numberformat:$item['u_cost_ub']}
+                            {else}
+                                {if!empty $item['u_cost_ue']}{numberformat:$item['u_cost_ue']}{/if}
+                            {/if}
+                        {/if}
+                        руб.
+                        </i></p>
+                    {/if}
+                    
+                    {php:$cost = $item['u_cost_sb']>0 || $item['u_cost_se']>0}
+                    {if!empty $cost}
+                        <p><span><b>Цена за сотку</b></span><i>
+                        {if!eq  $item['u_cost_sb'],$item['u_cost_se']}
+                            {if!empty $item['u_cost_sb']}от {numberformat:$item['u_cost_sb']}{/if}
+                            {if!empty $item['u_cost_se']}до {numberformat:$item['u_cost_se']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['u_cost_sb']}{numberformat:$item['u_cost_sb']}
+                            {else}
+                                {if!empty $item['u_cost_se']}{numberformat:$item['u_cost_se']}{/if}
+                            {/if}
+                        {/if}
+                        руб.
+                        </i></p>
+                    {/if}
+                    
+                    {php:$flag = $item['u_sb']>0 || $item['u_se']>0}
+                    {if!empty $flag}
+                        <p><span><b>Площадь</b></span><i>
+                        {if!eq  $item['u_sb'],$item['u_se']}
+                            {if!empty $item['u_sb']}от {numberformat:$item['u_sb']}{/if}
+                            {if!empty $item['u_se']}до {numberformat:$item['u_se']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['u_sb']}{numberformat:$item['u_sb']}
+                            {else}
+                                {if!empty $item['u_se']}{numberformat:$item['u_se']}{/if}
+                            {/if}
+                        {/if}
+                        сот.
+                        </i></p>
+                    {/if}
+                    {ifgt $item['u_cost_scharge'],0}<p><span><b>Доплата за коммуникации</b></span><i>{stripall:$item['u_cost_scharge']} руб.</i></p>{/if}
+                    {if!empty $item['u_state']}<p><span><b>В стадии</b></span><i>{stripall:$item['u_state']}</i></p>{/if}
+                    {if!empty $item['u_status']}<p><span><b>Статус участка</b></span><i>{stripall:$item['u_status']}</i></p>{/if} 
+                </section>
+            {/if}
+
+            {ifgt $item['c_count'],0}
+                <section itemprop="offers">
+                    <p class="title">Коттеджи</p>
+                    {if!empty $item['c_cost_cb']}<meta itemprop="lowPrice" content="{$item['c_cost_cb']}" />{/if}
+                    {if!empty $item['c_cost_ce']}<meta itemprop="highPrice" content="{$item['c_cost_ce']}" />{/if}
+                    <meta itemprop="priceCurrency" content="RUB" />
+                    {ifgt $item['c_count'],0}<p><span><b>Количество коттеджей</b></span><i>{stripall:$item['c_count']}</i></p>{/if}
+                    {php:$cost = $item['c_cost_cb']>0 || $item['c_cost_ce']>0}
+                    {if!empty $cost}
+                        <p><span><b>Цена домовладения</b></span><i>
+                        {if!eq  $item['c_cost_cb'],$item['c_cost_ce']}
+                            {if!empty $item['c_cost_cb']}от {numberformat:$item['c_cost_cb']}{/if}
+                            {if!empty $item['c_cost_ce']}до {numberformat:$item['c_cost_ce']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['c_cost_cb']}{numberformat:$item['c_cost_cb']}
+                            {else}
+                                {if!empty $item['c_cost_ce']}{numberformat:$item['c_cost_ce']}{/if}
+                            {/if}
+                        {/if}
+                        руб.
+                        </i></p>
+                    {/if}
+                    {php:$cost = $item['c_cost_sb']>0 || $item['c_cost_se']>0}
+                    {if!empty $cost}
+                        <p><span><b>Цена за кв.м.</b></span><i>
+                        {if!eq  $item['c_cost_sb'],$item['c_cost_se']}
+                            {if!empty $item['c_cost_sb']}от {numberformat:$item['c_cost_sb']}{/if}
+                            {if!empty $item['c_cost_se']}до {numberformat:$item['c_cost_se']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['c_cost_sb']}{numberformat:$item['c_cost_sb']}
+                            {else}
+                                {if!empty $item['c_cost_se']}{numberformat:$item['c_cost_se']}{/if}
+                            {/if}
+                        {/if}
+                        руб.
+                        </i></p>
+                    {/if}
+                    {php:$flag = $item['c_usb']>0 || $item['c_use']>0}
+                    {if!empty $flag}
+                        <p><span><b>Площадь участка</b></span><i>
+                        {if!eq  $item['c_usb'],$item['c_use']}
+                            {if!empty $item['c_usb']}от {numberformat:$item['c_usb']}{/if}
+                            {if!empty $item['c_use']}до {numberformat:$item['c_use']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['c_usb']}{numberformat:$item['c_usb']}
+                            {else}
+                                {if!empty $item['c_use']}{numberformat:$item['c_use']}{/if}
+                            {/if}
+                        {/if}
+                        сот.
+                        </i></p>
+                    {/if}
+                    
+                    {php:$flag = $item['c_csb']>0 || $item['c_cse']>0}
+                    {if!empty $flag}
+                        <p><span><b>Площадь коттеджа</b></span><i>
+                        {if!eq  $item['c_csb'],$item['c_cse']}
+                            {if!empty $item['c_csb']}от {numberformat:$item['c_csb']}{/if}
+                            {if!empty $item['c_cse']}до {numberformat:$item['c_cse']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['c_csb']}{numberformat:$item['c_csb']}
+                            {else}
+                                {if!empty $item['c_cse']}{numberformat:$item['c_cse']}{/if}
+                            {/if}
+                        {/if}
+                        м<sup>2</sup>
+                        </i></p>
+                    {/if}                  
+                    {ifgt $item['c_cost_scharge'],0}<p><span><b>Доплата за коммуникации</b></span><i>{stripall:$item['c_cost_scharge']} руб.</i></p>{/if}
+                    {if!eq $item['c_constr'],''}<p><span><b>Конструктив</b></span><i>{stripall:$item['c_constr']}</i></p>{/if}
+                    {if!eq $item['c_state'],''}<p><span><b>В стадии</b></span><i>{stripall:$item['c_state']}</i></p>{/if}
+                </section>
+            {/if}
+            
+            {ifgt $item['t_count'],0}
+                <section itemprop="offers">
+                    <p class="title">Таун-хаусы</p>
+                    {if!empty $item['t_cost_b']}<meta itemprop="lowPrice" content="{$item['t_cost_b']}" />{/if}
+                    {if!empty $item['t_cost_e']}<meta itemprop="highPrice" content="{$item['t_cost_e']}" />{/if}
+                    <meta itemprop="priceCurrency" content="RUB" />
+                    {ifgt $item['t_count'],0}<p><span><b>Количество участков</b></span><i>{stripall:$item['t_count']}</i></p>{/if}
+                    
+                    {php:$cost = $item['t_cost_b']>0 || $item['t_cost_e']>0}
+                    {if!empty $cost}
+                        <p><span><b>Цена домовладения</b></span><i>
+                        {if!eq  $item['t_cost_b'],$item['t_cost_e']}
+                            {if!empty $item['t_cost_b']}от {numberformat:$item['t_cost_b']}{/if}
+                            {if!empty $item['t_cost_e']}до {numberformat:$item['t_cost_e']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['t_cost_b']}{numberformat:$item['t_cost_b']}
+                            {else}
+                                {if!empty $item['t_cost_e']}{numberformat:$item['t_cost_e']}{/if}
+                            {/if}
+                        {/if}
+                        руб.
+                        </i></p>
+                    {/if}
+                    
+                    {php:$cost = $item['t_cost_sb']>0 || $item['t_cost_se']>0}
+                    {if!empty $cost}
+                        <p><span><b>Цена за кв.м.</b></span><i>
+                        {if!eq  $item['t_cost_sb'],$item['t_cost_se']}
+                            {if!empty $item['t_cost_sb']}от {numberformat:$item['t_cost_sb']}{/if}
+                            {if!empty $item['t_cost_se']}до {numberformat:$item['t_cost_se']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['t_cost_sb']}{numberformat:$item['t_cost_sb']}
+                            {else}
+                                {if!empty $item['t_cost_se']}{numberformat:$item['t_cost_se']}{/if}
+                            {/if}
+                        {/if}
+                        руб.
+                        </i></p>
+                    {/if}
+
+                    
+                    {php:$flag = $item['t_usb']>0 || $item['c_use']>0}
+                    {if!empty $flag}
+                        <p><span><b>Площадь участка</b></span><i>
+                        {if!eq  $item['t_usb'],$item['t_use']}
+                            {if!empty $item['t_usb']}от {numberformat:$item['t_usb']}{/if}
+                            {if!empty $item['t_use']}до {numberformat:$item['t_use']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['t_usb']}{numberformat:$item['t_usb']}
+                            {else}
+                                {if!empty $item['t_use']}{numberformat:$item['t_use']}{/if}
+                            {/if}
+                        {/if}
+                        сот.
+                        </i></p>
+                    {/if}
+                    
+                    {php:$flag = $item['t_tsb']>0 || $item['t_tse']>0}
+                    {if!empty $flag}
+                        <p><span><b>Площадь дома</b></span><i>
+                        {if!eq  $item['t_tsb'],$item['t_tse']}
+                            {if!empty $item['t_tsb']}от {numberformat:$item['t_tsb']}{/if}
+                            {if!empty $item['t_tse']}до {numberformat:$item['t_tse']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['t_tsb']}{numberformat:$item['t_tsb']}
+                            {else}
+                                {if!empty $item['t_tse']}{numberformat:$item['t_tse']}{/if}
+                            {/if}
+                        {/if}
+                        м<sup>2</sup>
+                        </i></p>
+                    {/if}                  
+                    
+                    {if!eq $item['t_state'],''}<p><span><b>В стадии</b></span><i>{stripall:$item['t_state']}</i></p>{/if}
+                </section>
+            {/if}
+            {ifgt $item['k_count'],0}
+                <section itemprop="offers">
+                    <p class="title">Квартиры</p>
+                    {if!empty $item['k_cost_b']}<meta itemprop="lowPrice" content="{$item['k_cost_b']}" />{/if}
+                    {if!empty $item['k_cost_e']}<meta itemprop="highPrice" content="{$item['k_cost_e']}" />{/if}
+                    <meta itemprop="priceCurrency" content="RUB" />
+                    {ifgt $item['k_count'],0}<p><span><b>Количество квартир</b></span><i>{stripall:$item['k_count']}</i></p>{/if}
+                    
+                    {php:$cost = $item['k_cost_b']>0 || $item['k_cost_e']>0}
+                    {if!empty $cost}
+                        <p><span><b>Цена квартиры</b></span><i>
+                        {if!eq  $item['k_cost_b'],$item['k_cost_e']}
+                            {if!empty $item['k_cost_b']}от {numberformat:$item['k_cost_b']}{/if}
+                            {if!empty $item['k_cost_e']}до {numberformat:$item['k_cost_e']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['k_cost_b']}{numberformat:$item['k_cost_b']}
+                            {else}
+                                {if!empty $item['k_cost_e']}{numberformat:$item['k_cost_e']}{/if}
+                            {/if}
+                        {/if}
+                        руб.
+                        </i></p>
+                    {/if}
+                    {php:$flag = $item['k_sb']>0 || $item['k_se']>0}
+                    {if!empty $flag}
+                        <p><span><b>Площадь квартиры</b></span><i>
+                        {if!eq  $item['k_sb'],$item['c_use']}
+                            {if!empty $item['k_sb']}от {numberformat:$item['k_sb']}{/if}
+                            {if!empty $item['k_se']}до {numberformat:$item['k_se']}{/if}
+                            
+                        {else}    
+                            {if!empty $item['k_sb']}{numberformat:$item['k_sb']}
+                            {else}
+                                {if!empty $item['k_se']}{numberformat:$item['k_se']}{/if}
+                            {/if}
+                        {/if}
+                        м<sup>2</sup>
+                        </i></p>
+                    {/if}
+                    {if!eq $item['k_state'],''}<p><span><b>В стадии</b></span><i>{stripall:$item['k_state']}</i></p>{/if}
+                </section>
+            {/if}
+            
+            {if!empty $general_info}
+                <section>
+                    <p class="title">Общая информация</p>
+                    {if!eq $item['start_advert'],''}
+                        <p><span><b>Старт рекламы</b></span><i>{stripall:$item['formated_start_advert']}</i></p>
+                    {/if}
+                    {if!eq $item['start_sale'],''}
+                        <p><span><b>Старт продаж</b></span><i>{stripall:$item['formated_start_sale']}</i></p>
+                    {/if}
+                    {if!eq $item['communications'],''}
+                        <p><span><b>Коммуникации</b></span><i>{stripall:$item['communications']}</i></p>
+                    {/if}
+                    {if!eq $item['nature'],''}
+                        <p><span><b>Природа</b></span><i>{stripall:$item['nature']}</i></p>
+                    {/if}
+                    {if!eq $item['land_status'],''}
+                        <p><span><b>Статус земли</b></span><i>{stripall:$item['land_status']}</i></p>
+                    {/if}
+                    {if!eq $item['infrastructure'],''}
+                        <p><span><b>Инфраструктура</b></span><i>{stripall:$item['infrastructure']}</i></p>
+                    {/if}
+                    {if!empty $item['advert_text']}{$item['advert_text']}{/if}                
+                </section>
+           {/if}  
+</div>        

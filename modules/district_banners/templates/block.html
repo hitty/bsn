@@ -1,0 +1,12 @@
+{if!empty $item}
+        <span class="external-link"  data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="district_banners" data-id="{$item['id']}" id="district-banner-img">
+            {php:$_index = rand(0,1);}
+            <img src="{ifempty $item['img_link']}{$img_url[$_index]}{static:/}{$item['img_folder']}/{$item['img_src']}{else}{$item['img_link']}{/if}" alt="{quoted:$item['title']}" />
+            {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+        </span>
+        <div id="district-banner-text">
+            <span class="external-link"  data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="district_banner" data-id="{$item['id']}">
+                {$item['title']}
+            </span>
+        </div>
+{/if}

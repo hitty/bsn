@@ -1,0 +1,75 @@
+    <div id="item-edit-form" class="pay-wrap">
+        <h3 id="members-h2">Оплата услуги</h3>
+    
+    {if!empty  $tarif_alredy_set}
+        <div class="pay-error">
+            <p>У вас уже установлен тариф "{$auth['tarif_title']}"</p>
+        </div>
+    
+    {elseifeq $complete,'start'}
+        {if!empty $wrong_params}
+                <div class="pay-error">
+                    <p>Неверные входные данные.</p>
+                </div>
+        {else}
+        {iflt $summ_difference,1}<form method="post" action="/members/pay_tarif/success/" id="pay-form">{/if}
+            <ul class="object-statuses clearfix">
+                <li>
+                   <span class="title">Тариф "{$tarif['title']}"</span>
+                   <div class="text">
+                        <div class="raising-period-wrap">
+                            Размещение на {$period} мес
+                        </div>
+                   </div>
+                </li>
+            </ul>                   
+
+            <div class="pay-total">
+                {ifgt $summ_difference,0}
+                    <div class="pay-not-enough-money">
+                        <span>На вашем балансе недостаточно средств для оплаты данной услуги.</span>
+                        <p class="total-summ">{numeric:$summ_difference} Р</p>
+                        <a class="button blue" href="/members/pay/balance/?summ={$summ_difference}">Пополнить баланс?</a>
+                    </div>
+                {else}
+                    <p class="total-summ">{numeric:$summ} Р</p>
+                    
+                        <input type="hidden" name="id_tarif" value="{$tarif['id']}"/>
+                        <input type="hidden" name="period" value="{$period}"/>
+                        <input type="hidden" name="summ" value="{$summ}"/>
+                        <input type="submit" name="paying" value="Применить" class="button blue{ifgt $summ_difference,0} disabled{/if}"/>
+                    
+                {/if}
+            </div>
+            {iflt $summ_difference,1}</form>{/if}
+        {/if}        
+    {elseifeq $complete,'success'}
+            {if!empty $not_enough_balance}
+                <div class="pay-error">
+                    <p>Не хватает денег на счете.</p>
+                </div>
+            {elseif!empty $wrong_object}
+                <div class="pay-error">
+                    <p>Данный объект принадлежит другому пользователю.</p>
+                </div>
+            {elseif!empty $wrong_params}
+                <div class="pay-error">
+                    <p>Неверные входные данные.</p>
+                </div>
+            {else}
+                <div class="pay-success">
+                    <i data-icon="mood"></i>
+                    <p class="text">
+                        Спасибо за ваш выбор!
+                    </p>  
+                </div>
+                <script>
+                    setTimeout(function(){
+                        window.location.href = location.href.replace(location.hash, "");
+                        window.location.reload();
+                    }, 1500)    
+                </script>                   
+            {/if}
+    {/if}
+    </div>
+    

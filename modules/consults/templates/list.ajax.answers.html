@@ -1,0 +1,14 @@
+<div class="statistic-box">
+    <div class="sb-info">
+    Найдено {suffix:$full_count,'вопрос','','а','ов'} и {suffix:$full_answers_count,'ответ','','а','ов'} {if!empty $paginator}<br />Показаны <b>{$paginator['from_item']}-{$paginator['to_item']}</b>{/if}
+    </div>
+</div>
+
+<div class="consultant-list" id="ajax-search-results">
+{loop $list,$lk,$item}
+    {include /modules/consults/templates/block.item.html}
+{/loop $list}
+</div>
+
+{php:$ajax_search = true;}             
+{include /templates/includes/paginator.html}

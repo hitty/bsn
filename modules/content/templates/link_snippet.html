@@ -1,0 +1,5 @@
+<div class="item br3">
+    <span class="label">По теме</span>
+    <a class="title bbox" href="{ifempty $item['link']}/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее">{$item['title']}</a>
+    <a class="image bbox bg-cover" href="{ifempty $item['link']}/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее" class="image lazy" data-src="{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}"></a>
+</div>

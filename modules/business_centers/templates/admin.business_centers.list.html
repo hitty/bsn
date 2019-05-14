@@ -1,0 +1,145 @@
+
+<h1 class="pageTitle">Бизнес-центры</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/estate/business_centers/add/" class="button">Добавить запись</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#stady-list li').on('click',function(){
+                jQuery('#stady-list').attr('data-id',jQuery(this).attr('data-id'));
+                filter_activate();
+            })
+        });
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_manager = document.getElementById('f_manager').value;
+            var __filter_agency = document.getElementById('f_agency').value;
+            
+            var __filter_stady = jQuery('#stady-list').attr('data-id');
+            var __url = '{root:/admin/estate/business_centers/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_manager!=0) __get.push('f_manager='+__filter_manager);
+            if(__filter_agency!=0) __get.push('f_agency='+__filter_agency);
+            if(__filter_stady>0) __get.push('f_stady='+__filter_stady);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Менеджер:
+            <select id="f_manager" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">любой</option>
+                {loop $managers,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_manager'],$key} selected="selected"{/if}}>{$val}</option>
+                {/loop $managers}
+            </select>
+        </label>
+        <label>
+            Проставленное агенство:
+            <select id="f_agency" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_agency'],1} selected="selected"{/if}}>есть</option>
+                <option value="2"{ifeq $get_array['f_agency'],2} selected="selected"{/if}}>нет</option>
+            </select>
+        </label>
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="15%">
+                <col class="col1" width="25%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Адрес</th>
+                    <th>Менеджер</th>
+                    <th>Стат-ка сегодня</th>
+                    <th>Стат-ка сред. посл. 30 дней</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" class="stady-{$item['id_stady']}{ifeq $item['advanced'],1} advanced{/if}">
+                        <td>
+                            {if!empty $item['photo']}<img src="/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
+                            {$item['id']}
+                        </td>
+                        <td>
+                            <a href="/business_centers/{$item['chpu_title']}/" target="_blank">{$item['title']}</a>
+                            <br /><span style="font-style:italic;font-size: 10px ; color:#999;">Менеджер: {ifempty $managers[$item['id_manager']]}-{else}{$managers[$item['id_manager']]}{/if}</span>
+                        </td>
+                        <td>
+                            {$item['txt_addr']}
+                        </td>
+                        <td>
+                            <select class="change-manager" data-id="{$item['id']}">
+                                {loop $managers,$key,$val}
+                                    <option value="{$key}"{ifeq $key,$item['id_manager']} selected="selected"{/if}>{$val}</option>
+                                {/loop $managers}
+                            </select>
+                            <input type="button" class="save-manager" data-id="{$item['id']}" value="Сохранить">
+                        </td>
+                        <td align="center" title="в поиске/карточка за день">
+                            {$item['cnt_day']} / {$item['cnt_click_day']}
+                            <br />ctr: {ifgt $item['cnt_day'],0}
+                                            {php:echo number_format(($item['cnt_click_day']/$item['cnt_day'])*100, 2, '.', ' ')}
+                                       {else}
+                                            0
+                                       {/if} %
+                        </td>
+                        <td align="center" title="в поиске/карточка за вчера">
+                            {php:echo (int)$item['cnt_full_last_days']} / {php:echo (int)$item['cnt_click_full_last_days']}
+                            <br />ctr: {ifgt $item['cnt_full_last_days'],0}
+                                            {php:echo number_format(($item['cnt_click_full_last_days']/$item['cnt_full_last_days'])*100, 2, '.', ' ')}
+                                        {else}
+                                            0
+                                        {/if} %
+                        </td>
+
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/business_centers/stats/{$item['id']}/" title="Статистика поселка"><span class="ico_stats">Статистика поселка</span></a>
+                            <a href="/admin/estate/business_centers/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/business_centers/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            <a href="/admin/estate/business_centers/levels/?f_business_center={$item['id']}" title="Этажи БЦ"><span class="ico_bc_levels">Этажи БЦ</span></a>
+                            
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

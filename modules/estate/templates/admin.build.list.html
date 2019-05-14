@@ -1,0 +1,116 @@
+<h1 class="pageTitle">Квартиры в новостройках</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_user_id = document.getElementById('f_user_id').value;
+            var __filter_published = document.getElementById('f_published').value;
+            var __filter_agency = document.getElementById('f_agency').value;
+            var __filter_admin_moder = document.getElementById('f_admin_moder').value;
+            var __url = '{root:/admin/estate/build/}';
+            var __get = new Array();
+            if(__filter_id!='') __get.push('f_id='+__filter_id);
+            if(__filter_user_id!='') __get.push('f_user_id='+__filter_user_id);
+            if(__filter_published>=0) __get.push('f_published='+__filter_published);
+            if(parseInt(__filter_agency)>0) __get.push('f_agency='+__filter_agency);
+            if(__filter_admin_moder!=0) __get.push('f_admin_moder='+__filter_admin_moder);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            ID пользователя:
+            <input type="text" id="f_user_id" value="{$get_array['f_user_id']}" onchange="filter_activate()"  placeholder="ID пользователя">
+        </label>
+        <label>
+            ID:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID объекта">
+        </label>
+        <label>
+            Тип модерации:
+            <select id="f_admin_moder" onchange="filter_activate()" style="width: 150px;">
+                <option value="0"{ifeq $get_array['f_admin_moder'],0} selected="selected"{/if}}>все</option>
+                <option value="1"{ifeq $get_array['f_admin_moder'],1} selected="selected"{/if}}>ручная</option>
+                <option value="2"{ifeq $get_array['f_admin_moder'],2} selected="selected"{/if}}>автоматическая</option>
+            </select>
+        </label>
+        <label>
+            Состояние:
+            <select id="f_published" onchange="filter_activate()" style="width: 150px;">
+                <option value="0"{ifeq $get_array['f_published'],0} selected="selected"{/if}}>все</option>
+                <option value="1"{ifeq $get_array['f_published'],1} selected="selected"{/if}}>опубликовано</option>
+                <option value="2"{ifeq $get_array['f_published'],2} selected="selected"{/if}}>в архиве</option>
+                <option value="3"{ifeq $get_array['f_published'],3} selected="selected"{/if}}>на модерации</option>
+                <option value="3"{ifeq $get_array['f_published'],4} selected="selected"{/if}}>черновик</option>
+            </select>
+        </label>
+        <label>
+            Агентство:
+            <select id="f_agency" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_agency'],1} selected="selected"{/if}>частное лицо</option>
+                {loop $list_agencies,$key,$item}
+                    <option value="{$key}"{ifeq $get_array['f_agency'],$key} selected="selected"{/if}>{$item}</option>
+                {/loop $list_agencies}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="10%">
+                <col class="col1" width="5%">
+                <col class="col2" width="35%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col2" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Прошел модерацию</th>
+                    <th>Объект</th>
+                    <th>Адрес</th>
+                    <th>Площадь</th>
+                    <th>Цена</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}"{ifeq $item['published'],2} class="inactive"{/if}>
+                        <td align="center">
+                        	<a href="/build/sell/{$item['id']}/" target="_blank">
+                                {if!empty $item['photo']}<img src="/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
+                                {$item['id']}
+                            </a>
+                            внешний#{$item['external_id']}
+                        </td>
+                        {php: $item['date_moderated'] = (preg_match('/0000/',$item['date_moderated'])?$item['date_change']:$item['date_moderated'])}
+                        <td>{$item['date_change']}</td>
+                        <td>{$item['rooms_sale']}ккв</td>
+                        <td>{$item['txt_addr']}</td>
+                        <td class="col_sm">Общ.:{$item['square_full']}<br />Жил.:{$item['square_live']}</td>
+                        <td>{$item['cost']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/build/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/build/del/{$item['id']}/?{$get_string}" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            {ifeq $item['published'],1}
+                                <a href="/admin/estate/build/archive/{$item['id']}/?{$get_string}" title="В архив"><span class="ico_archive">В архив</span></a>
+                            {else}
+                                <a href="/admin/estate/build/restore/{$item['id']}/?{$get_string}" title="Восстановить"><span class="ico_restore">Восстановить</span></a>
+                            {/if}
+                            <a href="/admin/estate/build/remoderate/{$item['id']}/?{$get_string}" title="Отправить на перемодерацию"><span class="ico_remoderate">Отправить на перемодерацию</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

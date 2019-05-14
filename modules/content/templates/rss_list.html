@@ -1,0 +1,31 @@
+{php:echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n"}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>{if!empty $current_page['page_seo_title']}{$current_page['page_seo_title']}{elseif!empty $h1}{$h1}{else}BSN News RSS{/if}</title>
+        <link>{root:/}news_rss/</link>
+        <description>{if!empty $current_page['page_seo_description']}{$current_page['page_seo_description']}{else}BSN News RSS{/if}</description>
+        <language>ru</language>
+        <copyright>bsn.ru</copyright>
+        <generator>BSN</generator>
+        <atom:link href="{root:/}news_rss/" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>{php:echo date('r')}</lastBuildDate>
+        <ttl>30</ttl>
+        <image>
+            <url>{root:/img/layout/logo.png}</url>
+            <title>{if!empty $current_page['page_seo_title']}{$current_page['page_seo_title']}{elseif!empty $h1}{$h1}{else}BSN News RSS{/if}</title>
+            <link>{root:/}news_rss/</link>
+        </image>
+        {if!empty $list}
+        {loop $list,$listkey,$listitem}
+        <item>
+            <title>{$listitem['title']}</title>
+            <link>{root:/}news/{$listitem['category_code']}/{$listitem['region_code']}/{$listitem['chpu_title']}/</link>
+            <description>{quoted:$listitem['content_short']}</description>
+            <category>{$listitem['category_title']} / {$listitem['region_title']}</category>
+            <pubDate>{php:echo date('r', strtotime($listitem['datetime']))}</pubDate>
+            <guid>{root:/}news/{$listitem['category_code']}/{$listitem['region_code']}/{$listitem['chpu_title']}/</guid>
+        </item>
+        {/loop $list}
+        {/if}
+    </channel>
+</rss>

@@ -1,0 +1,10 @@
+{if!empty $list}
+<div class="agency-promotions">
+    <h2>{ifeq $type,'other_agencies'}Акции других компаний{elseifeq $type,'agency'}Другие акции компании{/if} </h2>
+    <div class="promotions-list short">
+        {loop $list,$k,$item}
+            {include /modules/promotions/templates/list.block.item.html}
+        {/loop $list}       
+     </div>       
+</div>
+{/if}

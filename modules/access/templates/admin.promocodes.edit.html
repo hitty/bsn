@@ -1,0 +1,37 @@
+<h1 class="pageTitle">Промо-коды</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/access/users/promocodes/add/">
+    <h3>Новый промо-код</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/access/users/promocodes/edit/{$data_mapping['id']['value']}/">
+    <h3>Промо-код #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+</form>
+<script>
+jQuery('#type').on('change', function(){
+    jQuery('#p_field_summ,#p_field_percent,#p_field_min_summ').hide();
+    if(jQuery(this).val() == 1) jQuery('#p_field_summ').show();
+    else if(jQuery(this).val() == 2) jQuery('#p_field_percent,#p_field_min_summ').show();
+})
+</script>

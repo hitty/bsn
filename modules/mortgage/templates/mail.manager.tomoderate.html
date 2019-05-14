@@ -1,0 +1,25 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Необходимо проверить новую <a href="https://www.bsn.ru{$data['edit_url']}" target="_blank">заявку на ипотеку</a>:
+        <br /><br />
+        {if!empty $data['user_fio']}
+            <p>ФИО: {$data['user_fio']}</p>
+        {/if}
+        {if!empty $data['user_phone']}
+            <p>Телефон: {$data['user_phone']}</p>
+        {/if}
+        {if!empty $data['user_email']}
+            <p>Email: {$data['user_email']}</p>
+        {/if}
+        {if!empty $data['user_comment']}
+            <p>Комментарий: {$data['user_comment']}</p>
+        {/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

@@ -1,0 +1,83 @@
+<a name="comments" id="comments"></a>
+
+{ifempty $only_comments}
+    <a name="leave-comment"></a>
+    <div class="form">      
+                      
+            
+        <div class="text-wrap clearfix br-3 bbox">
+            <textarea rows="3" data-autoresize {ifempty $auth_data['id']}class="unauthorized"{/if} id="comment_text" name="comment_text" placeholder="{ifempty $feedback}Комментарий{else}Ваш отзыв{/if}">{$form_vars['text']}</textarea>
+            {ifempty $auth_data['id']}
+                    <input type="text" name="author_name" required="required" placeholder="Имя">
+                    <input type="email" name="author_email" placeholder="Email (необязательно)">
+            {/if}
+            <button type="submit" class="medium" value="Отправить{ifempty $feedback} комментарий{else} отзыв{/if}">Отправить{ifempty $feedback} комментарий{else} отзыв{/if}</button>
+        </div>
+    </div>
+{else}
+    {if!empty $comments_list}<span class="dashed-link-blue read-more-comments">Читать все отзывы</span>{/if}
+{/if}
+{if!empty $comments_list}    
+    {php:$cv['can_vote'] = true;}
+    {loop $comments_list,$ck,$cv}               
+        {php:$show_comment = empty($only_comments) || $ck < 3}
+        {if!empty $show_comment}
+        <a name="comment{$cv['id']}" id="comment{$cv['id']}"></a>
+        <div class="item clearfix transition" id="cid{$cv['id']}" data-id-parent="{$cv['id']}">
+            {ifempty $only_comments}
+                <div class="vote-for" data-id="{$cv['id']}">
+                    {if!empty $cv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$cv['id_user']}<span class="vote-for-minus" data-icon="keyboard_arrow_down"></span>{/if}{/if}{/if}
+                    <span class="vote-container bbox{if!empty $cv['voted_plus']} plus{elseif!empty $cv['voted_minus']} minus{/if}">{$cv['all_votes']}</span>
+                    {if!empty $cv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$cv['id_user']}<span class="vote-for-plus" data-icon="keyboard_arrow_up"></span>{/if}{/if}{/if}
+                </div>
+            {/if}
+            <div class="avatar" {ifempty $cv['photo']}data-icon="person_outline"{/if}>
+                {if!empty $cv['photo']}<img src="/img/uploads/big/{$cv['subfolder']}/{$cv['photo']}" alt="{$cv['name']} {$cv['lastname']}">{/if}
+            </div>
+            <div class="comment_text">
+                <span class="username">{$cv['author_name']}</span>
+                <span class="userdata">{$cv['normal_datetime']}</span>
+                <div class="text">{strip:$cv['comments_text']}</div>
+            </div>
+            <span class="reply" data-icon="reply"><i>Ответить</i><i class="hidden">Не отвечать</i></span>
+            
+        </div>
+        <div class="clearfix"></div>
+        {if!empty $cv['childs']}
+            {php:$childs=$cv['childs']}
+            {loop $childs,$cck,$ccv}
+                <a name="comment{$ccv['id']}" id="comment{$ccv['id']}"></a>
+                <div class="item clearfix child transition" id="cid{$ccv['id']}" data-id-parent="{$cv['id']}" data-id-answer="{$ccv['id']}">
+                    {ifempty $only_comments}
+                        <div class="vote-for" data-id="{$ccv['id']}">
+                            {if!empty $ccv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$ccv['id_user']}<span class="vote-for-minus"  data-icon="keyboard_arrow_down"></span>{/if}{/if}{/if}
+                            <span class="vote-container bbox{if!empty $cv['voted_plus']} plus{elseif!empty $cv['voted_minus']} minus{/if}">{$ccv['all_votes']}</span>
+                            {if!empty $ccv['can_vote']}{if!empty $auth['id']}{if!eq $auth['id'],$ccv['id_user']}<span class="vote-for-plus" data-icon="keyboard_arrow_up"></span>{/if}{/if}{/if}
+                        </div>
+                    {/if}
+                    <div class="avatar" {ifempty $ccv['photo']}data-icon="person_outline"{/if}>
+                        {if!empty $ccv['photo']}<img src="/img/uploads/big/{$ccv['subfolder']}/{$ccv['photo']}" alt="{$ccv['name']} {$ccv['lastname']}">{/if}
+                    </div>
+                    <div class="comment_text">
+                        <span class="username">{$ccv['author_name']}</span>
+                        <span class="userdata">{$ccv['normal_datetime']}</span>
+                        <div class="text">{strip:$ccv['comments_text']}</div>
+                    </div>
+                    <span class="reply" data-icon="reply"><i>Ответить</i><i class="hidden">Не отвечать</i></span>
+                </div>
+                <div class="clearfix"></div>
+            {/loop $childs}
+        {/if}
+        {/if}
+    {/loop $comments_list}
+{/if}
+<script>
+    jQuery.each(jQuery('textarea[data-autoresize]'), function() {
+        var offset = this.offsetHeight - this.clientHeight;
+     
+        var resizeTextarea = function(el) {
+            jQuery(el).css('height', 'auto').css('height', el.scrollHeight + offset);
+        };
+        jQuery(this).on('keyup input', function() { resizeTextarea(this); }).removeAttr('data-autoresize');
+    }); 
+</script>   

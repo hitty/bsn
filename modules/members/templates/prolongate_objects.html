@@ -1,0 +1,44 @@
+<div class="head-block">
+    <span class="head-block__image"></span>
+    <div class="circle-for-shadow"></div>
+    <span class="head-block__title">Продление платных услуг</span>
+    {if!empty $discount}
+        <span class="head-block__discount-title">Ваша персональная скидка — {$discount}%</span>
+    {/if}
+</div>
+<div class="objects-block">
+    {php: $objects_info = $user_info['objects_info'];}
+    {php: $costs = $user_info['cost'];}
+    {php: $statuses = $user_info['statuses'];}
+    {php: $status_aliases = $user_info['status_alias'];}
+    {loop $objects_info,$status,$values}
+        <div class="objects-block__status-box {$status_aliases[$status]}">
+            {if $status == 1}
+                {php: $single_cost = $user_info['raising_cost'];}
+            {else}
+                {php: $single_cost = $costs[$status]/count($values);}
+            {/if}
+            
+            <span class="box_title">{$statuses[$status]}</span>
+            {loop $values,$k,$v}
+                <div class="box_element">
+                    <span class="id"><a href="{$v['link']}">ID{$v['id']}</a></span>
+                    <span class="tags_data">{$v['tags_data']}</span>
+                    <span class="address">{$v['address']}</span>
+                    <span class="cost">{$single_cost}<span class="rur">a</span></span>
+                </div>
+            {/loop $values}
+            <span class="box_total-sum">{$costs[$status]}<span class="rur">a</span></span>
+        </div>
+    {/loop $objects_info}
+    <span class="objects-block__total-sum">Итого: <i>{$user_info['full_cost']}</i><span class="rur">a</span></span>
+</div>
+<div class="objects-pay-block">
+    <span class="objects-pay-block__title">На балансе вашего аккаунта {suffix:$user_info['balance'],'рубл','ь','я','ей'}</span>
+    <span class="objects-pay-block__sum">К оплате: <i>{$full_cost_w_discount}</i><span class="rur">a</span></span>
+    {if!empty $pay_url}
+        <a class="button green prolongate-pay" href="{$pay_url}" title="Продлить{if!empty $discount} со скидкой {$discount}%{/if}">Продлить{if!empty $discount} со скидкой {$discount}%{/if}</a>
+    {else}
+        <a class="button green to-auth" href="{$balance_url}">Авторизоваться и пополнить баланс</a>
+    {/if}
+</div>

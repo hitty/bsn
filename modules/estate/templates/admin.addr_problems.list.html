@@ -1,0 +1,134 @@
+<h1 class="pageTitle">{$list_title} (проблемы в распознавании адресов)</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_id_user = document.getElementById('f_user_id').value;
+            var __url = '{root:/admin/estate/' + jQuery('.filter_line').attr('data-estate') + '/addr_problems/}';
+            var __get = new Array();
+            if(__filter_id!='') __get.push('f_id='+__filter_id);
+            if(__filter_id_user!='') __get.push('f_user_id='+__filter_id_user);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line" id="filter_line" data-estate="{$estate}">
+        <label>
+            ID пользователя:
+            <input type="text" id="f_user_id" value="{$get_array['f_user_id']}" onchange="filter_activate()"  placeholder="ID пользователя">
+        </label>
+        <label>
+            ID объекта:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID объекта">
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="5%">
+                <col class="col2" width="20%">
+                <col class="col2" width="5%">
+                <col class="col1" width="25%">
+                <col class="col2" width="25%">
+                <col class="col1" width="5%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Внешний ID</th>
+                    <th>Чей объект</th>
+                    <th>Источник</th>
+                    <th>Представление адреса</th>
+                    <th>Распознанный адрес</th>
+                    <th>Всего строк</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}"{ifeq $item['published'],2} class="inactive"{/if} data-id-user={$item['id_user']} data-district-title="{$item['district_title']}">
+                        <td><a href="/admin/estate/{$estate}/edit/{$item['id']}/" target="blank">#{$item['id']}</a><br/><a href="/{$estate}/{$item['rent']}/{$item['id']}/" target="blank">карточка</a></td>
+                        <td>{$item['external_id']}</td>
+                        <td>{if!empty $item['id_agency']}#{$item['id_agency']} <a href="/admin/access/agencies/edit/{$item['id_agency']}/">{$item['agency_title']}</a>
+                            {else}<a href="/admin/access/users/edit/{$item['id_user']}/">#{$item['id_user']}</a>{/if}
+                        </td>
+                        <td>{$item['source']}</td>
+                        <td><xmp class="addr-source {ifempty $item['addr_source']}no-source{/if}">{ifempty $item['addr_source']}{$item['txt_addr']}{else}{$item['addr_source']}{/if}</xmp></td>
+                        <td class="addr-info">
+                            <span>{$item['generated_addr']}</span>
+                            {if!empty $item['addr_variants']}
+                                <span class="addr-variants" data-href="/admin/estate/live/addr_problems/edit/{$item['id']}/">
+                                {php:$variants = $item['addr_variants'];}
+                                {loop $variants,$k,$var}
+                                    <span class="a-level-group">
+                                        {php: $a_level_group = $var;}
+                                        {loop $a_level_group,$i,$addr}
+                                            <i class="addr-variant" data-id="{$addr['id']}">{$addr['txt_addr']}</i>
+                                        {/loop $a_level_group}
+                                    </span>
+                                {/loop $variants}
+                                </span>
+                            {/if}
+                        </td>
+                        <td>{$item['amount']}</td>
+                        <td class="small_icons ac">
+                            {if!empty $item['addr_variants']}
+                                <a title="Показать варианты"><span class="ico_variants">Показать варианты</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>
+<script>
+    jQuery(document).ready(function(){
+        //назначаем объектам выбранный адрес
+        jQuery('.addr-variant').on('click',function(){
+            var _target = jQuery(this);
+            if(_target.attr('data-id')===undefined) return false;
+            if(!confirm("Вы уверены что хотите назначить этот адрес: \""+_target.html()+"\"")) return false;
+            //если район указан, спрашиваем, нужно ли его сохранить
+            if(_target.parents('tr').attr('data-district-title')!=="")
+                _update_district = (!confirm("Вы хотите сохранить тот же район: "+_target.parents('tr').attr('data-district-title')+" ?"));
+            else _update_district = false;
+            //18862375
+            jQuery.ajax({
+                type: "POST", async: true,
+                dataType: 'json', url: _target.parents('.addr-variants').attr('data-href'),
+                data: {ajax: true,
+                       geo_id:_target.attr('data-id'),
+                       object_id:_target.parents('tr').children().eq(0).children().html(),
+                       user_id:_target.parents('tr').attr('data-id-user'),
+                       addr_source:_target.parents('tr').children().eq(4).children().html(),
+                       no_source:_target.parents('tr').find('.addr-source').hasClass('no-source'),
+                       update_district:_update_district},
+                success: function(msg){
+                    if(typeof(msg)=='object') {
+                        if(msg.ok) {
+                            if(msg.success){
+                                alert('адрес назначен всем '+msg.amount+' объектам этой группы');
+                                _obj = _target.parents('tr');
+                                _obj.fadeOut(500,function(){
+                                    _obj.remove();
+                                });
+                            }
+                        } else alert('Ошибка: '+msg.error);
+                    } else alert('Ошибка!');
+                },
+                error: function(){
+                    alert('Server connection error!');
+                },
+                complete: function(){
+                }
+            });
+        });
+    });
+</script>

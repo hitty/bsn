@@ -1,0 +1,75 @@
+<h1 class="pageTitle">Изменения в проектах</h1>
+<!--<p>Тут можно разместить описательный блок, номер версии, хотлинки и т.п.</p>-->
+<div class="caption_line"><a href="/admin/content/changes/add/" class="button">Добавить статью</a></div>
+<div class="list_table">
+    <script>
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_date = document.getElementById('f_date').value;
+            var __filter_project = document.getElementById('f_project').options[document.getElementById('f_project').selectedIndex].value;
+            var __url = '{root:/admin/content/changes/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_date!='') __get.push('f_date='+__filter_date);
+            if(__filter_project!=0) __get.push('f_project='+__filter_project);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Дата:
+            <input type="text" id="f_date" value="{$get_array['f_date']}" onchange="filter_activate()" placeholder="часть даты">
+        </label>
+        <label>
+            Проект:
+            <select id="f_project" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $projects_list,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_project'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $projects_list}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="20%">
+                <col class="col2" width="30%">
+                <col class="col1" width="35%">
+                <col class="col1" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Проект</th>
+                    <th>Заголовок</th>
+                    <th>Описание</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" {ifeq $item['published'],1}class="report-published"{else}class="report-archive"{/if}>
+                        <td>{$item['id']}</td>
+                        <td>{$item['project_title']}</td>
+                        <td>{$item['title']}</td>
+                        <td>{$item['content_short']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/changes/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/changes/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table> 
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

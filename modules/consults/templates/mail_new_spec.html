@@ -1,0 +1,19 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Здравствуйте{if!empty $env['name']}, {$env['name']}{/if}!<br>
+    </td>
+</tr>
+<tr>
+    <td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+    Ранее Вы консультировали пользователей нашего сайта по юридическим вопросам. <br /><br />
+    Мы запустили удобный личный кабинет с возможностью быстрого ответа и другими полезными функциями. Приглашаем Вас начать пользоваться нашим сайтом и получить потенциальных клиентов. <br /><br />
+    Для этого мы уже зарегистрировали Вас на портале bsn.ru. Регистрация будет считаться завершенной при первом входе в созданный аккаунт.<br /><br />
+    Данные для входа:<br />
+    <font size="+1">
+    Логин: {$reg_data['email']}<br />
+    Пароль: {$reg_data['password']}<br />
+    </font>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

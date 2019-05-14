@@ -1,0 +1,95 @@
+{if!empty $item}
+    <div class="float-callback-block{if!empty $item['initial_bordercolor']} w-border{/if}" style="background-color:#{$item['background_color']}!important;border-bottom-color:#{$item['top_color']}!important;">
+        <span class="top-block" style="background-color:#{$item['top_color']}!important">
+            <span class="top-block_agency-phone">{$item['agency_phone']}</span>
+            <span class="top-block_agency-title">{$item['agency_title']}</span>
+        </span>
+        <span class="bottom-block" data-id="{$item['id']}" data-agency-id="{$item['agency_id']}" style="background-color:#{$item['background_color']}!important;{if!empty $item['initial_bordercolor']}border-color:#{$item['initial_bordercolor']}{/if}">
+            <span class="bottom-block_title">Оставьте телефон и мы перезвоним!</span>
+            <input class="bottom-block_user-phone" type="phone">
+            <span class="button green" style="background-color:#{$item['button_color']}!important;color:#{$item['button_text_color']}">Перезвоните мне</span>
+            {if!empty $item['direct_link']}<span class="external-link" data-link="{$item['direct_link']}">Перейти на страницу акции</span>{/if}
+        </span>
+    </div>
+    <span class="float-title" style="background-color:#{$item['top_color']};color:#FFF;{if!empty $item['initial_bordercolor']}border:1px solid #{$item['initial_bordercolor']};width:248px;{/if}">
+        {if!empty $item['title']}<span>{$item['title']}</span>{/if}
+    </span>
+{/if}
+<script>
+    jQuery(document).ready(function(){
+        if(jQuery('.bottom-block_user-phone').length > 0){
+            if(jQuery('.bottom-block_user-phone').val()=='')  jQuery('.bottom-block_user-phone').val('8');
+            jQuery('.bottom-block_user-phone').mask('8 (000) 000-00-00', {placeholder: "8 (___) ___-__-__"});
+        }
+        jQuery(document).on('mouseenter','.tgb-float-left',function(e){
+            jQuery(this).addClass('hovered');
+            if(jQuery(this).hasClass('active') && jQuery(this).children('.float-callback-block').hasClass('active')) return true;
+            //else if(jQuery(e.target).hasClass('float-title')) jQuery(e.target).siblings('.float-callback-block').addClass('active');  
+            else  jQuery('.tgb-float-left .float-callback-block').addClass('active');  
+            
+            try{
+                if(_tgb_float_timeout !== undefined) clearTimeout(_tgb_float_timeout);
+            }
+            catch(e){
+                
+            }
+        });
+        
+        jQuery(document).on('mouseleave','.tgb-float-left',function(e){
+            jQuery(this).removeClass('hovered');
+            //если через 3 секунды мышь будет не на этой штуке, прячем
+            _tgb_float_timeout = setTimeout("if(!jQuery('.tgb-float-left').hasClass('hovered')) jQuery('.tgb-float-left').children('.float-callback-block').removeClass('active',300,'easeInBack')",500);
+        });
+        
+        //раскрытие формы - показ телефона
+        jQuery(document).on('click','.tgb-float-left .float-title',function(e){
+            var _callback_block = jQuery(this).siblings('.float-callback-block');
+            
+            _callback_block.toggleClass('active');
+            //пишем только если открываем
+            if(!_callback_block.hasClass('active')) return true;
+            jQuery.ajax({
+                type: "POST", dataType: 'json',
+                async: true, cache: false,
+                url: '/tgb_float/show-phone/',                                                               
+                data: {ajax: true, id: _callback_block.children('.bottom-block').attr('data-id')},
+                success: function(msg){
+                    if(typeof(msg)=='object' && msg.ok) {
+                        
+                    } else alert('Ошибка запроса к серверу!');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log('Запрос не выполнен!');
+                },
+                complete: function(){
+                }
+            });
+        });
+        
+        //отправка телефона пользователя
+        jQuery(document).on('click','.tgb-float-left .button.green',function(){
+            var _input = jQuery(this).siblings('input');
+            if(_input.val().length != 17){
+                _input.addClass('error');
+                return false;
+            }
+            jQuery.ajax({
+                type: "POST", dataType: 'json',
+                async: true, cache: false,
+                url: '/tgb_float/accept-phone/',
+                data: {ajax: true, id: jQuery(this).parent().attr('data-id'), phone:_input.val()},
+                success: function(msg){
+                    if(typeof(msg)=='object' && msg.ok) {
+                        jQuery('.float-callback-block .bottom-block').html("").append("<span class='callback-success-notify'>Не перезвонили?</span><span class='callback-success-notify'>Оставьте заявку в компанию!</span><span id=\"application-button\" class=\"button green public\" onclick=\"try{jQuery('.tgb-popup.active').hide();setTimeout(jQuery('.tgb-popup.active').remove(),500);jQuery('#background-shadow-expanded').remove(); yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }\">Оставить заявку</span>");
+                        jQuery('.float-callback-block .bottom-block #application-button').attr('data-agency-id',jQuery('.float-callback-block .bottom-block').attr('data-agency-id'));
+                    } else alert('Ошибка запроса к серверу!');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log('Запрос не выполнен!');
+                },
+                complete: function(){
+                }
+            });
+        });
+    });
+</script>

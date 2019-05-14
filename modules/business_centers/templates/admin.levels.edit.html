@@ -1,0 +1,214 @@
+<h1 class="pageTitle">Бизнес-центр | Этаж</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/estate/business_centers/levels/add/" enctype="multipart/form-data">
+    <h3>Новый этаж</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/estate/business_centers/levels/edit/{$data_mapping['id']['value']}/"  id="business_centers_levels_form" enctype="multipart/form-data">
+    <h3>Этаж #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <fieldset>
+    <p class="title_row">Изображение этажа</p>
+    <span class="lf fieldwrapper{if!empty $data_mapping['img_link']['value']} business-centers-add-photo{/if}" style="display: block;">
+        <br />Загрузить изображение
+        <input type="file" placeholder="" value="{$data_mapping['img_link']['value']}" name="img_link" id="img_link" class="lf" style="display: block;">
+        {if!empty $data_mapping['img_link']['error']}
+            <span class="small_text red">{$data_mapping['img_link']['error']}</span>
+        {/if}
+    </span>
+
+    <p style="display:block; clear:both;" id="p_field_position_in_head" title="если задана ссылка на картинку, то загруженное изображение не выводится, т.е. приоритет у ссылки на картинку">
+        {if!empty $data_mapping['img_link']['value']}
+            <div class="" style="width: 800px; height: {$imginfo[1]}px; display: inline-block; float:left;">
+            </div>
+            <div class="ajax-items offices-list manage {if!empty $bc_owner} bc-owner{/if}" style="">
+                    <div class="header">
+                        <i>ID</i>
+                        <span class="square">Площадь</span>
+                        <span class="number">№</span>
+                        <span class="cost">Ставка</span>
+                        <span class="cost_meter">За месяц</span>
+                        <span class="status">Сдан</span>
+                        <span class="object_type">Тип объекта</span>
+                        <span class="floor">Потолок</span>
+                        <span class="id_facing">ремонт</span>
+                        <span class="photos">фото</span>
+                        <span class="id_object">ID объекта</span>
+                    </div>
+                    <div class="list">
+                {loop $offices, $k, $office}
+                        <div class="item" id="item-{$office['id']}" data-id="{$office['id']}">
+                            <i>{$office['id']}</i>
+                            <span class="square">{$office['square']}</span>
+                            <input name="square_{$office['id']}" value="{$office['square']}" type="text">
+                            <span class="number">{$office['number']}</span>
+                            <input name="number_{$office['id']}" value="{$office['number']}" type="text">
+                            <span class="cost_meter">{$office['cost_meter']}</span>
+                            <input name="cost_meter_{$office['id']}" value="{$office['cost_meter']}" type="text">
+                            <span class="cost">{$office['cost']}</span>
+                            <input name="cost_{$office['id']}" value="{$office['cost']}" type="text">
+                            <span class="status"><input name="status_{$office['id']}" type="checkbox" {ifeq $office['status'],1}checked="checked"{/if} value="1" /></span>
+                            <span class="object_type">
+                                <select name="object_type_{$office['id']}" id="object_type_{$office['id']}"> 
+                                    <option value="1" {ifeq $office['object_type'],1}selected="selected"{/if}>офис</option>    
+                                    <option value="2" {ifeq $office['object_type'],2}selected="selected"{/if}>подс.пом.</option>    
+                                </select>
+                            </span>
+                            <span class="floor">{$office['floor']}</span>
+                            <input name="floor_{$office['id']}" value="{$office['floor']}" type="text">
+                            <span class="id_facing">
+                                <select name="id_facing_{$office['id']}" id="id_facing_{$office['id']}"> 
+                                    <option value="0" {ifempty $office['id_facing']}selected="selected"{/if}>-выбрать-</option>    
+                                    <option value="2" {ifeq $office['id_facing'],2}selected="selected"{/if}>требуется</option>    
+                                    <option value="4" {ifeq $office['id_facing'],4}selected="selected"{/if}>"евро"</option>    
+                                    <option value="5" {ifeq $office['id_facing'],5}selected="selected"{/if}>хороший</option>    
+                                    <option value="6" {ifeq $office['id_facing'],6}selected="selected"{/if}>отличный</option>    
+                                    <option value="7" {ifeq $office['id_facing'],7}selected="selected"{/if}>обычный</option>    
+                                    <option value="10" {ifeq $office['id_facing'],10}selected="selected"{/if}>косметический</option>    
+                                </select>
+                            </span>
+                            <span class="photos">
+                                <input type="file" name="file_upload" id="file_upload_{$office['id']}" data-id="{$office['id']}" data-url="/admin/estate/business_centers/levels/photos/" data-session-id="{php:echo session_id();}" />    
+                            </span>
+                            <span class="id_object">{$office['id_object']}</span>
+                            <input name="id_object_{$office['id']}" value="{$office['id_object']}" type="text">
+                        </div>
+                {/loop $offices}
+                    </div>
+            </div>
+        {/if}
+    </p>
+    </fieldset>
+    <p>
+        <input type="submit" value="Сохранить" name="submit">
+    </p>    
+     
+</form>                      
+{if!empty $data_mapping['img_link']['value']}
+<div id="wrapper" style="height: {$imginfo[1]}px;">
+                <header id="header">
+                    <nav id="nav" class="clearfix">
+                        <ul>
+                            <li id="save"><a href="#">Сохранить планы</a></li>
+                            <li id="load"><a href="#">load</a></li>
+                            <li id="from_html"><a href="#">from html</a></li>
+                            <li id="rect"><a href="#">Прямоугольник</a></li>
+                            <li id="polygon"><a href="#">Полилиния</a></li>
+                            <li id="edit"><a href="#">Редактировать</a></li>
+                            <li id="to_html"><a href="#">to html</a></li>
+                        </ul>
+                    </nav>
+                    <div id="coords"></div>
+                    <div id="debug"></div>
+                </header>    
+                <div id="image_wrapper">
+                    <div id="image" data-id="{$data_mapping['id']['value']}">
+                        <img src="{static:/}{$img_folder}/{$data_mapping['img_link']['value']}" alt="#" id="img" />
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" id="svg"></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- For html image map code -->
+            <div id="code">
+                <span class="close_button" title="close"></span>
+                <div id="code_content"></div>
+            </div>
+
+            <!-- Edit details block -->
+            <form id="edit_details">
+                <h5 id="h5">Attrubutes</h5>
+                <span class="close_button" title="close"></span>
+                <p>
+                    <label for="href_attr">href</label>
+                    <input type="text" id="href_attr" />
+                </p>
+                <p>
+                    <label for="alt_attr">alt</label>
+                    <input type="text" id="alt_attr" />
+                </p>
+                <p>
+                    <label for="title_attr">title</label>
+                    <input type="text" id="title_attr" />
+                </p>
+                <button id="save_details">Save</button>
+            </form>
+
+            <!-- From html block -->
+            <div id="from_html_wrapper">
+                <form id="from_html_form">
+                    <h5>Loading areas</h5>
+                    <span class="close_button" title="close"></span>
+                    <div id="load-html">
+                        {if!empty $offices}
+                            {loop $offices, $k, $office}
+                                <area shape="{$office['draw_type']}" coords="{$office['coords']}" id="{$office['id']}" />
+                            {/loop $offices}
+                        {/if}
+                    </div>
+                    
+                    <p>
+                        <label for="code_input">Enter your html code:</label>
+                        <textarea id="code_input">
+                            
+                        </textarea>
+                    </p>
+                    <button id="load_code_button">Load</button>
+                </form>
+            </div>
+              
+            <!-- Get image form -->
+            <div id="get_image_wrapper">
+                <div id="get_image">
+                    <div id="logo_get_image">
+                        
+                    </div>
+                    <div id="loading">Loading</div>
+                    <div id="file_reader_support">
+                        <label>Drag an image</label>
+                        <div id="dropzone">
+                            <span class="clear_button" title="clear">x</span> 
+                            <img src="" alt="preview" id="sm_img" />
+                        </div>
+                        <b>or</b>
+                    </div>
+                    <label for="url">type a url</label>
+                    <span id="url_wrapper">
+                        <span class="clear_button" title="clear">x</span>
+                        <input type="text" id="url" />
+                    </span>
+                    <button id="button">OK</button>
+                </div>
+            </div>
+
+            <!-- Help block -->
+            <div id="overlay"></div>
+            <script type="text/javascript" src="/modules/business_centers/svg.drawing.js"></script>
+            <script>
+                jQuery(document).ready(function(e){
+                    jQuery('#load_code_button').click(e); 
+                    return false;                   
+                })
+            </script>
+          
+ {/if}            

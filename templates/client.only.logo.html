@@ -1,0 +1,66 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body id="clean-template-only-logo" class="{if!empty $payed_format} payed-format{/if}{if!empty $wide_format} wide-format{/if}">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2XGJGQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {if!empty $payed_format}                  
+        {ifempty $wide_format}
+            <div class="fullscreen-banner bg-cover lazy"{if!empty $photos[0]} data-src="/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}"{/if}></div>
+        {/if}
+    {/if}    
+    
+    <header>
+        <div class="topmenu">
+            <div class="logo-box">
+                <span class="svg" title="На главную"></span>
+                
+            </div> 
+        </div>
+    </header>
+    
+    <div class="shadow-wrapper" id="shadow-wrapper">
+
+        <div class="content">
+            <div class="main-content clearfix">
+                <div class="left-wrapper" data-sticky_parent>
+                    
+                    {include /templates/includes/main_menu_part.html}
+                    
+                    <div class="central-column"> 
+                        {$content}
+                    </div> <!--/.central-column-->
+                    
+                   <div class="left-column">
+                        <div id="left-column" >
+                        </div>
+                   </div>
+                           
+                </div> <!--/.left-wrapper-->
+                <div class="right-column">
+                    <div id="right-column">
+                    </div>
+                </div>
+                       
+            </div> <!--/.main-content-->      
+           
+           
+        </div>
+          
+       
+    </div>
+    <!--/.content-->
+    
+    <footer>
+        <div class="inner">
+            <b>1999 - {php:echo date('Y');} &copy; Большой Сервер Недвижимости</b><br />
+            BSN.RU — информационно-аналитический портал по недвижимости.<br />
+            Использование всех материалов сайта, в том числе размещенных объявлений,<br />
+            возможно только с разрешения администрации сайта либо с указанием ссылки на источник.
+        </div>        
+    </footer>
+    {if!empty $debug}<div id="debug"></div>{/if}
+</body>
+</html>

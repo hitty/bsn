@@ -1,0 +1,19 @@
+<header>
+
+    <div class="inner-wrapper">
+        <ul class="menu">
+        {loop $statuses_list, $k, $status}
+            <li class="status-{$status['status']}">
+                <span class="title">{$status['title']}</span>
+                <span class="count">{$status['amount']}</span>
+            </li>
+        {/loop $statuses_list}    
+        </ul>
+        <img src="/modules/invest/img/logo.png" alt="" class="logo" />
+        <span class="slogan">Investment projects of Saint Petersburg</span>
+    </div>
+            
+    
+</header>
+<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=en" type="text/javascript"></script>
+<div id="map-wrapper"></div>

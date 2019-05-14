@@ -1,0 +1,18 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Уважаемый партнер!    
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+Срок действия тарифа <i>«{$item['tarif_title']}»</i> истекает <b>{$item['tarif_end']}</b>
+<br />Обратитесь к вашему менеджеру {$item['manager_name']} о согласовании дальнейшего размещения.
+<br /><br />
+Контакты менеджера <b>{$item['manager_name']}</b><br />
+Телефон: +7 (812) 655-02-13
+{if!empty $item['manager_email']}<br />Email: {$item['manager_email']}{/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

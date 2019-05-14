@@ -1,0 +1,37 @@
+{if!empty $list}
+    {loop $list,$key,$item}
+        <div class="item{ifgt $item['videos_count'],0} with-video{/if} {$item['highlighting']}">
+            <a href="/business_centers/{$item['chpu_title']}/" target="_blank" title="{$item['title']}"></a>
+            <span class="image{ifgt $item['videos_count'],0} with-video{/if} lazy" data-src="//st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}"></span>
+            {php:$media_show = !empty($item['photos_count']) || !empty($item['videos_count']) || !empty($item['comments_objects']);}
+            {if!empty $media_show}
+                <div class="media-wrap">
+                    {if!empty $item['photos_count']}<i class="photos" title="Фотографии">{$item['photos_count']}</i>{/if}
+                    {if!empty $item['videos_count']}<i class="videos" title="Видео"></i>{/if}
+                    {if!empty $item['comments_objects']}<i class="comments" title="Комментарии">{$item['comments_objects']}</i>{/if}
+                </div>
+            {/if}
+            <div class="bg-wrap">
+                <span class="lazy" data-src="//st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}"></span>
+            </div>
+            <div class="content">
+                {if!empty $item['title']}<p class="title">«{$item['title']}»</p>{/if}
+                {if!empty $item['class']}
+                    <p class="object-type">
+                        <span class="blue-tag">
+                        <b>{$item['class']}</b> класс
+                        </span>
+                    </p>
+                {/if}
+                
+                {if!empty $item['min_cost_objects']}
+                    <p class="object-cost">
+                        от {numberformat: $item['min_cost_objects']}
+                         Р
+                    </p>
+                {/if}
+                
+            </div>
+        </div>
+    {/loop $list}
+{/if}

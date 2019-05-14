@@ -1,0 +1,16 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    <b>Добрый день!</b>    
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Поступила новая заявка на ипотеку.<br /><br />
+        {if!empty $banks_list}
+            Письма-оповещения отправлены банкам:<br />
+            {$banks_list}
+        {/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

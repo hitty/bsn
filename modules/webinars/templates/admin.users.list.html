@@ -1,0 +1,72 @@
+{if!empty $h1}<h1 class="pageTitle">{$h1}</h1>{/if}
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление события не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление события #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/service/webinars/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_webinar = document.getElementById('f_webinar').value;
+            var __url = '{root:/admin/service/webinars/users/}';
+            var __get = new Array();
+            if(__filter_webinar!='') __get.push('f_webinar='+__filter_webinar);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Вебинары:
+            <select id="f_webinar" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $webinars,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_webinar'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $webinars}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="30%">
+                <col class="col2" width="40%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО, email</th>
+                    <th>Вебинар</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['user_name']}<br /><a href="mailto:{$item['email']}" title="">{$item['email']}</a></td>
+                        <td>{$item['webinar_title']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/service/webinars/users/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

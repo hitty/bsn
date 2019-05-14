@@ -1,0 +1,18 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    <b>Уважаемый партнёр!</b>!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        {php: $questions_amount = count($questions_list);}
+        В общий доступ {ifeq $questions_amount,1}поступил вопрос{else}поступили вопросы{/if}:
+        {loop $questions_list,$key,$item}
+            <p>Вопрос из раздела "{$item['category_title']}": {$item['question']}</p>
+        {/loop $questions_list}
+        <br />
+        <p>Вы можете взять {ifeq $questions_amount,1}его{else}их{/if} в работу на общих основаниях, ответы могут давать и другие специалисты.</p>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

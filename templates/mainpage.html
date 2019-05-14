@@ -1,0 +1,57 @@
+{include /templates/includes/main_head_part.html}
+
+</head>
+<body class="mainpage">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2XGJGQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {include /templates/includes/main_header_part.html}
+    <div class="central-column">
+        <span class="h1-title">Квартира мечты ближе, чем ты думаешь!</span>
+        
+        {include /templates/includes/estate_search_form.html}
+
+        <section class="tgb-list in-row">
+            {block tgb/top}
+        </section>
+
+        <section id="last-housing-estates-data" class="estate-highlighted-list clearfix">
+            <h2 class="inner">Жилые комплексы</h2>
+            {block zhiloy_kompleks/block/mainpage/4}
+        </section>
+    
+        <section>
+            <h2 class="inner">Медиа</h2>
+            <div class="content-wrapper">
+                {block media/block/hub/7}
+            </div>
+        </section> 
+
+        <section class="tgb-list in-row">
+            {block tgb/bottom}
+        </section>
+        
+        {if!empty $metadata['seo_text']}
+        <div class="bottom-text-wrapper">
+            <h1>BSN.RU - Недвижимость Санкт-Петербурга</h1>
+            <div class="bottom-text-box">
+                {$metadata['seo_text']}
+            </div>
+        </div>
+        {/if}
+    </div> <!--/.content-->
+    
+    {include /templates/includes/main_footer_part.html} 
+</body>
+
+{ifempty $debug}
+<script type="text/javascript">
+var __cs = __cs || [];
+__cs.push(["setCsAccount", "D9r7kvRp51o_EZ6sc4ng3Yh4kB8xgoNW"]);
+__cs.push(["setCsHost", "//server.comagic.ru/comagic"]);
+</script>
+<script type="text/javascript" async src="//app.comagic.ru/static/cs.min.js"></script>
+</html>
+{/if}

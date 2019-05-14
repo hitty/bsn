@@ -1,0 +1,195 @@
+<h1 class="pageTitle">Жилые комплексы</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="caption_line"><a href="/admin/estate/housing_estates/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_published = document.getElementById('f_published').value;
+            var __filter_manager = document.getElementById('f_manager').value;
+            var __filter_developer = document.getElementById('f_developer').value;
+            var __filter_coords = document.getElementById('f_coords').value;
+            var __filter_agency_check = document.getElementById('f_agency_check').value;
+            var __filter_seller = document.getElementById('f_seller').value;
+            var __filter_fz_214 = document.getElementById('f_fz_214').value;
+            var __filter_apartments = document.getElementById('f_apartments').value;
+            var __filter_class = document.getElementById('f_class').value;
+            var __url = '{root:/admin/estate/housing_estates/}';
+            var __get = new Array();
+            if(__filter_published!=0) __get.push('f_published='+__filter_published);
+            if(__filter_agency_check!=0) __get.push('f_agency_check='+__filter_agency_check);
+            if(__filter_fz_214!=0) __get.push('f_fz_214='+__filter_fz_214);
+            if(__filter_apartments!=0) __get.push('f_apartments='+__filter_apartments);
+            if(__filter_class!=0) __get.push('f_class='+__filter_class);
+            if(__filter_seller!=0) __get.push('f_seller='+__filter_seller);
+            if(__filter_manager!=0) __get.push('f_manager='+__filter_manager);
+            if(__filter_developer!=0) __get.push('f_developer='+__filter_developer);
+            if(__filter_coords!=0) __get.push('f_coords='+__filter_coords);
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Название ЖК:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="Название ЖК">
+        </label>
+        <label>
+            Застройщик:
+            <select id="f_developer" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="-1" {ifeq $get_array['f_developer'],-1} selected="selected"{/if}>никакой</option>
+                {loop $developers,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_developer'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $developers}
+            </select>
+        </label>
+        <label>
+            Экс. Продавец:
+            <select id="f_seller" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="-1" {ifeq $get_array['f_seller'],-1} selected="selected"{/if}>никакой</option>
+                <option value="-2" {ifeq $get_array['f_seller'],-2} selected="selected"{/if}>любой</option>
+                {loop $sellers,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_seller'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $sellers}
+            </select>
+        </label>        
+        <label>
+            Состояние:
+            <select id="f_published" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_published'],1} selected="selected"{/if}}>опубликовано</option>
+                <option value="2"{ifeq $get_array['f_published'],2} selected="selected"{/if}}>в архиве</option>
+            </select>
+        </label>
+        <label>
+            ФЗ 214:
+            <select id="f_fz_214" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_fz_214'],1} selected="selected"{/if}}>Да</option>
+                <option value="2"{ifeq $get_array['f_fz_214'],2} selected="selected"{/if}}>Нет</option>
+            </select>
+        </label>
+        <label>
+            Апартаменты:
+            <select id="f_apartments" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_apartments'],1} selected="selected"{/if}}>Да</option>
+                <option value="2"{ifeq $get_array['f_apartments'],2} selected="selected"{/if}}>Нет</option>
+            </select>
+        </label>
+        <label>
+            На карте:
+            <select id="f_coords" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_coords'],1} selected="selected"{/if}}>есть</option>
+                <option value="2"{ifeq $get_array['f_coords'],2} selected="selected"{/if}}>нет</option>
+            </select>
+        </label>
+        <label>
+            Агентство:
+            <select id="f_agency_check" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_agency_check'],1} selected="selected"{/if}}>проставлено</option>
+                <option value="2"{ifeq $get_array['f_agency_check'],2} selected="selected"{/if}}>не проставлено</option>
+            </select>
+        </label>
+        <label>
+            Менеджер:
+            <select id="f_manager" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">любой</option>
+                {loop $managers,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_manager'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $managers}
+            </select>
+        </label>
+        <label>
+            Класс:
+            <select id="f_class" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">любой</option>
+                {loop $classes,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_class'],$val['id']} selected="selected"{/if}>{$val['name']}</option>
+                {/loop $classes}
+            </select>
+        </label>
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="10%">
+                <col class="col2" width="35%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">                
+                <col class="col2" width="20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Адрес</th>
+                    <th>Менеджер</th>
+                    <th>Застройщик</th>
+                    <th>ФЗ 214</th>
+                    <th>Стат-ка сегодня</th>
+                    <th>Стат-ка сред. посл. 30 дней</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" class="{ifeq $item['advanced'],1}advanced{/if}">
+                        <td align="center">
+                        	{if!empty $item['photo']}<img src="//st1.bsn.ru/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
+                            {$item['id']}
+                        </td>
+                        <td><a href="/zhiloy_kompleks/{$item['chpu_title']}/" target="_blank">{$item['title']}</a></td>
+                        <td>
+                            {$item['txt_addr']}
+                            {ifgt $item['lat'],0} <span title="Есть на карте"><img src="/admin/img/success.png" width="18" alt="Есть на карте" /></span> {/if}
+                        </td>
+                        <td class="col_sm">
+                            <select class="change-manager" data-id="{$item['id']}">
+                                {loop $managers,$key,$val}
+                                    <option value="{$key}"{ifeq $key,$item['id_manager']} selected="selected"{/if}>{$val}</option>
+                                {/loop $managers}
+                            </select>
+                            <input type="button" class="save-manager" data-id="{$item['id']}" value="Сохранить">
+                        </td>
+                        <td class="col_sm">{$item['developer']}</td>
+                       <td class="col_sm">
+                            {ifempty $item['declaration']}-{elseifeq $item['214_fz'],1}Да{else}-{/if}
+                       </td>
+                       <td align="center" title="в поиске/карточка за день">
+                            {$item['cnt_day']} / {$item['cnt_click_day']}
+                        </td>
+                        <td align="center" title="в поиске/карточка за вчера">
+                            {php:echo (int)$item['cnt_full_last_days']} / {php:echo (int)$item['cnt_click_full_last_days']}
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/housing_estates/stats/{$item['id']}/" title="Статистика ЖК"><span class="ico_stats">Статистика</span></a>
+                            <a href="/admin/estate/housing_estates/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/housing_estates/del/{$item['id']}/?{$get_string}" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            {ifeq $item['published'],1}
+                                <a href="/admin/estate/housing_estates/archive/{$item['id']}/?{$get_string}" title="В архив"><span class="ico_archive">В архив</span></a>
+                                <a href="/admin/estate/housing_estates/attached_objects/{$item['id']}/" title="Смотреть варианты"><span class="ico_view">Смотреть варианты</span></a>
+                            {else}
+                                <a href="/admin/estate/housing_estates/restore/{$item['id']}/?{$get_string}" title="Восстановить"><span class="ico_restore">Восстановить</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

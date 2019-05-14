@@ -1,0 +1,14 @@
+<div class="members-wrapper">
+    <h2>{$list[0]['category_title']}</h2>
+    <div class="list br3{ifeq $list[0]['can_vote'],1} can-vote{/if}" data-id="{$id_category}">
+        {loop $list,$k,$item}    
+            <div class="item shadow-hover br3 transition flex{ifeq $item['vote_id_member'], $item['id']} active{/if}" data-id="{$item['id']}">
+                <span data-icon="radio_button_unchecked"></span>
+                <span class="title">{$item['title']}</span>
+                
+                <i>Ваш выбор</i>
+            </div>
+        {/loop $list}
+    </div>
+    <span class="vote button orange inactive">Голосовать</span>
+</div>

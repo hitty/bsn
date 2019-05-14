@@ -1,0 +1,78 @@
+
+{php:$show_agency = !empty($show_agency) || empty($auth['agency'])}
+{if!empty $list}   
+    <div class="statistic-box">
+        {if!empty $paginator}
+            <div class="sb-info">
+                Найдено {$paginator['items_count']}<br />
+                Показано {$paginator['from_item']} - {$paginator['to_item']}
+                
+            </div>
+        {/if}
+    </div>
+
+    <table cellpading="1" class="calls-wrapper">  
+        <colgroup>
+            <col class="col1" width="25%">
+            <col class="col2" width="75%">
+        </colgroup>
+      
+        <tbody>
+            {loop $list,$key,$item}
+                <tr id="{$item['id']}">
+                    <td width="160">
+                        <span class="duration">{$item['call_duration']}</span>
+                        <span class="date">{$item['normal_date']}</span>
+                    </td>
+                    <td width="560" class="phone-box">
+                        
+                        <div class="phone-box">
+                            <span class="user-call-number">{$item['user_call_number']}</span>
+                            <span data-id="{$item['id']}" class="phone-number">{if!empty $item['num_from']}{$item['num_from']}{else}не определен{/if}</span>
+                        </div>
+                        
+                        <div class="tags">
+                            {if!empty $show_agency}
+                                <div class="tags-list-edit">
+                                    {loop $tags,$k,$tag}
+                                        {php:$string = $item['tags']}
+                                        <span data-id="{$tag['id']}" class="tag tag-{$tag['id']}{php:echo !empty($item['tags']) && in_array($tag['id'], $item['tags'])?' active':'';}">{$tag['title']}</span>
+                                    {/loop $tags}
+                                    <span class="more-box-arrow"></span>
+                                </div>
+                                <span class="tag tag-add{ifempty $item['tags']} active{/if}">Добавить</span>
+                            {/if}
+                            {loop $tags,$k,$tag}
+                                {php:$string = $item['tags']}
+                                <span data-id="{$tag['id']}" class="tag tag-{$tag['id']}{php:echo !empty($item['tags']) && in_array($tag['id'], $item['tags'])?' active':'';}">{$tag['title']}</span>
+                            {/loop $tags}   
+                            {if!empty $show_agency}
+                                {if!empty $item['show_phone']}
+                                    <span data-link="/members/conversions/calls/inwork/{$item['id']}/" class="inwork" data-cost="{$item['cost']}">Показать телефон за {$item['cost']} Р</span>
+                                {/if}   
+                            {/if}
+                        </div>
+                        
+                        <div class="text-overflow ">                   
+                            {ifeq $item['show_call_link'],1}
+                                {if!empty $item['file_link']}
+                                    <div class="link-box">
+                                        <audio class="call-record" id="a_player" src="/{$item['file_link']}" type="audio/mp3" controls></audio>
+                                        
+                                    </div>
+                                {/if}
+                            {/if}  
+                            {if!empty $show_agency}<span class="agency-title">{$item['agency_title']}</span>{/if}                        
+                        </div>
+                    </td>
+                    
+                </tr>
+            {/loop $list}
+        </tbody>
+    </table>
+    {php:$ajax_search = true;}             
+    {include /templates/includes/paginator.html} 
+    
+{else}
+    <div class="empty-results">На данный момент у вас нет звонков</div>
+{/if}

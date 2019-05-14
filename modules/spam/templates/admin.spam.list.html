@@ -1,0 +1,94 @@
+<h1 class="pageTitle">{$spam_title}</h1>
+<div id="spam_type" style="display:none">{$spam_type}</div>
+<div class="caption_line"><a href="/admin/service/spam/{$spam_type}/add/" class="button">Добавить рассылку</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var spam_type=document.getElementById('spam_type').innerHTML;
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_published = document.getElementById('f_published').value;
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_type = document.getElementById('f_type').value;
+            var __url = '{root:/admin/service/spam/'+spam_type+'/}';
+            var __get = new Array();
+            if(__filter_id!='') __get.push('f_id='+__filter_id);
+            if(__filter_type!='') __get.push('f_type='+__filter_type);
+            if(__filter_published!=0) __get.push('f_published='+__filter_published);
+            if(__filter_title!=0) __get.push('f_title='+__filter_title);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            ID:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID рассылки">
+        </label>
+        <label>
+            Состояние:
+            <select id="f_published" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_published'],'1'} selected="selected"{/if}}>в ожидании рассылки</option>
+                <option value="2"{ifeq $get_array['f_published'],'2'} selected="selected"{/if}}>не активно</option>
+            </select>
+        </label>
+        <label>
+            Название:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="Часть названия">
+        </label>
+        <label>
+            Источник:
+            <select id="f_type" onchange="filter_activate()" style="width: 150px;">
+                <option value="">все</option>
+                <option value="1"{ifeq $get_array['f_type'],'1'} selected="selected"{/if}}>БСН</option>
+                <option value="2"{ifeq $get_array['f_type'],'2'} selected="selected"{/if}}>Dizbook</option>
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название рассылки</th>
+                    <th>Начало/конец отправки</th>
+                    <th>Дата создания</th>
+                    <th>Состояние</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    {ifeq $item['published'],'1'}
+                        <tr id="item_{$item['id']}" class="active">
+                            <td>{$item['id']}</td>
+                            <td>{$item['title']}</td>
+                            <td>{$item['begin_date']} / {$item['end_date']}</td>
+                            <td>{$item['date']}</td>
+                            <td>в ожидании рассылки</td>
+                            <td class="small_icons ac">
+                                <a href="/admin/service/spam/{$spam_type}/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                                <a href="/admin/service/spam/{$spam_type}/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            </td>
+                        </tr>
+                    {else}
+                        <tr id="item_{$item['id']}" class="inactive">
+                            <td>{$item['id']}</td>
+                            <td>{$item['title']}</td>
+                            <td>{$item['begin_date']} / {$item['end_date']}</td>
+                            <td>{$item['date']}</td>
+                            <td>не активно</td>
+                            <td class="small_icons ac">
+                                <a href="/admin/service/spam/{$spam_type}/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                                <a href="/admin/service/spam/{$spam_type}/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            </td>
+                        </tr>
+                    {/if}
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

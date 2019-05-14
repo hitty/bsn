@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'als_rublregular';
+    src: url('/fonts/alsrubl-webfont.eot');
+    src: url('/fonts/alsrubl-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/alsrubl-webfont.woff') format('woff'),
+         url('/fonts/alsrubl-webfont.ttf') format('truetype'),
+         url('/fonts/alsrubl-webfont.svg#als_rublregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.content-print{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+}    
+.content-print #print{
+    margin-bottom:20px;
+}
+.o-wrap .offer-item{
+    position:relative;
+}
+.o-wrap .offer-item a.common-link{
+     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.o-wrap .offer-img {
+    position: relative;
+}
+.o-wrap .offer-sticker {
+    position: absolute;
+    background: #106ece;
+    top: 0;
+    left: 0;
+    color: #fff;
+}
+.o-wrap .offer-sticker span {
+    font-weight: 700;
+}
+.o-wrap .sticker-left {
+    position: absolute;
+    background: url(//sale.bsn.ru/img/layout/sticker-left-blue.png);
+}
+.o-wrap .sticker-right {
+    position: absolute;
+    width: 11px;
+    height: 31px;
+    background: url(//sale.bsn.ru/img/layout/sticker-right-blue.png);
+    top: 0;
+    left: 100%;
+}
+.o-wrap .offer-sticker.orange {
+    background: #de501e;
+}
+.o-wrap .offer-sticker.orange .sticker-left {
+    background: url(//sale.bsn.ru/img/layout/sticker-left-orange.png);
+}
+.o-wrap .offer-sticker.orange .sticker-right {
+    background: url(//sale.bsn.ru/img/layout/sticker-right-orange.png);
+}
+.o-wrap .offer-sticker.green {
+    background: #6da030;
+}
+.o-wrap .offer-sticker.green .sticker-left {
+    background: url(//sale.bsn.ru/img/layout/sticker-left-green.png);
+}
+.o-wrap .offer-sticker.green .sticker-right {
+    background: url(//sale.bsn.ru/img/layout/sticker-right-green.png);
+}
+.o-wrap .offer-img-address {
+    position: absolute;
+    width: 100%;
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 600;
+    background: url(//sale.bsn.ru/img/layout/offer-img-address.png);
+    bottom: 0;
+    left: 0;
+    height: 0px;
+    -webkit-transition: height 0.5s ease 0.2s;
+    -moz-transition: height 0.5s ease 0.2s;
+    -o-transition: height 0.5s ease 0.2s;
+    transition: height 0.5s ease 0.2s;
+    overflow: hidden;
+}
+.o-wrap .offer-img-address a {
+    position: relative;
+    z-index: 7;
+    display: block;
+    color: #fff;
+    padding: 7px 45px 9px 12px;
+    text-decoration: none;
+}
+.o-wrap .offer-img-address a:hover {
+    text-decoration: underline;
+}
+.o-wrap .address-marker {
+    position: absolute;
+    width: 23px;
+    height: 28px;
+    background: url(//sale.bsn.ru/img/layout/address-marker.png);
+    top: 50%;
+    margin-top: -14px;
+    right: 11px;
+}
+
+.o-wrap .offer-phone {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    color: #ababab;
+    margin: 0 auto;
+    position: relative;
+}
+.o-wrap .offer-phone span {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    color: #000;
+}
+.o-wrap .offer-phone.disabled span {
+    color: #999;
+    display: block;
+    position: absolute;
+}
+.o-wrap .offer-phone.disabled span.next-date {
+    color: #999;
+    position: absolute;
+    font-weight: normal;
+    font-style: italic;
+}
+.rur {
+    font-family: 'als_rublregular';
+}

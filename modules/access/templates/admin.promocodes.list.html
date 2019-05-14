@@ -1,0 +1,77 @@
+<h1 class="pageTitle">Промо-коды</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/access/users/promocodes/add/" class="button">Добавить промо-код</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_category = document.getElementById('f_category').options[document.getElementById('f_category').selectedIndex].value;
+            var __url = '{root:/admin/access/users/promocodes/}';
+            var __get = new Array();
+            if(__filter_category!=0) __get.push('f_category='+__filter_category);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="25%">
+                <col class="col2" width="25%">
+                <col class="col2" width="25%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    {loop $table_head_titles,$k,$v}
+                        <th data-sort-field="{$v['field']}" {if!empty $sort_parameters} {ifeq $sort_parameters['field'],$v['field']}class="{$sort_parameters['sort']}" {/if}{/if}>{$v['text']}</th>
+                    {/loop $table_head_titles}
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>
+                            {$item['title']}
+                            <br />
+                            <span style="font-size: 12px;font-weight: bold;">
+                                {ifeq $item['type'],1}
+                                    Пополнение на сумму {suffix:$item['summ'],'рубл','ь','я','ей'}
+                                {else}
+                                    {$item['percent']}% от суммы {if!empty $item['min_summ']} при оплате от {suffix:$item['min_summ'],'рубл','ь','я','ей'}{/if}
+                                {/if}
+                                
+                            </span>
+                        </td>
+                        <td>{$item['code']}</td>
+                        <td>{php:echo date('d.m.Y',strtotime($item['date_start']))}</td>
+                        <td>{php:echo date('d.m.Y',strtotime($item['date_end']))}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/access/users/promocodes/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

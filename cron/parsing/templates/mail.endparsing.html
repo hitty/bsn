@@ -1,0 +1,43 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день{if!empty $letter_data['name']}, {$item['name']}{/if}!
+    </td>
+</tr>
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        {if!empty $letter_data['start']}
+            Парсинг площадки {$letter_data['site']} начат<br />
+            Время: {$letter_data['datetime_start']}<br />
+            Страницы: {$letter_data['from_page']}-{$letter_data['to_page']}<br />
+        {else}
+            Парсинг площадки {$letter_data['site']} завершен<br />
+            Время: {$letter_data['datetime_start']} - {$letter_data['datetime_end']}<br />
+            Пройдены страницы {$letter_data['from_page']}-{$letter_data['to_page']}<br />
+            <br />
+            Объекты:<br />
+                прочитано: {$letter_data['objects_parsed']} <br />
+                добавлено: {$letter_data['objects_added']} <br />
+                не добавлено, не найден телефон: {$letter_data['objects_phone_error']} <br />
+                не добавлено, нет картинок: {$letter_data['objects_images_error']} <br />
+            <br />
+            {if!empty $letter_data['phone_errors']}
+                Ошибки телефонов:
+                    {loop $letter_data['phone_errors'],$k,$v}
+                        {$v}<br />
+                    {/loop $letter_data['phone_errors']}
+                <br />
+            {/if}
+            <br />
+            {if!empty $letter_data['image_errors']}
+                Нет картннок:
+                    {loop $letter_data['image_errors'],$k,$v}
+                        {$v}<br />
+                    {/loop $letter_data['image_errors']}
+                <br />
+            {/if}
+        {/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

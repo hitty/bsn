@@ -1,0 +1,108 @@
+<h1 class="pageTitle">Помощь / Статьи</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление статьи не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление статьи #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/content/help/add/" class="button">Добавить статью</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_state = document.getElementById('f_state').value;
+            var __filter_category = document.getElementById('f_category').value;
+            var __filter_title = document.getElementById('f_title').value;
+            var __url = '{root:/admin/content/help/}';
+            var __get = new Array();
+            if(__filter_state!='') __get.push('f_state='+__filter_state);
+            if(__filter_category!='') __get.push('f_category='+__filter_category);
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            //alert(__url);
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()">
+        </label>
+        <label>
+            Категория:
+            <select id="f_category" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </label>
+        <label>
+            Состояние:
+            <select id="f_state" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $states,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_state'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $states}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="10%">
+                <col class="col2" width="20%">
+                <col class="col1" width="20%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Категория</th>
+                    <th>Заголовок</th>
+                    <th>Описание</th>
+                    <th>Опубликовано</th>
+                    <th>Полезно</th>
+                    <th>Бесполезно</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['category_name']}</td>
+                        <td>{$item['title']}</td>
+                        <td>{php: echo strip_tags($item['text'])}</td>
+                        <td>{ifeq $item['published'],1}
+                                да
+                            {else}
+                                нет
+                            {/if}
+                        </td>
+                        <td>{$item['useful']}</td>
+                        <td>{$item['useless']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/help/up/{$item['id']}/?{$get_string}" title="Выше"><span class="ico_up">Выше</span></a>
+                            <a href="/admin/content/help/down/{$item['id']}/?{$get_string}" title="Ниже"><span class="ico_down">Ниже</span></a>
+                            <a href="/admin/content/help/edit/{$item['id']}/?{$get_string}" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/help/del/{$item['id']}/?{$get_string}" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table> 
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,23 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Уважаемый партнер!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Ваши подписки на BSN.ru:<br />
+        <?php
+            $list = $item['subscriptions_titles'];
+            $days_list = $item['days_not_enter'];
+        ?>
+        <ul>
+        {loop $list,$k,$v}
+            <li>{$v} (вы смотрели обновления {suffix: $days_list[$k], 'д','ень','ня','ней'} назад)</li><br />
+        {/loop $list}
+        </ul>
+        были отключены.
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

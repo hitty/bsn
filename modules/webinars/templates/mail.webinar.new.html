@@ -1,0 +1,17 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 26px;" align="left"> 
+    <b>Поздравляем, {$item['user_name']}!</b>    <br />
+    Вы получили это письмо, потому что зарегистрировались на вебинар: <br /><br />
+    <a href="//www.bsn.ru/webinars/{$item['url']}/" style="font-size: 24px; font-weight: bold;">«{$item['title']}»</a> <br /><br />
+    Он состоится <b>{$item['date_w']} в {$item['time_w']}</b>.<br />
+
+    {if!empty $late_registration}
+        Чтобы перейти к нему в назначенное время, нажмите на кнопку ниже:<br /><br />
+        <a href="{$item['link']}"><img src="//st1.bsn.ru/img/layout/webinar-notification.png" /></a>
+    {else}
+        Персональную ссылку для участия мы вышлем вам за сутки до начала. Следите за новостями!
+    {/if}
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

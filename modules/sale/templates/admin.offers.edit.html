@@ -1,0 +1,93 @@
+<h1 class="pageTitle">Предложения</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/sale/offers/add/{if!empty $get_array['f_campaign']}?f_campaign={$get_array['f_campaign']}{/if}">
+    <h3>Новая запись</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/sale/offers/edit/{$data_mapping['id']['value']}/{if!empty $get_array['f_campaign']}?f_campaign={$get_array['f_campaign']}{/if}"  id="campaign_form">
+    <h3>Запись #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset>
+            <h3>Загрузка фотографий #{$data_mapping['id']['value']} (Минимальные размеры 800 x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-type="offers" data-id="{$data_mapping['id']['value']}" data-url="/admin/sale/offers/photos/" data-session-id="{php:echo session_id();}"/>
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>  
+    {/if} 
+    <p>
+        {if!empty $data_mapping['id']['value']}
+            <input type="submit" value="Сохранить" name="submit">
+            <input type="submit" value="Сохранить и добавить еще вариант" name="submit" id="redirect_to_offers">
+        {/if}
+    </p>    
+     
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('#redirect_to_offers').click(function(e){
+        var _form = jQuery('#campaign_form');
+        _form.attr('action',_form.attr('action')+'?redirect=offers');
+        _form.submit();
+    })
+    
+    //fileuploader init
+    if(jQuery('#file_upload').length>0){
+        jQuery('#file_upload').uploadifive({
+                'buttonSetMain':true,
+                'multi':true
+            }
+        );
+    }
+    //discount count
+    jQuery('#discount').parent('span').append('<div id="cost_w_discount_wrap">Стоимость со скидкой: <b></b> руб.')
+    if(jQuery('#discount_in_rubles').val() == 0) jQuery('#discount_in_rubles').attr('disabled','disabled');
+    else jQuery('#discount').attr('disabled','disabled');
+    jQuery('#discount_in_rubles').parent('span').click(function(){ 
+         
+        jQuery('#discount_in_rubles').attr('disabled',false); jQuery('#discount').attr('disabled','disabled').val(0);
+    })
+    jQuery('#discount').parent('span').click(function(){   
+         jQuery('#discount_in_rubles').attr('disabled','disabled').val(0); jQuery('#discount').attr('disabled',false);
+    })
+    
+    jQuery('#cost, #discount, #discount_in_rubles').on('keyup',function(){
+        var _cost_w_discount = jQuery('#cost_w_discount');
+        var _cost = jQuery('#cost');
+        var _discount = jQuery('#discount');
+        var _discount_in_rubles = jQuery('#discount_in_rubles');
+        var _discount_wrap = _discount.parent('span');
+        var _discount_in_rubles_wrap = _discount_in_rubles.parent('span');
+        var _value = parseInt(_cost.val().replace(/\s/g,''));
+        if(_discount_in_rubles.val() > 0  && _discount.val() == 0)  _value = _value - parseInt(_discount_in_rubles.val());
+        else if(_discount_in_rubles.val() == 0  && _discount.val() > 0)  {
+            _value = _value * (1 - parseInt(_discount.val())/100);
+        }
+        _cost_w_discount.val(_value);
+        jQuery('#cost_w_discount_wrap b').text(_value);
+        return false;
+    })
+    jQuery('#discount').keyup();
+});
+
+
+</script>

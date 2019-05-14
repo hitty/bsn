@@ -1,0 +1,119 @@
+/* pay object */
+.modal-inner h2{
+    position: relative;
+    top: auto;
+    left: auto;
+}
+.modal-inner h3{
+    margin: 0;
+    padding: 0;
+    border: none;
+    padding-bottom: 20px;
+}
+.modal-inner .pay-wrap{
+}
+.pay-wrap .object-statuses {
+    margin-bottom: 0;
+}
+
+.pay-wrap .object-statuses li {
+    margin: 0;
+    width: 100%;
+}
+.pay-wrap .object-statuses li div{
+    min-width: 0;
+}
+.modal-inner .pay-wrap .object-statuses .title{
+    color:#000;
+    text-transform: none;
+}
+.modal-inner .pay-wrap .object-statuses .title,
+.modal-inner .pay-wrap .object-statuses .text{
+    margin: 0;
+}
+
+.modal-inner .pay-wrap .object-statuses .raise .title{
+    position: relative;
+    height: 0;
+    left: -43px;
+    padding: 0;
+    margin: 0 0 30px 0;
+    top: -25px;    
+}
+.pay-wrap .object-statuses li.promo .text,
+.pay-wrap .object-statuses li.raising .text{
+    height: 40px;
+}
+
+.pay-wrap .object-statuses li.premium .text {
+    height: 75px;
+}
+
+.pay-wrap .object-statuses li.vip .text{
+    height: 110px;
+}      
+.pay-wrap .object-statuses .raising-period ul li{
+    width: 215px;
+    display: block;
+    float: none;
+    margin-left: 10px;
+}
+.pay-wrap .object-info{
+    line-height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    max-height: 90px;    
+}
+.pay-wrap .object-info span{
+    display: block;
+}
+.pay-wrap .pay-total {
+    margin: 24px -24px -24px -24px;
+    padding: 40px;
+    background: #D2E7FA;
+    text-align: center;
+}
+.pay-wrap .pay-total .pay-not-enough-money span{
+    color: #B65C5A;
+    position: relative;
+    top: -20px;
+       
+}
+.pay-wrap .pay-total .pay-not-enough-money .total-summ{
+    color:#88919B;
+}
+.pay-wrap .pay-total .total-summ {
+    font-size: 26px;
+}
+
+.pay-wrap .pay-total .button {
+    
+}
+.pay-wrap .pay-success{
+    
+}
+.pay-wrap .pay-success i{
+    color: #1e88e5;
+    font-size: 140px;
+    display: block;
+    margin: 0 auto;
+    width: 140px;
+    height: 140px;       
+}
+.pay-wrap .pay-success .title{
+    text-align: center;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 20px;
+    color: #1e88e5;     
+}
+.modal-inner .pay-wrap .pay-success .text{
+    margin-bottom: 0;   
+}
+.promocode-wrap .success{
+    display: block;
+    width: 720px;
+    position: absolute;
+    bottom: -20px;    
+}
+

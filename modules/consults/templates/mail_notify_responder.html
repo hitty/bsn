@@ -1,0 +1,12 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+    Добрый день, <b>{$env['user_title']}</b>!
+    </td>
+</tr>
+<tr>
+    <td style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left">
+    Ваш ответ #{$env['answer_id']} в сервисе Консультант на {$env['host']} прошел модерацию и опубликован.<br>
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

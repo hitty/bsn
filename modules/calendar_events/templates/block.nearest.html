@@ -1,0 +1,14 @@
+<div class="item br3 bbox">
+    <span class="hdr internal-link" data-link="/calendar/{$event['chpu_title']}/"></span>
+     <span class="image bg-cover lazy" data-src="{static:/}{$img_folder}/med/{$event['photo_subfolder']}/{$event['photo']}" ></span>
+     <div class="content">
+        <span class="small-text">{if!empty $event['daystart']}{$event['daystart']} {$event['monthstart']} - {/if}{$event['dayend']} {$event['monthend']}</span>
+        <a href="/calendar/{$event['chpu_title']}/" class="text">{$event['title']}</a>                        
+        {ifempty $item['past_event']}
+            {if!empty $event['registration_opened']}
+                <span {if!empty $event['registration_url']}class="button blue internal-link" data-link="{$event['registration_url']}"{else}class="button blue internal-link" data-link="/calendar/{$event['chpu_title']}/"{/if} data-new-tab="true" name="submit" value="Зарегистрироваться">Зарегистрироваться</span>
+            {/if}
+        {/if}
+        <div class="small-text">{$event['place']}</div>
+    </div>
+</div>

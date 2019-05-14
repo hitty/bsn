@@ -1,0 +1,14 @@
+{if!empty $h1}<h1 class="topspace padded thin">{$h1}</h1>{/if}
+<span id="consults-button" data-url="/service/consultant/popup/" class="button blue popup" data-location="consult-ask">Задать вопрос по теме</span>
+<article itemscope="" itemtype="http://schema.org/Product" class="card central-main-content br3">
+<!--
+<div class="category-info">
+    <b>Прописка</b> - (юридически: регистрация по месту постоянного проживания) государственная система контроля миграции населения, сложившаяся в Российской империи, получившая развитие и широкое применение в СССР, основной принцип которой заключается 
+    в жёсткой привязке граждан к их постоянному месту жительства. Установленный порядок прописки требовал на усмотрение административных органов разрешение на проживание и, устройство на работу, учёбу, регистрации актов гражданского состояния.
+</div>
+-->
+<div class="category-content">
+{if!empty $consultants_full_count}<span class="consultant-total">Всего {$consultants_full_count} <a href="/consultant/specs/" target="_blank">Смотреть всех</a></span>{/if}
+<div class="questions-list-box" data-id="{$category_id}"></div>
+</div>
+</article>  

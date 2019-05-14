@@ -1,0 +1,46 @@
+<h1 class="pageTitle">Участник конкурса "{$konkurs_title}"</h1>
+{ifempty $data_mapping['id']['value']}
+    {ifempty $konkurs_url}
+        <form class="form_default" method="post" action="/admin/service/konkurs/add/">
+    {else}
+        <form class="form_default" method="post" action="/admin/service/konkurs/{$konkurs_url}/add/">
+    {/if}
+    
+    <h3>Новый участник</h3>
+{else}
+    {ifempty $konkurs_url}
+        <form class="form_default" method="post" action="/admin/service/konkurs/edit/{$data_mapping['id']['value']}/">
+    {else}
+        <form class="form_default" method="post" action="/admin/service/konkurs/{$konkurs_url}/edit/{$data_mapping['id']['value']}/">
+    {/if}
+    
+    <h3>Участник #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $add_photo}
+        <fieldset>
+            <h3>Загрузка фотографии</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/service/konkurs/photos/" data-session-id="{php:echo session_id();}" />
+        </fieldset>
+    {/if}
+</form>

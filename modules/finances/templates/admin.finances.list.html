@@ -1,0 +1,103 @@
+<div class="finance">
+    <script type="text/javascript">
+    jQuery(document).ready(function(){
+         jQuery('li',jQuery('.status-line')).click(function(){
+            jQuery('#f_campaign').val(jQuery(this).data('id'));
+            filter_activate();
+         })
+         jQuery('li',jQuery('.list-data')).click(filter_activate);
+    })
+    function filter_activate(){
+        {ifempty $id_agency} 
+            var __filter_agency = document.getElementById('f_agency').value;
+        {/if}
+        var __date_start = document.getElementById('f_date_start').value;
+        var __date_end = document.getElementById('f_date_end').value;
+        var __url = '{root:/admin/sale/finances/}';
+        var __period = jQuery('input[name=f_period]:checked').val();
+        var __get = new Array();
+        
+        {ifempty $id_agency} 
+            if(__filter_agency >0) __get.push('f_agency='+__filter_agency);
+        {/if}
+        if(__period>0) __get.push('f_period='+__period);
+        if(__date_start!=null && __date_start!='') __get.push('f_date_start='+__date_start);
+        if(__date_end!=null && __date_end!='') __get.push('f_date_end='+__date_end);
+        if(__get.length>0) __url = __url+'?'+__get.join('&');
+        document.location.href = __url;
+    }
+    </script>    
+    <h1 class="pageTitle">Финансы</h1>
+    <div class="filter_line">
+        {ifempty $id_agency} 
+        <label>
+            <span class="label-title">Компания:</span>          
+            <div class="list-selector select-agency">
+                <a href="#" class="pick">Любой</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="f_agency" name="f_agency" value="{$get_array['f_agency']}"  onchange="filter_activate()"/>
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="0">все</li>
+                    {loop $agencies,$key,$val}
+                        <li data-value="{$val['id']}">{$val['title']}</li>
+                    {/loop $agencies}
+                </ul>
+            </div>
+        </label>
+        {/if}  
+        <label>
+            <span class="lf fieldwrapper" id="span_field_period" data-rel="period">
+                <input type="radio" name="f_period" value="1" id="period_0" {ifeq $get_array['f_period'],'1'}checked="checked"{/if}> 
+                <label class="radio-group-devided" for="period_0">Неделя</label>
+                <input type="radio" name="f_period" value="2" id="period_1" {ifeq $get_array['f_period'],'2'}checked="checked"{/if}> 
+                <label class="radio-group-devided" for="period_1">Месяц</label>
+            </span>        
+        </label>
+        <label>
+            <input type="text" id="f_date_start" name="f_date_start" placeholder="Начало" class="datetimepicker date"  value="{$get_array['f_date_start']}">
+            -
+            <input type="text" id="f_date_end" name="f_date_end" placeholder="Окончание" class="datetimepicker date"  value="{$get_array['f_date_end']}">
+        </label>
+    </div>
+    {if!empty $list}
+    <table class="finances-list tablesorter" cellpading="1" width="900">    
+        <colgroup>
+            <col class="col1" width="10%">
+            <col class="col2" width="30%">
+            <col class="col1" width="10%">
+            <col class="col2" width="10%">
+            <col class="col1" width="10%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th><span>Дата</span></th>
+                <th><span>Кампания</span></th>
+                <th><span>Тип операции</span></th>
+                <th><span>Списание</span></th>
+                <th><span>Зачисление</span></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th colspan="3">Итого за период:</th>
+                <th class="write-off">{do:echo number_format($total['expenditure'],0,'.',' ')} <span class="rur">a</span></th>
+                <th class="credited">{do:echo number_format($total['income'],0,'.',' ')} <span class="rur">a</span></th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {loop $list,$key,$item}
+                <tr>
+                    <td style="text-align: center;" data-order="{$item['datetime']}">{$item['normal_date']}</td>
+                    <td>{$item['campaign_title']}</td>
+                    <td class="operation-title {ifgt $item['expenditure'],0}write-off{else}credited{/if}">{$item['operation_title']}</td>
+                    <td class="write-off">{ifgt $item['expenditure'],0}{$item['expenditure']} <span class="rur">a</span>{/if} </td>
+                    <td class="credited">{ifgt $item['income'],0}{$item['income']} <span class="rur">a</span>{/if} </td>
+                </tr>
+            {/loop $list}
+        </tbody>
+    </table>
+    {else}
+        Нет данных за выбранный период
+    {/if}    
+    
+</div>

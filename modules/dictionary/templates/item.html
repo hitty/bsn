@@ -1,0 +1,11 @@
+{block service/information/dictionary/block}
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{ifempty $item}
+{else}
+    <article class="bordered-wrapper topblue">
+        <div class="bigtext">
+            <div class="agency_cols">{$item['word']}</div>
+            <div class="agency_cols">{$item['meaning']}</div>
+        </div>
+    </article>
+{/if}

@@ -1,0 +1,108 @@
+<h1 class="pageTitle">Дома и участки</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_type = document.getElementById('f_type').value;
+            var __filter_rent = document.getElementById('f_rent').value;
+            var __filter_m_status = document.getElementById('f_m_status').value;
+            var __url = '{root:/admin/estate/country/new/}';
+            var __get = new Array();
+            if(__filter_id!='') __get.push('f_id='+__filter_id);
+            if(__filter_type!='') __get.push('f_type='+__filter_type);
+            if(__filter_rent!='') __get.push('f_rent='+__filter_rent);
+            if(__filter_m_status!='') __get.push('f_m_status='+__filter_m_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            ID:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID объекта">
+        </label>
+        <label>
+            Объект:
+            <select id="f_type" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $type_objects,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_type'],$val['id']} selected="selected"{/if}}>{$val['title']}</option>
+                {/loop $type_objects}
+            </select>
+        </label>
+        <label>
+            Тип сделки:
+            <select id="f_rent" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['f_rent'],1} selected="selected"{/if}}>Аренда</option>
+                <option value="2"{ifeq $get_array['f_rent'],2} selected="selected"{/if}}>Продажа</option>
+            </select>
+        </label>
+        <label>
+            Статус:
+            <select id="f_m_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">Все ошибочные</option>
+                {loop $m_status,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_m_status'],$val['id']} selected="selected"{/if}}>{$val['title']}</option>
+                {/loop $m_status}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="15%">
+                <col class="col1" width="10%">
+                <col class="col2" width="5%">
+                <col class="col1" width="35%">
+                <col class="col2" width="15%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Время поступления</th>
+                    <th>Объект</th>
+                    <th>Сделка</th>
+                    <th>Адрес</th>
+                    <th>Цена</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}"{ifeq $item['published'],2} class="inactive"{/if}>
+                        <td>{$item['id']}</td>
+                        <td>{$item['date_in']}</td>
+                        <td>{$type_objects[$item['id_type_object']]['title']}</td>
+                        <td>{ifeq $item['rent'],1}аренда{else}продажа{/if}</td>
+                        <td>
+                            {ifeq $item['id_moderate_status'],4}
+                                <input type="text" class="wrong" name="txt_addr" value="{$item['txt_addr']}" data-url="/admin/estate/country/new/setfield/{$item['id']}/" />
+                            {else}
+                                {$item['txt_addr']}
+                            {/if}
+                        </td>
+                        <td>
+                            {ifin $item['id_moderate_status'],2,3}
+                                <input type="text" class="wrong" name="cost" value="{$item['cost']}" data-url="/admin/estate/country/new/setfield/{$item['id']}/" />
+                            {else}
+                                {$item['cost']}
+                            {/if}
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/country/new/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/country/new/del/{$item['id']}/?{$get_string}" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            <a href="/admin/estate/country/new/remoderate/{$item['id']}/" title="Отправить на перемодерацию"><span class="ico_remoderate">Отправить на перемодерацию</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

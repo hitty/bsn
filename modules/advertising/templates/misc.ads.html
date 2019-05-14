@@ -1,0 +1,107 @@
+<div id="wrapper">
+    <header class="inner-page__top">
+        <nav class="tiny-controls fontsforweb_fontid_9785">
+            <a href="/" class="tiny-controls__wlogo"></a>
+            <div class="tiny-controls__text">
+                Другие виды размещения рекламы:
+            </div>
+            <div class="tiny-controls__item media">
+                <a href="/advertising/media_ads/" class="icon_text">Медийная</a>
+            </div>
+            <div class="tiny-controls__item lines">
+                <a href="/advertising/line_ads/" class="icon_text">Строчная</a>
+            </div>
+            <div class="tiny-controls__item target">
+                <a href="/advertising/bsntarget/" class="icon_text">BSN.TARGET</a>
+            </div>
+        </nav>
+    </header>
+    <section class="inner-page__content misc">
+        <div class="content-central fontsforweb_fontid_9785">
+            <span class="icon misc"></span>
+            <span class="header">Прочая реклама на bsn.ru</span>
+            <span class="sub-header">Любые нестандартные варианты сотрудничества</span>
+            <a href="https://www.bsn.ru/contacts/" class="button-green-big">Купить рекламу</a>
+            <div class="left-column misc">
+                <div class="column__text-block no-lines" data-img="adv_examples_article" data-left="275" data-top="263">
+                    <span class="line"></span>
+                    <span class="text-block__title"><span>Платные публикации</span><span class="title-placeholder"><i class="placeholder"></i></span></span>
+                    <div class="text-subblock">
+                        <div class="subblock_line">
+                            <span class="line__title">В разделе Новости</span>
+                            <span class="line__placeholder"><i class="placeholder"></i></span>
+                            <span class="line__value">5000 руб.</span>
+                        </div>
+                        <div class="subblock_line">
+                            <span class="line__title">В разделах Аналитика, Мнения, Интервью</span>
+                            <span class="line__placeholder"><i class="placeholder"></i></span>
+                            <span class="line__value">7 000 руб.</span>
+                        </div>
+                        <div class="subblock_line">
+                            <span class="line__title">В разделах Новости, Аналитика, Мнения, Интервью*</span>
+                            <span class="line__placeholder"><i class="placeholder"></i></span>
+                            <span class="line__value">15 000 руб.</span>
+                        </div>
+                        <div class="subblock_line">
+                            <span class="line__title">Готовое видео компании в разделе БСН-ТВ</span>
+                            <span class="line__placeholder"><i class="placeholder"></i></span>
+                            <span class="line__value">15 000 руб.</span>
+                        </div>
+                        <div class="subblock_line">
+                            <span class="line__title">Видео в разделе БСН-ТВ (изготовление+размещение)</span>
+                            <span class="line__placeholder"><i class="placeholder"></i></span>
+                            <span class="line__value">35 000 руб.</span>
+                        </div>
+                        <span class="subblock__description">Все материалы, размещаемые на коммерческой основе, публикуются с пометкой На правах рекламы. Возможно пакетное размещение материалов, условия обсуждаются индивидуально.<br/>*Размещение статьи с гиперссылкой</span>
+                    </div>
+                    <div class="text-subblock">
+                        <span class="subblock__subtitle"><span>Изготовление рекламных материалов</span><span class="title-placeholder"><i class="placeholder"></i></span></span>
+                        <div class="text-subblock">
+                            <div class="subblock_line">
+                                <span class="line__title">Видеоролик*</span>
+                                <span class="line__placeholder"><i class="placeholder"></i></span>
+                                <span class="line__value">25 000 руб.</span>
+                            </div>
+                            <div class="subblock_line">
+                                <span class="line__title">Рекламный баннер</span>
+                                <span class="line__placeholder"><i class="placeholder"></i></span>
+                                <span class="line__value">2 000 руб.</span>
+                            </div>
+                            <span class="subblock__description">*Видеоролик о компании/ее объектах</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column misc">
+                <span class="example-image-box media clear"><span class="example-image"></span></span>
+                <div class="contacts">
+                    <span class="contacts__phone-box"><span class="phone-box__phone-number">+7 812 655 02 13</span><span class="phone-box__email">sales@bsn.ru</span></span>
+                    <span class="contacts__docs-box">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.column__text-block').on('mouseenter',function(){
+            if(jQuery(this).hasClass('hovered')) return false;
+            jQuery(this).addClass('hovered');
+            var _img_url = jQuery(this).attr('data-img');
+            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px");
+        });
+        jQuery('.column__text-block').on('mouseleave',function(){
+            jQuery(this).removeClass('hovered');
+            var _img_url = jQuery(this).attr('data-img');
+            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
+        });
+        //картинка с образцом теперь ездит
+        //предзагрузка картинок чтобы не мигало в хроме
+        function preload(arrayOfImages) {
+            $(arrayOfImages).each(function(){
+                (new Image()).src = this;
+            });
+        }
+    });
+</script>

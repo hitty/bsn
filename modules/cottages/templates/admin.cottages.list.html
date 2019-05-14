@@ -1,0 +1,166 @@
+<h1 class="pageTitle">Коттеджные поселки</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/estate/cottages/add/" class="button">Добавить запись</a>
+    <ul id="stady-list" data-id="{$stady_id}">
+        <li data-id="">Все</li>
+        {loop $stadies,$key,$val}
+            <li data-id="{$val['id']}" class="stady-{$val['id']} {ifeq $get_array['f_stady'],$val['id']}active_status{/if}">{$val['title']}</li>
+        {/loop $stadies}        
+    </ul>
+    <div class="sorting">
+        <span class="title">Сортировать</span>
+        <a class="sort{ifeq $sortby,1} down{elseifeq $sortby,2} up{/if}" href="{php:echo htmlentities($sorting_url)}{ifeq $sortby,1}2{else}1{/if}">новые</a>
+        <a class="sort{ifeq $sortby,3} down{elseifeq $sortby,4} up{/if}" href="{php:echo htmlentities($sorting_url)}{ifeq $sortby,3}4{else}3{/if}">дата изменения</a>
+    </div>
+
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#stady-list li').on('click',function(){
+                jQuery('#stady-list').attr('data-id',jQuery(this).attr('data-id'));
+                filter_activate();
+            })
+        });
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __filter_developer = document.getElementById('f_developer').value;     
+            var __filter_manager = document.getElementById('f_manager').value;
+            var __filter_seller = document.getElementById('f_seller').value;
+            
+            var __filter_stady = jQuery('#stady-list').attr('data-id');
+            var __url = '{root:/admin/estate/cottages/}';
+            var __get = new Array();
+            __get.push('referer=script');
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_developer>0) __get.push('f_developer='+__filter_developer);     
+            if(__filter_manager!=0) __get.push('f_manager='+__filter_manager);
+            if(__filter_seller!=0) __get.push('f_seller='+__filter_seller);
+            if(__filter_stady>0) __get.push('f_stady='+__filter_stady);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+   
+        <label>
+            Менеджер:
+            <select id="f_manager" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">любой</option>
+                {loop $managers,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_manager'],$key} selected="selected"{/if}}>{$val}</option>
+                {/loop $managers}
+            </select>
+        </label>
+        <label>
+            Проставленный девелопер:
+            <select id="f_developer" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_developer'],1} selected="selected"{/if}}>есть</option>
+                <option value="2"{ifeq $get_array['f_developer'],2} selected="selected"{/if}}>нет</option>
+            </select>
+        </label>                                                              
+        <label>
+            Проставленный продавец:
+            <select id="f_seller" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбрано</option>
+                <option value="1"{ifeq $get_array['f_seller'],1} selected="selected"{/if}}>есть</option>
+                <option value="2"{ifeq $get_array['f_seller'],2} selected="selected"{/if}}>нет</option>
+            </select>
+        </label>
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="15%">
+                <col class="col1" width="25%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Адрес</th>
+                    <th>Менеджер</th>
+                    <th>Стат-ка сегодня</th>
+                    <th>Стат-ка сред. посл. 30 дней</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" class="stady-{$item['id_stady']}{ifeq $item['advanced'],1} advanced{/if}">
+                        <td>
+                            {if!empty $item['photo']}<img src="//st1.bsn.ru/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
+                            {$item['id']}
+                        </td>
+                        <td>
+                            <a href="/cottedzhnye_poselki/{$item['chpu_title']}/" target="_blank">{$item['title']}</a>
+                            <br /><span style="font-style:italic;font-size: 10px ; color:#999;">Менеджер: {ifempty $managers[$item['id_manager']]}-{else}{$managers[$item['id_manager']]}{/if}</span>
+                        </td>
+                        <td>
+                            {$item['district_name']} / {$item['txt_addr']}
+                        </td>
+                        <td>
+                            <select class="change-manager" data-id="{$item['id']}">
+                                {loop $managers,$key,$val}
+                                    <option value="{$key}"{ifeq $key,$item['id_manager']} selected="selected"{/if}>{$val}</option>
+                                {/loop $managers}
+                            </select>
+                            <input type="button" class="save-manager" data-id="{$item['id']}" value="Сохранить">
+                        </td>
+                        <td align="center" title="в поиске/карточка за день">
+                            {$item['cnt_day']} / {$item['cnt_click_day']}
+                            <br />ctr: {ifgt $item['cnt_day'],0}
+                                            {php:echo number_format(($item['cnt_click_day']/$item['cnt_day'])*100, 2, '.', ' ')}
+                                       {else}
+                                            0
+                                       {/if} %
+                        </td>
+                        <td align="center" title="в поиске/карточка за вчера">
+                            {php:echo (int)$item['cnt_full_last_days']} / {php:echo (int)$item['cnt_click_full_last_days']}
+                            <br />ctr: {ifgt $item['cnt_full_last_days'],0}
+                                            {php:echo number_format(($item['cnt_click_full_last_days']/$item['cnt_full_last_days'])*100, 2, '.', ' ')}
+                                        {else}
+                                            0
+                                        {/if} %
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/cottages/stats/{$item['id']}/" title="Статистика поселка"><span class="ico_stats">Статистика поселка</span></a>
+                            <a href="/admin/estate/cottages/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/cottages/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,28 @@
+{php:$district = !empty($item['district']) || !empty($item['district_area'])}
+<div class="item br3 shadow-hover transition" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Строчное размещение акций']); }catch(e){}" data-id="{$item['id']}">
+    {ifempty $promotions_mainpage}<span class="internal-link" data-link="//sale.bsn.ru/campaign/{$item['chpu_title']}/" data-new-tab="true"></span>{/if}
+
+    <span class="image br3 bg-cover" style="background-image: url({if!empty $item['photo']}//sale.bsn.ru/{$img_folder}/sm/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if});"></span>
+    
+    <div class="actions">
+        {ifgt $item['discount'],1}<span class="br3 discount" data-icon="offer">{$item['discount']}%</span>
+        {elseif!empty $item['action_title']}<span class="br3 discount" data-icon="query_builder">{$item['action_title']}</span>
+        {elseifgt $item['installment'],1}<span class="br3 discount" data-icon="query_builder">{$item['installment']}</span>
+        {/if}
+        <span class="title br3"> до {$item['normal_date_end']}</span>
+    </div>
+    
+    <div class="content">
+        {if!empty $district}
+            <span class="district" data-icon="rooms">
+                {if!empty $item['district']}{$item['district']}
+                {else}{$item['district_area']}
+                {/if}
+            </span>
+        {/if}
+        
+        <div class="title">{$item['title']}</div>
+       
+    </div>
+    <span class="button blue transition">Подробности акции</span>
+</div>

@@ -1,0 +1,13 @@
+<div class="application-fixed">
+    <span id="application-button" data-url="/applications/popup/" class="button blue bbox shadow transition" data-id="{$item['id']}" data-type="zhiloy_kompleks" data-icon="create" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }">{ifempty $application_title}Оставить заявку{else}{$application_title}{/if}</span>
+    <div class="animations">
+        <div class="circle one br3"></div>
+        <div class="circle two br3"></div>
+        <div class="circle three br3"></div>
+    </div>
+    <div class="form transition">
+        {include /modules/applications/templates/popup.app.small.html}
+        <script>jQuery(document).ready(function(){ jQuery( '.application-fixed form' ).formSubmit(); } )</script>
+    </div>
+
+</div>

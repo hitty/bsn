@@ -1,0 +1,14 @@
+<div class="application-sent-wrapper success">
+    <span class="title">{if!empty $title}{$title}{else}Спасибо за обращение!{/if}</span>
+    <i data-icon="mood"></i>
+    {if!empty $text}<div class="text">{$text}</div>{/if}
+</div>
+
+{ifeq $popup_redirect,'true'}
+    <script>
+        setTimeout(function(){
+            window.location.href = location.href.replace(location.hash, "");
+            window.location.reload();
+        }, 1000)    
+    </script>
+{/if}

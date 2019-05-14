@@ -1,0 +1,21 @@
+{ifeq $action,'last1'}
+    <script>
+        window.location.href = "https://www.bsn.ru/spec_offers/lastpng/";
+    </script>    
+{else}
+    {if!empty $list}
+        <div class="spec-offers-list" id="spec-offers-list">
+        <p id="spec-offers-title">Предложения от застройщиков Санкт-Петербурга и Ленинградской области</p>
+        {loop $list,$key,$item}
+            <div class="spec-offers pingola">
+                <a class="external-link" href="http://www.hitty.ru/?from=bsn" target="_blank" title="{quoted:$item['title']}" data-type="spec-offers" data-id="{$item['id']}">
+                    {php:$_index = rand(0,1);}
+                     <img src="{$item['photo']}" alt="{quoted:$item['title']}" />
+                    {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+                    <p>{$item['title']}</p>
+                </a>
+            </div>
+        {/loop $list}
+        </div>
+    {/if} 
+{/if}

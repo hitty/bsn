@@ -1,0 +1,396 @@
+#background.fixed{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;    
+    z-index: 99990;
+}
+header {
+    background-image: url('/modules/navigator/img/bg.jpg');
+    width: 100%;
+    padding: 0;
+    height: 380px;
+    margin: 60px 0 0 0;
+    position: relative;
+    background-color: #94A8C3;
+}
+
+header h1 {
+    font-size: 48px;
+    color: #fff;
+    width: 850px;
+    text-align: center;
+    margin: 0 auto 40px auto;
+    position: relative;
+    padding-top: 90px;
+    line-height: 52px;
+}
+
+header .bottom-wrap {
+    position: absolute;
+    bottom: 0;
+    padding: 20px 0;
+    background: rgba(0,0,0,.6);
+    left: 0;
+    right: 0;
+}
+
+header .bottom-wrap .content {
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    width: 500px;
+}
+
+header .bottom-wrap .content .title {
+    display: block;
+    position: relative;
+    line-height: 40px;
+}
+
+header .bottom-wrap .logo {
+    display: block;
+    width: 150px;
+    height: 40px;
+    border: none;
+}
+
+header .bottom-wrap .logo.komissiya {
+    background: url('/modules/navigator/img/logo-komissiya.png') no-repeat 0 0;
+}
+
+header .bottom-wrap .logo.bsn {
+    background: url('/modules/navigator/img/logo-bsn.png') no-repeat 0 0;
+}
+header.with-shadow:after{
+    display: none;
+}
+.topmenu-navigator{
+    position: fixed;
+    height: 60px;
+    background: #1e88e5;
+    z-index: 100;
+    top: 0;
+    width: 100%;
+    -webkit-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    -o-box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+.content-wrapper {
+    width: 1200px;
+    margin: 40px auto;
+}
+.shadow-hover:before{
+    border-color:#fff;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;    
+}
+.content-wrapper .item {
+    padding: 20px;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    width: 300px;
+    height: 240px;
+}
+
+.content-wrapper .item .bg {
+    width: 260px;
+    height: 110px;
+    background: url('/modules/navigator/img/sprite.jpg') no-repeat 0 0;
+    display: block;
+    position: relative;
+}
+.content-wrapper .item .bg:before{
+    content:"";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    border: 1px solid #ececec;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+.content-wrapper .item .title {
+    margin: 20px 0;
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.content-wrapper .item:hover {
+    cursor: pointer;
+}
+.content-wrapper .item:hover .title{
+    color:#1e88e5;
+}
+
+.content-wrapper .item.block-1 .bg {
+    background-position: 0px 0px;
+}
+.content-wrapper .item.block-2 .bg {
+    background-position: -260px 0px;
+}
+.content-wrapper .item.block-3 .bg {
+    background-position: -520px 0px;
+}
+.content-wrapper .item.block-4 .bg {
+    background-position: -780px 0px;
+}
+
+.content-wrapper .item.block-5 .bg {
+    background-position: 0px -110px;
+}
+.content-wrapper .item.block-6 .bg {
+    background-position: -260px -110px;
+}
+.content-wrapper .item.block-7 .bg {
+    background-position: -520px -110px;
+}
+.content-wrapper .item.block-8 .bg {
+    background-position: -780px -110px;
+}
+
+.content-wrapper .item.block-9 .bg {
+    background-position: 0px -220px;
+}
+.content-wrapper .item.block-10 .bg {
+    background-position: -260px -220px;
+}
+.content-wrapper .item.block-11 .bg {
+    background-position: -520px -220px;
+}
+.content-wrapper .item.block-12 .bg {
+    background-position: -780px -220px;
+}
+
+.content-wrapper .item.block-13 .bg {
+    background-position: 0px -330px;
+}
+.content-wrapper .item.block-14 .bg {
+    background-position: -260px -330px;
+}
+.content-wrapper .item.block-15 .bg {
+    background-position: -520px -330px;
+}
+footer {
+    background: none;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px 0;
+    color: #818181;
+    text-align: center;
+    box-shadow: none;
+}
+
+#background-shadow{
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,.8);
+    overflow: auto;    
+    z-index: 99991;
+}
+#background-shadow-bg{
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0);
+    overflow: auto;  
+    z-index: 9999;     
+}
+#background-shadow-inner{
+    position: absolute;
+    z-index: 99992;
+    opacity:0;
+    visibility:hidden;
+    left:50%;
+    top:10px;
+    background: #fff;
+    padding: 40px;
+    width: 720px;
+    -webkit-transition: opacity .3s, top .3s, visibility .3s;
+    -moz-transition: opacity .3s, top .3s, visibility .3s;
+    -ms-transition: opacity .3s, top .3s, visibility .3s;
+    -o-transition: opacity .3s, top .3s, visibility .3s;
+    transition: opacity .3s, top .3s, visibility .3s;
+    margin-top: 0;
+}
+#background-shadow .close {
+    display: block;
+    position: absolute;
+    color: #1e88e5;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+#background-shadow-inner.active {
+    opacity: 1;
+    visibility: visible;
+    top:40px;
+    margin-top: 0;
+}
+#background-shadow-inner div:last-of-type div:last-of-type{
+    margin-bottom: 0;
+}
+#background-shadow-inner .title {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 20px;
+    color: #1e88e5;
+}
+
+#background-shadow-inner .title {
+}
+
+#background-shadow-inner .external-link {
+}
+
+#background-shadow-inner h2 {
+}
+
+#background-shadow-inner .content {
+    width: 100%;
+    margin: 40px 0 0 0;
+}
+
+#background-shadow-inner .content .blue-wrap {
+    background: #1e88e5;
+    font-size: 16px;
+    color: #fff;
+    margin: 20px 0 40px 0;
+    padding: 20px;
+}
+
+#background-shadow-inner .content .blue-wrap .text {
+    display: block;
+    font-size: 14px;
+    width: 500px;
+    line-height: 18px;
+    color: #d2e7fa;
+    margin: 5px 0 0 0;
+}
+
+#background-shadow-inner .content .blue-wrap .button {
+    float: right;
+}
+
+#background-shadow-inner .content .blue-wrap + .list {
+    margin-top: -40px;
+}
+
+#background-shadow-inner .content .list {
+    border: 1px solid #ebebeb;
+    border-top: none; 
+    margin-bottom: 40px;
+}
+
+#background-shadow-inner .content .list .item {
+    position: relative;
+    padding: 15px 20px 15px 55px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#background-shadow-inner .content .list .item:after{
+    content:'';
+    position: absolute;
+    bottom: -1px;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: #ebebeb;
+    display: block;
+}
+#background-shadow-inner .content .list .item:hover:after{
+    display: none;
+}
+#background-shadow-inner .content .list .item i{
+    position: absolute;
+    font-size: 24px;
+    left: 17px;
+    top: 10px;
+}
+#background-shadow-inner .content .list .item:hover,
+#background-shadow-inner .content .list .item:hover i{
+    color:#1e88e5;
+}
+#background-shadow-inner .content .list .item:hover .text{
+    color:#818181;
+}
+#background-shadow-inner .content .list .item:before,
+#background-shadow-inner .content .list .item:hover:before{
+    border-color: #fff;    
+}
+#background-shadow-inner .content .list .item .external-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+ #background-shadow-inner .content .list .item .text {
+    font-size: 14px;
+    color: #818181;
+    display: block;
+    line-height: 18px;
+    line-height: 20px;
+    margin: 5px 0 0 0;
+}
+
+
+#background-shadow-inner .simple-text {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 20px 0;
+}
+
+#background-shadow-inner ul {
+    margin: 20px 30px 0 30px;
+}
+
+#background-shadow-inner li {
+    position: relative;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+#background-shadow-inner li:before {
+    content: "-";
+    display: block;
+    position: absolute;
+    left: -10px;
+    color: #000;
+    font-size: 17px;
+}
+
+#background-shadow-inner li .grey {
+    font-size: 14px;
+    color: #818181;
+    line-height: 16px;
+    display: block;
+}

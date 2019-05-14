@@ -1,0 +1,37 @@
+
+    <div class="smallnotes-wrapper promo">
+        <div class="smallnotes">
+            <time  data-icon="schedule" datetime="{$item['normal_date']}" data-icon="schedule">{$item['normal_date']}</time>
+            <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+            <span class="comments_count" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
+            {if!empty $item['author']}<span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person" data-icon="create">{$item['author']}</span>{/if}
+            {if!empty $item['author_url']}<span class="source">Источник: <span class="external-link" data-link="{$item['author_url']}" title="{quoted:$item['title']}">{$item['author_url']}</span></span>{/if}
+            {if!empty $item['photo_source']}<span class="photo-source">Источник фото: {$item['photo_source']}</span>{/if}
+        </div>  
+    </div>  
+    <div class="promo-menu-wrapper">
+        <div class="menu">
+            <span class="title">Содержание:</span>
+            <ul>
+                {loop $promo_list,$p,$pitem}
+                    <li data-id="{$pitem['id']}" class="transition{ifeq $p,0} active{/if}" data-icon="keyboard_arrow_right"><span>{$pitem['title']}<span></li>
+                {/loop $promo_list}
+            </ul>  
+        </div>    
+    </div>
+    <div class="promo-wrapper">
+        {if!empty $promo_list}
+            {loop $promo_list,$p,$pitem}
+                {include /modules/content/templates/promo.block.item.html}
+            {/loop $promo_list}
+        {/if}
+    </div>
+    
+    <div id="social-buttons-content">
+        <span class="title">Показалось интересным? Поделитесь этим материалом в соцсетях!</span>
+        <script src="https://yastatic.net/share2/share.js" async="async"></script>
+        <div class="ya-share2" data-size="m" data-services="vkontakte,facebook,twitter,odnoklassniki,gplus" data-counter></div>
+    </div>
+
+
+{include /modules/comments/templates/init.html}

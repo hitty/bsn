@@ -1,0 +1,69 @@
+<h1 class="pageTitle">Телефоны для рекламных площадок</h1>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_agency = document.getElementById('f_agency').options[document.getElementById('f_agency').selectedIndex].value;
+            var __filter_partner = document.getElementById('f_partner').options[document.getElementById('f_partner').selectedIndex].value;
+            var __url = '{root:/admin/access/partners/phones/}';
+            var __get = new Array();
+            if(__filter_agency!=0) __get.push('f_agency='+__filter_agency);
+            if(__filter_partner!=0) __get.push('f_partner='+__filter_partner);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Партнер:
+            <select id="f_partner" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $partners,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_partner'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $partners}
+            </select>
+        </label>
+        <label>
+            Агентство:
+            <select id="f_agency" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $agencies,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_agency'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $agencies}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="2%">
+                <col class="col1" width="25%">
+                <col class="col2" width="25%">
+                <col class="col2" width="50%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Агентство</th>
+                    <th>Площадка</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['agency_title']}</td>
+                        <td>{$item['partner_title']}</td>
+                        <td align="left" class="change-phone">
+                           <input type="phone" id="phone" name="phone" data-id-agency="{$item['id_agency']}" data-id-partner="{$item['id_partner']}"  value="{$item['phone']}"/>
+                           <div class="button">Сохранить</div>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

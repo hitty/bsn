@@ -1,0 +1,53 @@
+<h1>{$h1}</h1>
+{if!empty $konkurs_status}
+    {if!empty $info['text_begin_top']}<div class="konkurs-clauses">{$info['text_begin_top']}</div>{/if}
+    {if!empty $list}
+        {php:$category = "";}
+        {php:$voted_titles = array();}
+        <div class="expanded-list">
+            <h2 class="header blue">Номинации</h2>
+            {loop $list,$k,$item}
+                {ifempty $item['can_vote']}
+                    {ifeq $item['vote_id_member'],$item['id']}
+                        {php:$voted_titles[$item['category_title']] = $item['title']}
+                    {/if}
+                {/if}
+            {/loop $list}
+            {php:$count=1;}
+            {loop $list,$k,$item}
+                {if!eq $category, $item['category_title']}
+                    {if!eq $category,''}</div>{/if}
+                    <h3 class="btitle">
+                        <i>{$count}</i>
+                        {$item['category_title']} 
+                        <br />
+                        <span class="{if!eq $item['can_vote'],1}voted{else}none-voted{/if}">
+                            {ifeq $item['can_vote'],1}
+                                Вы еще не голосовали
+                            {else}
+                                Ваш голос отдан: {$voted_titles[$item['category_title']]}
+                            {/if}
+                        </span>
+                    </h3>
+                    <div class="expanded-list-items {ifeq $item['can_vote'],1}vote-for{/if}" data-all-votes="{php: echo (!empty($item['all_votes']))?$item['all_votes']:0}">
+                    {php:++$count}
+                    {php:$category = $item['category_title'];}
+                {/if}
+                    <div id="{$item['id']}" class="item{ifempty $item['can_vote']}{ifeq $item['vote_id_member'],$item['id']} voted{/if}{/if}" name="{$konkurs_url}">
+                        <span class="title" title="{$item['title']}">{$item['title']}</span>
+                        <div class="stats">
+                            <span class="vote-button">Голосовать</span>
+                            <span class="progressbar" data-current-votes="{$item['amount']}">
+                                <span style="width: {php: print($item['amount']/$item['all_votes'])*100}%" class="progressbar-fill"></span>
+                            </span>
+                        </div>
+                    </div>
+            {/loop $list}
+            </div>
+        </div>
+    {/if}
+    {if!empty $info['text_begin_bottom']}<div class="konkurs-clauses">{$info['text_begin_bottom']}</div>{/if}
+{else}
+    <div class="konkurs-clauses">{$info['text_end']}</div>
+{/if}
+

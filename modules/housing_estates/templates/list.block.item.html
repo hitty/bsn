@@ -1,0 +1,107 @@
+            {php:$status_text = $item['advanced']==1 ? 'Премиум' : 'Стандарт';}
+            <div class="item {ifempty $map_mode}shadow-hover{else}shadow br3{/if} transition clearfix estate-complex{if!empty $housing_estate_expert} expert-item{if!empty $item['can_vote']} can-vote{/if}{/if}" onClick="try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(err){ }" data-id="{$item['id']}" data-link="/{$estate_type}/{$item['chpu_title']}/" data-new-tab="true">
+                
+                <div class="photo bbox bg-cover br3{ifempty $photos} lazy{/if}" {ifempty $photos}data-src="//st1.bsn.ru/img/layout/no-photo-med.gif"{/if}>
+                    {php:$photos = $item['photos']}
+                    {if!empty $photos}
+                    <div class="image-list">
+                        {loop $photos,$pk,$pv} 
+                        <div class="image-item">
+                            <div class="image-wrapper bg-cover transition lazy" data-src="{if!empty $pv['name']}{ifeq $estate_type,'inter'}http://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}{elseif!empty $pv['complex_photo']}{static:/}{$img_folder}/med/{$pv['complex_subfolder']}/{$pv['complex_photo']}{/if}">
+                               {ifgt $item['photos_count'],5}
+                                    {ifeq $pk,4}
+                                        <div class="more">
+                                            <span class="more-text" data-icon="crop_original_black">Ещё {php:echo $item['photos_count'] - 5} фото</span>
+                                        </div>
+                                    {/if}
+                                {/if}
+                            </div>
+                            {ifgt $item['photos_count'],1}<div class="image-button"></div>{/if}
+                        </div>
+                        {/loop $photos}
+                    </div>
+                    {/if}
+                </div>
+                <div class="info">
+                    <div class="main-params-wrap{if!empty $ajax_mode} flex{/if}">
+                        {if!empty $ajax_mode}
+                        <div>
+                            <a class="estate-complex-title text-overflow{if!empty $total_objects} short{/if}" href="/{$estate_type}/{$item['chpu_title']}/" target="_blank" title="{$item['header']}">
+                                {ifeq $estate_type,'zhiloy_kompleks'}ЖК{else}Апартаменты{/if} «{$item['title']}»
+                            </a>                        
+                            {ifempty $only_objects}
+                                {if!empty $item['seller_title']}<span class="estate-complex-seller text-overflow">{$item['seller_title']}</span>
+                                {elseif!empty $item['developer_title']}<span class="estate-complex-seller text-overflow">{$item['developer_title']}</span>{/if}
+                            {/if}
+                        </div>
+                        {/if}
+                        {php:$total_objects = $item['build_total_objects']}
+                        {if!empty $total_objects}
+                            <div class="total-objects">
+                                <span class="price">
+                                    {ifeq $item['min_cost_objects'], $item['max_cost_objects']}
+                                        {numberformat:$item['min_cost_objects']} 
+                                    {else}
+                                        от {numberformat:$item['min_cost_objects']}
+                                    {/if}
+                                     Р
+                                </span>
+                                {ifempty $housing_estate_expert}
+                                    <span class="value">{suffix:$total_objects,'объект','','а','ов'}</span>
+                                {/if}
+                            </div>  
+                        {/if}
+                        {ifempty $ajax_mode}
+                            <a class="estate-complex-title text-overflow{if!empty $total_objects} short{/if}" href="/{$estate_type}/{$item['chpu_title']}/" target="_blank" title="{$item['header']}">
+                                {ifeq $estate_type,'zhiloy_kompleks'}ЖК{else}Апартаменты{/if} «{$item['title']}»
+                            </a>                        
+                            {ifempty $only_objects}
+                                {if!empty $item['seller_title']}<span class="estate-complex-seller text-overflow">{$item['seller_title']}</span>
+                                {elseif!empty $item['developer_title']}<span class="estate-complex-seller text-overflow">{$item['developer_title']}</span>{/if}
+                            {/if}
+                        {/if}
+                    </div>
+                    
+                    {ifempty $only_objects}
+                        <div class="address-wrap">
+                            {if!empty $item['subway']}
+                                <span class="subway {$item['subway_line_color']}">{$item['subway']} 
+                                    {if!empty $item['way_time']} 
+                                        - {$item['way_time']} мин. {ifeq $item['id_way_type'],2} пешком{else} на траспорте{/if}
+                                    {/if}
+                                </span>
+                            {/if}
+                            {php:$district = !empty($item['district']) || !empty($item['district_area'])}
+                            {if!empty $district}
+                                <span class="district">
+                                    {if!empty $item['district']}{$item['district']} район{elseif!empty $item['district_area']}{$item['district_area']} район ЛО{/if}
+                                </span>
+                            {/if}
+                        </div>
+                        <div class="actions">
+                            <span data-id="{$item['id']}" data-type="zhiloy_kompleks" title="{ifeq $item['in_favorites'],1}Удалить из избранного{else}В избранное{/if}" data-icon="{ifeq $item['in_favorites'],1}star{else}star_border{/if}" class="star{ifeq $item['in_favorites'],1} in-favorites{/if} transition" data-link="/favorites/?type={$estate_type}">
+                                <span class="star-label"></span>
+                            </span>
+                            
+                            {ifempty $housing_estate_expert}
+                                {if!eq $status_text,'Стандарт'}<div class="status tag br3 promo">Промо</div>{/if}
+                            {/if}
+                            {if!empty $item['class_title']}<span class="status tag br3 class">{$item['class_title']}</span>{/if}
+                            {ifempty $housing_estate_expert}
+                                {ifeq $item['low_rise'],1}<span class="status tag br3 apart-hotel">Малоэтажный</span>{/if}
+                            {/if}
+                        </div>
+                    {/if}
+                </div>     
+                    
+                {if!empty $housing_estate_expert}
+                    {if!empty $item['can_vote']}
+                        <div class="vote-wrap">
+                            <div>
+                                <span class="button internal-link grey" data-link="/{$estate_type}/{$item['chpu_title']}/" data-new-tab="true">Подробности о ЖК</span>
+                                <span class="button vote" data-url="/zhiloy_kompleks/votes/popup_voting/{$item['id']}/">Голосовать за ЖК</span>
+                            </div>
+                        </div>
+                    {/if}                                                                          
+                {/if}                                                                          
+            </div>                                                                                     

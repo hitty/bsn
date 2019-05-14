@@ -1,0 +1,33 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+<div class="content-wrapper categories-titles row-3 clearfix">
+    {if!empty $list}
+        {php:$category=$list;}
+        {loop $list,$lk,$item}
+            {if!eq $category,$item['category_title']}
+                <div class="item {$item['category_chpu_title']} br3 shadow-hover transition" >
+                    {if!empty $item['category_title']}</ul>{/if}
+                    {php:$category=$item['category_title'];}
+                    <a class="internal-link" href="/service/information/{$item['category_chpu_title']}/"></a>
+                    <span class="icon-block"></span>
+                    <a href="/service/information/{$item['category_chpu_title']}/" title="{quoted:$item['category_title']}">{$item['category_title']}</a>
+                </div>
+            {/if}
+        {/loop $list}
+    {/if}
+</div> 
+<div class="information-category-list">
+    
+    {if!empty $list}
+    {php:$category=$list;}
+    {loop $list,$lk,$item}
+        {if!eq $category,$item['category_title']}
+            {if!empty $item['category_title']}</ul>{/if}
+            <h3>{$item['category_title']}</h3>
+            <ul class="category_{$item['category_id']}">
+            {php:$category=$item['category_title'];}
+        {/if}
+        <li><a href="/service/information/{$item['chpu_title']}/" title="{$item['docs_title']}">{$item['docs_title']}</a></li>
+    {/loop $list}
+    {/if}
+    </ul>
+</div>

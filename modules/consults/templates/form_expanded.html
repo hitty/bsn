@@ -1,0 +1,43 @@
+<form class="consults-view-form public active{if!empty $form_vars['email']} short{/if}" method="POST" data-responder="{$info['id']}">
+    <span class="form-title">Задайте свой вопрос:</span>
+    <div class="left-column consults">
+        <div class="field-box required">
+            <span>Ваше имя</span>
+            <input type="text" name="name" required="required" value="{if!empty $form_vars['name']}{$form_vars['name']}{/if}">
+            <span>Обязательное поле</span>
+        </div>
+        <div class="field-box">
+            <span>Заголовок</span>
+            <input type="text" name="title" required="required">
+        </div>
+        <div class="field-box required">
+            <span>Тема вопроса</span>
+            <div class="list-selector question_category grey" data-estate-allowed="1234">
+                <a href="#" class="pick">Не выбрана</a><a href="#" class="select">...</a>
+                <input id="category" name="category" value="" required="required" type="hidden">
+                <ul class="list-data">
+                    <li class="selected" data-value="">Не выбрана</li>
+                    {loop $question_categories_list,$k,$i}
+                        <li data-value="{$k}">{$i['title']}</li>
+                    {/loop $question_categories_list}
+                </ul>
+            </div>
+            <span>Обязательное поле</span>
+        </div>
+        <div class="field-box required">
+            <span>Email</span>
+            <input type="text" name="email" class="email" autocomplete="off" required="required" value="{if!empty $form_vars['email']}{$form_vars['email']}{/if}">
+            <span>Неправильный email</span>
+        </div>
+        <div class="field-box required">
+            <span>Вопрос</span>
+            <textarea name="text" id="text" required="required"></textarea>
+            <span>Обязательное поле</span>
+        </div>
+        {ifempty $form_vars['email']}
+            <label class="checkbox agree on"><input id="reg_agree" name="reg_agree" value="1" type="checkbox" data-true-value="1" data-false-value="0" rel="reg_agree"><i>Да, я хочу зарегистрироваться на BSN.ru, чтобы получать ответы на свой вопрос</i></label>
+        {/if}
+        <button class="green send" name="submit" value="Отправить">Отправить</button>
+        <div class="text">Все поля являются обязательными для заполнения</div>
+    </div>    
+</form>

@@ -1,0 +1,104 @@
+{php:$form_rand = mt_rand(0,100)}
+
+<form class="fast-search form-blue tiny ajax-form {$form_rand}" data-form-rand="{$form_rand}" id="fast-search-form" action="/" method="post">
+    <div class="form-container">
+        {php:$deal_type = !empty($deal_type) && $deal_type == 'rent' ? 1 : 2}
+        {php:$sell_visible = $deal_type == 1 ? 'hidden' : ''}
+        {php:$rent_visible = $deal_type == 2 ? 'hidden' : ''}
+        <div class="row">
+            
+            <div class="list-selector select-deal-type">
+                <a href="#" class="pick"></a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="deal_type" value="{$deal_type}" />
+                <ul class="list-data">
+                    {if!empty $counts[$status.'_sell']}<li data-value="2" class="selected">Купить</li>{/if}
+                    {if!empty $counts[$status.'_rent']}<li data-value="1">Снять</li>{/if}
+                </ul>
+            </div>                                    
+            <div class="list-selector select-object-type">
+                <a href="#" class="pick">выберите тип объекта</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="objects_group" id="estate-object-type" value="build-sell" />
+                
+                <ul class="list-data">
+                    {if!empty $counts[$status.'_sell']}
+                    <div class="sell-objects" data-deal="sell" >
+                        {if!empty $counts[$status.'_build_sell']}        <li data-type="build"         data-value="build-sell"              data-url="build/sell/"                data-middle-index="1"     ><span>Новостройки<sup>{$counts[$status.'_build_sell']}</sup></span></li>   {/if}
+                        {if!empty $counts[$status.'_live_sell']}         <li data-type="live"         data-value="live-sell"               data-url="live/sell/"            data-middle-index="1"     ><span>Жилая<sup>{$counts[$status.'_live_sell']}</sup></span></li>      {/if}
+                        {if!empty $counts[$status.'_commercial_sell']}   <li data-type="commercial"    data-value="commercial-sell"         data-url="commercial/sell/"  data-middle-index="2"     ><span>Коммерческая<sup>{$counts[$status.'_commercial_sell']}</sup></span></li>     {/if}
+                        {if!empty $counts[$status.'_country_sell']}      <li data-type="country"       data-value="country-sell"            data-url="country/sell/"   data-middle-index="2"     ><span>Загородная<sup>{$counts[$status.'_country_sell']}</sup></span></li>      {/if}
+                    </div>
+                    {/if}
+                    {if!empty $counts[$status.'_rent']}
+                        <div class="rent-objects" data-deal="rent">
+                            {if!empty $counts[$status.'_live_rent']}         <li data-type="live"         data-value="live-rent"               data-url="live/rent/"            data-middle-index="2"     ><span>Жилая<sup>{$counts[$status.'_live_rent']}</sup></span></li>       {/if}
+                            {if!empty $counts[$status.'_commercial_rent']}  <li data-type="commercial"    data-value="commercial-rent"        data-url="commercial/rent/"   data-middle-index="2"     ><span>Коммерческая<sup>{$counts[$status.'_commercial_rent']}</sup></span></li>          {/if}
+                            {if!empty $counts[$status.'_country_rent']}      <li data-type="country"      data-value="country-rent"            data-url="country/rent/"    data-middle-index="2"     ><span>Загородная<sup>{$counts[$status.'_country_rent']}</sup></span></li>   {/if}
+                        </div>
+                    {/if}
+                </ul>
+
+            </div> <!--/.list-selector .select-object-type-->
+            
+            <div class="middle-panel">
+
+                <div class="checkbox-group rooms-count{ifempty $form_data['objects_group']} active{/if}" data-index="1">
+                    <label for="rooms_count_0_build"{if!empty $form_data['rooms_checked'][0]} class="on"{/if} title="Студия"><input type="checkbox" value="0" name="rooms:0" id="rooms_count_0_build" {if!empty $form_data['rooms_checked'][0]}checked="checked" {/if}/>С</label>
+                    <label for="rooms_count_1_build"{if!empty $form_data['rooms_checked'][1]} class="on"{/if} title="1ккв"><input type="checkbox" value="0" name="rooms:1" id="rooms_count_1_build" {if!empty $form_data['rooms_checked'][1]}checked="checked" {/if}/>1</label>
+                    <label for="rooms_count_2_build"{if!empty $form_data['rooms_checked'][2]} class="on"{/if} title="2ккв"><input type="checkbox" value="0" name="rooms:2" id="rooms_count_2_build" {if!empty $form_data['rooms_checked'][2]}checked="checked" {/if}/>2</label>
+                    <label for="rooms_count_3_build"{if!empty $form_data['rooms_checked'][3]} class="on"{/if} title="3ккв"><input type="checkbox" value="0" name="rooms:3" id="rooms_count_3_build" {if!empty $form_data['rooms_checked'][3]}checked="checked" {/if}/>3</label>
+                    <label for="rooms_count_4_build"{if!empty $form_data['rooms_checked'][4]} class="on"{/if} title="Многокомнатная"><input type="checkbox" value="0" name="rooms:4" id="rooms_count_4_build" {if!empty $form_data['rooms_checked'][4]}checked="checked" {/if}/>4+</label>
+                </div>
+                
+                <div class="square-full interval-selector square" data-index="2">
+                    <input type="text" name="square_full_from" value="{if!empty $form_data['square_full_from']}{$form_data['square_full_from']}{/if}" placeholder="От" />
+                    <input type="text" name="square_full_to" value="{if!empty $form_data['square_full_to']}{$form_data['square_full_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                </div>
+
+                <div class="square-live interval-selector square" data-index="3">
+                    <input type="text" name="square_live_from" value="{if!empty $form_data['square_live_from']}{$form_data['square_live_from']}{/if}" placeholder="От" />
+                    <input type="text" name="square_live_to" value="{if!empty $form_data['square_live_to']}{$form_data['square_live_to']}{/if}" placeholder="До" /> м<sup>2</sup>
+                </div>
+
+                <div class="square-ground interval-selector square" data-index="4">
+                    <input type="text" name="square_ground_from" value="{if!empty $form_data['square_ground_from']}{$form_data['square_ground_from']}{/if}" placeholder="От" />
+                    <input type="text" name="square_ground_to" value="{if!empty $form_data['square_ground_to']}{$form_data['square_ground_to']}{/if}" placeholder="До" /> сот.
+                </div>
+            </div>
+            
+            <div class="interval-selector price-selector">
+                <input type="text" name="min_cost" id="from_value" value="{if!empty $form_data['min_cost']}{$form_data['min_cost']}{/if}" placeholder="От" />
+                <input type="text" name="max_cost" id="to_value" value="{if!empty $form_data['max_cost']}{$form_data['max_cost']}{/if}" placeholder="До" />
+                Р
+            </div> 
+
+            <div class="extend-params">
+                <input type="hidden" value="{$auth['id']}" name="agency">
+                <input type="hidden" value="1" name="only_objects">   
+                <input type="hidden" value="{$status_value}" name="published">   
+                <input type="hidden" value="1" name="members_page">   
+            </div> 
+
+        </div> <!--/.row-->              
+     
+    </div>
+ 
+    <i class="shadow"></i>    
+</form>  
+{literal}
+    <script>
+        
+        jQuery(document).ready( function() { 
+            var _el = jQuery('.fast-search');
+            var _form_rand = _el.data('form-rand');
+             var _el = jQuery('.fast-search[data-form-rand=' + _form_rand + ']');
+            checkBoxesInit( _el )
+            listSelectorInit( _el )
+
+            setTimeout(function(){
+                _el.estateSearch({ajax_search: true})     
+            }, 150)
+        } )
+    </script>
+{/literal}

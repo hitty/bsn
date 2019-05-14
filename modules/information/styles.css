@@ -1,0 +1,130 @@
+div.offices_item{
+    margin-bottom:20px;
+    border-bottom: 1px dotted #CCCCCC;
+}
+
+div.offices_item p span{
+    width:130px;
+    display: inline-block;
+}
+.information-category-list{
+    padding-left:130px;
+    margin-top:30px;
+}
+.information-category-list h3{
+    font-size:18px;
+    font-weight: bold;
+}
+.information-category-list ul{
+    margin-bottom: 45px;
+    position:relative;
+    min-height: 80px;
+}
+.information-category-list ul li{
+    margin-bottom: 10px;
+}
+.information-category-list ul li a{
+    font-size:16px;
+}
+.information-category-list ul li span{
+    color:#1e88e5;
+}
+.information-category-list ul:before{
+    position: absolute;
+    content: "";
+    width: 110px;
+    height: 110px;
+    background: url('https://st.bsn.ru/img/layout/information_icons.png') no-repeat 0px 0px;
+    left:-130px;
+    top: -35px;
+}
+.information-category-list .without-header:before{
+    top:0px;
+}
+.information-category-list ul.category_5:before{
+    background-position: 0px -110px;
+}
+.information-category-list ul.category_6:before{
+    background-position: 0px -220px;
+}
+.information-category-list ul.category_7:before{
+    background-position: 0px -330px;
+}
+.information-category-list ul.category_8:before{
+    background-position: 0px -440px;
+}
+.information-category-list ul.category_9:before{
+    background-position: 0px -550px;
+}
+article .category-title{
+    background: #dcedc8;
+    font-size:16px;
+    padding:10px;
+}
+article .category-title .type-title{
+    position:relative;
+    font-size:14px;
+    display: block;
+    padding-left:20px;
+    margin-top: 2px;
+}
+article .category-title .type-title:before{
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0px;
+    left: -1px;
+    background: url('https://st.bsn.ru/img/layout/icons16.png') no-repeat 0px -1258px;
+    
+}
+article .category-title + .information-category-list{
+    margin-top: 50px;
+}
+article .category-title + .bigtext{
+    margin-top:20px;
+}
+.back-to-main{
+    margin: 20px 0 20px 130px;
+}
+.news + .back-to-main{
+    margin:20px 0;
+}
+.back-to-main:before{
+    content: "";
+    background: url('https://st.bsn.ru/img/layout/icons16.png') no-repeat 0px -620px;
+    width: 17px;
+    height: 21px;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(-268deg);
+    display: inline-block;
+    float: left;   
+}
+.filedownload-wrap{
+    float:right;
+    margin:0 0 10px 10px;
+    width:250px;
+}
+.filedownload-wrap .title{
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #1e88e5;
+    padding:10px;
+}
+.filedownload-wrap .files-list{
+    background: #f3f3f3;    
+    padding:10px;    
+}
+.filedownload-wrap .files-list a{
+    font-size:14px;
+}
+.filedownload-wrap .files-list .file-info{
+    font-size:12px;
+    color:#838383;
+}
+.adsbygoogle{
+    margin-bottom: 20px;
+}

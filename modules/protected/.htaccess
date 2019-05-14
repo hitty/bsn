@@ -1,0 +1,7 @@
+
+<Files housing_estate.php> 
+AuthType Basic 
+AuthName housing_estate
+AuthUserFile  /home/bsn/sites/bsn.ru/public_html/modules/protected/.htpasswd 
+require valid-user 
+</Files>

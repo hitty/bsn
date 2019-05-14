@@ -1,0 +1,11 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{if!empty $list}
+<ul class="konkurs-list">
+{loop $list,$key,$item}
+    <li>
+        - <a href="{$host}/konkurs/{$item['url']}/" title="{quoted:$item['title']}">{$item['title']}</a> 
+        {ifeq $item['status'],2} <font color="333">(завершен)</font> {/if}
+    </li>
+{/loop $list}
+</ul>
+{/if}

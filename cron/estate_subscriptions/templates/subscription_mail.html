@@ -1,0 +1,132 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td colspan="2" style="padding:0">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
+           
+            <tr> 
+                <td valign="top" style="border-collapse:collapse; font-size:18px; line-height: 20px;" align="left"> 
+                <b>Здравствуйте{if!empty $user['name']}, {$user['name']}{/if}!</b>
+                <br />По вашему поисковому запросу:
+                </td>
+            </tr>
+            <tr style=""><td height="20"></td></tr>
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0px 0; font-size:24px; font-weight: bold; line-height: 26px; color:#1e88e5;" align="left"> 
+                   <a href="http://{$host}/{$list_url}&id_subscription={$subscription_id}" style="text-decoration: none; color:#1e88e5;">
+                        {php:$title = $description['title']}
+                        {php:unset($description['title'])}
+                        {loop $title,$dk,$ditem}
+                            {$ditem}
+                        {/loop $title}
+                   </a>
+                   {if!empty $description}
+                       <div style="padding-top: 10px;">
+                            <a href="http://{$host}/objects_subscriptions/" title="" style="font-weight: normal; font-size: 18px; color:#818181;">Смотреть детали запроса</a>
+                       </div>
+                   {/if}
+                </td>
+            </tr>
+            <tr style=""><td height="20"></td></tr>
+            <tr> <!-- content - text -->
+                <td colspan="2" valign="top" style="border-collapse:collapse; padding:0; font-size:18px; line-height: 20px;" align="left"> 
+                   Есть обновления - <b>{suffix:$new_objects,'объект','','а','ов'}</b><br />
+                   Вот некоторые из них:
+                </td>
+            </tr>
+            <tr style=""><td height="20"></td></tr>
+        </table>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="padding: 0;">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
+            {php:$count = count($list)}
+            {loop $list,$k,$item}
+                {php:$last = $count - 1 == $k}
+                <tr style=""><td colspan="2" height="20"></td></tr>
+                <tr style="">
+                    <td colspan="2" style="">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
+                            <tr>
+                                <td width="230">
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td>
+                                                <a href="https://www.bsn.ru/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/?utm_campaign=email_subscribe&utm_source=bsn" style="width: 180px;height:150px;display:block;">
+                                                    <img src="{if!empty $item['photo']}https://st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}{else}https://st1.bsn.ru/img/mail/nophoto.png{/if}" width="230" border="0" align="left" class="fiximg" style="border: 1px solid #e3e3e3;display: block;width: auto;height: auto;max-width: 100%;max-height: 100%;"/>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="30">&nbsp;</td>
+                                <td width="420" valign="top">
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td style="font-size: 20px; line-height: 20px; padding: 0">
+                                            <div>
+                                                {ifeq $estate_type,'live'}
+                                                    {ifeq $item['id_type_object'],1}
+                                                        {ifeq $item['rooms_total'],0}студия{else}{$item['rooms_total']}-комнатная квартира{/if}
+                                                    {elseifeq $item['id_type_object'],2}
+                                                        {$item['rooms_sale']}к в {$item['rooms_total']}-комнатная квартира
+                                                    {/if}
+                                                {elseifeq $estate_type, 'build'}
+                                                    {if!eq $item['rooms_sale'],0} {$item['rooms_sale']}-{if!eq $item['rooms_sale'],'студия'}комнатная квартира{/if}
+                                                    {else} студия
+                                                    {/if}
+                                                {else}
+                                                    {$item['type_object']}
+                                                {/if}
+                                            </div>
+                                            {ifgt $item['square_ground'],0}
+                                                <span class="full-square">    
+                                                    {squareformat:$item['square_ground']} сот
+                                                </span>                
+                                            {elseifgt $item['square_full'],0}
+                                                <span class="full-square">    
+                                                    {squareformat:$item['square_full']} м<sup>2</sup>
+                                                </span>
+                                            {/if}
+                                            {ifgt $item['level'],0}<span>{ifgt $item['square_full'],0}, {/if}Этаж {$item['level']}{ifgt $item['level_total'],0}/{$item['level_total']}{/if}</span>{/if}
+                                            </td>
+                                        </tr>
+                                        <tr><td height="15"></td></tr>
+                                        <tr>
+                                            <td style="line-height: 32px; font-size: 32px; font-weight: bold; padding: 0;">
+                                                {numberformat:$item['cost']} руб.
+                                            </td>
+                                        </tr>
+                                        <tr><td height="15"></td></tr>
+                                        <tr>
+                                            <td style="font-size: 16px;line-height: 16px; padding: 0">
+                                                <div style="color:#969696;line-height: 16px; padding-bottom: 3px;">{if!empty $item['txt_addr']}{$item['txt_addr']}{/if}</div>
+                                                {if!empty $item['subway']}
+                                                    <div style="color:{$item['subway_color']}; display: block;line-height: 16px;" class="subway">
+                                                        {if!empty $item['subway_line_color']}
+                                                            <img src="//st1.bsn.ru/img/layout/subway-icon-{$item['subway_line_color']}.png" />
+                                                        {/if}
+                                                        {$item['subway']}
+                                                    </div>
+                                                {/if}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                </tr>
+            {/loop $list}
+            
+        </table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2" style="padding: 40px 0 0 0;">
+        <a href="http://{$host}/{$list_url}&id_subscription={$subscription_id}" style="text-decoration: none;"><img src="//st1.bsn.ru/img/layout/objects-subscription-button.png" /></a>    
+        </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}

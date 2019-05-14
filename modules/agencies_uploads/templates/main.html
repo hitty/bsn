@@ -1,0 +1,144 @@
+<h2 id="members-h2" data-agency="{if!empty $auth['agency']}1{/if}">
+    Выгрузка объектов агентств через XML
+</h2>
+<div class="middle-panel agencies-uploads">
+    <div class="download">
+        <h3>Ваша выгрузка</h3>
+        <div class="row clearfix">
+            <div class="left-part">
+                <span class="title">Ссылка</span>
+                <span class="text">Поддерживаются форматы (XML): BN, EIP, Yandex, Gdeetotdom, Cian, </span>
+            </div>
+            <div class="right-part">
+                <input type="text" class="grey download-link" value="{if!empty $item['xml_link']}{$item['xml_link']}{/if}" id="download-link" placeholder="Введите ссылку на свой XML файл" {if!empty $process}disabled="disabled"{/if} />
+                <span class="link button grey {ifempty $item['xml_link']}disabled{/if}" title="Тестировать ссылку">тестировать ссылку</a>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="left-part">
+                <span class="title">Отчет</span>
+                <span class="text">Мы стараемся разложить все возникающие проблемы по полочкам, так что внимательно прочтите лог, прежде чем звонить в поддержку.
+Спасибо!</span>
+            </div>
+            <div class="right-part">
+                <div class="report-wrap">
+                     <div class="report-box">
+                        <div class="progress-wrap{ifempty $process} inactive{/if}">
+                            <span>Прогресс</span>
+                            <div class="progressbar">
+                                <span></span><i>0%</i>
+                            </div>
+                        </div>
+                        <div id="report-info">
+                            {if!empty $process}{php:echo nl2br($process['full_log'])}{/if}
+                        </div>
+                     </div>
+                </div>            
+            </div>
+        </div>
+
+        <div class="row clearfix autodownload">
+            <div class="left-part">
+                <h3>Автовыгрузка</h3>
+            </div>
+            <div class="right-part">
+                {php:$active_buttons = !empty($item['xml_link']) && $item['xml_status'] == 1}
+                <div class="buttons">
+                    {ifempty $process}
+                        {ifeq $auth_data['id_tarif'],1}
+                            <span class="tarif-info">Для выгрузки объектов вам необходимо выбрать тариф для агентства.</span>
+                        {else}
+                            {ifeq $item['can_change_time'],1}
+                                <span class="button download-button blue {ifempty $active_buttons}disabled{elseifeq $item['can_change_time'],2}disabled{/if}">Сохранить</span>
+                            {/if}
+                        {/if}
+                        
+                        <div class="download-time-wrap">
+                            
+                            <div class="switcher">
+                                <span>Вкл</span>
+                                <i class="{ifeq $item['xml_status'],1} active{/if}"></i>
+                                <span>Выкл</span>
+                            </div>                                  
+                            {ifeq $item['can_change_time'],1}
+                                <div class="download-time{ifempty $active_buttons} disabled{/if}"> 
+                                    <div class="list-selector select-time grey">
+                                        <a href="#" class="pick"></a>
+                                        <a href="#" class="select">...</a>
+                                        <input type="hidden" name="select_time" id="select-time" value="{$item['xml_formatted_time']}" />
+                                        <ul class="list-data" data-simplebar="init">
+                                            {loop $time_list,$k,$hitem}
+                                                <li data-value="{$hitem['hour']}{$hitem['minute']}" data-hour="{$hitem['hour']}" data-minute="{$hitem['minute']}">{$hitem['hour']}:{$hitem['minute']}</li>
+                                            {/loop $time_list}
+                                        </ul>
+                                    </div>                                 
+                                                     
+                                </div> 
+                            {/if}                                   
+                            <div class="download-time-text{ifeq $item['can_change_time'],1} disabled{/if} button grey">
+                                в {$item['hour']}:{$item['minute']}
+                            </div>
+                        </div>
+                    {else}
+                        <span id="download-title" data-id="{$process['id']}">Производится выгрузка объектов.</span>
+                    {/if}
+                </div>
+                {ifempty $process}
+                    <div class="help-text{ifempty $active_buttons} disabled{/if}">{if!empty $time_left}До следующей выгрузки объектов осталось: <span>{$time_left}</span>{/if}</div>
+                {/if}
+                {ifeq $item['can_change_time'],1}
+                    <div class="download-now{ifempty $active_buttons} disabled{/if}">
+                        <label class="checkbox">
+                            <input id="download-now" name="download_now" value="{ifeq $item['can_download'],1}1{/if}" type="checkbox">Загрузить объекты сейчас</label>
+                    </div>
+                {/if}            
+            </div>
+        </div>
+
+        {if!empty $reports}
+        <h3>Архив</h3>
+        <div class="row clearfix">
+            <div class="left-part">
+                <span class="title">Список отчетов</span>
+                <span class="text">Мы храним для вас все отчеты за последние 12 месяцев.</span>
+            </div>
+            <div class="right-part">
+                {if!empty $process}<button id="download-report" class="download-report grey disabled" data-id="{$process['id']}">Скачать отчёт</button>{/if}
+                
+                <div class="reports-archive-wrap">
+                     
+                     <div class="reports-archive-box">
+                        <div class="header">
+                            <div class="datetime">Дата</div>
+                            <div class="objects">Объектов</div>
+                            <div class="added">Загружено</div>
+                            <div class="errors">Ошибок</div>
+                            <div class="download">Отчет</div>
+                        </div>  
+                        {loop $reports,$k,$item} 
+                            <div class="item">
+                                <div class="datetime">
+                                    <span class="date">{$item['normal_date']}</span>
+                                </div>
+                                <div class="objects">{numberformat:$item['total_amount']}</div>
+                                <div class="added">{numberformat:$item['total_added']}</div>
+                                <div class="errors">{numberformat:$item['total_errors']}</div>
+                                <div class="download download-report" data-id="{$item['id']}">
+                                    Скачать
+                                </div>
+                            </div>
+                        {/loop $reports}
+                     </div>
+                </div>
+                     
+            </div>
+        </div>   
+         {/if}      
+        
+        
+        
+        
+        
+    </div>
+</div>

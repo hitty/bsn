@@ -1,0 +1,17 @@
+{if!empty $list}
+    {loop $list,$k,$item}
+        <div class="item internal-link shadow-hover transition bbox" data-link="/organizations/company/{$item['chpu_title']}" data-new-tab="true">
+            {if!empty $item['agency_photo']}
+                <img class="logo" src="https://st1.bsn.ru/{$item['agency_photo_folder']}/{$item['agency_photo']}" alt="{$item['title']}" >
+            {/if}
+
+
+            <div class="info text-overflow">
+                <a data-id={$item['id']} class="transition" href="/organizations/company/{$item['chpu_title']}" title="{$item['title']}">{$item['title']}</a>
+                {if!empty $item['count_total']}
+                    <span class="count">{suffix:$item['count_total'],'объект','','а','ов'}</span>
+                {/if}
+            </div>
+        </div>
+    {/loop $list}
+{/if}

@@ -1,0 +1,21 @@
+.wide-form {
+    padding: 0;
+    background: #fff;
+    width: 720px;
+}
+
+.wide-form h2 {
+    padding: 0 0 20px 0px;
+}
+
+.with-scroll-text .text {
+    overflow-y: scroll;
+    height: 380px;
+    line-height: 22px;
+}
+.wide-form .text p{
+    padding-bottom: 20px;
+}
+.wide-form .text p:last-of-type{
+    padding-bottom: 0;
+}

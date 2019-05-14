@@ -1,0 +1,300 @@
+.agencies-uploads .download .download-link {
+    margin: 0 0 10px 0;
+    width: 100%;
+}
+
+.agencies-uploads .download .buttons {
+    height: 35px;
+}
+
+.agencies-uploads .download .button.blue {
+    float: right;
+    margin-top: -10px;
+}
+
+.agencies-uploads .download .button.disabled,.agencies-uploads .download .link.disabled {
+    opacity: 0;
+    cursor: default;
+}
+
+.agencies-uploads .download .link {
+    float: right;
+    margin: 10px 0 20px 0;
+}
+
+.agencies-uploads .download .buttons .tarif-info {
+    float: left;
+    width: 300px;
+}
+
+.reports-archive-wrap,.report-wrap {
+}
+
+.report-wrap .progress-wrap {
+    background-color: #e6e6e6;
+    padding: 5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    height: 15px;
+    display: block;
+}
+
+.report-wrap .progress-wrap.inactive {
+    display: none;
+}
+
+.report-wrap .progress-wrap .progressbar {
+    display: inline-block;
+    width: 590px;
+    position: relative;
+    margin-left: 5px;
+}
+
+.report-wrap .progress-wrap > * {
+    float: left;
+}
+
+.report-wrap .progress-wrap .progressbar span {
+    background: url('https://st.bsn.ru/img/layout/progressbar.gif');
+    float: left;
+    width: 0.2%;
+    height: 14px;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.report-wrap .progress-wrap .progressbar i {
+    position: absolute;
+    margin-left: 5px;
+}
+
+#report-info {
+    padding:10px;
+    height: 220px;
+    overflow-y: auto;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    -moz-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    -ms-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    -o-box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    box-shadow: inset 0px 3px 5px rgba(0,0,0,.1);
+    border: 1px solid #e6e6e6;
+    line-height: 24px;
+    font-size: 16px;
+}
+#report-info .green{
+    color:#59b111;   
+    font-weight: bold; 
+}
+#report-info .red{
+    color:#dd0000;
+    font-weight: bold;
+}
+#report-info .text{
+    color:#818181;
+}
+.reports-archive-box {
+}
+
+.reports-archive-box .header {
+    border: none;
+    font-size: 14px;
+    color: #000;
+    text-transform: none;
+    width: 480px;
+    padding: 0;
+    margin: 0;
+    color: #818181;
+    margin-bottom: 10px;
+}
+
+.reports-archive-box:after,.reports-archive-box .header:after,.reports-archive-box .item:after,.help-text:before,.help-text:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.reports-archive-box div {
+    float: left;
+    width: 95px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.reports-archive-box .datetime {
+    width: 60px;
+    margin: 0 5px;
+}
+
+
+.reports-archive-box .item {
+    width: 480px;
+    padding: 15px 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+.reports-archive-box .item:hover {
+    background: rgba(0,0,0,.025);
+}
+
+.reports-archive-box .item .datetime .time {
+    color: #a4a4a4;
+    font-size: 12px;
+}
+
+.reports-archive-box .item .download {
+    font-size: 12px;
+    color: #959595;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.reports-archive-box .item .download span {
+    background: url('https://st.bsn.ru/img/layout/icons16.png') no-repeat 0px -1340px;
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: -2px 5px 0 0;
+}
+
+.reports-archive-box .item .download:hover {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+.reports-archive-box .item .download:hover span {
+    background-position: 0px -1356px;
+}
+
+#download-report {
+    margin-top: 20px;
+}
+
+#download-report:before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: url('https://st.bsn.ru/img/layout/icons16.png') no-repeat 0px -1324px;
+    display: block;
+    float: left;
+    margin: 2px 10px 0 0;
+}
+
+.download-time-wrap {
+    float: left;
+    width: 370px;
+    height: 35px;
+}
+
+.download-time-wrap b {
+    margin-top: 9px;
+    display: inline-block;
+}
+
+.download-time-wrap .download-time + span {
+    display: none;
+}
+
+.help-text {
+    background: #fff7be;
+    color: #000;
+    font-style: italic;
+    width: 460px;
+    clear: both;
+    padding: 5px 10px;
+    margin: 15px 0 20px 0;
+}
+
+.download-now.disabled,.help-text.disabled {
+    display: none;
+}
+
+.download-button {
+    position: relative;
+    z-index: 1;
+}
+
+.download-now .checkbox input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.download-time,.download-time-text {
+    width: 190px;
+    display: block;
+    float: left;
+    margin-top: -10px;
+}
+
+.download-time-text {
+    width: 80px;
+    margin-right: 90px;
+    display: block;
+}
+
+.download-time-text.disabled,.download-time.disabled {
+    display: none;
+}
+
+.download-time .list-data {
+    width: 85px;
+}
+
+.switcher {
+    display: inline-block;
+    margin: 0 20px 0 0;
+    float: left;
+}
+
+.agencies-uploads .download {
+    margin: 0;
+}
+
+.agencies-uploads .row {
+    margin: 20px 0;
+}
+
+.agencies-uploads .row .left-part {
+    display: inline-block;
+    width: 180px;
+    margin-right: 20px;
+    float: left;
+}
+
+.agencies-uploads .row .left-part .title {
+    font-size: 16px;
+    color: #000;
+}
+
+.agencies-uploads .row .left-part .text {
+    font-size: 14px;
+    line-height: 18px;
+    color: #818181;
+    display: block;
+    margin-top: 10px;    
+}
+
+.agencies-uploads .row .right-part {
+    display: inline-block;
+    width: 480px;
+    float: left;
+}
+
+.agencies-uploads .row.autodownload {
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    margin: 40px 0;
+    padding: 40px 0;
+}
+
+.agencies-uploads .row.autodownload h3 {
+}

@@ -1,0 +1,41 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body {if!empty $payed_format} class="payed-format"{/if}>
+    {include /templates/includes/main_header_part.html}
+    <div class="shadow-wrapper" id="shadow-wrapper">
+
+        <div class="content">
+            <div class="main-content">
+                <div class="left-wrapper" data-sticky_parent>
+                    <!--noindex-->
+                    {include /templates/includes/main_menu_part.html}
+                    <!--/noindex-->
+                    <div class="central-column"> 
+                        {include /templates/includes/breadcrumbs.html}
+                        {$content}
+                        {if!empty $metadata['seo_text']}{ifempty $noindex}<div class="central-text">{$metadata['seo_text']}</div>{/if}{/if}
+                        {if!empty $social_buttons}
+                            <div id="social-buttons-content" class="estate-social-buttons"></div>
+                            <script>jQuery(document).ready(function(){ getPendingContent(['#social-buttons-content'], ['/banners/social_buttons/']); });</script>
+                        {/if}
+                    </div> <!--/.central-column-->
+                    <!--noindex-->
+                    {include /templates/includes/main_left_part.html}
+                     <!--/noindex-->      
+                </div> <!--/.left-wrapper-->
+                <!--noindex-->
+                {if!empty $payed_format}
+                    {include /modules/specialists/templates/right_part.html}
+                {else}
+                    {include /templates/includes/main_right_part.html}
+                {/if}
+                <!--/noindex-->       
+            </div> <!--/.main-content-->
+            <!--noindex-->
+            <!--/noindex-->     
+        </div>
+    <!--/.content-->
+    </div>
+    {include /templates/includes/main_footer_part.html}
+</body>
+</html>

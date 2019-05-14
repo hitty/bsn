@@ -1,0 +1,57 @@
+<div class="central-wrapper">
+    {if!empty $h1}<h1>{$h1}</h1>{/if}
+    {if!empty $search_description}
+        <div class="info-box">
+            <strong>Вы искали:</strong> {$search_description}
+        </div>
+    {/if}
+    <div class="statistic-box">
+        <div class="sb-info">
+                Вариантов: {$full_count} {if!empty $paginator}. Показаны {$paginator['from_item']}-{$paginator['to_item']}{/if}
+        </div>
+        <div class="sb-rulers rulers">
+            <span class="ruler30 ruler-list{ifeq $view_type,'list'} active{/if}" title="Табличный вид">Табличный вид</span>
+            <span class="ruler30 ruler-block{ifeq $view_type,'block'} active{/if}" title="Блочный вид">Блочный вид</span>
+            <span class="ruler30 ruler-map{ifeq $view_type,'map'} active{/if}" title="Карта">Карта</span>
+        </div>
+        <div class="sb-quote">
+            Показывать по
+            <div class="list-selector grey" id="count_selector">
+                <a href="#" class="pick">20</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="count_selector" value="20" />
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="15">15</li>
+                    <li data-value="30">30</li>
+                    <li data-value="60">60</li>
+                </ul>
+            </div>                                    
+        </div>
+        <div class="cleaner">&nbsp;</div>
+        <div class="sb-sorting">
+            Сортировать по:
+            <a class="sort{ifeq $sortby,1} down{elseifeq $sortby,2} up{/if}" href="{$sorting_url}{ifeq $sortby,1}2{else}1{/if}">дате</a>
+            <a class="sort{ifeq $sortby,3} up{elseifeq $sortby,4} down{/if}" href="{$sorting_url}{ifeq $sortby,3}4{else}3{/if}">цене</a>
+            <a class="sort{ifeq $sortby,5} up{elseifeq $sortby,6} down{/if}" href="{$sorting_url}{ifeq $sortby,5}6{else}5{/if}">типу</a>
+        </div>
+    </div>
+    {if!empty $list}
+        {ifeq $estate_type, 'commercial'}
+            {include /modules/estate/templates/list.block.commercial.html}
+        {/if}
+        {ifeq $estate_type, 'live'}
+            {include /modules/estate/templates/list.block.live.html}
+        {/if}
+        {ifeq $estate_type, 'build'}
+            {include /modules/estate/templates/list.block.build.html}
+        {/if}
+        {ifeq $estate_type, 'country'}
+            {include /modules/estate/templates/list.block.country.html}
+        {/if}
+        {include /templates/includes/paginator.html}
+    {else}
+        <div class="empty-results">
+            По вашему запросу ничего не найдено!
+        </div>
+    {/if}
+</div>

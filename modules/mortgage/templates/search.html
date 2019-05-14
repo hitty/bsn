@@ -1,0 +1,227 @@
+<h1 class="topspace">Подбор ипотечной программы</h1>
+{block spec_offers/block/mortgage}
+<form class="programs-search" id="programs-search-form" action="/estate/mortgage/programs/" method="get">
+    <div class="rmp">
+        <h3 class="btitle">Общие данные</h3>
+        <div class="lrmp">
+        
+            <span class="selector-title">Регион</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любой</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="regionid" name="regionid" value="{$selected_region}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $regions,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $regions}
+                </ul>
+            </div>
+            
+            <span class="selector-title">Цель кредита</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любая</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="goalid" name="goalid" value="{$selected_goal}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $goals,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $goals}
+                </ul>
+            </div>
+        </div>
+        <div class="rrmp">
+        
+            <span class="selector-title">Банк</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любой</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="bankid"  name="bankid" value="{$selected_bank}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $banks,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $banks}
+                </ul>
+            </div>
+            
+            <span class="selector-title">Рынок недвижимости</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любой</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="marketid"  name="marketid" value="{$selected_market}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $markets,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $markets}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="cleaner"></div>
+
+   <div class="rmp">
+        <h3 class="btitle">Условия кредита</h3>
+        <div class="lrmp">
+        
+            <span class="selector-title">Валюта</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любая</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="currencyid" name="currencyid" value="{$selected_currency}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $currencies,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $currencies}
+                </ul>
+            </div>
+            
+            <span class="selector-title">Ставка кредита, %</span>
+            <div class="single-selector">
+                <input type="text" name="ratefor" id="ratefor" value="" placeholder="до" />
+            </div>
+            
+            <span class="selector-title">Размер кредита</span>
+            <div class="combine-input-select-selector">
+                <div class="single-selector">
+                    <input type="text" name="sumcredit" id="sumcredit" value="" placeholder="до" />
+                </div>
+                <div class="list-selector">
+                    <a href="#" class="pick">Любая</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" id="sumcreditcurrencyid" name="sumcreditcurrencyid" value="{$selected_sumcreditcurrency}" />
+                    <ul class="list-data" data-simplebar="init">
+                        {loop $sumcreditcurrencies,$dk,$dv}
+                            <li data-value="{$dv['id']}">{$dv['title']}</li>
+                        {/loop $sumcreditcurrencies}
+                    </ul>
+                </div>
+            </div>
+
+            <span class="selector-title">Подтверждение дохода</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любая</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="incconfirmid" name="incconfirmid" value="{$selected_incconfirm}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $incconfirms,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $incconfirms}
+                </ul>
+            </div>
+            
+        </div>
+        <div class="rrmp">
+        
+            <span class="selector-title">Тип ставки</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любая</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="typerateid" name="typerateid" value="{$selected_typerate}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $typerates,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $typerates}
+                </ul>
+            </div>
+            
+            <span class="selector-title">Срок кредита, лет</span>
+            <div class="interval-selector">&mdash;
+                <input type="text" name="creditperiodmin" id="creditperiodmin" placeholder="от" value="" />
+                <input type="text" name="creditperiodmax" id="creditperiodmax" placeholder="до" value="" />
+            </div>
+            
+            <span class="selector-title">Первоначальный взнос, %</span>
+            <div class="single-selector">
+                <input type="text" name="firstpayment" id="firstpayment" value="" placeholder="" />
+            </div>
+
+        </div>
+    </div>    
+    <div class="cleaner"></div>
+
+   <div class="rmp">
+        <h3 class="btitle">Требования к заемщику</h3>
+        <div class="lrmp">
+            
+            <span class="selector-title">Возраст заемщика, лет</span>
+            <div class="single-selector">
+                <input type="text" name="age" id="age" value="" placeholder="" />
+            </div>
+        
+            <span class="selector-title">Регистрация по месту получения кредита</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любая</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="registration" name="registration" value="{$selected_registration}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $registrations,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $registrations}
+                </ul>
+            </div>
+        
+        </div>    
+        <div class="rrmp">
+            <span class="selector-title">Гражданство РФ</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любое</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="nationality" name="nationality" value="{$selected_nationality}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $nationalities,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $nationalities}
+                </ul>
+            </div>
+        </div>
+    </div>    
+    <div class="cleaner"></div>
+    
+   <div class="rmp">
+        <h3 class="btitle">Условия погашения кредита</h3>
+        <div class="lrmp">
+        
+            <span class="selector-title">Платежи</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любые</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="paymenttypeid" name="paymenttypeid" value="{$selected_paymenttype}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $paymenttypes,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $paymenttypes}
+                </ul>
+            </div>
+        </div>    
+        <div class="rrmp">
+            <span class="selector-title">Досрочное погашение без санкций после, мес.</span>
+            <div class="single-selector">
+                <input type="text" name="advrepay" id="advrepay" value="" placeholder="" />
+            </div>
+        </div>
+    </div>    
+    <div class="cleaner"></div>
+       <div class="rmp">
+        <h3 class="btitle">Сортировка результатов поиска</h3>
+        <div class="lrmp">
+            <span class="selector-title">Сортировка</span>
+            <div class="list-selector">
+                <a href="#" class="pick">Любая</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" id="index" name="index" value="{$selected_index}" />
+                <ul class="list-data" data-simplebar="init">
+                    {loop $indexes,$dk,$dv}
+                        <li data-value="{$dv['id']}">{$dv['title']}</li>
+                    {/loop $indexes}
+                </ul>
+            </div>
+        
+        </div>    
+    </div>    
+    <div class="cleaner"></div>
+
+    <div class="bottom-panel">
+        <div class="rbp">
+            <button class="button" type="submit" name="submit" value="Искать">Искать</button>
+        </div>
+    </div>
+</form>

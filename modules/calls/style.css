@@ -1,0 +1,185 @@
+.members-stats-wrap tr td{
+    vertical-align: middle;
+}
+.phone-box span.phone-number{
+    background: url(/img/layout/calls-phone-icon.png) no-repeat -2px 0px;
+    padding: 0px 0 0px 15px;
+}
+.phone-box .notification.msgerror{
+    display: inline;
+    position: absolute;
+    margin: 14px 0 0 -130px;
+    padding: 2px;
+    font-size: 11px;    
+}
+.members-stats-wrap.calls .inwork{
+    color: #43c200;
+    text-decoration: none;
+    border-bottom: 1px dashed;
+    vertical-align: middle;
+    cursor: pointer;
+    clear: both;
+    width: 88px;
+    white-space: nowrap;
+    padding: 0;
+    margin: -1px 0 0 47px;
+    float: left;
+    transition: color .3s, text-decoration .3s;
+    -webkit-transition: color .3s, text-decoration .3s;
+    -moz-transition: color .3s, text-decoration .3s;
+    -o-transition: color .3s, text-decoration .3s;
+    -ms-transition: color .3s, text-decoration .3s;
+    transition: color .3s, text-decoration .3s;
+    line-height: 12px;
+}
+.members-stats-wrap.calls .inwork:hover{
+    color:#333;
+    border-bottom:  1px dashed transparent;
+}
+.phone-box .user-call-number {
+    float: left;
+    margin: 0px 5px 0 5px;
+    font-size: 11px;
+    color: #f87b00;
+    font-weight: bold;
+}
+#select-campaign a.pick{
+    width:190px;
+}
+.tablesorter.dataTable.no-footer{
+    min-width:900px;
+}
+.members-stats-wrap.calls .tag{
+    color: #fff;
+    padding: 1px 10px 0px 25px;
+    cursor: pointer;
+    margin: 0 0px 2px 0;
+    z-index: 1;
+    display: inline-block;
+    line-height: 19px;
+    font-weight: bold;
+    font-size: 11px;
+    transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    -moz-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    -ms-transition: opacity .3s;
+    transition: opacity .3s;
+    opacity: 1;
+    filter: alpha(opacity=100);
+    background: url('https://st.bsn.ru/img/layout/tags_icons.png') no-repeat;
+}
+.members-stats-wrap.calls .tag:hover{    
+    opacity: .9;
+    filter: alpha(opacity=90);
+}
+.members-stats-wrap.calls .tag-text{
+    display:table-cell;
+    vertical-align:top;
+    text-align:center
+    padding: 2px 8px 0 8px;
+    font-size:12px;
+    cursor:pointer;
+}
+.members-stats-wrap.calls  .tag.tag-88{
+    background-color:#dd1717;
+    background-position:5px 3px;
+}
+.members-stats-wrap.calls  .tag.tag-487{
+    background-color:#f00f00;
+    background-position:5px -30px;
+}
+.members-stats-wrap.calls  .tag.tag-480{
+    background-color:#96c43e;
+    background-position:5px -46px;
+}
+.members-stats-wrap.calls  .tag.tag-add{
+    background-color: #eaeaea;
+    color: #777777;
+    background-position:5px -14px;
+}
+
+.members-stats-wrap.calls .audio-cell{
+    display:table;
+    width:100%;
+    height:75px;
+}
+.members-stats-wrap.calls .audio-controls{
+    margin-left:auto;
+    margin-right:auto;
+    vertical-align:middle;
+    display:table-row;
+    height:50%;
+}
+
+.members-stats-wrap.calls .play-call-record{
+    height:16px;
+    width:16px;
+    margin-right:5px;
+    background:url(/img/layout/audio-1.png) center no-repeat;
+    background-size:100% auto;
+    cursor:pointer;
+    display:inline-block;
+}
+.members-stats-wrap.calls .play-call-record.active{
+    height:16px;
+    width:16px;
+    margin-right:5px;
+    background:url(/img/layout/audio-2.png) center no-repeat;
+    background-size:100% auto;
+    cursor:pointer;
+    display:inline-block;
+}
+.members-stats-wrap.calls .download-call-record{
+    height:16px;
+    width:16px;
+    background:url(/img/layout/audio-download-1.png) center no-repeat;
+    background-size:100% auto;
+    cursor:pointer;
+    display:inline-block;
+}
+.record-box{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:70%;
+    float:right;
+    z-index:0;
+    position:absolute;
+    top: 62px;
+    left: 100px;    
+}
+audio.call-record{
+    width: 250px;
+    visibility: hidden;
+    float: left;
+    display: block;
+    margin-top: 3px;
+}
+audio.call-record.active{
+    visibility:visible;
+}
+
+.tagmenu{
+    background-color:#EAEAEA;
+    border: 1px solid #777;
+    overflow-y:scroll;
+    visibility: hidden;
+    position:absolute;
+    z-index:0;
+    width:200px;
+}
+.tagmenu .tag-checkbox{
+    display:block;
+}
+.hidden-link{
+    display:none;
+}
+.tagmenu.active{
+    visibility:visible;
+    z-index:4;
+}
+.hidden-tag-flag{
+    display:none;
+    z-index:0;
+}

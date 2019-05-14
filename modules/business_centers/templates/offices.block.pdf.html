@@ -1,0 +1,99 @@
+<div style=" page-break-after: always; ">
+    <div class="kp-title" style="">Коммерческое предложение</span>
+    {if!empty $agency['photo_name']}
+        <div class="img">
+            <span>
+                <img style="text-align: center;" src="https://www.bsn.ru/img/uploads/med/{$agency['subfolder']}/{$agency['photo_name']}" />
+            </span>
+        </div>
+    {/if}
+    <div class="office-info">
+        <div class="header">
+            <div class="left">
+                <span class="name">{if!empty $agency['name']}{$agency['name']} {/if}{if!empty $agency['lastname']}{$agency['lastname']}{/if}</span>
+                <span class="manager">Ваш менеджер</span>
+            </div>
+            <div class="right">
+                <span class="phone">
+                    {if!empty $agency['phone_1']}{$agency['phone_1']}
+                    {elseif!empty $agency['phone_2']}{$agency['phone_2']}
+                    {elseif!empty $agency['phone_3']}{$agency['phone_3']}
+                    {/if}
+                </span>
+                {if!empty $agency['url']}<span class="site"><a href="{$agency['url']}">{$agency['url']}</a></span> | {/if}
+                <span class="email">
+                    {if!empty $agency['email_service']}<a href="mailto:{$agency['email_service']}">{$agency['email_service']}</a>
+                    {elseif!empty $agency['user_email']}<a href="mailto:{$agency['user_email']}">{$agency['user_email']}</a>
+                    {elseif!empty $agency['email']}<a href="mailto:{$agency['email']}">{$agency['email']}</a>
+                    {/if}
+                </span>
+            </div>
+        </div>
+        
+        <div class="tags">
+            <div class="title">Офис {squareformat:$item['square']} м<sup>2</sup></div>
+            <span class="tag">Этаж {ifempty $item['level']}цок.{else}{$item['level']}{/if}</span>
+            {ifgt $item['floor'],0}<span class="tag">Потолки {squareformat:$item['floor']} м</span>{/if}
+            {if!empty $item['facing_title']}<span class="tag">Ремонт {$item['facing_title']}</span>{/if}
+        </div>
+        
+        <div class="images">
+            {if!empty $item_photos}
+                {loop $item_photos,$pk,$pv}
+                        <img src="//st1.bsn.ru/img/uploads/big/{$pv['subfolder']}/{$pv['name']}" alt=""/>
+                {/loop $item_photos}
+            {/if}
+        </div>
+        
+        <div class="cost">
+            <span class="cost-meter"><span>Ставка</span> {numberformat:$item['cost_meter']} руб/м<sup>2</sup></span>
+            <span class="cost-month">{numberformat:$item['cost']} руб/мес</span>
+        </div>
+    </div>
+
+    <div class="bc-info">
+        <div class="title">
+            Бизнес-центр «{$item['title']}»
+            {if!eq $item['class'],'no'}<span class="class">{$item['class']} класс</span>{/if}
+        </div>
+        <div class="address">
+                <span class="district">
+                    {php:$district = !empty($bc_item['district']) || !empty($bc_item['district_area'])}
+                    {if!empty $district}
+                            {if!empty $bc_item['district']}
+                                {$bc_item['district']} район
+                            {elseif!empty $bc_item['district_area']}
+                                {$bc_item['district_area']} район ЛО
+                            {/if}
+                    {/if}
+                    {if!empty $bc_item['address']}, {$bc_item['address']}{/if}
+                </span>
+                {if!empty $bc_item['subway']}
+                    <span class="subway">
+                            <span class="line-{$bc_item['subway_line']}"></span>
+                            ст. м. {$bc_item['subway']}
+                            {if!empty $bc_item['way_time']} {$bc_item['way_time']} {$bc_item['way_type']}{/if}
+                    </span>
+                {/if} 
+        </div>
+        <div class="images">
+            {if!empty $bc_photos}
+                {loop $bc_photos,$pk,$pv}
+                        <img src="//st1.bsn.ru/img/uploads/med/{$pv['subfolder']}/{$pv['name']}" alt=""/>
+                {/loop $bc_photos}
+                {if!empty $item['lng']}<img src="http://static.maps.2gis.com/1.0?markers={$bc_item['lng']},{$bc_item['lat']}&zoom=14&size=206,152" alt=""/>{/if}
+            {/if}
+            <ul class="params-list">
+                <li><span {ifeq $item['office_parking'],1}class="on"{/if}></span>Паркинг</li>
+                <li><span {ifeq $item['office_security'],1}class="on"{/if}></span>Безопасность</li>
+                <li><span {ifeq $item['office_sport'],1}class="on"{/if}></span>Спорт</li>
+                <li><span {ifeq $item['office_food'],1}class="on"{/if}></span>Питание</li>
+                <li><span {ifeq $item['office_access'],1}class="on"{/if}></span>Доступ (24/7)</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-text">
+        Это коммерческое предложение сгенерировано {php:echo date("d.m.Y");} на технологиях BSN.ru
+    </div>
+</div>
+{iflt $count,$count_ids}<div style="page-break-after:always" class="page-break"></div> {/if}

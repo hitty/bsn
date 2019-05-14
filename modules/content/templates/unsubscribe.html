@@ -1,0 +1,23 @@
+<div class="unsubscribe">
+{ifeq $success,'start'}
+    <img src="{static:/}img/layout/tear.png" width="66" height="94" border="0"/>
+    <div class="unsubscribe-txt-n" align="center">Нам очень жаль, что вы решили отписаться<br>от интересных новостей на рынке недвижимости.</div>
+    <div class="unsubscribe-txt-b" align="center">Нам будет Вас не хватать!</div>
+    <div align="center"><input class="btn" type="button"  value="Я передумал" onClick="document.location.href='{$host}'" /></div>
+    <div class="lnk" align="center"><a href="{$host}{$uri}">Отписаться</a></div>
+{/if}
+<div>
+{ifeq $error,'unsubscribed'}
+    <div class="unsubscribe-txt-b">Вы успешно отписались от новостной рассылки BSN.ru.<br/>Управлять своими подписками можно в <a href="{$host}/members/personalinfo/" title="перейти в личный кабинет">личном кабинете</a>.</div>
+{/if}
+{ifeq $error,'noparam'}
+    <h1>Ошибка: отсутствуют необходимые параметры.</h1>
+{/if}
+{ifeq $error,'nouser'}
+    <h1>Ошибка: Вы не подписаны на новости BSN.ru</h1>
+{/if}
+{if!empty $error}
+    <div class="lnk" align="center"><a href="{$host}" alt="BSN.ru">вернуться на главную</a></div>
+{/if}
+</div>
+</div>

@@ -1,0 +1,71 @@
+<h1 class="pageTitle">{$spam_title}</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/service/spam/{$spam_type}/add/" enctype="multipart/form-data">
+    <h3>Новая рассылка</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/service/spam/{$spam_type}/edit/{$data_mapping['id']['value']}/" enctype="multipart/form-data">
+    <h3>{$spam_title} #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    
+    <p class="title_row" style="clear:none;">Верхний баннер</p>
+    <p style="display:block; clear:none;" id="p_field_position_in_head">
+        {if!empty $data_mapping['up_banner']['value']}
+            <img src="{static:/}{$img_folder}/{$up_banner_folder}/{$data_mapping['up_banner']['value']}" alt=""/><br/>
+        {/if}
+        <span class="lf fieldwrapper">
+        Загрузить новое изображение
+        <input type="file" placeholder="" value="{$data_mapping['up_banner']['value']}" name="up_banner" class="lf">
+        {if!empty $data_mapping['up_banner']['error']}
+            <span class="small_text grey">{$data_mapping['up_banner']['error']}</span>
+        {/if}
+        </span>
+        {if!empty $data_mapping['up_banner']['value']}
+                <a href="/admin/service/spam/{$spam_type}/photo_delete/{$data_mapping['id']['value']}/" id="up_banner" style="display: block;">Удалить верхний баннер</a>
+        {/if}
+    </p>
+    
+    <p class="title_row" style="clear:none;">Содержимое рассылки</p>
+    {include /admin/templates/form_default.html}
+    
+    <p class="title_row" style="clear:none;">Нижний баннер</p>
+    <p style="display:block; clear:none;" id="p_field_position_in_head">
+        {if!empty $data_mapping['down_banner']['value']}<img src="{static:/}{$img_folder}/{$down_banner_folder}/{$data_mapping['down_banner']['value']}" alt=""/><br/>{/if}
+        <span class="lf fieldwrapper">
+        Загрузить новое изображение
+        <input type="file" placeholder="" value="{$data_mapping['down_banner']['value']}" name="down_banner" class="lf">
+        {if!empty $data_mapping['down_banner']['error']}
+            <span class="small_text grey">{$data_mapping['down_banner']['error']}</span>
+        {/if}
+        </span>
+        {if!empty $data_mapping['down_banner']['value']}
+          <a href="/admin/service/spam/{$spam_type}/photo_delete/{$data_mapping['id']['value']}/" id="down_banner" style="display: block;">Удалить нижний баннер</a>
+        {/if}
+    </p>
+    {if!empty $data_mapping['id']['value']}
+        <a href="/admin/service/spam/{$spam_type}/test/{$data_mapping['id']['value']}" class="button">Проверить рассылку</a>
+    {/if} 
+    <p style="clear:none;">
+        {if!empty $data_mapping['id']['value']}<input type="submit" value="Сохранить" name="submit">
+        {else} <input type="submit" value="Сохранить" name="submit">{/if}
+    </p>
+</form>    

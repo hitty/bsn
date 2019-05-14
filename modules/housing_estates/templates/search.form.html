@@ -1,0 +1,82 @@
+<form class="fast-search form-blue" id="fast-search-form" action="/zhiloy_kompleks/" method="post">
+    <div class="top-panel">
+        <div class="search-title">
+            Поиск Жилых комплексов
+        </div>
+    </div>
+    <div class="middle-panel">
+        <div class="rmp">
+            <div class="lcrmp">
+                <div class="list-picker district-picker">
+                    <a href="#" class="pick">Район СПб <span class="counter off">[<span class="count">0</span>]</span></a>
+                        {ifempty $form_data['districts']}
+                            <a href="#" class="btn plus">+</a>
+                        {else}
+                            <a href="#" class="btn cross">x</a>
+                        {/if}
+                    <input type="hidden" name="districts" value="{$form_data['districts']}" data-url="/geodata/districts/" />
+                </div>
+                <div class="list-picker district-area-picker">
+                    <a href="#" class="pick">Район ЛО <span class="counter off">[<span class="count">0</span>]</span></a>
+                    {ifempty $form_data['district_areas']}
+                        <a href="#" class="btn plus">+</a>
+                    {else}
+                        <a href="#" class="btn cross">x</a>
+                    {/if}
+                    <input type="hidden" name="district_areas" value="{$form_data['district_areas']}" data-url="/geodata/district_areas/" />
+                </div>
+            </div>
+            <div class="lcrmp">
+                <div class="list-picker subway-picker">
+                    <a href="#" class="pick">Метро <span class="counter off">[<span class="count">0</span>]</span></a>
+                        {ifempty $form_data['subways']}
+                            <a href="#" class="btn plus">+</a>
+                        {else}
+                            <a href="#" class="btn cross">x</a>
+                        {/if}
+                    <input type="hidden" name="subways" value="{$form_data['subways']}" data-url="/geodata/subways/" />
+                </div>
+                <div class="list-selector select-developer">
+                    <a href="#" class="pick">выберите застройщика</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="developer" value="{$form_data['developer']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="0">все застройщики</li>
+                        {loop $developers,$tkey,$type}
+                            <li data-value="{$type['id']}">{$type['title']}</li>
+                        {/loop $developers}
+                    </ul>
+                </div>
+            </div>
+            <div class="lcrmp">
+                <div class="list-selector select-class">
+                    <a href="#" class="pick">выберите класс</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="class" value="{$form_data['class']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="0">все классы</li>
+                        {loop $classes,$tkey,$type}
+                            <li data-value="{$type['id']}">{$type['name']}</li>
+                        {/loop $classes}
+                    </ul>
+                </div>
+                                                         
+            </div>
+            <div class="lcrmp">
+                <div class="title-selector">
+                    <input type="text" name="title" id="title" value="{$form_data['title']}" placeholder="Название" />
+                </div> 
+            </div>
+        </div>
+    </div> <!--/.middle-panel-->
+    <div class="bottom-panel">
+        <div class="lbp">
+            <label for="low_rise" class="checkbox"><input type="checkbox" {if!empty $form_data['low_rise']}checked="checked" {/if}id="low_rise" name="low_rise" value="1" /> Малоэтажные ЖК</label>
+        </div>
+        <div class="rbp">
+            <button class="button" type="submit" name="submit" value="Искать">Искать</button>
+        </div>
+    </div>
+    
+    
+</form>

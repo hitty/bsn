@@ -1,0 +1,29 @@
+<div class="bordered-wrapper topblue specoffers-item">
+    <div class="card">
+        <div class="central-right">
+
+            {php:$gallery_type='big';}
+            {php:$hash = substr(md5(mt_rand(0,10000)), 0, 5);} 
+            {include /templates/gallery.html}
+
+        
+            <div class="normal-contacts-box">
+                <strong>Контактная информация:</strong>
+                <p class="name">{$item['agent_title']}</p>
+                {$item['agent_coords']}
+                {$item['packet_coords']}
+            </div>
+
+        </div>
+        <h1 class="mtitle">{$item['title']}</h1>
+        <p class="bigtext">{$item['description']}</p>
+        {if!empty $item['cost']}
+            <div class="price-box">
+                <h3 class="btitle">Цена:</h3>
+                <p class="price">{$item['cost']}</p>
+            </div>        
+        {/if}
+    
+    </div>
+</div>
+{block tgb/block/{$tgb_type}}

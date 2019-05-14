@@ -1,0 +1,48 @@
+{if!empty $h1}
+    <div class="last-objects-h1-title">
+            <h1>{$h1}</h1>
+    </div>
+{/if}
+<div class="central-wrapper">
+    {if!empty $list}
+       <div class="statistic-box">
+            <div class="sb-info">
+                    Найдено: <b>{$full_count}</b> {if!empty $paginator} Показаны <b>{$paginator['from_item']}-{$paginator['to_item']}</b>{/if}
+                    {if!empty $all_offers_link}<br/><a href="{$all_offers_link}" title="Показать все объекты по данному запросу">Показать все объекты по данному запросу</a>{/if}
+            </div>
+            <div class="sb-sort">
+                <div class="list-selector grey" id="sort_selector">
+                    <a href="#" class="pick">20</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="sort_selector" value="{$sortby}" />
+                    <ul class="list-data" data-simplebar="init" data-link="{php:echo htmlentities($sorting_url)}">
+                        <li data-value="1">район, от А</li>
+                        <li data-value="2">район, от Я</li>
+                        <li data-value="3">метро, от А</li>
+                        <li data-value="4">метро, от Я</li>
+                    </ul>
+                </div>                                    
+            </div>
+            <div class="sb-quote">
+                Показывать 
+                <div class="list-selector grey" id="count_selector">
+                    <a href="#" class="pick">20</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="count_selector" value="20" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="20">20</li>
+                        <li data-value="40">40</li>
+                        <li data-value="60">60</li>
+                    </ul>
+                </div>                                    
+            </div>
+        </div>
+    
+        {include /modules/business_centers/templates/list.block.html}
+        {include /templates/includes/paginator.html}
+    {else}
+        <div class="empty-results">
+            По вашему запросу ничего не найдено!
+        </div>
+    {/if}    
+</div>

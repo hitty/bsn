@@ -1,0 +1,453 @@
+.horizontal.bsn-block h2{
+    font-size: 12px;
+    color: #fff;
+    padding: 4px 0 4px 28px;
+    background: url("http://sale.bsn.ru/img/layout/flame_plank.gif") no-repeat;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+}
+.all_applications{
+    float:right;
+    display:inline-block;
+    font-weight:400;
+    margin-right:10px;
+    color:#3587C8;
+}
+.o-wrap{
+    margin-bottom:20px;
+}
+.o-wrap .offer-price {
+    font-size: 13px;
+    font-weight: bold;
+}
+.o-wrap .offer-old-price {
+    float: right;
+    font-weight: 700;
+    color: #797979;
+    font-size: 11px;
+    padding-top: 2px;
+    display: inline-block;
+    vertical-align: top;
+    position:relative;
+}
+.o-wrap  .offer-old-price:before {
+    border-bottom: 1px solid #b80000;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 45%;
+}
+.o-wrap.horizontal .offer-price{
+    font-weight: bold;
+    margin: 35px 0 0 15px;
+    float: left;
+     font-size: 24px
+}
+.o-wrap.horizontal .offer-old-price{
+    font-size: 12px
+}
+.o-wrap .rooms-quantity {
+    font-size: 12px;
+    font-weight: normal;
+}
+.o-wrap .offer-sticker{
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    padding-left: 33px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: url("http://sale.bsn.ru/img/layout/flame_white.png") no-repeat 12px 3px #106ece;
+    right: 11px;
+}
+.o-wrap .sticker-left {
+    width: 0px;
+    height: 0px;
+    top: 0px;    
+    left: -5px;
+    
+}
+.o-wrap .offer-sticker .sticker-left {
+    background-position: 5px -12px!important;
+}
+.o-wrap .offer-sticker .sticker-right{
+    height: 24px;
+    top: 0px;
+    background-position: 33px 28px!important;
+}
+.o-wrap .offer-phone{
+    background: url(http://sale.bsn.ru/img/layout/offer-phone-bsn-vertical.png) #fff;
+}
+.o-wrap .offer-phone.disabled span {
+    top: 1px;
+}
+.o-wrap .offer-phone.disabled span.next-date {
+    font-size: 11px;
+    top: 15px;
+}
+.o-wrap .ov-timer {
+    font-size: 12px;
+    float: left;
+    padding: 0 21px 0 6px;
+    line-height: 24px;
+    position:relative;
+}
+.o-wrap .ov-timer:after{
+    content:"";
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius: 4px;
+    background:#fff;
+    top:10px;
+    right:5px;
+}
+.o-wrap .offer-values{
+    background: url(http://sale.bsn.ru/img/layout/alarm_white.png) 0px 6px no-repeat;
+    padding-left: 20px;
+} 
+.o-wrap .ov-text{
+    font-size: 12px;
+    float: left;
+    line-height: 24px;
+}
+.ov-timer.red {
+    color: #b80000;
+}
+
+.offer-item {
+
+}
+.o-wrap.vertical:hover .offer-price,
+.offer-item:hover .offer-price{
+    color:#f87b00;
+}
+
+.o-wrap.vertical  {
+    border: 3px solid #ccc;
+    padding: 3px;
+    overflow: hidden;
+    height: 99px;
+    position:relative;
+}
+.o-wrap.vertical .external-link.common-link{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+.o-wrap.vertical .offer-item{
+} 
+
+.o-wrap.vertical .offer-img img{
+    width:102px;
+    height:72px;
+    float: left;
+    margin-right: 13px;
+} 
+.o-wrap.vertical .offer-values{
+   float:right;
+}
+.o-wrap.vertical .offer-phone{
+    float: right;
+    width: 220px;
+    height: 69px;
+    top: -30px;
+    background: none;
+}
+.o-wrap.vertical .offer-phone p{
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    position: absolute;
+    margin-top: -56px;
+    font-weight: normal;
+}
+.o-wrap.vertical .offer-phone span{
+    font-size: 18px;
+    height: 35px;
+    width: 190px;
+    padding-left: 10px;
+    line-height: 34px;
+    background: url(http://sale.bsn.ru/img/layout/offer-phone-bsn-vertical.gif) no-repeat 95% 100% #fff;
+    border: 1px solid #ababab;
+    border-radius: 8px;
+    display: block;
+    margin-top: 14px;
+}
+.o-wrap.vertical .ov-timer{
+    background: none;
+    font-weight: bold;
+}
+.o-wrap.vertical .offer-values{
+    background: url(http://sale.bsn.ru/img/layout/alarm_white.png) 0px 6px no-repeat;
+}
+.o-wrap.vertical .offer-values span{
+    padding: 0 10px 0 20px;    
+     float:left;
+}
+.o-wrap.vertical .offer-img{
+    margin-right: 13px;    
+}
+.o-wrap.vertical .offer-phone.disabled{
+    
+}
+.o-wrap.vertical .offer-price{
+    float: left;
+    font-size: 24px;
+    width: 390px;
+    text-align: left;
+    margin-top: 5px;
+}
+.o-wrap.vertical .rooms-quantity {
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 8px 4px 0px;
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #106ece;
+    margin-left: 15px;
+    top: -3px;
+}
+.o-wrap.vertical .rooms-quantity:after, 
+.o-wrap.vertical .rooms-quantity:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.o-wrap.vertical .rooms-quantity:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #ffffff;
+    border-width: 12px;
+    margin-top: -12px;
+}
+.o-wrap.vertical .rooms-quantity:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-right-color: #106ece;
+    border-width: 13px;
+    margin-top: -13px;
+}
+
+.o-wrap.green .rooms-quantity{
+    border-color: #6da030;
+}
+.o-wrap.green .rooms-quantity:before{
+     border-right-color: #6da030;
+}
+.o-wrap.orange .rooms-quantity{
+    border-color: #de501e;
+}
+.o-wrap.orange .rooms-quantity:before{
+    border-right-color: #de501e;
+}
+         
+.o-wrap .offer-img-address{
+    position: relative;
+    float: left;
+    width: 616px;
+    overflow: hidden;
+    line-height: 14px;
+    padding-left: 15px;
+    font-size: 12px;
+    display: table;
+    background: none;
+    transition: 0;
+    -webkit-transition: 0;
+    -moz-transition: 0;
+    -o-transition: 0;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+.o-wrap .offer-img-address p{
+    padding:0;
+    margin:0;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.o-wrap .address-marker{
+    background: url(http://sale.bsn.ru/img/layout/address-marker-small.png) no-repeat 0px 50%;
+    left: 0
+    
+}
+.o-wrap.vertical .offer-sticker{
+    position: relative;
+    display: block;
+    height: 24px;
+    margin: 0 1.5% 3px 0; 
+}
+.o-wrap.vertical .offer-sticker span{
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 24px;   
+   
+}
+.o-wrap.vertical .sticker-left-flame {
+    background: url(http://sale.bsn.ru/img/layout/flame_white.png);
+    float:left;
+    width: 14px;
+    height: 16px;
+    margin: 4px 8px 0 12px;
+}
+.o-wrap.vertical .offer-sticker .sticker-right{
+    height: 24px;
+    background-position: 33px 28px!important;    
+}
+.o-wrap.vertical .offer-sticker .sticker-right i{
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    position: absolute;
+    top: 10px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+.o-wrap.vertical .offer-sticker.orange {
+    background: #de501e;
+}
+.o-wrap.vertical .offer-sticker.orange .sticker-right {
+    background: url(http://sale.bsn.ru/img/layout/sticker-right-orange.png);
+}
+.o-wrap.vertical .offer-sticker.green {
+    background: #6da030;
+}
+.o-wrap.vertical .offer-sticker.green .sticker-right {
+    background: url(http://sale.bsn.ru/img/layout/sticker-right-green.png);
+}
+
+.o-wrap.horizontal{
+    padding: 3px 3px 0 3px;
+    border: 3px solid #cccccc;
+    overflow: hidden;
+    width: 748px;
+}
+.o-wrap.horizontal .offer-item{
+    width: 100%;
+    overflow: hidden;
+    display: inline-block;
+    zoom: 1;
+    float:left;
+}     
+.o-wrap.horizontal .offer-item:nth-child(5){
+    background: none;
+}
+.o-wrap.horizontal .offer-item:hover{
+}
+.o-wrap.horizontal .offer-item:after{content:".";display:block;height:0;line-height:0;clear:both;visibility:hidden;font-size: 0;}
+
+.o-wrap.horizontal .offer-img img{
+    width: 102px;
+    height: 72px;
+} 
+.o-wrap.horizontal .offer-values{
+    height: 21px;
+    position: absolute;
+    right: 10px;
+    color: #fff;
+}
+.o-wrap.horizontal .ov-timer{
+    font-weight: bold;
+    font-size:11px;
+}
+.o-wrap .offer-img{
+    margin-top: 27px;
+    float: left;
+}
+.o-wrap.horizontal .offer-phone.disabled{
+    line-height:21px;          
+}
+.phone:first-letter{
+    color:#ababab 
+}
+.phone:first-letter,
+.offer-phone:first-letter{
+   font-weight: 100;    
+}
+.o-wrap .rooms-quantity {
+    font-size: 14px;
+    margin: 38px 0 0 25px;
+    float: left;
+    border: 1px solid #106ece;
+    padding: 3px 10px 3px 1px;
+    border-left: none;
+    position: relative;
+}
+.o-wrap .rooms-quantity:after, 
+.o-wrap .rooms-quantity:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.o-wrap .rooms-quantity:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #fff;
+    border-width: 12px;
+    margin-top: -12px;
+}
+.o-wrap .rooms-quantity:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-right-color: #106ece;
+    border-width: 13px;
+    margin-top: -13px;
+}
+
+.o-wrap.horizontal .sticker-left {
+    width: 5px;
+    height: 24px;
+    top: 0px;
+    left: -5px;
+    
+}
+.o-wrap.horizontal .offer-item:nth-child(2){
+     padding-left: 9px;
+}
+.o-wrap.horizontal .offer-item:nth-child(5){
+     background: none;
+     padding-right: 8px;
+}
+.o-wrap .offer-phone {
+    float: right;
+    font-size: 18px;
+    height: 35px;
+    width: 190px;
+    padding-left: 10px;
+    line-height: 34px;
+    background: url(http://sale.bsn.ru/img/layout/offer-phone-bsn-vertical.gif) no-repeat 95% 100% #fff;
+    border: 1px solid #ababab;
+    border-radius: 8px;
+    display: block;
+    margin: 32px 10px 0 0;
+    position: relative;
+}
+.offer-phone:before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    top: 35px;
+    width: 10px;
+    background: #fff;
+    right: 16px;
+}
+
+

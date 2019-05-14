@@ -1,0 +1,108 @@
+<div class="menu-wrapper">
+    <div class="content">
+    
+        <div class="item user-info">
+            <div class="user-avatar" {ifempty $auth['user_photo']}data-icon="person_outline"{/if}>
+                {if!empty $auth['user_photo']}<img src="{if!empty $auth['user_photo']}/{$auth['user_photo_folder']}/big/{$auth['user_photo']}{else}/img/layout/no_avatar_sm.gif{/if}" class="avatar" alt="{if!empty $auth_data['name']}{$auth_data['name']}{/if}{if!empty $auth_data['lastname']} {$auth_data['lastname']}{/if}"/>{/if}
+            </div>
+            
+            <div class="info">
+                <span class="name text-overflow">
+                {if!empty $auth_data['name']}
+                    {$auth_data['name']}{if!empty $auth_data['lastname']} {$auth_data['lastname']}{/if}
+                {/if}
+                </span>
+                <span class="user-type clearfix text-overflow">
+                    {if!empty $auth_data['id_tarif']}
+                        Специалист.
+                    {elseif!empty $auth['agency']}
+                        Агентство.
+                    {else}
+                        Частное лицо.
+                    {/if}
+                    {if!empty $auth_data['id_agency']}
+                        {ifeq $auth_data['agency_admin'],1}Администратор{else}Сотрудник{/if}
+                        <a href="/organizations/company/{$auth_data['chpu_title']}/" title="посмотреть страницу компании" target="blank">{$auth_data['agency_title']}</a>
+                    {/if}
+                </span>
+            </div>
+        </div>
+        
+        <div class="item balance">
+            <span>{if!empty $auth_data['balance']}{numeric:$auth_data['balance']}{else}0{/if} Р</span> 
+            {if!empty $auth['id']}<a href="/members/pay/balance/" title="Пополнить баланс">Пополнить</a>{/if}
+            
+        </div>
+        
+        <div class="item tarif">
+            {php:$tarif = !empty($auth_data['tarif_title']) || ( !empty($auth_data['packet_title']) && $auth_data['agency_admin']==1)}
+            {if!empty $tarif}
+                <span class="title">Тариф «{if!empty $auth_data['tarif_title']}{$auth_data['tarif_title']}{else}{$auth_data['packet_title']}{/if}»</span>
+                
+                {php:$services = !empty($auth_data['promo']) || !empty($auth_data['premium']) || !empty($auth_data['vip']);}
+                {if!empty $services}
+                <div class="services">
+                    
+                    <div class="info" data-icon="info_outline">
+                        <ul class="br3 shadow">
+                            <li class="tarif-end">до {$auth_data['tarif_end']}</li>
+                            {if!empty $auth_data['promo']}
+                                <li class="promo">«Промо»
+                                    <span>
+                                        {ifempty $agency_limit['promo']}
+                                            0
+                                        {else} 
+                                            {$agency_limit['promo']}
+                                        {/if}
+                                        <i>из {$auth_data['promo']}</i>
+                                    </span></li>
+                            {/if}
+                            {if!empty $auth_data['premium']}
+                                <li class="premium">«Премиум»
+                                    <span>
+                                        {ifempty $agency_limit['premium']}
+                                          0
+                                        {else} 
+                                            {$agency_limit['premium']}
+                                        {/if}
+                                        <i>из {$auth_data['premium']}</i>
+                                    </span>
+                                </li>
+                            {/if}
+                            {if!empty $auth_data['vip']}
+                                <li class="premium">«VIP»
+                                    <span>
+                                        {ifempty $agency_limit['vip']}
+                                            0
+                                        {else} 
+                                            {$agency_limit['vip']}
+                                        {/if}
+                                        <i>из {$auth_data['vip']}</i>
+                                    </span>
+                                </li>
+                            {/if}
+                        </ul>                    
+                    </div>
+                </div>
+                {/if}
+            {else}
+                <span class="title">Тариф не подключен</span>
+            {/if}
+            {ifempty $auth_data['id_agency']}<a href="/members/tarifs/" title="{ifempty $auth_data['tarif_title']}Подключить тариф{/if} ">{ifempty $auth_data['tarif_title']}Подключить тариф{else}Смотреть тариф{/if}</a>{/if}
+            
+        </div>
+        
+        {if!empty $auth['id']}
+        
+            <div class="item profile">
+                <a href="/members/personalinfo/" title="Настроить профиль">Настроить профиль</a>            
+            </div>
+            
+            <div class="item exit">
+                <a class="auth-logout" href="/logout/" title="Выход" onclick="document.through_auth_form.submit();return false;">Выход</a>
+            </div>
+        
+        {/if}
+        
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="sb-info">Всего: <b>{$paginator['items_count']}</b> {if!empty $paginator} Показаны <b>{$paginator['from_item']}-{$paginator['to_item']}</b>{/if}</div>
+<div class="webinars-box{if!empty $my_question} for-my-question{/if}">
+    {if!empty $webinars_list}
+        {loop $webinars_list,$k,$item}
+            <div class="webinar-item">
+                <div class="video-layer"></div>
+                <div class="item_img"style="background-image: url({static:/}{$img_folder}/sm/{$item['subfolder']}/{$item['photo']});"></div>
+                <div class="item_info">
+                    <span class="smallnotes">
+                        <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['e_date']}</time>
+                        <span class="views_count" data-icon="visibility">{$item['views_count']}</span>
+                        <span class="comments_count" data-icon="chat_bubble_outline">{$item['comments_amount']}</span>
+                    </span>
+                    <!--<span class="item_info-title internal-link" data-link="/webinars/{$item['url']}/" data-new-tab="true">{$item['title']}</span>-->
+                    <a class="item_info-title a-h3" href="/webinars/{$item['url']}/" title="подробнее" target="_blank">{$item['title']}</a>
+                </div>
+            </div>
+        {/loop $webinars_list}
+    {/if}
+</div>
+{ifempty $no_header}{include /templates/includes/paginator.html}{/if}
+<script>
+    jQuery(document).ready(function(){
+        
+        //корректируем ссылки на пагинаторе
+        if(jQuery('.webinars-block.list-all').children('.paginator').length > 0){
+            jQuery('.paginator').find('span').on('click',function(){
+                var _page = parseInt(jQuery(this).attr('data-link'));
+                _val = 1;
+                if(jQuery('.webinars-box.list-all').find('.sorting').length > 0){
+                    jQuery('.webinars-box.list-all').find('.sorting').children('.active').each(function(){
+                        if(jQuery(this).hasClass('up')) _val = jQuery(this).attr('data-down-value');
+                        else _val = jQuery(this).attr('data-up-value');
+                    });
+                }
+                getPendingContent(".webinars-block.list-all",window.location.href.replace(/\#.*$/,'') + "webinars_list/?sortby=" + _val + '&page=' + _page,false,false,false,scrollTo(jQuery('.webinars-block.list-all').offset().left,jQuery('.webinars-block.list-all').offset().top - 90));
+            });
+        }
+        
+    });
+</script>

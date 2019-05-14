@@ -1,0 +1,30 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body>
+    <!--noindex-->
+    {include /templates/includes/main_header_part.html}
+    
+    <div class="shadow-wrapper" id="shadow-wrapper">
+
+        <div class="content">
+            <div class="main-content">
+                <div class="left-wrapper">
+                    {include /templates/includes/main_menu_part.html}
+                    <!--/noindex-->
+                    <div class="central-column">
+                        {include /templates/includes/breadcrumbs.html}
+                        <div class="help-content"> 
+                        {$content}
+                        </div>
+                    </div> <!--/.central-column-->
+                    <!--noindex-->
+                    {include /templates/help/left_part.html}
+                </div> <!--/.left-wrapper-->
+                {include /templates/help/right_part.html}
+            </div> <!--/.main-content-->                            
+        </div> <!--/.content-->
+    </div>
+    {include /templates/includes/main_footer_part.html}
+    <!--/noindex-->       
+</body>
+</html>

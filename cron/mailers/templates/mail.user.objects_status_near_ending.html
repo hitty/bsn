@@ -1,0 +1,28 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr>
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Здравствуйте{if!empty $info['user_name']}, <b>{$info['user_name']}{if!empty $info['user_lastname']} {$info['lastname']}{/if}</b>{/if}!<br>
+    </td>
+</tr>
+<tr>                         
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left">
+        Срок действия платных услуг для ваших объектов заканчивается. Сегодня последний день! <br /><br />
+        {php: $objects_info = $info['objects_info'];}
+        {loop $objects_info,$status,$values}
+            <div style="margin-left:10px;">
+                <span>{$info['statuses'][$status]}:</span><br />
+                {loop $values,$k,$v}
+                    <div style="display:block;margin-left:20px;margin-top:5px;"><a href="{$v}" title="Перейти к объекту ID {$info['objects_ids'][$status][$k]}">ID {$info['objects_ids'][$status][$k]}</a></div>
+                {/loop $values}
+            </div><br />
+        {/loop $objects_info}
+        <br />
+        <!--div>
+            <span>Специально для Вас скидка {$discount}% ({$discount_value} руб.) на продление всех действующих услуг. Скидка действует до конца текущего дня. Воспользуйтесь нашим предложением и продлите услуги за {$prolongate_cost} руб. прямо сейчас.</span>
+            <br />
+            <a href="{$prolongate_link}" style="background: url('//st1.bsn.ru/img/layout/mail-prodlenie-button.gif') no-repeat 0 0;display:block;height:50px;width:275px;margin:20px auto 0px auto;" title="Продлить" target="_blank"></a>
+        </div->
+    </td>
+</tr>
+<br />
+{include /modules/mailers/templates/simple.footer.html}

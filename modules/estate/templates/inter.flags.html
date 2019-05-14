@@ -1,0 +1,12 @@
+<div class="central-wrapper">
+    <h1>Страны</h1>
+    {loop $countries,$ckey,$item}
+        <div class="foreign-flag">
+            <a href="/inter/sell/?countries={$item['id']}">
+                <img src="/img/foreign_flags/{$item['image_name']}" />
+                
+                <span>{$item['title']}</span>
+            </a>
+        </div>
+    {/loop $countries}
+</div>

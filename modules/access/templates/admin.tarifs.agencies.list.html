@@ -1,0 +1,91 @@
+<h1 class="pageTitle">Тарифы агентств</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/access/users/promocodes/add/" class="button">Добавить тариф</a>
+</div>
+<div class="list_table">
+
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="1%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Заголовок</th>
+                    <th>Объектов в сутки</th>
+                    <th>Перс. стр.</th>
+                    <th>Вирт. офис</th>
+                    <th>Кол. сотр.</th>
+                    <th>ПРОМО</th>
+                    <th>ПРЕМИУМ</th>
+                    <th>VIP</th>
+                    <th>"Акция"*</th>
+                    <th>Видео на странице компании*</th>
+                    <th>Прикрепление ЖК к странице</th>
+                    <th>Контакты в карточке</th>
+                    <th>Промо видео</th>
+                    <th>Новости компании*</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['title']}</td>
+                        <td>
+                            {ifeq $item['cnt'],-1}∞{else}{$item['cnt']}{/if}
+                        </td>
+                        <td>да</td>
+                        <td>да</td>
+                        <td>{ifeq $item['staff_number'],-1}∞{else}{$item['staff_number']}{/if}</td>
+                        <td>{$item['promo']}</td>
+                        <td>{$item['premium']}</td>
+                        <td>{$item['vip']}</td>
+                        <td>{$item['action']}</td>
+                        <td>да</td>
+                        <td>да</td>
+                        <td>да</td>
+                        <td>{$item['video']}</td>
+                        <td>да</td>
+                        <td class="small_icons ac">
+                            {ifeq $item['id'],1}<a href="/admin/access/agencies/tarifs/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>{/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        <div>* В разработке (Будет доступно в ноябре 2015)</div>
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

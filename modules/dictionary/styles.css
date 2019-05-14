@@ -1,0 +1,40 @@
+.words-list{
+    border-bottom: 1px dotted #ccc;
+    padding: 10px;
+    overflow: hidden; 
+}
+.words-list .words-title img{
+    float:left;
+    margin-right:6px;
+}
+.words-list:nth-child(even){
+    background: #EEEEEE;
+}
+.words-list div{
+    width:49%;
+    float:left;
+}
+.words-category-list h3{
+    padding-bottom: 2px;
+}
+
+.words-category-list ul{
+    margin-bottom: 16px;
+}
+.words-category-list ul li{
+    margin-bottom: 5px;
+}
+.words-category-list ul li span{
+    color:#1e88e5;
+}
+.letters-list_block{
+    margin-bottom:15px;
+}
+.dictionary-letters{
+    margin-bottom:3px;
+}
+.dictionary-letters a,
+.dictionary-letters span{
+    padding:1px;
+    margin:2px;
+}

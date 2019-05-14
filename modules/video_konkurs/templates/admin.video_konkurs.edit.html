@@ -1,0 +1,42 @@
+<h1 class="pageTitle">Видео конкурс </h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/service/video_konkurs/add/" >
+    <h3>Новая метка баннер</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/service/video_konkurs/edit/{$data_mapping['id']['value']}/" >
+    <h3>Метка #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $info['external_link']}
+        <div class="video-konkurs-wrap">
+            <embed src='/js/spruto/player.swf'
+            type='application/x-shockwave-flash' allowfullscreen='true'
+            allowScriptAccess='always' width='460' height='270'
+            flashvars="settingsUrl=https://{Host::$host}/video_player/?name={$info['external_link']}&posterUrl=//st1.bsn.ru/img/uploads/med/{$info['subfolder']}/{$info['photo_name']}&title={$info['title']}"/>
+        </div>
+    {/if}
+    <p>
+        <input type="submit" value="Сохранить" name="submit">
+    </p>  
+    
+</form>

@@ -1,0 +1,87 @@
+<h1 class="pageTitle">Квартиры в новстройках (на модерации)</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_id = document.getElementById('f_id').value;
+            var __filter_m_status = document.getElementById('f_m_status').value;
+            var __url = '{root:/admin/estate/build/new/}';
+            var __get = new Array();
+            if(__filter_id!='') __get.push('f_id='+__filter_id);
+            if(__filter_m_status!='') __get.push('f_m_status='+__filter_m_status);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            ID:
+            <input type="text" id="f_id" value="{$get_array['f_id']}" onchange="filter_activate()"  placeholder="ID объекта">
+        </label>
+        <label>
+            Статус:
+            <select id="f_m_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">Все ошибочные</option>
+                {loop $m_status,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_m_status'],$val['id']} selected="selected"{/if}}>{$val['title']}</option>
+                {/loop $m_status}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="15%">
+                <col class="col1" width="10%">
+                <col class="col2" width="30%">
+                <col class="col1" width="15%">
+                <col class="col2" width="15%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Время поступления</th>
+                    <th>Объект</th>
+                    <th>Адрес</th>
+                    <th>Площадь</th>
+                    <th>Цена</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}"{ifeq $item['published'],2} class="inactive"{/if}>
+                        <td>{$item['id']}</td>
+                        <td>{$item['date_in']}</td>
+                        <td>{ifeq $item['rooms_sale'],0}студия{else}{$item['rooms_sale']}{/if}ккв</td>
+                        <td>
+                            {ifeq $item['id_moderate_status'],4}
+                                <input type="text" class="wrong" name="txt_addr" value="{$item['txt_addr']}" data-url="/admin/estate/build/new/setfield/{$item['id']}/" />
+                            {else}
+                                {$item['txt_addr']}
+                            {/if}
+                        </td>
+                        <td class="col_sm">Общ.:{$item['square_full']}<br />Жил.:{$item['square_live']}</td>
+                        <td>
+                            {ifin $item['id_moderate_status'],2,3}
+                                <input type="text" class="wrong" name="cost" value="{$item['cost']}" data-url="/admin/estate/build/new/setfield/{$item['id']}/" />
+                            {else}
+                                {$item['cost']}
+                            {/if}
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/build/new/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/build/new/del/{$item['id']}/?{$get_string}" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            <a href="/admin/estate/build/new/remoderate/{$item['id']}/" title="Отправить на перемодерацию"><span class="ico_remoderate">Отправить на перемодерацию</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,153 @@
+<h1 class="pageTitle" data-type="{$content_type}">{$content_title}</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/content/{$content_type}/add/" class="button">Добавить {$content_title_prepositional}</a>
+    <a href="/admin/content/{$content_type}/flush_memcache/" class="delete-memcache">Очистить кеш для всех блоков на сайте</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title =    document.getElementById('f_title').value;
+            var __filter_date =     document.getElementById('f_date').value;
+            var __filter_status =   document.getElementById('f_status').options[document.getElementById('f_status').selectedIndex].value;
+            var __filter_region =   document.getElementById('f_region').options[document.getElementById('f_region').selectedIndex].value;
+            var __filter_category = document.getElementById('f_category').options[document.getElementById('f_category').selectedIndex].value;
+            var __type = jQuery('h1').data('type');
+            var __url = '{root:/admin/content/' + __type + '//}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_date!='') __get.push('f_date='+__filter_date);
+            if(__filter_status!=0) __get.push('f_status='+__filter_status);
+            if(__filter_region!=0) __get.push('f_region='+__filter_region);
+            if(__filter_category!=0) __get.push('f_category='+__filter_category);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Дата:
+            <input type="text" id="f_date" value="{$get_array['f_date']}" onchange="filter_activate()" placeholder="часть даты">
+        </label>
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>
+        {ifeq $content_type,'news'}
+        <label>
+            Регион:
+            <select id="f_region" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $regions,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_region'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $regions}
+            </select>
+        </label>
+        {/if}
+        <label>
+            Категория:
+            <select id="f_category" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="65%">
+                <col class="col2" width="15%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Заголовок</th>
+                    <th>Дата {$content_title}</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td><a href="/{$content_type}/{$item['category_code']}/{if!empty $item['region_code']}{$item['region_code']}/{/if}{$item['chpu_title']}/" target="_blank" title="Посмотреть на сайте">{$item['id']}</a></td>
+                        <td>
+                        	{if!empty $item['photo']}
+                                <div class="small_image">
+                                    {ifin $item['id_category'],31,37}{if!empty $item['video_link']}<div class="video-layer"></div> {else}{if!empty $item['direct_video_link']}<div class="video-layer"></div>{/if}{/if}{/if}
+                                    <img src="/{$item['photo']}" alt="{quoted:$item['title']}"/>
+                                </div>
+                            {/if}
+                            <span {ifeq $item['newsletter_title'],1} style="color:green;font-weight:bold"{/if}>
+                                {$item['title']}
+                                
+                            </span>
+                            {ifeq $item['vkontakte_feed'],3}<span class="vk-export" title="Был экспорт"></span>
+                            {elseifeq $item['vkontakte_feed'],1}<span class="vk-export wait-export"  title="Ожидает экспорта"></span>
+                            {/if}
+                            {ifeq $item['newsletter_feed'],1}<span class="news-mailer" title="В рассылке"></span>{/if}
+                            {ifeq $item['exclusive'],1}
+                                <span class="news-exclusive" title="{$content_title_prepositional} эксклюзивна">эксклюзив</span>
+                            {/if}
+                            {ifeq $item['comment'],1}
+                                <span class="news-comment" title="{$content_title_prepositional} является комментарием">комментарий</span>
+                            {/if}
+                            {ifeq $item['report'],1}
+                                <span class="news-report" title="{$content_title_prepositional} является репортжем">репортаж</span>
+                            {/if}
+                            <br /><span style="display: block; font-size: 10px;">
+                                {ifeq $item['status'],1}Обычное размещение
+                                {elseifeq $item['status'],2}Всегда на главной
+                                {elseifeq $item['status'],3}Никогда на главной
+                                {elseifeq $item['status'],4}Скрыто
+                                {/if}
+                            </span>
+                            
+                            {ifeq $item['newsletter_title'],1}<br /><span style="font-size: 10px; color:#999;"> (используется как заголовок ежедневной рассылки)</span>{/if}
+                        </td>
+                        <td>{php:echo date('d.m.Y H:i:s',strtotime($item['datetime']))}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/{$content_type}/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/{$content_type}/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            {if!empty $item['promo']}
+                                {if!eq $item['promo'],2}
+                                    <a href="/admin/content/{$content_type}/stats/{$item['id']}/" title="Статистика статьи"><span class="ico_stats">Статистика статьи</span></a>
+                                {/if}
+                            {elseifeq $content_type,'longread'}
+                                <a href="/admin/content/{$content_type}/stats/{$item['id']}/" title="Статистика статьи"><span class="ico_stats">Статистика статьи</span></a>
+                            {/if}                            
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,48 @@
+<section class="organizations-wrapper central-main-content br3 clearfix col-3">
+    
+    <div class="statistic-box clearfix">
+        <div class="sb-info">
+            Найдено организаций всего: <i>{$total_found}</i>
+            {if!empty $total_found}<br />
+            Показаны <i>{ifempty $paginator['from_item']}1-{$total_found}{else}{$paginator['from_item']}-{$paginator['to_item']}{/if}</i>{/if}
+        </div>
+
+        <div class="sb-sort">
+            Показывать 
+            <div class="list-selector grey" id="count_selector">
+                <a href="#" class="pick">{$count}</a>
+                <a href="#" class="select">...</a>
+                <input type="hidden" name="count_selector" value="{$count}" />
+                <ul class="list-data">
+                    <li data-value="20">20</li>
+                    <li data-value="40">40</li>
+                    <li data-value="60">60</li>
+                </ul>
+            </div>
+        </div>
+    </div> 
+
+    <div class="list clearfix">
+        {loop $list,$lk,$item}
+            <div class="item shadow-hover transition clearfix">
+                <a class="hdr" href="/organizations/company/{$item['chpu_title']}/"></a>
+                <div class="photo"{ifempty $item['agency_photo']} data-icon="work"{/if}>
+                     {if!empty $item['agency_photo']}
+                        <img src="/{$item['agency_photo_folder']}/{$item['agency_photo']}" alt="{quoted:$item['title']}" />
+                     {/if}
+                </div>
+                
+                <div class="name">
+                    <a href="/organizations/company/{$item['chpu_title']}/" title="подробнее" target="_blank">{$item['title']}</a>
+                    
+                    <span>
+                        {if!empty $item['amount']}{suffix:$item['amount'],'предложени','е','я','й'}{if!empty $item['answers_amount']}, {suffix:$item['answers_amount'],'ответ','','а','ов'} / {/if} / {else}{if!empty $item['answers_amount']}{suffix:$item['answers_amount'],'ответ','','а','ов'} / {/if}{/if}
+                        {$item['activity']}
+                    </span>
+                </div>
+                
+            </div>
+        {/loop $list}
+    </div>
+    {include /templates/includes/paginator.html}
+</section> 

@@ -1,0 +1,130 @@
+<h1 class="pageTitle">TextLine/ Кампании</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/advert_objects/textline/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_manager = document.getElementById('f_manager').value;
+            var __filter_status = document.getElementById('f_status').value;
+            var __url = '{root:/admin/advert_objects/textline/}';
+            var __get = new Array();
+            if(__filter_status!='') __get.push('f_status='+__filter_status);
+            if(__filter_manager!=0) __get.push('f_manager='+__filter_manager);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>    
+        <label>
+            Менеджер:
+            <select id="f_manager" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">любой</option>
+                {loop $managers,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_manager'],$val['id']} selected="selected"{/if}}>{$val['name']}</option>
+                {/loop $managers}
+            </select>
+        </label>        
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="20%">
+                <col class="col2" width="20%">
+                <col class="col1" width="10%">
+                <col class="col2" width="20%">
+                <col class="col1" width="20%">
+                <col class="col1" width="20%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Рекламодатель</th>
+                    <th>Даты</th>
+                    <th>Объявления (акт/все)</th>
+                    <th>Сегодня</th>
+                    <th>Вчера</th>
+                    <th>Все время</th>
+                    <th>Ссылка на переход / пиксель</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}">
+                        <td>{$item['id']}</td>
+                        <td>{$item['title']}</td>
+                        <td>
+                            {if!empty $item['agency_photo']}
+                                <img src="{static:/}img/uploads/sm/{$item['agency_photo_folder']}/{$item['agency_photo']}" /><br />
+                            {/if}
+                            {$item['agency_title']}
+                        </td>
+                        <td align="center">
+                            <span class="{ifeq $item['published'],2}red{/if}">
+                                старт : {$item['normal_date_start']}<br />
+                                оконч: {$item['normal_date_end']}
+                            </span>
+                        </td>
+                        <td align="center">
+                        	<a href="/admin/advert_objects/textline/banners/?f_status=active&f_campaign={$item['id']}" title="Активные Объявления кампании #{$item['title']}">{$item['cnt_1']}</a> 
+                            ( <a href="/admin/advert_objects/textline/banners/?f_campaign={$item['id']}" title="Все Объявления кампании #{$item['title']}">{$item['cnt_2']}</a> )
+                        </td>
+                        <td align="center" title="показы/клики за день">{$item['cnt_day']} / {$item['cnt_click_day']}</td>
+                        <td align="center" title="показы/клики за вчера">{$item['cnt_yesterday']} / {$item['cnt_click_yesterday']}</td>
+                        <td align="center" title="показы/клики за все время">{$item['cnt_full']} / {$item['cnt_click_full']}</td>
+                        <td align="center">
+                            {if!empty $item['direct_link']} 
+                                <font size="-2" style="text-overflow: ellipsis; overflow:hidden; width:150px; display:block;"><a href="{$item['direct_link']}" title="" target="_blank">{$item['direct_link']}</a></font>
+                            {else}
+                            -
+                            {/if}
+                            /
+                            {if!empty $item['get_pixel']} 
+                                <font size="-2" style="text-overflow: ellipsis; overflow:hidden; width:150px; display:block;"><a href="{$item['get_pixel']}" title="" target="_blank">{$item['get_pixel']}</a></font>
+                            {else}
+                            -
+                            {/if}
+
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/advert_objects/textline/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            {ifeq $item['enabled'],1}
+                            	<a href="/admin/advert_objects/textline/archive/{$item['id']}/" title="В архив"><span class="ico_archive">В архив</span></a>
+                            {else}
+                            	<a href="/admin/advert_objects/textline/restore/{$item['id']}/" title="Восстановить"><span class="ico_restore">Восстановить</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,14 @@
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{block service/information/dictionary/block/{$letter}}
+{ifempty $list}         
+{else}
+    <div>
+    {loop $list,$lk,$def}
+            <div class="words-list">
+            <div class="words-title"><a href="/service/information/dictionary/{$letter}/{$def['id']}/">{$def['word']}</a></div>
+            <div class="words-info">{$def['meaning']}</div>
+            </div>
+    {/loop $list}
+    </div>
+{/if}
+{include templates/includes/paginator.html}

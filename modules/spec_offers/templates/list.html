@@ -1,0 +1,45 @@
+<div class="central-wrapper">
+{if!empty $h1}<h1>{$h1}</h1>{/if}
+{if!empty $list}
+    <ul id="specoffers-list">
+    {loop $list,$key,$item}
+        <li data-type="{$item['type']}" data-id="{$item['id']}">
+	        <div class="item-image">
+                {ifeq $item['link_type'],'external'}
+                    <span class="external-link" data-link="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        <img src="{$item['photo']}" alt="{quoted:$item['title']}" border="1" />
+                    </span>
+                {else}
+                    <a href="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        <img src="{$item['photo']}" alt="{quoted:$item['title']}" border="1" />
+                    </a>
+                {/if}
+            </div>
+            <div class="item-info">
+                {ifeq $item['link_type'],'external'}
+                    <span class="external-link" data-link="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        {$item['title']}
+                    </span>
+                {else}
+                    <a href="{$item['direct_link']}" title="{quoted:$item['title']}">
+                        {$item['title']}
+                    </a>
+                {/if}
+            </div>
+            {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" width="1px" border="0" />{/if}
+        </li>
+    {/loop $list}
+    </ul>
+{/if}
+
+{if!empty $bc_map}
+    <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+    <script>jQuery(document).ready(function(){ 
+                pendingMapPoints('#bc_map','/business_centers/map/', {ajax: true, map: true});
+    });
+    </script>
+    <h3 class="btitle"><span class="title">Карта бизнес-центров</span></h3>
+    <div id="bc_map"></div>
+{/if}
+
+</div>

@@ -1,0 +1,50 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+        Здравствуйте!
+        <br /><br />
+        Вы оставили запрос на онлайн-оценку квартиры на BSN.ru            
+    </td>
+</tr>
+{if!empty $item['passwd']}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:24px; line-height: 26px;" align="left"> 
+        Ваши данные при регистрации: <br /><br />
+        Логин:{$item['email']} <br />       
+        Пароль:{$item['passwd']}<br />        
+    </td>
+</tr>
+{/if}
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:18px; line-height: 20px;" align="left"> 
+        Параметры объекта:
+        <br /><br />
+        {if!empty $item['geodata_title']} 
+            Адрес: <b>{$item['geodata_title']}
+            {if!empty $item['house']}, дом {$item['house']}{/if}
+            {if!empty $item['corp']}, корпус {$item['corp']}{/if} </b><br />
+        {/if}
+        {if!empty $item['rooms_total']} Комнаты: <b>{$item['rooms_total']} </b><br />{/if}
+        {if!empty $item['square']} Площадь, (м<sup>2</sup>):<b> {$item['square']} </b><br />{/if}
+        {if!empty $item['building_type_title']} Тип дома: <b>{$item['building_type_title']} </b><br />{/if}
+        {php:$level = !empty($item['level']) || !empty($item['level_total']) }
+        {if!empty $level}
+            Этаж: <b>{if!empty $item['level']}{$item['level']}{else}-{/if}{if!empty $item['level_total']} из {$item['level_total']}{/if} </b><br />
+        {/if}
+        {if!empty $item['purpose_title']} Почему вас интересует оценка: <b>{$item['purpose_title']} </b><br />{/if}
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding:20px 0; font-size:16px; line-height: 18px;" align="left"> 
+        Перейдите по <a href="https://{$item['host']}/estate_estimate/{$item['hash']}/?utm_medium=email&utm_source=bsn&utm_campaign=estate_estimate">ссылке</a> для просмотра отчета на сайте.<br /><br />
+
+        Или скопируйте ссылку ниже и введите ее в строку браузера, а затем нажмите кнопку "Ввод".<br /><br />
+
+        http://{$item['host']}/estate_estimate/{$item['hash']}/?utm_medium=email&utm_source=bsn&utm_campaign=estate_estimate<br /><br />
+
+        Если вы не отправляли запрос на онлайн-оценку квартиры, то просто проигнорируйте это письмо.
+
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

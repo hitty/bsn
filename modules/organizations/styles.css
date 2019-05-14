@@ -1,0 +1,322 @@
+.organizations-wrapper h1 {
+    display: inline-block;
+    width: 300px;
+}
+.organizations-wrapper #autocomplete_inputbox {
+    display: inline-block;
+    width: 335px;
+    position: relative;
+    margin-right: 40px;
+    text-align: right;
+}
+.organizations-wrapper #autocomplete_inputbox input{
+    width: 160px;
+    float: right;
+}
+.organizations-wrapper #autocomplete_inputbox input:active,
+.organizations-wrapper #autocomplete_inputbox input:focus{
+    width: 340px;
+}
+.organizations-wrapper .filter {
+    padding: 0 20px;
+}
+
+.organizations-wrapper .filter li {
+    font-size: 16px;
+    line-height: 16px;
+    color: #1e88e5;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0 0 10px 0;
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0);
+}
+.organizations-wrapper .filter a {
+    border-color: #1e88e5;
+    color: #1e88e5;
+}
+.organizations-wrapper .filter sup {
+}
+.organizations-wrapper .filter li:hover,
+.organizations-wrapper .filter li.active {
+    border: 1px solid #1e88e5;
+}
+.organizations-wrapper .filter li:hover a,
+.organizations-wrapper .filter li.active a{
+    border-bottom: none;
+}
+.organizations-wrapper .activity-list{
+    margin: 0 20px;
+}
+.organizations-wrapper .list {
+    margin: 0;
+    position: relative;
+}
+
+.organizations-wrapper .list .item {
+    position: relative;
+    padding: 40px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.organizations-wrapper .list .item .photo {
+    float: right;
+    border: 1px solid #e3e3e3;
+    width: 170px;
+    height: 49px;
+    position: relative;
+}
+
+.organizations-wrapper .list .item .photo img {
+    max-width: 170px;
+    max-height: 50px;
+    display: block;
+}
+.organizations-wrapper .list .item .photo:before {
+    color: #818181;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 24px;
+    margin: -12px 0 0 -12px;
+    z-index: 1;
+}
+.organizations-wrapper .list .item .name {
+    display: inline-block;
+    width: 540px;
+    font-size: 18px;
+}
+.organizations-wrapper .list .item:hover .name a,
+.organizations-wrapper .list .item:hover .avatar:before{
+    color:#1e88e5;
+}
+
+.organizations-wrapper .list .item .name a {
+    border: none;
+}
+
+.organizations-wrapper .list .item .name span {
+    display: block;
+    color: #818181;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.organizations-wrapper .list .item .objects {
+    float: right;
+    font-size: 18px;
+}
+
+.organizations-wrapper .list .item .parent-agency {
+    float: right;
+    margin-right: 20px;
+    display: block;
+    position: relative;
+    z-index: 1000;
+}
+.organizations-wrapper .list .item:last-of-type .hr-bottom{
+    display: none;
+}
+
+/* card */
+.card h1{
+    width:100%;
+    text-align: center;
+    display: block;
+}
+.card .photo {
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}    
+.card .photo img{
+   width: auto;
+    border: 1px solid #E6E6E6;
+}
+.card .specialization-list{
+    margin: 20px 0 0 0;    
+    text-align: center;
+    color: #818181;
+}
+.card .specialization-list span{
+    font-size: 16px;    
+    line-height: 24px;
+    margin: 0 10px;
+}
+.card .specialization-list span.item{
+    margin: 0;
+}
+.card .objects-count{
+    display: inline-block;    
+}
+.card .objects-count sup{
+    height: 11px;
+    color: #FFFFFF;
+    font-family: Roboto;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 11px;
+    text-align: center;
+    background: #1e88e5;
+    border-radius: 20px;
+    padding: 0 5px;
+}
+.card .objects-count span{
+    border-bottom: 1px dashed #818181;
+    cursor: pointer;    
+}
+.card .objects-count span:hover{
+    border-bottom: transparent;
+}
+.card .central-main-content{
+    margin: 80px auto;
+    float: none;
+    padding: 40px;
+}
+.card .notes-wrap{
+    margin: 40px auto!important;
+    text-align: center;        
+    float: none;
+}
+.card .notes-wrap p,
+.card .notes-wrap div{
+    text-align: center!important;
+}
+.card .phone-wrap{
+    text-align: center;
+    display: block;
+    font-size: 30px;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+.card .contacts-wrap{
+    text-align: center;
+}
+.card .contacts-wrap .button{
+    margin-bottom: 20px;  
+    width: 260px; 
+}
+.card .contacts-wrap .button.white{
+    border: 1px solid #1e88e5;
+    color: #1e88e5;
+    margin-left: 20px;
+}
+.card .contacts-wrap .url{
+    color: #1e88e5;    
+    border-bottom: 1px #1e88e5 solid;    
+    font-size: 16px;
+}
+.card .contacts-wrap{
+    
+}
+.objects .filter{
+    display: inline-block;
+    margin: -2px 0 0 20px;
+}
+.filter + div{
+    margin: 0;
+}
+.card .fast-search.tiny .row .middle-panel {
+    width: 260px;
+}
+
+.manager-wrapper {
+    border: 1px solid #1e88e5;
+    padding: 20px;
+}
+
+.manager-wrapper .name {
+    font-size: 30px;
+    line-height: 36px;
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.manager-wrapper .question {
+    display: block;
+    color: #1e88e5;
+    text-align: center;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.manager-wrapper .question:before {
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin: 0 0 10px 0;
+    font-size: 24px;
+}
+.manager-wrapper .button{
+color: #fff;
+    width: 100%;    
+}
+.manager-wrapper .button:before{
+    display: inline;
+    float: none;
+    font-size: 24px;    
+}
+.card.central-main-content .right-part {
+    float: right;
+    width: 240px;
+    margin: 40px;
+    vertical-align: top;
+}
+
+/* last list */
+.organizations-list.last-list-wrapper{
+    
+}
+.organizations-list.last-list-wrapper .item{
+    height: 88px;
+}
+.organizations-list.last-list-wrapper .logo{
+   float: right;
+}
+.organizations-list.last-list-wrapper .info{
+    float: left;  
+    margin-top: 3px;
+    max-height: 55px; 
+}
+.organizations-list.last-list-wrapper .info a{
+    font-size: 16px;
+    border: none;
+}
+.organizations-list.last-list-wrapper .item:hover a{
+    color: #1e88e5l
+}
+.organizations-list.last-list-wrapper .info .count{
+    display: block;
+    color: #818181;
+    padding-top: 10px;    
+}
+
+
+#fast-search-form{
+    z-index: 110;
+}
+.fast-search .row .single-selector {
+    width: 560px;
+    margin-right: 20px;
+}
+.fast-search .row .single-selector input{
+    width: 100%;    
+}
+.fast-search .form-container .typewatch_popup_list{
+    width: 560px;
+}
+.fast-search .form-container .typewatch_popup_list li{
+    width: 530px;
+    max-width: 530px;
+    margin: 5px;
+}
+.fast-search .form-container .row .specialization-list{
+    width: 360px;
+}
+.pretitle{
+    text-align: center;
+    margin-bottom: 20px;    
+}

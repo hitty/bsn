@@ -1,0 +1,61 @@
+    <span class="button grey search-button" data-icon="search" data-url="/search/popup/"></span>
+    <h1 class="centered">
+        {if!empty $h1}{$h1}
+        {elseif!empty $content_h1}{$content_h1}
+        {else}
+            {ifeq $content_type,'news'}Категории новостей рынка недвижимости
+            {elseifeq $content_type,'articles'}Статьи
+            {elseifeq $content_type,'bsntv'}Видео о недвижимости
+            {elseifeq $content_type,'doverie'}Доверие потребителя
+            {elseifeq $content_type,'blog'}Блог
+            {elseifeq $content_type,'longread'}Лонгриды
+            {/if}
+        {/if}
+    </h1>
+    {include modules/search/templates/search.form.html}
+   
+    {if!empty $list}
+        <section id="content-list">
+            <div class="content-wrapper row-{ifeq $content_type,'news'}2{else}3{/if} clearfix">
+                
+                {php:$allsmall = true}
+                {include /modules/content/templates/block.html}     
+                {if!empty $paginator}
+                    <div class="clearfix"></div>
+                    <span class="center-button-block ajax-pagination button grey clearfix" data-link="/{$content_type}/{if!empty $category['code']}{$category['code']}/{/if}{if!empty $region['code']}{$region['code']}/{/if}?page={$paginator['right']}">Еще {ifeq $content_type,'articles'}статьи{elseifeq $content_type,'bsntv'}видео{else}новости{/if}</span>
+                {/if}
+            </div>
+        </section>
+    {/if} 
+    
+    <section class="subscribe-content-wrapper">
+        <span class="title">Интересно читать наши материалы?</span>
+        {include /templates/subscribe.panel.html}
+    </section>
+    <section>
+        {block tgb}
+    </section>
+    
+
+    
+    <section id="datetime-filter" class="links">
+        <div class="list-selector years-list grey">
+            <a href="#" class="pick"></a>
+            <a href="#" class="select">...</a>
+            <input type="hidden" name="progress_years" value="" />
+            <ul class="list-data" data-simplebar="init">
+                {loop $date_list,$k,$pitem} 
+                        <li data-value="{$k}">{$k}</li>
+                {/loop $date_list}
+            </ul>
+        </div>                 
+        <ul class="list br3">
+            
+            {loop $date_list,$year,$months}
+                {loop $months,$m,$mitem}
+                    <li class="item{if!empty $mitem['active']} on{/if}" data-year="{$year}" data-params="?month={$mitem['month_number']}&year={$year}"><a href="/{$content_type}/archive/?month={$mitem['month_number']}&year={$year}{if!empty $category['code']}&category={$category['code']}{if!empty $region['code']}&region={$region['code']}{/if}{/if}">{$mitem['month']}</a></li>
+                {/loop $months}
+            {/loop $date_list}   
+            
+        </ul>
+    </section>

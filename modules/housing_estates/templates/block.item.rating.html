@@ -1,0 +1,73 @@
+{ifgt $item['expert_rating'],1}
+    <div class="yellow tag people-rating" itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+        <div class="number bbox br3 transition">
+            <span>{$item['expert_rating']}</span>
+            <span class="info" data-icon="help_outline"></span>
+            <div class="rating-info br3 {if!empty $expert_rating}wide {ifempty $votes_total}thin{/if}{/if} shadow">
+                <div class="rating-list">
+                    <span class="total">{$item['expert_rating']}</span>
+                    <h3>Экспертный рейтинг</h3>
+                    {if!empty $expert_rating}
+                        <div class="avg-rating-line">
+                            <span class="line-title">Транспортная доступность</span>
+                            <span class="line-value"><i>{$expert_rating['rating_transport']}</i></span>
+                        </div>
+
+                        <div class="avg-rating-line">
+                            <span class="line-title">Инфраструктура</span>
+                            <span class="line-value"><i>{$expert_rating['rating_infrastructure']}</i></span>
+                        </div>
+
+                        <div class="avg-rating-line">
+                            <span class="line-title">Надежность</span>
+                            <span class="line-value"><i>{$expert_rating['rating_safety']}</i></span>
+                        </div>
+
+                        <div class="avg-rating-line">
+                            <span class="line-title">Экологичность</span>
+                            <span class="line-value"><i>{$expert_rating['rating_ecology']}</i></span>
+                        </div>
+
+                        <div class="avg-rating-line">
+                            <span class="line-title">Соотношение цена/качество</span>
+                            <span class="line-value"><i>{$expert_rating['rating_quality']}</i></span>
+                        </div>
+
+                    {/if}
+
+                    <span class="dashed-link-blue popup" data-location="rating-how-to" data-url="/popups/zhiloy_kompleks_rating/">
+                        Как мы составляем рейтинг?
+                    </span>
+                </div>
+                
+                <div class="housing-estate-votings clearfix{if!empty $voted_already} voted{/if}" data-users-total="{$expert_rating[0]['num']}">
+                    {ifgt $votes_total,9}<span class="total">{$item['user_rating']}</span>{/if}
+                    <h3>Пользовательский рейтинг</h3>
+
+                    <span class="text">Проголосуйте за этот ЖК:</span>
+                    <div class="stars">
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],1} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],2} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],3} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],4} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],5} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],6} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],7} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],8} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],9} class="active"{/if}{/if}></span>
+                        <span data-icon="star_border"{if!empty $voted_already}{ifgte $voted_already['rating'],10} class="active"{/if}{/if}></span>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    {ifempty $voted_already}
+                        <span class="button vote blue disabled">Голосовать</span>
+                    {/if}
+                    <span class="already-voted">Спасибо за ваш голос</span>
+                </div>
+            </div>
+            {if!empty $votes_total}<meta itemprop="reviewCount" content="{$votes_total}">{/if}
+            <meta itemprop="ratingValue" content="{php:echo $item['expert_rating']/2}" />
+        </div>
+    </div>
+{/if}

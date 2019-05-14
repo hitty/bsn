@@ -1,0 +1,111 @@
+<h1 class="pageTitle">id</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/sale/campaigns/add/">
+    <h3>Новая запись</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/sale/campaigns/edit/{$data_mapping['id']['value']}/"  id="campaign_form">
+    <h3>Запись #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    
+    <fieldset>
+	    <script src="//maps.googleapis.com/maps/api/js?v=3.9&sensor=true"></script>
+        <div id="map_canvas" style="width:100%; height:500px;margin-top:5px"></div> 
+	</fieldset>    
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset>
+            <h3>Загрузка фотографий #{$data_mapping['id']['value']} (Минимальные размеры 800 x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-type="cottages" data-id="{$data_mapping['id']['value']}" data-url="/admin/sale/campaigns/photos/" data-session-id="{php:echo session_id();}"/>
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>  
+    {/if} 
+    <p>
+        {if!empty $data_mapping['id']['value']}
+            <input type="submit" value="Сохранить" name="submit">
+            <input type="submit" value="Сохранить и добавить варианты" name="submit" id="redirect_to_offers">
+        {/if}
+    </p>    
+     
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    
+    //fileuploader init
+    if(jQuery('#file_upload').length>0){
+        jQuery('#file_upload').uploadifive({
+                'buttonSetMain':false,
+                'multi':true
+            }
+        );
+    }
+
+    jQuery('#redirect_to_offers').click(function(e){
+        var _form = jQuery('#campaign_form');
+        _form.attr('action',_form.attr('action')+'?redirect=offers');
+        _form.submit();
+    })
+    
+    jQuery('#btn_geolocation').addrselector({
+        geo_id_element: "#geolocation_id",
+        district_id_element: "#id_district",
+        subway_id_element: "#id_subway",
+        link_element : '#main-container',
+        ajax_url: window.location.href,
+        multiselect: false,
+        onExit : function(item){
+            $('#text_geolocation').html(item.title);
+            $('#text_district_title').html(item.district_title.join(','));
+            $('#text_subway_title').html(item.subway_title.join(','));
+        }
+    });
+    
+    jQuery('select[name="id_offers_type"]').change(function(){
+        setSelector(jQuery(this));
+    });
+    
+    function setSelector(__this){
+        if(__this.val() == 1){
+            jQuery('#p_field_action').slideDown(0);
+            jQuery('#p_field_old_cost').slideDown(0);
+            jQuery('#p_field_installment').slideUp(0);
+            jQuery('#p_field_discount').slideUp(0);
+            jQuery('#p_field_action_title').slideDown(0);
+        } else if(__this.val() == 2) {
+            jQuery('#p_field_action').slideUp(0);
+            jQuery('#p_field_old_cost').slideUp(0);
+            jQuery('#p_field_installment').slideUp(0);
+            jQuery('#p_field_discount').slideDown(0);
+            jQuery('#p_field_action_title').slideUp(0);
+        } else {
+            jQuery('#p_field_action').slideUp(0);
+            jQuery('#p_field_old_cost').slideUp(0);
+            jQuery('#p_field_installment').slideDown(0);
+            jQuery('#p_field_discount').slideUp(0);
+            jQuery('#p_field_action_title').slideUp(0);
+        }
+    }
+    
+    setSelector(jQuery('select[name=id_offers_type]'));
+
+});
+</script>

@@ -1,0 +1,14 @@
+<div class="tab gallery-thumbs">
+    {ifempty $photos}
+        <div class="gallery-no-photo">&nbsp;</div>
+    {else}
+        {ifempty $payed_format}
+            {php:$gallery_type='big_with_thumbs';}
+        {else}
+            {php:$gallery_type='big_with_big_thumbs';}
+        {/if}
+        {php:$hash = substr(md5(mt_rand(0,10000)), 0, 5);}  {include /templates/gallery.html}
+    {/if} 
+</div>
+
+

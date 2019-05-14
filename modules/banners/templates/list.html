@@ -1,0 +1,36 @@
+{ifeq $type,'right_top'}
+    <script type="text/javascript">new adriver("right-top-banner", {sid:53412, bt:52, bn:1});</script>   
+{elseifeq $type,'right_bottom'}
+    <script type="text/javascript">new adriver("right-bottom-banner", {sid:53412, bt:52, bn:2});</script> 
+{elseifeq $type,'right_google'}
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-7156959844675281"
+     data-ad-slot="6189628251"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{elseifeq $type,'right_jhf'}   
+<div id="rdminfrm_391"><a href="http://jhf.ru" target="_blank">jhf.ru</a></div><script charset="utf-8" type="text/javascript" src="http://jhf.ru/informer/391.js"></script>
+{elseifeq $type,'top'}
+    <script type="text/javascript">new adriver("top-banner", {sid:53412, bt:52, bn:3});</script>   
+{elseifeq $type,'middle_bottom'}
+     <script type="text/javascript">new adriver("middle-bottom-banner", {sid:53412, bt:52, bn:4});</script> 
+{elseifeq $type,'body'} 
+    <script type="text/javascript">new adriver("back-banner", {sid:53412, bt:52, bn:5});</script>        
+{elseifeq $type,'bottom_pop'}
+    <script type="text/javascript">new adriver("bottom-pop", {sid:53412, bt:52, bn:6});</script>   
+{elseifeq $type,'mainpage_new'}
+    <script type="text/javascript">new adriver("mainpage-new-banner", {sid:53412, bt:52, bn:66});</script>   
+{elseifeq $type,'topmenu'}
+    <script type="text/javascript">new adriver("topmenu-banner", {sid:53412, bt:52, bn:7});</script>   
+{elseifeq $type,'right_photogallery-top'}
+    <script type="text/javascript">new adriver("gallery-box-expanded-sidebar-{$index}", {sid:53412, bt:52, bn:1});</script>   
+{elseifeq $type,'social_buttons'}
+    <script src="https://yastatic.net/share2/share.js" async="async"></script>
+    <div class="ya-share2" data-size="m" data-services="vkontakte,facebook,twitter,odnoklassniki,gplus" data-counter></div>
+{elseifeq $type,'social_buttons_photogallery'}
+    <script src="https://yastatic.net/share2/share.js" async="async"></script>
+    <div class="ya-share2" data-size="m" data-services="vkontakte,facebook,twitter,odnoklassniki,gplus,vertical" data-yashareTheme="counter"></div>
+{/if}

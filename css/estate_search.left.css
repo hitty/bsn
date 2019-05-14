@@ -1,0 +1,386 @@
+/* new-format */
+.new-format{
+}
+
+/* estate-search */
+.estate-list{
+    margin-top: 20px;
+}
+#estate-search{
+    position: relative;    
+}
+#estate-search .block{
+    margin: 10px 0;
+    clear: both;
+}
+#estate-search .block .multi,
+#estate-search .block .reset,
+#estate-search .block a{
+    text-decoration: none;    
+    display: block;
+    cursor: pointer;
+    margin: 10px 0;
+    position: relative;
+    white-space: nowrap;
+}
+
+#estate-search .block a::first-letter{
+    text-transform: uppercase;
+}
+#estate-search .data a.on{
+    background: #fff;
+    border: 1px solid #1e88e5;
+    border-radius: 3px;
+    margin: 1px -10px;
+    padding: 5px 10px;
+    position: relative;
+    color:#1e88e5;
+}
+#estate-search .data a:hover{
+    background:#E8F3FC;
+}
+#estate-search .data a{
+    margin: 1px -10px;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+#estate-search .data a.on:after{
+    content: "×";
+    display: block;
+    width: 14px;
+    height: 14px;
+    float: right;
+    font-size: 19px;
+    color: #1E88E5;
+    font-weight: bold;
+    top: 3px;
+    right: 5px;
+    position: absolute;
+}
+#estate-search .data.multi-box a:after,
+#estate-search .data.multi-box a:before,
+#estate-search .block .reset:before,
+#estate-search .block .cancel:before{
+    content:"";
+    display: block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #818181;
+    border-radius: 3px;
+    float: left;    
+    margin-right: 10px;
+}
+#estate-search .data.multi-box a.on{
+    background: none;
+    border: none;
+}
+#estate-search .data.multi-box a:after{
+    border: none;
+    opacity: 0;
+    position: absolute;
+    background: url('https://st1.bsn.ru/img/layout/icons16.png') no-repeat 0px -2152px;
+    top: 7px;
+    left: 10px;
+}
+#estate-search .data.multi-box a.on:after{
+    opacity: 1;
+}
+#estate-search .block .multi,
+#estate-search .block .multi.cancel,
+#estate-search .block .reset{
+    color: #818181;
+    border-bottom: 1px dashed #818181;
+    display: inline-block;
+    margin: 5px 0 10px 27px;
+    font-size: 12px;
+}
+#estate-search .block .multi{
+    margin: 5px 0;
+}
+#estate-search .block .multi.cancel{
+    margin: 5px 0 5px 27px;
+}
+#estate-search .block .reset:hover{
+    border-bottom: 1px solid rgba(0,0,0,0);    
+}
+#estate-search .block .cancel:before,
+#estate-search .block .reset:before{
+    background: url('https://st1.bsn.ru/img/layout/icons16.png') no-repeat 0px -858px;
+    border: none;
+    float: none;
+    display: inline-block;
+    position: absolute;
+    left: -26px;
+    top: 1px;
+}
+#estate-search .title{
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    border-radius: 3px;
+}
+#estate-search .block .title{
+    position: relative;
+    background: #e4f4d6;
+    padding: 5px 10px;
+    cursor: pointer;
+    
+    
+    
+    
+            
+}
+#estate-search .block .title.active,
+#estate-search .block:hover .title{
+    background: #a9d71d;
+    cursor: pointer;
+}
+#estate-search .block .title:after{
+    content:"";
+    display: inline-block;
+    width: 22px;
+    background: transparent url(//st.bsn.ru/img/layout/icons22.png) no-repeat 0 -44px;
+    overflow: hidden;
+    text-indent: -10000px;
+    border: 0 none;
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    height: 22px;
+    margin-top: -11px;    
+        
+}
+#estate-search .block .title.on:after{
+    background-position: 0 -66px;    
+}
+#estate-search .block .title + .data{
+    padding: 5px 10px;    
+    overflow: hidden;
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+}
+#estate-search .block .title.on + .data{
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+}
+#estate-search .block .data.multi{
+    
+}
+#estate-search .block .data.multi a{
+    
+}
+#estate-search .single-selector,
+#estate-search .price-selector{
+    margin: 20px 0;   
+    position: relative;    
+    padding: 10px; 
+    border-radius: 3px;
+    background: #e4f4d6;
+    clear: both;
+}
+#estate-search .single-selector .title,
+#estate-search .price-selector .title{
+    padding-bottom: 10px;    
+    line-height: 14px;
+}
+#estate-search .map-search{
+    background: url('https://st.bsn.ru/img/layout/map_search_left.png') no-repeat right #e4f4d6;    
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    
+    
+    
+    
+    
+}
+#estate-search .map-search:before{
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4.5px 0 4.5px 5px;
+    border-color: transparent transparent transparent #000000;
+    top: 16px;
+    right: 78px;
+    position: absolute;      
+    
+    
+    
+    
+    
+}
+#estate-search .map-search:hover:before{
+   border-color: transparent transparent transparent #1e88e5; 
+}
+#estate-search .list-picker.location{
+    border: none;
+    position: absolute;
+    width: 30px;
+    padding: 0;
+    margin: 0;
+    min-width: 10px;
+    left: 179px;
+    top: 35px;
+    box-shadow: none;
+    border-radius: 0 3px 3px 0;
+    height: 38px;
+    cursor: pointer;
+}
+#estate-search .list-picker.location .pick{
+    height: 40px;
+    padding: 0;
+    width: 30px;
+    right: 0;
+}
+#estate-search .list-picker.location .pick:before{
+    display: block;
+    margin: 11px auto 0 auto;
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: url('https://st1.bsn.ru/img/layout/icons16.png') no-repeat 0 -1049px;
+}
+#estate-search .list-picker.location .pick:after{
+    content:"";
+    display: block;
+    width: 1px;
+    top:5px;
+    bottom: 5px;
+    left: 0;
+    position: absolute;
+    background: #c7d5bb;
+}
+#estate-search .list-picker.location i{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    background: #a9d71d;
+    color:#000;
+    text-align: center;
+    display: block;
+    line-height: 16px;
+    font-size: 11px;
+    font-weight: bold;
+}
+#estate-search .list-picker.location i.hidden{
+    display: none;
+}
+#estate-search input{
+    border-radius: 3px;
+    height: 40px;
+    width: 100%;
+}
+#estate-search .interval-selector {
+}
+
+#estate-search .interval-selector input {
+    width: 70px;
+    display: inline-block;
+}
+
+#estate-search .interval-selector input + input {
+}
+#estate-search .block .title.on + .data.expanded{
+    height: 186px;    
+    margin-bottom: 25px;
+}
+#estate-search .block .title.on + .data.multi-box,
+#estate-search .block .title.on + .data.on{
+    height: auto;
+}
+#estate-search .block .expand{
+    font-size: 12px;
+}
+#estate-search .block .title.on + .data.multi-box .expand,
+#estate-search .block .title.on + .data.on .expand{
+    display: none;
+}
+#estate-search input.autocomplete + .clear-input{
+    top: 8px;
+    right: 10px;
+    z-index: 1000;    
+}
+#estate-search:before,
+#search-results:before{
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;  
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, .7);
+    display: block;
+    z-index: -1;
+    border-radius: 3px;         
+    opacity: 0;
+}
+#estate-search.search-waiting,
+#search-results.search-waiting{
+    position: relative;
+}
+#estate-search.search-waiting:before,
+#search-results.search-waiting:before{
+    z-index: 100;
+    opacity: 1;
+}
+#search-results.search-waiting:after,
+#estate-search.search-waiting:after{
+    content: "Подождите";
+    font-size: 16px;
+    text-align: center;
+    width: 90px;
+    background: url('https://st1.bsn.ru/img/layout/waiting.svg') left no-repeat;
+    padding-left: 20px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    margin-left: -45px;
+    opacity: 1;
+    z-index: 200;
+}
+#estate-search .accept-button{
+    position: absolute;
+    z-index: 10000;
+    font-size: 12px;
+    color: #fff;
+    background: #1e88e5;
+    border-radius: 3px;
+    padding: 3px 3px;
+    margin: -2px 0 0 5px;
+    cursor: pointer;
+}
+#estate-search .accept-button:hover{
+    
+}
+#estate-search .accept-button:before{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 4px 4px 0;
+    border-color: transparent #1e88e5 transparent transparent;
+    left: -4px;
+    top: 6px; 
+}
+.paginator:after,
+.estate-list:after{
+    content:"";
+    clear: both;
+    display: table;
+}

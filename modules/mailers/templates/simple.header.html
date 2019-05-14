@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru" itemscope itemtype="http://webmaster.yandex.ru/vocabularies/term-def.xml">
+<head itemscope itemtype="http://schema.org/WebSite">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if!empty $mailer_title}<title>{$mailer_title}</title>{/if}
+{literal}
+<style>
+div, td { font-family: 'Roboto', Arial, Helvetica, sans-serif; text-align:left; font-size:16px; color:#000;}
+body {width:100%!important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; color:#000; margin:0; padding:0;font-family: 'Roboto', Arial, Helvetica, sans-serif; color:#333;font-size:16px;}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+</style>
+{/literal}
+</head>
+<body>
+<center style="background: #F8F8F8;">
+
+<table class="wrapper" width="580" border="0" cellspacing="0" cellpadding="0" style="background: #fff;padding:0;margin:0;font-family: 'Roboto', Arial, Helvetica, sans-serif; ">
+    <tbody><tr>
+        <td>
+            <table width="580" border="0" cellspacing="0" cellpadding="0" align="center" style="background: #F8F8F8; padding: 0; margin:0;">
+                <tbody><tr><td colspan="2" height="40" style="background: #F8F8F8;"></td></tr>
+                <tr style="height: 40px;background: #F8F8F8;">
+                    <td colspan="2">
+                        <table width="100%">
+                            <tbody><tr>
+                                
+                                <td align="left" style="text-align:left" valign="middle" width="90">
+                                    <img class="fiximg" src="https://st1.bsn.ru/img/layout/mailer/logo.png" border="0" width="70" height="20" align="left">
+                                </td>
+                                
+                                <td align="left" valign="middle" width="{ifempty $curdate}490{else}290{/if}" style="text-align:left; color: #000; font-size: 18px; line-height: 21px;">
+                                    {if!empty $mailer_type}{$mailer_type}{else}Уведомление{/if}
+                                </td>
+                                
+                                {if!empty $curdate}
+                                    <td align="right" valign="middle" width="200" style="text-align:right; color: #818181; font-size: 18px; line-height: 21px;">
+                                        {$curdate}    
+                                    </td>    
+                                {/if}
+                                
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                <tr><td colspan="2" height="40" style="background: #F8F8F8;"></td></tr>
+                <tr>
+                    <td colspan="2">
+                        <table width="580" border="0" cellspacing="0" cellpadding="40" align="center" style="background: #fff; padding: 40px; margin:0; border-radius: 3px;">
+ 

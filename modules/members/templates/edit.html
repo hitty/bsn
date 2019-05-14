@@ -1,0 +1,199 @@
+<script src="/admin/js/ckeditor/ckeditor.js" charset="utf-8"></script>
+
+<div class="cabinet-wrap">
+    {if!empty $error}
+        <div class="notification msgerror" id="scroll_to_message">
+            К сожалению, Вы уже добавили максимальное количество объектов. ({$user_total} из {$objects_limit})
+        </div>
+        <div class="central-top-text">
+            <p>Авторизованный пользователь имеет возможность разместить до 3 объектов в базу данных по всем видам недвижимости <strong>входит в тариф</strong>.</p>
+            <p>Если   вы   хотите   разместить   более   3-х   объектов, предлагаем воспользоваться   размещением  объектов  на  <a href="https://www.bsn.ru/advertising/" title="" target="_blank">коммерческой  основе</a></p>
+        </div>
+    {else}
+            <!--<h1 id="members-h1">Личный кабинет</h1>-->
+        <div class="add-object">
+            <h2 id="members-h2">
+                {ifempty $action}
+                    Добавление объекта
+                {else}
+                    Редактирование объекта
+                {/if}
+            </h2>
+            
+        </div>
+        <div class="estate-add clearfix">
+            {if!empty $form_submit}
+                {if!empty $errors}
+                    <div class="notification msgerror" id="scroll_to_message">
+                        Ошибка. Проверьте правильность заполнения формы.
+                    </div>
+                {else}
+                    {if!empty $saved}
+                        <div class="notification msgsuccess" id="scroll_to_message">
+                            Данные сохранены.
+                        </div>
+                        
+                    {else}
+                        <div class="notification msgerror" id="scroll_to_message">
+                            Ошибка. Проверьте правильность заполнения формы.
+                        </div>
+                    {/if}
+                {/if}
+            {/if}
+            {ifempty $errors}
+                {if!empty $moderate_status}
+                    <div class="notification msgerror" id="scroll_to_message">
+                        Вариант не прошел модерацию. Причина: {$moderate_status['title']}
+                    </div>
+                {/if}
+            {/if}    
+            <div class="deal-types {if!eq $action,'add'} inactive{/if}">
+                <span class="sell{if!empty $deal}{ifeq $deal,'sell'} active{/if}{/if}">Продать</span>
+                <span class="rent{if!empty $deal}{ifeq $deal,'rent'} active{/if}{/if}">Сдать</span>
+            </div>
+            <div class="object-types list-selector{if!eq $action,'add'} inactive{/if}">
+                <a href="#" class="pick">- выберите -</a>
+                <a href="#" class="select">...</a>
+                <input id="estate_type" name="estate_type" value="{if!empty $estate}{$estate}{/if}" type="hidden">
+                <ul class="list-data" data-simplebar="init">
+                    <li data-value="" {ifempty $estate}class="selected"{/if}>- выберите тип недвижимости -</li>
+                    <li data-value="live" {if!empty $estate}{ifeq $estate,'live'}class="selected"{/if}{/if}>Жилая</li>
+                    {php:$show_build = empty($deal) || $deal == 'sell'}
+                    {if!empty $show_build}<li data-value="build" {if!empty $estate}{ifeq $estate,'build'}class="selected"{/if}{/if}>Новостройки</li>{/if}
+                    <li data-value="commercial" {if!empty $estate}{ifeq $estate,'commercial'}class="selected"{/if}{/if}>Коммерческая</li>
+                    <li data-value="country" {if!empty $estate}{ifeq $estate,'country'}class="selected"{/if}{/if}>Загородная</li>
+                </ul>
+            </div>
+            {if!empty $data_mapping}
+                <form name="estate-add-form" id="item-edit-form" class="grey" data-deal="{$deal}" data-estate="{$estate}" data-id="{if!empty $data_mapping['id']['value']}{$data_mapping['id']['value']}{else}{$id}{/if}" method="POST" action="/members/objects/{$form_action}/" >
+                    <input type="hidden" name="submit_form" id="submit_form" value="1" />
+                    <div class="middle-panel add-form">
+                        
+                        {include /modules/members/templates/form.estate.html}
+                        
+                        <div class="file-upload-wrap photos clearfix">
+                            <p id="file-upload-info" class="clearfix">
+                                <h3 class="btitle">Загрузите фото</h3>
+                                <span class="photo-text">До 10 изображений, весом не более 500кб каждое</span>
+                                <input type="file" name="file_upload" id="file_upload" data-id="{if!empty $data_mapping['id']['value']}{$data_mapping['id']['value']}{else}{$id}{/if}" data-url="/members/objects/edit/photos/{$estate}/{$data_mapping['id']['value']}/" data-session-id="{php:echo session_id();}" />
+                            </p>                                                                                   
+                        </div>
+                        
+                        
+                        <div class="normal-contacts-box{if!empty $authorized}{else} nonauth{/if}">
+                            <h3 class="btitle">
+                                Контакты
+                            </h3>
+                            <div class="contacts-info">
+                                <div class="single-selector seller_name">
+                                    <input type="text" name="seller_name" id="seller_name" value="{if!empty $auth['id_tarif']}{$auth['name']}{else}{$data_mapping['seller_name']['value']}{/if}" {if!empty $auth['id_tarif']}disabled="disabled"{/if} placeholder="Имя*" required="required"  />
+                                </div>
+                                <div class="single-selector seller_phone">
+                                    <input type="phone" name="seller_phone" id="seller_phone" value="{if!empty $auth['id_tarif']}{$auth['phone']}{else}{$data_mapping['seller_phone']['value']}{/if}" {if!empty $auth['id_tarif']}disabled="disabled"{/if} placeholder="Телефон*" required="required" />
+                                </div>        
+                            </div>
+                            
+                            {if!empty $data_mapping['id_user_type']}
+                                <div class="user-type-wrap">
+                                    <div class="list-selector id_user_type white">
+                                        <a href="#" class="pick">- выберите -</a>
+                                        <a href="#" class="select">...</a>
+                                        <input id="id_user_type" name="id_user_type" value="{$data_mapping['id_user_type']['value']}" type="hidden">
+                                        <ul class="list-data" data-simplebar="init">
+                                            <li data-value="0" class="selected">- Кто вы -</li>
+                                            {php:$user_types = $data_mapping['id_user_type']['values'];}
+                                            {loop $user_types,$id_user_type,$user_type_title}
+                                                <li data-value="{$id_user_type}" {ifeq $id_user_type,$data_mapping['id_user_type']['value']}class="selected"{/if}>{$user_type_title}</li>
+                                            {/loop $user_types}
+                                        </ul>
+                                    </div>
+                                    <div class="radio-box id_work_status required single-selector" {ifempty $data_mapping['id_user_type']['value']}style="display:none;"{/if}>
+                                        {php:$work_statuses = $data_mapping['id_work_status']['values'];}
+                                        {loop $work_statuses,$id_work_status,$work_status_info}       
+                                            <div>
+                                                <input type="radio" name="id_work_status" value="{$id_work_status}" {ifeq $data_mapping['id_work_status']['value'],$id_work_status}checked{/if} id="id_work_status_{$id_work_status}"> 
+                                                <label class="radio" for="id_work_status_{$id_work_status}">{$work_status_info['title']}</label>
+                                            </div>
+                                        {/loop $work_statuses}
+                                    </div>
+                                </div>
+                            {/if}
+                             
+                        </div>
+                        
+                        <input type="hidden" name="weight" id="weight" value="{$data_mapping['weight']['value']}" />
+                    </div>
+                    
+                    {if!empty $show_statuses}
+                            {if!empty $authorized}
+                                <h3 class="btitle statuses">Пакеты услуг</h3>
+                                
+                                <a name="object-statuses" class="status-description"></a>                   
+                                <ul class="object-statuses clearfix">
+                                    {if!empty $statuses_costs}
+                                        {loop $statuses_costs,$status,$status_info}
+                                            {if!in $status,5,8}
+                                                {if!eq $status,1}
+                                                    <li data-value="{$status}"  class="{$status_info['info']['alias']} br3 shadow-hover">
+                                                        
+                                                        <span class="title" data-icon="{ifeq $status,3}highlight{elseifeq $status,4}whatshot{elseifeq $status,6}flash_on{/if}">«{$status_info['info']['title']}»</span>
+                                                        <p class="text">
+                                                            {ifeq $status,3}
+                                                                <span>Просмотры<b>x2</b></span>
+                                                            {elseifeq $status,4}
+                                                                <span>Просмотры<b>x4</b></span>
+                                                                <span>Клики<b>x2</b></span>
+                                                            {elseifeq $status,6}
+                                                                <span>Просмотры<b>x5</b></span>
+                                                                <span>Клики<b>x2</b></span>
+                                                                <span>Блок на главной</span>
+                                                            {/if}
+                                                            <span class="date">Размещение на {$status_info['days_long']} дней</span>
+                                                        </p>
+                                                        
+                                                        <span class="cost" data-icon="radio_button_unchecked">{if!empty $status_info['cost']}{$status_info['cost']} P{else}Входит в тариф{/if}</span>
+                                                        
+                                                    </li>
+                                                {/if}
+                                            {else}
+                                                {if!eq $info['published'],1}
+                                                    <li data-value="{$status}"  class="{$status_info['info']['alias']} br3">
+                                                        <span class="cost" data-icon="radio_button_unchecked">опубликовать {ifeq $status_info['cost'],0}бесплатно{else} за 150 Р{/if}</span>    
+                                                    </li>
+                                                {/if}
+                                            {/if}
+                                        {/loop $statuses_costs}
+                                    {/if}
+                                </ul>
+                            {/if}
+                    {else}
+                        <input id="object-status-value" type="hidden" value={$info['status']}>
+                    {/if}
+                        <div class="object-manage bottom wide {if!eq $info['published'],1}wpublic-offer{/if}">
+                           
+                            <div class="offer">
+                                <label class="checkbox">
+                                    <input type="checkbox" value="0" name="public_offer_agree" id="public-offer-agree" required="required">
+                                    Публикуя объявление на сайте, вы соглашаетесь с условиями <a class="internal-link" href="/terms_of_service/" data-new-tab="true" title="Публичная оферта" id="public-offer">оферты</a>.
+                                </label>
+                            </div>
+
+                            <div class="buttons">
+                                {ifeq $info['published'],1}
+                                    <button id="publish" class="published" value="Сохранить">Сохранить</button>
+                                {else}
+                                    {if!empty $auth['id']}<button id="publish" class="disabled">Опубликовать</button>{/if}
+                                    <span class="internal-link button grey{ifempty $auth['id']} disabled{/if}" id="save" {ifempty $auth['id']}title="Для добавления объекта вам необходимо авторизоваться/зарегистрироваться на нашем сайте"{/if}>Сохранить</span>
+                                {/if}
+                            </div>
+                        </div>
+                </form>
+                {ifempty $authorized}
+                    <div class="auth-login-add" data-url="/authorization/popup/" data-location="popup-authorization" data-redirect="true">
+                        <span class="button blue" data-icon="lock" title="Вход в личный кабинет">Войти</span>
+                    </div>
+                {/if}
+            {/if}
+        </div>
+    {/if}
+</div>  

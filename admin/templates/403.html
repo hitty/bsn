@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Ограничение доступа</title>
+<link rel="stylesheet" href="/css.php?id={$css_id}" media="all">
+<script src="/js.php?id={$js_id}" charset="utf-8"></script>
+</head>
+<body>
+<h1>Ошибка 403</h1>
+<p>Доступ к странице ограничен.</p>
+{if!empty $authorized}
+    <p>Вашего уровня доступа не достаточно для доступа к этой странице.</p>
+    <form method="post" action="{$curent_page['requested_url']}">
+        <input type="submit" name="logoff" value="Выход">
+    </form>
+{else}
+    <p>Пожалуйста авторизуйтесь</p>
+    <form method="post" action="/{$current_page['requested_url']}/">
+        <label>Логин</label>
+        <input type="text" name="auth_login" value="" />
+        <br>
+        <label>Пароль</label>
+        <input type="password" name="auth_passwd" value="" />
+        <br>
+        <label>Запомнить вход</label>
+        <input type="checkbox" name="auth_cookie_save" value="1" />
+        <br>
+        <input type="submit" value="Войти" />        
+    </form>
+{/if}

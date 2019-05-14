@@ -1,0 +1,113 @@
+<h1 class="pageTitle">Новости из источников</h1>
+<div class="caption_line">
+    <a href="/admin/content/{$content_type}/?f_status=5" target="_blank" class="button">К списку новостей-заготовок</a>
+</div>
+<div class="list_table news_from_sources">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title =    document.getElementById('f_title').value;
+            var __filter_date =     document.getElementById('f_date').value;
+            var __filter_status =   document.getElementById('f_status').options[document.getElementById('f_status').selectedIndex].value;
+            var __filter_source =   document.getElementById('f_source').options[document.getElementById('f_source').selectedIndex].value;
+            var __url = '{root:/admin/content/{$content_type}/news_from_sources/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_date!='') __get.push('f_date='+__filter_date);
+            if(__filter_status!=0) __get.push('f_status='+__filter_status);
+            if(__filter_source!=0) __get.push('f_source='+__filter_source);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Дата:
+            <input type="text" id="f_date" value="{$get_array['f_date']}" onchange="filter_activate()" placeholder="часть даты">
+        </label>
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $statuses,$key,$val}
+                    <option value="{$key}"{ifeq $get_array['f_status'],$key} selected="selected"{/if}>{$val}</option>
+                {/loop $statuses}
+            </select>
+        </label>
+        <label>
+            Источник:
+            <select id="f_source" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $sources,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_source'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $sources}
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="10%">
+                <col class="col2" width="60%">
+                <col class="col1" width="4%">
+                <col class="col2" width="4%">
+                <col class="col2" width="4%">
+                <col class="col2" width="4%">
+                <col class="col1" width="4%">
+                <col class="col2" width="4%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Фото</th>
+                    <th>Заголовок</th>
+                    <th>Дата получения</th>
+                    <th>Дата новости</th>
+                    <th>Источник</th>
+                    <th>Карточка источника</th>
+                    <th>Статус</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" class="news-from-sources-item">
+                        <td>{$item['id']}</td>
+                        <td>
+                            {if!empty $item['photo']}
+                                <div class="small_image">
+                                    <img src="{static:/}{$photo_folder}/sm/{$item['subfolder']}/{$item['photo']}" alt="{quoted:$item['title']}"/>
+                                </div>
+                            {/if}
+                        </td>
+                        <td class="show-content" title=""><span>{$item['title']}{if!empty $item['photos_amount']}<br />{suffix:$item['photos_amount'],'фотографи','я','и','й'}</span>{/if}
+                            <div class="full-content">
+                                {php: echo addslashes($item['text']);}
+                            </div>
+                        </td>
+                        <td>{$item['date_in_formatted']}
+                            <br /><span class="delay-time">{if!empty $item['delay']}+{if!empty $item['delay_hours']} {$item['delay_hours']} ч{/if}{if!empty $item['delay_minutes']} {$item['delay_minutes']} мин{/if}{else}?{/if}</span>
+                        </td>
+                        <td>{ifempty $item['source_date_formatted']}{$item['source_date']}{else}{$item['source_date_formatted']}{/if}</td>
+                        <td><a href="{$item['source_url']}" target="_blank">{$item['source_title']}</a></td>
+                        <td><a href="{$item['url']}" target="_blank">{$item['url']}</a></td>
+                        <td>{$item['status_title']} {if!empty $item['id_news']}<a href="/admin/content/{$content_type}/edit/{$item['id_news']}/" target="_blank">#{$item['id_news']}</a>{/if}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/{$content_type}/news_from_sources/to_news/{$item['id']}/" title="Добавить в новости"><span class="ico_to_news">Добавить в новости</span></a>
+                            <a href="/admin/content/{$content_type}/news_from_sources/to_news/{$item['id']}/w_edit/" title="Добавить в новости и перейти к редактированию"><span class="ico_to_news w_edit">Добавить в новости и перейти к редактированию</span></a>
+                            <a href="/admin/content/{$content_type}/news_from_sources/reject/{$item['id']}/" title="Отклонить"><span class="ico_del">Отклонить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

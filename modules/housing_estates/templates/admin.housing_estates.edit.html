@@ -1,0 +1,91 @@
+<h1 class="pageTitle">Жилые комплексы</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/estate/housing_estates/add/" id="item_edit_form">
+    <h3>Новый объект</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/estate/housing_estates/edit/{$data_mapping['id']['value']}/" id="item_edit_form" novalidate>
+    <h3>Объект #{$data_mapping['id']['value']} &quot;{$data_mapping['txt_addr']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    {if!empty $data_mapping['site']['value']}<p><a href="{$data_mapping['site']['value']}" target="_blank">Сайт</a></p>{/if}
+    <fieldset>
+        <script src="//maps.googleapis.com/maps/api/js?v=3.9&sensor=true"></script>
+        <div id="map_canvas" style="width:100%; height:500px;margin-top:5px"></div> 
+    </fieldset>    
+    
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset>
+            <h3>Загрузка фотографий для объекта #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/housing_estates/photos/" data-session-id="{php:echo session_id();}" />
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>   
+    {/if}     
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('input[name="installment"]').change(function(){
+        if(jQuery(this).val() == 1){
+            jQuery('#p_field_installment_months').slideDown(50);
+        } else {
+            jQuery('#p_field_installment_months').slideUp(50);
+        }
+    });
+    jQuery('#btn_geolocation').addrselector({
+        geo_id_element: "#geolocation_id",
+        district_id_element: "#id_district",
+        subway_id_element: "#id_subway",
+        link_element : '#main-container',
+        ajax_url: window.location.href,
+        multiselect: false,
+        onExit : function(item){
+            $('#text_geolocation').html(item.title);
+            $('#text_district_title').html(item.district_title.join(','));
+            $('#text_subway_title').html(item.subway_title.join(','));
+        }
+    });
+    
+    jQuery('#advanced').on("change",function(){
+        manageAdvancedDates();
+    })
+    manageAdvancedDates();
+    function manageAdvancedDates(){
+        var _el = jQuery('#advanced');
+        var _val = _el.val();
+        var _date_start = jQuery('#p_field_date_start');
+        var _date_end = jQuery('#p_field_date_end');
+        var _status = jQuery('#status');
+        
+        if(_val==2) {
+            _date_start.hide();
+            _date_end.hide();
+            _status.val(2);
+        } else {
+            _date_start.show();
+            _date_end.show();
+            _status.val(4);
+            
+        }
+    }
+    
+});
+</script>

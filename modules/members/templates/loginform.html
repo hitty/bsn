@@ -1,0 +1,25 @@
+{if $authorized}
+    <form class="auth-form" method="POST" action="/{$current_page['page_url']}/logout/">
+        <div class="login-form">
+            <button type="submit" id="auth_submit" name="auth_submit" value="выход" title="выход">выход</button>
+            <input type="hidden" name="logoff" value="logoff" />
+            <p>Здравствуйте, <strong>{$auth['name']}</strong></p>
+        </div>
+        <div class="links-line">
+            <a href="/{$current_page['page_url']}/cab/">Личный кабинет</a>
+        </div>
+    </form>
+{else}
+    <form class="auth-form" method="POST" action="/{$current_page['page_url']}/">
+        <div class="login-form">
+            <button type="submit" id="auth_submit" name="auth_submit" value="вход" title="вход">вход</button>
+            <input type="text" id="auth_login" name="auth_login" value="" placeholder="Телефон или E-Mail" />
+            <input type="password" id="auth_passwd" name="auth_passwd" value="" placeholder="Пароль" />
+        </div>
+        <div class="links-line">
+            <label for="auth_remember" class="checkbox small"><input type="checkbox" id="auth_cookie_save" name="auth_cookie_save" value="1" /> Запомнить</label>
+            <a href="/{$current_page['page_url']}/registration/">Регистрация</a>
+            <a href="/{$current_page['page_url']}/lostpassword/">Напомнить пароль</a>
+        </div>
+    </form>
+{/if}

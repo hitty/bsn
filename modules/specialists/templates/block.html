@@ -1,0 +1,16 @@
+
+{if!empty $list}
+    <div class="list-selector" id="activity_selector">
+        <a href="#" class="pick">Все виды деятельности</a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" name="activity_selector" value="{$activity}">
+        <ul class="list-data" data-simplebar="init">
+            <li data-value="">Все виды деятельности</li>
+            {loop $list,$lk,$item}
+                <li data-value="{$item[0]['url']}" {ifeq $activity,$item[0]['url']}class="selected"{/if}>{$item[0]['title']}</li>
+            {/loop $list}
+        </ul>
+    </div>     
+{/if}
+
+

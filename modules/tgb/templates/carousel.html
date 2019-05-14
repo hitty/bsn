@@ -1,0 +1,87 @@
+{if!empty $tgb_list}
+{php:$rnd = mt_rand(1,2000);}
+<div class="central-wrapper">
+    <div class="spec-offers-list kc-{$rnd}">
+        {php:$count = count($tgb_list);}
+        {ifgt $count,4}<span class="right-label spec-offers-list-remove"><span class="short">Все предложения</span><span class="full">Свернуть</span></span>{/if}
+        <ul>
+            {loop $tgb_list,$tk,$item}
+                <li class="sp-item" data-type="{$item['type']}" data-id="{$item['id']}" data-tgb="{if!empty $item['is_tgb_banner']}{$item['is_tgb_banner']}{/if}" data-position="in_estate">
+                    {ifeq $item['link_type'],'external'}
+                        <span class="external-link" data-link="{$item['direct_link']}" title="{quoted:$item['title']}" {if!empty $ga_number} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'ТГБ в выдаче {$ga_number}']); }catch(e){}"{/if}>
+                            <img src="{$item['photo']}" alt="{quoted:$item['title']}" />
+                            <p class="title-wrap" data-color="#{$carousel_colors[$tk]}">
+                                <span class="title">{$item['title']}</span>
+                                {if!empty $item['annotation']}<span class="annotation">{$item['annotation']}</span>{/if}
+                            </p>
+                        </span>
+                    {else}
+                        <a href="{$item['direct_link']}" title="{quoted:$item['title']}" {if!empty $ga_number} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'ТГБ в выдаче {$ga_number}']); }catch(e){}"{/if}>
+                            
+                            <img src="{$item['photo']}" alt="{quoted:$item['title']}" />
+                            <p class="title-wrap" data-color="#{$carousel_colors[$tk]}">
+                                <span class="title">{$item['title']}</span>
+                                {if!empty $item['annotation']}<span class="annotation">{$item['annotation']}</span>{/if}
+                            </p>
+                        </a>
+                    {/if}
+                    {if!empty $item['get_pixel']}<img src="{$item['get_pixel']}" alt="" style="width:1px; height:1px;border:none;" />{/if}
+                </li>
+            {/loop $tgb_list}
+        </ul>
+    </div>
+</div>
+
+    <script>
+        var _li_counter = _li_index = 0;
+        var _tgbIds = [];
+        var _tgbIds1 = [];
+        index = '';
+        jQuery('.title-wrap').each(function(){
+            jQuery(this).css('background-color',jQuery(this).attr('data-color'));
+        })
+        function carouselScrollItemsLog(itemslist,_index,_limit){
+            var _statsArray = [];
+            var _pseudoArray = [];
+            if(_index==1) _pseudoArray = _tgbIds;
+            else _pseudoArray = _tgbIds1;
+            var _counter = 0;
+            itemslist.each(function(index){
+                if(_counter<_limit){
+                    var _this = jQuery(this);
+                    var _inarray_flag = false;
+                    for(k=0; k<_pseudoArray.length; k++){
+                        if((_pseudoArray[k]['type']==_this.attr('data-type') && _pseudoArray[k]['id']==_this.attr('data-id')) || k>=_limit) { _inarray_flag = true; }
+                    }
+                    if(_inarray_flag == false) {
+                       _pseudoArray.push({type: _this.attr('data-type'), id: _this.attr('data-id')});
+                       _statsArray.push({type: _this.attr('data-type'), id: _this.attr('data-id')});
+                    }
+                }
+                ++_counter;
+            
+            })
+            if(_statsArray.length>0){
+                var _params = {ajax:true, offers:_statsArray}
+                jQuery.ajax({
+                    type: "POST", async: true,
+                    dataType: 'json', cache: true,
+                    url: '/tgb/show/', data: _params,
+                    success: function(msg){},
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        console.log('XMLHttpRequest: '+XMLHttpRequest+', textStatus: '+textStatus+', errorThrown: '+errorThrown+'; Не возможно выполнить операцию!');
+                    }
+                });
+            }
+            if(_index==1) _tgbIds = _pseudoArray;
+            else _tgbIds1 = _pseudoArray;
+        } 
+        jQuery('.spec-offers-list.kc-{$rnd}').each(function(){
+            var _this_wrap = jQuery(this);
+            _this_wrap.attr('data-index',_li_index);
+            carouselScrollItemsLog(_this_wrap.children('ul').children('li'),_li_index,4)
+            ++_li_index;
+        })
+        // Show\hide spec offers
+    </script>
+{/if}

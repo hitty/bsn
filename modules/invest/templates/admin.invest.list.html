@@ -1,0 +1,74 @@
+<h1 class="pageTitle">Презентация</h1>
+{include /modules/estate/templates/admin.short_messages.html}
+<div class="caption_line"><a href="/admin/content/invest/add/" class="button">Добавить запись</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            
+            var __filter_status = document.getElementById('f_status').value;
+            var __filter_category = document.getElementById('f_category').value;
+            var __url = '{root:/admin/content/invest/}';
+            var __get = new Array();
+            if(__filter_status != '') __get.push('f_status='+__filter_status);
+            if(__filter_category != 0) __get.push('f_category='+__filter_category);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Категория:
+            <select id="f_category" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $categories,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $categories}
+            </select>
+        </label>
+        <label>
+            Статус:
+            <select id="f_status" onchange="filter_activate()" style="width: 150px;">
+                {php: $status_is_set = isset($get_array['f_status']);}
+                <option value=""{if!empty $status_is_set} selected="selected"{/if}>не выбран</option>
+                <option value="0"{ifeq $get_array['f_status'],0} selected="selected"{/if}>в архиве</option>
+                <option value="1"{ifeq $get_array['f_status'],1} selected="selected"{/if}>реализованные</option>
+                <option value="2"{ifeq $get_array['f_status'],2} selected="selected"{/if}>реализуемые</option>
+                <option value="3"{ifeq $get_array['f_status'],3} selected="selected"{/if}>в планах</option>
+            </select>
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col1" width="60%">
+                <col class="col2" width="15%">
+                <col class="col2" width="20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Заголовок</th>
+                    <th>Статус</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}"{ifeq $item['published'],2} class="inactive"{/if}>
+                        <td align="center">{$item['id']}</td>
+                        <td>{$item['title']}</td>
+                        <td>{$item['status_title']}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/content/invest/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/content/invest/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

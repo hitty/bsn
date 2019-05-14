@@ -1,0 +1,65 @@
+<h1 class="h1-padded-down">Заявки</h1>
+<span id="application-button" class="button green public special" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }">Оставить заявку</span>
+<span class="descritpion-block">На этой странице вы можете оставить заявку по любому типу недвижимости и типу сделки. Агентства недвижимости и профессионалы рынка свяжутся с вами и предложат различные варианты. Вам останется только выбрать лучшее предложение.<br> Постарайтесь описать свою потребность в комментарии к заявке, чтобы не было лишних вопросов и недопонимания.
+Ваши контактные данные скрыты от всех и доступны только тем компаниям или специалистам, которые взяли вашу заявку в работу.</span>
+<div class="filter-line grey">
+    <div class="list-selector app_deal_type" data-estate-allowed="1234">
+        <a href="#" class="pick">Тип сделки</a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" id="filter_dealtype" name="filter_dealtype" value="{$get_parameters['filter_dealtype']}" />
+        <ul class="list-data" data-simplebar="init">
+            <li data-value="">Тип сделки</li>
+            <li data-value="1">Аренда</li>
+            <li data-value="2">Покупка</li>
+            <li data-value="3">Сдам</li>
+            <li data-value="4">Продам</li>
+        </ul>
+    </div>
+    <div class="list-selector app_estate_type" data-estate-allowed="1234">
+        <a href="#" class="pick">Тип недвижимости</a>
+        <a href="#" class="select">...</a>
+        <input type="hidden" id="filter_estatetype" name="filter_estatetype" value="{$get_parameters['filter_estatetype']}" />
+        <ul class="list-data" data-simplebar="init">
+            <li data-value="">Тип недвижимости</li>
+            <li data-value="2">Новостройки</li>
+            <li data-value="1">Жилая</li>
+            <li data-value="3">Коммерческая</li>
+            <li data-value="4">Загородная</li>
+        </ul>
+    </div>
+    <div class="reset-filter">Сбросить фильтр</div>
+</div>
+<div id="ajax-search-results"></div>
+<span id="application-button" class="button green public special" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }">Оставить заявку</span>
+<script>
+    jQuery(document).ready(function(){
+        function getList(_page){
+            if(typeof _page === undefined) _page = 0;
+            var _params = {
+                estate_type:jQuery('#filter_estatetype').val(),
+                deal_type:jQuery('#filter_dealtype').val(),
+                page:_page
+            }
+            getPendingContent('#ajax-search-results','/applications/public_list/',_params,false,"2");
+        }
+        //паджинатор          
+        jQuery(document).on('click','.paginator span', function(){
+            $(this).addClass('active').siblings('span').removeClass('active');
+            _page = $(this).data('link');
+            getList(_page);
+            jQuery(document).scrollTop(jQuery('.central-column').offset().top-25);
+            return false;
+        });
+        //по изменению фильтра корректируем выдачу
+        jQuery('.list-selector').change(function(){
+            getList();
+        });
+        //сбрасываем фильтр
+        jQuery('.reset-filter').on('click',function(){
+            jQuery('#filter_dealtype').val("").siblings('.pick').attr('title',"Тип сделки").html("Тип сделки").siblings('.list-data').children().removeClass('selected').eq(0).addClass("selected");
+            jQuery('#filter_estatetype').val("").siblings('.pick').attr('title',"Тип сделки").html("Тип сделки").siblings('.list-data').children().removeClass('selected').eq(0).addClass("selected");
+            getList();
+        });
+        getPendingContent('#ajax-search-results','/applications/public_list/',false,false,"2");
+    });
+</script>

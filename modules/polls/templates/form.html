@@ -1,0 +1,143 @@
+{loop $data_mapping,$key,$field}
+    {ifempty $field['nodisplay']}
+        {ifeq $field['fieldtype'];'title_row'}{ifempty $field['hidden']}<h3 class="btitle">{$field['tip']}</h3>{/if}
+        {elseifeq $field['fieldtype'];'hidden'}
+            <span {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}" class="hidden-input {if!empty $field['unactive']}unactive{/if}">
+                <input type="hidden" id="{$key}" name="{$key}" value="{quoted:$field['value']}" class="{ifempty $field['allow_empty']}required{/if}" >
+            </span>
+        {else}
+            {ifeq $field['fieldtype'];'text'}
+                <div class="single-selector {$key} {if!empty $field['unactive']}unactive{/if}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}">
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+                    {php:$value=!empty($field['value'])&&(Convert::ToInt($field['value'])>0||($field['type']==TYPE_STRING&&$field['value']!=''))?$field['value']:''}
+                    <input type="text" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {ifeq $field['class'],'autocomplete_input'}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}" {if!empty $field['disabled']} disabled="disabled"{/if} {if!empty $field['url']} data-url="{$field['url']}"{/if} {if!empty $field['input']} data-input="{$field['input']}"{/if} {if!empty $data_mapping['id']['value']}data-id="{$data_mapping['id']['value']}"{/if} >
+                    {ifeq $field['class'],'autocomplete_input'}<i data-icon="clear" class="clear-input{ifempty $field['value']} hidden{/if}"></i>{/if}
+                    <div class="autocomplete_inputbox"></div>
+                    
+                </div>
+            {elseifeq $field['fieldtype'];'select'}
+                {php:$selectloop=$field['values']}
+                <div class="list-selector {$key} {if!empty $field['unactive']}unactive{/if}"  >
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+                    <a href="#" class="pick">{$selectloop[0]}</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" id="{$key}" name="{$key}" value="{$field['value']}" />
+                    <ul class="list-data" data-simplebar="init">
+                        {loop $selectloop,$rlk,$rlt}
+                            <li data-value="{$rlk}">{$rlt}</li>
+                        {/loop $selectloop}
+                    </ul>
+                </div>
+            {elseifeq $field['fieldtype'];'plaintext'}
+                <span id="text_{$key}" class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext">{quoted:$field['value']}</span>
+                
+            {elseifeq $field['fieldtype'];'textarea'}
+                <div class="single-selector {$key} {if!empty $field['unactive']}unactive{/if}">
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}">
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+
+                    {if!empty $field['editor']}
+                        <textarea class="CKEdit{ifeq $field['editor'];'small'}Small{else}Big{/if}{if!empty $field['class']} {$field['class']}{/if}" id="ckedit_{$key}" name="{$key}">{quoted:$field['value']}</textarea>
+                    {else}
+                        <textarea class="{if!empty $field['class']}{$field['class']} {/if}lf" id="{$key}" name="{$key}">{quoted:$field['value']}</textarea>
+                    {/if}
+                </div>
+            {elseifeq $field['fieldtype'];'radio'}
+                {ifempty $field['hidden']}
+                    {php:$radioloop=$field['values']}
+                    <div class="single-selector">
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}" >
+                            {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                            {if!empty $field['error']}
+                                <span class="error_tip"> ({$field['error']})</span>
+                            {/if}
+                        </span>
+                        {loop $radioloop,$rlk,$rlt}
+                            <input type="radio" name="{$key}" id="{$key}_{$rlk}" value="{$rlk}"{ifeq $rlk,$field['value']} checked="checked"{/if}>
+                            <label {if!empty $field['class']}class="{$field['class']}"{/if} for="{$key}_{$rlk}">{$rlt}</label> 
+                        {/loop $radioloop}
+                    </div>
+                {/if}
+            {elseifeq $field['fieldtype'],'checkbox_set'}
+                <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}">
+                    {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                    {if!empty $field['error']}
+                        <span class="error_tip"> ({$field['error']})</span>
+                    {/if}
+                </span>  
+                <div class="single-selector {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    <input type="hidden" name="{$key}" id="{$key}" value="{if!empty $field['value']}{$field['value']}{/if}" />
+                    {php:$selectloop = $field['values']}
+                    {loop $selectloop,$rlk,$rlt}
+                        <label class="selector-title checkbox">
+                            {do:$set_up=$field['value']%(pow(2,$rlk))>=pow(2,$rlk-1)}
+                            <input class="radio" type="checkbox" name="{$key}_set[{$rlk}]" value="1"{if $set_up}checked="checked"{/if} /> {$rlt}<br />
+                        </label>
+                    {/loop $selectloop}
+                </div>                    
+            {elseifeq $field['fieldtype'];'email'}
+                <div class="single-selector {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}">
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+                    {php:$value=!empty($field['value'])&&(Convert::ToInt($field['value'])>0||($field['type']==TYPE_STRING&&$field['value']!=''))?$field['value']:''}
+                    <input type="email" id="{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} name="{$key}" value="{quoted:$value}" placeholder="{$field['placeholder']}">
+                </div>
+            {elseifeq $field['fieldtype'];'phone'}
+                <div class="single-selector {$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}">
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+                    {php:$value=!empty($field['value'])&&(Convert::ToInt($field['value'])>0||($field['type']==TYPE_STRING&&$field['value']!=''))?$field['value']:''}
+                    <input type="phone" id="{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} name="{$key}" value="{quoted:$value}" placeholder="{$field['placeholder']}">
+                </div>
+            {elseifeq $field['fieldtype'];'checkbox'}
+                <div class="single-selector {$key}{if!empty $field['class']} {$field['class']}{/if}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                    <input type="hidden" name="{$key}" id="{$key}" value="{$field['value']}" />
+                    <label class="selector-title {ifempty $field['allow_empty']}required{/if} {if!empty $field['error']}error{/if} checkbox" {if!empty $field['weight']}data-weight="{$field['weight']}"{/if}>
+                        <input type="checkbox" id="checkbox_{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}lf" name="checkbox_{$key}" value="1" {ifeq $field['value'],$field['true_value']}checked="checked"{/if} rel="{$key}" data-true-value="{$field['true_value']}" data-false-value="{$field['false_value']}">
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </label>
+                </div>                       
+            {elseifeq $field['fieldtype'],'plaintext+button'}
+                <div class="custom-selector addrselector {$key}">
+                    <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                        {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                        {if!empty $field['error']}
+                            <span class="error_tip"> ({$field['error']})</span>
+                        {/if}
+                    </span>
+                    <span class="select" data-mode="{$key}">Выбрать</span>
+                    <input type="hidden" id="{$key}"  name="{$key}" value="{$field['value']}" />
+                    <input type="text" id="show_{$key}"  name="show_{$key}" value="{$field['value']}" disabled="disabled" />
+                </div>
+            {elseifeq $field['fieldtype'],'map'}
+                <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+                <div id="map-box"></div>
+            {/if}
+        {/if}
+    {/if}    
+{/loop $data_mapping} 

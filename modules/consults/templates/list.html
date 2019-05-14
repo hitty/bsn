@@ -1,0 +1,15 @@
+<span id="consults-button" data-url="/service/consultant/popup/" class="button blue popup" data-location="consult-ask">Задать свой вопрос</span>
+<section itemscope="" itemtype="http://schema.org/Product" class="card central-main-content br3 col-3 consults-list">
+    <div class="category-content">
+    {if!empty $consultants_full_count}
+        <span class="consultant-total">
+            Всего {$consultants_full_count} 
+            <a href="/consultant/specs/" target="_blank">Смотреть всех</a>
+        </span>
+    {/if}
+    <div class="questions-list-box">
+        {php:$direct_link_paginator = true}
+        {include /modules/consults/templates/block.category.list.html}
+    </div>
+    </div> 
+</section>  

@@ -1,0 +1,33 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+    <header>
+            <div class="logo-box">
+                <a href="/" class="top-logo" title="На главную"><img src="//st1.bsn.ru/img/layout/logo.png" style="width:180px;height:50px;" alt="BSN.ru"></a>
+                <span title="Регион">Санкт-Петербург и Ленинградская область</span>
+            </div>
+            <div class="top-banner-box" tyle="display: block;">    
+                <h1 style="margin-top: -16px;position: absolute;font-size: 13px;color: #ff0000;">Тестирование баннера TopLine</h1>
+                <script type="text/javascript">topLine();</script>
+            </div>
+    </header>
+    <div class="content">
+        <div class="main-content">
+            <div class="left-wrapper">
+                {include /templates/includes/main_menu_part.html}
+                <div class="central-column">
+                    {include /templates/includes/breadcrumbs.html}
+                    {$content}
+                    {if!empty $metadata['seo_text']}<div class="central-text">{$metadata['seo_text']}</div>{/if}
+                </div> <!--/.central-column-->
+                {include /templates/includes/main_left_part.html}
+            </div> <!--/.left-wrapper-->
+            {include /templates/includes/main_right_part.html}
+        </div> <!--/.main-content-->                            
+        <div class="central-wrapper bottom-banner">
+            <div id="bottom-banner"></div>
+        </div>
+    </div> <!--/.content-->
+    {include /templates/includes/main_footer_part.html}
+</body>
+</html>

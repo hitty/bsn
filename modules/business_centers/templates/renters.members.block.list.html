@@ -1,0 +1,21 @@
+{loop $list,$lkey,$item}
+    <div class="item{ifempty $item['sum_square']} inactive{/if}" data-id="{$item['id']}">
+        <span class="title">
+            <b data-name="title">{$item['title']}</b>
+            <br />
+            <i class="edit">Редактировать</i>
+            <i class="delete">Удалить</i>
+            
+        </span>
+        <span class="contacts">
+            <b data-name="name">{$item['name']}</b>
+            {if!empty $item['phone']}<br /><b class="phone" data-name="phone">{$item['phone']}{/if}</b>
+            &nbsp;
+        </span>
+        <span class="count">{if!empty $item['sum_square']}{squareformat:$item['sum_square']}{else}-{/if}</span>
+        <b data-name="id" class="id">{$item['id']}</b>
+    </div>    
+{/loop $list}
+<script>
+    
+</script>

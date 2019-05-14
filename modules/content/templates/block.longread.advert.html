@@ -1,0 +1,16 @@
+{if!empty $list}
+    <div class="longread-advert-wrapper">
+        {loop $list,$ak,$aitem}
+            <div class="item">
+                {if!empty $aitem['link']}<span class="external-link hdr before-abs promo-button" data-id="{$aitem['id_parent']}" data-type="longread" data-link="{$aitem['link']}"></span>{/if}
+                <div class="text br3">
+                    <span class="title{if!empty $aitem['link']} transition-text{/if}">{$aitem['title']}</span>
+                    <span class="description">{$aitem['description']}</span>
+                </div>
+                {if!empty $aitem['photo']}
+                    <img src="{static://}img/uploads/sm/{$aitem['subfolder']}/{$aitem['photo']}" alt="{$aitem['title']}" class="br3" />
+                {/if}
+            </div>
+        {/loop $list}
+    </div>
+{/if}

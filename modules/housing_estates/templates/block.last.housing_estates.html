@@ -1,0 +1,45 @@
+<div class="objects-blocks housing-estates-blocks">
+    <div class="objects-blocks-body">
+        {loop $list,$lkey,$item}
+            <div class="obj-block{ifeq $item['status'],3} promo{elseifeq $item['status'],4} premium{/if}" data-id="{$item['id']}">
+                <div class="ob-img">
+                    <div class="star-on-image">
+                        {ifeq $favorites,true}                                                     
+                            <span data-id="{$item['id']}" data-type="zhiloy_kompleks" class="del-from-favorites">
+                                <span class="favorites_label" title="Удалить из избранного">Удалить из избранного</span>
+                            </span>
+                        {else}
+                            {ifeq $item['in_favorites'],1}
+                                <span data-id="{$item['id']}" class="star in-favorites" data-link="/favorites/?type=zhiloy_kompleks">
+                                    <span class="star-label internal-link">В избранном</span>
+                                </span>
+                            {else}
+                                <span data-id="{$item['id']}" data-type="zhiloy_kompleks" class="star">
+                                    <span class="star-label dashed">В избранное</span>
+                                </span>
+                            {/if}
+                        {/if}    
+                    </div>
+                    {if!empty $item['photo']}
+                        <img src="{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}" alt="{$item['title']}"/>
+                    {else}
+                        <img src="//st1.bsn.ru/img/layout/no-photo-small.png" alt=""/>
+                    {/if}
+                </div>
+                <div class="ob-info">
+                    <p><a href="/zhiloy_kompleks/{$item['chpu_title']}/" target="_blank">
+                        {$item['title']}
+                    </a></p>
+                    <p>
+                        {if!empty $item['txt_addr']}{$item['txt_addr']}{if!empty $item['district']},{else}{if!empty $item['subway']},{/if}{/if}{/if}
+                        {if!empty $item['district']}{$item['district']} район{if!empty $item['subway']},{/if}{/if}
+                        {if!empty $item['subway']}<span class="metro-station">{$item['subway']}</span>{/if}
+                    </p>
+                </div>
+                <div class="ob-price">
+                    {$item['build_complete']}
+                </div>
+            </div>
+        {/loop $list}
+    </div>
+</div>

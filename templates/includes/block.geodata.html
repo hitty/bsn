@@ -1,0 +1,53 @@
+{ifempty $ajax_mode}           
+{if!empty $search_form_left}
+<div id="geodata-picker-wrap">
+    <div class="close-btn"></div>
+    <div class="filter">
+        <span class="districts-picker" data-type="districts">
+            Санкт-Петербург <i>0</i>
+            <input type="hidden" name="districts" id="districts" value="{$form_data['districts']}" data-url="/geodata/form/districts/" />
+        </span>
+        <span class="district-areas-picker" data-type="district-areas">
+            Ленинградская область <i>0</i>
+            <input type="hidden" name="district_areas" id="district-areas" value="{$form_data['district_areas']}" data-url="/geodata/form/district_areas/" />
+        </span>
+        <span class="subway-picker" data-type="subways">
+            Метро <i>0</i>
+            <input type="hidden" name="subways" id="subways" value="{$form_data['subways']}"  data-url="/geodata/form/subways/" />
+        </span>
+    </div>
+    <span id="reset-geo"><i></i><b>Сбросить фильтр</b></span>
+    <div class="items-list">
+        <div class="items"></div>
+    </div>
+    <div class="location-list">
+        <div class="selected-items districts-list transition" data-type="districts">
+            <h5>Районы Санкт-Петербурга</h5>
+            {php:$districts = $form_filter['districts']}
+            {loop $districts,$k,$item}
+                <div class="item{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $districts}
+        </div>
+        <div class="selected-items district-areas-list transition" data-type="district-areas">
+            <h5>Районы Ленобласти</h5>
+            {php:$district_areas = $form_filter['district_areas']}
+            {loop $district_areas,$k,$item}
+                <div class="item{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $district_areas}
+            <span {if!empty $district_areas}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="selected-items subways-list transition" data-type="subways">
+            <h5>Станции метро</h5>
+            {php:$subways = $form_filter['subways']}
+            {loop $subways,$k,$item}
+                <div class="item line-{$item['line_id']}{if!empty $item['on']} on{/if}" data-id="{$item['id']}">{$item['title']}</div>
+            {/loop $subways}
+            <span {if!empty $subways}style="display:none;" {/if}class="empty-list">Ничего не выбрано</span>
+        </div>
+        <div class="geodata-button">
+            <button value="Применить">Применить</button>
+        </div>
+    </div>
+</div>
+{/if}
+{/if}

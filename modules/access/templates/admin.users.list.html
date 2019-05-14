@@ -1,0 +1,151 @@
+<h1 class="pageTitle">Пользователи</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line"><a href="/admin/access/users/add/" class="button">Добавить пользователя</a></div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter = document.getElementById('tbl_filter').value;
+            var __filter_id = document.getElementById('tbl_filter_id').value;
+            var __filter_phone = document.getElementById('tbl_filter_phone').value;
+            var __filter_email = document.getElementById('tbl_filter_email').value;
+            var __filter_group = document.getElementById('tbl_filter_group').value
+            var __filter_tarif = document.getElementById('tbl_filter_tarif').value
+            var __filter_blocked = document.getElementById('tbl_filter_blocked').value
+            
+            var __url = '{root:/admin/access/users/}';
+            
+            var __get = new Array();
+            if(__filter!='') __get.push('filter='+__filter);
+            if(__filter_id!='') __get.push('filter_id='+__filter_id);
+            if(__filter_phone!='') __get.push('filter_phone='+__filter_phone);
+            if(__filter_email!='') __get.push('filter_email='+__filter_email);
+            if(__filter_group!='0') __get.push('filter_group='+__filter_group);
+            if(__filter_tarif!='0') __get.push('filter_tarif='+__filter_tarif);
+            if(__filter_blocked!='0') __get.push('filter_blocked='+__filter_blocked);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            
+            document.location.href = __url;
+        }
+    </script>
+    <div class="filter_line">
+        <label>
+            Поиск по ID:
+            <input type="text" id="tbl_filter_id" value="{$get_array['filter_id']}" onchange="filter_activate()"  placeholder="ID">
+        </label>
+        <label>
+            Поиск по логину:
+            <input type="text" id="tbl_filter" value="{$get_array['filter']}" onchange="filter_activate()"  placeholder="Логин">
+        </label>
+        <label>
+            Поиск по телефону:
+            <input type="text" id="tbl_filter_phone" value="{$get_array['filter_phone']}" onchange="filter_activate()"  placeholder="Телефон">
+        </label>
+        <label>
+            Поиск по почте:
+            <input type="text" id="tbl_filter_email" value="{$get_array['filter_email']}" onchange="filter_activate()"  placeholder="Почта">
+        </label>
+        <label>
+            Поиск по группе:
+            <select id="tbl_filter_group" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1"{ifeq $get_array['filter_group'],'1'} selected="selected"{/if}>пользователи</option>
+                <option value="2"{ifeq $get_array['filter_group'],'2'} selected="selected"{/if}>менеджеры</option>
+                <option value="3"{ifeq $get_array['filter_group'],'3'} selected="selected"{/if}>администраторы</option>
+            </select>
+        </label>
+        <label>
+            Поиск по тарифу:
+            <select id="tbl_filter_tarif" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $tarifs_list,$k,$i}
+                    <option value="{$i['id']}"{ifeq $get_array['filter_tarif'],$i['id']} selected="selected"{/if}>{$i['title']}</option>
+                {/loop $tarifs_list}
+            </select>
+        </label>
+        <label>
+            Заблокирован:
+            <select id="tbl_filter_blocked" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">не выбран</option>
+                <option value="1"{ifeq $get_array['filter_blocked'],'1'} selected="selected"{/if}>да</option>
+                <option value="2"{ifeq $get_array['filter_blocked'],'2'} selected="selected"{/if}>нет</option>
+            </select>
+        </label>
+        
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col2" width="5%">
+                <col class="col2" width="15%">
+                <col class="col1" width="20%">
+                <col class="col1" width="20%">
+                <col class="col1" width="10%">
+                <col class="col2" width="15%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Логин</th>
+                    <th>Информация о пользователе</th>
+                    <th>Активные объекты в базе</th>
+                    <th>Баланс</th>
+                    <th>Дата регистрации</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr id="item_{$item['id']}" {ifeq $item['is_blocked'],1}style="background:#ffefef;"{/if}>
+                        <td>{$item['id']}</td>
+                        <td>
+                            
+                            <span class="sex-select user-avatar-color small" style="{ifempty $item['user_photo']}background-color: {ifempty $item['avatar_color']}#4bbd44{else}{$item['avatar_color']}{/if}; {/if}width: 52px; height: 52px; display: inline-block;">
+                                <img src="{if!empty $item['user_photo']}/{$img_folder}/big/{$item['user_photo_folder']}/{$item['user_photo']}{else}{static:/}img/layout/user-ava-image-{ifeq $item['sex'],2}female{else}male{/if}-med.png{/if}" class="img-male" alt="" />
+                            </span>
+                            <br />
+                            {$item['login']}
+                        
+                        </td>
+                        <td>{$item['name']} {$item['lastname']} {if!empty $item['tarif_title']}<span><b>{$item['tarif_title']}</b></span>{/if}<br><span class="small_text grey">{$item['email']}</span> <span class="small_text grey">{$item['phone']}</span></td>
+                        <td class="active-objects">
+                                {if!empty $item['active_build']}<span class="build"><span>стройка: </span><i>{$item['active_build']}</i></span>{/if}
+                                {if!empty $item['active_live']}<span class="live"><span>жилая: </span><i>{$item['active_live']}</i></span>{/if}
+                                {if!empty $item['active_commercial']}<span class="commercial"><span>коммерческая: </span><i>{$item['active_commercial']}</i></span>{/if}
+                                {if!empty $item['active_country']}<span class="country"><span>загородная: </span><i>{$item['active_country']}</i></span>{/if}
+                        </td>
+                        <td>{$item['balance']}</td>
+                        <td>{php:echo date('d.m.Y H:i:s',strtotime($item['datetime']))}</td>
+                        <td class="small_icons ac">
+                            <a href="/admin/access/users/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/access/users/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            {if!empty $item['can_replenish_balance']}
+                                <a href="/admin/access/users/replenish_balance/{$item['id']}/" title="Пополнить баланс"><span class="ico_balance">Пополнить баланс</span></a>
+                                <a href="/admin/access/users/turn_off/{$item['id']}/" title="Убрать все в архив"><span class="ico_turnoff" data-confirm="Вы уверены, что хотите убрать все объекты этого пользователя в архив?" data-success="Все объекты пользователя убраны в архив">Убрать все в архив</span></a>
+                            {/if}
+                            <a href="/admin/access/users/refresh/{$item['id']}/" title="Обновить"><span class="ico_refresh">Обновить информацию по объектам</span></a>
+                            {if!empty $debug}<a href="/admin/access/superadmin/{$item['id']}/" title="Авторизоваться под пользователем"><span class="ico_user">Авторизоваться под пользователем</span></a>
+                            {elseifin $item['id_group'],1,104,8,105}<a href="/admin/access/superadmin/{$item['id']}/" title="Авторизоваться под пользователем"><span class="ico_user">Авторизоваться под пользователем</span></a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

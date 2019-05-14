@@ -1,0 +1,62 @@
+{if!empty $lists['country']}{php:$list = $lists['country'];}
+{elseif!empty $similar_list}{php:$list = $similar_list;}
+{/if}
+    {php:$show_tgb = !empty($ajax_mode) || !empty($advert_in_estate_list);}
+    <div class="statistic-box">
+        {if!empty $only_objects}
+            {ifempty $not_show_finded}
+                <div class="sb-info">
+                    {suffix_word: $full_count, 'Найден','','о','о'}
+                    {suffix: $full_count, 'объект','','а','ов'}
+                </div>
+            {/if}
+        {else}
+            <div class="sb-info">
+                {suffix_word: $full_count, 'Найден','','о','о'}
+                {suffix: $full_count, 'объект','','а','ов'}
+            </div>
+            <div class="sb-sort">
+                <div class="list-selector grey" id="sort_selector">
+                    <a href="#" class="pick">20</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="sort_selector" value="{$sortby}" />
+                    <ul class="list-data" data-simplebar="init" data-link="{php:echo htmlentities($sorting_url)}">
+                        <li data-value="1">район, от А</li>
+                        <li data-value="2">район, от Я</li>
+                        <li data-value="3">девелоперу, от А</li>
+                        <li data-value="4">девелоперу, от Я</li>
+                    </ul>
+                </div>                                    
+            </div>
+            <div class="sb-quote">
+                <div class="list-selector grey" id="count_selector">
+                    <a href="#" class="pick">20</a>
+                    <a href="#" class="select">...</a>
+                    <input type="hidden" name="count_selector" value="20" />
+                    <ul class="list-data" data-simplebar="init">
+                        <li data-value="20">20</li>
+                        <li data-value="40">40</li>
+                        <li data-value="60">60</li>
+                    </ul>
+                </div>                                    
+            </div>
+            
+            {if!empty $ajax_mode}<script>listSelectorInit('')</script>{/if}
+        {/if}
+    </div>    
+    <div class="estate-list" data-url="{$requested_url}">
+        {loop $list,$lkey,$item}
+            {include /modules/cottages/templates/list.block.item.html}
+            {ifempty $ajax_mode}
+                {php:$show_sp_block = $show_tgb && ($lkey==4 || $lkey==9);}
+                {if!empty $show_sp_block}
+                    {block tgb/estate_list/cottages/{ifeq $lkey,9}second-row/{/if}}
+                {/if}
+            {/if}
+
+        {/loop $list}
+        {ifempty $no_header}{include /templates/includes/paginator.html}{/if}
+        
+    </div>
+    
+        

@@ -1,0 +1,38 @@
+{if!empty $prev_next}    
+    <div class="object-share">
+        {loop $prev_next,$k,$nitem}
+            <a href="/service/information/{$nitem['type_chpu_title']}/{$nitem['chpu_title']}/" title="{$nitem['title']}" class="{ifeq $k,0}previous{else}next{/if}-object">{ifeq $k,0}предыдущая статья{else}следующая статья{/if}</a>
+            {include /modules/banners/templates/block.share.html}
+        {/loop $prev_next}
+    </div>        
+{/if}
+<article class="gray-border news">
+    <h1 itemprop="headline">
+        {$item['title']}
+    </h1>
+    <div class="category-title">
+        Раздел: {$item['category_title']}
+        {if!in $item['category_id'],6,8,9}<div class="type-title">Категория: <a href="/service/information/{$item['type_chpu_title']}/">{$item['type_title']}</a></div>{/if}
+    </div>
+    <div class="bigtext">
+        {if!empty $item['fileattach']}
+        {if!empty $filesize}
+            {php:$can_show = ($item['status'] == 2 && !empty($auth['id'])) || $item['status'] == 1}
+            {if!empty $can_show}
+                <div class="filedownload-wrap">
+                    <div class="title">Файл для загрузки</div>
+                    {php:$filename = !empty($item['filename']) ?  $item['filename'] : $item['title']}
+                    <div class="files-list">
+                        <a href="/{$docs_folder}/{$item['fileattach']}" title="{$filename}">{$filename}</a>
+                        <span class="file-info">({$extension}, {$filesize} мб)</span>
+                    </div>
+                </div>
+            {/if}
+        {/if}
+        {/if}
+        {$item['content']}
+    {include /modules/banners/templates/block.share.right.html}
+    </div>
+    
+</article>
+<a href="/service/information/" class="button grey back-to-main">Вернуться к списку разделов</a>

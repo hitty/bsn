@@ -1,0 +1,47 @@
+<div class="banners-statistics-wrapper">
+    <span class="title">Статистика по баннеру «{if!empty $item['agency_title']}{$item['agency_title']}{elseif!empty $item['title']}{$item['title']}{/if}»</span>
+
+    <div class="results-wrapper total">
+        <div class="header">
+            <span class="title grey">Общие показатели</span>
+            <span class="views" data-icon="remove_red_eye"></span>
+            <span class="clicks" data-icon="touch_app"></span>
+            <span class="ctr" data-icon="assessment"></span>
+        </div>
+        {if!empty $item['cnt_full']}
+            <div class="item clearfix">
+                <span class="title">С момента публикации</span>
+                <span class="views">{$item['cnt_full']}</span>
+                <span class="clicks">{$item['cnt_click_full']}</span>
+                <span class="ctr">{ifgt $item['cnt_click_full'],0}{php:echo number_format( ( $item['cnt_click_full'] / $item['cnt_full'] )*100, 2, '.', ' ')}{else}0{/if}%</span>
+            </div>
+        {/if}
+        {if!empty $item['cnt_day']}
+            <div class="item clearfix">
+                <span class="title">За сегодня</span>
+                <span class="views">{$item['cnt_day']}</span>
+                <span class="clicks">{$item['cnt_click_day']}</span>
+                <span class="ctr">{ifgt $item['cnt_click_day'],0}{php:echo number_format( ( $item['cnt_click_day'] / $item['cnt_day'] )*100, 2, '.', ' ')}{else}0{/if}%</span>
+            </div>
+        {/if}
+    </div>
+        
+    {if!empty $item['cnt_day']}
+        <div class="results-wrapper period">
+            <div class="header"> <span class="title">Смотреть за период</span></div>
+            
+            <div class="form-default">
+                <input type="text" id="date-start" name="date_start" value="" placeholder="Начало"> - <input type="text" id="date-end" name="date_end"  value="" placeholder="Окончание">
+                <input type="submit" value="Показать" name="submit" class="button" style="display:none;" data-url="/members/conversions/banners/stats/period/{$item['id']}/"/>
+            </div>
+            
+            <div class="results">
+            </div>
+        </div>
+        
+    {/if}
+        
+
+    
+    
+</div>

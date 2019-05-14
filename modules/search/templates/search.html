@@ -1,0 +1,38 @@
+{include modules/search/templates/search.form.html}
+{if!empty $submit}
+    <div id="search-results">    
+        <div id="finded">Найдено записей по запросу <strong>"{quoted:$data['query']}"</strong>: {ifempty $count_items}0{else}{$count_items}{/if}</div>
+        {if!empty $results}
+            <div class="sb-sorting">
+                Сортировать по:
+                {php:$sort_rel = empty($data['sort']) || $data['sort']=='relevance';}
+                {if!empty $sort_rel}<span>релевантности</span>
+                {else}<a class="sort" href="{$paginator_link_base}sort=relevance">релевантности</a>
+                {/if}
+                {ifeq $data['sort'],'date'}<span>дате</span>
+                {else}<a class="sort" href="{$paginator_link_base}sort=date">дате</a>
+                {/if}
+            </div>
+            <ul class="search-results-list">
+                {loop $results,$k,$result}
+                    <li>
+                        <span class="search-results-category">
+                           <strong>{$index_types[$result['type']]}</strong> | 
+                           {if!empty $result['category']}{$result['category']}{/if}
+                        </span>
+                        <time datetime="">{$result['normal_date']}</time>
+                        <h3><a href="/{$result['url']}/" title="{$result['title']}" target="_blank">{$result['title']}</a></h3>
+                        <p>{$result['content']}</p>
+                    </li>            
+                {/loop $results}
+            </ul>
+        {/if}
+    </div>
+    {include /templates/includes/paginator.html}    
+{else}
+    {ifempty $data['query']}
+        <div id="search-results">
+            <div id="finded">Пустой поисковый запрос</div>
+        </div>
+    {/if}
+{/if}

@@ -1,0 +1,12 @@
+.spec_emails_list{
+    height:700px;
+    width:350px;
+    margin-bottom: 20px;
+}
+
+.spec_emails_error{
+    height:400px;
+    width:350px;
+    margin-bottom: 20px;
+    color:#d22a2a;
+}

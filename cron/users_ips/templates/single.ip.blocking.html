@@ -1,0 +1,20 @@
+{include /modules/mailers/templates/simple.header.html}
+<table>
+<tr>
+    <td>
+    <span>IP {$data['ip']} заблокирован{if!empty $block_by_js} по JS{/if}:</span><br />
+    {if!empty $block_by_js}
+        <div>Страница входа: {$data['ref']}</div>
+        {if!empty $data['city']}<div>Город: {$data['city']}</div>{/if}
+        {if!empty $data['country']}<div>Страна: {$data['country']}</div>{/if}
+    {elseif!empty $data['referers']}
+        <div>Посещенные страницы:</div>
+        
+        {loop $referers,$key,$item}
+            {$item}<br />
+        {/loop $referers}
+    {/if}
+    </td>
+</tr>
+</table>
+{include /modules/mailers/templates/simple.footer.html}

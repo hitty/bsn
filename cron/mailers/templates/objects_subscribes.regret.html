@@ -1,0 +1,17 @@
+{include /modules/mailers/templates/simple.header.html}
+<tr> <!-- content - title -->
+    <td valign="top" style="border-collapse:collapse; padding:0 0 20px 0; font-size:30px; line-height: 36px;" align="left"> 
+    Добрый день{if!empty $item['full_name']}, {$item['full_name']}{/if}!
+    </td>
+</tr>
+<tr> <!-- content - text -->
+    <td valign="top" style="border-collapse:collapse; padding: 0; font-size:18px; line-height: 26px;" align="left"> 
+        Сегодня произошло небольшое недоразумение по функционированию подписок на сайте. Все отключенные подписки были восстановлены. <br />
+        <br />
+        Но обращаем ваше внимание, что с сегодняшнего дня действует правило: если обновления по подписке не просматриваются на сайте 7 дней, то система автоматически отключает такие подписки.<br />
+        <br />
+        Приносим свои извинения.
+    </td>
+</tr>
+{include /modules/mailers/templates/simple.footer.html}
+                            

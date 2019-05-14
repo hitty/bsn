@@ -1,0 +1,128 @@
+    <div  class="pay-wrap">
+        <h3 id="members-h2">Применение услуги</h3>
+    {ifeq $complete,'start'}
+        {if!empty $wrong_params}
+                <div class="pay-error">
+                    <p>Неверные входные данные.</p>
+                </div>
+        {else}
+        {iflt $summ_difference,1}<form method="post" action="/members/pay_object/{$obj_type}/{$id_object}/success/" id="pay-form">{/if}
+            <ul class="object-statuses clearfix">
+                {ifin $status,3,4,6,1}
+                <li data-value="{$status}"  class="{$statuses_costs[$status]['info']['alias']} br3">
+                    
+                   
+                    <span class="title" data-icon="{ifeq $status,3}highlight{elseifeq $status,4}whatshot{elseifeq $status,6}flash_on{elseifeq $status,1}publish{/if}">«{$statuses_costs[$status]['info']['title']}»</span>
+                    <div class="text">
+                        {ifeq $status,3}
+                            <span>Просмотры<b>x2</b></span>
+                        {elseifeq $status,4}
+                            <span>Просмотры<b>x4</b></span>
+                            <span>Клики<b>x2</b></span>
+                        {elseifeq $status,6}
+                            <span>Просмотры<b>x5</b></span>
+                            <span>Клики<b>x2</b></span>
+                            <span>Блок на главной</span>
+                        {/if}
+                        {if!eq $status,1}
+                            <span class="date">Размещение на {$statuses_costs[$status]['days_long']} дней</span>
+                        {else}
+                            <div class="raising-period-wrap">
+                                Размещение на 
+                                <div class="list-selector raising-period white">
+                                    <a href="#" class="pick">1</a>
+                                    <a href="#" class="select">...</a>
+                                    <input type="hidden" name="raising_period" id="raising-period" value="1" />
+                                    <ul class="list-data" data-simplebar="init">
+                                        <li data-value="1" data-cost="30">1 день</li>
+                                        <li data-value="5" data-cost="120">5 дней</li>
+                                    </ul>
+                                </div>                                      
+                            </div>                        
+                        {/if}
+                    </div>
+                </li>
+                {elseifin $status,5,8}
+                    <li data-value="{$status}"  class="{$statuses_costs[$status]['info']['alias']} br3">
+                        <span class="title">«{ifeq $status,5}Публикация объекта{else}Аренда платная{/if}»</span>
+                    </li>
+                {/if}
+              
+            </ul>
+                        
+            
+            <div class="objects-wrap">
+                <h3>Для объекта</h3>
+                <div class="object-info">
+                    <span>{$titles['object_type']}</span>
+                    <a href="/{$estate}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" target="_blank">{$item['txt_addr']}</a>
+                </div>
+            </div>
+            <div class="pay-total">
+                {ifgt $summ_difference,0}
+                    <div class="pay-not-enough-money">
+                        <span>На вашем балансе недостаточно средств для оплаты данной услуги.</span>
+                        <p class="total-summ">{numeric:$summ_difference} Р</p>
+                        <a class="button blue" href="/members/pay/balance/?summ={$summ_difference}">Пополнить баланс?</a>
+                    </div>
+                {else}
+                    <p class="total-summ">{ifempty $summ}{else}{$summ} Р{/if}</p>
+                    <input type="hidden" name="id_object" value="{$id_object}"/>
+                    <input type="hidden" name="obj_type" value="{$obj_type}"/>
+                    <input type="hidden" name="status" value="{$status}"/>
+                    <input type="hidden" name="summ" value="{$summ}"/>
+                    <input type="hidden" name="agency_object_long" value="{$payment_params['days_long']}"/>
+                    <input type="submit" name="paying" value="{ifempty $summ}Применить{else}Оплатить{/if}" class="button blue{ifgt $summ_difference,0} disabled{/if}"/>
+                {/if}
+            </div>
+        {/if}   
+        {iflt $summ_difference,1}</form>     {/if}
+    {elseifeq $complete,'success'}
+            {if!empty $not_enough_balance}
+                <div class="pay-error">
+                    <p>Не хватает денег на счете.</p>
+                </div>
+            {elseif!empty $wrong_object}
+                <div class="pay-error">
+                    <p>Данный объект принадлежит другому пользователю.</p>
+                </div>
+            {elseif!empty $alredy_payed}
+                <div class="pay-error">
+                    <p>Вы уже оплатили данный объект.</p>
+                </div>
+            {elseif!empty $wrong_params}
+                <div class="pay-error">
+                    <p>Неверные входные данные.</p>
+                </div>
+            {else}
+                <div class="pay-success">
+                    <i data-icon="mood"></i>
+                    <p class="text">
+                        <br />
+                        {if!eq $status,5}
+                            К объекту ID:{$id_object}, {$obj_type_title} {if!eq $obj_type_title,'Новостройки'}недвижимость {/if}подключена услуга <b>«{$status_title}»</b>
+                        {else}
+                            Объект ID:{$id_object}, {$obj_type_title} {if!eq $obj_type_title,'Новостройки'}недвижимость {/if}успешно опубликован.
+                        {/if}
+                    </p>
+                </div>
+            {/if}
+    {/if}
+    </div>
+    
+    
+    <script>
+     if(jQuery('.raising-period').length > 0){
+        jQuery(document).on('change', '.raising-period', function(){
+            if(jQuery('#raising-period').val() == 1) _cost = 30;
+            else _cost = 120;
+            
+            jQuery('.raising.active').children('.cost-for-one').children('i:not(.rur)').html(_cost);
+            jQuery('.calculate b').html(_cost+'Р');
+            
+            jQuery('.total-summ').html(_cost + 'Р');
+            jQuery('input[name=agency_object_long]').val(jQuery('#raising-period').val());
+            jQuery('input[name=summ]').val(_cost);
+        });
+    }
+    </script>

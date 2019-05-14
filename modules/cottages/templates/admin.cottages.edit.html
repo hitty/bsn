@@ -1,0 +1,112 @@
+<h1 class="pageTitle">Коттеджные поселки</h1>
+{ifempty $data_mapping['id']['value']}
+    <form class="form_default" method="post" action="/admin/estate/cottages/add/">
+    <h3>Новое событие</h3>
+{else}
+    <form class="form_default" method="post" action="/admin/estate/cottages/edit/{$data_mapping['id']['value']}/"  id="cottage_form">
+    <h3>Событие #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
+{/if}
+    {if!empty $form_submit}
+        {if!empty $errors}
+            <div class="notification msgerror">
+                <a class="close">Close</a>
+                Ошибка. Проверьте правильность заполнения формы.
+            </div>
+        {else}
+            {if!empty $saved}
+                <div class="notification msgsuccess">
+                    <a class="close">Close</a>
+                    Данные сохранены.
+                </div>
+            {else}
+                <div class="notification msgalert">
+                    <a class="close">Close</a>
+                    Ошибка записи в БД.
+                </div>
+            {/if}
+        {/if}
+    {/if}
+    {include /admin/templates/form_default.html}
+    <fieldset>
+        <p title="Старый девелопер">
+            <label>Старый девелопер</label>
+            <span class="lf fieldwrapper">
+                {$data_mapping['id_developer']['values'][$data_mapping['id_developer']['value']]}
+            </span>
+        </p>
+                <p title="Новый девелопер">
+            <label>Новый девелопер</label>
+            <span class="lf fieldwrapper" id="autocomplete_inputbox">
+                <input type="text" class="autocomplete_input autocomplete" id="user_input" value="{if!empty $agency_title}{php:echo str_replace('"','',$agency_title)}{/if}" data-url="/admin/estate/housing_estates/agencies/list/" size="40" autocomplete="off" data-input="id_user">
+            </span>
+            <span class=inputbox_clear id=user_clear>ОЧИСТИТЬ</span>
+        </p>
+        <p title="Продавец">
+            <label>Продавец</label>
+            <span class="lf fieldwrapper" id="autocomplete_inputbox">
+                <input type="text" class="autocomplete_input autocomplete" id="seller_input" value="{if!empty $seller_title}{php:echo str_replace('"','',$seller_title)}{/if}" data-url="/admin/estate/housing_estates/agencies/list/" size="40" autocomplete="off" data-input="id_seller">
+            </span>
+            <span class=inputbox_clear id=seller_clear>ОЧИСТИТЬ</span>
+        </p>
+        <p title="Является ли продавец эксклюзивным" id="p_field_exclusive_seller">
+            <label>Эксклюзивный продавец</label>
+            <span class="lf fieldwrapper">
+                <span style="white-space: nowrap;"><input type="radio" name="exclusive_seller" value="1" {ifeq $data_mapping['exclusive_seller']['value'],1}checked="checked"{/if}> да </span> 
+                <span style="white-space: nowrap;"><input type="radio" name="exclusive_seller" value="2" {ifeq $data_mapping['exclusive_seller']['value'],2}checked="checked"{/if}{ifempty $data_mapping['exclusive_seller']['value']}checked="checked"{/if}> нет </span> 
+                <span class="tip-text green">Является ли продавец эксклюзивным</span>
+            </span>
+        </p>        
+        
+    </fieldset>    
+    <fieldset>
+	    <script src="//maps.googleapis.com/maps/api/js?v=3.9&sensor=true"></script>
+        <div id="map_canvas" style="width:100%; height:500px;margin-top:5px"></div> 
+	</fieldset>    
+	{if!empty $data_mapping['id']['value']}
+    	<fieldset>
+            <h3>Загрузка фотографий для поселка #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width');} x {php:echo Config::Get('images/min_height');} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-type="cottages" data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/cottages/photos/" data-session-id="{php:echo session_id();}"/>
+            <input type="hidden" name="id_priority"/>   
+        </fieldset>  
+    {/if} 
+    <p>
+        {if!empty $data_mapping['id']['value']}
+            <input type="submit" value="Сохранить" name="submit">
+            <input type="submit" value="Сохранить и перейти в список поселков" name="submit" id="redirect_submit">
+        {else} <input type="submit" value="Сохранить и добавить фото" name="submit">{/if}
+    </p>    
+     
+</form>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('#advanced').on("change",function(){
+        manageAdvancedDates();
+    })
+    manageAdvancedDates();
+    function manageAdvancedDates(){
+        var _el = jQuery('#advanced');
+        var _val = _el.val();
+        var _date_start = jQuery('#p_field_date_start');
+        var _date_end = jQuery('#p_field_date_end');
+        
+        if(_val==2) {
+            _date_start.hide();
+            _date_end.hide();
+        } else {
+            _date_start.show();
+            _date_end.show();
+            
+        }
+        //очитска inputbox и поля, где был id введенного агентства
+        jQuery('#user_clear').click(function(){
+            jQuery('#id_user').val(0);
+            jQuery('#user_input').val('');
+        });
+        jQuery('#seller_clear').click(function(){
+            jQuery('#id_seller').val(0);
+            jQuery('#seller_input').val('');
+        });
+        
+    }
+});
+</script>

@@ -1,0 +1,27 @@
+<div class="left-column">
+        <aside>
+            <h1 class="help-menu-header help-menu-header-first">РАЗДЕЛЫ</h1>
+            <div class="help-menu-list">
+            <ul>
+            {loop $categories_menu,$key,$item}
+                {ifeq $selected_category,$item['id']}
+                <li  class="selected">{$item['title']}</li>
+                {else}
+                <li><a href="//{$host}/help/{$item['chpu_title']}/" >{$item['title']}</a></li>
+                {/if}
+            {/loop $categories_menu}
+            </ul>
+            </div>
+            {if!empty $popular_menu}
+            <div class="help-menu-wrapper"></div>  
+            <h1 class="help-menu-header">ПОПУЛЯРНОЕ</h1>
+            <div class="help-menu-list">
+            <ul>
+            {loop $popular_menu,$key,$item}
+                <li><a href="//{$host}/help/{$item['cchpu_title']}/{$item['achpu_title']}/" >{$item['atitle']}</a></li>
+            {/loop $popular_menu}
+            </ul>
+            </div>
+            {/if}
+        </aside>   
+</div>

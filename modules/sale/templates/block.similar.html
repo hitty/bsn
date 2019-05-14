@@ -1,0 +1,35 @@
+<div class="hot-offers one-row">
+                {if!empty $list}
+                    {loop $list,$k,$item}
+                        {include /modules/sale/templates/object.html}
+                    {/loop $list}
+                    <script > 
+                        jQuery(document).ready(function(){
+                            // текущая дата
+                            var _today = new Date();   
+                            var yesterday = new Date(_today.getTime() - (24 * 60 * 60 * 1000));    
+                            jQuery('.ov-timer').each(function(){
+                                var _this = jQuery(this);
+                                // дата предстоящего события (год, месяц, число)
+                                var _mysql_date = _this.data('date-end').split(/[-]/);
+                                var _endDate = new Date(_mysql_date[0], _mysql_date[1]-1, _mysql_date[2]);
+                                // если событие еще не наступило
+                                if(yesterday <= _endDate){
+                                    if(Math.floor(Math.round(_endDate-_today)/86400000) < 3) _this.addClass('red');
+                                    _this.text(timeToEvent(_endDate, 'inline')); 
+                                    window.setInterval(function(){ 
+                                      _this.text(timeToEvent(_endDate, 'inline')); 
+                                    },1000);           
+                                } 
+
+                            });
+                            jQuery('.show-all-offers').click(function(){
+                                jQuery('.hot-offers').toggleClass('active');
+                                jQuery(this).remove();
+                            })
+                            jQuery('.show-all-offers').click();
+                         });
+                    </script> 
+                    
+                {/if}
+            </div>

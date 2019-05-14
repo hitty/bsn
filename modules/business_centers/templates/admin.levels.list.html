@@ -1,0 +1,89 @@
+
+<h1 class="pageTitle">Бизнес-центры \ Этажи</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/estate/business_centers/levels/add/" class="button">Добавить запись</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            var __url = '{root:/admin/estate/business_centers/levels/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            БЦ:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="15%">
+                <col class="col1" width="25%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Этаж, корпус (офисов)</th>
+                    <th>Фото</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td>
+                            {$item['id']}
+                        </td>
+                        <td>
+                            {$item['business_center_title']}
+                        </td>
+                        <td>
+                            {ifempty $item['level']}цоколь{else}{$item['level']}{/if}
+                            {if!empty $item['corp_title']}, корпус {$item['corp_title']}{/if}
+                            <span style="font-size:12px"> ({$item['offices_count']})</span>
+                        </td>
+                        
+                        <td>
+                            {if!empty $item['img_link']}    
+                                <img src="/{$img_folder}/{$item['img_link']}" alt="" width="400" />
+                            {/if}
+                        </td>
+
+                        <td class="small_icons ac">
+                            <a href="/admin/estate/business_centers/levels/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/estate/business_centers/levels/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

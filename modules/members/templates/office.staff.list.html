@@ -1,0 +1,62 @@
+{ifeq $admin_info['id'],$auth['id']}
+    {if!empty $can_add_staff}
+        <span data-link="/members/office/staff/add/" title="Добавить сотрудника" class="add-staff button internal-link">Добавить сотрудника</span>
+    {/if}
+{/if}
+<h2 id="office-h2"><i class="title">Офис > Сотрудники</i></h2>
+<div class="staff-list">
+    {loop $list,$k,$item}
+    <div class="item{ifeq $item['user_status'],'waiting_agent'} waiting-agent{/if}{ifeq $item['status'],2} inactive{/if}" data-id="{$item['id']}">
+        <div class="img">
+            {if!empty $item['photo']}
+                <img src="{static:/}{$img_folder}/sm/{$item['subfolder']}/{$item['photo']}" class="avatar" alt=""/>
+            {else}
+                <span class="user-avatar-color big" style="background-color: {$item['avatar_color']};">
+                    <img src="{static:/}img/layout/user-ava-image-{ifeq $item['sex'],1}male{else}female{/if}.png" alt="" />
+                </span>
+            {/if}
+            <span class="online{ifeq $item['last_activity'],'online'} green{/if}" data-title="{if!eq $item['last_activity'],'online'}был онлайн {$item['last_activity']}{else}онлайн{/if}">{ifeq $item['last_activity'],'online'}<i></i>{/if}</span>
+            {ifeq $admin_info['id'],$item['id']}
+                <span class="status">админ</span>
+            {/if}
+            <span class="rating"></span>
+        </div>
+        <div class="manage">
+            <span class="name">{$item['name']} {$item['lastname']}</span>
+            {ifeq $item['user_status'],'agent'}
+                <span class="specialization">{$item['specializations_row']}</span>
+                {ifeq $item['status'],1}
+                    {if!eq $auth['id'],$item['id']}<a href="/members/messages/{if!empty $item['message_id']}view/{$item['message_id']}{else}add/{$item['id']}{/if}/" target="_blank" title="Написать сообщение" class="message">сообщение</a>{/if}
+                {else}
+                    <span class="inactive-status">Неактивен</span>
+                {/if}
+                {ifeq $admin_info['id'],$auth['id']}
+                    {ifeq $item['user_status'],'agent'}
+                        <a href="{ifeq $auth['id'],$item['id']}/members/personalinfo/{else}/members/office/staff/edit/{$item['id']}/{/if}" title="Редактировать сотрудника" class="edit">редактировать</a>
+                    {/if}
+                {elseifeq $item['id'], $auth['id']}
+                    <a href="/members/personalinfo/" title="Редактировать профиль" class="edit">редактировать</a>
+                {/if}
+            {/if}
+        </div>
+        <div class="info" >
+            {ifeq $item['user_status'],'agent'}
+                <span class="phone">{if!empty $item['phone']}{$item['phone']}{/if}</span>
+                <a href="mailto:{$item['email']}" class="email" title="Написать сотруднику">{if!empty $item['email']}{$item['email']}{/if}</a>
+                <span class="balance">
+                    {ifeq $admin_info['id'],$auth['id']}
+                    <b>{$item['balance']} руб.</b>
+                        {if!eq $admin_info['id'],$item['id']}
+                            {ifeq $admin_info['id'],$auth['id']}<i class="change-balance button green">изменить</i>{/if}
+                        {/if}
+                    {/if}
+                </span>
+                {ifgt $item['objects_count'],0}<a href="/members/cabinet/?status=published&user={$item['id']}" class="objects-count" title="Список объектов сотрудника">{suffix:$item['objects_count'],'объект','','а','ов'}</a>
+                {else}<span class="objects-count">{suffix:$item['objects_count'],'объект','','а','ов'}</span>
+                {/if}
+            {/if}
+        </div>
+    {ifeq $item['user_status'],'waiting_agent'}{ifeq $admin_info['id'],$auth['id']}<a href="/members/office/staff/edit/{$item['id']}/" title="Редактировать сотрудника" class="edit-waiting-agent">редактировать</a>{/if}{/if}
+    </div>
+    {/loop $list}
+</div>

@@ -1,0 +1,152 @@
+<h1 class="pageTitle">Предложения</h1>
+{if!empty $results['delete']}
+    {iflt $results['delete'];0}
+        <div class="notification msgerror">
+            <a class="close">Close</a>
+            Ошибка. Удаление элемента не выполнено.
+        </div>
+    {else}
+        <div class="notification msgsuccess">
+            <a class="close">Close</a>
+            Удаление элемента #{$results['delete']} произведено успешно.
+        </div>
+    {/if}
+{/if}
+<div class="caption_line">
+    <a href="/admin/sale/offers/add/" class="button">Добавить запись</a>
+</div>
+<div class="list_table">
+    <script type="text/javascript">
+        function filter_activate(){
+            var __filter_title = document.getElementById('f_title').value;
+            
+            var __filter_agency = document.getElementById('f_agency').value;
+            {if!empty $campaigns} var __filter_campaign = document.getElementById('f_campaign').value; {/if}
+            var __filter_published = document.getElementById('f_published').value; 
+            var __url = '{root:/admin/sale/offers/}';
+            var __get = new Array();
+            if(__filter_title!='') __get.push('f_title='+__filter_title);
+            if(__filter_agency !=null) __get.push('f_agency='+__filter_agency);
+            {if!empty $campaigns} if(__filter_campaign>0) __get.push('f_campaign='+__filter_campaign); {/if}
+            if(__filter_published!=null) __get.push('f_published='+__filter_published);     
+            if(__get.length>0) __url = __url+'?'+__get.join('&');
+            document.location.href = __url;
+        }
+    </script>
+    
+    <div class="filter_line">
+        <label>
+            Заголовок:
+            <input type="text" id="f_title" value="{$get_array['f_title']}" onchange="filter_activate()"  placeholder="часть заголовка">
+        </label>
+        <label>
+            Компания :
+            <select id="f_agency" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $agencies,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_agency'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $agencies}
+            </select>
+        </label>     
+        {if!empty $campaigns}
+        <label>
+            Акция :
+            <select id="f_campaign" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                {loop $campaigns,$key,$val}
+                    <option value="{$val['id']}"{ifeq $get_array['f_campaign'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
+                {/loop $campaigns}
+            </select>
+        </label>     
+        {/if}
+        <label>
+            Статус :
+            <select id="f_published" onchange="filter_activate()" style="width: 150px;">
+                <option value="0">все</option>
+                <option value="1" {ifeq $get_array['f_published'],1} selected="selected"{/if}>Активные</option>
+                <option value="3" {ifeq $get_array['f_published'],3} selected="selected"{/if}>На модерации</option>
+                <option value="2" {ifeq $get_array['f_published'],2} selected="selected"{/if}>В архиве</option>
+            </select>
+        </label>     
+    </div>
+    {if!empty $list}
+        <table>    
+            <colgroup>
+                <col class="col1" width="5%">
+                <col class="col2" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+                <col class="col1" width="10%">
+                <col class="col2" width="10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Планировка</th>
+                    <th>Акция</th>
+                    <th>Комнат</th>
+                    <th>S общ</th>
+                    <th>S кух</th>
+                    <th>S жил</th>
+                    <th>Санузел</th>
+                    <th>Ремонт</th>
+                    <th>Стоимость</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list,$key,$item}
+                    <tr>
+                        <td>
+                            
+                            {$item['id']}
+                        </td>
+                        <td>
+                            {if!empty $item['photo']}<img src="/{$item['photo_folder']}/{$item['photo']}" alt="{$item['title']}" width="100" />{/if}
+                        </td>
+                        <td>{$item['campaign_title']}</td>
+                        <td>{$item['rooms_total']}</td>
+                        <td>{$item['square_full']}</td>
+                        <td>{$item['square_kitchen']}</td>
+                        <td>{$item['square_live']}</td>
+                        <td>{$item['toilet_title']}</td>
+                        <td>{$item['facing_title']}</td>
+                        <td>
+                            {if!empty $item['cost_w_discount']}
+                                {if!eq $item['cost_w_discount'], $item['cost']}
+                                    <div class="cell-new-price">
+                                        {$item['cost_w_discount']} руб.
+                                    </div>
+                                    {if!empty $item['cost']}
+                                        <div class="cell-old-price">
+                                            {$item['cost']} руб.
+                                        </div>
+                                    {/if} 
+                                {/if}
+                            {else}
+                                {if!empty $item['cost']}
+                                    <div class="cell-new-price">
+                                        {$item['cost']} руб.
+                                    </div>
+                                {/if}
+                            {/if}
+                        </td>
+                        <td class="small_icons ac">
+                            <a href="/admin/sale/offers/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
+                            <a href="/admin/sale/offers/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>
+                            
+                        </td>
+                    </tr>
+                {/loop $list}
+            </tbody>
+        </table>
+        {include /admin/templates/table_paginator.html}
+    {else}
+        <p style="padding:30px;">Запрошенные данные не найдены</p>
+    {/if}
+</div>

@@ -1,0 +1,28 @@
+{include /templates/includes/main_head_part.html}
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+        {include /templates/includes/main_header_part.html}
+    <div class="shadow-wrapper" id="shadow-wrapper">
+
+    <div class="content">
+        <div class="main-content">
+            <div class="left-wrapper">
+                {include /templates/includes/main_menu_part.html}
+                <div class="central-column">
+
+                    <h1>Извините, у нас переучёт!</h1>
+                    <p>Где-то что-то пошло не так, как надо... Ищем, смотрим. А пока попробуйте перейти на любую другую страницу.</p>
+                    <p>Error message: <code>{$error_message}</code></p>
+
+                </div> <!--/.central-column-->
+                {include /templates/includes/main_left_part.html}
+            </div> <!--/.left-wrapper-->
+            {include /templates/includes/main_right_part.html}
+        </div> <!--/.main-content-->                            
+        <div class="central-wrapper bottom-banner">
+            <div id="bottom-banner"></div>
+        </div>
+    </div> <!--/.content-->
+    {include /templates/includes/main_footer_part.html}
+</body>
+</html>

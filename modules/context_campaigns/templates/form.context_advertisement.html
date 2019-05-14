@@ -1,0 +1,270 @@
+<div class="adv-form-msg"></div>
+<fieldset class="form-fields" data-estate-type="{$data_mapping['estate_type']['value']}">
+    {loop $data_mapping,$key,$field}
+        {ifempty $field['nodisplay']}
+            
+                {ifeq $field['fieldtype'];'title_row'}<p class="title_row">{$field['tip']}
+                {elseifeq $field['fieldtype'];'hidden'}
+                    <input type="hidden" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {else}
+                <p
+                    {if!empty $field['tip']} title="{$field['tip']}"{/if}
+                    {if!empty $field['error']} class="error"{/if}
+                    {if!empty $field['hidden']} style="display:none;"{/if} 
+                    id="p_field_{$key}"
+                >
+                <label{ifempty $field['allow_empty']} class="required"{/if}>{$field['label']}{ifempty $field['allow_empty']} *{/if}</label>
+                <span class="lf fieldwrapper">
+                {ifeq $field['fieldtype'];'plaintext'}
+                    <span id="text_{$key}" class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext">{quoted:$field['value']}</span>
+                {elseifeq $field['fieldtype'];'text'}
+                    <input type="text" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}" {if!empty $field['disabled']} disabled="disabled"{/if}>
+                {elseifeq $field['fieldtype'];'email'}
+                    <input type="email" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}">
+                {elseifeq $field['fieldtype'];'phone'}
+                    <input type="phone" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}" {ifempty $field['allow_empty']} required="required"{/if} placeholder="{$field['placeholder']}">
+                {elseifeq $field['fieldtype'];'password'}
+                    <input type="password" class="{if!empty $field['class']}{$field['class']} {/if}lf" {if!empty $field['autocomplete']}autocomplete="off"{/if} id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'textarea'}
+                    {if!empty $field['editor']}
+                        <textarea class="CKEdit{ifeq $field['editor'];'small'}Small{else}Big{/if}{if!empty $field['class']} {$field['class']}{/if}" id="ckedit_{$key}" name="{$key}">{quoted:$field['value']}</textarea>
+                    {else}
+                        <textarea class="{if!empty $field['class']}{$field['class']} {/if}lf" id="{$key}" name="{$key}" {ifempty $field['allow_empty']} required="required"{/if} {if!empty $field['maxlength']}maxlength="{$field['maxlength']}"{/if}>{quoted:$field['value']}</textarea>
+                    {/if}
+                {elseifeq $field['fieldtype'];'radio'}
+                    {php:$radioloop=$field['values']}
+                    {loop $radioloop,$rlk,$rlt}
+                        <span style="white-space: nowrap;" class="checkbox radio {ifeq $rlk,$field['value']} on{/if}"><input type="radio" name="{$key}" value="{$rlk}"{ifeq $rlk,$field['value']}checked="checked"{/if} onchange="jQuery('#{$key}_value').attr('value',{$rlk});" style="opacity:0;"> {$rlt} </span> &nbsp;&nbsp;&nbsp;&nbsp;
+                    {/loop $radioloop}
+                    <input type="text" style="display:none" id="{$key}_value" value="{$field['value']}" name="{$key}">
+                {elseifeq $field['fieldtype'];'select'}
+                    {php:$selectloop=$field['values']}
+                    <div class="list-selector {$key}"  >
+                        <span class="selector-title {ifempty $field['allow_empty']}required{/if}" {if!empty $field['error']}error{/if} {if!empty $field['weight']}data-weight="{$field['weight']}"{/if} id="span_field_{$key}" data-rel="{$key}" {if!empty $field['hidden']} style="display:none;"{/if} >
+                            {$field['label']}{ifempty $field['allow_empty']} *{/if}
+                            {if!empty $field['error']}
+                                <span class="error_tip"> ({$field['error']})</span>
+                            {/if}
+                        </span>
+                        <a href="#" class="pick">{$selectloop[0]}</a>
+                        <a href="#" class="select">...</a>
+                        <input type="hidden" id="{$key}" name="{$key}" value="{$field['value']}" />
+                        <ul class="list-data" data-simplebar="init">
+                            {loop $selectloop,$rlk,$rlt}
+                                {if!empty $rlt['text']}
+                                    <li data-value="{$rlk}" data-height_txtimg={$rlt['height_intxt']} data-width_txtimg={$rlt['width_intxt']}>
+                                        <span class="block-size">{$rlt['width']}x{$rlt['height']}</span> {$rlt['text']}
+                                    </li>
+                                {else}
+                                    <li data-value="{$rlk}">{$rlt}</li>
+                                {/if}
+                            {/loop $selectloop}
+                        </ul>
+                    </div>
+                {elseifeq $field['fieldtype'];'plaintext+button'}
+                    <span class="{if!empty $field['class']}{$field['class']} {/if}lf plaintext" id="text_{$key}">{quoted:$field['value']}</span>
+                    <button id="btn_{$key}">{$field['tip']}</button>
+                {elseifeq $field['fieldtype'];'text+button'}
+                    <input type="text" class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" value="{quoted:$field['value']}">
+                    <button id="btn_{$key}">{$field['tip']}</button>
+                {elseifeq $field['fieldtype'];'upload'}
+                    <input type="file" class="{if!empty $field['class']}{$field['class']} {/if}lf" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'date'}
+                    <input type="date" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+                {elseifeq $field['fieldtype'];'datetime'}
+                    <input type="text" value="{quoted:$field['value']}" class="datetimepicker" name="{$key}" />
+                {elseifeq $field['fieldtype'];'time'}
+                    <input type="time" id="{$key}" name="{$key}" value="{quoted:$field['value']}">
+
+
+                {elseifeq $field['fieldtype'];'checkbox'}
+                    <input type="hidden" name="{$key}" id="{$key}" value="{$field['value']}" />
+                    <input type="checkbox" id="checkbox_{$key}"  class="{if!empty $field['class']}{$field['class']} {/if}" name="checkbox_{$key}" value="1" {ifeq $field['value'],$field['true_value']}checked="checked"{/if} rel="{$key}" data-true-value="{$field['true_value']}" data-false-value="{$field['false_value']}">
+                {elseifeq $field['fieldtype'];'set'}
+                    <input type="hidden" name="{$key}" value="{$field['value']}" />
+                    {php:$selectloop=$field['values']}
+                    {loop $selectloop,$rlk,$rlt}
+                        {do:$set_up=$field['value']%(pow(2,$rlk))>=pow(2,$rlk-1)}
+                        <input class="radio" type="checkbox" name="{$key}_set[{$rlk}]" value="1"{if $set_up}checked="checked"{/if} /> {$rlt}<br />
+                    {/loop $selectloop}
+               
+                {else}
+                    {quoted:$field['value']}
+                {/if}
+                {if!empty $field['error']}
+                    <span class="small_text red">{$field['error']}</span>
+                {/if}
+                </span>
+                </p>
+            {/if}
+        {/if}    
+    {/loop $data_mapping} 
+    {ifempty $not_show_submit_button}
+    <p>
+        <input type="submit" value="Сохранить" name="submit">
+    </p>
+    {/if}
+</fieldset>
+<div class="adv-fields" data-id={$data_mapping['id']['value']}>
+    <div class="adv-fields-row top"></div>
+    <div class="adv-fields-column left"></div>
+    <div class="adv-fields-column right">
+        <span class="position-image {ifempty $img_name}active{/if}"></span>
+        <span class="public-image {if!empty $img_name}active{/if}">
+            <img src="{if!empty $img_name}/{$img_folder}/big/{$folder}/{$img_name}{/if}">
+            <span class="delete-image"></span>
+        </span>
+    </div>
+    <div class="adv-fields-row bottom"></div>
+</div>
+<p class="image-upload-block">
+    <label></label>
+    <span>
+    </span>
+</p>
+<span class="upload-block">
+            <h3 id="pictures_requirements">{if!empty $item_height}(Размеры {$item_width}px x {$item_height}px){/if}</h3>
+            <input type="file" name="file_upload" id="file_upload" data-id="{$data_mapping['id']['value']}" data-url="/members/context_campaigns/{$campaign_id}/photos/" data-session-id="{php:echo session_id();}" {if!empty $item_height}data-height="{$item_height}" data-width="{$item_width}"{/if}/>
+            <input type="hidden" name="id_priority" value="0"/>
+        </span>
+<p class="estate-type-block">
+    <label>Недвижимость *</label>
+    <span class="options-list">
+        <span class="checkbox {if!empty $estate_live}on{/if}" data-value="1"><input type="checkbox" id="estate-live" {if!empty $estate_live}checked{/if} data-id="1">Жилая</span>
+        <span class="checkbox {if!empty $estate_build}on{/if}" data-value="2"><input type="checkbox" id="estate-build" {if!empty $estate_build}checked{/if} data-id="2">Новостройки</span>
+        <span class="checkbox {if!empty $estate_country}on{/if}" data-value="4"><input type="checkbox" id="estate-country" {if!empty $estate_country}checked{/if} data-id="4">Загородная</span>
+        <span class="checkbox {if!empty $estate_commercial}on{/if}" data-value="3"><input type="checkbox" id="estate-commercial" {if!empty $estate_commercial}checked{/if} data-id="3">Коммерческая</span>
+    </span>
+</p>
+<p class="deal-type-block">
+    <label>Тип сделки *</label>
+    <span class="options-list">
+        <span class="checkbox {if!empty $deal_rent}on{/if}"><input type="checkbox" id="deal-rent" {if!empty $deal_rent}checked{/if} data-id="1">Аренда</span>
+        <span class="checkbox {if!empty $deal_sell}on{/if}"><input type="checkbox" id="deal-sell" {if!empty $deal_sell}checked{/if} data-id="2">Продажа</span>
+    </span>
+</p>
+{if!empty $data_mapping['id']['value']}
+<fieldset class="targeting-block">
+    <h3 class="blue-h">Таргетинг</h3>
+    <div id="targetings_list" class="targetings_list" data-id_object="{$data_mapping['id']['value']}">
+        <div class="tg object_types {ifeq $value['estate_type'],2}hidden{/if}" data-type="type_objects">
+            
+            <span class="tg-title">Тип объекта</span>
+            {if!empty $targeting_list['type_objects']}{php: $to_count = count($targeting_list['type_objects']);}{else}{php: $to_count = 0;}{/if}
+            <span class="tg-list {ifgt $to_count,10}bottom-gradient-overflow{/if}">
+                {if!empty $targeting_list['type_objects']}
+                    {php: $object_types = $targeting_list['type_objects'];}
+                    {loop $object_types,$key,$value}
+                        <span class="tg-item selected" data-id="{$value['id']}">{$value['value']}{$value['estate_type']}</span>
+                    {/loop $object_types}
+                {/if}
+            </span>
+            <div class="list-picker object_types">
+                <span class="selected-tags-info {ifempty $targeting_list['type_objects']}unactive{/if}">Выбрано <i>{if!empty $to_count}{$to_count}{/if}</i> типов</span>
+                <span class="selected-tags-show-all {iflt $to_count,10}unactive{/if}" data-change="Скрыть остальные">Показать остальные</span>
+                <a class="pick" href="#">Добавить</a>
+                <input type="hidden" name="object_types" value="{$type_objects_tags}" data-url="/context_campaigns/object_types/">
+            </div>
+        </div>
+        <div class="tg price">
+            <span class="tg-title">
+            Цены</span>
+            <span class="tg-list">
+            <span>от<input type="text" class="price-input" id="input-price-floor" value="{if!empty $data_mapping['price_floor']['value']}{$data_mapping['price_floor']['value']}{/if}" placeholder="Мин. (в тыс. руб.)"></span>
+            <span>до<input type="text" class="price-input" id="input-price-top" value="{if!empty $data_mapping['price_top']['value']}{$data_mapping['price_top']['value']}{/if}" placeholder="Макс. (в тыс. руб.)"></span></span>
+        </div>
+        
+        <div class="tg rooms" data-type="rooms">
+            <span class="tg-title">Комнатность</span>
+            {if!empty $targeting_list['rooms']}
+                {php: $rooms = $targeting_list['rooms'];}
+                {loop $rooms,$key,$value}
+                    <span class="room-tg-item{if!empty $value['status']} selected{/if}" {if!empty $key}id={$key}{/if}>{$value['value']}</span>
+                {/loop $rooms}
+            {/if}
+        </div>
+        
+            <div class="tg subways geotargeting" data-type="subways">
+                <span class="tg-title">Метро</span>
+                {if!empty $targeting_list['subways']}{php: $s_count = count($targeting_list['subways']);}{else}{php: $s_count = 0;}{/if}
+                <span class="tg-list {ifgt $s_count,10}bottom-gradient-overflow{/if}">
+                    {php: $ids_list = array();}
+                    {if!empty $targeting_list['subways']}
+                        {php: $subways = $targeting_list['subways'];}
+                        {loop $subways,$key,$value}
+                            <span class="tg-item" {if!empty $value['tag_id']} data-id={$value['tag_id']}{else}data-source-id="{$value['id']}"{/if} data-restrictions="1234">{$value['value']}</span>
+                            {php:$ids_list[] = $value['tag_id'];}
+                        {/loop $subways}
+                    {/if}
+                    {php:$ids_list = ((count($ids_list)>0)?implode(',',$ids_list):"");}
+                </span>
+                <div class="list-picker subways">
+                    <span class="selected-tags-info {ifempty $targeting_list['subways']}unactive{/if}">Выбрано <i>{if!empty $s_count}{$s_count}{/if}</i> станций</span>
+                    <span class="selected-tags-show-all {iflt $s_count,10}unactive{/if}" data-change="Скрыть остальные">Показать остальные</span>
+                    <a class="pick" href="#">Добавить</a>
+                    <input type="hidden" name="subways" value="{$ids_list}" data-url="/context_campaigns/subways/">
+                </div>
+            </div>
+            
+            <div class="tg districts geotargeting" data-type="districts">
+                <span class="tg-title">Район СПБ</span>
+                {if!empty $targeting_list['districts']}{php: $d_count = count($targeting_list['districts']);}{else}{php: $d_count = 0;}{/if}
+                <span class="tg-list {ifgt $d_count,10}bottom-gradient-overflow{/if}">
+                    {php: $ids_list = array();}
+                    {if!empty $targeting_list['districts']}
+                        {php: $districts = $targeting_list['districts'];}
+                        {loop $districts,$key,$value}
+                            <span class="tg-item" {if!empty $value['tag_id']}data-id={$value['tag_id']}{else}data-source-id="{$value['id']}"{/if} data-restrictions="123">{$value['value']}</span>
+                            {php:$ids_list[] = $value['tag_id']}
+                        {/loop $districts}
+                    {/if}
+                    {php:$ids_list = (!empty($ids_list))?implode(',',$ids_list):"";}
+                </span>
+                <div class="list-picker districts">
+                    <span class="selected-tags-info {ifempty $targeting_list['districts']}unactive{/if}">Выбрано <i>{if!empty $d_count}{$d_count}{/if}</i> районов</span>
+                    <span class="selected-tags-show-all {iflt $d_count,10}unactive{/if}" data-change="Скрыть остальные">Показать остальные</span>
+                    <a class="pick" href="#">Добавить</a>
+                    <input type="hidden" name="districts" value="{$ids_list}" data-url="/context_campaigns/districts/">
+                </div>
+            </div>
+        
+            <div class="tg district_areas geotargeting" data-type="district_areas">
+                <span class="tg-title">Район ЛО</span>
+                {if!empty $targeting_list['district_areas']}{php: $da_count = count($targeting_list['district_areas']);}{else}{php: $da_count = 0;}{/if}
+                <span class="tg-list {ifgt $da_count,10}bottom-gradient-overflow{/if}">
+                    {php: $ids_list = array();}
+                    {if!empty $targeting_list['district_areas']}
+                        {php: $district_areas = $targeting_list['district_areas'];}
+                        {loop $district_areas,$key,$value}
+                            <span class="tg-item" {if!empty $value['tag_id']}data-id={$value['tag_id']}{else}data-source-id="{$value['id']}"{/if} data-restrictions="1234">{$value['value']}</span>
+                            {php:$ids_list[] = $value['tag_id']}
+                        {/loop $district_areas}
+                    {/if}
+                    {php:$ids_list = (!empty($ids_list))?implode(',',$ids_list):"";}
+                </span>
+                <div class="list-picker district_areas">
+                    <span class="selected-tags-info {ifempty $targeting_list['district_areas']}unactive{/if}">Выбрано <i>{if!empty $da_count}{$da_count}{/if}</i> районов ЛО</span>
+                    <span class="selected-tags-show-all {iflt $da_count,10}unactive{/if}" data-change="Скрыть остальные">Показать остальные</span>
+                    <a class="pick" href="#">Добавить</a>
+                    <input type="hidden" name="district_areas" value="{$ids_list}" data-url="/context_campaigns/district_areas/">
+                </div>
+            </div>
+            
+    </div>
+    
+    <span class="adv-status">
+        <span class="{ifeq $data_mapping['published']['value'],2}checked {/if}switcher" data-status="{$data_mapping['published']['value']}"><span class="circled"></span></span>
+    </span>
+</fieldset>
+<span class="object-actions inner">
+    <span class="undo" data-id="{$data_mapping['id']['value']}">Отмена</span>
+    <span class="delete" data-id="{$data_mapping['id']['value']}" data-url="/members/context_campaigns/{$campaign_id}/del/{$data_mapping['id']['value']}/">Удалить</span>
+</span>
+<span class="bottom-block"></span>
+
+{else}
+<span class="object-actions inner">
+    <span class="undo creation" data-id="{$data_mapping['id']['value']}">Отмена</span>
+</span>
+{/if}
+<script src="/modules/context_campaigns/form_adv_edit.js"></script>
