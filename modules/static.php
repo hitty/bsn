@@ -1,4 +1,5 @@
 <?php
+Response::SetBoolean( 'payed_format', true );
 if(in_array($this_page->real_path,array('rsti','arenda-ofisa-ot-sobstvennika','kommercheskie-pomescheniya-life-primorskiy','dom_na_frunzenskoy'))) {
     $GLOBALS['css_set'][] = '/css/style.sale.css';
     $GLOBALS['js_set'][] = '/modules/estate/yandex.map.js';
