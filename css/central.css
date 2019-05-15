@@ -217,32 +217,26 @@
     padding: 0 10px;
 }
 
-/* vip left */
-#objects-vip-left {
-    background: #D2E7FA;
-    padding: 20px;
+/* vip right */
+#objects-vip-right {
     margin: 0 0 20px 0;
-    width: 160px;
+    width: 100%;
 }
 
-#objects-vip-left h2 {
+#objects-vip-right h2 {
     margin: 0 0 20px 0;
 }
 
-#objects-vip-left .item {
-    padding: 15px;
-    float: left;
+#objects-vip-right .item {
     position: relative;
-    width: 160px;
     background: #fff;
-    max-height: 215px;
 }
 
 #objects-vip-main .objects-vip.main {
     width: 1082px;
 }
 
-#objects-vip-left .item .internal-link {
+#objects-vip-right .item .internal-link {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -250,29 +244,32 @@
     bottom: 0;
     right: 0;
     z-index: 20;
+    border: none;
 }
 
-#objects-vip-left .item .image {
-    width: 130px;
-    height: 85px;
+#objects-vip-right .item .image {
+    width: 100%;
+    height: 260px;
     display: block;
-    margin: 0 0 10px 0;
+    background: #ff0000;
 }
 
-#objects-vip-left .item .content {
+#objects-vip-right .item .content {
     position: relative;
-    max-height: 95px;
     overflow: hidden;
-    width: 130px;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    color: #818181;
+    font-size: 14px;
 }
 
-#objects-vip-left .item .content .title {
+#objects-vip-right .item .content .title {
     padding-bottom: 5px;
+    color: #000;
+    font-size: 20px;
 }
 
-#objects-vip-left .item .content .params a {
+#objects-vip-right .item .content .params a {
     color: #818181;
     border: none;
     line-height: 17px;
@@ -281,12 +278,12 @@
     display: block;
 }
 
-#objects-vip-left .item .content .cost {
+#objects-vip-right .item .content .cost {
     font-size: 18px;
     left: 0;
     bottom: 0;
-    color: #1e88e5;
-    margin-top: 5px;
+    color: #000000;
+    margin-top: 30px;
 }
 
 /* content block */

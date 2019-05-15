@@ -1,5 +1,13 @@
 
 <div id="right-column" class="col-1">
+    {ifempty $left_vip_not_show}
+        {ifempty $new_design}
+        {block estate/vip/left/}
+        {else}
+        {block estate/vip/left/new/}
+        {/if}
+    {/if}
+
     {if!empty $right_banner}
         <div class="fixed-column" id="right-top-banner" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Баннер']); }catch(e){}"></div>
     {else}
