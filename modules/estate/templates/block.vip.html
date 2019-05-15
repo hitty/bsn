@@ -1,20 +1,4 @@
-{if!empty $vip_list}
-{ifeq $block_type,'left'}<div id="objects-vip-right" class="clearfix br3" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по объектам', 'VIP блоки - лево верх']); }catch(e){}">
-{else}
-    {php:$count = 3}
-    <div id="objects-vip-main"  class="estate-highlighted-list clearfix br3 flex" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по объектам', 'VIP блоки - лево верх']); }catch(e){}">
-{/if}
-    <div class="objects-vip {$block_type}">
-            {php: $list = $vip_list;}
-            {include /modules/estate/templates/block.payed.objects.html}
-    </div>
+<div id="vip-container" class="estate-highlighted-list {$block_type} clearfix br3 flex">
+        {php: $list = $vip_list;}
+        {include /modules/estate/templates/block.payed.objects.html}
 </div>
-<script>
-    jQuery(document).ready(function(){
-        jQuery('.estate-highlighted-list .refresh', jQuery('#vip-objects-wrap')).on('click', function(){
-            getPendingContent('#vip-objects-wrap','/estate/vip/main/{$count}/',false,true,'undefined');
-            return false;
-        })
-    })
-</script>
-{/if}

@@ -148,10 +148,6 @@
     background: #fff;
 }
 
-#objects-vip-main .objects-vip.main {
-    width: 1082px;
-}
-
 .estate-highlighted-list .item .internal-link {
     position: absolute;
     cursor: pointer;
@@ -218,25 +214,24 @@
 }
 
 /* vip right */
-#objects-vip-right {
+#vip-container {
     margin: 0 0 20px 0;
     width: 100%;
 }
 
-#objects-vip-right h2 {
+#vip-container h2 {
     margin: 0 0 20px 0;
 }
 
-#objects-vip-right .item {
+#vip-container .item {
     position: relative;
     background: #fff;
 }
-
-#objects-vip-main .objects-vip.main {
-    width: 1082px;
+#vip-container.left .item,
+#vip-container.right .item{
+    margin: 0;
 }
-
-#objects-vip-right .item .internal-link {
+#vip-container .item .internal-link {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -247,28 +242,14 @@
     border: none;
 }
 
-#objects-vip-right .item .image {
-    width: 100%;
-    height: 260px;
-    display: block;
-}
 
-#objects-vip-right .item .content {
-    position: relative;
-    overflow: hidden;
-    margin: 0;
-    padding: 20px;
-    color: #818181;
-    font-size: 14px;
-}
-
-#objects-vip-right .item .content .title {
+#vip-container .item .content .title {
     padding-bottom: 5px;
     color: #000;
     font-size: 20px;
 }
 
-#objects-vip-right .item .content .params a {
+#vip-container .item .content .params a {
     color: #818181;
     border: none;
     line-height: 17px;
@@ -277,14 +258,22 @@
     display: block;
 }
 
-#objects-vip-right .item .content .cost {
+#vip-container .item .content .cost {
     font-size: 18px;
     left: 0;
     bottom: 0;
     color: #000000;
     margin-top: 30px;
 }
-
+#vip-container .item .tag{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: #fff;
+    font-size: 14px;
+    background: #8652CB;
+    padding: 5px 10px 4px 10px;
+}
 /* content block */
 
 .center-button-block{
@@ -1780,7 +1769,7 @@ background: none;
 .credit-tgb-wrapper .tgb-list .tgb:first-of-type {
     margin-top: 10px;
 }
-#right-column .tgb-list .tgb:first-of-type{
+#right-column .tgb-list .tgb{
     margin: 0 0 20px 0;
 }
 .credit-tgb-wrapper .credit-wrapper{
