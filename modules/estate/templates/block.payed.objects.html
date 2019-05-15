@@ -23,7 +23,7 @@
                 {ifgt $item['square_full'],0}, {squareformat:$item['square_full']} м<sup>2</sup>{/if}
             </div>
             <div class="params">
-                <a class="address-link {ifempty $block_type}text-overflow{elseif!eq $block_type,'left'}text-overflow{/if}" href="/{$item['type']}/{ifeq $item['rent'],2}sell{else}rent{/if}/{$item['id']}/" target="_blank" title="{$item['title']}">{$item['txt_addr']}</a>
+                <a class="address-link" href="/{$item['type']}/{ifeq $item['rent'],2}sell{else}rent{/if}/{$item['id']}/" target="_blank" title="{$item['title']}">{$item['txt_addr']}</a>
             </div>
             {if!empty $item['cost']}
                 <div class="cost">
