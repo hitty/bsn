@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
     })
     //голосование - отправка результатов
     jQuery(document).on("click", '.modal-inner .button', function(){
-        var _location = window.location.href.substr(0, window.location.href.indexOf('#'));
+        var _location = window.location.pathname;
         var _active_el = jQuery('.modal-inner .item.active');
         var _id_category = jQuery('.modal-inner .list').data('id');
         //получение контента в зависимости от способа получения данных
