@@ -127,9 +127,9 @@ $log['banner_stats_cc'] = "Статистика для баннеров - Кре
 $res = true;
 
 // Статистика для Баннеров Адривера
-$res = $res && $db->query("INSERT INTO ".$sys_tables['adriver_banners_stats_click_full']." ( id_parent,amount,date,`from`)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, `from` FROM  ".$sys_tables['adriver_banners_stats_click_day']." GROUP BY  id_parent, `from` ");
-$res = $res && $db->query("TRUNCATE ".$sys_tables['adriver_banners_stats_click_day']."");
-$log['adriver_banners_stats'] = "Статистика для Баннеров Адривера: ".((!$res)?$db->error:"OK")."<br />";
+$res = $res && $db->query("INSERT INTO ".$sys_tables['banners_stats_click_full']." ( id_parent,amount,date,`from`)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, `from` FROM  ".$sys_tables['banners_stats_click_day']." GROUP BY  id_parent, `from` ");
+$res = $res && $db->query("TRUNCATE ".$sys_tables['banners_stats_click_day']."");
+$log['banners_stats'] = "Статистика для Баннеров Адривера: ".((!$res)?$db->error:"OK")."<br />";
 $res = true;
 
 
