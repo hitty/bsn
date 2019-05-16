@@ -25,6 +25,7 @@ Response::SetString('cabinet_page', 'applications');
 $action = empty($this_page->page_parameters[0]) ? "" : $this_page->page_parameters[0];
 // обработка общих action-ов
 if($auth->id == 1544) $auth->agency_admin = 1;
+$only_user = false;
 switch(true){
     
     /////////////////////////////////////////////////////

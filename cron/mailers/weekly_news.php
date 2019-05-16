@@ -102,7 +102,7 @@ if( !empty($bsn_tv_news_list) && count( $news_list ) > 9 ) array_pop( $news_list
     
 //получение списка новостей Доверия
 $doverie = new Content('doverie');
-$doverie_news_list = $doverie->getList( 3, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['doverie'].".views_count DESC" );
+$doverie_news_list = $doverie->getList( 2, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['doverie'].".views_count DESC" );
 /*
 if( !empty($doverie_news_list) && count( $news_list ) > 8 ) {
     array_pop( $news_list );
