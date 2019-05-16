@@ -962,7 +962,6 @@ class Page {
         //меню сервисов
         $this->menuAdd('Оценка недвижимости',   'estate_estimate',      2, false, false, 'service');
         $this->menuAdd('Консультант',           'service/consultant',   2, false, false, 'service');
-        $this->menuAdd('Вебинары',              'webinars',             2, false, false, 'service');
         $this->menuAdd('Календарь событий',     'calendar',             2, false, false, 'service');
         $this->menuAdd('Заявки',                'applications',         2, false, false, 'service');
         $this->menuAdd('Организации',           'organizations',        2, false, false, 'service');
