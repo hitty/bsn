@@ -85,7 +85,7 @@ foreach( $partner_news as $n => $partner_news_item ) $news_ids[] = $partner_news
 if( !empty( $news_ids ) ) {
     $news_list = array_merge( 
         $news_list, 
-        $news->getList( 10 - count( $news_list ) - count( $partner_news ), 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND DATE(`datetime`) <= CURDATE() AND " . $sys_tables['news'] . ".id NOT IN (" . implode( ",", $news_ids ). ")", $sys_tables['news'].".views_count DESC")
+        $news->getList( 11 - count( $news_list ) - count( $partner_news ), 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND DATE(`datetime`) <= CURDATE() AND " . $sys_tables['news'] . ".id NOT IN (" . implode( ",", $news_ids ). ")", $sys_tables['news'].".views_count DESC")
     );
 }
 
