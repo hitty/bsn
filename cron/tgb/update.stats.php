@@ -50,6 +50,10 @@ $sys_tables = Config::$sys_tables;
 
 $tables = [
     [
+        'click_day' => 'phone_clicks_day',
+        'click_full' => 'phone_clicks_full'
+    ]
+    ,[
         'click_day' => 'tgb_stats_day_clicks',
         'click_full' => 'tgb_stats_full_clicks',
         'show_day' => 'tgb_stats_day_shows',
@@ -66,54 +70,66 @@ $tables = [
 
 foreach( $tables as $table ) {
     $click_info = !empty( $sys_tables[ $table['click_day'] ]) ? $db->prepareNewRecord( $sys_tables[ $table['click_day'] ]) : false ;
+    $click_fields = [];
+    array_key_exists( 'id_parent', $click_info) ? $click_fields[] = "id_parent" : "";
+    array_key_exists( 'in_estate', $click_info) ? $click_fields[] = "in_estate" : "";
+    array_key_exists( 'id_object', $click_info) ? $click_fields[] = "id_object" : "";
+    array_key_exists( 'type', $click_info) ? $click_fields[] = "type" : "";
+    array_key_exists( 'status', $click_info) ? $click_fields[] = "status" : "";
+    array_key_exists( 'from', $click_info) ? $click_fields[] = "`from`" : "" ;
+    $click_fields = implode( ', ', $click_fields );
+    
     $show_info = !empty( $sys_tables[ $table['show_day'] ]) ? $db->prepareNewRecord( $sys_tables[ $table['show_day'] ]) : false ;
     for( $i=7; $i>=1; $i-- ){
-        $res = $db->query("
-            INSERT INTO ".$sys_tables[ $table['show_full'] ]."  
-                ( 
+        if( !empty( $sys_tables[ $table['show_full'] ] ) ) {
+            $res = $db->query("
+                INSERT INTO ".$sys_tables[ $table['show_full'] ]."  
+                    ( 
+                        id_parent,
+                        " . ( array_key_exists( 'in_estate', $show_info) ? "in_estate," : "" ) . " 
+                        " . ( array_key_exists( 'id_object', $show_info) ? "id_object," : "" ) . " 
+                        " . ( array_key_exists( 'type', $show_info) ? "type," : "" ) . " 
+                        " . ( array_key_exists( 'status', $show_info) ? "status," : "" ) . " 
+                        amount,
+                        date
+                    )  
+                SELECT 
                     id_parent,
                     " . ( array_key_exists( 'in_estate', $show_info) ? "in_estate," : "" ) . " 
-                    amount,
-                    date
-                )  
-            SELECT 
-                id_parent,
-                " . ( array_key_exists( 'in_estate', $show_info) ? "in_estate," : "" ) . " 
-                count(*), 
-                CURDATE() - INTERVAL " . $i  . " DAY 
-            FROM  ".$sys_tables[ $table['show_day'] ]."  
-            WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY
-            GROUP BY  
-                id_parent
-                " . ( array_key_exists( 'in_estate', $show_info) ? ",in_estate" : "" ) . "  
-        ");
-        $res = $res && $db->query("
-            INSERT INTO ".$sys_tables[ $table['click_full']  ]." 
-                ( 
-                    id_parent,
-                    " . ( array_key_exists( 'in_estate', $click_info) ? "in_estate," : "" ) . "  
-                    amount,
-                    date,
-                    `from`, 
-                    position
-                )  
-            SELECT 
-                id_parent, 
-                " . ( array_key_exists( 'in_estate', $click_info) ? "in_estate," : "" ) . "  
-                count(*), 
-                CURDATE() - INTERVAL " . $i  . " DAY , 
-                `from`, 
-                position  
-            FROM  ".$sys_tables[ $table['click_day']  ]." 
-            WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY
-            GROUP BY  
-                id_parent
-                , `from`
-                , position
-                " . ( array_key_exists( 'in_estate', $click_info) ? ",in_estate" : "" ) . "  
-        ");
-        $db->query( " DELETE FROM " . $sys_tables[ $table['show_day'] ] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
-        $db->query( " DELETE FROM " . $sys_tables[ $table['click_day'] ] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
+                    count(*), 
+                    CURDATE() - INTERVAL " . $i  . " DAY 
+                FROM  ".$sys_tables[ $table['show_day'] ]."  
+                WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY
+                GROUP BY  
+                    id_parent
+                    " . ( array_key_exists( 'in_estate', $show_info) ? ",in_estate" : "" ) . "  
+            ");
+             $db->query( " DELETE FROM " . $sys_tables[ $table['show_day'] ] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
+        }
+        
+        if( !empty( $sys_tables[ $table['click_full'] ] ) ) {
+            $res = $db->query("
+                INSERT INTO ".$sys_tables[ $table['click_full']  ]." 
+                    ( 
+                        " . $click_fields . "
+                        " . ( array_key_exists( 'amount', $click_info) ? ",amount" : "" ) . "
+                        " . ( array_key_exists( 'date', $click_info) ? ",date" : "" ) . " 
+
+                    )  
+                SELECT 
+                    " . $click_fields . "
+                    " . ( array_key_exists( 'amount', $click_info) ? ",count(*)" : "" ) . "
+                    " . ( array_key_exists( 'date', $click_info) ? ",CURDATE() - INTERVAL " . $i  . " DAY" : "" ) . " 
+                FROM  ".$sys_tables[ $table['click_day']  ]." 
+                WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY
+                GROUP BY  
+                    id_parent
+                    , `from`
+                    , position
+                    " . ( array_key_exists( 'in_estate', $click_info) ? ",in_estate" : "" ) . "  
+            ");
+            $db->query( " DELETE FROM " . $sys_tables[ $table['click_day'] ] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
+        }
     }
 }
 ?>
