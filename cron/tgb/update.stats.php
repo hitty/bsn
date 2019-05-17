@@ -66,7 +66,7 @@ $tables = [
         'show_full' => 'banners_stats_show_full'
     ]
 ];
-
+$tables = [];
 
 foreach( $tables as $table ) {
     $click_info = !empty( $sys_tables[ $table['click_day'] ]) ? $db->prepareNewRecord( $sys_tables[ $table['click_day'] ]) : false ;
@@ -132,4 +132,13 @@ foreach( $tables as $table ) {
         }
     }
 }
+
+
+for( $i=7; $i>=1; $i-- ){
+    $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_show_full']."  ( id_parent,amount,date,`type`)  SELECT id_parent, count(*), CURDATE() - INTERVAL $i DAY, `type` FROM  ".$sys_tables['credit_calculator_stats_show_day']."  WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY GROUP BY  id_parent, `type`  ");
+    $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_click_full']." ( id_parent,amount,date,`type`)  SELECT id_parent, count(*), CURDATE() - INTERVAL $i DAY, `type` FROM  ".$sys_tables['credit_calculator_stats_click_day']." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY GROUP BY  id_parent, `type` ");
+    $db->query( " DELETE FROM " . $sys_tables['credit_calculator_stats_show_day'] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
+    $db->query( " DELETE FROM " . $sys_tables['credit_calculator_stats_click_day'] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
+}
+
 ?>

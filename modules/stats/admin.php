@@ -1,12 +1,13 @@
 <?php
+require_once('includes/class.paginator.php');
 $this_page->manageMetadata(array( 'title'=>'Недвижимость' ) ) ;
 
 // определяем запрошенный экшн
 $action = empty( $this_page->page_parameters[1]) ? "" : $this_page->page_parameters[1];
 
 // собираем GET-параметры
-$get_parameters = [];
-$filters = [];
+$get_parameters = array();
+$filters = array();
 $filters['id'] = Request::GetInteger('f_id',METHOD_GET);
 //фильтр для агентств
 $filters['f_agency'] = Request::GetInteger('f_agency',METHOD_GET);
@@ -149,7 +150,7 @@ switch( $action){
                 case 5: $estate='all';break;
             }
             if( $estate=='all'){
-                $where = [];
+                $where = array();
                 foreach(array( 'live','build','country','commercial') as $item){
                     $where[]  = "( SELECT 
                                     id_user,
@@ -315,6 +316,63 @@ switch( $action){
         }            
         $module_template = 'admin.varcount.html';
         break;
+    ///////////////////////////////////////////////////////////////////
+    // Рассылки
+    ///////////////////////////////////////////////////////////////////
+    case 'newsletters':
+        $action = empty( $this_page->page_parameters[2]) ? "" : $this_page->page_parameters[2];
+        switch( true ){
+            ///////////////////////////////////////////////////////////////////
+            // детальная статистика
+            ///////////////////////////////////////////////////////////////////
+            case !empty( $action ) && in_array( $action, array( 'open', 'send' ) ) :
+                $id = empty( $this_page->page_parameters[3]) ? "" : $this_page->page_parameters[3];
+                if( empty( $id ) ) Host::RedirectLevelUp();
+                $where = array(
+                    'id_campaign = ' . $id,
+                    'status = ' . ( $action == 'open' ? 2 : 1 )
+                ); 
+                $where = implode( " AND ", $where );
+                
+                $paginator = new Paginator( $sys_tables['newsletters'], 50, $where );
+                $paginator->Links( '/admin/service/stats/newsletters/' . $action . '/' . $id , $page, $get_parameters );
+                
+                $list = $db->fetchall(" SELECT *, DATE_FORMAT(`datetime`, '%d.%m %H:%i:%s') as normal_date 
+                                        FROM " . $sys_tables['newsletters'] . " 
+                                        WHERE " . $where . "
+                                        LIMIT ".$paginator->getLimitString( $page )
+                );
+                Response::SetArray( 'list', $list );
+                
+                Response::SetString( 'action', $action );
+                $module_template = 'admin.newsletters.list.status.html';
+                break;
+            ///////////////////////////////////////////////////////////////////
+            // Список
+            ///////////////////////////////////////////////////////////////////
+            default:
+                
+                $paginator = new Paginator( $sys_tables['newsletters_campaigns'], 50, false, false, false );
+                $paginator->Links( '/admin/service/stats/newsletters', $page, $get_parameters );
+                
+                $list = $db->fetchall("
+                    SELECT 
+                        " . $sys_tables['newsletters_campaigns'] . ".*,
+                        DATE_FORMAT(" . $sys_tables['newsletters_campaigns'] . ".`datetime`, '%d.%m %H:%i') as normal_date, 
+                        ( SELECT COUNT(*) FROM " . $sys_tables['newsletters'] . " WHERE id_campaign = " . $sys_tables['newsletters_campaigns'] . ".id AND status = 1 ) as total_send,
+                        ( SELECT COUNT(*) FROM " . $sys_tables['newsletters'] . " WHERE id_campaign = " . $sys_tables['newsletters_campaigns'] . ".id AND status = 2 ) as total_open
+                    FROM " . $sys_tables['newsletters_campaigns'] . "
+                    GROUP BY " . $sys_tables['newsletters_campaigns'] . ".id
+                    ORDER BY " . $sys_tables['newsletters_campaigns'] . ".id DESC
+                    LIMIT ".$paginator->getLimitString( $page ) 
+                );
+                Response::SetArray( 'list', $list );
+                
+                $module_template = 'admin.newsletters.list.html';
+                break;
+        }
+        
+        break;
     case 'phones':
         $fields = array(
                  array( 'string', 'Дата')
@@ -366,13 +424,13 @@ switch( $action){
              if ( $get_parameters['f_user_id'] == 'summary'){ // все суммарно
                 $where = ""; 
             } else if( $get_parameters['f_user_id'] == 'agency'){ // все агентства
-                $agencies_ids = [];
+                $agencies_ids = array();
                 foreach( $agencies as $k=>$item){
                     if(!in_array( $item['id'],array( 'summary','agency','users' ) )  && $item['id']!=1) $agencies_ids[] = $item['id'];
                 }
                 $where = ' AND id_parent IN ('.implode(',',$agencies_ids).')';    
             } else if( $get_parameters['f_user_id'] == 'users' || $get_parameters['f_user_id']==1) { //статистика частников
-                $agencies_ids = [];
+                $agencies_ids = array();
                 foreach( $agencies as $k=>$item){
                     if(!in_array( $item['id'],array( 'summary','agency','users' ) )  && $item['id']!=1) $agencies_ids[] = $item['id'];
                 }
@@ -391,9 +449,9 @@ switch( $action){
             }
             
             $index_date = $date_start; $count = 0;
-            $stats = [];
+            $stats = array();
             
-            $lq = [];
+            $lq = array();
             do{
                 $types = array(
                     array( 'live'       =>1 ),
@@ -420,7 +478,7 @@ switch( $action){
                 }elseif( $db->fetch("SELECT * FROM ".$sys_tables['phone_clicks_full']." WHERE type = 7 AND `date` = '".$formated_index_date."'  $where " ) ) {
                     unset( $types[6]); array_unshift( $types,array( 'cottages'=>7 ) ) ;
                 }
-                $k = [];
+                $k = array();
                 $k[0] = array_keys( $types[0]);  $e[0] = $types[0][( $k[0][0])];
                 $k[1] = array_keys( $types[1]);  $e[1] = $types[1][( $k[1][0])];
                 $k[2] = array_keys( $types[2]);  $e[2] = $types[2][( $k[2][0])];
@@ -799,10 +857,10 @@ switch( $action){
             else {
                 $module_template = 'admin.phones.html';
                 $graphic_colors = array( '#3366CC','#DC3912','#FF9900','#109618','#CC0099','#EE0099','#AA0099','#990099');       // Цвета графиков
-                $data = [];
+                $data = array();
                 if( $stats) {
                     foreach( $stats as $ind=>$item) {   // Преобразование массива
-                        $arr = [];
+                        $arr = array();
                         $arr[] = array( 'date',Convert::ToString( $item['date'] ) ) ;
                         $arr[] = array( 'live_amount',Convert::ToInt( $item['live_amount'] ) ) ;
                         $arr[] = array( 'build_amount',Convert::ToInt( $item['build_amount'] ) ) ;
@@ -861,13 +919,13 @@ switch( $action){
             if ( $filters['user_id']==-1){ // все суммарно
                 $where = ""; 
             } else if ( $filters['user_id']==-2){ // все агентства
-                $agencies_ids = [];
+                $agencies_ids = array();
                 foreach( $agencies as $k=>$item){
                     if( $item['id']!=1) $agencies_ids[] = $item['id'];
                 }
                 $where = ' AND id_parent IN ('.implode(',',$agencies_ids).')';       
             } else if( $filters['user_id']==1) { //статистика частников
-                $agencies_ids = [];
+                $agencies_ids = array();
                 foreach( $agencies as $k=>$item){
                     if( $item['id']!=1) $agencies_ids[] = $item['id'];
                 }
@@ -886,7 +944,7 @@ switch( $action){
             }
             
             $index_date = $date_start; $count = 0;
-            $stats = [];
+            $stats = array();
             
             do{
                 $types = array(array( 'live'=>1),array( 'build'=>2),array( 'commercial'=>3),array( 'country'=>4 ) ) ;
@@ -900,7 +958,7 @@ switch( $action){
                 }elseif( $db->fetch("SELECT * FROM ".$sys_tables['phone_clicks_full']." WHERE type = 4 AND `date` = '".$formated_index_date."'  $where " ) ) {
                     unset( $types[3]); array_unshift( $types,array( 'country'=>4 ) ) ;
                 }
-                $k = [];
+                $k = array();
                 $k[0] = array_keys( $types[0]);  $e[0] = $types[0][( $k[0][0])];
                 $k[1] = array_keys( $types[1]);  $e[1] = $types[1][( $k[1][0])];
                 $k[2] = array_keys( $types[2]);  $e[2] = $types[2][( $k[2][0])];
@@ -1032,7 +1090,7 @@ switch( $action){
         $sum = 0;
         // Подсчет общего количества
         foreach ( $list AS $obj=>$val) $sum += Convert::ToInt( $val['amount']);
-        $list_sum = []; 
+        $list_sum = array(); 
         $list_sum[] = array( 'obj_type'=>"Всего",'amount'=>$sum);
         $list_sum[] = array( 'obj_type'=>"Пользователи",'amount'=>$people_amount['PeopleAmount']);
         Response::Setarray( 'favorites_list',$list);
@@ -1066,7 +1124,7 @@ switch( $action){
         }
         else {
             $sql = "SELECT *, DATE_FORMAT(".Config::$values['sys_tables']['cabinet_stats'].".date,'%d.%m.%Y') AS date_formatted FROM ".Config::$values['sys_tables']['cabinet_stats'];
-            $where = [];
+            $where = array();
             //если какого-то фильтра не хватает, выходим
             if( $ajax_mode && (empty( $get_parameters['f_estate_type'])||empty( $get_parameters['date_start'])||empty( $get_parameters['date_end'] ) ) )
                 die();
@@ -1085,7 +1143,7 @@ switch( $action){
             $stats_list = $db->fetchall( $sql.$where." ORDER BY `date` ASC");
             //преобразуем массив для отображения
             if (!empty( $stats_list ) ) {
-                $info = [];
+                $info = array();
                 foreach( $stats_list as $item){
                     $info[$item['date']]['total'] = 0;
                     $info[$item['date']]['rent'] = 0;
@@ -1128,11 +1186,11 @@ switch( $action){
                 }
                 $info['total']['date'] = 'Всего';
                 $graphic_colors = array( '#3366CC','#DC3912','#FF9900','#109618','#CC0099');       // Цвета графиков
-                $data = [];
+                $data = array();
                 if( $info){
                     foreach( $info as $ind=>$item) {   // Преобразование массива
                         if( $ind!='total'){
-                            $arr = [];
+                            $arr = array();
                             $arr[] = array( 'date',Convert::ToString( $item['date'] ) ) ;
                             $arr[] = array( 'common_amount',Convert::ToInt( $item['common'] ) ) ;
                             $arr[] = array( 'common_payed',Convert::ToInt( $item['common_payed'] ) ) ;
@@ -1162,8 +1220,8 @@ switch( $action){
         }
         break;
     case 'finances_stats':
-        require_once('includes/class.paginator.php');
-        $where = [];
+        
+        $where = array( $sys_tables['users_finances'] . ".obj_type != 'call'");
         $GLOBALS['css_set'][] = '/js/datepicker/css/ui-lightness/jquery-ui-1.8.16.custom.css';
         $GLOBALS['js_set'][] = '/js/datepicker/js/jquery-ui-1.9.2.custom.min.js';
         $GLOBALS['js_set'][] = '/modules/spec_offers/datepick_actions.js'; 
@@ -1212,7 +1270,7 @@ switch( $action){
                           ".$where."";
         $paginator = new Paginator(false, 30, false,"SELECT COUNT(*) as items_count ".$sql_condition);
         // get-параметры для ссылок пагинатора
-        $get_in_paginator = [];
+        $get_in_paginator = array();
         foreach( $get_parameters as $gk=>$gv){
             if( $gk!='page') $get_in_paginator[] = $gk.'='.$gv;
         }
