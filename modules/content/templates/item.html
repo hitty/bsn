@@ -1,6 +1,6 @@
 {if!empty $wide_format}
     {ifeq $item['id_category'],'27'}
-        <div class="longread-title bg-cover lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
+        <div class="longread-title bg-cover lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" title="{ifeq $item['id'],35638}Автор карты — архитектор Дмитрий Якубович{/if}">
             <div class="text">
                 
                 <div class="title{ifeq $item['title_position'],1} position-left{elseifeq $item['title_position'],2} position-right{else} position-center{/if}">
