@@ -207,7 +207,7 @@ class Photos {
             
             // проверка типа файла
             $fileTypes = array('jpg','jpeg','gif','png'); // File extensions
-            $fileParts = !empty($img_url) ? pathinfo($img_url) : (!empty($_FILES[$array_key]['name']) ? pathinfo($_FILES[$array_key]['name']) : false);
+            $fileParts = !empty( $img_url ) ? pathinfo( $img_url ) : ( !empty( $_FILES[$array_key]['name'] ) ? pathinfo($_FILES[$array_key]['name']) : false);
             if(!empty($fileParts['extension'])){
                 $targetExt = $fileParts['extension'];
                 
@@ -228,7 +228,7 @@ class Photos {
                         return $errors_log;
                     }
                     //если размеры картинки меньше, чем минимальные, выходим
-                    elseif(empty($fixed_sizes) && ( (!empty($min_width) && $size[0] < $min_width) || (!empty($min_height) && $size[1] < $min_height) ) ){
+                    elseif(empty($fixed_sizes) && ( ( !empty( $min_width ) && $size[0] < $min_width) || (!empty($min_height) && $size[1] < $min_height) ) ){
                         $errors_log = "Картинка не подходит по размеру: требуемый размер - ".$min_width."x".$min_height. ", ваш размер: " . $size[0] . 'x' . $size[1];
                         return $errors_log;
                     }
@@ -279,7 +279,10 @@ class Photos {
                                 'photo_id'=>$id_photo
                                 );
                     } else return false; 
-                } else return false;
+                } else {
+                    $errors_log = "Картинка недопустимого расширения. Принимаются " . implode( ',', $fileTypes ) . ", расширение загружаемой фотографии: " . $fileParts['extension'];
+                    return $errors_log;
+                }
             }  else return false;
         } 
         
