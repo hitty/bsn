@@ -143,7 +143,12 @@
                                     {/if}
                                 </div>
                             
-                            {ifempty $only_objects}
+                            {if!empty $members_page}
+                                <div class="actions">
+                                    {if!eq $status_text,'Стандарт'}<div class="status tag br3{ifeq $item['status'],3} promo{elseifeq $item['status'],4} premium{elseifeq $item['status'],6} vip{/if}">{$status_text}</div>{/if}
+                                    {if!empty $item['raising_days_left']}<span class="raising tag bbox br3" data-icon="arrow_upward_black" title="Объект поднят"></span>{/if}
+                                </div>
+                            {elseifempty $only_objects}
                             <div class="actions">
                                 <span data-id="{$item['id']}" data-type="{$estate_type}" title="{ifeq $item['in_favorites'],1}Удалить из избранного{else}В избранное{/if}" data-icon="{ifeq $item['in_favorites'],1}star{else}star_border{/if}" class="star{ifeq $item['in_favorites'],1} in-favorites{/if} transition" data-link="/favorites/?type={$estate_type}">
                                     <span class="star-label"></span>
