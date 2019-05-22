@@ -24,7 +24,7 @@ jQuery(document).ready(function(){
                 onInit: function(){
                     voting( jQuery('#background-shadow-inner'), 'list' )
                 },
-                popupCallback:function(data){
+                popupCallback : function(data){
                     var _wrap = jQuery('.estate-list .item[data-id=' + data.id + ']');
                     _wrap.removeClass('can-vote');
                     jQuery('.vote', _wrap).remove();

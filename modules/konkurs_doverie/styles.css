@@ -376,8 +376,7 @@ footer {
     -o-transition: none;
     transition: none;
 }
-.modal-inner .list .item [data-icon]:before,
-.modal-inner .list .item i{
+.modal-inner .list .item [data-icon]:before{
     opacity: 0;
 }
 .modal-inner .list:not(.can-vote) .item.active i,
@@ -385,15 +384,19 @@ footer {
 .modal-inner .list.can-vote .item [data-icon]:before{
     opacity: 1;
 }
-.modal-inner .list .item i{
+.modal-inner .list .item .results{
     display: block;
     float: right;
     font-size: 16px;
     font-weight: bold;
-    color:#f26522;
+    width: 300px;
 }
-.modal-inner .list .item i{
-    
+.modal-inner .list .item .results i{
+    display: block;
+    background-color:#f26522;
+    transition: 1.2s width;
+    width: 0;
+    height: 20px;
 }
 .modal-inner .list .item [data-icon]:before{
     margin: 0px 10px 0 0;

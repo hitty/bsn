@@ -87,7 +87,7 @@ function getPendingContent( _element, _url, _params, _cached, _effect, _func_on_
                         
                     },150)
                     if(typeof(_func_on_success) == 'object' || typeof(_func_on_success) == 'function' ) {
-                        _func_on_success();
+                        _func_on_success( msg );
                     }
                     
                 } else {

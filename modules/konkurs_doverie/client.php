@@ -101,9 +101,14 @@ switch(true){
                 }
         }
         
-        Response::SetArray('list',$list);
+        if( !empty( $list ) ) {
+            Response::SetArray('list',$list);
+            $ajax_result['can_vote'] = $list[0]['can_vote'];
+            $ajax_result['id_category'] = $id;
+        }
         Response::SetInteger('id_category', $id);
         $ajax_result['ok'] = true;
+        
         $module_template = 'list.html';
         break;
     //////////////////////////////////////////////////////////////
@@ -133,6 +138,41 @@ switch(true){
             }
         }
         
+        break;
+    //////////////////////////////////////////////////////////////
+    // результаты голосования по категории
+    //////////////////////////////////////////////////////////////
+    case $action =='results' && $ajax_mode:
+        //голосование
+        $id_category = Request::GetInteger( 'id_category', METHOD_POST );
+        if(!empty($id_category)){
+            //получаем категорию
+            $list = $db->fetchall("
+                SELECT 
+                      ".$sys_tables['konkurs_members'].".id,
+                      LTRIM(".$sys_tables['konkurs_members'].".title) as member_title,
+                      (SELECT COUNT(*) FROM ".$sys_tables['konkurs_votings']." WHERE ".$sys_tables['konkurs_votings'].".vote_id_member = ".$sys_tables['konkurs_members'].".id) as vote_count
+               FROM ".$sys_tables['konkurs_members']."
+               LEFT JOIN  ".$sys_tables['konkurs_members_categories']." ON ".$sys_tables['konkurs_members_categories'].".id=".$sys_tables['konkurs_members'].".id_category
+               LEFT JOIN  ".$sys_tables['konkurs_votings']." ON 
+                    ".$sys_tables['konkurs_votings'].".vote_id_category=".$sys_tables['konkurs_members_categories'].".id 
+               WHERE ".$sys_tables['konkurs_members'].".id_category = ?
+               GROUP BY ".$sys_tables['konkurs_members'].".id
+               ORDER BY member_title",
+               false, $id_category
+            );
+            if( !empty( $list ) ) {
+                $total = 0;
+                $votes = [];
+                foreach( $list as $k => $item ) {
+                    $total += $item['vote_count'];
+                    $votes[ $item['id'] ] = $list[$k];
+                }
+                $ajax_result['ok'] = true;
+                $ajax_result['list'] = $votes;
+                $ajax_result['total'] = $total;
+            }
+        }
         break;
     //////////////////////////////////////////////////////////////
     // блоки

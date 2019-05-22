@@ -5,8 +5,7 @@
             <div class="item shadow-hover br3 transition flex{ifeq $item['vote_id_member'], $item['id']} active{/if}" data-id="{$item['id']}">
                 <span data-icon="radio_button_unchecked"></span>
                 <span class="title">{$item['title']}</span>
-                
-                <i>Ваш выбор</i>
+                <div class="results"><i></i></div>
             </div>
         {/loop $list}
     </div>

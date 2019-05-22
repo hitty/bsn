@@ -244,7 +244,7 @@ if($)(function(window, document, $, undefined){
                 //получение контента в зависимости от способа получения данных
                 if( typeof o.container == 'string' ) jQuery( o.inner_container ).append( container.html() ).addClass( container.attr( 'class' ) );
                 else if( typeof o.url == 'string' ) getPendingContent( o.inner_container, o.url , false, false, false, 
-                    function(){ 
+                    function( msg ){ 
                         setTimeout(function(){
                             //эффект появления контентной части
                             o.width = jQuery( o.inner_container ).outerWidth();
@@ -273,7 +273,7 @@ if($)(function(window, document, $, undefined){
                                 }
                             ); 
                             if(typeof o.onInit == "function"){
-                                o.onInit(container );
+                                o.onInit( container, msg );
                             }
                             
                             jQuery( o.inner_container ).children(0).prepend( o.closebutton_template );

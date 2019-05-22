@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
     jQuery( '.auth-popup').each( function(){
         var _this = jQuery(this);
         _this.popupWindow({
-            popupCallback: function(data){
+            popupCallback: function( data){
                 window.location.href = _this.data('link');
             }    
         })
