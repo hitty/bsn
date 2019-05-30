@@ -1,0 +1,261 @@
+[17-Jul-2017 09:59:35 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[17-Jul-2017 09:59:35 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 30
+[17-Jul-2017 10:00:13 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 30
+[18-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 30
+[19-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 30
+[20-Jul-2017 10:58:38 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 73
+[20-Jul-2017 10:58:38 Europe/Moscow] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php:74
+Stack trace:
+#0 {main}
+  thrown in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 74
+[21-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[22-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[23-Jul-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[24-Jul-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[25-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[26-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[27-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[28-Jul-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[29-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[30-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[31-Jul-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[01-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[02-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[03-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[04-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[05-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[06-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[07-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[08-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[09-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[10-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[11-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[12-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[13-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[14-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[15-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[16-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[17-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[18-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[19-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[20-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[21-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[22-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[23-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[24-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[25-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[26-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[27-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[28-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[29-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[30-Aug-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[31-Aug-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[01-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[02-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[03-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[04-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[05-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[06-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[07-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[08-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[09-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[10-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[11-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[12-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[13-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[14-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[15-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[16-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[17-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[18-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[19-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[20-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[21-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[22-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[23-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[24-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[25-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[26-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[27-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[28-Sep-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[29-Sep-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[30-Sep-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[01-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[02-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[03-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[04-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[05-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[06-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[07-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[08-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[09-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[10-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[11-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[12-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[13-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[14-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[15-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[16-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[17-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[18-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[19-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[20-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[21-Oct-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[22-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[23-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[24-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[25-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[26-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[27-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[28-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[29-Oct-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[30-Oct-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[31-Oct-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[01-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[02-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[03-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[04-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[05-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[06-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[07-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[08-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[09-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[10-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[11-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[12-Nov-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[13-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[14-Nov-2017 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[15-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[16-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[17-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[18-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[19-Nov-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[20-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[21-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[21-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[22-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[22-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[23-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[23-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[24-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[24-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[25-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[25-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[26-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[26-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[27-Nov-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[27-Nov-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[28-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[28-Nov-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[29-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[29-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[30-Nov-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[30-Nov-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[01-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[01-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[02-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[02-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[03-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[03-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[04-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[04-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[05-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[05-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[06-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[06-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[07-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[07-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[08-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[08-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[09-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[09-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[10-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[10-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[11-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[11-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[12-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[12-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[13-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[13-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[14-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[14-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[15-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[15-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[16-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[16-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[17-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[17-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[18-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[18-Dec-2017 00:01:06 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[19-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[19-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[20-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[20-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 41
+[22-Dec-2017 11:40:38 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[22-Dec-2017 11:40:39 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[23-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[23-Dec-2017 00:01:06 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[24-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[24-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[25-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[25-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[26-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[26-Dec-2017 00:01:05 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[27-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[27-Dec-2017 00:01:08 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[28-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[28-Dec-2017 00:01:06 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[29-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[29-Dec-2017 00:01:06 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[30-Dec-2017 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[30-Dec-2017 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[31-Dec-2017 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[31-Dec-2017 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[01-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[01-Jan-2018 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[02-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[02-Jan-2018 00:01:06 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[03-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[03-Jan-2018 00:01:05 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[04-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[04-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[05-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[05-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[06-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[06-Jan-2018 00:01:08 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[07-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[07-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[08-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[08-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[09-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[09-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[10-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[10-Jan-2018 00:01:07 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[11-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[11-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[12-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[12-Jan-2018 00:01:05 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[13-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[13-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[14-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[14-Jan-2018 00:01:05 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[15-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[15-Jan-2018 00:01:06 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[16-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[16-Jan-2018 00:01:05 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[17-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[17-Jan-2018 00:01:05 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[18-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[18-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[19-Jan-2018 00:01:03 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[19-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[20-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[20-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[21-Jan-2018 00:01:01 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[21-Jan-2018 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[22-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[22-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[23-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[23-Jan-2018 00:01:03 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49
+[24-Jan-2018 00:01:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[24-Jan-2018 00:01:04 Europe/Moscow] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/banners_overlay.php on line 49

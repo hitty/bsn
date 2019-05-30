@@ -1,0 +1,10 @@
+[19-Sep-2016 22:20:31 UTC] PHP Fatal error:  Call to a member function fetchall() on a non-object in /home/bsn/sites/bsn.ru/public_html/includes/class.business_centers.php on line 285
+[20-Sep-2016 07:23:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[22-Sep-2016 07:11:47 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[26-Sep-2016 07:53:28 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[29-Sep-2016 10:22:57 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[13-Oct-2016 07:10:43 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[13-Oct-2016 22:08:20 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[15-Oct-2016 07:07:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[15-Oct-2016 21:01:54 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57
+[17-Oct-2016 06:51:04 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/agencies_tariffs.php on line 57

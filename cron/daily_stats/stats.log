@@ -1,0 +1,74 @@
+[18-Sep-2016 21:01:30 UTC] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/stats.php on line 745
+[18-Sep-2016 21:01:30 UTC] PHP Notice:  Undefined index: build_promo in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/stats.php on line 746
+[18-Sep-2016 21:01:30 UTC] PHP Notice:  Undefined index: build_premium in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/stats.php on line 747
+[18-Sep-2016 21:01:30 UTC] PHP Notice:  Undefined index: build_vip in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/stats.php on line 748
+[18-Sep-2016 21:01:30 UTC] PHP Notice:  Constant DEBUG already defined in /home/bsn/sites/bsn.ru/public_html/cron/mailers/send_ending_stats.php on line 5
+[18-Sep-2016 21:01:30 UTC] PHP Notice:  Constant ROOT_PATH already defined in /home/bsn/sites/bsn.ru/public_html/cron/mailers/send_ending_stats.php on line 9
+[19-Sep-2016 09:35:49 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 41
+[19-Sep-2016 09:50:46 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 41
+[19-Sep-2016 22:20:19 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[20-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[22-Sep-2016 07:11:42 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[22-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[23-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[24-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[25-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[26-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[27-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[28-Sep-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[29-Sep-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[30-Sep-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[01-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[02-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[03-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[04-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[05-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[06-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[07-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[08-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[09-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[10-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[11-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[13-Oct-2016 07:10:38 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[13-Oct-2016 22:08:15 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[15-Oct-2016 07:06:57 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[15-Oct-2016 21:01:50 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[17-Oct-2016 06:51:00 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[17-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[18-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[19-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[20-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[21-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[22-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[23-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[24-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[25-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[26-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[27-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[28-Oct-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[29-Oct-2016 21:01:03 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[30-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[31-Oct-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 40
+[01-Nov-2016 21:01:01 UTC] PHP Notice:  Use of undefined constant DEBUG_MODE - assumed 'DEBUG_MODE' in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 85
+[01-Nov-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 43
+[02-Nov-2016 05:55:27 UTC] PHP Notice:  Use of undefined constant DEBUG_MODE - assumed 'DEBUG_MODE' in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 85
+[02-Nov-2016 05:55:27 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[02-Nov-2016 05:57:13 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[02-Nov-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[03-Nov-2016 07:18:06 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[03-Nov-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[04-Nov-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[05-Nov-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[06-Nov-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[07-Nov-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[08-Nov-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[09-Nov-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[10-Nov-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[11-Nov-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[12-Nov-2016 21:01:01 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[13-Nov-2016 21:01:02 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 44
+[14-Nov-2016 21:01:03 UTC] PHP Notice:  Use of undefined constant DEBUG_MODE - assumed 'DEBUG_MODE' in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 85
+[14-Nov-2016 21:01:03 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 43
+[15-Nov-2016 07:24:26 UTC] PHP Notice:  Use of undefined constant DEBUG_MODE - assumed 'DEBUG_MODE' in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 85
+[15-Nov-2016 07:24:26 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 43
+[15-Nov-2016 07:25:55 UTC] PHP Notice:  ob_clean(): failed to delete buffer. No buffer to delete in /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/daemons/tgb_general.php on line 43
