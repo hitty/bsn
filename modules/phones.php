@@ -46,7 +46,7 @@ if(!empty($this_page->page_parameters[0]) && in_array($this_page->page_parameter
    !empty($this_page->page_parameters[1]) && in_array($this_page->page_parameters[1], $deal_types) &&
    !empty($this_page->page_parameters[2]) && Validate::Digit($this_page->page_parameters[2]) &&
    $type == 'click' &&
-   !Host::$is_bot && !$blacklist
+   !Host::$is_bot
 ){
     $id = $this_page->page_parameters[2];
     $estate = $this_page->page_parameters[0];
