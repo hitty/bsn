@@ -516,7 +516,7 @@ if($)(function(window, document, $, undefined){
                             }
                         }
                     } else {
-                        _value = _type == 'radio' ? jQuery('input[name=' + _name + ']:checked', init_selector).val() : _this.attr('value');
+                        _value = _type == 'radio' ? jQuery('input[name=' + _name + ']:checked', init_selector).val() : _this.val();
                          if(parseInt(_value) > 0) {
                              params.push(_name + '=' + _value.replace(/ /g,"") );
                          }
@@ -923,10 +923,8 @@ if($)(function(window, document, $, undefined){
                                         thisPlacemark.options.set('iconImageHref', '/img/layout/bsn-map-tag-seen.svg');
                                         var _name = thisPlacemark.properties.get('id');
                                         o.visited_ids.push( _name );
-                                        console.log( o.visited_ids)
                                     });
                                     if( typeof msg.points[i]['html'] == 'string'){
-                                        console.log( 'nsg - html');
                                         placemark.properties.set('balloonContent', msg.points[i]['html']);
                                         placemark.events.add('balloonopen', function (e) {
                                             _placemark_statement = 'open';
@@ -939,7 +937,6 @@ if($)(function(window, document, $, undefined){
 
                                         })
                                     } else {
-                                        console.log( 'nsg - non html');
                                         // Обрабатываем событие открытия балуна на геообъекте:
                                         // начинаем загрузку данных, затем обновляем его содержимое.
                                         placemark.events.add('balloonopen', function (e) {
