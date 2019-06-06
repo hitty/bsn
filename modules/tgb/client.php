@@ -184,10 +184,10 @@ switch(true){
                         $_number_items_left = 4; 
                         break;
                     case $action == 'estate_list' : 
-                        $_number_items_left = 1; 
+                        $_number_items_left = 3; 
                         break;
                     default: 
-                        $_number_items_left = 2;
+                        $_number_items_left = 4;
                 }
             }
 
@@ -232,7 +232,7 @@ switch(true){
             else $list = [];
             Response::SetArray('list', $list);
             // кол-во дополнительных ТГБ
-            Response::SetArray( 'partner_count', range( in_array( $action, array( 'left', 'top' ) ) && $_number_items_left > count($list) ? $_number_items_left - count($list) - 1: abs( count($list) - $_number_items_left) - 1, 0 ) );
+            //Response::SetArray( 'partner_count', range( in_array( $action, array( 'left', 'top' ) ) && $_number_items_left > count($list) ? $_number_items_left - count($list) - 1: abs( count($list) - $_number_items_left) - 1, 0 ) );
             if(!empty($list) && count($list)>0){
                 Response::SetString('action', $action);
                 $ajax_result['ok'] = true;
