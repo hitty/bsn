@@ -183,7 +183,6 @@ jQuery(document).ready(function(){
         */
         jQuery(document).on( 'click', '.banner-item', function(e){
             var _el = jQuery(this);
-            alert( typeof _el.data( 'id' ) != "undefined" )
             if(typeof _el.data( 'id' ) != "undefined") {
                 var _wrap = _el.parents( 'div' ).parents( 'div' );
                 var _params = {id:_el.data( 'id' ) };
