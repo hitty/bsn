@@ -206,7 +206,13 @@ class Member {
         $result['rent'] = $object_info['rent'];
         if($estate_type == 'build') $result['type_object'] = 'flats';
         elseif(!empty($object_info['id_type_object'])){
-            $result['type_object'] = $db->fetch("SELECT new_alias FROM ".$sys_tables['type_objects_'.$estate_type]." WHERE id = ?", $object_info['id_type_object']);
+            $result['type_object'] = $db->fetch("
+                SELECT " . $sys_tables['object_type_groups'] . ".alias 
+                FROM " . $sys_tables['type_objects_'.$estate_type] . " 
+                RIGHT JOIN " . $sys_tables['object_type_groups'] . " ON `information`.`type_objects_country`.`id_group` = " . $sys_tables['object_type_groups'] . ".id
+                WHERE " . $sys_tables['type_objects_'.$estate_type] . ".id = ?", 
+                $object_info['id_type_object']
+            );
             $result['type_object'] = $result['type_object']['new_alias'];
         }
         

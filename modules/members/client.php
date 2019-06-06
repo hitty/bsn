@@ -2221,7 +2221,7 @@ switch(true){
                 Response::SetString($response_key, $response_value);
             }
             else {
-                $result = $member->doObjectOperation($obj_type, $id_object, $status, $agency_object_long);
+                $result = $member->doObjectOperation( $obj_type, $id_object, $status, $agency_object_long );
                 if(!empty($result['response']))
                     foreach($result['response'] as $key=>$value){
                         Response::SetString($key,$value);
