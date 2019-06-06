@@ -32,6 +32,11 @@
             {if!empty $info['agency_photo']}
                 <img src="{static:/}{$info['agency_photo_folder']}/{$info['agency_photo']}" alt="{quoted:$info['title']}"/>
             {/if}
+            {if!empty $info['doverie_participant']}
+                {ifeq $info['doverie_participant'],1}
+                    <span class="internal-link doverie-participant"><img src="/img/layout/doverie_participant.jpg" /></span>
+                {/if}
+            {/if}
         </div>
         {if!empty $info['description']}
             <div class="notes-wrap col-3 bbox">

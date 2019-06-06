@@ -454,9 +454,22 @@ return array(
             'allow_empty' => true, 
             'allow_null' => true,
             'fieldtype' => 'text',
-            'label' => 'Доверие потребителя',
+            'label' => 'Доверие потребителя - призер по годам',
             'tip' => 'Призер/участник в конкурсе Доверие потребителя по годам, например: 2015, 2016'
-        )            	
+        )    
+
+        ,'doverie_participant' => array(
+            'type' => TYPE_INTEGER,
+            'min' => 1,
+            'max' => 2,
+            'allow_empty' => true, 
+            'allow_null' => true,
+            'fieldtype' => 'radio',
+            'values' => array(1=>'да',2=>'нет'),
+            'value' => 1,
+            'label' => 'Доверие потребителя - участник',
+            'tip' => 'Участник конкурса в текущего конкурса'
+        )                	
         ,'main_color' => array(
             'type' => TYPE_STRING,
             'allow_empty' => true, 

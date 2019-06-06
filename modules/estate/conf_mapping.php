@@ -4442,6 +4442,18 @@ return array(
             'label' => 'Доверие потребителя',
             'tip' => 'Призер/участник в конкурсе Доверие потребителя по годам, например: 2015, 2016'
         )
+        ,'doverie_participant' => array(
+            'type' => TYPE_INTEGER,
+            'min' => 1,
+            'max' => 2,
+            'allow_empty' => true, 
+            'allow_null' => true,
+            'fieldtype' => 'radio',
+            'values' => array(1=>'да',2=>'нет'),
+            'value' => 1,
+            'label' => 'Доверие потребителя - участник',
+            'tip' => 'Участник конкурса в текущего конкурса'
+        )  
         ,'title_row_address' => array(
             'fieldtype' => 'title_row',
             'tip' => 'Характеристики обеъекта',
