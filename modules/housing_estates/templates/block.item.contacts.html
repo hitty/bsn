@@ -14,7 +14,7 @@
                 <div class="contacts-info text-overflow br3">
                     {if!empty $info['agency_photo_name']}
                         <img src="{static:/}img/uploads/sm/{$info['agency_subfolder']}/{$info['agency_photo_name']}" alt="{$info['agency_title']}" class="logo" />
-                    {/if}
+                    {/if}       .
                     {ifempty $info['agency_advert']}
                         {if!empty $info['agency_title']}
                             {if!eq $info['agency_title'],'Частное лицо'}
@@ -37,7 +37,12 @@
                             {/if}
                         {else}<p class="name">{$item['seller_name']}</p>
                         {/if}
-                    {/if}      
+                    {/if}     
+                    {if!empty $info['doverie_participant']} 
+                        {ifeq $info['doverie_participant'],1}
+                            <span class="internal-link doverie-participant" data-link="/konkurs_doverie_potrebiteley_2019/"> <img src="/img/layout/doverie_participant.jpg" /></span>
+                        {/if}
+                    {/if} 
                     {ifempty $info['agency_advert']}
                         <div class="agency-info">
                         {if!empty $info['agency_title']}
@@ -61,6 +66,7 @@
                         {/if}
                         </div>
                     {/if}     
+                    
 
                 </div>
                 
