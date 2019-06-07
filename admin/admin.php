@@ -1,44 +1,4 @@
 <?
-print_r( $auth );
-/*
-
-
-admin/pages r-
-admin/seo r-
-admin/access r-
-admin/advert_objects r-
-admin/estate r-
-admin/advert_objects r-
-admin/sale r-
-admin/service r-
-admin/system r-
-
-admin/content/news r+
-admin/content/articles r-
-admin/content/longread r-
-admin/content/bsntv r-
-admin/content/blog r-
-admin/content/tags r-
-admin/content/comments r-
-admin/content/calendar_events r-
-admin/content/galleries r-
-admin/content/opinions_predictions r+
-admin/content/opinions_predictions/agencies r-
-admin/content/opinions_predictions/estate_types r-
-admin/content/consults r-
-admin/content/partners_articles r-
-admin/content/dictionary r-
-admin/content/guestbook r-
-admin/content/help r-
-admin/content/information r-
-admin/content/changes r-
-admin/content/invest r-
-
-admin/access r+
-admin/access/agencies r+
-admin/access/users/system_messages r+
-admin/advert_objects/tgb_vertical r+
-*/
 $GLOBALS['css_set'][] = '/admin/css/admin.css';
 $GLOBALS['js_set'][] = '/admin/js/jquery.min.js';
 $GLOBALS['js_set'][] = '/admin/js/ckeditor/ckeditor.js';
