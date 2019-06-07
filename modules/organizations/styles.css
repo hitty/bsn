@@ -135,6 +135,12 @@
    width: auto;
     border: 1px solid #E6E6E6;
 }
+.card .photo .doverie-participant{
+    position: relative;
+    display: inline-block;
+    transform: translate(-4px,-38px);
+    border: none;
+}
 .card .specialization-list{
     margin: 20px 0 0 0;    
     text-align: center;
