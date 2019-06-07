@@ -1,4 +1,5 @@
 <?
+print_r( $auth->id_group );
 $GLOBALS['css_set'][] = '/admin/css/admin.css';
 $GLOBALS['js_set'][] = '/admin/js/jquery.min.js';
 $GLOBALS['js_set'][] = '/admin/js/ckeditor/ckeditor.js';
