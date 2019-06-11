@@ -978,7 +978,7 @@ switch(true){
                                     if(!empty($id)){
                                         //default sizes 800x600 removed
                                         Photos::$__folder_options['sm'] = array(90,90,'cut',95);
-                                        Photos::$__folder_options['med'] = array(560,415,'',85);
+                                        Photos::$__folder_options['med'] = array(260,190,'cut',85);
                                         $errors_log = [];
                                         $res = Photos::Add($estate,$id, $prefix,false,false,false,false, true, Config::Get('watermark_src'));
                                         if(!empty($res)){

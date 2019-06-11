@@ -209,11 +209,11 @@ class Member {
             $result['type_object'] = $db->fetch("
                 SELECT " . $sys_tables['object_type_groups'] . ".alias 
                 FROM " . $sys_tables['type_objects_'.$estate_type] . " 
-                RIGHT JOIN " . $sys_tables['object_type_groups'] . " ON `information`.`type_objects_country`.`id_group` = " . $sys_tables['object_type_groups'] . ".id
+                RIGHT JOIN " . $sys_tables['object_type_groups'] . " ON " . $sys_tables['type_objects_'.$estate_type] . ".`id_group` = " . $sys_tables['object_type_groups'] . ".id
                 WHERE " . $sys_tables['type_objects_'.$estate_type] . ".id = ?", 
                 $object_info['id_type_object']
             );
-            $result['type_object'] = $result['type_object']['new_alias'];
+            if( !empty( $result['type_object']['new_alias'] ) ) $result['type_object'] = $result['type_object']['new_alias'];
         }
         
         //закрываем возможность бесплатно публиковать с помощью выделения при превышении лимита
