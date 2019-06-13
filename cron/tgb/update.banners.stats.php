@@ -48,7 +48,7 @@ $sys_tables = Config::$sys_tables;
 
 //---------- СТАТИСТИКА СПЕЦПРЕДЛОЖЕНИЙ, ОБЩАЯ ----------------------
 //подсчет статистики кликов по телефону
-for( $i=53; $i>=1; $i-- ){
+for( $i=1; $i<=10; $i++ ){
     $res = $db->query("
         INSERT INTO ".$sys_tables['banners_stats_show_full']."  
             ( id_parent,amount,date)  
