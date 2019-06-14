@@ -47,7 +47,7 @@ $log['banner_stats_cc'] = "Статистика для баннеров - Кре
 $res = true;
 
 // Статистика для Баннеров 
-$res = $res && $db->query("
+$res = $res && $this->db->query("
         INSERT INTO ".$sys_tables['banners_stats_show_full']."  
             ( id_parent, amount, date )  
         SELECT 
