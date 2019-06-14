@@ -49,7 +49,7 @@ $res = true;
 // Статистика для Баннеров 
 $res = $res && $db->query("
         INSERT INTO ".$sys_tables['banners_stats_show_full']."  
-            ( id_parent,amount,date)  
+            ( id_parent, amount, date )  
         SELECT 
             id_parent, count(*), CURDATE() - INTERVAL 1 DAY 
         FROM  ".$sys_tables['banners_stats_show_day']."  
@@ -62,7 +62,6 @@ $res = $res && $this->db->query("
         SELECT 
             id_parent,  count(*), CURDATE() - INTERVAL 1 DAY , `from`, position  
         FROM  ".$sys_tables['banners_stats_click_day']." 
-        WHERE DATE(`datetime`) = CURDATE() - INTERVAL 1 DAY
         GROUP BY  id_parent, `from`, position
 ");
 $res = $res && $this->db->query("TRUNCATE ".$sys_tables['banners_stats_show_day']."");
