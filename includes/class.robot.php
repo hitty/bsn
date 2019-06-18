@@ -4070,7 +4070,7 @@ class YandexRXmlRobot extends Robot{
                 $this->fields['lat'] = Convert::ToValue($values['location']['latitude']);
                 $this->fields['lng'] = Convert::ToValue($values['location']['longitude']);
             } else {
-                if( $this->fields['lat'] < 1 || $this->fields['lng'] < 1  ) {
+                if( empty( $this->fields['lat'] ) || $this->fields['lat'] < 1 || $this->fields['lng'] < 1  ) {
                     list($this->fields['lat'], $this->fields['lng']) = $this->getCoords($this->fields);
                     //добавление адреса в таблицу адресов с коорлинатами 
                     if( $this->fields['lat'] > 1 && $this->fields['lng'] > 1 && !empty( $this->fields['house'] ) && !empty( $this->fields['id_street'] ) ) $this->addSpbAddress( $this->fields );
