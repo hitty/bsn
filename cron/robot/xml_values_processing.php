@@ -653,7 +653,7 @@ if(!empty($process)){
 
     $photos_text = '';
     $total_errors = ( !empty($errors_log['address']) ? count($errors_log['address']) : 0 ) + ( !empty($errors_log['moderation']) ? count($errors_log['moderation']) : 0 ) + ( !empty($nophoto_ids) ? count($nophoto_ids) : 0 ) + (!empty($errors_log['estate_type']) ? count($errors_log['estate_type']) : 0 ) + ( !empty($errors_log['rooms']) ? count($errors_log['rooms']) : 0) + ( !empty($errors_log['rooms_square']) ? count($errors_log['rooms_square']) : 0) + ( !empty($errors_log['img']) ? count($errors_log['img']) : 0);
-    
+    $full_errors_log = $errors_log;
     $logs_limit = 50;
     
     //логирование ошибок
@@ -661,12 +661,12 @@ if(!empty($process)){
     if($total_errors > 0){
         $mail_text .= "<br/><br/>При обработке файла возникли следующие ошибки:<br/>";
         if(!empty($errors_log['address']))  {
-            $address_count = count($errors_log['address']);
-            $errors_log['address'] = array_slice($errors_log['address'],0,$logs_limit, $preserve_keys = true);
+            $address_count = count( $errors_log['address'] );
+            $errors_log['address'] = array_slice( $errors_log['address'], 0, $logs_limit, $preserve_keys = true);
             
             $mail_text .= "<br/><b>Неверный адрес: (".$address_count.")</b><br/>";        
             foreach($errors_log['address'] as $k=>$address) $mail_text .= "external_id: <b>".$k.'</b>' .(!empty($address)?", значение: ".$address:"")."<br/>";
-            if($address_count > $logs_limit) $mail_text .= "и еще ".($address_count - $logs_limit)." таких ошибок.\r<br/> За полным логом обратитесь в тех. поддержку БСН.\r<br/>";
+            if( $address_count > $logs_limit ) $mail_text .= "и еще ".($address_count - $logs_limit)." таких ошибок.\r<br/> За полным логом обратитесь в тех. поддержку БСН.\r<br/>";
         }    
         if(!empty($nophoto_ids)){
             $nophoto_count = count($nophoto_ids);
@@ -729,7 +729,7 @@ if(!empty($process)){
     //процесс окончен
     $db->query("UPDATE ".$sys_tables['processes']." SET status = ?, total_added = ?, total_errors = ?, full_log = CONCAT (full_log, '\n', log, '\n', ?, '\n','___________________________________',''), log='', datetime_end = NOW() WHERE id = ?", 2, $total_added, $total_errors, $mail_text, $process_id);
     $db->query("UPDATE ".$sys_tables['processes']." SET full_log = REPLACE(full_log, '<br/>', '\n') WHERE id = ?", $process_id);
-    file_put_contents( ROOT_PATH . '/cron/robot/logs/' . $id_user . "_" . createCHPUTitle($process['title']) . '.error.log', print_r( $errors_log, true ) );
+    file_put_contents( ROOT_PATH . '/cron/robot/logs/' . $id_user . "_" . createCHPUTitle($process['title']) . '.error.log', print_r( $full_errors_log, true ) );
     //если были ошибки выполнения скрипта
     if( filesize( $error_log )>10 ){
         $error_log_text = '<br><br>Логи ошибок <br><font size="1">';
