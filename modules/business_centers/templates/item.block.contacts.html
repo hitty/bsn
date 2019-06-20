@@ -15,7 +15,7 @@
             <span class="internal-link message" data-icon="message" data-link="/members/messages/add/24382/" data-new-tab="true">Чат с менеджером</span>
         </div>
 
-        {if!empty $payed_format}
+        {ifeq $item['advanced'],'1'}
         <div class="phone-wrap">
             <p class="hidden-phone" id="{if!empty $info['agency_advert_phone']}comagic_phone{else}seller_phone{/if}">
                 {if!empty $info['agency_advert_phone']}<span onClick="if(!_debug)  try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Показать телефон']);} catch(e){}" class="{ifempty $payed_format}dashed-link-blue{else}button{/if}">Показать телефон</span>{if!empty $info['work_status_title']}<span class="work-status">{$info['work_status_title']}</span>{/if}

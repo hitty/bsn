@@ -17,7 +17,7 @@
         </div>
 
         <div class="agency-info">
-        {if!empty $payed_format}
+        {ifeq $item['advanced'],'1'}
             <div class="phone-wrap">
                 <p class="hidden-phone" id="{if!empty $info['agency_advert_phone']}comagic_phone{else}seller_phone{/if}">
                     {if!empty $info['agency_advert_phone']}<span onClick="if(!_debug)  try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Показать телефон']);} catch(e){}" class="{ifempty $payed_format}dashed-link-blue{else}button{/if}" data-icon="phone">Показать телефон</span>{if!empty $info['work_status_title']}<span class="work-status">{$info['work_status_title']}</span>{/if}
@@ -27,7 +27,7 @@
                 </p>
                 <p class="shown-phone"></p>
             </div>
-            {/if}
+        {/if}
             
             <span data-url="/applications/popup/?estate_type={$estate_type}&id={$item['id']}&deal_type=sell" class="button grey popup" data-location="estate-application" data-icon="message" data-url="/applications/popup/" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }" data-location="estate-application" data-icon="message" >Оставить заявку</span>
         </div>
