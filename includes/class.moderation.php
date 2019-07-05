@@ -131,7 +131,7 @@ class Moderation extends EstateItem{
                         elseif($this->data_array['cost']>650000) return 3; // для аренды долгосрочной с подозрительно большой ценой
                     }
                 } else { // для продажи
-                        if($this->data_array['cost']<500000) return 2; // для продажи с подозрительно маленькой ценой
+                        if($this->data_array['cost']<300000) return 2; // для продажи с подозрительно маленькой ценой
                         elseif($this->data_array['cost']>1000000000) return 3; // для продажи с подозрительно большой ценой
                 }
                 break;
