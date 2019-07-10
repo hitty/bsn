@@ -196,17 +196,6 @@ header.with-shadow:after{
     padding-top: 10px;
 }
 
-footer {
-    background: none;
-    width: 600px;
-    margin: 0 auto;
-    padding: 20px 0;
-    color: #818181;
-    text-align: center;      
-    box-shadow: none;
-}
-
-
 .modal-inner div:last-of-type div:last-of-type{
     margin-bottom: 0;
 }
