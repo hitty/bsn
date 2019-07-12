@@ -136,6 +136,11 @@
             <div class=" clearfix"></div>
             <section class="properties-wrap br3">
                  <div class="title">Характеристики</div>
+                
+                {if!empty $auth['id']}{ifeq $auth['id'],3}
+                    {if!empty $item['external_id']}<p><span><b>Внешний ID</b></span><i>{$item['external_id']}</i></p>{/if}
+                    {if!empty $item['id_user']}<p><span><b>ID пользователя</b></span><i><a href="/admin/access/superadmin/{$item['id_user']}/" target="_blank">{$item['id_user']}</a></i></p>{/if}
+                {/if}{/if}
                 {if!empty $info['housing_estate']}<p><span><b>{ifeq $info['apartments'],2}ЖК{else}Апартаменты{/if}</b></span><i><a href="/zhiloy_kompleks/{$info['housing_estate_chpu']}/" title="{$info['housing_estate']}">{$info['housing_estate']}</a></i></p>{/if}
                 {if!empty $info['cottage']}<p><span><b>Коттеджный поселок</b></span><i><a href="/cottedzhnye_poselki/{$info['cottage_chpu']}/" title="{$info['cottage']}">{$info['cottage']}</a></i></p>{/if}
                 {if!empty $info['business_center']}<p><span><b>Бизнес-центр</b></span><i><a href="/business_centers/{$info['business_center_chpu']}/" title="{$info['business_center']}">{$info['business_center']}</a></i></p>{/if}

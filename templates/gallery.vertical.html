@@ -1,0 +1,86 @@
+    {php:$show_gallery = !empty($photos) || !empty($videos)}
+    {if!empty $show_gallery}
+         {php:$pos=0}   
+         {if!empty $estate_type}
+            {ifeq $estate_type,'inter'}{php:$static = '//interestate.ru/'}{/if}
+         {/if}
+         <div class="gallery-box thumbs vertical {$hash}">
+                <div class="central-left">
+                    <figure class="big-image">
+                        <div class="left-arrow"><b></b></div>
+                        <div class="right-arrow"><b></b></div>
+                        {if!empty $videos}
+                            {loop $videos, $k, $pv}
+                                {php:$posterUrl = "/img/uploads/" . ($gallery_type!='wide_gallery' ? "/med/" : "/big" ) . $pv['photo_subfolder']."/".$pv['photo_name']}
+                                {php:$link = 'http://' . str_replace('http://', '', $pv['name'])}
+                                <div class="video" data-id="{$item['id']}" data-type="{$estate_type}">       
+                                    {include /templates/video.player.html}
+                                </div>
+                            {/loop $videos}                         
+                        {/if}
+                        {if!empty $photos}
+                            {loop $photos,$pk,$pv}
+                                {ifeq $pv['main_photo'],'true'}
+                                    <a href="{if!empty $static}{$static}{else}/{/if}{$img_folder}/big/{$pv['subfolder']}/{$pv['name']}" title="{ifempty $titles['header']}{quoted:$pv['title']}{else}{quoted:$titles['header']}{/if}" data-id="{$pv['id']}" style="background-image:url({if!empty $static}{$static}{else}/{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']})">&nbsp;</a>
+                                    <img src="{if!empty $static}{$static}{else}/{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}" alt="{ifempty $titles['header']}{quoted:$pv['title']}{else}{quoted:$titles['header']}{/if}" itemprop="image">
+                                    <figcaption>
+                                        {if!empty $titles['header']}{quoted:$titles['header']}
+                                        {elseif!empty $pv['title']} {quoted:$pv['title']}
+                                        {/if}
+                                    </figcaption>
+                                {/if}
+                            {/loop $photos}
+                        {/if}
+                        <span class="expand"></span>
+                    </figure>
+                    {ifempty $no_target}
+                    <div class="context-box gallery">
+                        {if!empty $object_id}
+                            <div id="context-block-img">
+                                <script>
+                                    jQuery(document).ready(function(){
+                                        getPendingContent('.tab.gallery-thumbs .central-left .gallery-box .context-box.gallery #context-block-img','/context_campaigns/block/item/{$estate_type}/{$object_id}/gallery/');
+                                        jQuery('.context-box.gallery').children('#context-block-img').on('click','.close-context',function(){
+                                            jQuery('.context-box.gallery').fadeOut(300);
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        {/if}
+                    </div>
+                    {/if}
+                </div>
+            
+            {ifempty $print}
+                {php:$show_arrows = count($photos)>3}
+                {php:$pos = 0}
+                <div class="central-right">                    
+                    {ifeq $show_arrows,true}<span class="arrows top-arrow inactive" ></span>{/if}
+                    <div class="thumbs-wrap">
+                        <div class="thumbs-list">
+                            {if!empty $videos}
+                                {loop $videos,$pk,$pv}
+                                    <a class="active video" href="/img/uploads/big/{$pv['photo_subfolder']}/{$pv['photo_name']}" title="{$pv['id']}: {quoted:$titles['header']}" data-id="{$pv['id']}" data-pos="{$pos}">
+                                        <img src="/img/uploads/sm/{$pv['photo_subfolder']}/{$pv['photo_name']}" class="mainPhoto" alt="{quoted:$titles['header']}"/>
+                                    </a>
+                                    {php:$pos++}
+                                {/loop $videos}
+                            {/if}
+                            {loop $photos,$pk,$pv}
+                                <a class="{ifempty $videos}{ifeq $pv['main_photo'],'true'}active {/if}{/if}" href="{if!empty $static}{$static}{else}/{/if}{$img_folder}/big/{$pv['subfolder']}/{$pv['name']}" title="{$pv['id']}: {quoted:$titles['header']}" data-id="{$pv['id']}" data-pos="{$pos}" itemscope itemtype="http://schema.org/ImageObject">
+                                    <img src="{if!empty $static}{$static}{else}/{/if}{$img_folder}/sm/{$pv['subfolder']}/{$pv['name']}" class="{ifeq $pv['main_photo'],'true'}mainPhoto{/if}" alt="{quoted:$titles['header']}"/>
+                                    <img itemprop="contentUrl" src="https://st1.bsn.ru/{$img_folder}/big/{$pv['subfolder']}/{$pv['name']}" alt="" style="display: none;" />
+                                    <meta itemprop="name" content="{quoted:$metadata['title']}">
+                                    <meta itemprop="description" content="{quoted:$metadata['description']}">
+                                </a>
+                                {php:$pos++}
+                            {/loop $photos}
+                        </div>
+                    </div>
+                    {ifeq $show_arrows,true}<span class="arrows bottom-arrow" ><figure></figure></span>{/if}
+                </div>
+            {/if}
+            
+        </div>
+        <script>jQuery(document).ready(function(){jQuery('.{$hash}').photogallery();})</script>
+    {/if}
