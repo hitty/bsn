@@ -963,6 +963,11 @@ switch(true){
                              $list[$k]['new_cost'] = $obj['discount_type'] == 1 ? $obj['cost'] - $obj['discount'] : $obj['cost'] * ( (100 - $obj['discount']) / 100 );    
                         } else $list[$k]['new_cost'] = 0;
                         $update_ids[] = $obj['id'];
+                        //общая статистика просмотров для ЛК
+                        if( !empty($parameters['members_page'] ) ) {
+                            $stats = $db->fetch(" SELECT SUM(amount) as sum FROM " . $sys_tables[ $estate_type . '_stats_show_full'] . " WHERE id_parent = ?", $obj['id'] )['sum'];
+                            $list[$k]['views_count'] = $obj['views_count'] + $stats;
+                        }
                     }
                     if(!empty($update_ids)) $res = $db->query("UPDATE ".$estate->work_table." SET search_count=search_count+1 WHERE id IN (".implode(',',$update_ids).")");
 
