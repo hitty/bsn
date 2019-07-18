@@ -637,7 +637,10 @@ footer .about-text .logo {
     float: left;
     margin: 0 20px 0 0;
 }
-
+footer .about-text a{
+    color: #818181;
+    font-size: 12px;
+}
 footer .logo {
     position: relative;
     top: 25px;
