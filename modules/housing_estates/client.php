@@ -794,10 +794,16 @@ switch(true){
                 elseif(!empty($item['agency_seller_phone_1'])) $seller_phone = $item['agency_seller_phone_1'];
                 elseif(!empty($item['agency_developer_advert_phone'])) $seller_phone = $item['agency_developer_advert_phone'];
                 elseif(!empty($item['agency_developer_phone_1'])) $seller_phone = $item['agency_developer_phone_1'];
-            } elseif($item['agency_seller_payed_page'] == 1) {
-                $seller_phone = !empty($item['agency_seller_advert_phone']) ? $item['agency_seller_advert_phone'] : $item['agency_seller_phone_1'];
-            } else if($item['developer_payed_page'] == 1) {
-                $seller_phone = !empty($item['agency_developer_advert_phone']) ? $item['agency_developer_advert_phone'] : $item['agency_developer_phone_1'];
+            } else {
+                $seller_phone = '9123456789';
+                /*
+                старая инфа, заменили на : https://trello.com/c/l3Qk6kKT/170-%D0%B7%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0-%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%B0-%D1%82%D0%B5%D0%BB-%D0%B2-%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B0%D1%85-%D0%B6%D0%BA
+                elseif($item['agency_seller_payed_page'] == 1) {
+                    $seller_phone = !empty($item['agency_seller_advert_phone']) ? $item['agency_seller_advert_phone'] : $item['agency_seller_phone_1'];
+                } else if($item['developer_payed_page'] == 1) {
+                    $seller_phone = !empty($item['agency_developer_advert_phone']) ? $item['agency_developer_advert_phone'] : $item['agency_developer_phone_1'];
+                }
+                */
             }
             if(!empty($seller_phone)){
                 $seller_phone = Convert::ToPhone($seller_phone);

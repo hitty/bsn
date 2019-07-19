@@ -5,8 +5,8 @@
 if( !class_exists('Convert') ) include('includes/class.convert.php');
 if( !class_exists('EstateStat') )include('includes/class.estate.statistics.php');
 
-class Phones {
-    public static $bsn_phone = '(812) 606-77-50';
+class Phones {                    
+    public static $bsn_phone = '(952) 245-94-26';
      
     public static function getPhone($estate, $item, $info){
         global $db;

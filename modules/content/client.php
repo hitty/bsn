@@ -424,25 +424,19 @@ switch(true){
         ( $content_type == 'news' && !empty($this_page->page_parameters[2])) || 
         ($content_type != 'news' && !empty($this_page->page_parameters[1]))  :
         
-        //просмотр новости по chpu_title
+        //Матвей:просмотр новости по chpu_title
         if( $content_type == 'news' && count($this_page->page_parameters)>3) {Host::RedirectLevelUp(); break;}
-        //else if( $content_type != 'news' && count($this_page->page_parameters)>2) {Host::RedirectLevelUp(); break;}
-        $id_part = $this_page->page_parameters[count($this_page->page_parameters)-1];
+        else if( $content_type != 'news' && count($this_page->page_parameters)>2) {Host::RedirectLevelUp(); break;}
+
+        $id_part = $content_type == 'news' ? $this_page->page_parameters[2] : $this_page->page_parameters[1];
         if(Validate::isDigit( $id_part )){
-            
             $res = $db->fetch("SELECT chpu_title FROM ".$sys_tables[$content_type]." WHERE id=?", $id_part);
             if(empty($res)){Host::RedirectLevelUp(); break;}
             Host::Redirect($content_type . "/".$this_page->page_parameters[0]."/" . ( !empty($sys_tables[$content_type . '_regions'] ) ? $this_page->page_parameters[1]."/" : "" ) . $res['chpu_title']);   
         }  else {
             $content_id = preg_split("/\_/",$id_part,2);
-            //if(!Validate::isDigit($content_id[0])){Host::RedirectLevelUp(); break;}
+            if(!Validate::isDigit($content_id[0])){Host::RedirectLevelUp(); break;}
             $content_id = $content_id[0];
-            echo "<!-- " . $content_type . "-->";
-            echo "<!-- " . $this_page->page_parameters[0] . "-->";
-            if( $content_type == 'doverie' ) {
-                $news = $db->fetch(" SELECT * FROM " . $sys_tables['news'] ." WHERE id = ?", $content_id );
-                if( !empty( $news ) ) Host::Redirect( '/news/' . $this_page->page_parameters[0] . '/' . $this_page->page_parameters[1] . '/'  . $this_page->page_parameters[2] . '/' );
-            }
         }
         
         

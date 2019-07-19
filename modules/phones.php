@@ -3,7 +3,7 @@ require_once('includes/class.estate.php');
 require_once('includes/class.estate.statistics.php');
 require_once('includes/class.housing_estates.php');
 $module_template = 'templates/phones.box.html';
-$bsn_phone = '(812) 606-77-50';
+$bsn_phone = '(952) 245-94-26';
 // определяем тип недвижимости
 $estate = "";
 $estate_types = array('live','build','commercial','country','inter','apartments','zhiloy_kompleks','business_centers','cottedzhnye_poselki');
@@ -100,7 +100,10 @@ if(!empty($this_page->page_parameters[0]) && in_array($this_page->page_parameter
             $info['agency_phone_1'] = $info['agency_phone_2'] = $info['agency_phone_3'] = '';
         }
         else  {
-            if( $estate_type > 4 && !( ( !empty( $info['advanced'] ) && $info['advanced'] == 1 ) || ( !empty($item['show_phone']) && $item['show_phone'] == 1 ) ) ) $item['seller_phone'] = $bsn_phone;
+            if( $estate_type == 5 && $info['advanced'] == 2 ){
+                //Для ЖК инфа отсюда: https://trello.com/c/l3Qk6kKT/170-%D0%B7%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0-%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%B0-%D1%82%D0%B5%D0%BB-%D0%B2-%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B0%D1%85-%D0%B6%D0%BA    
+                $item['seller_phone'] = $bsn_phone;
+            } else if( $estate_type > 4 && !( ( !empty( $info['advanced'] ) && $info['advanced'] == 1 ) || ( !empty($item['show_phone']) && $item['show_phone'] == 1 ) ) ) $item['seller_phone'] = $bsn_phone;
             else {
                 if( !empty( $info['advanced'] ) && $info['advanced'] == 1 ) {
                     if(!empty($info['agency_seller_advert_phone'])) $seller_phone = $info['agency_seller_advert_phone'];
