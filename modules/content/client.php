@@ -438,6 +438,8 @@ switch(true){
             $content_id = preg_split("/\_/",$id_part,2);
             if(!Validate::isDigit($content_id[0])){Host::RedirectLevelUp(); break;}
             $content_id = $content_id[0];
+            echo "<!-- " . $content_type . "-->";
+            echo "<!-- " . $this_page->page_parameters[0] . "-->";
             if( $content_type == 'doverie' ) {
                 $news = $db->fetch(" SELECT * FROM " . $sys_tables['news'] ." WHERE id = ?", $content_id );
                 if( !empty( $news ) ) Host::Redirect( '/news/' . $this_page->page_parameters[0] . '/' . $this_page->page_parameters[1] . '/'  . $this_page->page_parameters[2] . '/' );
