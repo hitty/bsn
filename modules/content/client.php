@@ -430,6 +430,11 @@ switch(true){
 
         $id_part = $content_type == 'news' ? $this_page->page_parameters[2] : $this_page->page_parameters[1];
         if(Validate::isDigit( $id_part )){
+            if( $content_type == 'doverie' ) {
+                $news = $db->fetch(" SELECT * FROM " . $sys_tables['news'] ." WHERE id = ?", $id_part );
+                if( !empty( $news ) ) Host::Redirect( '/news/' . $this_page->page_parameters[1] . '/' . $this_page->page_parameters[2] . '/'  . $this_page->page_parameters[3] . '/' );
+            }
+            
             $res = $db->fetch("SELECT chpu_title FROM ".$sys_tables[$content_type]." WHERE id=?", $id_part);
             if(empty($res)){Host::RedirectLevelUp(); break;}
             Host::Redirect($content_type . "/".$this_page->page_parameters[0]."/" . ( !empty($sys_tables[$content_type . '_regions'] ) ? $this_page->page_parameters[1]."/" : "" ) . $res['chpu_title']);   
