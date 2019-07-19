@@ -4574,6 +4574,7 @@ class EstateSearch {
         if(!empty($get_parameters['rooms_sale_checked'])) unset($get_parameters['rooms_sale_checked']);
         if(!empty($get_parameters['class_checked'])) unset($get_parameters['class_checked']);
         if(!empty($get_parameters['new_groups'])) unset($get_parameters['new_groups']);
+        if(!empty($parameters['search'])) $get_parameters['search'] = $parameters['search'];
         if(empty($form_filter)) if(!empty($get_parameters['address'])) unset($get_parameters['address']);
         
         if(!empty($form_filter)){
