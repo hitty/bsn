@@ -48,7 +48,10 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                 {loop $list,$k,$item}
                                     {php:$break = $kk%2 == 0}
                                     <td valign="top" style="background: #fff; border-collapse:collapse; padding:0; border-radius: 3px;" width="200" height="130" align="left"> 
-                                        {ifin $item['type'],'news','doverie'}
+                                        {ifeq $item['type'],'news'}
+                                            <a href="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width:240px; height:140px;">{stripall:$item['title']}</a>
+                                            <span style="display: block; width: 240px; padding: 0px 20px; height: 30px; color: #1e88e5; font-size: 14px; font-weight: bold; overflow: hidden;"></span>
+                                        {elseifeq $item['type'],'doverie'}
                                             <a href="https://www.bsn.ru/doverie/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width:240px; height:140px;">{stripall:$item['title']}</a>
                                             <span style="display: block; width: 240px; padding: 0px 20px; height: 30px; color: #1e88e5; font-size: 14px; font-weight: bold; overflow: hidden;"></span>
                                         {elseifeq $item['type'],'bsntv'}
