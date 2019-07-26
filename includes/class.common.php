@@ -76,6 +76,7 @@
                                     LEFT JOIN (SELECT COUNT(*) as staff_amount,id_agency FROM ".$sys_tables['users']." GROUP BY id_agency) staff ON staff.`id_agency` = ".$sys_tables['agencies'].".id
                                     LEFT JOIN ".$sys_tables['users']." ON ".$sys_tables['users'].".`id_agency` = ".$sys_tables['agencies'].".id AND ".$sys_tables['users'].".agency_admin = 1
                                    ".( !empty($where) ? "WHERE ".$where : "" )."
+                                   GROUP BY ".$sys_tables['agencies'].".id
                                    ".( !empty($order) ? "ORDER BY ".$order : "" )."
                                    LIMIT ".$from.", ".$count);
             return $list;                                                                         
