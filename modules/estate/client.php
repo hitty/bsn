@@ -1345,7 +1345,10 @@ switch(true){
             if(empty($full_list)) break;
             $ajax_result['ok'] = true;
             shuffle($full_list);
-            if($action == 'vip' && count($full_list) == 1) $count = 1;
+            if( !empty( $this_page->page_parameters[1] ) && $this_page->page_parameters[1] == 'main' && $action == 'vip' ){
+                
+            }
+            else if($action == 'vip' && count( $full_list ) == 1) $count = 1;
             else if(count($full_list) < $count) $count = max(1,((int) (count($full_list)/2))*2);
             $list = array_splice($full_list,0,$count);
             Response::SetArray($action.'_list', $list);
