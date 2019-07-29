@@ -314,10 +314,9 @@ switch(true){
                 
                  $where = $sys_tables['calendar_events'] . '.id != ' . $calendar_events_id . ' 
                                 AND ' . $sys_tables['calendar_events'] . '.id_category = ' . $item['id_category'] . '
-                                AND `date_begin` >= CURDATE() OR `date_end` >= CURDATE()';
+                                AND ( `date_begin` >= CURDATE() OR `date_end` >= CURDATE() )';
                  $other_events = $calendar->getList(6, 0, $where );
                  Response::SetArray('other_events',$other_events);
-
              } else  { $this_page->http_code=404; break; }
              
         break;
