@@ -312,7 +312,7 @@ switch(true){
                  //кол-во просмотров
                  $db->query("UPDATE ".$sys_tables['calendar_events']." SET views_count = views_count + 1 WHERE id = ?", $calendar_events_id);
                 
-                 $where = $sys_tables['calendar_events'] . '.id != ' . $item['id'] . ' 
+                 $where = $sys_tables['calendar_events'] . '.id != ' . $calendar_events_id . ' 
                                 AND ' . $sys_tables['calendar_events'] . '.id_category = ' . $item['id_category'] . '
                                 AND `date_begin` >= CURDATE() OR `date_end` >= CURDATE()';
                  $other_events = $calendar->getList(6, 0, $where );
