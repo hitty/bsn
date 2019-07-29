@@ -816,9 +816,9 @@ header.with-searchform:hover{
     font-size: 14px;
     line-height: 15px;
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
 }
 
 .tgb-list .tgb .annotation {
@@ -830,7 +830,7 @@ header.with-searchform:hover{
     color: #000;
     font-size: 18px;
     line-height: 22px;
-    margin: 15px 20px;
+    margin: 15px;
 }
 
 .tgb-list .tgb .phone {
