@@ -31,6 +31,7 @@ class Calendar {
             WHERE " . $where . " 
             GROUP BY " .$this->table. " .id
             ORDER BY `date_begin`, `date_end`
+            " . ( !empty( $count ) || !empty( $from) ? " LIMIT " . $from . "," . $count : "" ) . "
         ");  
         return $events;      
     }

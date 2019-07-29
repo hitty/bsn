@@ -311,24 +311,12 @@ switch(true){
                  $module_template = 'item.html';
                  //кол-во просмотров
                  $db->query("UPDATE ".$sys_tables['calendar_events']." SET views_count = views_count + 1 WHERE id = ?", $calendar_events_id);
-                //предыдущая-следущая новость
-                $prev_next_events = $db->fetchall("
-                    SELECT 
-                        *, 
-                        YEAR(`date_begin`) as `year`, 
-                        DATE_FORMAT(`date_begin`,'%e %b') as `datebegin`, 
-                        IF(`date_end`>`date_begin`, DATE_FORMAT(`date_end`,'%e %b'),'') as `dateend` ,
-                        ".$sys_tables['calendar_events_photos'].".name as photo_name,
-                        LEFT( ".$sys_tables['calendar_events_photos'].".name,2) as subfolder
-                    FROM ".$sys_tables['calendar_events']."
-                    LEFT JOIN ".$sys_tables['calendar_events_photos']." ON ".$sys_tables['calendar_events'].".id_main_photo = ".$sys_tables['calendar_events_photos'].".id
-                    WHERE 
-                        ".$sys_tables['calendar_events'].".`id` = (SELECT MIN(".$sys_tables['calendar_events'].".`id`) FROM ".$sys_tables['calendar_events']." WHERE ".$sys_tables['calendar_events'].".`id` > ".$item['id']." AND ".$sys_tables['calendar_events'].".id_category=".$item['id_category'].")
-                        OR 
-                       ".$sys_tables['calendar_events'].".`id` = (SELECT MAX(".$sys_tables['calendar_events'].".`id`) FROM ".$sys_tables['calendar_events']." WHERE ".$sys_tables['calendar_events'].".`id` < ".$item['id']." AND ".$sys_tables['calendar_events'].".id_category=".$item['id_category'].")
-                    GROUP BY ".$sys_tables['calendar_events'].".id
-                ");
-                Response::SetArray('prev_next_events',$prev_next_events);
+                
+                 $where = $sys_tables['calendar_events'] . '.id != ' . $item['id'] . ' 
+                                AND ' . $sys_tables['calendar_events'] . '.id_category = ' . $item['id_category'] . '
+                                AND `date_begin` >= CURDATE() OR `date_end` >= CURDATE()';
+                 $other_events = $calendar->getList(6, 0, $where );
+                 Response::SetArray('other_events',$other_events);
 
              } else  { $this_page->http_code=404; break; }
              
