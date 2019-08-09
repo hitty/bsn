@@ -11,16 +11,25 @@ switch(true){
     // Список все банков
     /////////////////////////////////////////////////////////////////
     case empty( $action ):
-                $list = $db->fetchall(
-                    "SELECT * FROM ".$sys_tables['credit_calculator']." WHERE `published` = ? AND `enabled` = ? AND `date_start` <= CURDATE() AND `date_end` > CURDATE()",
-                    false, 1, 1
-                ); 
-                if( !empty( $list ) ) {
-                    $data = [];
-                    foreach( $list as $k => $item ) $data[$item['type']] = $item;
-                    $ajax_result['list'] = $data;
-                    $ajax_result['ok'] = true;
+            $second_action = explode( '/', $_SERVER['HTTP_REFERER'] );
+            $second_action = !empty( $second_action[3] ) && in_array($second_action[3], array('live','build','country','commercial')) ? $second_action[3] : '';
+            if( !empty( $second_action ) ) {
+                $banks_list = CreditCalculator::getBanksList(false,$second_action);
+                if(!empty($banks_list)){
+                    foreach($banks_list as $key=>$item) 
+                        CreditCalculator::calculatorShow($item['calculator_id'],1);
                 }
+            }
+            $list = $db->fetchall(
+                "SELECT * FROM ".$sys_tables['credit_calculator']." WHERE `published` = ? AND `enabled` = ? AND `date_start` <= CURDATE() AND `date_end` > CURDATE()",
+                false, 1, 1
+            ); 
+            if( !empty( $list ) ) {
+                $data = [];
+                foreach( $list as $k => $item ) $data[$item['type']] = $item;
+                $ajax_result['list'] = $data;
+                $ajax_result['ok'] = true;
+            }
         break;
         
     /////////////////////////////////////////////////////////////////
@@ -131,7 +140,7 @@ switch(true){
             }
             
             if($id>0){
-                if(!Host::$is_bot) $res=$db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET `id_parent`= ? , `type` = ?", $id, $type);
+                if(!Host::$is_bot) $res = $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET `id_parent`= ? , `type` = ?", $id, $type);
                 $ajax_result['ok'] = $res;
             }
         } else $this_page->http_code=404;

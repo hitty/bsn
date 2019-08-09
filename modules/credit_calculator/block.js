@@ -214,8 +214,6 @@ var Calculator = {
     self = this;   
     getPending( '/credit_calculator/', false, false, 
         function( data ){
-            
-            
             self.amountInput = self.initAmountInput();
             const maxAmount = self.amountInput.attr('value') * ( self.amountInput.attr('value') < 10000000 ? 3 : ( self.amountInput.attr('value') < 20000000 ? 1.8 : 1.2 ) ); 
             
