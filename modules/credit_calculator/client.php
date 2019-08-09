@@ -15,9 +15,13 @@ switch(true){
             $second_action = !empty( $second_action[3] ) && in_array($second_action[3], array('live','build','country','commercial')) ? $second_action[3] : '';
             if( !empty( $second_action ) ) {
                 $banks_list = CreditCalculator::getBanksList(false,$second_action);
+                
                 if(!empty($banks_list)){
-                    foreach($banks_list as $key=>$item) 
-                        CreditCalculator::calculatorShow($item['calculator_id'],1);
+                    foreach($banks_list as $key=>$item) {
+                        if( !Host::$is_bot ) CreditCalculator::calculatorShow( $item['calculator_id'], 1 );
+                        $ajax_result['type'] = $second_action;
+                        $ajax_result['id'] = $item['calculator_id'];
+                    }
                 }
             }
             $list = $db->fetchall(

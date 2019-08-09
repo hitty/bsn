@@ -206,14 +206,14 @@ jQuery(document).ready(function(){
         }
     });
     
-    jQuery( '.credit-box' ).on( 'click', 'span', function(e){
+    jQuery( document ).on( 'click', '.credit-box_item', function(e){
         try{
             _gaq.push(['_trackEvent', 'Целевое действие', 'Ипотека',,, false]);
         }catch(e){
             
         }
         var _el = jQuery(this);
-        var _params = {id:_el.data( 'id' ), type:_el.data( 'type' )};
+        var _params = {id:_el.attr('data-id' ), type:_el.attr('data-type')};
         getPending( '/credit_calculator/click/',_params)
             
     });

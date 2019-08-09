@@ -260,7 +260,8 @@ var Calculator = {
             self.durationSlider = self.initDurationSlider();
             self.Update();
 
-            
+            $('.credit-box_item').attr('data-id', data.id );
+            $('.credit-box_item').attr('data-type', data.type );
             $('.type-objects span').on( 'click', function(){
                 var market = $(this).data('market')
                 var object = $(this).data('object') 
