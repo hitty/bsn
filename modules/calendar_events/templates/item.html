@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <img class="main-photo lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" />
+    <img class="main-photo" src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" />
     <div class="registration-wrapper bg-cover" >
         <div class="wrapper br3">
             <time >{$item['datebegin']} {if!eq $item['dateend'],''}- {$item['dateend']}{/if}{if!empty $item['time']}, {$item['time']}{/if}</time>
