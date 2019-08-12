@@ -117,7 +117,7 @@ article .registration-wrapper .wrapper {
 }
 article .main-photo{
     display: block;
-    max-width: calc( 100% - 40px );
+    width: calc( 100% - 40px );
     margin: 0 auto;    
 }
 article .registration-wrapper time {
