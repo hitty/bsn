@@ -13,18 +13,18 @@
         </div>
     </div>
 
-    
-            <div class="registration-wrapper bg-cover lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
-                <div class="wrapper br3">
-                    <time >{$item['datebegin']} {if!eq $item['dateend'],''}- {$item['dateend']}{/if}{if!empty $item['time']}, {$item['time']}{/if}</time>
-                    <span class="place" data-icon="place" >{$item['city']}, {$item['place']}</span>
-                    {ifempty $item['past_event']}
-                        {if!empty $item['registration_opened']}
-                            <button class="popup" data-url="/calendar/popup/{$item['id']}/" name="submit" value="Стать участником">Стать участником</button>
-                        {/if}
-                    {/if}
-                </div>
-            </div>
+    <img class="main-photo lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" />
+    <div class="registration-wrapper bg-cover" >
+        <div class="wrapper br3">
+            <time >{$item['datebegin']} {if!eq $item['dateend'],''}- {$item['dateend']}{/if}{if!empty $item['time']}, {$item['time']}{/if}</time>
+            <span class="place" data-icon="place" >{$item['city']}, {$item['place']}</span>
+            {ifempty $item['past_event']}
+                {if!empty $item['registration_opened']}
+                    <button class="popup" data-url="/calendar/popup/{$item['id']}/" name="submit" value="Стать участником">Стать участником</button>
+                {/if}
+            {/if}
+        </div>
+    </div>
 
         
 
