@@ -1319,13 +1319,15 @@ circle.hover {
 
 .fast-search .extend-search-wrap .checkbox.contractor {
     position: absolute;
-    left: 480px;
+    left: 670px;
     z-index: 100;
+    margin-top: 20px;
 }
 .fast-search .extend-search-wrap .checkbox.asignment {
     position: absolute;
-    left: 670px;
+    left: 480px;
     z-index: 100;
+    margin-top: 20px;
 }
 
 .fast-search .extend-search-wrap .ajax-count .button {

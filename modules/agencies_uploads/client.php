@@ -46,6 +46,7 @@ else {
                 //читаем в строку нужный файл
                 $contents = file_get_contents($filename);
                 $xml_str = xml2array($contents);        
+                $id_user = 0;
                 switch(true){
                     case !empty($xml_str['root']['objects']['object']) && !empty($xml_str['root']['objects']['object'][0]['status']):
                         $file_type = 'EMLS';
