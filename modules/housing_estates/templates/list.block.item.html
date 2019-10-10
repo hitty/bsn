@@ -7,7 +7,7 @@
                     <div class="image-list">
                         {loop $photos,$pk,$pv} 
                         <div class="image-item">
-                            <div class="image-wrapper bg-cover transition lazy" data-src="{if!empty $pv['name']}{ifeq $estate_type,'inter'}http://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}{elseif!empty $pv['complex_photo']}{static:/}{$img_folder}/med/{$pv['complex_subfolder']}/{$pv['complex_photo']}{/if}">
+                            <div class="image-wrapper bg-cover transition lazy" data-src="{if!empty $pv['name']}{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}{elseif!empty $pv['complex_photo']}{static:/}{$img_folder}/med/{$pv['complex_subfolder']}/{$pv['complex_photo']}{/if}">
                                {ifgt $item['photos_count'],5}
                                     {ifeq $pk,4}
                                         <div class="more">

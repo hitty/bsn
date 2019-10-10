@@ -7,7 +7,7 @@
                             <div class="image-list">
                                 {loop $photos,$pk,$pv} 
                                 <div class="image-item">
-                                    <div class="image-wrapper bg-cover transition lazy" data-src="{if!empty $pv['name']}{ifeq $estate_type,'inter'}http://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}{elseif!empty $pv['complex_photo']}{static:/}{$img_folder}/med/{$pv['complex_subfolder']}/{$pv['complex_photo']}{/if}">
+                                    <div class="image-wrapper bg-cover transition lazy" data-src="{if!empty $pv['name']}{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}{elseif!empty $pv['complex_photo']}{static:/}{$img_folder}/med/{$pv['complex_subfolder']}/{$pv['complex_photo']}{/if}">
                                        {ifgt $item['photos_count'],5}
                                             {ifeq $pk,4}
                                                 <div class="more">
@@ -134,7 +134,7 @@
                                         </a>
                                         {if!empty $item['country_title']}
                                             <span class="country">
-                                                {if!empty $item['country_photo']}<img src="http://interestate.ru//img/uploads/sm/{$item['country_subfolder']}/{$item['country_photo']}" alt="{quoted:$item['country_title']}"/>{/if}
+                                                {if!empty $item['country_photo']}<img src="https://interestate.ru//img/uploads/sm/{$item['country_subfolder']}/{$item['country_photo']}" alt="{quoted:$item['country_title']}"/>{/if}
                                                 {quoted:$item['country_title']}
                                                 {if!empty $item['region_title']}, {$item['region_title']}{/if}
                                             </span>
@@ -173,7 +173,7 @@
                         <link itemprop="url" href="https://www.bsn.ru/{$estate_type}/{$deal_type}/{$item['id']}/">
                         <meta itemprop="name" content="{$item['header']}" />
                         <meta itemprop="description" content="{$item['header']}" />
-                        <link itemprop="image" href="{if!empty $item['photo']}{ifeq $estate_type,'inter'}http://interestate.ru/{else}https://st1.bsn.ru{static:/}{/if}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{elseif!empty $item['complex_photo']}https://st1.bsn.ru{static:/}{$img_folder}/med/{$item['complex_subfolder']}/{$item['complex_photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" />
+                        <link itemprop="image" href="{if!empty $item['photo']}{ifeq $estate_type,'inter'}https://interestate.ru/{else}https://st1.bsn.ru{static:/}{/if}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{elseif!empty $item['complex_photo']}https://st1.bsn.ru{static:/}{$img_folder}/med/{$item['complex_subfolder']}/{$item['complex_photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" />
                         {if!empty $item['total_variants']}
                             <div class="variants-wrap"></div>
                         {/if}                        

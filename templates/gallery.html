@@ -2,7 +2,7 @@
 {if!empty $show_gallery}
      {php:$pos=0}   
      {if!empty $estate_type}
-        {ifeq $estate_type,'inter'}{php:$static = 'http://interestate.ru/'}{/if}
+        {ifeq $estate_type,'inter'}{php:$static = 'https://interestate.ru/'}{/if}
      {/if}
      {php:$items_count = ( !empty($videos) ? count($videos) : 0 ) + ( !empty($photos) ? count($photos) : 0 )}          
      <div class="gallery-wrapper ">
@@ -11,9 +11,9 @@
             <div class="photos">
                 {loop $photos,$pk,$pv}
                     {php:$big_file_folder = !empty($pv['show_big']) ? 'big' : 'med'}
-                    <a class="{$hash} transition before-abs br3" data-icon="search" href="{ifeq $estate_type,'inter'}http://interestate.ru/{else}{static:/}{/if}{$img_folder}/{ifeq $gallery_type,'wide_gallery'}very_big{else}{$big_file_folder}{/if}/{$pv['subfolder']}/{$pv['name']}" title="{quoted:$titles['header']}" rel="fancybox-thumb" itemscope itemtype="http://schema.org/ImageObject">
-                        <img class="lazy" data-src="{ifeq $estate_type,'inter'}http://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}" class="br3" alt="{quoted:$titles['header']}"/>
-                        <img itemprop="contentUrl" src="{ifeq $estate_type,'inter'}http://interestate.ru/{else}{static:/}{/if}{$img_folder}/{$big_file_folder}/{$pv['subfolder']}/{$pv['name']}" alt="" style="display: none;" />
+                    <a class="{$hash} transition before-abs br3" data-icon="search" href="{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/{ifeq $gallery_type,'wide_gallery'}very_big{else}{$big_file_folder}{/if}/{$pv['subfolder']}/{$pv['name']}" title="{quoted:$titles['header']}" rel="fancybox-thumb" itemscope itemtype="http://schema.org/ImageObject">
+                        <img class="lazy" data-src="{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}" class="br3" alt="{quoted:$titles['header']}"/>
+                        <img itemprop="contentUrl" src="{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/{$big_file_folder}/{$pv['subfolder']}/{$pv['name']}" alt="" style="display: none;" />
                         <meta itemprop="name" content="{quoted:$metadata['title']}">
                         <meta itemprop="description" content="{quoted:$metadata['description']}">
                     </a>
