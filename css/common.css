@@ -188,7 +188,6 @@ body {
     text-size-adjust: 100%;
      background: #f3f3f3;
     line-height: 20px;
-    overflow: hidden;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -1028,7 +1027,6 @@ section:after{
 .col-2,
 .col-3{
     margin: 10px;
-    float: left;
     min-height: 100px;
     display: block;
     position: relative;
