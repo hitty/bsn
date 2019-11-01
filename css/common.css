@@ -1149,6 +1149,7 @@ section:after{
   float: right;
   width: 720px;
   position: relative;
+  z-index: 20;
 }
 .wide-format .content .central-column,
 .payed-format .content .central-column {
