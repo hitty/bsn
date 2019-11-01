@@ -99,7 +99,7 @@ if(empty($requested_page->is_admin_page) && empty($ajax_mode)){
     $GLOBALS['js_set'][] = '/js/main.js';
     $GLOBALS['js_set'][] = '/js/interface.js';
     $GLOBALS['js_set'][] = '/js/history.min.js';
-    $GLOBALS['js_set'][] = '/js/fixed_columns.js';
+    //$GLOBALS['js_set'][] = '/js/fixed_columns.js';
     $GLOBALS['js_set'][] = '/js/slider.popup.js';
     
     $GLOBALS['js_set'][]  = '/modules/tgb/list.popup.js';

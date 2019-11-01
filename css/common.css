@@ -187,17 +187,21 @@ body {
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
      background: #f3f3f3;
-    ine-height: 20px;
-    width: 100%;
+    line-height: 20px;
+    overflow: hidden;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column
-    position: relative;
+    position: relative;   
 }
-
+@media(min-width: 1220px){
+    body{
+        width: 100%;    
+    }
+}
 body:before {
     content: "";
     background: none;
@@ -379,16 +383,18 @@ strong{
 header,
 footer,
 .central-column {
-  width: 1200px;
-  margin: 0 auto;
-  padding: 10px 20px;
-  position: relative;
+    width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    position: relative;
 }
 
 
 .central-column {
   padding: 0;
   margin: 60px auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 header + .central-column{
    margin: 80px auto 40px auto;
@@ -1076,11 +1082,9 @@ section:after{
 }
 #left-column{
     width: 900px;
-    float: left;
     margin: 0;
 }
 #right-column{
-    float: right;
     position:static;
 }
 .comagic-o-rack--top{

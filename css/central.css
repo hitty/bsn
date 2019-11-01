@@ -1,19 +1,7 @@
-.fixed-column.scrolled-bottom{
-    position: absolute!important;
-    bottom: 10px!important;
-    z-index: 10!important;
-    margin: 0!important;
-    max-width: 280px;
+.fixed-column{
+    position: sticky!important;
+    top: 20px;
 } 
-.fixed-column.scrolled-bottom-fixed{
-    position:fixed;
-    bottom:10px; 
-    max-width: 280px;  
-}
-.fixed-column.scrolled-top{
-    position:fixed!important;
-    max-width: 280px!important;  
-}
 /* filter */
 .filter h2 {
     margin: 0 20px 0 0;
