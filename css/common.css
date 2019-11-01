@@ -187,8 +187,7 @@ body {
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
      background: #f3f3f3;
-    ine-height: 20px;
-    width: 100%;
+    line-height: 20px;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -196,6 +195,11 @@ body {
     -ms-flex-direction: column;
     flex-direction: column
     position: relative;   
+}
+@media(min-width: 1220px){
+    body{
+        width: 100%;    
+    }
 }
 
 body:before {
@@ -1076,12 +1080,12 @@ section:after{
 }
 #left-column{
     width: 900px;
-    float: left;
     margin: 0;
+    float: none;
 }
 #right-column{
-    float: right;
     position:static;
+    float: none;  
 }
 .comagic-o-rack--top{
     display: none!important;

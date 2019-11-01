@@ -18,7 +18,7 @@
         {include /modules/housing_estates/templates/gallery.fullscreen.html}
     {/if}
     
-    <div class="central-column clearfix{if!empty $central_class} {$central_class}{/if}">
+    <div class="central-column clearfix{if!empty $central_class} {$central_class}{/if} {ifempty $payed_format}flex-u{/if}">
         {ifempty $payed_format}<div id="left-column">{/if}
         {$content}
         {if!empty $metadata['seo_text']}
