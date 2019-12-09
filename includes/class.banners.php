@@ -273,7 +273,7 @@ abstract class Banners {
            $where[] = " ( " . self::$tables['banners'] . ".shows_limit = 0 OR " . self::$tables['banners'] . ".shows_limit > " . self::$tables['banners'] . ".days_views ) ";
            
            if( !empty( $action ) ) $estate_type = !empty( Config::Get('object_types')[$action] ) && !empty( Config::Get('object_types')[$action]['key'] ) ? Config::Get('object_types')[$action]['key'] : 0;                                                                                                                                                 
-           if(!empty($estate_type)) $where[] = " ( " . self::$tables['banners'] . ".zones & " . pow( 2, $estate_type ) . " OR " . self::$tables['banners'] . ".zones = 0 ) ";                      
+           if( !empty( $estate_type ) ) $where[] = " ( " . self::$tables['banners'] . ".zones & " . pow( 2, $estate_type ) . " OR " . self::$tables['banners'] . ".zones = 0 ) ";                      
            else $where[] = self::$tables['banners'] . ".zones = 0";                      
            
            if( !empty( $position ) ) $where[] = self::$tables['banners_positions'].".url = '" . $position . "'";

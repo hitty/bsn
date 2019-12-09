@@ -456,7 +456,7 @@ class Page {
                         if( !empty( $topline) ) Response::SetArray( 'banner_item', $topline );
                     }
                     //определение баннера справа
-                    $right_banner = Banners::getItem( 'right' );
+                    $right_banner = Banners::getItem( 'right', !empty( $this->page_alias ) ? $this->page_alias : false );
                     if( !empty( $right_banner ) ) Response::SetArray( 'right_banner', $right_banner );
                 }                        
                 
