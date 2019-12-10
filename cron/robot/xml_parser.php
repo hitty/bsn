@@ -58,7 +58,7 @@ $argc = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv
 $sent_report = ( empty($argc) ? 1 : 2 );
 //локально
 
-if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 5065 ";
+if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 5145 ";
 if(!empty($argc)) $where = $sys_tables['users'].".id_agency = ".$argc." AND ".$sys_tables['users'].".agency_admin = 1";
 
 $agency = $db->fetch("         SELECT          
@@ -233,16 +233,15 @@ if(!empty($success)){
                     $robot = new CianXmlRobot($id_user);
                     $info_source = 10;
                     break;
-                case !empty($xml_str['feed']['object'][0]):
+                case !empty( array_keys($xml_str)[0] ) && !empty( array_keys($xml_str[array_keys($xml_str)[0]]) ) && array_keys($xml_str[array_keys($xml_str)[0]])[1] == 'object' :
                     $file_type = 'Cian_new';
-                    $values_array = $xml_str['feed']['object'];
+                    $values_array = $xml_str[array_keys($xml_str)[0]]['object'];
                     $robot = new CianNewXmlRobot($id_user); 
                     $info_source = 13;
                     break;
                 default:
                     break;
             }
-            
             if(empty($file_type)) {
                 $error_text = 'файл неизвестного формата'; 
                 $db->query("UPDATE ".$sys_tables['processes']." SET status = ?, full_log = CONCAT (log,'".$error_text."'), log='' WHERE id = ?", 2, $process_id);

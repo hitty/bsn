@@ -5706,7 +5706,7 @@ class CianNewXmlRobot extends Robot{
         } else {
             $estate_types = array('live', 'commercial', 'country');
             foreach($estate_types as $estate_type){
-                $this->fields['id_type_object'] = $this->getInfoFromTable($this->sys_tables['type_objects_' . $estate_type], $type_object,'ciannew_value',true,'id');         
+                $this->fields['id_type_object'] = $this->getInfoFromTable( $this->sys_tables['type_objects_' . $estate_type], $type_object, 'ciannew_xml', true, 'id' );         
                 if( !empty( $this->fields['id_type_object'] ) ) {
                     $this->estate_type = $estate_type;
                     break;
