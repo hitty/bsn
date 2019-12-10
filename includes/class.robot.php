@@ -4416,7 +4416,10 @@ class AvitoRXmlRobot extends Robot{
         ///определяем тип недвижимости и тип объекта
         if(!empty($values['category'])){
             switch(true){
-                case (!empty($values['MarketType']) && preg_match('/овостройк/sui',$values['MarketType'])): $this->estate_type = 'build';break;
+                case (!empty($values['MarketType']) && preg_match('/овостройк/sui',$values['MarketType'])): 
+                    $this->estate_type = 'build';
+                    $this->fields['id_type_object'] = 1;
+                    break;
                 case preg_match('/квартиры/sui',$values['category']): 
                     $this->estate_type = 'live'; 
                     $this->fields['id_type_object'] = $this->getInfoFromTable($this->sys_tables['type_objects_'.$this->estate_type],"квартира",'title',false,'id');
@@ -4464,88 +4467,9 @@ class AvitoRXmlRobot extends Robot{
         //создаем пустой текстовый адрес, чтобы не было ошибок в классе moderation
         $this->fields['txt_addr'] = "";
 
-        
-        
-        ///отделяем городские от загородных, определяем тип объекта и его адрес
-        if(!empty($values['region']) && preg_match('/етербург/',$values['Region'])){
-            
-            //City - город (например Колпино или Гатчина)
-            if(!empty($values['City'])){
-                $city_info = $db->fetch("SELECT * FROM ".$this->sys_tables['geodata']." WHERE id_region = 78 AND (a_level = 3 OR a_level = 4) AND offname = ?",$values['City']);
-                if(!empty($city_info)){
-                    $this->fields['id_district'] = $city_info['id_district'];
-                    $this->fields['id_city'] = $city_info['id_city'];
-                }
-            }
-            
-            //район города
-            if(!empty($values['District'])) $this->fields['id_district'] = $this->getInfoFromTable($this->sys_tables['districts'],$values['District'],'title',false,'id');
-            
-            //Locality - уточнение нас. пункта (с учетом города)
-            if(!empty($values['Locality'])){
-                $locality_info = $db->fetch("SELECT * 
-                                             FROM ".$this->sys_tables['geodata']." 
-                                             WHERE id_region = 78 AND 
-                                                   a_level = 4 AND 
-                                                   offname = ?".
-                                                   (!empty($this->fields['id_district'])?" AND id_district = ".$this->fields['id_district']:"").
-                                                   (!empty($this->fields['id_city'])?" AND id_city = ".$this->fields['id_city']:"")
-                                            ,$values['Locality']);
-                $this->fields['id_district'] = $locality_info['id_district'];
-                $this->fields['id_city'] = $locality_info['id_city'];
-                $this->fields['id_place'] = $locality_info['id_place'];
-            }
-            
-            //метро
-            $this->fields['id_subway'] = $this->getInfoFromTable($this->sys_tables['subways'],$values['Subway'],'title',false,'id');
-            
-            //читаем улицу
-            if(!empty($values['street'])){
-                $this->fields['txt_addr'] = $values['street'];
-                $this->getTxtGeodata($values['street']);
-            }
-            $this->fields['txt_addr'] = $values['street'];
-        }
-        elseif(preg_match('/енинградская/',$values['Region'])){
-            //City - город (например Колпино или Гатчина)
-            if(!empty($values['City'])){
-                $city_info = $db->fetch("SELECT * FROM ".$this->sys_tables['geodata']." WHERE id_region = 47 AND (a_level = 3 OR a_level = 4) AND offname = ?",$values['City']);
-                if(!empty($city_info)){
-                    $this->fields['id_district'] = $city_info['id_district'];
-                    $this->fields['id_city'] = $city_info['id_city'];
-                    $this->fields['id_place'] = $city_info['id_place'];
-                }
-            }
-            //Locality - уточнение нас. пункта (с учетом города)
-            if(!empty($values['Locality'])){
-                $locality_info = $db->fetch("SELECT * 
-                                             FROM ".$this->sys_tables['geodata']." 
-                                             WHERE id_region = 47 AND 
-                                                   a_level = 4 AND 
-                                                   title = ?".
-                                                   (!empty($this->fields['id_district'])?" AND id_district = ".$this->fields['id_district']:"").
-                                                   (!empty($this->fields['id_city'])?" AND id_city = ".$this->fields['id_city']:"")
-                                            ,$values['Locality']);
-                if(!empty($locality_info)){
-                    $this->fields['id_district'] = $locality_info['id_district'];
-                    $this->fields['id_city'] = $locality_info['id_city'];
-                    $this->fields['id_place'] = $locality_info['id_place'];
-                }
-            }
-            
-            //читаем улицу
-            if(!empty($values['street'])) $this->getTxtGeodata($values['street']);
-            $this->fields['txt_addr'] = $values['street'];
-        }
-        
-        //при отсутствии полей, утсанавливаем в 0, чтобы они затерлись
-        if( empty( $this->fields['id_street'])) $this->fields['id_street'] = 0;
-        if( empty( $this->fields['id_city']) || $this->fields['id_city'] < 0) $this->fields['id_city'] = 0;
-        if( empty( $this->fields['id_place']) || $this->fields['id_place'] < 0) $this->fields['id_place'] = 0;
-        if( empty( $this->fields['id_district'])) $this->fields['id_district'] = 0;
-        if( empty( $this->fields['id_area'])) $this->fields['id_area'] = 0;
-        if( empty( $this->fields['house'])) $this->fields['house'] = 0;
-        if( empty( $this->fields['corp'])) $this->fields['corp'] = 0;
+        if(!empty($values['Address']) && preg_match('/етербург/',$values['Address'])) $this->fields['id_region'] = 78;
+        else $this->fields['id_region'] = 48;
+        if( !empty( $values['Address'] ) ) $this->getGeodataDdata( $values['Address'] );
         
         //группировка объектов по адресу
         $this->groupByAddress($this->estate_type, $this->fields, true);
