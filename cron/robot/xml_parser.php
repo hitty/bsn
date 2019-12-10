@@ -242,6 +242,7 @@ if(!empty($success)){
                 default:
                     break;
             }
+            print_r($file_type);
             if(empty($file_type)) {
                 $error_text = 'файл неизвестного формата'; 
                 $db->query("UPDATE ".$sys_tables['processes']." SET status = ?, full_log = CONCAT (log,'".$error_text."'), log='' WHERE id = ?", 2, $process_id);
