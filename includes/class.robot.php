@@ -4509,15 +4509,14 @@ class AvitoRXmlRobot extends Robot{
             case 'build':
             case 'live':
                 $this->fields['rooms_sale'] = (!empty($values['SaleRooms'])?$values['SaleRooms']:0);
-                if(!empty($values['Rooms'])) $this->fields['rooms_total'] = $this->fields['rooms_sale'] = $values['Rooms'];
-                if(!empty($values['Square'])) $this->fields['square_full'] = $values['Square'];
-                if(!empty($values['LivingSpace'])) $this->fields['square_live'] = $values['LivingSpace'];
-                if(!empty($values['KitchenSpace'])) $this->fields['square_kitchen'] = $values['KitchenSpace'];
-                if(!empty($values['Floor'])) $this->fields['level'] = $values['Floor'];
-                if(!empty($values['Floors'])) $this->fields['level_total'] = $values['Floors'];
-                if(!empty($values['HouseType'])) $this->fields['id_building_type'] = $this->getInfoFromTable($this->sys_tables['building_types'],$values['HouseType'],'avitoxml_value',false,'id');
-                if(!empty($values['Decoration'])) $this->fields['id_facing'] = $this->getInfoFromTable($this->sys_tables['facings'],$values['Decoration'],'avitoxml_value',false,'id');
-                //WallsType можем записать только для загородной
+                if( !empty( $values['Rooms'] ) ) $this->fields['rooms_total'] = $this->fields['rooms_sale'] = $values['Rooms'];
+                if( !empty( $values['Square'] ) ) $this->fields['square_full'] = $values['Square'];
+                if( !empty( $values['LivingSpace'] ) ) $this->fields['square_live'] = $values['LivingSpace'];
+                if( !empty( $values['KitchenSpace'] ) ) $this->fields['square_kitchen'] = $values['KitchenSpace'];
+                if( !empty( $values['Floor'] ) ) $this->fields['level'] = $values['Floor'];
+                if( !empty( $values['Floors'] ) ) $this->fields['level_total'] = $values['Floors'];
+                if( !empty( $values['HouseType'] ) ) $this->fields['id_building_type'] = $this->getInfoFromTable($this->sys_tables['building_types'],$values['HouseType'],'avitoxml_value',false,'id');
+                if( !empty( $values['Decoration'] ) ) $this->fields['id_facing'] = $this->getInfoFromTable($this->sys_tables['facings'],$values['Decoration'],'avitoxml_value',false,'id');
             break;
             case 'country':
                 if(!empty($values['Floors'])) $this->fields['level_total'] = $values['Floors'];
@@ -4536,8 +4535,8 @@ class AvitoRXmlRobot extends Robot{
                 if(!empty($values['Floor'])) $this->fields['txt_level'] = (!empty($values['Floors'])?($values['Floor']."/".$values['Floors']):$values['Floor']);
             break;
         }
-        if(!empty($values['Latitude'])) $this->fields['lat'] = $values['Latitude'];
-        if(!empty($values['Longitude'])) $this->fields['lng'] = $values['Longitude'];
+        if( !empty($values['Latitude'] ) ) $this->fields['lat'] = $values['Latitude'];
+        if( !empty($values['Longitude'] ) ) $this->fields['lng'] = $values['Longitude'];
         //общая информация
         if(!empty($values['Description'])){
             $this->fields['notes'] = $values['Description'];
