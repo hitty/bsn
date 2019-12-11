@@ -36,9 +36,9 @@ class SuggestClient {
 class Robot {
     // таблицы для списков типов недвижимости
     public $estate_type = '';          // тип недвижимости
-    public $fields = array();          // поля объекта 
-    public $sys_tables = array();      // таблицы 
-    public $object_statuses = array(); //типы выделений
+    public $fields = [];          // поля объекта 
+    public $sys_tables = [];      // таблицы 
+    public $object_statuses = []; //типы выделений
     const photos_limit = 20;
     
     public function __construct($id_user){
@@ -58,8 +58,8 @@ class Robot {
         
         $this->object_statuses = $db->fetchall("SELECT * FROM ".$this->sys_tables['objects_statuses']);
         //читаем типы локаций и их a_level
-        $this->exploders = array();
-        $this->exploders_cut = array();
+        $this->exploders = [];
+        $this->exploders_cut = [];
         $this->exploders_with_levels = $db->fetchall("SELECT shortname,shortname_cut,MIN(a_level) as level FROM ".$this->sys_tables['geodata']." GROUP BY shortname");
         //составляем списки типов локаций и сокращенных типов локаций
         foreach($this->exploders_with_levels as $object){
@@ -113,7 +113,7 @@ class Robot {
            else $res = $db->fetch("SELECT * FROM ".$table." WHERE ".$fields." REGEXP '^.*#?(".$values.")(#.*)*'");
            return $res;
        }else{
-           $condition = array();
+           $condition = [];
            foreach($values as $key=>$item){
                if( empty( $fields[$key])) return false;
                $condition = $fields[$key]." = ?";
@@ -164,8 +164,8 @@ class Robot {
     public function getPhotoList($photos, $id,$suffix=null){
         global $db;
         //Фотографии которрых НЕТ в базе
-        $photos_out = $photos_in = array();
-        if($id < 1) return array(array(),$photos);
+        $photos_out = $photos_in = [];
+        if($id < 1) return array([],$photos);
         $counter = 0;
         foreach($photos as $key=>$name){
             if($counter>=$this::photos_limit) break;
@@ -195,7 +195,7 @@ class Robot {
     public function getClearPhotoList($photos_urls,$id,$suffix=false){
         global $db;
         $photos_urls = array_values($photos_urls);
-        $photos_to_delete = $photos_to_add = array();
+        $photos_to_delete = $photos_to_add = [];
         $photos_to_delete = $db->fetchall("SELECT id,external_img_src FROM ".$this->sys_tables[$this->estate_type.'_photos']." WHERE id_parent".$suffix." = ?",'id',$id);
         $k = 0;
         //фотки уже в базе - претенденты на удаление
@@ -217,7 +217,7 @@ class Robot {
         $photos_urls = array_slice(array_values($photos_urls),0, $this::photos_limit - 1);
         $photos_to_add = array_values($photos_urls);
         //добавлять будем не больше чем 20 - те что уже есть - 1(потому что нумерация с нуля)
-        if($this::photos_limit - $photos_in_base_amount - 1 <= 0) $photos_to_add = array();
+        if($this::photos_limit - $photos_in_base_amount - 1 <= 0) $photos_to_add = [];
         else $photos_to_add = array_slice($photos_to_add,0, $this::photos_limit - $photos_in_base_amount - 1);
         return array($photos_to_add, $photos_to_delete);
     }
@@ -228,7 +228,7 @@ class Robot {
         if( empty( $max_a_level)) $max_a_level = 6;
         if(!is_array($addr_block)) $addr_block = explode(' ',$addr_block);
         $current_address = "";
-        $geodata_variants = array();
+        $geodata_variants = [];
         
         $k = 0;
         
@@ -275,7 +275,7 @@ class Robot {
             $k = 0;
             $addr_block = explode(',',implode(',',$addr_block));
             //если остался блок дом/корпус и улицу нашли
-            if( empty( $addr_block[0])) $addr_block = array();
+            if( empty( $addr_block[0])) $addr_block = [];
             elseif(preg_match('/^[0-9дкДК\.\_\s]+$/sui',trim($addr_block[0])) && !empty($this->fields['id_street']) && count($addr_block) == 1){
                 $this->getHouseCorpFromString($addr_block[0]);
                 unset($addr_block[0]);
@@ -289,7 +289,7 @@ class Robot {
     private function parseGeoTxtBlock($addr_block,$shortname,$a_level){
         global $db;
         if(strlen($addr_block) < 8 || Validate::isDigit($addr_block)) return false;
-        $_geo = array();
+        $_geo = [];
                               
         //коррекция для адресов с "В.О."
         if( (preg_match('/((?<=[^А-я])п\.?с\.?(?!=[А-я]))|((?!=[А-я])в\.?о\.?(?!=[А-я]))/sui',$addr_block) || $this->fields['id_district'] == 3 ) && (strstr($addr_block,'большой') || strstr($addr_block,'малый') || strstr($addr_block,'средний')) && $shortname == 'проспект') 
@@ -312,7 +312,7 @@ class Robot {
         $max_match = 0;
         //смотрим, насколько совпадает с тем что есть
         foreach($objects_like_this as $key=>$object){
-            $city_info = array();
+            $city_info = [];
             $objects_like_this[$key]['matching'] = 0;
             
             if($a_level >= 3 && $this->fields['id_region'] == 47 && !empty($this->fields['id_area']) && $this->fields['id_area'] != $object['id_area']){
@@ -620,7 +620,7 @@ class Robot {
                         
                         $addr_block = trim($addr_block);
                         
-                        $_geo = array();
+                        $_geo = [];
                         
                         $_geo = $this->parseGeoTxtBlock($addr_block,$this->exploders_with_levels[$exploder_key]['shortname'],$a_level);
                         
@@ -633,7 +633,7 @@ class Robot {
                         unset($txt_blocks[$key]);
                         $addr_block = "";
                         //здесь будем хранить адрес, который распознался до конца блока
-                        $saved_geo = array();
+                        $saved_geo = [];
                         //подбираем блоки после разделителя, после каждого проверяя по базе, не нашли ли что-нибудь + фикс для территорий снт
                         while((!empty($txt_blocks[$k])) && (( empty( $txt_blocks[$k]) || !in_array($txt_blocks[$k],$this->exploders)) || ($txt_blocks[$k] == 'снт' && $value == 'тер')) ){
                             //подбираем блок, проверяем в базе, если не нашли, идем дальше пока не наткнемся на следующий разделитель
@@ -752,7 +752,7 @@ class Robot {
                     if(count($txt_blocks) > 1){
                         $a_level = 3;
                         $k = 0;
-                        $offname = array();
+                        $offname = [];
                         //читаем все до разделителя
                         while(isset($txt_blocks[$k]) && !(in_array(trim(preg_replace('/\./sui','',$txt_blocks[$k])),$this->exploders)||in_array(trim(preg_replace('/\./sui','',$txt_blocks[$k])),$this->exploders_cut)) ){
                             $offname[]= $txt_blocks[$k];
@@ -1242,7 +1242,7 @@ class Robot {
         $data = $db->fetchall( " SELECT * FROM " . $sys_tables['subways'] . " WHERE lat BETWEEN " . $sLat . " AND " . $eLat . " AND lng BETWEEN " . $sLng . " AND " . $eLng . " " );
      
         if($data){
-            $list = array();
+            $list = [];
             foreach($data as $v){
                 // Рассчитываем расстояние от объекта до метро в метрах
                 $v['distance'] = $this->distance($this->fields['lng'], $this->fields['lat'],$v['lng'],$v['lat']);
@@ -1354,7 +1354,7 @@ class Robot {
             $tablename = ($type == 1 ? "housing_estates" : ($type == 2 ? "cottages" : "business_centers"));
             $complexes = $db->fetchall("SELECT id FROM ".$this->sys_tables[$tablename]." WHERE title LIKE '".$external_title."%'",false);
             if(count($complexes) > 1){
-                $complex_where = array();
+                $complex_where = [];
                 if(!empty($id_region)) $complex_where[] = " id_region = ".Convert::ToInt($id_region);
                 if(!empty($id_area)) $complex_where[] = " id_area = ".Convert::ToInt($id_area);
                 $complex_where = implode(" AND ",$complex_where);
@@ -2717,7 +2717,7 @@ class BNTxtRobot extends Robot{
 class ExcelRobot extends Robot{
     public $file_format = 'excel';
 
-    public $mapping = array();
+    public $mapping = [];
     /**
     * обработка полученных из bn.xml значений
     * @return array of arrays
@@ -2873,7 +2873,7 @@ class ExcelRobot extends Robot{
 class CustomExcelRobot extends Robot{
     public $file_format = 'excel';
 
-    public $mapping = array();
+    public $mapping = [];
     /**
     * обработка полученных из xlsx в свободной форме
     * @return array of arrays
@@ -3865,7 +3865,7 @@ class GdeetotXmlRobot extends Robot{
 */
 class YandexRXmlRobot extends Robot{
     public $file_format = 'yrxml';
-    public $mapping = array();                                                                  
+    public $mapping = [];                                                                  
     public function getConvertedFields($values, $agency, $photos_limit = false,$return_deal_type = false){
         global $db, $counter,$errors_log, $agency, $estate_complexes_log;
         //запоминание строки для логирования
@@ -3979,7 +3979,7 @@ class YandexRXmlRobot extends Robot{
                 if(is_string($values['location']['address']) && strstr($values['location']['address'],'ЖК')){
                     $values['location']['address'] = "";
                 } 
-                $full_addr = array();
+                $full_addr = [];
                 foreach( $values['location'] as $k => $value ) $full_addr[] = is_string( $value ) && preg_match( '#[а-я]{1,}#msiU', $value ) ? $value : '';     
                 $full_addr = implode( ', ', $full_addr );
                 $this->getGeodataDdata( $full_addr  );
@@ -4401,7 +4401,7 @@ class YandexRXmlRobot extends Robot{
 */
 class AvitoRXmlRobot extends Robot{
     public $file_format = 'avitoxml';
-    public $mapping = array();
+    public $mapping = [];
     public function getConvertedFields($values, $agency, $photos_limit = false,$return_deal_type = false){
         global $db, $counter,$errors_log, $agency, $estate_complexes_log;
         //запоминание строки для логирования
@@ -4410,8 +4410,10 @@ class AvitoRXmlRobot extends Robot{
         //тип сделки (2-продажа/1-аренда)
         $this->fields['rent']=preg_match('/прода/sui',$values['OperationType'])?2:1;
         //регион 
-        if(!empty($values['region']) && preg_match('/етербург/',$values['Region']))  $this->fields['id_region'] = 78; ///объект находится в городе
-        elseif(preg_match('/енинградская/',$values['Region'])) $this->fields['id_region'] = 47; ///объект находится в области
+        if( !empty( $values['region'] ) ) {
+            if( preg_match( '/етербург/',$values['Region'] ) )  $this->fields['id_region'] = 78; ///объект находится в городе
+            elseif( preg_match( '/енинградская/',$values['Region'] ) ) $this->fields['id_region'] = 47; ///объект находится в области
+        }
             
         ///определяем тип недвижимости и тип объекта
         if(!empty($values['category'])){
@@ -4468,7 +4470,7 @@ class AvitoRXmlRobot extends Robot{
         $this->fields['txt_addr'] = "";
 
         if(!empty($values['Address']) && preg_match('/етербург/',$values['Address'])) $this->fields['id_region'] = 78;
-        else $this->fields['id_region'] = 48;
+        else $this->fields['id_region'] = 47;
         if( !empty( $values['Address'] ) ) $this->getGeodataDdata( $values['Address'] );
         
         //группировка объектов по адресу
@@ -4507,11 +4509,14 @@ class AvitoRXmlRobot extends Robot{
             case 'build':
             case 'live':
                 $this->fields['rooms_sale'] = (!empty($values['SaleRooms'])?$values['SaleRooms']:0);
-                if(!empty($values['Rooms'])) $this->fields['rooms_total'] = $values['Rooms'];
+                if(!empty($values['Rooms'])) $this->fields['rooms_total'] = $this->fields['rooms_sale'] = $values['Rooms'];
                 if(!empty($values['Square'])) $this->fields['square_full'] = $values['Square'];
+                if(!empty($values['LivingSpace'])) $this->fields['square_live'] = $values['LivingSpace'];
+                if(!empty($values['KitchenSpace'])) $this->fields['square_kitchen'] = $values['KitchenSpace'];
                 if(!empty($values['Floor'])) $this->fields['level'] = $values['Floor'];
                 if(!empty($values['Floors'])) $this->fields['level_total'] = $values['Floors'];
-                if(!empty($values['HouseType'])) $this->fields['id_building_type'] = $this->getInfoFromTable($this->sys_tables['building_types'],$values['HouseType'],'title',false,'id');
+                if(!empty($values['HouseType'])) $this->fields['id_building_type'] = $this->getInfoFromTable($this->sys_tables['building_types'],$values['HouseType'],'avitoxml_value',false,'id');
+                if(!empty($values['Decoration'])) $this->fields['id_facing'] = $this->getInfoFromTable($this->sys_tables['facings'],$values['Decoration'],'avitoxml_value',false,'id');
                 //WallsType можем записать только для загородной
             break;
             case 'country':
@@ -4531,7 +4536,8 @@ class AvitoRXmlRobot extends Robot{
                 if(!empty($values['Floor'])) $this->fields['txt_level'] = (!empty($values['Floors'])?($values['Floor']."/".$values['Floors']):$values['Floor']);
             break;
         }
-        
+        if(!empty($values['Latitude'])) $this->fields['lat'] = $values['Latitude'];
+        if(!empty($values['Longitude'])) $this->fields['lng'] = $values['Longitude'];
         //общая информация
         if(!empty($values['Description'])){
             $this->fields['notes'] = $values['Description'];
@@ -4554,7 +4560,7 @@ class AvitoRXmlRobot extends Robot{
                     }
                 }
             }
-        }elseif(!empty($values['Images']['Image_attr']) && !empty($values['Images']['Image_attr']['url']) && $this->checkPhoto($values['Images']['Image_attr']['url']) ) $this->fields['images'][] = $values['Images']['Image_attr']['url'];
+        } elseif( !empty($values['Images']['Image_attr']) && !empty($values['Images']['Image_attr']['url']) && $this->checkPhoto($values['Images']['Image_attr']['url']) ) $this->fields['images'][] = $values['Images']['Image_attr']['url'];
         
         //район        
         if( empty( $this->fields['id_district'] ) && !empty( $this->fields['id_region'] ) && $this->fields['id_region'] == 78) $this->getDistrict( $this->fields ); 
@@ -5018,7 +5024,7 @@ class CianXmlRobot extends Robot{
         if(!empty($return_deal_type)) return $this->fields;
         
         //поле для данных, к которым нет полей
-        if( empty( $this->fields['special_notes'])) $this->fields['special_notes'] = array();
+        if( empty( $this->fields['special_notes'])) $this->fields['special_notes'] = [];
         
         /////////////////
         //общие для всех данные по стоимости и местоположению
