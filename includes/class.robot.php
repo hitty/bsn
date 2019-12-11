@@ -4492,17 +4492,17 @@ class AvitoRXmlRobot extends Robot{
         //статус объявления
         if(!empty($values['AdStatus']))
             switch($values['AdStatus']){
-                case 'Highlight': $this->getStatus(1);break;
-                case 'Premium':$this->getStatus(2);break;
-                case 'VIP': $this->getStatus(3);break;
-                default: $this->getStatus(6);break;
+                case 'Highlight':   $this->getStatus(1);    break;
+                case 'Premium':     $this->getStatus(2);    break;
+                case 'VIP':         $this->getStatus(3);    break;
+                default:            $this->getStatus(6);    break;
             }
         
         ///информация об условиях сделки
         //стоимость
         if(!empty($values['Price'])) $this->fields['cost'] = $values['Price'];
         //посуточно/не посуточно
-        $this->fields['by_the_day'] = ((!empty($values['LeaseType']) && preg_match('/посуточн/sui',$values['LeaseType']))?1:2);
+        $this->fields['by_the_day'] = ( ( !empty($values['LeaseType'] ) && preg_match( '/посуточн/sui', $values['LeaseType'] ) )? 1 : 2 );
         
         ///информация об объекте
         switch($this->estate_type){
@@ -4565,6 +4565,7 @@ class AvitoRXmlRobot extends Robot{
         if( empty( $this->fields['id_district'] ) && !empty( $this->fields['id_region'] ) && $this->fields['id_region'] == 78) $this->getDistrict( $this->fields ); 
         
         //координаты широта + долгота
+        /*
         if( !empty( $this->fields['house'] ) && !empty( $this->fields['id_street'] ) ) {
             $spb_address = $this->getSpbAddress( $this->fields );
             if( !empty( $spb_address ) ) list( $this->fields['lat'], $this->fields['lng'] ) = array( $spb_address['lat'], $spb_address['lng'] );
@@ -4578,7 +4579,7 @@ class AvitoRXmlRobot extends Robot{
         }
         //метро        
         if( empty( $this->fields['id_subway'] ) && !empty( $this->fields['id_region'] ) && $this->fields['id_region'] == 78 )   $this->getSubway( ); 
-
+        */
         return $this->fields;
     }
 }
