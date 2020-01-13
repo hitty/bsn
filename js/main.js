@@ -170,6 +170,7 @@ jQuery(document).ready(function(){
     if( jQuery( '.payed-format' ).length == 0 ) {
         
         var _banners = _banners_urls = [];
+        if(jQuery('.tgb-list.top').length > 0) { _banners.push( '.tgb-list.top' ); _banners_urls.push( '/tgb/top/' )};
         if(jQuery('#top-banner').length > 0) { _banners.push( '#top-banner' ); _banners_urls.push( '/ab/top/' )};
         if(jQuery('#right-top-banner').length > 0) { _banners.push( '#right-top-banner' ); _banners_urls.push( '/ab/right/' )};
         if(jQuery('#middle-bottom-banner').length > 0) { _banners.push( '#middle-bottom-banner' ); _banners_urls.push( '/ab/bottom/' )};

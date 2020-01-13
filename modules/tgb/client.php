@@ -232,7 +232,38 @@ switch(true){
             else $list = [];
             Response::SetArray('list', $list);
             // кол-во дополнительных ТГБ
-            Response::SetArray( 'partner_count', range( $action == 'bottom' ? 10 : ( in_array( $action, array( 'left', 'top' ) ) && $_number_items_left > count($list) ? $_number_items_left - count($list) - 1 : abs( count($list) - $_number_items_left) - 1 ) , 0 ) );
+            $partner_count = range( $action == 'bottom' ? 10 : ( in_array( $action, array( 'left', 'top' ) ) && $_number_items_left > count($list) ? $_number_items_left - count($list) - 1 : abs( count($list) - $_number_items_left) - 1 ) , 0 );
+            if( !empty( $partner_count ) ) {
+                $partner_list = [];
+                foreach( $partner_count as $p ){
+                    $html = file_get_contents( 'http://adaurum.ru/view/www/delivery/ajs.php?zoneid=79' );
+                    preg_match('/var ([a-z0-9A-Z\_]{1,20})/', $html, $output_array);
+                    if( !empty( $output_array[1] ) ) {
+                        $html = str_replace( [
+                            '"+"',
+                            ' += "',
+                            'var ' . $output_array[1] . " = '';",
+                            'document.write(' . $output_array[1] . ")",
+                            $output_array[1],
+                            '\n";',
+                            "\n",
+                            "/\n",
+                            "/\/\n",
+                            "\\n"
+                        ], '', $html );
+                        $html = str_replace( "\'", "'", $html );
+                        $html = str_replace( '\"', '"', $html );
+                        $html = trim( $html, ';' );
+                        $length = array_search( 2046, array_column($partner_list, 'length') );
+
+                        if( $length === false ) $partner_list[] = [ 'html'=> $html, 'length' => strlen( $html ) ];
+                    }
+                }
+                Response::SetArray( 'partner_list', $partner_list );
+            }
+            
+            Response::SetArray( 'partner_count', $partner_count );
+            
             if(!empty($list) && count($list)>0){
                 Response::SetString('action', $action);
                 $ajax_result['ok'] = true;

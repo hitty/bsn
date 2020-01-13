@@ -1,20 +1,23 @@
-body{
+body {
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-image: url('/modules/about/img/bg.jpg');
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: cover;  
-    font-family: 'Roboto';    
+    background-size: cover;
+    font-family: 'Roboto';
     font-weight: 300;
     color: #fff;
+    overflow: hidden;
 }
-.content{
-    
+
+.content {
+    padding: 20px;
 }
+
 footer {
     position: absolute;
     left: 0;
@@ -25,13 +28,15 @@ footer {
     background: none;
     font-size: 16px;
 }
-.transition{
+
+.transition {
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
 }
+
 .upgrade-btn {
     background-color: #9f00ae;
     cursor: pointer;
@@ -57,7 +62,8 @@ footer {
     bottom: 0;
     overflow: hidden;
 }
-.content .logo{
+
+.content .logo {
     padding: 10px 20px;
     display: block;
     margin: 0 auto;
@@ -65,44 +71,50 @@ footer {
     width: 120px;
     background: #1e88e5;
 }
-.content .logo span{
+
+.content .logo span {
     width: 120px;
     height: 40px;
     background: url(/img/layout/bsn-logo-white.svg);
     background-repeat: no-repeat;
     background-size: 120px auto;
-    display: block;   
-    margin-top: 3px; 
+    display: block;
+    margin-top: 3px;
 }
+
 .slogans div {
     width: 660px;
     position: absolute;
     top: 50%;
     opacity: 0;
 }
-.slogans .active{
+
+.slogans .active {
     opacity: 1;
 }
-.slogans div[data-id="1"]{
+
+.slogans div[data-id="1"] {
     top: -360px;
 }
+
 .slogans .active[data-id="1"] {
     top: 50%;
     margin-top: -180px;
 }
-.slogans div[data-id="2"],
-.slogans div[data-id="3"]{
+
+.slogans div[data-id="2"],.slogans div[data-id="3"] {
     top: -344px;
 }
-.slogans .active[data-id="2"],
-.slogans .active[data-id="3"] {
+
+.slogans .active[data-id="2"],.slogans .active[data-id="3"] {
     top: 50%;
-    margin-top: -172px;  
+    margin-top: -172px;
 }
 
-.slogans div[data-id="4"]{
+.slogans div[data-id="4"] {
     top: -303px;
 }
+
 .slogans .active[data-id="4"] {
     top: 50%;
     margin-top: -155px;
@@ -117,6 +129,7 @@ footer {
     font-family: 'Roboto';
     font-weight: 500;
     font-size: 60px;
+    line-height: 1;
 }
 
 .slogans .text {
@@ -127,7 +140,7 @@ footer {
 
 .menu {
     position: absolute;
-    right: 0;
+    right: 20px;
     top: 50%;
     margin-top: -260px;
 }
@@ -140,8 +153,7 @@ footer {
     cursor: pointer;
 }
 
-.menu div.active,
-.menu div:hover {
+.menu div.active,.menu div:hover {
     opacity: 1;
 }
 
@@ -165,9 +177,11 @@ footer {
     height: 100px;
     border-radius: 100%;
 }
-.menu div.active .icon i{
+
+.menu div.active .icon i {
     border-color: #1e88e5;
 }
+
 .menu div .icon i {
     border: 2px solid #fff;
     border-radius: 50%;
@@ -181,14 +195,15 @@ footer {
     transition: box-shadow .3s linear;
 }
 
-.menu div.active .icon i,
-.menu div:hover .icon i {
+.menu div.active .icon i,.menu div:hover .icon i {
     box-shadow: inset 0 0 0 50px #1e88e5;
 }
-.menu div.active .icon i{
+
+.menu div.active .icon i {
     background: #1e88e5;
 }
-.menu div .icon i:before{
+
+.menu div .icon i:before {
     background-image: url(/modules/about/img/sprite.svg);
     background-repeat: no-repeat;
     content: '';
@@ -204,11 +219,9 @@ footer {
     background-size: 720px auto;
 }
 
-.menu div:hover .icon i:after,
-.menu div .icon i:before {
+.menu div:hover .icon i:after,.menu div .icon i:before {
     opacity: 1;
 }
-
 
 .menu div[data-id="1"] .icon i:before {
     background-position: -69px -190px;
@@ -218,11 +231,9 @@ footer {
     background-position: -128px -190px;
 }
 
-
 .menu div[data-id="3"] .icon i:before {
     background-position: -186px -187px;
 }
-
 
 .menu div[data-id="4"] .icon i:before {
     background-position: -11px -187px;
