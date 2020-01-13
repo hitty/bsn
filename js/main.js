@@ -172,7 +172,7 @@ jQuery(document).ready(function(){
         var _banners = _banners_urls = [];
         if(jQuery('.tgb-list.top').length > 0) { _banners.push( '.tgb-list.top' ); _banners_urls.push( '/tgb/top/' )};
         if(jQuery('.tgb-list.bottom').length > 0) { _banners.push( '.tgb-list.bottom' ); _banners_urls.push( '/tgb/bottom/' )};
-        if(jQuery('#tgb-right').length > 0) { _banners.push( '#tgb-right' ); _banners_urls.push( '/tgb/estate_list/build/5/' )};
+        if(jQuery('#tgb-right').length > 0) { _banners.push( '#tgb-right' ); _banners_urls.push( '/tgb/estate_list/build/3/' )};
         
         if(jQuery('#top-banner').length > 0) { _banners.push( '#top-banner' ); _banners_urls.push( '/ab/top/' )};
         if(jQuery('#right-top-banner').length > 0) { _banners.push( '#right-top-banner' ); _banners_urls.push( '/ab/right/' )};
