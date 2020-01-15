@@ -12,7 +12,7 @@
                 {loop $photos,$pk,$pv}
                     {php:$big_file_folder = !empty($pv['show_big']) ? 'big' : 'med'}
                     <a class="{$hash} transition before-abs br3" data-icon="search" href="{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/{ifeq $gallery_type,'wide_gallery'}very_big{else}{$big_file_folder}{/if}/{$pv['subfolder']}/{$pv['name']}" title="{quoted:$titles['header']}" rel="fancybox-thumb" itemscope itemtype="http://schema.org/ImageObject">
-                        <img class="lazy" data-src="{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}" class="br3" alt="{quoted:$titles['header']}"/>
+                        <img src="{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/med/{$pv['subfolder']}/{$pv['name']}" class="br3" alt="{quoted:$titles['header']}"/>
                         <img itemprop="contentUrl" src="{ifeq $estate_type,'inter'}https://interestate.ru/{else}{static:/}{/if}{$img_folder}/{$big_file_folder}/{$pv['subfolder']}/{$pv['name']}" alt="" style="display: none;" />
                         <meta itemprop="name" content="{quoted:$metadata['title']}">
                         <meta itemprop="description" content="{quoted:$metadata['description']}">
