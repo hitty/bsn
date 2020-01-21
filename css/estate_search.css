@@ -338,12 +338,12 @@ input[name="way_time"],input[name="level"] {
 }
 
 #geodata-picker-wrap.selected-subways {
-    height: 640px;
+    height: 720px;
     overflow: hidden;
 }
 
 #geodata-picker-wrap.selected-subways .geodata-button {
-    bottom: -500px;
+    bottom: -570px;
 }
 
 #geodata-picker-wrap .location-list {
@@ -702,7 +702,7 @@ circle.hover {
 }
 
 #subways-svg {
-    margin-top: 90px;
+    margin-top: 95px;
 }
 
 #subways-wrap {
@@ -819,7 +819,7 @@ circle.hover {
 }
 
 #subways-lines .line-5 {
-    top: -85px;
+    top: -35px;
     left: 295px;
     background: #B61D8E;
 }
