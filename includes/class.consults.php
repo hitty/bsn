@@ -101,7 +101,6 @@ class ConsultQuestion {
                      if(!empty($new_user_data)){
                          $this->data_array['id_initiating_user'] = $new_user_data['id'];
                          $user_creating = true;
-                         $mailer = new EMailer('mail');
                          $env = array(
                              'url' => Host::GetWebPath(),
                              'host' => Host::$host,
@@ -114,20 +113,18 @@ class ConsultQuestion {
                          $eml_tpl = new Template('/modules/consults/templates/mail_notify_asker.html');
                          // формирование html-кода письма по шаблону
                          $html = $eml_tpl->Processing();
-                         // перевод письма в кодировку мейлера
-                         $html = iconv('UTF-8', $mailer->CharSet, $html);
                          
-                         // параметры письма
-                         $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'Вы создали вопрос в сервисе Консультант '.Host::$host);
-                         $mailer->Body = $html;
-                         $mailer->AltBody = strip_tags($html);
-                         $mailer->IsHTML(true);
-                         $mailer->AddAddress('web@bsn.ru');
-                         $mailer->AddAddress($new_user_data['email'], iconv('UTF-8',$mailer->CharSet, $this->data_array['name']));
-                         $mailer->From = 'no-reply@bsn.ru';
-                         $mailer->FromName = 'bsn.ru';
-                         $correct_send = false;      // счетчик корректной отправки двух писем. Если стал = 2, то все ок
-                         if($mailer->Send()) $correct_send = true;
+                        // формирование html-кода письма по шаблону
+                        $html = $eml_tpl->Processing();         
+                        if( !class_exists('Sendpulse') ) require("includes/class.sendpulse.php");
+                        //отправка письма
+                        $sendpulse = new Sendpulse( 'subscriberes' );
+                        $emails = [
+                            [ 'name' => '',                         'email'=> 'web@bsn.ru' ],
+                            [ 'name' => $this->data_array['name'],  'email'=> $new_user_data['email'] ]
+                        ];
+
+                        $correct_send = $sendpulse->sendMail( 'Вы создали вопрос в сервисе Консультант ' . Host::$host, $html, '', '', '', '', $emails );
                      }
                 } 
             }
@@ -378,7 +375,6 @@ class ConsultQuestion {
         }
         //отсылаем общее письмо, как раньше
         else{
-            $mailer = new EMailer('mail');
             // данные пользователя для шаблона
             $letter_data = array('email'=>$this->data_array['email'], 'name'=>"", 'title'=>$this->data_array['title'], 'id'=>$this->id);
             $addresses = "";
@@ -425,27 +421,21 @@ class ConsultQuestion {
     * @return bool
     */
     private function sendNewQuestionNotification($env,$letter_data,$letter_template,$reciever_name,$address,$to_me = false){
-        $mailer = new EMailer('mail');
         Response::SetArray( "data", $letter_data );
         Response::SetArray('env', $env);
         
         $eml_tpl = new Template($letter_template);
         $html = $eml_tpl->Processing();
-        $html = iconv('UTF-8', $mailer->CharSet, $html);
-        
-        $mailer->Subject = iconv('UTF-8', $mailer->CharSet, (!empty($reciever_name)?$reciever_name.", с":"С").'оздан новый вопрос в сервисе Консультант '.Host::$host.' ID '.$this->id);
-        $mailer->Body = $html;
-        $mailer->AltBody = strip_tags($html);
-        $mailer->IsHTML(true);
-        
-        if(Validate::isEmail($address)) $mailer->AddAddress($address, iconv('UTF-8',$mailer->CharSet, ""));
-        
+
+        if( !class_exists('Sendpulse') ) require("includes/class.sendpulse.php");
+        //отправка письма
+        $sendpulse = new Sendpulse( 'subscriberes' );
+        $emails = [];
+        if( Validate::isEmail( $address ) ) $emails[] = [ 'name' => '', 'email'=> $address ];
         //если указано, дублируем
-        if(!empty($to_me)) $mailer->AddAddress('web@bsn.ru');
-        
-        $mailer->From = 'no-reply@bsn.ru';
-        $mailer->FromName = 'bsn.ru';
-        return $mailer->Send();
+        if( !empty( $to_me ) ) $emails[] = [ 'name' => '', 'email'=> 'web@bsn.ru' ];
+
+        return $sendpulse->sendMail( (!empty($reciever_name)?$reciever_name.", с":"С").'оздан новый вопрос в сервисе Консультант '.Host::$host.' ID '.$this->id, $html, '', '', '', '', $emails );
     }
     
     /**
@@ -476,27 +466,23 @@ class ConsultQuestion {
         );
         Response::SetArray('env', $env);
         
-        $mailer = new EMailer('mail');
         
         $eml_tpl = new Template('/modules/consults/templates/mail_notify_asker.html');     // формирование письма для юзера
         // формирование html-кода письма по шаблону
         $html = $eml_tpl->Processing();
-        // перевод письма в кодировку мейлера
-        $html = iconv('UTF-8', $mailer->CharSet, $html);
-        // параметры письма
-        $mailer = new EMailer('mail');
-        if(empty($id_answer)) $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'Ваш вопрос «'.$this->id.'» в сервисе Консультант '.Host::$host.' прошел модерацию');
-        else $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'На Ваш вопрос в сервисе Консультант '.Host::$host.' пришел ответ');
-        $mailer->Body = $html;
-        $mailer->AltBody = strip_tags($html);
-        $mailer->IsHTML(true);
-        $mailer->AddAddress('web@bsn.ru');
-        $mailer->AddAddress($this->data_array['email'], iconv('UTF-8',$mailer->CharSet, $this->data_array['name']));
-        $mailer->From = 'no-reply@bsn.ru';
-        if(empty($id_answer)) $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'Вопрос в сервисе конусльтант на сайте BSN.ru');
-        else $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'Консультация на сайте bsn.ru');
-        
-        if($mailer->Send() && !empty($correct_send)) Response::SetString('success','email');       // отправка письма пользователю
+
+        if( !class_exists('Sendpulse') ) require("includes/class.sendpulse.php");
+        //отправка письма
+        $sendpulse = new Sendpulse( 'subscriberes' );
+        $emails = [
+            [ 'name' => '',                         'email'=> 'web@bsn.ru' ],
+            [ 'name' => $this->data_array['name'],  'email'=> $this->data_array['email'] ]
+        ];
+        if( empty( $id_answer ) ) $subject = 'Ваш вопрос «'.$this->id.'» в сервисе Консультант '.Host::$host.' прошел модерацию';
+        else $subject = 'На Ваш вопрос в сервисе Консультант '.Host::$host.' пришел ответ';
+        $correct_send = $sendpulse->sendMail( $subject, $html, '', '', '', '', $emails );
+
+        Response::SetString('success', $correct_send ?? 'email' );       // отправка письма пользователю
     }
     
     /**
@@ -547,31 +533,27 @@ class ConsultQuestion {
         }
         
         if( !empty( $notify_info['email'] ) ){
-            $mailer = new EMailer('mail');
             // формирование html-кода письма по шаблону
             Response::SetArray('data',$notify_info);
             //если вопрос на специалиста
             Response::SetBoolean('agent',(!empty($this->id_respondent_user) && !empty($this->respondents_array['user_tarif']) && $this->respondents_array['user_tarif']>0) );
-            $eml_tpl = new Template('/modules/consults/templates/mail_content_manager.html');
-            $html = $eml_tpl->Processing();
-            // перевод письма в кодировку мейлера
-            $mail_text = iconv('UTF-8', $mailer->CharSet, $html);
-            
-            // параметры письма
-            $site = preg_replace('/^www\./','',$_SERVER['HTTP_HOST']);
-            $mailer->Subject = iconv('UTF-8', $mailer->CharSet, "Необходимо проверить ".(empty($notify_info['answer'])?"вопрос":"ответ")." на ".$site." - ID ".(empty($notify_info['answer'])?$this->id:$id_answer).", ".date('Y-m-d H:i:s'));
-            $mailer->Body = $mail_text;
-            $mailer->AltBody = strip_tags($mail_text);
-            $mailer->IsHTML(true);
-            
+
             //если email корректный, отправляем письмо
             if(!empty($notify_info['email'])  && Validate::isEmail($notify_info['email'])){
-                $mailer->AddAddress($notify_info['email']);
-                $mailer->AddAddress("web@bsn.ru");
-                $mailer->From = 'no-reply@bsn.ru';
-                $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'bsn.ru');
-                // попытка отправить
-                $mailer->Send();
+                $eml_tpl = new Template('/modules/consults/templates/mail_content_manager.html');
+                $html = $eml_tpl->Processing();
+
+                if( !class_exists('Sendpulse') ) require("includes/class.sendpulse.php");
+                //отправка письма
+                $sendpulse = new Sendpulse( 'subscriberes' );
+                $site = preg_replace('/^www\./','',$_SERVER['HTTP_HOST']);
+                $subject = "Необходимо проверить ".(empty($notify_info['answer'])?"вопрос":"ответ")." на ".$site." - ID ".(empty($notify_info['answer'])?$this->id:$id_answer).", ".date('Y-m-d H:i:s');
+
+                $emails = [
+                    [ 'name' => '',  'email'=> 'web@bsn.ru' ],
+                    [ 'name' => '',  'email'=> $notify_info['email'] ]
+                ];
+                $correct_send = $sendpulse->sendMail( $subject, $html, '', '', '', '', $emails );
             }
         }
         return true;
@@ -596,25 +578,22 @@ class ConsultQuestion {
         );
         Response::SetArray('env', $env);
         
-        $mailer = new EMailer('mail');
-        
         $eml_tpl = new Template('/modules/consults/templates/mail_notify_responder.html');     // формирование письма для юзера
         // формирование html-кода письма по шаблону
         $html = $eml_tpl->Processing();
-        // перевод письма в кодировку мейлера
-        $html = iconv('UTF-8', $mailer->CharSet, $html);
-        // параметры письма
-        $mailer = new EMailer('mail');
-        $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'Ваш ответ ID '.$answer_info['id'].' в сервисе Консультант '.Host::$host.' прошел модерацию');
-        $mailer->Body = $html;
-        $mailer->AltBody = strip_tags($html);
-        $mailer->IsHTML(true);
-        $mailer->AddAddress($answer_info['email'], iconv('UTF-8',$mailer->CharSet, $answer_info['user_name']));
-        $mailer->AddAddress('web@bsn.ru');
-        $mailer->From = 'no-reply@bsn.ru';
-        $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'Ваш ответ на сайте bsn.ru'); 
-        
-        if($mailer->Send() && !empty($correct_send)) Response::SetString('success','email');       // отправка письма пользователю
+
+        //отправка письма
+        if( !class_exists('Sendpulse') ) require("includes/class.sendpulse.php");
+        $sendpulse = new Sendpulse( 'subscriberes' );
+
+        $subject = 'Ваш ответ ID '.$answer_info['id'].' в сервисе Консультант '.Host::$host.' прошел модерацию';
+
+        $emails = [
+            [ 'name' => '',  'email'=> 'web@bsn.ru' ],
+            [ 'name' => $answer_info['user_name'],  'email'=> $answer_info['email'] ]
+        ];
+        $correct_send = $sendpulse->sendMail( $subject, $html, '', '', '', '', $emails );
+        Response::SetString( 'success', $correct_send ?? 'email' );       // отправка письма пользователю
     }
     
     /**
