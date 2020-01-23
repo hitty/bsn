@@ -1,4 +1,4 @@
-<h1 class="pageTitle">Статистика ТГБ</h1>
+<h1 class="pageTitle">Статистика баннера</h1>
 <div class="showSpecStats" style="width: 635px;height: 120px;">
     <img width="145" style="float:left" src="{$info['photo']}">
     <a href="/admin/advert_objects/banners/edit/{$info['id']}/" class="edit-froms-stats">Редактировать</a>
@@ -14,14 +14,15 @@
 </div>
         {if!empty $form_submit}
         <script>jQuery(document).ready(clickPrice)</script>
-		<div id="result_info_stats">
+		<div id="result_info_stats">      
+            <a href="#" class="click-hide">Показать только общие переходы (для печати)</a>
             <table width="650" cellspacing="0" cellpadding="10" data-date-interval="{$info['interval']}">
               <tbody>
                   <tr>
                     <th width="100">Дата</th>
                     <th width="120">Показы</th>
-                    <th width="70">Переходы БСН</th>
-                    <th width="70">Переходы ФБ</th>
+                    <th width="70" class="click-hide">Переходы БСН</th>
+                    <th width="70" class="click-hide">Переходы ФБ</th>
                     <th width="70">Переходы (всего)</th>
                     <th width="80">CTR, %</th>
                   </tr>
@@ -34,9 +35,9 @@
                     	<tr>
                         	<td>{$item['date']}</td>
                         	<td>{$item['show_amount']}</td>
-                            <td>{php:echo $item['click_bsn_amount']}</td>
-                            <td>{php:echo $item['click_facebook_amount']}</td>
-                            <td>{php:echo $item['click_amount']}</td>
+                            <td class="click-hide">{php:echo $item['click_bsn_amount']}</td>
+                            <td class="click-hide">{php:echo $item['click_facebook_amount']}</td>
+                            <td class="clicks">{php:echo $item['click_amount']}</td>
                         	<td>{ifgt $item['show_amount'],0}{php:echo number_format(($item['click_amount']/$item['show_amount'])*100, 2, '.', ' ')}{else}0{/if}</td>
 						</tr>
                         {php:$total_show=$total_show+$item['show_amount']}
@@ -47,8 +48,8 @@
                   <tr>
                     <th>Всего</th>
                     <th>{$total_show}</th>
-                    <th>{$total_bsn_click}</th>
-                    <th>{$total_facebook_click}</th>
+                    <th class="click-hide">{$total_bsn_click}</th>
+                    <th class="click-hide">{$total_facebook_click}</th>
                     <th>{$total_click}</th>
                     <th>{ifgt $total_show,0}{php:echo number_format(($total_click/$total_show)*100, 2, '.', ' ')}{else}0{/if}</th>
                   </tr>
