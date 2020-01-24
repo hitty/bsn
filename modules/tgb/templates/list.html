@@ -10,7 +10,9 @@
         {loop $partner_count,$p,$s}
            {iflt $index,$count}
                <div class="tgb col-1"{if!empty $mainpage_new} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{elseif!empty $mainpage} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{/if}>
+               <span class="external-link br3{if!empty $item['with_popup']} disabled{/if}" data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="tgb" data-id="{$item['id']}" data-position="">
                     <ins data-revive-zoneid='245' data-revive-block='1' data-revive-id='ef31140a2143d1fde6638a033856c01e'></ins>
+                    </span>
                </div>
            {/if}
         {php:++$index}
