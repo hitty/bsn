@@ -644,6 +644,7 @@ header.with-searchform:hover{
     display: block;
 }
 
+.tgb-list .tgb .adaurum-text,
 .tgb-list .tgb .title {
     overflow: hidden;
     max-height: 60px;
@@ -656,8 +657,10 @@ header.with-searchform:hover{
     bottom: 15px;
     left: 15px;
     right: 15px;
+    font-family: 'Roboto';
 }
 
+.tgb-list .tgb .adaurum-title,
 .tgb-list .tgb .annotation {
     font-weight: normal;
     display: block;
@@ -668,6 +671,7 @@ header.with-searchform:hover{
     font-size: 18px;
     line-height: 22px;
     margin: 15px;
+    font-family: 'Roboto';
 }
 
 .tgb-list .tgb .phone {
