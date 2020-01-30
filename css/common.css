@@ -704,6 +704,67 @@ header.with-searchform:hover{
     margin-left: -10px;
     padding: 10px 0;
 }
+.tgb-list ins[data-revive-zoneid] > div{
+    background: #fff !important;
+    color: #000 !important;
+    width: 280px !important;
+    position: relative !important;
+    height: 330px !important;
+    float: left;
+    overflow: hidden;
+    margin: 10px;
+    border-radius: 3px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    cursor:pointer;
+}
+
+.tgb-list ins[data-revive-zoneid] a {
+    border: none;
+}
+
+.tgb-list ins[data-revive-zoneid] .adaurum-text{
+    overflow: hidden;
+    max-height: 60px;
+    display: block;
+    text-align: left;
+    color: #818181;
+    font-size: 14px;
+    line-height: 15px;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    font-family: 'Roboto';
+}
+
+.tgb-list ins[data-revive-zoneid] .adaurum-title{
+    font-weight: normal;
+    display: block;
+    overflow: hidden;
+    max-height: 43px;
+    text-align: left;
+    color: #000;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 15px;
+    font-family: 'Roboto';
+}
+
+.tgb-list ins[data-revive-zoneid] > div:hover{
+    -webkit-box-shadow: 0 5px 20px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 5px 20px rgba(0,0,0,.1);
+    -ms-box-shadow: 0 5px 20px rgba(0,0,0,.1);
+    -o-box-shadow: 0 5px 20px rgba(0,0,0,.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+}
+
+.tgb-list ins[data-revive-zoneid] > div:hover .adaurum-title {
+    color: #1e88e5;
+}
 .comagic-call-button-handset{
     display: none!important;
 }
