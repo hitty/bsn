@@ -1283,10 +1283,11 @@ switch(true){
                                         foreach($info as $key=>$field) if(isset($mapping[$key]['value'])) $info[$key] = $mapping[$key]['value'];
 
                                         //чистим описание
-                                        $info['notes'] = Validate::stripEmail($info['notes']);
-                                        $info['notes'] = Validate::stripPhone($info['notes'],true);
-                                        $info['notes'] = strip_tags($info['notes'],'<strong><b><u><i><em><ul><ol><li><p><div><span><br>');
-                                        
+                                        if( $auth->id_group != 101 ){
+                                            $info['notes'] = Validate::stripEmail($info['notes']);
+                                            $info['notes'] = Validate::stripPhone($info['notes'],true);
+                                            $info['notes'] = strip_tags($info['notes'],'<strong><b><u><i><em><ul><ol><li><p><div><span><br>');
+                                        }                                        
                                         ///специалист не может редактировать контактные данные
                                         if(!empty($auth->id_tarif)){
                                             $info['seller_name'] = (!empty($auth->name) ? $auth->name.(!empty($auth->lastname) ? " ".$auth->lastname : "") : "");
