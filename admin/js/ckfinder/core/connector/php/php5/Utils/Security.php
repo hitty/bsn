@@ -32,7 +32,7 @@ class CKFinder_Connector_Utils_Security
      */
     public function getRidOfMagicQuotes()
     {
-        if (CKFINDER_CONNECTOR_PHP_MODE<6 && get_magic_quotes_gpc()) {
+        if ( CKFINDER_CONNECTOR_PHP_MODE<6 ) {
             if (!empty($_GET)) {
                 $this->stripQuotes($_GET);
             }

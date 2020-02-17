@@ -73,7 +73,7 @@ class HousingEstatesRating {
                             "
                             
         ) ;
-        $this->housing_estates_ids = explode( ",", $item['housing_estates_ids'] );
+        $this->housing_estates_ids = !empty( $item['housing_estates_ids'] ) ? explode( ",", $item['housing_estates_ids'] ) : [];
         return $item;
         
     }

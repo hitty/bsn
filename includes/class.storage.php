@@ -181,15 +181,9 @@ class Cookie {
     public static function SetCookie( $name, $value = null, $expires = null, $path = null, $domain = null, $secure = false, $httponly = false ) {
         $file = null;
         $line = null;
-        if( is_array( $value ) ) {
-            $value = serialize( $value );
-            if(!get_magic_quotes_gpc()) $value = addslashes($value);
-        } else {       
-            $value = Convert::ToString( $value );
-        }
-        if( headers_sent( $file, $line ) ) {
-            return false;
-        }
+        if( is_array( $value ) ) $value = addslashes( serialize( $value ) );
+        else $value = Convert::ToString( $value );
+        if( headers_sent( $file, $line ) ) return false;
         if(empty($expires)) $expires = 0;
         else $expires = time() + $expires; 
         return setcookie( $name, $value, $expires, $path, $domain, $secure, $httponly );

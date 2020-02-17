@@ -85,6 +85,16 @@
                     {ifgt $item['service_lifts'],0}<p><span><b>Грузовых лифтов</b></span><i>{$item['service_lifts']}</i></p>{/if}                    
                     {ifeq $item['214_fz'],1}<p><span><b>ФЗ 214</b></span><i>Да</i></p>{/if}
                 </div>   
+                {ifeq $item['id'],1447}
+                <div class="video-wrap br3 section inline">
+                    <div class="title" name="characteristics">Видео</div>
+                    <div class=" flex">
+                        <iframe width="50%" height="224" src="//www.youtube.com/embed/det6-_ylnM4" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="50%" height="224" src="//www.youtube.com/embed/ECo8xXi7nWs" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                {/if}
+                
                 
                 <div class="section" style="height: auto;">
                     {ifempty $print}

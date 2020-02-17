@@ -3649,7 +3649,7 @@ class EstateSearch {
     * @param array $new_parameters список подзапросов 
     */
     
-    public function formParams($new_parameters = false, $only_params = false, $estate_type = false, $deal_type = false ){
+    public function formParams($new_parameters = false, $only_params = false, $estate_type = false, $deal_type = '' ){
        global $db, $sys_tables, $requested_page;    
         
         $sys_tables = !empty($sys_tables) ? $sys_tables : $this->tables;
@@ -3677,7 +3677,7 @@ class EstateSearch {
         //для апартаментов та же база, что и для ЖК
         if($estate_type == 'apartments') $estate_type = 'zhiloy_kompleks';
         if(empty($sys_tables[$estate_type])) return false;
-        $deal_type = empty($deal_type) ? ( !empty($params[1]) ? $params[1] : false ) : $deal_type;
+        $deal_type = $deal_type ?? ( $params[1] ?? '' );
         //флаг принадлежности к объекту недвижимости, не комплексу
         $estate_object = empty($estate_type) || in_array($estate_type, array('live','build','commercial','country', 'inter'));
         Response::SetBoolean('estate_object', $estate_object);
@@ -3788,7 +3788,7 @@ class EstateSearch {
                         if(!empty($types)) $clauses['id_type_object'] = array('set'=> array_keys($types));
                         
                     }
-                    $get_parameters['objects_group'] =  $types_group['id'].'-'.$estate_type.'-'.$deal_type;
+                    $get_parameters['objects_group'] =  $types_group['id'].'-'.$estate_type.'-' .$deal_type;
                     
                 } 
             } else if(!empty($parameters['obj_type'])) {
@@ -3798,7 +3798,7 @@ class EstateSearch {
         }
         if( empty( $get_parameters['objects_group'] ) ) {
             $type = $db->fetch("SELECT id FROM ".$sys_tables['object_type_groups']." WHERE type=? ORDER BY id ASC", $estate_type);
-            $get_parameters['objects_group'] =  $type['id'].'-'.$estate_type.'-'.$deal_type;
+            $get_parameters['objects_group'] =  !empty( $type['id'] ) ? $type['id'].'-'.$estate_type.'-'.$deal_type : $estate_type;
         }
         $suffix = "";
         if(!empty($parameters['currency'])) {

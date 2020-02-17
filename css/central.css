@@ -1558,6 +1558,9 @@ background: none;
     position: relative;
     top: 7px;
 }
+.card .video-wrap iframe{
+    width: 49%;
+}
 .card .realtor-help-wrapper span {
     float: right;
 }
