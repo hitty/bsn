@@ -35,6 +35,11 @@ $db->query("SET lc_time_names = 'ru_RU';");
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
 
+
+$eml_tpl = new Template('cron/sendpulse.test.email.html');
+// формирование html-кода письма по шаблону
+$html = $eml_tpl->Processing();         
+
 $sendpulse = new Sendpulse( 'subscriberes' );
-$result = $sendpulse->sendMail( 'Регистрация на сайте ' . Host::$host, 'Тестовое письмо ' . date('d.m.Y H:i:s'), 'Юрий', 'kya1982@gmail.com' );
+$result = $sendpulse->sendMail( 'Регистрация на сайте ' . Host::$host, $html, 'Юрий', 'kya1982@gmail.com' );
 ?>
