@@ -42,4 +42,5 @@ $html = $eml_tpl->Processing();
 
 $sendpulse = new Sendpulse( 'subscriberes' );
 $result = $sendpulse->sendMail( 'Регистрация на сайте ' . Host::$host, $html, 'Юрий', 'kya1982@gmail.com' );
+$result = $sendpulse->sendMail( 'Регистрация на сайте ' . Host::$host, $html, 'Юрий', 'kya82@mail.ru' );
 ?>
