@@ -4,7 +4,7 @@
 
 NuSphere PHP Debugger (DBG) Helper script
 
-Copyright (c) 2007, 2019 NuSphere Corporation
+Copyright (c) 2007, 2020 NuSphere Corporation
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -34,12 +34,12 @@ http://www.nusphere.com
 	error_reporting(E_ALL & ~(E_NOTICE | E_STRICT));
 	//    ini_set('display_errors', 'off');
 	
-	define('DBG_WIZARD_VERSION', '3.9.3914');
-	define('DBG_VERSION', '9.1.10');
+	define('DBG_WIZARD_VERSION', '4.0.4003');
+	define('DBG_VERSION', '9.2.8');
 	
 	define('DBGWIZ_MIN_PHP_VERSION', '4.3.0');
-	define('DBGWIZ_BUNDLED_MIN_PHP_VERSION', '5.1.0');
-	define('DBGWIZ_MAX_PHP_VERSION', '7.3.99');
+	define('DBGWIZ_BUNDLED_MIN_PHP_VERSION', '5.3.0');
+	define('DBGWIZ_MAX_PHP_VERSION', '7.4.99');
 
 	$expected_dbg = DBG_VERSION;
 	$expected_phpunit = '';
@@ -482,7 +482,7 @@ http://www.nusphere.com
 		if (isset($_SERVER['DOCUMENT_ROOT'])) {
 			$remote_root = normalize_path($_SERVER['DOCUMENT_ROOT']);
 			if (!empty($remote_root)) {
-				$ch = $remote_root{strlen($remote_root) - 1};
+				$ch = $remote_root[strlen($remote_root) - 1];
 				if ($ch !== '/' && $ch !== "\\") {
 					$remote_root = $remote_root . DIRECTORY_SEPARATOR;
 				}
@@ -498,7 +498,7 @@ http://www.nusphere.com
 				$url_path = substr ($url_path, 1, $r - 1);
 			}
 			if (!empty($url_path)) {
-				$ch = $url_path{strlen($url_path) - 1};
+				$ch = $url_path[strlen($url_path) - 1];
 				if ($ch !== '/' && $ch !== "\\") {
 					$url_path = $url_path . '/';
 				}

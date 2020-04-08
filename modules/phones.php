@@ -3,7 +3,7 @@ require_once('includes/class.estate.php');
 require_once('includes/class.estate.statistics.php');
 require_once('includes/class.housing_estates.php');
 $module_template = 'templates/phones.box.html';
-$bsn_phone = '(952) 245-94-26';
+$bsn_phone = '(921) 970-45-18';
 // определяем тип недвижимости
 $estate = "";
 $estate_types = array('live','build','commercial','country','inter','apartments','zhiloy_kompleks','business_centers','cottedzhnye_poselki');
