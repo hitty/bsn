@@ -485,19 +485,19 @@ switch(true){
                 Response::SetArray('titles',$titles);
                 if($ajax_mode) $ajax_result['ok']=true;
                 //расчет кредитного калькулятора
-                if($item['rent']==2 && ($estate_type=='live' || $estate_type=='build' || $estate_type=='country' || $estate_type=='commercial')){
+                if( $item['rent']==2 ){
                     switch($estate_type){
                         case 'live':
                             $credit_type = 1;
                             break;
                         case 'build': 
-                            $credit_type = 4;
-                            break;
-                        case 'commercial': 
                             $credit_type = 2;
                             break;
-                        case 'country': 
+                        case 'commercial': 
                             $credit_type = 3;
+                            break;
+                        case 'country': 
+                            $credit_type = 4;
                             break;
                     }            
                     $credit_calculator = $db->fetch("SELECT * FROM ".$sys_tables['credit_calculator']." WHERE `published` = ? AND `enabled` = ? AND `date_start` <= CURDATE() AND `date_end` > CURDATE() AND type=?",
