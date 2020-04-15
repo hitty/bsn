@@ -89,7 +89,8 @@ switch(true){
             }
 
             //получение баннера: Кредитный калькулятор
-            $item = $db->fetch("SELECT * FROM ".$sys_tables['credit_calculator']." WHERE `published` = ? AND `enabled` = ? AND `date_start` <= CURDATE() AND `date_end` > CURDATE() AND `type`=?",
+            $item = $db->fetch("SELECT *
+                                FROM ".$sys_tables['credit_calculator']." WHERE `published` = ? AND `enabled` = ? AND `date_start` <= CURDATE() AND `date_end` > CURDATE() AND `type`=?",
                                 1, 1, $type ); 
             $banks_list = CreditCalculator::getBanksList( false, $this_page->page_parameters[1] );
             $object_cost = !empty( $this_page->page_parameters[2] ) ? $this_page->page_parameters[2] : 4000000;

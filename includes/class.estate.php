@@ -980,7 +980,7 @@ class EstateItemLive extends EstateItem{
                 , ".$this->tables['toilets'].".title as toilet
                 , ".$this->tables['balcons'].".title as balcon
                 , ".$this->tables['elevators'].".title as elevator
-                , ".$this->tables['windows'].".title as window
+                , ".$this->tables['windows'].".title as `window`
                 , ".$this->tables['floors'].".title as floor
                 , ".$this->tables['hot_waters'].".title as hot_water
                 , ".$this->tables['facings'].".title as facing
@@ -1728,7 +1728,7 @@ class EstateItemBuild extends EstateItem{
                 , ".$this->tables['balcons'].".title as balcon
                 , ".$this->tables['elevators'].".title as elevator
                 , ".$this->tables['facings'].".title as facing
-                , ".$this->tables['windows'].".title as window
+                , ".$this->tables['windows'].".title as `window`
                 , ".$this->tables['promotions'].".discount
                 , ".$this->tables['promotions'].".discount_type
                 , ".$this->tables['promotions'].".title AS promotion_title

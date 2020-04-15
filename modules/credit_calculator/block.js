@@ -3,7 +3,6 @@
 var rates = [];    
 var Calculator = {
   toggleContentNotFound: function(toggle) {
-    console.log( toggle )
     $('.credit-wrap .output .not-found').toggle(toggle);
     $('.credit-wrap .output .content').toggle(!toggle);
   },
@@ -19,11 +18,16 @@ var Calculator = {
     var rate = self.currentCalculatorRates[self.currentIndex];
     self.toggleContentNotFound(!rate);
     if (!rate) return;
-
-    $('#rate').text(rate.rate.toFixed(2) + '%');
+    
+    //ставка возрастает, если первоначальный взнос меньше 20% 
+    if( rate.market < 3 && ( initialContribution/self.currentAmount) * 100 < 20 ) var rateInit = 10.5;
+    else rateInit = rate.rate;
+    console.log( rate.rate )
+        
+    $('#rate').text(rateInit.toFixed(2) + '%');
 
     var months = self.durationTextInput.val() * 12;
-    var mrate = rate.rate / 1200;
+    var mrate = rateInit / 1200;
     var monthlyPayment = loanAmount * (mrate / (1 - Math.pow(1 + mrate, -(months-1))));
     monthlyPayment = Math.round(monthlyPayment);
 
@@ -73,11 +77,12 @@ var Calculator = {
     var currency = $('input[name=currency]:checked').val();
     var years = self.durationTextInput.val();
     var contribution = self.contributionSlider.data('slider').getValue();
+    var market = $('.type-objects span.active').data('market');
     var loanAmount = self.currentAmount * (1 - contribution/100);
     
-    var market = $('.type-objects span.active').data('market');
     var object = $('.type-objects span.active').data('object');
-    
+
+ 
     
     var matchingRates = _.filter(self.allRates, function(rate) {
       return rate.currency == currency && years >= rate.minYears && years <= rate.maxYears && contribution >= rate.minContribution
@@ -140,7 +145,7 @@ var Calculator = {
 
   initContributionSlider: function() {
     var self = this;
-    var slider = $('#contribution-slider').slider({min: 15, max: 99, tooltip: 'hide'});
+    var slider = $('#contribution-slider').slider({min: 10, max: 99, tooltip: 'hide'});
     slider.on('slide', function() {
       self.contributionInput.val(self.formatAmount(self.getAmount() * $(this).data('slider').getValue() / 100));
     });
@@ -159,7 +164,7 @@ var Calculator = {
 
   initDurationSlider: function() {
     var self = this;
-    var slider = $('#amount-slider-duration').slider({min: 1, max: 25, tooltip: 'hide'});
+    var slider = $('#amount-slider-duration').slider({min: 1, max: 30, tooltip: 'hide'});
     var handleDuration = function() {
       self.durationTextInput.val($(this).data('slider').getValue());
     };
@@ -220,14 +225,13 @@ var Calculator = {
             var rubData = $('input[value=Р]').data();
             self.amountSlider = self.initAmountSlider(rubData);
             self.allRates = [
-              {"market":1, "object":"apartment", "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":0, "minYears": 1, "maxYears":25, "rate": parseFloat( data.list[2].percent ) },
-              {"market":2, "object":"apartment", "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":0, "minYears": 1, "maxYears":25, "rate": parseFloat( data.list[1].percent ) },
+              {"market":1, "object":"apartment", "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":parseInt( data.list[2].first_payment ), "minYears": 1, "maxYears":30, "rate": parseFloat( data.list[2].percent ) },
+              {"market":2, "object":"apartment", "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":parseInt( data.list[1].first_payment ), "minYears": 1, "maxYears":30, "rate": parseFloat( data.list[1].percent ) },
 
-              {"market":2, "object":"house",     "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":0, "minYears": 1, "maxYears":25, "rate": parseFloat( data.list[4].percent )},
-              {"market":2, "object":"land",      "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":0, "minYears": 1, "maxYears":25, "rate": parseFloat( data.list[4].percent )},
+              {"market":2, "object":"house",     "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":parseInt( data.list[4].first_payment ), "minYears": 1, "maxYears":30, "rate": parseFloat( data.list[4].percent )},
+              {"market":2, "object":"land",      "currency":"Р", "minAmount":  500000, "maxAmount": maxAmount, "minContribution":parseInt( data.list[4].first_payment ), "minYears": 1, "maxYears":30, "rate": parseFloat( data.list[4].percent )},
             ]
 
-            console.log( self.amountInput.attr('value') )
             self.setAmountLegend(rubData);
             $('input[name=currency]').change(function() {
               self.setAmountLegend($(this).data());
@@ -273,10 +277,14 @@ var Calculator = {
                 var maxAmount = _.max(_.pluck(rates, 'maxAmount'));
                 var minAmount = _.min(_.pluck(rates, 'minAmount'));
                 var minContribution = _.min(_.pluck(rates, 'minContribution'));
-                self.setContributionLimits(minContribution, 99);
+                self.setContributionLimits(minContribution, 99);  
+                
                 var amountFactor = $(this).data('max-loan');
                 self.setAmountLegend({max: maxAmount / amountFactor * 100, min: minAmount / amountFactor * 100});
-                Calculator.Update(); 
+                jQuery('.contribution-slider .slider-selection').css({'left':'0%', 'width':'0%'});
+                jQuery('.contribution-slider .slider-handle.round').css({'left':'0%'});
+                self.contributionInput.val( ( self.currentAmount*minContribution ) / 100 );
+                Calculator.Update();
             });   
             
             $('.credit-wrap .input').find('input').on('keyup change blur', function() {self.Update()});
@@ -286,7 +294,7 @@ var Calculator = {
   }
 };
 
-  $(function() {if(jQuery('#amount-slider-wrapper').length > 0 ){Calculator.init();}});             
+$(function() {if(jQuery('#amount-slider-wrapper').length > 0 ){Calculator.init();}});             
   
   
   
