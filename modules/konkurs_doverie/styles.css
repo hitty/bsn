@@ -127,7 +127,7 @@ header.with-shadow:after{
 .konkurs-wrapper .item .bg .members {
     text-align: center;
     font-size: 40px;
-    /* padding-top: 20px; */
+    transform: translateY(10px);
 }
 
 .konkurs-wrapper .item .bg .members span {

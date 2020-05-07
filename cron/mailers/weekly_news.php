@@ -55,13 +55,13 @@ $argc = ( !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['ar
 //проверка каждые 10 минут времени рассылки//подключить в случае ежедневной рассылки
 if( empty( $argc ) ){
     $check_time = $db->fetch("SELECT status FROM ".$sys_tables['check_news_time']." WHERE sent_time > NOW() - INTERVAL 10 MINUTE AND sent_time <= NOW()");
-    if(empty($check_time) || date('N') != 4) die( 'Wrong time' );
+    if(empty($check_time) || date('N') != 5) die( 'Wrong time' );
 }
 
 //получение списка новостей
 $news = new Content('news');
 $is_weekly = false;
-//Еженедельная рассылка - установить параметр в 4
+//Еженедельная рассылка - установить параметр в 5
 $dates = ( date('M',time() - 518400) == date( 'M', time() ) ? ltrim( date('d',time() - 518400), '0' ) : Convert::ru_date( date('d M Y',time() - 518400), false ) ) . " - ".Convert::ru_date( date('d M Y') ) ;
 $email_title = ( !empty( $debug ) ? 'Тест: ' : '' )  . "Новостной дайджест за " . $dates;
 $news_list = array();            
