@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
 })
 function showVoteResults( _id_category ){
     getPending( 
-        window.location.pathname + 'results/' ,
+        window.location.pathname.replace('/', '') + '/results/' ,
         {id_category: _id_category },
         false,
         function( data ){
