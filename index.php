@@ -1,6 +1,6 @@
 <?php   
 $overall_memory_usage = memory_get_peak_usage();
-$overall_time_counter = microtime(true);
+$overall_time_counter = microtime( true );
 //DEBUG - local
 define( "DEBUG_MODE", (isset($_SERVER['SERVER_ADDR']) && isset($_SERVER['REMOTE_ADDR']) && $_SERVER['SERVER_ADDR']==$_SERVER['REMOTE_ADDR'] && $_SERVER['SERVER_ADDR']=="127.0.0.1") || (!empty($_SERVER['HTTP_HOST']) && substr($_SERVER['HTTP_HOST'], -4) == '.int'));
 // TEST - test.bsn.ru
