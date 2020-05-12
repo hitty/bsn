@@ -59,6 +59,8 @@ header .bottom-wrap .logo.komissiya {
 header .bottom-wrap .logo.kpn {
     background: url('/modules/konkurs_doverie/img/doverie-golosovanie-logos-komissiya-2018.png') no-repeat 0 0;
     margin-left: 20px;
+    background-size: 66px;
+    background-position: 50% 100%;    
 }
 
 header .bottom-wrap .logo.bsn {
