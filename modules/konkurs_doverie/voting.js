@@ -9,11 +9,11 @@ jQuery(document).ready(function(){
     })
     //голосование - отправка результатов
     jQuery(document).on("click", '.modal-inner .button', function(){
-        var _location = window.location.pathname.replace('/', '');
+        var _location = '/' + window.location.pathname.replace(/\//g, '') + '/vote/';
         var _active_el = jQuery('.modal-inner .item.active');
         var _id_category = jQuery('.modal-inner .list').data('id');
         //получение контента в зависимости от способа получения данных
-        getPending( _location + '/vote/', {id_category : _id_category, id: _active_el.data('id')}, false, 
+        getPending( _location, {id_category : _id_category, id: _active_el.data('id')}, false, 
             function(){ 
                 jQuery('.voting-success').addClass('active');
                 setTimeout( function(){

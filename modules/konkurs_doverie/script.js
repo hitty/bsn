@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
 })
 function showVoteResults( _id_category ){
     getPending( 
-        window.location.pathname.replace('/', '') + '/results/' ,
+        '/' + window.location.pathname.replace(/\//g, '') + '/results/' ,
         {id_category: _id_category },
         false,
         function( data ){
@@ -25,7 +25,6 @@ function showVoteResults( _id_category ){
             var list = data.list;
             jQuery( '.modal-inner .list .item' ).each( function(){
                 var id = jQuery(this).data('id')
-                console.log( ( parseInt( list[id].vote_count ) ) + '/' + total )
                 jQuery('.results i', jQuery(this) ).css( { 'width': 100 * ( parseInt( list[id].vote_count ) / total ) + '%'})    
             })
         }
