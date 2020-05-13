@@ -15,6 +15,10 @@ jQuery(document).ready(function(){
         //получение контента в зависимости от способа получения данных
         getPending( _location + '/vote/', {id_category : _id_category, id: _active_el.data('id')}, false, 
             function(){ 
+                jQuery('.voting-success').addClass('active');
+                setTimeout( function(){
+                    jQuery('.voting-success').removeClass('active');
+                }, 1500)
                 jQuery('.modal-inner .list').removeClass('can-vote');
                 jQuery('.modal-inner .button').remove();
                 jQuery('.categories-list .item[data-id=' + _id_category + ']').removeClass('none-voted').find('.voted-for b').text( _active_el.find('.title').text() );
