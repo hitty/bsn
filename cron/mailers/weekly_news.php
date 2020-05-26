@@ -66,10 +66,6 @@ $dates = ( date('M',time() - 518400) == date( 'M', time() ) ? ltrim( date('d',ti
 $email_title = ( !empty( $debug ) ? 'Тест: ' : '' )  . "Новостной дайджест за " . $dates;
 $news_list = array();            
 
-//получение списка новостей Доверия
-$doverie = new Content('doverie');
-if ( $doverie_news_list = $doverie->getList( 1, 0, false, false, $sys_tables['doverie'].".id = 106", $sys_tables['doverie'].".views_count DESC" ) )
-    array_push( $news_list, $doverie_news_list[0] );
 if( $top_news = $news->getList( 1, 0, false, false, "DATE_FORMAT (`datetime`,'%Y-%m-%d') =  DATE_SUB(CURDATE(),INTERVAL 4 DAY) AND newsletter_feed = 1 AND newsletter_feed = 1 AND partner_feed = 2", $sys_tables['news'].".views_count DESC"))
     array_push( $news_list, $top_news[0] );
 if( $top_news = $news->getList( 1, 0, false, false, "DATE_FORMAT (`datetime`,'%Y-%m-%d') =  DATE_SUB(CURDATE(),INTERVAL 3 DAY) AND newsletter_feed = 1 AND partner_feed = 2", $sys_tables['news'].".views_count DESC"))
