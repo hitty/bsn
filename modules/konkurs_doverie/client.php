@@ -50,7 +50,7 @@ switch(true){
                                    ORDER BY ".$sys_tables['konkurs_members_categories'].".id"); 
                                   
             foreach($list as $k=>$item){
-                    //$cookie_title = Cookie::GetString('konkurs_vote_for_' . $item['id_category']);
+                    $cookie_title = Cookie::GetString('konkurs_vote_for_' . $item['id_category']);
                     if(!empty($cookie_title)){
                         $list[$k]['title'] = $db->fetch("SELECT title FROM " . $sys_tables['konkurs_members'] . " WHERE id = ?", $cookie_title)['title'];
                         $list[$k]['can_vote'] = 0;
@@ -94,7 +94,7 @@ switch(true){
            false, $id
         ); 
         foreach($list as $k=>$item){
-                //$cookie_title = Cookie::GetString('konkurs_vote_for_' . $item['id_category']);
+                $cookie_title = Cookie::GetString('konkurs_vote_for_' . $item['id_category']);
                 if(!empty($cookie_title)){
                     $list[$k]['vote_id_member'] = $cookie_title;
                     $list[$k]['can_vote'] = 0;
@@ -127,7 +127,7 @@ switch(true){
                                      WHERE  ip = ? AND vote_id_category = ? AND id_konkurs = ? AND HOUR( TIMEDIFF( NOW( ) , ".$sys_tables['konkurs_votings'].".`datetime` ) )< 9999993" ,
                                      $user_ip, $list['id_category'],$list['id_konkurs']
                 );
-                //$cookie_vote = Cookie::GetString('konkurs_vote_for_' . $id_category);
+                $cookie_vote = Cookie::GetString('konkurs_vote_for_' . $id_category);
                 if(empty($check) && empty($cookie_vote)){
                     $res = $db->query("INSERT INTO ".$sys_tables['konkurs_votings']." SET id_konkurs = ?, vote_id_category = ?, vote_id_member = ?, ip = ?, datetime = NOW()",
                                        $list['id_konkurs'],$list['id_category'],$id,$user_ip);
