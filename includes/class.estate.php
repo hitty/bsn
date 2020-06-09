@@ -3676,7 +3676,7 @@ class EstateSearch {
         $estate_type = empty($estate_type) ? ( !empty($params[0]) ? $params[0] : false ) : $estate_type;
         //для апартаментов та же база, что и для ЖК
         if($estate_type == 'apartments') $estate_type = 'zhiloy_kompleks';
-        if(empty($sys_tables[$estate_type])) return false;
+        if( empty( $sys_tables[$estate_type] ) ) return false;
         $deal_type = $deal_type ?? ( $params[1] ?? '' );
         //флаг принадлежности к объекту недвижимости, не комплексу
         $estate_object = empty($estate_type) || in_array($estate_type, array('live','build','commercial','country', 'inter'));

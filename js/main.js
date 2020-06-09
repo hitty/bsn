@@ -217,6 +217,16 @@ jQuery(document).ready(function(){
         getPending( '/credit_calculator/click/',_params)
             
     });
+    jQuery(document).on('click','div.context-block', function(e){
+        var _el = jQuery(this);
+        var referrer = document.referrer;
+        var _from = '';
+        //записываем набор классов элемента, по которому в php определим откуда был клик
+        _from = jQuery(this).attr('class').toString();
+        var _params = {id:_el.attr('data-id'),from:_from,'ref':referrer};
+        getPending('/context_campaigns/click/',_params);
+    });
+
     /* popup */
     jQuery( '.popup' ).each(function(){ jQuery(this).popupWindow({}) });
     

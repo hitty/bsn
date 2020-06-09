@@ -6,8 +6,6 @@ require_once('includes/class.estate.statistics.php');
 if( !class_exists( 'Photos') ) if( !class_exists( 'Photos') ) require_once('includes/class.photos.php');
 require_once('includes/class.videos.php');
 Response::SetString('img_folder',Config::Get('img_folders/live'));
-// мэппинги модуля
-
 // определяем тип недвижимости
 $estate_type = "";
 $estate_types = array('live','build','commercial','country','inter');
@@ -27,11 +25,10 @@ if(!empty($this_page->module_parameters['deal_type']) && in_array($this_page->mo
 } 
 // определяем ID объекта
 $id = 0;
-if(!empty($this_page->module_parameters['object_id']) && Validate::Digit($this_page->module_parameters['object_id'])){
+if(!empty($this_page->module_parameters['object_id']) && Validate::Digit($this_page->module_parameters['object_id']))
     $id = Convert::ToInteger($this_page->module_parameters['object_id']);
-} elseif(!empty($this_page->page_parameters[1]) && Validate::Digit($this_page->page_parameters[1])) {
+elseif(!empty($this_page->page_parameters[1]) && Validate::Digit($this_page->page_parameters[1])) 
     $id = Convert::ToInteger($this_page->page_parameters[1]);
-}
 
 $map_mode = Request::GetString('map',METHOD_POST);
 $sort_mode = Request::GetString('sort',METHOD_POST);
@@ -1248,7 +1245,7 @@ switch(true){
                         if(!empty($range_where)) $where[] = " (".implode(" AND ", $range_where).")";
                         $where = implode(" AND ",$where);
                         $paginator_similar = new Paginator($estate->work_table, 1, $where); 
-                        if(!empty($paginator_similar->items_count)){
+                        if( !empty( $paginator_similar->items_count ) ) {
                             if($count_items++ > 2) break;
                             $count_similar_objects += $paginator_similar->items_count;
                             //получение сниппетов
