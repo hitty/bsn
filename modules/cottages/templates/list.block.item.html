@@ -41,7 +41,6 @@
                             </div> 
                             {if!empty $item['min_cost_objects']}<meta itemprop="lowPrice" content="{$item['min_cost_objects']}" />{/if}
                             {if!empty $item['max_cost_objects']}{if!eq $item['min_cost_objects'], $item['max_cost_objects']}<meta itemprop="highPrice" content="{$item['max_cost_objects']}" />{/if}{/if}
-                             Р
                             <meta  itemprop="priceCurrency" content="RUB">                                  
                         {/if}
 
