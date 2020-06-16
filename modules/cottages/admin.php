@@ -9,7 +9,7 @@ $mapping = include(dirname(__FILE__).'/conf_mapping.php');
 $this_page->manageMetadata(array('title'=>'Кампании'));
 
 $cottage_photo_folder = Config::$values['img_folders']['cottages'];
-
+$GLOBALS['js_set'][] = '/modules/estate/form_estate.js';            
         
 // собираем GET-параметры
 $get_parameters = [];
@@ -747,7 +747,6 @@ switch($action){
 	case 'edit':
 	    $GLOBALS['js_set'][] = '/js/jui_new/jquery-ui.js';
 	    $GLOBALS['js_set'][] = '/js/file_upload/jquery.uploadifive.js';
-	    $GLOBALS['js_set'][] = '/modules/cottages/gmap_handler.js';
         $GLOBALS['css_set'][] = '/js/jui_new/jquery-ui.css';
         $GLOBALS['css_set'][] = '/js/file_upload/uploadify.css';
         

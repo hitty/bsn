@@ -660,19 +660,10 @@ switch($action){
             $GLOBALS['css_set'][] = '/js/datepicker/css/ui-lightness/jquery-ui-1.8.16.custom.css';
             $GLOBALS['js_set'][] = '/js/datepicker/js/jquery-ui-1.9.2.custom.min.js';
             $GLOBALS['js_set'][] = '/js/jquery.typewatch.js';
-            
-            
-            
             $GLOBALS['js_set'][] = '/js/jui_new/jquery-ui.js';
             $GLOBALS['css_set'][] = '/js/jui_new/jquery-ui.css';
-            
-            
-            
             $GLOBALS['js_set'][] = '/js/file_upload/jquery.uploadifive.js';
             $GLOBALS['css_set'][] = '/js/file_upload/uploadify.css';
-            if($estate=='housing_estates'){
-                //$GLOBALS['js_set'][] = '/modules/business_centers/gmap_handler.js';
-            }
             $GLOBALS['css_set'][] = '/css/jquery.addrselector.css';
             $GLOBALS['js_set'][] = '/js/form.validate.js';
             

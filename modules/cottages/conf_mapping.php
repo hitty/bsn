@@ -7,18 +7,6 @@ return array(
             'allow_empty' => true, 
             'allow_null' => true
          )
-         ,'lat' => array(
-            'type' => TYPE_FLOAT,
-            'fieldtype' => 'hidden',
-            'allow_empty' => true, 
-            'allow_null' => true
-         )
-         ,'lng' => array(
-            'type' => TYPE_FLOAT,
-            'fieldtype' => 'hidden',
-            'allow_empty' => true, 
-            'allow_null' => true
-         )
         ,'id_user' => array(
             'type' => TYPE_INTEGER,
             'fieldtype' => 'hidden',
@@ -114,6 +102,22 @@ return array(
             'label' => 'Направление',
             'tip' => 'Географическое направление поселка'
         )
+        ,'map' => array(
+            'fieldtype' => 'map'
+        )
+        ,'lat' => array(
+            'type' => TYPE_FLOAT,
+            'allow_empty' => true, 
+            'allow_null' => true,
+            'fieldtype' => 'hidden'
+        )        
+        ,'lng' => array(
+            'type' => TYPE_FLOAT,
+            'allow_empty' => true, 
+            'allow_null' => true,
+            'fieldtype' => 'hidden'
+        )         
+
         ,'id_stady' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => false, 
