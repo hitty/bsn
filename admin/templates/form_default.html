@@ -108,8 +108,10 @@
                     {/loop $selectloop}
                     </div>
                 {elseifeq $field['fieldtype'],'map'}
+
                     <script src="//api-maps.yandex.ru/2.1/?load=package.full&lang=ru_RU&amp;apikey=72385f2d-3934-450a-8220-6e34f56a1976" type="text/javascript"></script>
                     <div id="map-box" class="br3"></div>
+
                 {else}
                     {quoted:$field['value']}
                 {/if}
