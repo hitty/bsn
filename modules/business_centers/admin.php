@@ -10,7 +10,7 @@ $mapping = include(dirname(__FILE__).'/conf_mapping.php');
 $this_page->manageMetadata(array('title'=>'Бизнес-центры'));
 
 $business_centers_photo_folder = Config::$values['img_folders']['business_centers'];
-
+$GLOBALS['js_set'][] = '/modules/estate/form_estate.js';            
         
 // собираем GET-параметры
 $get_parameters = [];
@@ -943,7 +943,6 @@ switch($action){
 	case 'add':
 	case 'edit':
 	    $GLOBALS['js_set'][] = '/js/file_upload/jquery.uploadifive.js';
-	    $GLOBALS['js_set'][] = '/modules/business_centers/gmap_handler.js';
         $GLOBALS['css_set'][] = '/js/file_upload/uploadify.css';
         $GLOBALS['js_set'][] = '/js/jquery.addrselector.js';
         $GLOBALS['css_set'][] = '/css/jquery.addrselector.css';

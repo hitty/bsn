@@ -7,18 +7,6 @@ return array(
             'allow_empty' => true, 
             'allow_null' => true
          )
-         ,'lat' => array(
-            'type' => TYPE_FLOAT,
-            'fieldtype' => 'hidden',
-            'allow_empty' => true, 
-            'allow_null' => true
-         )
-         ,'lng' => array(
-            'type' => TYPE_FLOAT,
-            'fieldtype' => 'hidden',
-            'allow_empty' => true, 
-            'allow_null' => true
-         )
         ,'id_user' => array(
             'type' => TYPE_INTEGER,
             'fieldtype' => 'hidden',
@@ -137,6 +125,21 @@ return array(
             'label' => 'Адрес',
             'tip' => 'Адрес (текстовый варант)'
         )
+        ,'map' => array(
+            'fieldtype' => 'map'
+        )
+        ,'lat' => array(
+            'type' => TYPE_FLOAT,
+            'allow_empty' => true, 
+            'allow_null' => true,
+            'fieldtype' => 'hidden'
+        )        
+        ,'lng' => array(
+            'type' => TYPE_FLOAT,
+            'allow_empty' => true, 
+            'allow_null' => true,
+            'fieldtype' => 'hidden'
+        )         
 
         ,'class' => array(
             'type' => TYPE_STRING,

@@ -73,8 +73,6 @@ jQuery(document).ready(function(){
                     center: [_lat, _lng], 
                     zoom: 14
             });
-            myMap.controls.add('typeSelector').add('smallZoomControl', { left: 5, top: 5 }); 
-
             // Создаем метку и задаем изображение для ее иконки
             placemark = new ymaps.Placemark([_lat, _lng], {
                 hintContent: 'Передвиньте отметку для точного определения местоположения.'
@@ -372,7 +370,10 @@ function fillAddress(){
     var _full_addr = _addr.join(', ');
     if( _hcs ) jQuery('#txt_addr').val(_addr.join(', '));
     if(typeof ymaps !== 'undefined'){
-        ymaps.geocode(_addr.join(','), { results: 1 }).then(function (res) {
+        ymaps.geocode(
+            _addr.join(','), { 
+                results: 1 
+        }).then(function (res) {
             // Выбираем первый результат геокодирования
             var _geoObject = res.geoObjects.get(0);
             if(_geoObject!=null){
