@@ -3677,7 +3677,7 @@ class EstateSearch {
         //для апартаментов та же база, что и для ЖК
         if($estate_type == 'apartments') $estate_type = 'zhiloy_kompleks';
         if( empty( $sys_tables[$estate_type] ) ) return false;
-        $deal_type = $deal_type ?? ( $params[1] ?? '' );
+        $deal_type = $deal_type ?: ( $params[1] ?: '' );
         //флаг принадлежности к объекту недвижимости, не комплексу
         $estate_object = empty($estate_type) || in_array($estate_type, array('live','build','commercial','country', 'inter'));
         Response::SetBoolean('estate_object', $estate_object);
@@ -4546,11 +4546,12 @@ class EstateSearch {
         }                
         if(!empty($parameters['company_page'])){
             //если у агентства брендированная страница, убираем таргет
-            if(!empty($parameters['agency']))
-                $notarget = $db->fetch("SELECT (".$sys_tables['agencies'].".payed_page = 1) AS notarget 
+            if( !empty( $parameters['agency'] ) )
+                $notarget = $db->fetch( "SELECT (".$sys_tables['agencies'].".payed_page = 1) AS notarget 
                                         FROM ".$sys_tables['agencies']." 
-                                        LEFT JOIN ".$sys_tables['users']." ON ".$sys_tables['users'].".id_agency = ".$sys_tables['agencies'].".id
-                                        WHERE ".$sys_tables['users'].".id = ".Convert::ToInt($parameters['agency']));
+                                        LEFT JOIN " . $sys_tables['users'] . " ON " . $sys_tables['users'].".id_agency = ".$sys_tables['agencies'].".id
+                                        WHERE " . $sys_tables['users'] . ".id = " . Convert::ToInt( $parameters['agency'] )
+                );
             Response::SetBoolean('company_page',$parameters['company_page']);
         }
         elseif(!empty($parameters['agent_page'])){

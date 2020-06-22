@@ -3,6 +3,7 @@
 {php:$rent_visible = $deal_type == 2 ? 'hidden' : ''}
 
 <form class="fast-search br3 clearfix{if!empty $map_search} map-search{/if}{if!empty $form_shadow} with-shadow{/if}" id="fast-search-form" action="/" method="post" data-estate-type="{$estate_type}">
+    {php:var_dump( $form_data )}
     <div class="form-container clearfix">
         {php:$show_basic_form = empty($estate_type) || in_array($estate_type, array('live','build','commercial','country'))}
             {if!empty $show_basic_form}
