@@ -445,7 +445,6 @@ switch(TRUE){
                 }
 
                 $sql = "SELECT ".$sys_tables['konkurs_members'].".*, 
-                        SUM( ".$sys_tables['konkurs_members'].".amount ) as total_votes,
                         ".$sys_tables['konkurs_members_categories'].".title as category_title,
                         ".$sys_tables['konkurs_members_photos'].".`name` as `photo`, 
                         LEFT (".$sys_tables['konkurs_members_photos'].".`name`,2) as `subfolder`
@@ -461,6 +460,8 @@ switch(TRUE){
                 Response::SetArray('list', $list);
                 Response::SetString('img_folder',Config::Get('img_folders/konkurs'));
                 Response::SetArray('paginator', $paginator->Get($page));
+                //всего голосов
+                Response::SetInteger( 'total_votes', $db->fetch( " SELECT SUM(amount) as total_votes FROM " . $sys_tables['konkurs_members'] . " WHERE " . $condition )['total_votes'] );
                 break;
             }
         //
