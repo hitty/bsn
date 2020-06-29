@@ -445,6 +445,7 @@ switch(TRUE){
                 }
 
                 $sql = "SELECT ".$sys_tables['konkurs_members'].".*, 
+                        SUM( ".$sys_tables['konkurs_members'].".amount ) as total_votes,
                         ".$sys_tables['konkurs_members_categories'].".title as category_title,
                         ".$sys_tables['konkurs_members_photos'].".`name` as `photo`, 
                         LEFT (".$sys_tables['konkurs_members_photos'].".`name`,2) as `subfolder`
@@ -452,6 +453,7 @@ switch(TRUE){
                         LEFT JOIN  ".$sys_tables['konkurs_members_photos']." ON ".$sys_tables['konkurs_members_photos'].".id=".$sys_tables['konkurs_members'].".id_main_photo 
                         LEFT JOIN  ".$sys_tables['konkurs_members_categories']." ON ".$sys_tables['konkurs_members_categories'].".id=".$sys_tables['konkurs_members'].".id_category ";
                 if(!empty($condition)) $sql .= " WHERE ".$condition;
+                $sql .= " GROUP BY ".$sys_tables['konkurs_members'].".id ";
                 $sql .= " ORDER BY ".$sys_tables['konkurs_members'].".amount DESC, ".$sys_tables['konkurs_members'].".title";
                 $sql .= " LIMIT ".$paginator->getLimitString($page); 
                 $list = $db->fetchall($sql);
@@ -611,9 +613,8 @@ switch(TRUE){
                 $paginator = new Paginator($sys_tables['konkurs'], 30, $condition);
                 // get-параметры для ссылок пагинатора
                 $get_in_paginator = [];
-                foreach($get_parameters as $gk=>$gv){
-                    if($gk!='page') $get_in_paginator[] = $gk.'='.$gv;
-                }
+                foreach($get_parameters as $gk=>$gv) if($gk!='page') $get_in_paginator[] = $gk.'='.$gv;
+
                 // ссылка пагинатора
                 $paginator->link_prefix = '/admin/service/konkurs/?'                  // конечный слеш и начало get-строки
                                           .implode('&',$get_in_paginator)             // GET-строка
@@ -630,6 +631,7 @@ switch(TRUE){
                 $sql .= " ORDER BY id DESC";
                 $sql .= " LIMIT ".$paginator->getLimitString($page); 
                 $list = $db->fetchall($sql);
+                
                 // формирование списка
                 Response::SetArray('list', $list);
                 Response::SetArray('paginator', $paginator->Get($page));
