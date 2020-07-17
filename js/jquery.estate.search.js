@@ -23,7 +23,6 @@ if($)(function(window, document, $, undefined){
         
         /* функция стартовой инициализации */
         var start = function(){
-            
             init_selector.submit(function(e){
                 o.ajax_count = false;
                 search_result();
@@ -525,7 +524,7 @@ if($)(function(window, document, $, undefined){
                     
                 }
             });  
-
+                           
             var _keys = Object.keys(checkbox_params);
             if(_keys.length > 0){
                 for(i=0; i<_keys.length; i++){
@@ -542,11 +541,9 @@ if($)(function(window, document, $, undefined){
                 if(_district_areas!='' && _district_areas!="undefined") params.push('district_areas=' + _district_areas)
                 if(_districts!='' && _districts!="undefined") params.push('districts=' + _districts)
             }
-                            
             var _catalog = jQuery('#fast-search-form').attr('action');
             if( typeof o.estate_url === "object" ) return false;
             o.estate_url = _catalog + o.estate_url + (params.length > 0 ? ( o.estate_url.indexOf('?')>0 ? '&' : '?' ) + params.join('&') : '');
-
             // конструируем запрос
             if(o.ajax_count == true){
                 jQuery('.ajax-count .button').addClass('preload');
@@ -598,7 +595,7 @@ if($)(function(window, document, $, undefined){
 
             o.estate_type = o.selected_el.data('type');
             o.id_object = o.selected_el.data('id');
-            o.selected_value = (o.id_object > 0 ? o.id_object + '-' : '' ) + o.estate_type + '-' + o.deal_type;;
+            o.selected_value = jQuery("#estate-object-type").val();
             
         }
         /* список автокомплета */

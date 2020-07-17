@@ -272,8 +272,8 @@ switch(true){
                 $cottage_objects = $cottages->getObjectsList($id);
                 $cottage_objects_count = 0;
                 foreach($cottage_objects as $k=>$cottage_objects_item) $cottage_objects_count += $cottage_objects_item['cnt'];
-                Response::SetInteger('cottage_objects_count',$cottage_objects_count);
-                Response::SetArray('cottage_objects',$cottage_objects);
+                Response::SetInteger( 'cottage_objects_count', $cottage_objects_count );
+                Response::SetArray( 'cottage_objects', $cottage_objects ?? [] );
 
                 Response::SetString('estate_type','cottedzhnye_poselki');                
                 

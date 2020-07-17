@@ -1,4 +1,6 @@
+{if!empty $vip_list}
 <div id="vip-container" class="estate-highlighted-list {$block_type} clearfix br3 flex">
         {php: $list = $vip_list;}
         {include /modules/estate/templates/block.payed.objects.html}
 </div>
+{/if}

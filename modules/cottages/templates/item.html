@@ -75,6 +75,25 @@
 
         </div>
     </article>
+
+    {if!empty $cottage_objects_count}
+        <section class=" central-main-content card" name="objects">
+            <div class="left-part">    
+                <div class="objects central">
+                    <span class="title">Участки, дома КП «{$item['title']}»</title>
+                    {if!empty $cottage_objects_count}
+                        {include /modules/cottages/templates/estate_search_form_tiny.html}
+                        <div id="ajax-search-results" class="ajax-search-results tiny objects"></div>
+                    {else}
+                        
+                    {/if}
+                </div>
+            </div>
+            
+            <div class="right-part">    </div>
+
+        </section>
+    {/if}    
 </div>
  
 {ifempty $payed_format}

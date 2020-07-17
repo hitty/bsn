@@ -1,7 +1,7 @@
-<form class="fast-search form-blue tiny" id="fast-search-form" action="/" method="post">
+<form class="fast-search form-blue tiny ajax-form" id="fast-search-form" action="/" method="post">
     <div class="form-container">
        {php:$ajax_search = true;}
-        <div class="row">
+       <div class="row">
             <div class="list-selector select-object-type">
                 <a href="#" class="pick">выберите тип объекта</a>
                 <a href="#" class="select">...</a>
@@ -34,21 +34,19 @@
                 </div>
             </div> <!--/.list-selector .select-object-type-->
             
-        </div> <!--/.row-->
-        <div class="middle-panel">
+           <div class="middle-panel">
 
-            <div class="tab" data-estate-type="country" data-deal="">
-                <div class="row">
+                <div class="tab active" data-estate-type="country" data-deal="">
                     <div class="interval-selector price-selector">
-                        От <input type="text" name="from_value" id="from_value_country" value="{if!empty $form_data['min_cost']}{$form_data['min_cost']}{/if}" />
-                        до <input type="text" name="to_value" id="to_value_country" value="{if!empty $form_data['max_cost']}{$form_data['max_cost']}{/if}" />
-                        тыс.руб.
+                        От <input type="text" name="min_cost" id="from_value_country">
+                        до <input type="text" name="max_cost" id="to_value_country">
+                        руб.
                     </div> 
-                    <button title="Найти">Найти</button>
-                </div> <!--/.row-->
-                <input type="hidden" value="{$id}" name="cottage">
-            </div> <!--/#country-->         
-            
-        </div> <!--/#country--> 
+                    <input type="hidden" value="{$id}" name="cottage">
+                </div> <!--/#country-->         
+                
+           </div> <!--/#country--> 
+        </div>
     </div>
 </form>  
+{literal}<script>jQuery(document).ready( function() { jQuery('.fast-search.tiny').estateSearch({ajax_search:true}) } )</script>{/literal}
