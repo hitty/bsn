@@ -1436,3 +1436,6 @@ circle.hover {
 .card .central.tiny{
     padding: 0 0 0 40px;
 }
+.tiny .estate-list .item .info .actions{
+    display: none;
+}
