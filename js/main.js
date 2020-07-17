@@ -291,7 +291,16 @@ jQuery(document).ready(function(){
     })
                   
     scrollToGetParam();
-    
+    //topline
+    if(jQuery('.top-banner-wrapper').length > 0){
+        jQuery('.top-banner-wrapper .closebutton').on('click', function(){
+            getPending('/ab/topline/', {action: 'off'} );
+            jQuery('.top-banner-wrapper').slideUp(300, function(){
+                jQuery('.top-banner-wrapper').remove();    
+            });
+            return false;
+        })
+    }    
     //видимость кнопки регистрации
     jQuery(document).on( 'click', '.modal-inner .terms label', function(){
         if( !jQuery(this).hasClass( 'on' ) ) jQuery( '.registration #submit_button', jQuery( '.modal-inner' )).removeClass( 'disabled' );
