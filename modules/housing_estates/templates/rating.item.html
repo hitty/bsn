@@ -16,7 +16,6 @@
                     <p class="smallnotes clearfix">
                         <time  data-icon="schedule" datetime="{$articles_item['datetime']}">{$articles_item['normal_date']}</time>
                         <a href="/articles/{$articles_item['category_code']}/" title="{$articles_item['category_title']}" class="category">{$articles_item['category_title']}</a>
-                        <span class="views_count" data-icon="visibility">{$articles_item['views_count']}</span>
                         <span class="comments_count" data-icon="chat_bubble_outline">{$articles_item['comments_count']}</span>
                     </p>  
                     <a class="a-h3" href="{ifempty $articles_item['link']}/articles/{$articles_item['category_code']}/{$articles_item['chpu_title']}/{else}{$articles_item['link']}/{/if}" title="подробнее">{$articles_item['title']}</a>

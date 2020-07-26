@@ -15,7 +15,6 @@
             <span class = "news-report">репортаж</span>
         {/if}
         <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['normal_date']}</time>
-        <span class="views_count" data-icon="visibility">{php:echo $item['views_count']}</span>
         {ifeq $item['show_comments'],1}<a href="#comments" class="comments_count">{suffix:$item['comments_count'],'комментари','й','я','ев'}</a>{/if}
     </p>  
     {php:$video = (!empty($item['video_link']) || !empty($item['direct_video_link']));}

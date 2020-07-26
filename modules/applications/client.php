@@ -88,12 +88,15 @@ switch(true){
         
         break;
     
+    //////////////////////////////////////////////////////////
     //отдаем код формы предложения
+    //////////////////////////////////////////////////////////
     case $ajax_mode && $action == "add-offer":
         
         $tpl = new Template( "/modules/applications/templates/form.offer.html", $this_page->module_path );
         $abuse_form = $tpl->Processing();
         break;
+    //////////////////////////////////////////////////////////
     case $action == 'add': // 
         //отправка заявки с карточки объекта
         if(!empty($ajax_mode)){
@@ -106,11 +109,6 @@ switch(true){
                 unset($create_params['type']);
             }
             if(empty($create_params['estate_type'])) $create_params['estate_type'] = Request::GetInteger('estate_type', METHOD_POST);
-            /*$create_params['name'] = Request::GetString('name', METHOD_POST);
-            $create_params['phone'] = Request::GetString('phone', METHOD_POST);
-            $create_params['email'] = Request::GetString('email',METHOD_POST);
-            $create_params['user_name'] = trim(Request::GetString('name',METHOD_POST));
-            $create_params['user_comment'] = trim(Request::GetString('user_comment', METHOD_POST));*/
             if(!empty($estate_type)) $create_params['estate_type_key'] = Config::$values['object_types'][$estate_type]['key']; 
             
             $universal_app = false;
@@ -119,8 +117,6 @@ switch(true){
             
             if(!$new_app->checkWorkTime()) $ajax_result['message'] = $new_app->getNextWorkDayTime();
             $user_tarif = $new_app->getOwnersAttr('user_tarif');
-            //чтобы на праздники ставить оповещения о задержке в обработке
-            //$ajax_result['paused_application'] = ($new_app->id_agency > 0 || $user_tarif > 0 ? 1 : 0);
             $ajax_result['paused_application'] = false;
             $ajax_result['name'] = $new_app->getAttr('name');
             
@@ -129,7 +125,9 @@ switch(true){
             $module_template = "/templates/popup.success.html";
         }
         break;
+    //////////////////////////////////////////////////////////
     //заглавная страница заявок и содержимое вкладок по типам
+    //////////////////////////////////////////////////////////
     case empty($action) && preg_match('/members/',$_SERVER['REQUEST_URI']):
         //если это страница со вкладками
         if(!$ajax_mode){
@@ -523,7 +521,9 @@ switch(true){
             Response::SetBoolean('can_buy_realtor_apps', (!empty($agency_info) && (!empty($agency_info['email_application_realtor_help']) )));
         }
         break;
+    //////////////////////////////////////////////////////////
     //редактирование комментария заявки
+    //////////////////////////////////////////////////////////
     case $action == 'comment' && !empty($ajax_mode):
         $id_app = empty($this_page->page_parameters[1]) ? "" : $this_page->page_parameters[1];
         if(empty($id_app)) return false;
@@ -539,7 +539,9 @@ switch(true){
                 break;
         }
         break;
+    //////////////////////////////////////////////////////////
     //заявка в работу
+    //////////////////////////////////////////////////////////
     case ($action == 'in_work' || $action == 'in_work_exclusive') && !empty($ajax_mode):
     
         $id_app = empty($this_page->page_parameters[1]) ? "" : $this_page->page_parameters[1];
@@ -549,7 +551,9 @@ switch(true){
         $ajax_result = $this_app->Buy($auth->id,$action);
         
         break;
+    //////////////////////////////////////////////////////////
     //закрытие заявки
+    //////////////////////////////////////////////////////////
     case $action == 'finish' && !empty($ajax_mode):
         $id_app = empty($this_page->page_parameters[1]) ? "" : $this_page->page_parameters[1];
         if(empty($id_app)) return false;
@@ -631,7 +635,9 @@ switch(true){
         }
         $ajax_result['ok'] = true;
         break;
+    //////////////////////////////////////////////////////////
     //список для страницы публичных заявок
+    //////////////////////////////////////////////////////////
     case $action == 'public_list':
         //читаем переданные из фильтра параметры
         $deal_type = Request::GetInteger('deal_type',METHOD_POST);
@@ -707,6 +713,8 @@ switch(true){
         Response::SetArray('list',$list);
         $module_template = "list.html";
         break;
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
     case empty($action):
         $GLOBALS['js_set'][] = '/modules/applications/public.apps.js';
         Response::SetBoolean( 'payed_format', true );

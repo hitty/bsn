@@ -11,7 +11,6 @@
                 {/if}
             </h3>
             <time  data-icon="schedule" datetime="{$item['datetime']}">{$item['normal_date']}</time>
-            <span class="views_count" data-icon="visibility">{php:echo $item['views_count']}</span>
             {if!empty $item['photo']}
                 {ifempty $item['link']}<a href="/galleries/{$item['id']}/" title="подробнее">
                 {else}<a href="/{$item['link']}/" title="подробнее">
