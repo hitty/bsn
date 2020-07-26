@@ -44,7 +44,6 @@
         {/if}
         
         <div class="smallnotes wide">
-            <span class="comments_count" data-icon="chat_bubble_outline" data-icon="chat_bubble_outline">{$item['comments_count']}</span>
             {if!empty $item['author']}<span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person" data-icon="create">{$item['author']}</span>{/if}
             {if!empty $item['author_url']}<span class="source">Источник: <span class="external-link" data-link="{$item['author_url']}" title="{quoted:$item['title']}">{$item['author_url']}</span></span>{/if}
             <div id="social-buttons-content" data-icon="share">
