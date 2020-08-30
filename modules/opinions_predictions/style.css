@@ -17,30 +17,120 @@
     font-style: italic;
 }
 article .news-main-photo{
-    
+    align-items: stretch;
+    align-content: stretch;
+    border: 5px solid #f3f3f3;    
 }
 article .news-main-photo h1{
-    font-size: 32px;
-    line-height: 38px;    
+    font-size: 26px;
+    line-height: 38px;
+    background: #1e88e5;
+    color: #fff;
+    padding: 20px;
+    margin: 20px -25px 20px -20px;
+}
+article .smallnotes{
+    text-align: left;
 }
 article .news-main-photo div[itemprop="description"]{
     width: 100%;
-    margin: 80px auto 60px auto;
+    margin: 40px auto;
 }
 article .news-main-photo .expert{
-    color: #fff;
-    text-align: center;
+    color: #000000;
+    margin: 0;
+    padding: 0;
     z-index: 10;
     position: relative;
     font-size: 18px;
 }
 article .news-main-photo .expert strong{
-    font-size: 44px;
+    font-size: 34px;
     font-weight: normal;
-    line-height: 64px;    
+    line-height: 1.1;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;   
+}
+article .news-main-photo {
+    margin: 40px;
+    position: relative;
+    padding: 0;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+article .news-main-photo-container {
+    width: 50%;
+}
+
+article .news-main-photo-info {
+    width: calc( 50% - 40px );
+    height: 100%;
+    background: #f3f3f3;
+    padding: 20px;
+}
+
+article .news-main-photo .breadcrumbs {
+    text-align: left;
+    width: 100%;
+    top: 0;
+}
+
+article .news-main-photo h1 {
+    font-size: 26px;
+    line-height: 38px;
+    background: #1e88e5;
+    color: #fff;
+    padding: 20px;
+    border-radius: 3px;
+}
+
+article .news-main-photo .photo-source {
+    position: absolute;
+    color: #818181;
+    bottom: -20px;
+    left: 0;
+    font-size: 12px;
+}
+
+article .news-main-photo .social-breadcrumbs {
+    text-align: center;
+    width: 100%;
+    height: 20px;
+}
+
+article .news-main-photo .social-breadcrumbs a,article .news-main-photo .social-breadcrumbs span {
+    color: #000000;
+    border: none;
+    float: none;
+}
+
+article .smallnotes {
+    color: #000000;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+article .smallnotes time,article .smallnotes span {
+    display: inline;
+    float: none;
+    margin-right: 40px;
+}
+
+article .smallnotes [data-icon]::before {
+    position: absolute;
+    margin: 1px 0 0 -17px;
+    color: #fff;
+    display: none;
 }
 .content-wrapper .item:not(.big) .image{
     width: 240px;
     height: 220px;
     margin-left: 20px;    
+}
+article .news-main-photo:before{
+    display: none;
 }
