@@ -1,4 +1,5 @@
-
+{php:$cottage_contacts = !empty($item['seller']) || !empty($item['developer_title']);}
+{if!empty $cottage_contacts}
 <div class="contacts-wrap clearfix br3 shadow">
         <div class="contacts-info text-overflow br3">
             {ifempty $item['agency_advert']}
@@ -31,3 +32,4 @@
             <span data-url="/applications/popup/?estate_type={$estate_type}&id={$item['id']}&deal_type=sell" class="button grey popup" data-location="estate-application" data-icon="message" data-url="/applications/popup/" onclick="try{ yaCounter21898216.reachGoal('click_app'); return true; }catch(err){ }" data-location="estate-application" data-icon="message" >Оставить заявку</span>
         </div>
 </div>
+{/if}
