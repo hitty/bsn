@@ -57,15 +57,15 @@ switch(true){
                     //партнерский материал
                     if( $content_type == 'media' || $content_type == 'articles' ) {
                         $articles = new Content( 'articles' );
-                        $article_partner = $articles->getList( 1, 0, false, false, 'promo != 2', 'id DESC' );
-                        $article_partner = !empty( $article_partner ) ? $article_partner = [0] : false;
+                        $article_partner = $articles->getList( 1, 0, false, false, 'status = 2', 'id DESC' );
+                        $article_partner = !empty( $article_partner ) ? $main_item = $article_partner[0] : false;
                     }
                     $count = !empty( $this_page->page_parameters[2] ) && Validate::isDigit( $this_page->page_parameters[2] ) ? $this_page->page_parameters[2] : 0;
                     // список всего контента
                     // кол-во блоков
                     $hub_count = !empty( $count ) ? $count : ( !empty( $main_item ) ? ( !empty( $article_partner) ? 5 : 7 ) : ( !empty( $article_partner) ? 8 : 9 ) );
                     //отбивка блоков
-                    $breaks = !empty( $main_item ) ? ( !empty( $article_partner) ? array( 2, 5 ) : array( 2, 5 ) ) : ( !empty( $article_partner) ? array( 3, 6 ) : array( 3, 6 ) ) ;
+                    $breaks = !empty( $main_item ) ? [2, 5] : [3, 6]  ;
                     Response::SetArray( 'breaks', $breaks );
                     //получение списка
                     Media::Init();
@@ -75,7 +75,7 @@ switch(true){
                         !empty( $article_partner['id'] ) ? $article_partner['id'] : false  
                     );
                     
-                    if( !empty( $main_item) ) {
+                    if( !empty( $main_item ) ) {
                         Response::SetArray( 'main_item', $main_item);
                         $main_item['main_item'] = 1;
                         array_unshift( $list, $main_item );
