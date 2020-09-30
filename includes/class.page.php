@@ -450,7 +450,7 @@ class Page {
                 
                 if( $this->first_instance ){
                     //показ топлайна
-                    $not_show_topline = Session::GetBoolean('not_show_topline');
+                    echo $not_show_topline = Session::GetBoolean('not_show_topline');
                     if( empty( $not_show_topline ) ) {
                         $topline =  Banners::getItem( 'top', !empty( $this->page_alias ) ? $this->page_alias : false );
                         if( !empty( $topline) ) Response::SetArray( 'banner_item', $topline );

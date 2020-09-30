@@ -58,7 +58,7 @@ switch(true){
                     if( $content_type == 'media' || $content_type == 'articles' ) {
                         $articles = new Content( 'articles' );
                         $article_partner = $articles->getList( 1, 0, false, false, 'status = 2', 'id DESC' );
-                        $article_partner = !empty( $article_partner ) ? $main_item = $article_partner[0] : false;
+                        //$article_partner = !empty( $article_partner ) ? $main_item = $article_partner[0] : false;
                     }
                     $count = !empty( $this_page->page_parameters[2] ) && Validate::isDigit( $this_page->page_parameters[2] ) ? $this_page->page_parameters[2] : 0;
                     // список всего контента
