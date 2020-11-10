@@ -4,10 +4,7 @@ jQuery(document).ready(function(){
         _form.attr('action',_form.attr('action')+'?redirect=true');
         _form.submit();
     })
-	//fileuploader init
-	if(jQuery('#file_upload').length>0){
-		jQuery('#file_upload').uploadifive();
-	}	
+	
     jQuery('.change-manager').on('change', function(){
         jQuery(this).next('input').fadeIn();
     })
