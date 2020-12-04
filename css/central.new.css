@@ -1716,7 +1716,7 @@ font-size: 11px;
     -ms-transition: .3s all;
     -o-transition: .3s all;
     transition: .3s all;
-    position: relative
+    position: relative;
     z-index: 2;
 }
 .filter.scroll span.objects-title{
