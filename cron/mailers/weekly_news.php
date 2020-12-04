@@ -1,9 +1,10 @@
 #!/usr/bin/php
 <?php
 // переход в корневую папку сайта
-define('DEBUG_MODE', !empty($_SERVER['SERVER_NAME']) && preg_match('/.+\.int$/i', $_SERVER['SERVER_NAME']) ? true : false);
+define('DEBUG_MODE', !empty($_SERVER['SCRIPT_NAME']) && preg_match('/.+\.int/i', $_SERVER['SCRIPT_NAME']) || !empty($_SERVER['SERVER_NAME']) && preg_match('/.+\.int/i', $_SERVER['SERVER_NAME']) ? true : false);
 define('TEST_MODE', !empty($_SERVER['SCRIPT_FILENAME']) && preg_match('/test\.bsn\.ru/sui', $_SERVER['SCRIPT_FILENAME']) ? true : false);
 
+/** @var TYPE_NAME $root */
 $root = TEST_MODE ? realpath( '/home/bsn/sites/test.bsn.ru/public_html/trunk/' ) : ( DEBUG_MODE ? realpath( "../.." ) : realpath('/home/bsn/sites/bsn.ru/public_html/' ) ) ;
 if(defined("PHP_OS")) $os = PHP_OS; else $os = php_uname();
 if(strtolower(substr( $os, 0, 3 ) ) == "win" )  $root = str_replace( "\\", '/', $root );
@@ -18,12 +19,6 @@ mb_regex_encoding('UTF-8');
 
 if (is_running($_SERVER['PHP_SELF'])) die('Already running'); 
 //запись всех ошибок в лог
-$error_log = ROOT_PATH.'/cron/mailers/spam_error.log';
-$test_performance = ROOT_PATH.'/cron/gen_sitemap/test_performance.log';
-file_put_contents($error_log,'');
-file_put_contents($test_performance,'');
-ini_set('error_log', $error_log);
-ini_set('log_errors', 'On');
 
 // подключение классов ядра
 require_once('includes/class.config.php');       // Config (конфигурация сайта)
@@ -43,7 +38,6 @@ if( !class_exists( 'Photos' ) )  require_once('includes/class.photos.php');;    
 //require_once('../../sale.bsn.ru/public_html/includes/class.sale.php');  
 require_once('includes/class.estate.statistics.php');
 $memcache = new MCache(Config::$values['memcache']['host'], Config::$values['memcache']['port']);
-print_r($_SERVER['argv']);
 $debug = DEBUG_MODE || !empty($_SERVER['argv'][1]) ? true : false;
 // Инициализация рабочих классов
 $db = !TEST_MODE ? new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']) : new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
@@ -66,50 +60,19 @@ $dates = ( date('M',time() - 518400) == date( 'M', time() ) ? ltrim( date('d',ti
 $email_title = ( !empty( $debug ) ? 'Тест: ' : '' )  . "Новостной дайджест за " . $dates;
 $news_list = array();            
 
-if( $top_news = $news->getList( 1, 0, false, false, "DATE_FORMAT (`datetime`,'%Y-%m-%d') =  DATE_SUB(CURDATE(),INTERVAL 4 DAY) AND newsletter_feed = 1 AND newsletter_feed = 1 AND partner_feed = 2", $sys_tables['news'].".views_count DESC"))
-    array_push( $news_list, $top_news[0] );
-if( $top_news = $news->getList( 1, 0, false, false, "DATE_FORMAT (`datetime`,'%Y-%m-%d') =  DATE_SUB(CURDATE(),INTERVAL 3 DAY) AND newsletter_feed = 1 AND partner_feed = 2", $sys_tables['news'].".views_count DESC"))
-    array_push( $news_list, $top_news[0] );
-if( $top_news = $news->getList( 1, 0, false, false, "DATE_FORMAT (`datetime`,'%Y-%m-%d') =  DATE_SUB(CURDATE(),INTERVAL 2 DAY) AND newsletter_feed = 1 AND partner_feed = 2", $sys_tables['news'].".views_count DESC"))
-    array_push( $news_list, $top_news[0] );
-if( $top_news = $news->getList( 1, 0, false, false, "DATE_FORMAT (`datetime`,'%Y-%m-%d') =  DATE_SUB(CURDATE(),INTERVAL 1 DAY) AND newsletter_feed = 1 AND partner_feed = 2", $sys_tables['news'].".views_count DESC"))
-    array_push( $news_list, $top_news[0] );
-if( $top_news = $news->getList( 1, 0, false, false, "DATE(`datetime`) =  CURDATE() AND newsletter_feed = 1 AND partner_feed = 2", $sys_tables['news'].".views_count DESC"))
-    array_push( $news_list, $top_news[0] );
+$news_list = $news->getList( 10, 0, false, false, "`datetime` >= NOW() - INTERVAL 7 DAY AND `datetime` <= NOW()  AND newsletter_feed = 1", $sys_tables['news'].".views_count DESC");
 
-//
-$ids = array();
-foreach( $news_list as $n => $news_item ) $news_ids[] = $news_item['id'];
-$partner_news = $news->getList( 2, 0, false, false, "DATE(`datetime`) <=  CURDATE() AND partner_feed = 1", $sys_tables['news'].".views_count DESC");
-foreach( $partner_news as $n => $partner_news_item ) $news_ids[] = $partner_news_item['id'];
-if( !empty( $news_ids ) ) {
-    $news_list = array_merge( 
-        $news_list, 
-        $news->getList( 11 - count( $news_list ) - count( $partner_news ), 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND DATE(`datetime`) <= CURDATE() AND " . $sys_tables['news'] . ".id NOT IN (" . implode( ",", $news_ids ). ")", $sys_tables['news'].".views_count DESC")
-    );
-}
 
-if( !empty( $partner_news ) ) $news_list = array_merge( $news_list, $partner_news );
-
- if( empty( $debug ) ) $db->query("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, partner_feed = 2");
+if( empty( $debug ) ) $db->query("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, partner_feed = 2");
     
 //получение списка новостей БСН.ТВ
 $bsn_tv = new Content('bsntv');
 $bsn_tv_news_list = $bsn_tv->getList( 1, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['bsntv'].".views_count DESC" );
-/*
-if( !empty($bsn_tv_news_list) && count( $news_list ) > 9 ) array_pop( $news_list );
-*/
-    
+
 //получение списка новостей Доверия
 $doverie = new Content('doverie');
-$doverie_news_list = $doverie->getList( 2, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['doverie'].".views_count DESC" );
-/*
-if( !empty($doverie_news_list) && count( $news_list ) > 8 ) {
-    array_pop( $news_list );
-    array_pop( $news_list );
-}
-*/    
-    
+$doverie_news_list = $doverie->getList( 1, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['doverie'].".views_count DESC" );
+
 $is_weekly = true;
 Response::SetString( 'is_weekly',$is_weekly );
 Response::SetString( 'email_title', $email_title );
@@ -117,7 +80,7 @@ Response::SetString( 'dates', $dates );
 
 //блок "Статьи
 $articles = new Content('articles');
-$articles_list = $articles->getList( 1, 0, false, false, "`datetime` >= NOW() - INTERVAL 5 DAY AND `datetime` <= NOW()", $sys_tables['articles'].".views_count DESC");
+$articles_list = $articles->getList( 2, 0, false, false, "`datetime` >= NOW() - INTERVAL 7 DAY AND `datetime` <= NOW()", $sys_tables['articles'].".views_count DESC");
 if( !empty( $articles_list ) ) {
     $article = $articles_list[0];
     Response::SetArray( 'article', $article ); 
@@ -144,17 +107,8 @@ if( !empty( $articles_list ) ) {
 //блок "Интервью" -//- заккоментируйте, чтобы не отображать блоки "Рекомендуем" и "Интервью"
 $opinions = new Opinions('opinions');
 $opinions_list = $opinions->getList(1,0," type=1 AND ".$sys_tables['opinions_predictions'].".date > CURDATE() - interval 5 day AND ".$sys_tables['opinions_predictions'].".`date` <= CURDATE()");
-/*
-if( !empty($opinions_list) && 
-    ( 
-        ( !empty($bsn_tv_news_list) && count( $news_list ) > 8 ) || 
-        count( $news_list ) > 9
-    )
-) array_pop( $news_list );
-*/
 
-$list = array();
-
+$list = [];
 if( !empty( $news_list ) ) $list = array_merge( $list, $news_list );
 if( !empty( $bsn_tv_news_list ) ) $list = array_merge( $list, $bsn_tv_news_list );
 if( !empty( $doverie_news_list ) ) $list = array_merge( $list, $doverie_news_list );
@@ -268,7 +222,9 @@ if(!empty($email_list) && !empty($news_list)){
             Response::SetString( 'pixel', '<img src="https://www.bsn.ru/pxl/?campaign=' . $id_campaign . '&email=' . $email['email'] . '&status=2" />');
             $mailer = new EMailer('mail');
             $html = $eml_tpl->Processing();
-            $html = iconv('UTF-8', $mailer->CharSet, $html);
+            //$html = iconv('UTF-8', $mailer->CharSet, $html);
+            echo $html;
+            die();
             // параметры письма
             $mailer->Body = $html;
             $mailer->Subject = iconv('UTF-8', $mailer->CharSet.'//IGNORE', $email_title);

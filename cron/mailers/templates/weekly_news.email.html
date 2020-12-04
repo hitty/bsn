@@ -25,7 +25,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                             <tbody><tr>
                                 
                                 <td align="left" style="text-align:left" valign="middle" width="90">
-                                    <img class="fiximg" src="https://st1.bsn.ru/img/layout/mailer/logo.png" border="0" width="70" height="20" align="left">
+                                    <img class="fiximg" src="http://bsn.int/img/layout/mailer/logo.png" border="0" width="70" height="20" align="left">
                                 </td>
                                 
                                 <td align="left" valign="middle" width="490" style="text-align:left; color: #000; font-size: 18px; line-height: 21px;">
@@ -57,7 +57,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                         {elseifeq $item['type'],'bsntv'}
                                             <a href="https://www.bsn.ru/bsntv/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width:240px; height:140px;">{stripall:$item['title']}</a>
                                             <span style="display: block; width: 240px; padding: 0px 20px; height: 30px; color: #1e88e5; font-size: 14px; font-weight: bold; overflow: hidden;">
-                                                <img src="https://st1.bsn.ru/img/layout/video-icon.png" width="7" height="9" style="display: block; float: left; margin: 5px 5px 0 0;" />
+                                                <img src="http://bsn.int/img/layout/video-icon.png" width="7" height="9" style="display: block; float: left; margin: 5px 5px 0 0;" />
                                                 Видео
                                             </span>
                                         {elseifeq $item['type'],'opinions'}
@@ -88,7 +88,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                 <tr><td colspan="2" height="20" style="background: #F8F8F8;"></td></tr>    
                                 
                                 <tr>
-                                    <td colspan="3" valign="top" style="background: url(https://st1.bsn.ru/img/uploads/mailers/{$article['photo']}); border-collapse:collapse; padding:0; border-radius: 3px;" width="540" height="250" align="left"> 
+                                    <td colspan="3" valign="top" style="background: url(http://bsn.int/img/uploads/mailers/{$article['photo']}); border-collapse:collapse; padding:0; border-radius: 3px;" width="540" height="250" align="left"> 
                                         <table cellpadding="0" cellspacing="0" style="padding: 0; margin:0;">
                                             <tr height="190" valign="top">
                                                 <td valign="top">
@@ -116,7 +116,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                             <table width="100%" cellpadding="0" cellspacing="0" style="display: block; padding: 0; margin: 0;">    
                                             
                                                 <tr>
-                                                    <td style="padding: 0; background: url(https://st1.bsn.ru/img/uploads/mailers/{$item['photo']}); border-collapse:collapse; border-radius: 3px 3px 0 0; width: 280px; height: 210px;" width="280" height="210">
+                                                    <td style="padding: 0; background: url(http://bsn.int/img/uploads/mailers/{$item['photo']}); border-collapse:collapse; border-radius: 3px 3px 0 0; width: 280px; height: 210px;" width="280" height="210">
                                                         <a href="https://www.bsn.ru/{$item['type']}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/?utm_campaign=email_subscribe&utm_source=bsn" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; padding:20px; width:240px; height:140px; border-radius: 3px;">
                                                             
                                                             <div style="display: block; width: 100%; height: 100%;">

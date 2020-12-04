@@ -102,28 +102,7 @@ return array(
             'label' => 'Категория',
             'tip' => 'Категория новости'
         )
-        ,'video_link' => array(
-            'type' => TYPE_STRING,
-            'max' => 255,
-            'allow_empty' => true, 
-            'allow_null' => false,
-            'fieldtype' => 'text',
-            'placeholder' => 'Например: jmtcH76YpOo - обозначение видео в ссылке http://youtu.be/jmtcH76YpOo',
-            'label' => 'Ссылка на видео youtube',
-            'tip' => 'Вставляется только текстовый идентификатор'
-        )
-        ,'show_ad_video' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 2,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'да',2=>'нет'),
-            'label' => 'Показывать рекламу в видео',
-            'tip' => ''
-        )        
-        ,'id_region' => array(   
+        ,'id_region' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => false,
             'allow_null' => false,
@@ -132,50 +111,7 @@ return array(
             'label' => 'Регион',
             'tip' => 'Региональная принадлежность новости'
         )
-        ,'yandex_feed' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 2,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'разрешен',2=>'запрещен'),
-            'label' => 'Экспорт в Яндекс',
-            'tip' => 'Разрешение на экспорт новости в Яндекс'
-        )
-        ,'vkontakte_feed' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 3,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'разрешен',2=>'запрещен',3=>'уже произведен'),
-            'label' => 'Экспорт во VK',
-            'tip' => 'Разрешение на экспорт новости в соцсеть vk.com'
-        )
-        ,'telegram_feed' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 3,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'разрешен',2=>'запрещен',3=>'уже произведен'),
-            'label' => 'Экспорт в Telegram',
-            'tip' => 'Разрешение на экспорт новости в наш канал Telegram'
-        )
-        ,'push_status' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 2,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'разрешен',2=>'запрещен'),
-            'label' => 'Push уведомление',
-            'tip' => 'Разрешение на всплывающее оповещение'
-        )
+
         ,'newsletter_feed' => array(
             'type' => TYPE_INTEGER,
             'min' => 1,
@@ -198,17 +134,6 @@ return array(
             'label' => 'Заголовок ежедневной рассылки',
             'tip' => 'Использовать заголовок данной новости для ежедневной рассылки'
         )
-        ,'partner_feed' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 2,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'да',2=>'нет'),
-            'label' => 'В рассылку как партнерская новость',
-            'tip' => 'Не больше 2-х'
-        )         
         ,'status' => array(
             'type' => TYPE_INTEGER,
             'min' => 1,
@@ -220,39 +145,7 @@ return array(
             'label' => 'Статус новости',
             'tip' => 'Параметры отображения новости'
         )
-        ,'exclusive' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 2,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'Да',2=>'Нет'),
-            'label' => 'Эксклюзив',
-            'tip' => 'Является ли новость эксклюзивной'
-        )
-        ,'comment' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 2,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'Да',2=>'Нет'),
-            'label' => 'Комментарий',
-            'tip' => 'Является ли новость комментарием'
-        )
-        ,'report' => array(
-            'type' => TYPE_INTEGER,
-            'min' => 1,
-            'max' => 2,
-            'allow_empty' => false, 
-            'allow_null' => false,
-            'fieldtype' => 'radio',
-            'values' => array(1=>'Да',2=>'Нет'),
-            'label' => 'Репортаж',
-            'tip' => 'Является ли новость репортажем'
-        )
+        
         ,'datetime' => array(
             'type' => TYPE_STRING,
             'max' => 255,
