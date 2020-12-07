@@ -61,17 +61,46 @@ $email_title = ( !empty( $debug ) ? 'Тест: ' : '' )  . "Новостной �
 $news_list = array();            
 
 $news_list = $news->getList( 10, 0, false, false, "`datetime` >= NOW() - INTERVAL 7 DAY AND `datetime` <= NOW()  AND newsletter_feed = 1", $sys_tables['news'].".views_count DESC");
-
+foreach( $news_list as $n => $item )  createPhoto( $item );
 
 if( empty( $debug ) ) $db->query("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, partner_feed = 2");
-    
-//получение списка новостей БСН.ТВ
-$bsn_tv = new Content('bsntv');
-$bsn_tv_news_list = $bsn_tv->getList( 1, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['bsntv'].".views_count DESC" );
 
 //получение списка новостей Доверия
 $doverie = new Content('doverie');
 $doverie_news_list = $doverie->getList( 1, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 5 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['doverie'].".views_count DESC" );
+if( !empty( $doverie_news_list ) )  {
+    $doverie_params = [  
+        [
+            'watermark' => true,
+            'width' => '280',
+            'height' => '380',
+            'folder' => 'med',
+            'watermark_name' => 'black_bg_doverie.png'
+        ]
+    ];
+    createPhoto( $doverie_news_list[0], $doverie_params );
+    array_splice( $news_list, 4, 0, [ $doverie_news_list[0] ] );
+}
+
+//блок "Интервью" -//- заккоментируйте, чтобы не отображать блоки "Рекомендуем" и "Интервью"
+$opinions = new Opinions('opinions');
+$opinions_list = $opinions->getList(1,0," type=1 AND ".$sys_tables['opinions_predictions'].".date > CURDATE() - interval 5 day AND ".$sys_tables['opinions_predictions'].".`date` <= CURDATE()");
+if( !empty( $opinions_list ) )  {
+    $opinions_list[0]['photo'] = $opinions_list[0]['experts_photo'];
+    $opinions_list[0]['subfolder'] = $opinions_list[0]['experts_subfolder'];
+    createPhoto( $opinions_list[0] );
+    array_splice( $news_list, 6, 0, [ $opinions_list[0] ] );
+}
+    
+//получение списка новостей БСН.ТВ
+$bsn_tv = new Content('bsntv');
+$bsn_tv_news_list = $bsn_tv->getList( 1, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 7 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['bsntv'].".views_count DESC" );
+if( !empty( $bsn_tv_news_list ) )  {
+    createPhoto( $bsn_tv_news_list[0] );
+    array_splice( $news_list, 7, 0, [ $bsn_tv_news_list[0] ] );
+}
+
+
 
 $is_weekly = true;
 Response::SetString( 'is_weekly',$is_weekly );
@@ -84,37 +113,14 @@ $articles_list = $articles->getList( 2, 0, false, false, "`datetime` >= NOW() - 
 if( !empty( $articles_list ) ) {
     $article = $articles_list[0];
     Response::SetArray( 'article', $article ); 
-    
-    //заглавная фотка
-    $dest = $root . '/img/uploads/mailers/' . $article['photo'];
-    $src = $root . '/img/uploads/big/' . $article['subfolder'] . '/' . $article['photo'];
-    if( !file_exists( $dest ) && file_exists( $src ) ) {
-        $watermark_src = '/img/layout/mailer/black_bg.png';
-        Photos::imageResize( 
-            $src, 
-            $dest, 
-            580, 
-            250, 
-            'cut',  
-            90, 
-            '#ffffff', 
-            $watermark_src, 
-            70
-        );      
-    }     
+    createPhoto( $article );
+        
 }
-  
-//блок "Интервью" -//- заккоментируйте, чтобы не отображать блоки "Рекомендуем" и "Интервью"
-$opinions = new Opinions('opinions');
-$opinions_list = $opinions->getList(1,0," type=1 AND ".$sys_tables['opinions_predictions'].".date > CURDATE() - interval 5 day AND ".$sys_tables['opinions_predictions'].".`date` <= CURDATE()");
 
 $list = [];
 if( !empty( $news_list ) ) $list = array_merge( $list, $news_list );
-if( !empty( $bsn_tv_news_list ) ) $list = array_merge( $list, $bsn_tv_news_list );
-if( !empty( $doverie_news_list ) ) $list = array_merge( $list, $doverie_news_list );
-if( !empty( $opinions_list ) ) $list = array_merge( $list, $opinions_list );
 
-Response::SetArray( 'list', $list );
+Response::SetArray( 'list', array_slice( $list, 0, 9 ) );
 
 //блок VIP - объекты
 $vip_list = array();
@@ -153,23 +159,9 @@ if( !empty( $vip_list ) ) {
     $vip_list = array_splice( $vip_list, 0, $vip_list_count );     
     Response::SetArray('vip_list', $vip_list);
 
-    print_r( $vip_list );
     foreach( $vip_list as $k=> $item){
-        //заглавная фотка
-        $dest = $root . '/img/uploads/mailers/' . $item['photo'];
-        if( !file_exists( $dest ) ) {
-            Photos::imageResize( 
-                $root . '/img/uploads/big/' . $item['subfolder'] . '/' . $item['photo'], 
-                $dest, 
-                280, 
-                210, 
-                'cut',  
-                90, 
-                '#ffffff', 
-                false, 
-                70
-            );      
-        }        
+        createPhoto( $item );
+        
     }
 }   
 
@@ -222,9 +214,7 @@ if(!empty($email_list) && !empty($news_list)){
             Response::SetString( 'pixel', '<img src="https://www.bsn.ru/pxl/?campaign=' . $id_campaign . '&email=' . $email['email'] . '&status=2" />');
             $mailer = new EMailer('mail');
             $html = $eml_tpl->Processing();
-            //$html = iconv('UTF-8', $mailer->CharSet, $html);
-            echo $html;
-            die();
+            $html = iconv('UTF-8', $mailer->CharSet, $html);
             // параметры письма
             $mailer->Body = $html;
             $mailer->Subject = iconv('UTF-8', $mailer->CharSet.'//IGNORE', $email_title);
@@ -242,4 +232,43 @@ if(!empty($email_list) && !empty($news_list)){
         }
     }
 } 
+
+function createPhoto( $item, $params = [] ){
+    global $root;
+    if( empty( $params ) )
+        $params = [
+            [
+                'watermark' => false,
+                'width' => '280',
+                'height' => '210',
+                'folder' => 'sm'
+            ],
+            [
+                'watermark' => true,
+                'width' => '570',
+                'height' => '240',
+                'folder' => 'big'
+            ]
+        ];
+    foreach( $params as $p => $param ){
+        //заглавная фотка
+        $dest = $root . '/img/uploads/mailers/' . $param['folder'] . '/' . $item['photo'];
+        $src = $root . '/img/uploads/big/' . $item['subfolder'] . '/' . $item['photo'];
+        if( !file_exists( $dest ) && file_exists( $src ) ) {
+            $watermark_src = $param['watermark'] ? '/img/layout/mailer/black_bg.png' : '';
+            Photos::imageResize( 
+                $src, 
+                $dest, 
+                $param['width'], 
+                $param['height'], 
+                'cut',  
+                90, 
+                '#ffffff', 
+                $watermark_src, 
+                70
+            );      
+        }     
+    }
+}
+
 ?>
