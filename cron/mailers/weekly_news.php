@@ -214,6 +214,7 @@ if(!empty($email_list) && !empty($news_list)){
             Response::SetString( 'pixel', '<img src="https://www.bsn.ru/pxl/?campaign=' . $id_campaign . '&email=' . $email['email'] . '&status=2" />');
             $mailer = new EMailer('mail');
             $html = $eml_tpl->Processing();
+            die($html);
             $html = iconv('UTF-8', $mailer->CharSet, $html);
             // параметры письма
             $mailer->Body = $html;
@@ -253,20 +254,22 @@ function createPhoto( $item, $params = [] ){
     foreach( $params as $p => $param ){
         //заглавная фотка
         $dest = $root . '/img/uploads/mailers/' . $param['folder'] . '/' . $item['photo'];
-        $src = $root . '/img/uploads/big/' . $item['subfolder'] . '/' . $item['photo'];
-        if( !file_exists( $dest ) && file_exists( $src ) ) {
-            $watermark_src = $param['watermark'] ? '/img/layout/mailer/black_bg.png' : '';
-            Photos::imageResize( 
-                $src, 
-                $dest, 
-                $param['width'], 
-                $param['height'], 
-                'cut',  
-                90, 
-                '#ffffff', 
-                $watermark_src, 
-                70
-            );      
+        if( !file_exists( $dest ) ) {
+            $src = $root . '/img/uploads/big/' . $item['subfolder'] . '/' . $item['photo'];
+            if( !file_exists( $dest ) && file_exists( $src ) ) {
+                $watermark_src = $param['watermark'] ? '/img/layout/mailer/black_bg.png' : '';
+                Photos::imageResize( 
+                    $src, 
+                    $dest, 
+                    $param['width'], 
+                    $param['height'], 
+                    'cut',  
+                    90, 
+                    '#ffffff', 
+                    $watermark_src, 
+                    70
+                );      
+            }     
         }     
     }
 }
