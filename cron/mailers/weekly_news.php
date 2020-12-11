@@ -57,7 +57,7 @@ $news = new Content('news');
 $is_weekly = false;
 //Еженедельная рассылка - установить параметр в 5
 $dates = ( date('M',time() - 518400) == date( 'M', time() ) ? ltrim( date('d',time() - 518400), '0' ) : Convert::ru_date( date('d M Y',time() - 518400), false ) ) . " - ".Convert::ru_date( date('d M Y') ) ;
-$email_title = ( !empty( $debug ) ? 'Тест: ' : '' )  . "Новостной дайджест за " . $dates;
+$email_title = ( !empty( $debug ) ? 'Тест: ' : '' )  . "Топ новостей за неделю. " . $dates;
 $news_list = array();            
 
 $news_list = $news->getList( 10, 0, false, false, "`datetime` >= NOW() - INTERVAL 7 DAY AND `datetime` <= NOW()  AND newsletter_feed = 1", $sys_tables['news'].".views_count DESC");
@@ -180,11 +180,10 @@ if( DEBUG_MODE )
 else if( !empty( $debug ) ) 
     $email_list = array(
         0 => array( 'id' => 3, 'email' => 'kya1982@gmail.com'),
-        /*
         2 => array( 'id' => 4, 'email' => 'web@bsn.ru'),
         4 => array( 'id' => 4, 'email' => 'val@bsn.ru'),
         5 => array( 'id' => 5, 'email' => 'pm@bsn.ru'),
-        6 => array( 'id' => 6, 'email' => 'pr@bsn.ru')*/
+        6 => array( 'id' => 6, 'email' => 'pr@bsn.ru')
     );
 
 $mailer = new EMailer('mail');    
