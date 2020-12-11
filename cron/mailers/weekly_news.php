@@ -214,7 +214,6 @@ if(!empty($email_list) && !empty($news_list)){
             Response::SetString( 'pixel', '<img src="https://www.bsn.ru/pxl/?campaign=' . $id_campaign . '&email=' . $email['email'] . '&status=2" />');
             $mailer = new EMailer('mail');
             $html = $eml_tpl->Processing();
-            die($html);
             $html = iconv('UTF-8', $mailer->CharSet, $html);
             // параметры письма
             $mailer->Body = $html;
