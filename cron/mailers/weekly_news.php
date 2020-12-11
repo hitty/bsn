@@ -180,10 +180,11 @@ if( DEBUG_MODE )
 else if( !empty( $debug ) ) 
     $email_list = array(
         0 => array( 'id' => 3, 'email' => 'kya1982@gmail.com'),
+        /*
         2 => array( 'id' => 4, 'email' => 'web@bsn.ru'),
         4 => array( 'id' => 4, 'email' => 'val@bsn.ru'),
         5 => array( 'id' => 5, 'email' => 'pm@bsn.ru'),
-        6 => array( 'id' => 6, 'email' => 'pr@bsn.ru')
+        6 => array( 'id' => 6, 'email' => 'pr@bsn.ru')*/
     );
 
 $mailer = new EMailer('mail');    
@@ -208,6 +209,7 @@ if(!empty($email_list) && !empty($news_list)){
         }
         if($email['email']){
             Response::SetString('user_email',$email['email']);
+            echo $email['email'];
             Response::SetString('user_id',$email['id']);
             Response::SetString('user_code',sha1(md5($email['id'].$email['email']."special!_adding")));
             Response::SetString( 'pixel', '<img src="https://www.bsn.ru/pxl/?campaign=' . $id_campaign . '&email=' . $email['email'] . '&status=2" />');
