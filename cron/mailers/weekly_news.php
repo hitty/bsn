@@ -109,7 +109,7 @@ Response::SetString( 'dates', $dates );
 
 //блок "Статьи
 $articles = new Content('articles');
-$articles_list = $articles->getList( 2, 0, false, false, "`datetime` >= NOW() - INTERVAL 7 DAY AND `datetime` <= NOW()", $sys_tables['articles'].".views_count DESC");
+$articles_list = $articles->getList( 2, 0, false, false, "`datetime` >= NOW() - INTERVAL 6 DAY AND `datetime` <= NOW() AND newsletter_feed = 1", $sys_tables['articles'].".views_count DESC");
 if( !empty( $articles_list ) ) {
     $article = $articles_list[0];
     Response::SetArray( 'article', $article ); 
