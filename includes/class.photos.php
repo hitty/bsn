@@ -6,6 +6,7 @@ class Photos {
                             'big'=>array(2000,1600,'',90)
                             );                 // свойства папок для загрузки и формата фотографий
     public static $__folder_originals = 'originals';
+    public static $_fileTypes = ['jpg','jpeg','gif','png','svg']; // File extensions
     /**
     * получение главной фотки
     * @param string $table - основная таблица
@@ -70,7 +71,7 @@ class Photos {
         preg_match('/(?<=\.)[A-z]+$/',$photo_name,$extension);
         $extension = strtolower(array_pop($extension));
         $subfolder_name = substr($photo_name,0,2);
-        if(!in_array($extension,array('jpeg','jpg','png','gif'))) return false;
+        if( !in_array( $extension, self::$_fileTypes ) ) return false;
         $degrees = -90;
         $sizes = array('sm','med','big');
         foreach($sizes as $key=>$size){
@@ -196,7 +197,7 @@ class Photos {
         $tempFolder = ROOT_PATH.'/'.$image_folder.'/'; 
         
         //если передана ссылка на скачивание
-        if(!empty($external_img_src) && empty($internal_img_src)) $img_url = self::Download($external_img_src,$tempFolder);
+        if(!empty($external_img_src) && empty($internal_img_src)) $img_url = self::Download( $external_img_src, $tempFolder );
         elseif(!empty($internal_img_src)) $img_url = $internal_img_src;
         if(empty($img_url) && !empty($external_img_src)) return false;
         else{
@@ -206,7 +207,7 @@ class Photos {
             }
             
             // проверка типа файла
-            $fileTypes = array('jpg','jpeg','gif','png'); // File extensions
+            $fileTypes = self::$_fileTypes; // File extensions
             $fileParts = !empty( $img_url ) ? pathinfo( $img_url ) : ( !empty( $_FILES[$array_key]['name'] ) ? pathinfo($_FILES[$array_key]['name']) : false);
             if(!empty($fileParts['extension'])){
                 $targetExt = $fileParts['extension'];
@@ -261,7 +262,7 @@ class Photos {
                         self::makeDir($tempFolder . self::$__folder_originals . "/" . $subFolder . "/". $targetFile);
                         rename($tempFolder . $targetFile, $tempFolder . self::$__folder_originals . "/" . $subFolder . "/" . $targetFile);
                     }
-                    else unlink($tempFolder . $targetFile);
+                    else if( file_exists( $tempFolder . $targetFile ) ) unlink($tempFolder . $targetFile);
                     $addition_sql = "";
                     if($external_img_src!='') $addition_sql = ", `external_img_src`='".$external_img_src."'";
                     //запись имени фото в БД
@@ -311,7 +312,7 @@ class Photos {
         $filename_extensions = explode('.',$filename);
         $extension = $filename_extensions[strtolower(count($filename_extensions)-1)];
         //допустимые расширения
-        $extensions = array('jpg','jpeg','gif','png');
+        $extensions = self::$_fileTypes;
         if(in_array($extension,$extensions)) $targetExt = $extension;
         else {
             $info = getimagesize($url);
@@ -390,7 +391,7 @@ class Photos {
             $extension = $filename_extensions[strtolower(count($filename_extensions)-1)];
             $extension = str_replace('"','',$extension);
             //допустимые расширения
-            $extensions = array('jpg','jpeg','gif','png');
+            $extensions = self::$_fileTypes;
             if(in_array($extension,$extensions)) $oldname[$i]['filename'] .= ".".$extension;
 
             
@@ -429,7 +430,7 @@ class Photos {
             $filename_extensions = explode('.',$filename);
             $extension = $filename_extensions[strtolower(count($filename_extensions)-1)];
             //допустимые расширения
-            $extensions = array('jpg','jpeg','gif','png');
+            $extensions = self::$_fileTypes;
             if(is_array(@getimagesize($folder.$name['filename']))) $info = getimagesize($folder.$name['filename']);
             if(empty($info)) {
                 unlink($folder.$name['filename']);
@@ -553,219 +554,229 @@ class Photos {
         $info = getimagesize($src);
         $pathinfo = pathinfo($src);                                                      
         $extension = $pathinfo['extension'];
-        if(!is_array($info) || empty($extension))throw new Exception("Не удалось получить размер фото",3);
-        //проверка на целостность файла
-        
-        if(!empty($extension_check)){
-            if( ($extension == 'gif' && $info['mime'] != 'image/gif' ) ||
-                ($extension == 'png' && $info['mime'] != 'image/png' ) ||
-                ( in_array($extension,array('jpeg','jpg')) && $info['mime'] != 'image/jpg' && $info['mime'] != 'image/jpeg' )
-            ) {
-                unlink($src);
-                throw new Exception("Заявленный(".$extension.") и mime-тип(".$info['mime'].") не совпадают",1);
-            } 
-        }
-        $width = $info[0]; 
-        $height = $info[1]; 
-        $ext = pathinfo($src);    
 
-        if ( class_exists( 'Imagick' )) {  //ресайз библиотекой Imagick 
-            $new_image = new Imagick(); 
-            $read = @$new_image->readImage( $src ); 
-            if( !empty( $watermark_src ) ) {
-                // Open the watermark
-                $watermark = new Imagick();
-                $watermark->readImage( ROOT_PATH . $watermark_src );
+        //svg просто копируем в папки
+        if( $extension == 'svg' ) {
+            foreach( $datas as $data ) {
+                copy( $src, $data['destination'] );
             }
-            if( !empty( $read ) ) {
-                foreach( $datas as $k=>$data ) {
-                    $image = clone $new_image;
-                    
+            unlink( $src );
+        } else {
+
+            if(!is_array($info) || empty($extension))throw new Exception("Не удалось получить размер фото",3);
+            //проверка на целостность файла
+
+            if(!empty($extension_check)){
+                if( ($extension == 'gif' && $info['mime'] != 'image/gif' ) ||
+                    ($extension == 'png' && $info['mime'] != 'image/png' ) ||
+                    ( in_array($extension,array('jpeg','jpg')) && $info['mime'] != 'image/jpg' && $info['mime'] != 'image/jpeg' )
+                ) {
+                    unlink($src);
+                    throw new Exception("Заявленный(".$extension.") и mime-тип(".$info['mime'].") не совпадают",1);
+                }
+            }
+            $width = $info[0];
+            $height = $info[1];
+            $ext = pathinfo($src);
+
+            if ( class_exists( 'Imagick' )) {  //ресайз библиотекой Imagick
+                $new_image = new Imagick();
+                $read = @$new_image->readImage( $src );
+                if( !empty( $watermark_src ) ) {
+                    // Open the watermark
+                    $watermark = new Imagick();
+                    $watermark->readImage( ROOT_PATH . $watermark_src );
+                }
+                if( !empty( $read ) ) {
+                    foreach( $datas as $k=>$data ) {
+                        $image = clone $new_image;
+
+                        // если одно из измерений пустое - пропорционально подгоняем его
+                        if(empty($data['new_height'])) {
+                            if(empty($data['new_width'])) $data['new_width'] = $width;
+                            $data['new_height'] = intval($data['new_width']*$height/$width);
+                        }
+                        if(empty($data['new_width'])) $data['new_width'] = intval($data['new_height']*$width/$height);
+
+                        // если размеры картинки меньше требуемых - то принимаем их за требуемые
+                        if($data['mode']!='cut'){
+                            if($width < $data['new_width']) {
+                                $data['new_width'] = $width;
+                                $data['new_height'] = intval($data['new_width']*$height/$width);
+                            }
+                            if($height < $data['new_height']) {
+                                $data['new_height'] = $height;
+                                $data['new_width'] = intval($data['new_height']*$width/$height);
+                            }
+                            if($width < $data['new_width'] && $height < $data['new_height']) {
+                                $data['new_width'] = $width;
+                                $data['new_height'] = $height;
+                            }
+                        }
+
+                        switch($data['mode']){
+                            case 'cut'://обрез картинки по заданному размеру
+                            case 'cut_wo_resize'://обрез картинки по заданному размеру без сжатия размеров
+                                    if(($width/$data['new_width']) < ($height/$data['new_height'])) $image->cropImage($width, floor($data['new_height']*$width/$data['new_width']), 0, 0);
+                                    else $image->cropImage(ceil($data['new_width']*$height/$data['new_height']), $height, (($width-($data['new_width']*$height/$data['new_height']))/2), 0);
+                                    // thumbnail the image
+                                    if($data['mode']=='cut') $image->ThumbnailImage($data['new_width'],$data['new_height'],false);
+                                    else  {
+                                        $image->cropImage($data['new_width'],$data['new_height'],($width-$data['new_width'])/2, ($height-$data['new_height'])/2);
+                                    }
+                                break;
+                            case '': //картинка масштабируется относительно размеров и конечный размер зависит от пропорций;
+                                if(($width/$data['new_width']) > ($height/$data['new_height'])) $image->ThumbnailImage($data['new_width'], 0, false);
+                                else $image->ThumbnailImage(0, $data['new_height'], false);
+                                break;
+                            default: //картинка вписывается в размер, оставляя белые края
+
+                                if(($width/$data['new_width']) > ($height/$data['new_height'])) $image->ThumbnailImage($data['new_width'], 0, false);
+                                else $image->ThumbnailImage(0, $data['new_height'], false);
+
+                                $dx = intval(($data['new_width']-$width)/2);
+                                $dy = intval(($data['new_height']-$height)/2);
+
+                                $imageOutput = new Imagick();
+                                $imageOutput->newImage($data['new_width'], $data['new_height'], 'white', $ext['extension']);
+                                if(!empty($watermark_src)) $image->compositeimage($watermark, imagick::COMPOSITE_OVER, 0, 0);
+                                $imageOutput->compositeimage($image, Imagick::COMPOSITE_DEFAULT, 0, 0);
+                                if(!empty($watermark_src)) $image->compositeimage($watermark, imagick::COMPOSITE_OVER, 0, 0);
+
+                                $image = clone $imageOutput;
+                                $imageOutput->destroy();
+                                break;
+                        }
+                        $image->optimizeImageLayers();
+                        if( $ext['extension']=='jpg'){
+                            // Set to use jpeg compression
+                            $image->setImageCompression(Imagick::COMPRESSION_JPEG);
+                            // Set compression level (1 lowest quality, 100 highest quality)
+                            $image->setImageCompressionQuality($data['quality']);
+                            $image->setSamplingFactors(array('2x2', '1x1', '1x1'));
+                        }
+                        if(!empty($watermark_src)) {
+                            $iWidth = $image->getImageWidth();
+                            $iHeight = $image->getImageHeight();
+                            $iwWidth = $watermark->getImageWidth();
+                            $iwHeight = $watermark->getImageHeight();
+                            if($iWidth > 200 && $iHeight>100){
+                                if($iwWidth >= $iWidth && $iwHeight >= $iHeight) $cols = 1;
+                                else if($iWidth > 600) $cols = 4;
+                                elseif($iWidth > 300) $cols = 3;
+                                elseif($iWidth > 200) $cols = 2;
+                                if($iHeight > 330) $rows = 3;
+                                elseif($iHeight > 100) $rows = 2;
+                                $col_part = $iWidth/($cols+1);
+                                $row_part = $iHeight/($rows+1);
+                                for($col=1;$col<=$cols;$col++){
+                                    for($row=1;$row<=$rows;$row++) {
+                                        $image->compositeimage($watermark, imagick::COMPOSITE_OVER, (($col_part*$col) - $iwWidth/2), ($row_part*$row - $iwHeight/2));
+                                    }
+                                }
+
+                            }
+                        }
+
+
+                        // Strip out unneeded meta data
+                        $image->stripImage();
+                        $image->writeImage($data['destination']);
+                        $image->destroy();
+                    }
+                    $new_image->destroy();
+                }
+            } else {  //ресайз библиотекой GD2
+                if(!empty($info['mime']) && $info['mime'] == 'image/gif')  {
+                    $clone_isrc = $isrc = @imagecreatefromgif($src);
+                }
+                elseif(!empty($info['mime']) && $info['mime'] == 'image/png') {
+                    $clone_isrc = $isrc = @imagecreatefrompng($src);
+                }
+                else  {
+                    $clone_isrc = $isrc = @imagecreatefromjpeg($src);'jpg';
+                }
+                if(!$isrc) return false;
+
+                $iwfunc = "imagejpeg";
+                if (!function_exists($iwfunc)) throw new Exception("Не удалось сделать ресайз по техническим причинам",2);
+
+                foreach($datas as $k=>$data){
                     // если одно из измерений пустое - пропорционально подгоняем его
                     if(empty($data['new_height'])) {
                         if(empty($data['new_width'])) $data['new_width'] = $width;
                         $data['new_height'] = intval($data['new_width']*$height/$width);
                     }
                     if(empty($data['new_width'])) $data['new_width'] = intval($data['new_height']*$width/$height);
-                    
+
                     // если размеры картинки меньше требуемых - то принимаем их за требуемые
                     if($data['mode']!='cut'){
+                        /*
                         if($width < $data['new_width']) {
                             $data['new_width'] = $width;
                             $data['new_height'] = intval($data['new_width']*$height/$width);
-                        } 
+                        }
                         if($height < $data['new_height']) {
                             $data['new_height'] = $height;
                             $data['new_width'] = intval($data['new_height']*$width/$height);
                         }
+                        */
                         if($width < $data['new_width'] && $height < $data['new_height']) {
                             $data['new_width'] = $width;
                             $data['new_height'] = $height;
-                        } 
-                    }     
-                    
-                    switch($data['mode']){
-                        case 'cut'://обрез картинки по заданному размеру
-                        case 'cut_wo_resize'://обрез картинки по заданному размеру без сжатия размеров
-                                if(($width/$data['new_width']) < ($height/$data['new_height'])) $image->cropImage($width, floor($data['new_height']*$width/$data['new_width']), 0, 0);
-                                else $image->cropImage(ceil($data['new_width']*$height/$data['new_height']), $height, (($width-($data['new_width']*$height/$data['new_height']))/2), 0);
-                                // thumbnail the image
-                                if($data['mode']=='cut') $image->ThumbnailImage($data['new_width'],$data['new_height'],false);
-                                else  {
-                                    $image->cropImage($data['new_width'],$data['new_height'],($width-$data['new_width'])/2, ($height-$data['new_height'])/2);
-                                }
-                            break;
-                        case '': //картинка масштабируется относительно размеров и конечный размер зависит от пропорций;
-                            if(($width/$data['new_width']) > ($height/$data['new_height'])) $image->ThumbnailImage($data['new_width'], 0, false);
-                            else $image->ThumbnailImage(0, $data['new_height'], false);
-                            break;
-                        default: //картинка вписывается в размер, оставляя белые края 
-
-                            if(($width/$data['new_width']) > ($height/$data['new_height'])) $image->ThumbnailImage($data['new_width'], 0, false);
-                            else $image->ThumbnailImage(0, $data['new_height'], false);     
-
-                            $dx = intval(($data['new_width']-$width)/2);
-                            $dy = intval(($data['new_height']-$height)/2);
-                                   
-                            $imageOutput = new Imagick();
-                            $imageOutput->newImage($data['new_width'], $data['new_height'], 'white', $ext['extension']);
-                            if(!empty($watermark_src)) $image->compositeimage($watermark, imagick::COMPOSITE_OVER, 0, 0);
-                            $imageOutput->compositeimage($image, Imagick::COMPOSITE_DEFAULT, 0, 0);
-                            if(!empty($watermark_src)) $image->compositeimage($watermark, imagick::COMPOSITE_OVER, 0, 0);
-                            
-                            $image = clone $imageOutput;
-                            $imageOutput->destroy();
-                            break;
-                    }
-                    $image->optimizeImageLayers();  
-                    if( $ext['extension']=='jpg'){
-                        // Set to use jpeg compression
-                        $image->setImageCompression(Imagick::COMPRESSION_JPEG);
-                        // Set compression level (1 lowest quality, 100 highest quality)
-                        $image->setImageCompressionQuality($data['quality']);
-                        $image->setSamplingFactors(array('2x2', '1x1', '1x1'));
-                    }
-                    if(!empty($watermark_src)) {
-                        $iWidth = $image->getImageWidth();
-                        $iHeight = $image->getImageHeight();
-                        $iwWidth = $watermark->getImageWidth();
-                        $iwHeight = $watermark->getImageHeight();
-                        if($iWidth > 200 && $iHeight>100){
-                            if($iwWidth >= $iWidth && $iwHeight >= $iHeight) $cols = 1;
-                            else if($iWidth > 600) $cols = 4;
-                            elseif($iWidth > 300) $cols = 3;
-                            elseif($iWidth > 200) $cols = 2;
-                            if($iHeight > 330) $rows = 3;
-                            elseif($iHeight > 100) $rows = 2;
-                            $col_part = $iWidth/($cols+1);
-                            $row_part = $iHeight/($rows+1);
-                            for($col=1;$col<=$cols;$col++){
-                                for($row=1;$row<=$rows;$row++) {
-                                    $image->compositeimage($watermark, imagick::COMPOSITE_OVER, (($col_part*$col) - $iwWidth/2), ($row_part*$row - $iwHeight/2));
-                                }
-                            }
-                            
                         }
                     }
-                        
-                    
-                    // Strip out unneeded meta data
-                    $image->stripImage();  
-                    $image->writeImage($data['destination']);
-                    $image->destroy();
-                }     
-                $new_image->destroy();
-            } 
-        } else {  //ресайз библиотекой GD2 
-            if(!empty($info['mime']) && $info['mime'] == 'image/gif')  {
-                $clone_isrc = $isrc = @imagecreatefromgif($src);
-            }
-            elseif(!empty($info['mime']) && $info['mime'] == 'image/png') {
-                $clone_isrc = $isrc = @imagecreatefrompng($src);
-            }
-            else  {
-                $clone_isrc = $isrc = @imagecreatefromjpeg($src);'jpg';
-            }
-            if(!$isrc) return false;
-            
-            $iwfunc = "imagejpeg";
-            if (!function_exists($iwfunc)) throw new Exception("Не удалось сделать ресайз по техническим причинам",2);
 
-            foreach($datas as $k=>$data){
-                // если одно из измерений пустое - пропорционально подгоняем его
-                if(empty($data['new_height'])) {
-                    if(empty($data['new_width'])) $data['new_width'] = $width;
-                    $data['new_height'] = intval($data['new_width']*$height/$width);
-                }
-                if(empty($data['new_width'])) $data['new_width'] = intval($data['new_height']*$width/$height);
-                
-                // если размеры картинки меньше требуемых - то принимаем их за требуемые
-                if($data['mode']!='cut'){
-                    /*
-                    if($width < $data['new_width']) {
-                        $data['new_width'] = $width;
-                        $data['new_height'] = intval($data['new_width']*$height/$width);
-                    } 
-                    if($height < $data['new_height']) {
-                        $data['new_height'] = $height;
-                        $data['new_width'] = intval($data['new_height']*$width/$height);
+                    if($data['mode']=='cut') $ratio = max($data['new_width']/$width, $data['new_height']/$height);
+                    else {
+                        $ratio = min($data['new_width']/$width, $data['new_height']/$height);
+                        if($ratio>1) $ratio=1;
                     }
-                    */
-                    if($width < $data['new_width'] && $height < $data['new_height']) {
-                        $data['new_width'] = $width;
-                        $data['new_height'] = $height;
-                    } 
-                }
-                
-                if($data['mode']=='cut') $ratio = max($data['new_width']/$width, $data['new_height']/$height);
-                else {
-                    $ratio = min($data['new_width']/$width, $data['new_height']/$height);
-                    if($ratio>1) $ratio=1;
-                }
-                
-                $resized = imagecreatetruecolor($data['new_width'], $data['new_height']);
-                $dw = intval($width*$ratio);
-                $dh = intval($height*$ratio);
-                
-                if($data['mode'] == 'cut') { /* картинка уменьшается, размер $data['new_width'] и $data['new_height'], обрезка по центру */
-                    $sx = intval(($dw-$data['new_width'])/2)/$ratio;
-                    $sy = 0;
-                    //echo '$sx:'.$sx.'; '.'$sy:'.$sy.'; '.'$dw:'.$dw.'; '.'$dh:'.$dh.'; '.'$width:'.$width.'; '.'$height:'.$height.'; -------------------------- ';
-                    $res = @imagecopyresampled($resized,$isrc,0,0,$sx,$sy,$dw,$dh,$width,$height);
-                } else {
-                    $dx = intval(($data['new_width']-$dw)/2);
-                    $dy = intval(($data['new_height']-$dh)/2);
-                    if($data['mode']=='') {  /* картинка масштабируется относительно размеров и конечный размер зависит от пропорций, белых полей нет;  */
-                        $resized = imagecreatetruecolor($dw, $dh);
-                        $res = @imagecopyresampled($resized,$isrc,0,0,0,0,$dw,$dh,$width,$height);
-                    } else { // картинка пропорционально вписывается в прямоугольник, белые поля по краям
-                        $bgcolor = @imagecolorallocate($resized,255,255,255);
-                        $res = @imagefilledrectangle($resized,0,0,$data['new_width'],$data['new_height'],$bgcolor);
-                        $res = @imagecopyresampled($resized,$isrc,$dx,$dy,0,0,$dw,$dh,$width,$height);
+
+                    $resized = imagecreatetruecolor($data['new_width'], $data['new_height']);
+                    $dw = intval($width*$ratio);
+                    $dh = intval($height*$ratio);
+
+                    if($data['mode'] == 'cut') { /* картинка уменьшается, размер $data['new_width'] и $data['new_height'], обрезка по центру */
+                        $sx = intval(($dw-$data['new_width'])/2)/$ratio;
+                        $sy = 0;
+                        //echo '$sx:'.$sx.'; '.'$sy:'.$sy.'; '.'$dw:'.$dw.'; '.'$dh:'.$dh.'; '.'$width:'.$width.'; '.'$height:'.$height.'; -------------------------- ';
+                        $res = @imagecopyresampled($resized,$isrc,0,0,$sx,$sy,$dw,$dh,$width,$height);
+                    } else {
+                        $dx = intval(($data['new_width']-$dw)/2);
+                        $dy = intval(($data['new_height']-$dh)/2);
+                        if($data['mode']=='') {  /* картинка масштабируется относительно размеров и конечный размер зависит от пропорций, белых полей нет;  */
+                            $resized = imagecreatetruecolor($dw, $dh);
+                            $res = @imagecopyresampled($resized,$isrc,0,0,0,0,$dw,$dh,$width,$height);
+                        } else { // картинка пропорционально вписывается в прямоугольник, белые поля по краям
+                            $bgcolor = @imagecolorallocate($resized,255,255,255);
+                            $res = @imagefilledrectangle($resized,0,0,$data['new_width'],$data['new_height'],$bgcolor);
+                            $res = @imagecopyresampled($resized,$isrc,$dx,$dy,0,0,$dw,$dh,$width,$height);
+                        }
                     }
+
+                    //watermark
+                    if($watermark_src && empty($size_wm)) {
+                        $size_wm = getimagesize(ROOT_PATH.$watermark_src);
+                        $watermark_width = $size_wm[0];
+                        $watermark_height = $size_wm[1];
+                    }
+                    if(!empty($watermark_width) && $watermark_width < $data['new_width']/2 && !empty($watermark_height) && $watermark_height < $data['new_height']/2){
+                        $watermark_width.';'.$data['new_width'].';'.$watermark_alpha_level.':';
+                        $dest_x = $dw - $watermark_width - 5;
+                        $dest_y = $dh - $watermark_height - 5;
+
+                        $wm_src = imagecreatefrompng(ROOT_PATH.$watermark_src);
+
+                        imagecopy($resized, $wm_src, $dest_x, $dest_y, 0, 0, $watermark_width, $watermark_height);
+                    }
+                    imagejpeg($resized, $data['destination'], $data['quality']);
+                    imagedestroy($resized);
                 }
-                
-                //watermark
-                if($watermark_src && empty($size_wm)) {
-                    $size_wm = getimagesize(ROOT_PATH.$watermark_src);
-                    $watermark_width = $size_wm[0]; 
-                    $watermark_height = $size_wm[1]; 
-                }
-                if(!empty($watermark_width) && $watermark_width < $data['new_width']/2 && !empty($watermark_height) && $watermark_height < $data['new_height']/2){
-                    $watermark_width.';'.$data['new_width'].';'.$watermark_alpha_level.':';
-                    $dest_x = $dw - $watermark_width - 5;
-                    $dest_y = $dh - $watermark_height - 5;
-                    
-                    $wm_src = imagecreatefrompng(ROOT_PATH.$watermark_src);
-                    
-                    imagecopy($resized, $wm_src, $dest_x, $dest_y, 0, 0, $watermark_width, $watermark_height);
-                }
-                imagejpeg($resized, $data['destination'], $data['quality']);
-                imagedestroy($resized);
-            } 
-            imagedestroy($isrc);    
-        } 
-        return true;        
+                imagedestroy($isrc);
+            }
+        }
+        return true;
     } 
     //params: image resource id, opacity in percentage (eg. 80)
     private static function filter_opacity( &$img, $opacity ){

@@ -1,45 +1,53 @@
 #!/usr/bin/php
 <?php
-
 // переход в корневую папку сайта
-define('DEBUG_MODE', !empty($_SERVER['SERVER_NAME']) && preg_match('/.+\.int$/i', $_SERVER['SERVER_NAME']) ? true : false);
+define('DEBUG_MODE', !empty($_SERVER['SCRIPT_NAME']) && preg_match('/.+\.int/i', $_SERVER['SCRIPT_NAME']) || !empty($_SERVER['SERVER_NAME']) && preg_match('/.+\.int/i', $_SERVER['SERVER_NAME']) ? true : false);
 define('TEST_MODE', !empty($_SERVER['SCRIPT_FILENAME']) && preg_match('/test\.bsn\.ru/sui', $_SERVER['SCRIPT_FILENAME']) ? true : false);
 
+/** @var TYPE_NAME $root */
 $root = TEST_MODE ? realpath( '/home/bsn/sites/test.bsn.ru/public_html/trunk/' ) : ( DEBUG_MODE ? realpath( "../.." ) : realpath('/home/bsn/sites/bsn.ru/public_html/' ) ) ;
 if(defined("PHP_OS")) $os = PHP_OS; else $os = php_uname();
 if(strtolower(substr( $os, 0, 3 ) ) == "win" )  $root = str_replace( "\\", '/', $root );
 define( "ROOT_PATH", $root );
 chdir(ROOT_PATH);
-include_once('cron/robot/robot_functions.php');    // функции  (крона
+
+
 mb_internal_encoding('UTF-8');
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 mb_regex_encoding('UTF-8');
-setlocale(LC_ALL, 'rus');
 
+include_once('cron/robot/robot_functions.php');    // функции  из крона
+if (is_running($_SERVER['PHP_SELF'])) die('Already running');
 //запись всех ошибок в лог
-$error_log = ROOT_PATH.'/cron/robot/xml_parser_error.log';
-$test_performance = ROOT_PATH.'/cron/robot/xml_parser_performance.log';
-file_put_contents($error_log,'');
-file_put_contents($test_performance,'');
-ini_set('error_log', $error_log);
-ini_set('log_errors', 'On');
 
 // подключение классов ядра
 require_once('includes/class.config.php');       // Config (конфигурация сайта)
 Config::Init();
+require_once('includes/class.host.php');         // Host (вспомогательные данные по текущему хосту)
+Host::Init();
 require_once('includes/class.convert.php');      // Convert, Validate (конвертирование, проверки валидности)
 require_once('includes/class.storage.php');      // Session, Cookie, Responce, Request
-require_once('includes/functions.php');          // функции  (модуля
-Request::Init();                                                                                    
-Cookie::Init(); 
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
+require_once('includes/class.template.php');     // Template (шаблонизатор), FileCache (файловое кеширование)
+require_once('includes/class.email.php');
+require_once('includes/class.content.php');
+require_once('includes/class.opinions.php');
+require_once('includes/class.memcache.php');     // MCache (memcached, кеширование в памяти)
+require_once('includes/class.estate.php');       // подключен для использования EstateListBuild
+if( !class_exists( 'Photos' ) )  require_once('includes/class.photos.php');;       // подключен для использования EstateListBuild
+//require_once('../../sale.bsn.ru/public_html/includes/class.sale.php');
+require_once('includes/class.estate.statistics.php');
+$memcache = new MCache(Config::$values['memcache']['host'], Config::$values['memcache']['port']);
+$debug = DEBUG_MODE || !empty($_SERVER['argv'][1]) ? true : false;
+// Инициализация рабочих классов
 $db = !TEST_MODE ? new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']) : new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
 $db->query("set names ".Config::$values['mysql_remote']['charset']);
 $db->query("set lc_time_names = 'ru_RU'");
-require_once('includes/class.host.php');
-require_once('includes/class.email.php');
-require_once('includes/class.template.php');     // Template (шаблонизатор), FileCache (файловое кеширование)
-require_once('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
+// вспомогательные таблицы модуля
+$sys_tables = Config::$sys_tables;
+
+include_once('includes/functions.php');    // функции
+
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');;     // Photos (работа с графикой)
 require_once('includes/class.moderation.php'); // Moderation (процедура модерации)
 require_once('includes/class.robot.php');      // Robot (конвертация обработанных строк/нодов файлов в поля объектов недвижимости)
@@ -58,7 +66,7 @@ $argc = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv
 $sent_report = ( empty($argc) ? 1 : 2 );
 //локально
 
-if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 5147 ";
+if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 3020 ";
 if(!empty($argc)) $where = $sys_tables['users'].".id_agency = ".$argc." AND ".$sys_tables['users'].".agency_admin = 1";
 
 $agency = $db->fetch("         SELECT          

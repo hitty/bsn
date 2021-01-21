@@ -68,10 +68,11 @@ class Host {
         $overall_time_counter = microtime(true);
         self::$is_bot = self::isBot();
         self::getRefererURL();
+
         if(!self::$is_bot){
             require(ROOT_PATH."/modules/geoip/SxGeo.php");
             $SxGeo = new SxGeo(ROOT_PATH.'/modules/geoip/SxGeoCity.dat'); // Режим по умолчанию, файл бд SxGeo.dat
-            $geo = $SxGeo->get(self::getUserIp());    // выполняет getCountry либо getCity в зависимости от типа базы
+            $geo = $SxGeo->get( self::getUserIp() );    // выполняет getCountry либо getCity в зависимости от типа базы
             self::$city = !empty($geo['city']['name_en']) ? $geo['city']['name_en'] : '';
             self::$country = !empty($geo['country']['iso']) ? $geo['country']['iso'] : '';
         }
