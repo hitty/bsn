@@ -41,7 +41,9 @@ header .bottom-wrap .content {
     background: none;
     color: #fff;
     font-size: 18px;
-    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header .bottom-wrap .content .title {
@@ -100,7 +102,7 @@ header.with-shadow:after{
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
     -o-box-sizing: border-box;
-    width: 300px;
+    width: 280px;
     height: 240px;
 }
 
