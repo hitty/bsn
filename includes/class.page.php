@@ -963,11 +963,9 @@ class Page {
         $this->menuAdd('БСН-ТВ',                'bsntv',        2, false, false, 'media');
         
         //меню сервисов
+        $this->menuAdd('Навигатор недвижимости','navigator',            2, false, false, 'service');
         $this->menuAdd('Оценка недвижимости',   'estate_estimate',      2, false, false, 'service');
-        $this->menuAdd('Консультант',           'service/consultant',   2, false, false, 'service');
         $this->menuAdd('Календарь событий',     'calendar',             2, false, false, 'service');
-        $this->menuAdd('Заявки',                'applications',         2, false, false, 'service');
-        $this->menuAdd('Организации',           'organizations',        2, false, false, 'service');
     }
 }
 ?>
