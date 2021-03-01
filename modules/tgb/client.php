@@ -232,7 +232,7 @@ switch(true){
             else $list = [];
             Response::SetArray('list', $list);
             // кол-во дополнительных ТГБ
-            //Response::SetArray( 'partner_count', range( $action == 'bottom' ? 10 : ( in_array( $action, array( 'left', 'top' ) ) && $_number_items_left > count($list) ? $_number_items_left - count($list) - 1 : abs( count($list) - $_number_items_left) - 1 ) , 0 ) );
+            Response::SetArray( 'partner_count', range( $action == 'bottom' ? 10 : ( in_array( $action, array( 'left', 'top' ) ) && $_number_items_left > count($list) ? $_number_items_left - count($list) - 1 : abs( count($list) - $_number_items_left) - 1 ) , 0 ) );
             if(!empty($list) && count($list)>0){
                 Response::SetString('action', $action);
                 $ajax_result['ok'] = true;
