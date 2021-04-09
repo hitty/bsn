@@ -97,7 +97,7 @@ $bsn_tv = new Content('bsntv');
 $bsn_tv_news_list = $bsn_tv->getList( 1, 0, false, false, "`datetime` > DATE_SUB(CURDATE(),INTERVAL 7 DAY) AND `datetime` <= CURDATE() AND newsletter_feed = 1", $sys_tables['bsntv'].".views_count DESC" );
 if( !empty( $bsn_tv_news_list ) )  {
     createPhoto( $bsn_tv_news_list[0] );
-    array_splice( $news_list, 7, 0, [ $bsn_tv_news_list[0] ] );
+    array_splice( $news_list, 0, 0, [ $bsn_tv_news_list[0] ] );
 }
 
 
@@ -121,7 +121,6 @@ $list = [];
 if( !empty( $news_list ) ) $list = array_merge( $list, $news_list );
 
 Response::SetArray( 'list', array_slice( $list, 0, 9 ) );
-
 //блок VIP - объекты
 $vip_list = array();
 $estate_types = array('live','build', 'commercial', 'country');

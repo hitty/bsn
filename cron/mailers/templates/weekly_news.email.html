@@ -60,6 +60,8 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                                             <a href="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#FFF; margin: 0; display: block; font-size:24px; line-height: 32px; padding:20px; width:530px; height:200px;">{stripall:$item['title']}</a>
                                                         {elseifeq $item['type'],'doverie'}
                                                             <a href="https://www.bsn.ru/doverie/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#FFF; margin: 0; display: block; font-size:24px; line-height: 32px; padding:20px; width:530px; height:200px;">{stripall:$item['title']}</a>
+                                                        {elseifeq $item['type'],'bsntv'}
+                                                            <a href="https://www.bsn.ru/bsntv/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#FFF; margin: 0; display: block; font-size:24px; line-height: 32px; padding:20px; width:530px; height:200px;">{stripall:$item['title']}</a>
                                                         {/if}
                                                     </td>
                                                 </tr>
