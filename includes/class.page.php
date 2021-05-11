@@ -136,7 +136,6 @@ class Page {
             
         }
     }
-    
     private function checkRegion(){
         global $db;
         // выбранные регионы и регионы по умолчанию
