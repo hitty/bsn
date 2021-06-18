@@ -20,10 +20,10 @@ var Calculator = {
     if (!rate) return;
     
     //ставка возрастает, если первоначальный взнос меньше 20% 
-    if( rate.market < 3 && ( initialContribution/self.currentAmount) * 100 < 20 ) var rateInit = 10.5;
+    if( rate.market < 3 && ( initialContribution/self.currentAmount) * 100 < 20 ) var rateInit = 9.2;
     else rateInit = rate.rate;
     console.log( rate.rate )
-        
+
     $('#rate').text(rateInit.toFixed(2) + '%');
 
     var months = self.durationTextInput.val() * 12;
@@ -221,7 +221,6 @@ var Calculator = {
         function( data ){
             self.amountInput = self.initAmountInput();
             const maxAmount = self.amountInput.attr('value') * ( self.amountInput.attr('value') < 10000000 ? 3 : ( self.amountInput.attr('value') < 20000000 ? 1.8 : 1.2 ) ); 
-            
             var rubData = $('input[value=Р]').data();
             self.amountSlider = self.initAmountSlider(rubData);
             self.allRates = [
