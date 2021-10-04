@@ -11,14 +11,9 @@ if(strtolower(substr( $os, 0, 3 ) ) == "win" )  $root = str_replace( "\\", '/', 
 define( "ROOT_PATH", $root );
 chdir(ROOT_PATH);
 
-include_once('cron/robot/robot_functions.php');    // функции  из крона
-
 mb_internal_encoding('UTF-8');
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 mb_regex_encoding('UTF-8');
-
-if (is_running($_SERVER['PHP_SELF'])) die('Already running'); 
-//запись всех ошибок в лог
 
 // подключение классов ядра
 require_once('includes/class.config.php');       // Config (конфигурация сайта)

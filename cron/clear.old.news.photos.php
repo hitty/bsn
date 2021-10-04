@@ -55,8 +55,8 @@ foreach ($tables as $table) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
-            //$db->query( " UPDATE ".$sys_tables[$table]." SET id_main_photo = 0 WHERE id = ?", $item['id'] );
-            //$db->query( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id_main_photo'] );
+            $db->query( " UPDATE ".$sys_tables[$table]." SET id_main_photo = 0 WHERE id = ?", $item['id'] );
+            $db->query( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id_main_photo'] );
             echo $item['title'].'<br>\n';
         }
     }
