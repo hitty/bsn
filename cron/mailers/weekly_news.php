@@ -44,7 +44,7 @@ $argc = ( !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['ar
 //проверка каждые 10 минут времени рассылки//подключить в случае ежедневной рассылки
 if( empty( $argc ) ){
     $check_time = $db->fetch("SELECT status FROM ".$sys_tables['check_news_time']." WHERE sent_time > NOW() - INTERVAL 10 MINUTE AND sent_time <= NOW()");
-    if(empty($check_time) || date('N') != 5) die( 'Wrong time' );
+    if(empty($check_time) || date('N') != 3) die( 'Wrong time' );
 }
 
 //получение списка новостей
