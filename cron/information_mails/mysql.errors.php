@@ -50,13 +50,13 @@ foreach($cron_values as $key=>$cron){
         $mailer->Body = $html;
         $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'Ошибки '.(!empty($cron)?"CRON":"").' MySQL на BSN.ru');
         $mailer->IsHTML(true);
-        $mailer->AddAddress(Config::Get('emails/web2'));
-        $mailer->AddAddress(Config::Get('emails/web'));
-        $mailer->AddAddress('kya82@mail.ru');
+        //$mailer->AddAddress(Config::Get('emails/web2'));
+        //$mailer->AddAddress(Config::Get('emails/web'));
+        //$mailer->AddAddress('kya82@mail.ru');
         $mailer->From = 'no-reply@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
         // попытка отправить
-        $mailer->Send();
+        //$mailer->Send();
         //$db->clearErrorsData(ROOT_PATH);
     }
 }
