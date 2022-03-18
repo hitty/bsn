@@ -64,17 +64,8 @@ if( empty( $debug ) ) $db->query("UPDATE ".$sys_tables['news']." SET `newsletter
 $doverie = new Content('doverie');
 $doverie_news_list = $doverie->getList( 1, 0, false, false, " `datetime` >= NOW() - INTERVAL 7 DAY AND `datetime` <= NOW()  AND newsletter_feed = 1 ", $sys_tables['doverie'].".views_count DESC" );
 if( !empty( $doverie_news_list ) )  {
-    $doverie_params = [  
-        [
-            'watermark' => true,
-            'width' => '280',
-            'height' => '380',
-            'folder' => 'med',
-            'watermark_name' => 'black_bg_doverie.png'
-        ]
-    ];
-    createPhoto( $doverie_news_list[0], $doverie_params );
-    array_splice( $news_list, 4, 0, [ $doverie_news_list[0] ] );
+    createPhoto( $doverie_news_list[0] );
+    array_splice( $news_list, 0, 0, [ $doverie_news_list[0] ] );
 }
 
 //блок "Интервью" -//- заккоментируйте, чтобы не отображать блоки "Рекомендуем" и "Интервью"
@@ -208,7 +199,7 @@ if(!empty($email_list) && !empty($news_list)){
             Response::SetString( 'pixel', '<img src="https://www.bsn.ru/pxl/?campaign=' . $id_campaign . '&email=' . $email['email'] . '&status=2" />');
             $mailer = new EMailer('mail');
             $html = $eml_tpl->Processing();
-            $html = iconv('UTF-8', $mailer->CharSet, $html);
+            echo $html = iconv('UTF-8', $mailer->CharSet, $html);
             // параметры письма
             $mailer->Body = $html;
             $mailer->Subject = iconv('UTF-8', $mailer->CharSet.'//IGNORE', $email_title);
