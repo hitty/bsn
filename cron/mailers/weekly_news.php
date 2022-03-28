@@ -33,16 +33,16 @@ if( !class_exists( 'Photos' ) )  require_once('includes/class.photos.php');;    
 //require_once('../../sale.bsn.ru/public_html/includes/class.sale.php');  
 require_once('includes/class.estate.statistics.php');
 $memcache = new MCache(Config::$values['memcache']['host'], Config::$values['memcache']['port']);
-$debug = DEBUG_MODE || !empty($_SERVER['argv'][1]) ? true : false;
+$debug = DEBUG_MODE || ( !empty($_SERVER['argv'][1]) && $_SERVER['argv'][1] === 'test' ) ? true : false;
+$send = ( !empty($_SERVER['argv'][1]) && $_SERVER['argv'][1] === 'send' ) ? true : false;
 // Инициализация рабочих классов
 $db = !TEST_MODE ? new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']) : new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
 $db->query("set names ".Config::$values['mysql_remote']['charset']);
 $db->query("set lc_time_names = 'ru_RU'");
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
-$argc = ( !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : false ) || DEBUG_MODE;
 //проверка каждые 10 минут времени рассылки//подключить в случае ежедневной рассылки
-if( empty( $argc ) ){
+if( empty( $debug ) && empty( $send ) ){
     $check_time = $db->fetch("SELECT status FROM ".$sys_tables['check_news_time']." WHERE sent_time > NOW() - INTERVAL 10 MINUTE AND sent_time <= NOW()");
     if(empty($check_time) ) die( 'Wrong time' );
 }
@@ -193,13 +193,12 @@ if(!empty($email_list) && !empty($news_list)){
         }
         if($email['email']){
             Response::SetString('user_email',$email['email']);
-            echo $email['email'];
             Response::SetString('user_id',$email['id']);
             Response::SetString('user_code',sha1(md5($email['id'].$email['email']."special!_adding")));
             Response::SetString( 'pixel', '<img src="https://www.bsn.ru/pxl/?campaign=' . $id_campaign . '&email=' . $email['email'] . '&status=2" />');
             $mailer = new EMailer('mail');
             $html = $eml_tpl->Processing();
-            echo $html = iconv('UTF-8', $mailer->CharSet, $html);
+            $html = iconv('UTF-8', $mailer->CharSet, $html);
             // параметры письма
             $mailer->Body = $html;
             $mailer->Subject = iconv('UTF-8', $mailer->CharSet.'//IGNORE', $email_title);
