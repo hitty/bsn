@@ -473,7 +473,8 @@ if(!empty($process)){
                         $db->query("UPDATE ".$sys_tables[$robot->estate_type]." SET id_main_photo = 0, has_photo = 1 WHERE id = ?", $inserted_id);
 						$main_photo_manually_added = false;
 
-                        if(!empty($photos['to_add']) && $inserted_id>0) {
+                        print_r( $photos );
+						if(!empty($photos['to_add']) && $inserted_id>0) {
                             //чтобы средняя и маленькая картинки вписывались а не резались
                             Photos::$__folder_options=array(
                                 'sm'=>array(110,82,'cut',65),
@@ -491,9 +492,13 @@ if(!empty($process)){
                                 
                                 if(!empty($multi_download)){
                                     $external_img_sources = Photos::MultiDownload($photos['to_add'], ROOT_PATH.'/'.Config::$values['img_folders'][$robot->estate_type].'/');
+                                    echo 'multi. external_img_sources';
+                                    var_dump( $external_img_sources );
                                     foreach($external_img_sources as $k=>$img) {
                                         print_r($img);
                                         $photo_add_result = Photos::Add($robot->estate_type, $inserted_id, '', $img['external_img_src'], $img['filename'], false, false, false, Config::Get('watermark_src'));
+                                        echo 'multi add. photo_add_result';
+                                        var_dump( $photo_add_result );
                                         if(!is_array($photo_add_result)) {
                                             $errors_log['img'][] = $img['external_img_src'];
                                             //незагруженная фотка является главной
@@ -505,6 +510,8 @@ if(!empty($process)){
                                     foreach($photos['to_add'] as $k=>$img) {
                                         print_r($img);
                                         $photo_add_result = Photos::Add($robot->estate_type, $inserted_id, '', $img);
+                                        echo 'empty multi. photo_add_result';
+                                        var_dump( $photo_add_result );
                                         if(!is_array($photo_add_result)) {
                                             $errors_log['img'][] = $img;
                                             //незагруженная фотка является главной
