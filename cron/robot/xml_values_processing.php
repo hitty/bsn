@@ -489,7 +489,6 @@ if(!empty($process)){
                             $multi_download = count($photos['to_add']) > 2;
                             if( empty( $nophoto ) ) {
                                 //режим скачивания картинок
-                                $multi_download = false;
                                 if(!empty($multi_download)){
                                     $external_img_sources = Photos::MultiDownload($photos['to_add'], ROOT_PATH.'/'.Config::$values['img_folders'][$robot->estate_type].'/');
                                     echo 'multi. external_img_sources';
