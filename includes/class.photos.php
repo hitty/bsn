@@ -403,6 +403,7 @@ class Photos {
             curl_setopt ($conn[$i], CURLOPT_HEADER ,0);
             curl_setopt($conn[$i],CURLOPT_CONNECTTIMEOUT,1);
             curl_setopt($conn[$i],CURLOPT_FOLLOWLOCATION,true);
+            curl_setopt($conn[$i], CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($conn[$i],CURLOPT_MAXREDIRS,2);
             curl_multi_add_handle ($mh,$conn[$i]);
         }

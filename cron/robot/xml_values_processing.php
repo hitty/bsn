@@ -484,12 +484,12 @@ if(!empty($process)){
                             //флаг загруженной фотки
                             $has_photos = false; 
                             //лимит фоток для агентств
-                            $photos['to_add'] = array_slice($photos['to_add'], 0 , DEBUG_MODE ? 1 : 20, $preserve_keys = true);
+                            $photos['to_add'] = array_slice($photos['to_add'], 0 , DEBUG_MODE ? 3 : 20, $preserve_keys = true);
                             
                             $multi_download = count($photos['to_add']) > 2;
                             if( empty( $nophoto ) ) {
                                 //режим скачивания картинок
-                                
+                                $multi_download = false;
                                 if(!empty($multi_download)){
                                     $external_img_sources = Photos::MultiDownload($photos['to_add'], ROOT_PATH.'/'.Config::$values['img_folders'][$robot->estate_type].'/');
                                     echo 'multi. external_img_sources';
