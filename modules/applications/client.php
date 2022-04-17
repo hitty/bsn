@@ -115,8 +115,6 @@ switch(true){
                     '',
                     '', false, false, true
                 );
-                var_dump( $r );
-                die();
 
             } else {
                 if(!empty($create_params['type'])){

@@ -1,3 +1,5 @@
 <div>
-    {php:print_r($data)}
+    {loop $data,$d,$item}
+    <div><b>{$d}:</b> {$item}</div>
+    {/loop $data}
 </div>
