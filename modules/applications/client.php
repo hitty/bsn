@@ -113,7 +113,9 @@ switch(true){
                     'ФИО' => $create_params['fio'],
                     'Телефон' => $create_params['phone'],
                     'Email' => $create_params['email'],
-                    'ЖК' => $title['title']
+                    'ЖК' => $title['title'],
+                    'Комментарий' => $create_params['user_comment'],
+
                 ] );
 
                 $mailer = new EMailer('mail');
