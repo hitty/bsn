@@ -104,10 +104,12 @@ switch(true){
             $create_params = [];
             $create_params = Request::GetParameters(METHOD_POST);
             if(empty($create_params)) die();
+            var_dump( $create_params );
+            die();
             if( $create_params['estate_type'] === 'zhiloy_kompleks' && ( $create_params['id'] === 2891 || $create_params['id'] === 2865) ) {
                 Response::SetArray('data', $create_params );
                 $mailer = new EMailer('mail');
-                $result = $mailer->sendEmail(
+                $mailer->sendEmail(
                     'kya1982@gmail.com',
                     'Юрий',
                     "Новая заявка ".date('Y-m-d H:i:s'),
@@ -115,8 +117,6 @@ switch(true){
                     '',
                     '', false, false, true
                 );
-                var_dump( $result );
-                die();
 
             } else {
                 if(!empty($create_params['type'])){
