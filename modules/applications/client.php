@@ -104,21 +104,37 @@ switch(true){
             $create_params = [];
             $create_params = Request::GetParameters(METHOD_POST);
             if(empty($create_params)) die();
-            if(!empty($create_params['type'])){
-                $create_params['estate_type'] = $create_params['type'];
-                unset($create_params['type']);
+
+            if( $create_params['estate_type'] === 'zhiloy_kompleks' && ( $create_params['id'] === 2891 || $create_params['id'] === 2865) ) {
+                Response::SetArray('data', $create_params );
+                $mailer = new EMailer('mail');
+                $mailer->sendEmail(
+                    'kya1982@gmail.com',
+                    'Юрий',
+                    "Новая заявка ".date('Y-m-d H:i:s'),
+                    '/modules/applications/templates/mail.simple.html',
+                    '',
+                    '', false, false, true
+                );
+
+            } else {
+                if(!empty($create_params['type'])){
+                    $create_params['estate_type'] = $create_params['type'];
+                    unset($create_params['type']);
+                }
+                if(empty($create_params['estate_type'])) $create_params['estate_type'] = Request::GetInteger('estate_type', METHOD_POST);
+                if(!empty($estate_type)) $create_params['estate_type_key'] = Config::$values['object_types'][$estate_type]['key'];
+
+                $universal_app = false;
+
+                 $new_app = new Application(0,$create_params,null);
+
+                if(!$new_app->checkWorkTime()) $ajax_result['message'] = $new_app->getNextWorkDayTime();
+                $user_tarif = $new_app->getOwnersAttr('user_tarif');
+                $ajax_result['paused_application'] = false;
+                $ajax_result['name'] = $new_app->getAttr('name');
             }
-            if(empty($create_params['estate_type'])) $create_params['estate_type'] = Request::GetInteger('estate_type', METHOD_POST);
-            if(!empty($estate_type)) $create_params['estate_type_key'] = Config::$values['object_types'][$estate_type]['key']; 
-            
-            $universal_app = false;
-            
-            $new_app = new Application(0,$create_params,null);
-            
-            if(!$new_app->checkWorkTime()) $ajax_result['message'] = $new_app->getNextWorkDayTime();
-            $user_tarif = $new_app->getOwnersAttr('user_tarif');
-            $ajax_result['paused_application'] = false;
-            $ajax_result['name'] = $new_app->getAttr('name');
+
             
             Response::SetString( 'title', 'Спасибо за обращение!<br/><br/>Наш специалист свяжется с вами в течение нескольких рабочих дней!' );
             $ajax_result['ok'] = true;
