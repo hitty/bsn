@@ -104,6 +104,7 @@ switch(true){
             $create_params = [];
             $create_params = Request::GetParameters(METHOD_POST);
             if(empty($create_params)) die();
+
             if( $create_params['estate_type'] === 'zhiloy_kompleks' && ( $create_params['id'] == 2891 || $create_params['id'] == 2865) ) {
                 if( !class_exists( 'HousingEstates' ) ) require_once('includes/class.housing_estates.php');
                 $he = new HousingEstates();
@@ -119,6 +120,14 @@ switch(true){
                 ] );
 
                 $mailer = new EMailer('mail');
+                $r = $mailer->sendEmail(
+                    'sales@adaurum.ru',
+                    'Adaurum',
+                    "Новая заявка ".date('Y-m-d H:i:s'),
+                    '/modules/applications/templates/mail.simple.html',
+                    '',
+                    '', false, false, true
+                );
                 $r = $mailer->sendEmail(
                     'kya1982@gmail.com',
                     'Юрий',

@@ -184,7 +184,7 @@ switch(true){
                         $_number_items_left = 4; 
                         break;
                     case $action == 'estate_list' : 
-                        $_number_items_left = 1; 
+                        $_number_items_left = 3;
                         break;
                     default: 
                         $_number_items_left = 2;
