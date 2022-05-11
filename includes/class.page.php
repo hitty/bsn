@@ -128,7 +128,7 @@ class Page {
                                         substr($this->requested_path,0,13)=='organizations' ||
                                         substr($this->requested_path,0,15)=='estate_estimate'  ||
                                         substr($this->requested_path,0,19)=='service/information' ||
-                                        substr($this->requested_path,0,33)=='konkurs_doverie_potrebiteley_2020'
+                                        substr($this->requested_path,0,33)=='konkurs_doverie_potrebiteley_2022'
                                     ) 
             ) {
                 Host::Redirect( str_replace( ( DEBUG_MODE ? '' : 'www.' ) . 'bsn', 'm.bsn', Host::$root_url) . '/' . $this->real_url . '/' );

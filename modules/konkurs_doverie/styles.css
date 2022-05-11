@@ -11,8 +11,7 @@ body{
     z-index: 99990;
 }
 header {
-    background-image: url(/modules/konkurs_doverie/img/doverie-golosovanie-header-2019.jpg);
-    background-color: #f26522;
+    background: url(/modules/konkurs_doverie/img/doverie2022-for-bsn.png) no-repeat center;
     width: 100%;
     padding: 20px 0 0 0;
     height: 290px;
@@ -21,7 +20,7 @@ header {
 }
 
 header .mainlogo {
-    background: url(/modules/konkurs_doverie/img/doverie-golosovanie-main-image-2021.png) no-repeat center;
+
     margin: 0 auto 40px auto;
     position: relative;
     width: 670px;
