@@ -664,7 +664,7 @@ display: block;
     
 }
 .topmenu .topmenu-firstlevel li.doverie-button img{
-    
+    width: 100%;
 }
 
 .topmenu .topmenu-firstlevel li.auth-login {
