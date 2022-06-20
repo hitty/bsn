@@ -1,0 +1,6 @@
+[12-Jun-2019 01:41:01 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[12-Jun-2019 01:41:01 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[12-Jun-2019 01:41:01 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[12-Jun-2019 01:41:02 Europe/Moscow] PHP Notice:  Undefined variable: nophoto in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 579
+[12-Jun-2019 01:41:02 Europe/Moscow] PHP Notice:  Undefined index: build_sell in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 608
+[12-Jun-2019 01:41:02 Europe/Moscow] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 612

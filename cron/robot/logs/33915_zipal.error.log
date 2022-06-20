@@ -1,0 +1,99 @@
+Array
+(
+    [external_id] => Array
+        (
+        )
+
+    [address] => Array
+        (
+        )
+
+    [moderation] => Array
+        (
+            [81024916] => Array
+                (
+                    [0] => 1600, аренда
+                    [1] => 2
+                )
+
+            [81093800] => Array
+                (
+                    [0] => 1300, аренда
+                    [1] => 2
+                )
+
+        )
+
+    [estate_type] => Array
+        (
+        )
+
+    [img] => Array
+        (
+            [0] => http://zipal.ru/photo/90553716/ORIGINAL.jpg - файл скачан в пустой файл
+            [1] => http://zipal.ru/photo/90553721/ORIGINAL.jpg - файл скачан в пустой файл
+            [2] => http://zipal.ru/photo/90553723/ORIGINAL.jpg - файл скачан в пустой файл
+            [3] => http://zipal.ru/photo/90553730/ORIGINAL.jpg - файл скачан в пустой файл
+            [4] => http://zipal.ru/photo/90553734/ORIGINAL.jpg - файл скачан в пустой файл
+            [5] => http://zipal.ru/photo/90553738/ORIGINAL.jpg - файл скачан в пустой файл
+            [6] => http://zipal.ru/photo/76226493/ORIGINAL.jpg - Не удалось получить размер фото
+            [7] => http://zipal.ru/photo/76226493/ORIGINAL.jpg
+            [8] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [9] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [10] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [11] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [12] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [13] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [14] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [15] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [16] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [17] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [18] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [19] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [20] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [21] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [22] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [23] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [24] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [25] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [26] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [27] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [28] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [29] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [30] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [31] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [32] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [33] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [34] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [35] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [36] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [37] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [38] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [39] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [40] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [41] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [42] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [43] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [44] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [45] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [46] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [47] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [48] => http://zipal.ru/photo/76430340/ORIGINAL.jpg - Не удалось получить размер фото
+            [49] => http://zipal.ru/photo/76430340/ORIGINAL.jpg
+            [50] => http://zipal.ru/photo/76430342/ORIGINAL.jpg - Не удалось получить размер фото
+            [51] => http://zipal.ru/photo/76430342/ORIGINAL.jpg
+            [52] => http://zipal.ru/photo/88260223/ORIGINAL.jpg - Заявленный(jpg) и mime-тип(image/png) не совпадают
+            [53] => http://zipal.ru/photo/88260223/ORIGINAL.jpg
+            [54] => http://zipal.ru/photo/88260272/ORIGINAL.jpg - Заявленный(jpg) и mime-тип(image/png) не совпадают
+            [55] => http://zipal.ru/photo/88260272/ORIGINAL.jpg
+        )
+
+    [rooms] => Array
+        (
+        )
+
+    [rooms_square] => Array
+        (
+        )
+
+)

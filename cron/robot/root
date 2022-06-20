@@ -1,0 +1,124 @@
+#!!!!!!!!!!!!!!!!!!!!!!! Рассылка через админку
+*/11 * * * * /home/bsn/sites/bsn.ru/public_html/cron/mailers/normalspam.php
+
+#!!!!!!!!!!!!!!!!!!!!!!! Спец.рассылка через админку
+*/15 * * * * /home/bsn/sites/bsn.ru/public_html/cron/mailers/specspam.php
+
+#! Запуск рассылки статей и новостей
+*/10 * * * 1,2,3,4,5 /home/bsn/sites/bsn.ru/public_html/cron/mailers/daily_news.php
+
+#------------------------------------------------------------------
+# INTERESTATE
+#------------------------------------------------------------------
+
+# Запуск обновления файла sitemap.xml для INTERESTATE.RU
+#20 * * * * /root/mysql/mycc/inter/_new_site/sitemap/run.cgi
+
+# Запуск рассылки вариантов INTERESTATE.RU
+#3,18,33,48 * * * * /root/mysql/mycc/inter/_new_site/subs/robot_subscr.cgi
+
+# Выгрузка для home
+#40 23 * * * /root/hitty/inter_objects/gen_xml_to_homesoverseas.php
+
+# сохранение статистики показов объектов для www.interestate.ru
+#2 0 * * * /root/mysql/mycc/inter/_new_admin/statistika/get_full_stat.cgi
+
+# генерация xml-новостей
+#0 20 * * * /root/hitty/gen_inter_news/xmlgen.php
+
+#------------------------------------------------------------------
+# GUD-ESTATE
+#------------------------------------------------------------------
+
+# обновление порядка вывода интерью для сайта "GUD-ESTATE.RU"
+#*/3 * * * * /root/mysql/mycc/gud/interview/rand_ins_interview.cgi
+
+# перенос в архив старых мероприятий для сайта "GUD-ESTATE.RU"
+#1 0 * * * /root/mysql/mycc/gud/meropr/into_arch.cgi
+#2 0 * * * /root/mysql/mycc/gud/site_eng/admin/meropr/into_arch.cgi
+
+#------------------------------------------------------------------
+# BSN
+#------------------------------------------------------------------
+
+# Простановка в архив, снятие абонентской платы
+1 0 * * * /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/stats.php
+
+# Информационные письма - information_mails
+# Информирование абонентов о просмотрах вариантов за неделю
+30 9 * * 1 /home/bsn/sites/bsn.ru/public_html/cron/information_mails/view_count_last_week.php
+
+# Информирование менеджеров о снятии объектов через 5 дней
+35 9 * * * /home/bsn/sites/bsn.ru/public_html/cron/information_mails/5_day_objects_warning.php
+
+# Информирование пользователей о перемещении объекта в архив
+40 9 * * * /home/bsn/sites/bsn.ru/public_html/cron/information_mails/archive_objects_warning.php
+
+# информирование пользователей за 3 дня до перемещения варианта в архив
+45 9 * * * /home/bsn/sites/bsn.ru/public_html/cron/information_mails/3_day_objects_warning.php
+
+# Роботы 
+#робот модерации
+*/20 * * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/robot.php
+
+# Робот обработки писем пришедшх на робот
+#28,58 * * * *  /root/mysql/mycc/ROBOT/mail_check.cgi
+
+#Выгрузка файлов bn.txt
+*/30 * * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/bn_txt/bn_txt.php
+
+#Выгрузка файлов bn.xml
+50 * * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/bn_xml/bn_xml.php
+
+#Выгрузка файлов eip.xml
+47 * * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/eip_xml/eip_xml.php
+
+#Выгрузка файла от Индустрии
+45 23 * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/ng_xml/ng_xml.php ng
+
+#Проверка флага выгрузки файла от Индустрии
+*/30 * * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/ng_xml/ng_xml.php ng_check
+
+#2-ая выгрузка объектов от JCat (для выгрузки всех фоток)
+20 2 * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/jcat_xml/jcat_xml.php
+50 2 * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/jcat_xml/jcat_xml.php
+
+#2-ая выгрузка объектов от EMLS (для выгрузки всех фоток)
+20 3 * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/emls_xml/emls_xml.php
+50 3 * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/emls_xml/emls_xml.php
+
+#2-ая выгрузка объектов от SOFT ESTATE (для выгрузки всех фоток)
+#20 5 * * * /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/soft_estate_xml/soft_estate_xml.php
+
+# выгрузка объектов с Интера на БСН с последующей конвертацией
+50 21 * * * /home/bsn/sites/bsn.ru/public_html/cron/updateSite/updateForeign.php
+
+# Выгрузка объектов в XML-виде
+# Pingola
+20 10 * * * /home/bsn/sites/bsn.ru/public_html/cron/generate_xml_objects/pingola.php
+
+
+#обновление данных для аналитика
+55 23 * * * /home/bsn/sites/bsn.ru/public_html/cron/analytics_indexes/indexes.php
+
+#обновление данных для построения графики аналитики
+10 0 * * 1 /home/bsn/sites/bsn.ru/public_html/cron/analytics_indexes/graphics_data.php
+
+# Тэгирование объектов
+*/20 * * * * /home/bsn/sites/bsn.ru/public_html/cron/tagging/tagging.php
+# Поиск похожих
+*/15 * * * * /home/bsn/sites/bsn.ru/public_html/cron/tagging/similars.php
+
+# Генерации xml-ек контента
+# Генерация sitemap.xml
+15 */6 * * * /home/bsn/sites/bsn.ru/public_html/cron/gen_sitemap/sitemap.php
+
+# Выгрузка url-ов с 0 Байт из Я.Вебмастер
+30 */12 * * * /home/bsn/sites/bsn.ru/public_html/cron/gen_sitemap/webmaster_urls.php.php
+
+#Проверка на существование фоток в папке с фотками
+30 9 * * 1,3,5,6 /home/bsn/sites/bsn.ru/public_html/cron/checkphotos.php
+
+# запуск Сфинкса
+10 * * * * /usr/bin/searchd --config /etc/sphinxsearch/sphinx.conf
+11 * * * * /usr/bin/indexer -c /etc/sphinxsearch/sphinx.conf --rotate --all

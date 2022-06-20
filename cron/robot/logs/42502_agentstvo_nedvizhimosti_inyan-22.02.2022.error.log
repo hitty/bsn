@@ -1,0 +1,8 @@
+[22-Feb-2022 01:41:02 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[22-Feb-2022 01:41:02 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[22-Feb-2022 01:41:02 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[22-Feb-2022 01:41:05 Europe/Moscow] PHP Notice:  Undefined variable: nophoto in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 580
+[22-Feb-2022 01:41:05 Europe/Moscow] PHP Notice:  Undefined index: build_sell in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 609
+[22-Feb-2022 01:41:05 Europe/Moscow] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 613
+[22-Feb-2022 01:41:05 Europe/Moscow] PHP Notice:  Undefined offset: 1 in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 693
+[22-Feb-2022 01:41:05 Europe/Moscow] PHP Notice:  Undefined index:  in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 693

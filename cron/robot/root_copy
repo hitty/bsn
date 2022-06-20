@@ -1,0 +1,28 @@
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/mailers/normalspam.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/mailers/specspam.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/mailers/daily_news.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/daily_stats/stats.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/information_mails/view_count_last_week.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/information_mails/5_day_objects_warning.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/information_mails/archive_objects_warning.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/information_mails/3_day_objects_warning.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/robot.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/bn_txt/bn_txt.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/bn_xml/bn_xml.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/eip_xml/eip_xml.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/ng_xml/ng_xml.php ng
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/ng_xml/ng_xml.php ng_check
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/jcat_xml/jcat_xml.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/jcat_xml/jcat_xml.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/emls_xml/emls_xml.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/emls_xml/emls_xml.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/soft_estate_xml/soft_estate_xml.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/updateSite/updateForeign.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/generate_xml_objects/pingola.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/analytics_indexes/indexes.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/analytics_indexes/graphics_data.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/tagging/tagging.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/tagging/similars.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/gen_sitemap/sitemap.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/gen_sitemap/webmaster_urls.php.php
+chmod 644 /home/bsn/sites/bsn.ru/public_html/cron/checkphotos.php

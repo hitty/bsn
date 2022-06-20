@@ -1,0 +1,47 @@
+Array
+(
+    [external_id] => Array
+        (
+        )
+
+    [address] => Array
+        (
+            [18116] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18120] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18122] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18123] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18124] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18127] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18128] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18129] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18143] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18145] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18146] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18147] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18159] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18163] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18164] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+            [18167] => адрес: <region>г. Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name></sub-locality-name><address>Сестрорецк, Приморское ш., д. 352, стр. 1</address>
+        )
+
+    [moderation] => Array
+        (
+        )
+
+    [estate_type] => Array
+        (
+        )
+
+    [img] => Array
+        (
+        )
+
+    [rooms] => Array
+        (
+        )
+
+    [rooms_square] => Array
+        (
+        )
+
+)

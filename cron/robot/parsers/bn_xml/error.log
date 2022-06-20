@@ -1,0 +1,51 @@
+[26-Aug-2015 17:48:40 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/cron/robot/files/bn_xml/.): Permission denied in C:\server\www\bsn.int\www\cron\robot\parsers\bn_xml\bn_xml.php on line 333
+[26-Aug-2015 17:48:40 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/cron/robot/files/bn_xml/..): Permission denied in C:\server\www\bsn.int\www\cron\robot\parsers\bn_xml\bn_xml.php on line 333
+[26-Aug-2015 17:48:40 Europe/Moscow] PHP Notice:  Use of undefined constant DEBUG_MODE - assumed 'DEBUG_MODE' in C:\server\www\bsn.int\www\includes\class.db.mysqli.php on line 74
+[26-Aug-2015 17:48:57 Europe/Moscow] PHP Notice:  Undefined variable: value in C:\server\www\bsn.int\www\includes\class.robot.php on line 724
+[26-Aug-2015 17:48:57 Europe/Moscow] PHP Notice:  Undefined index: corp in C:\server\www\bsn.int\www\includes\class.robot.php on line 625
+[26-Aug-2015 17:48:57 Europe/Moscow] PHP Notice:  Undefined index: build_complex_id in C:\server\www\bsn.int\www\includes\class.robot.php on line 915
+[26-Aug-2015 17:48:57 Europe/Moscow] PHP Notice:  Undefined index: build_complex_title in C:\server\www\bsn.int\www\includes\class.robot.php on line 915
+[26-Aug-2015 17:49:05 Europe/Moscow] PHP Warning:  mysqli::real_escape_string() expects parameter 1 to be string, array given in C:\server\www\bsn.int\www\includes\class.db.mysqli.php on line 13
+[26-Aug-2015 17:49:06 Europe/Moscow] PHP Warning:  mysqli::real_escape_string() expects parameter 1 to be string, array given in C:\server\www\bsn.int\www\includes\class.db.mysqli.php on line 13
+[26-Aug-2015 17:49:06 Europe/Moscow] PHP Notice:  Undefined index: rent in C:\server\www\bsn.int\www\includes\class.estate.php on line 137
+[26-Aug-2015 17:49:10 Europe/Moscow] PHP Warning:  Invalid argument supplied for foreach() in C:\server\www\bsn.int\www\includes\class.estate.php on line 139
+[26-Aug-2015 17:49:35 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/38424a39e17cfea15f70a63f5e3712ad.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:49:37 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:49:37 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/bdf2887785433a1b8be6679d31b0e7b1.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:49:37 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:49:37 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/29f8511679c415ee86f1d99df4626469.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:49:37 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:49:37 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/ec1046f655775518575bc96fb9c64280.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:49:37 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/38424a39e17cfea15f70a63f5e3712ad.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/bdf2887785433a1b8be6679d31b0e7b1.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/29f8511679c415ee86f1d99df4626469.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299
+[26-Aug-2015 17:49:40 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/ec1046f655775518575bc96fb9c64280.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299
+[26-Aug-2015 17:49:47 Europe/Moscow] PHP Notice:  Undefined variable: value in C:\server\www\bsn.int\www\includes\class.robot.php on line 724
+[26-Aug-2015 17:49:47 Europe/Moscow] PHP Notice:  Undefined index: corp in C:\server\www\bsn.int\www\includes\class.robot.php on line 625
+[26-Aug-2015 17:49:47 Europe/Moscow] PHP Notice:  Undefined index: build_complex_id in C:\server\www\bsn.int\www\includes\class.robot.php on line 915
+[26-Aug-2015 17:49:47 Europe/Moscow] PHP Notice:  Undefined index: build_complex_title in C:\server\www\bsn.int\www\includes\class.robot.php on line 915
+[26-Aug-2015 17:49:51 Europe/Moscow] PHP Warning:  mysqli::real_escape_string() expects parameter 1 to be string, array given in C:\server\www\bsn.int\www\includes\class.db.mysqli.php on line 13
+[26-Aug-2015 17:49:51 Europe/Moscow] PHP Warning:  mysqli::real_escape_string() expects parameter 1 to be string, array given in C:\server\www\bsn.int\www\includes\class.db.mysqli.php on line 13
+[26-Aug-2015 17:50:08 Europe/Moscow] PHP Notice:  Undefined index: rent in C:\server\www\bsn.int\www\includes\class.estate.php on line 137
+[26-Aug-2015 17:50:08 Europe/Moscow] PHP Warning:  Invalid argument supplied for foreach() in C:\server\www\bsn.int\www\includes\class.estate.php on line 139
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/e1e4f2dc2c6e3561918ad051e7473d0b.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/cc2540f55f4af5fd1c66a043ecda9aeb.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/126c4c4d5b529d092c048cfba1391d33.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  fopen(C:/server/www/bsn.int/www/img/downloads/5973829dcac62d7bb0d548465619b23f.jpg): failed to open stream: No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 270
+[26-Aug-2015 17:50:10 Europe/Moscow] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in C:\server\www\bsn.int\www\includes\class.photos.php on line 271
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in C:\server\www\bsn.int\www\includes\class.photos.php on line 285
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/e1e4f2dc2c6e3561918ad051e7473d0b.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/cc2540f55f4af5fd1c66a043ecda9aeb.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/126c4c4d5b529d092c048cfba1391d33.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299
+[26-Aug-2015 17:50:16 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/www/img/downloads/5973829dcac62d7bb0d548465619b23f.jpg): No such file or directory in C:\server\www\bsn.int\www\includes\class.photos.php on line 299

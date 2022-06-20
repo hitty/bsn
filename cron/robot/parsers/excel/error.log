@@ -1,0 +1,6 @@
+[20-Jun-2022 10:29:01 Europe/Moscow] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/bsn/sites/bsn.ru/public_html/cron/robot/robot_functions.php:567) in /home/bsn/sites/bsn.ru/public_html/includes/class.storage.php on line 255
+[20-Jun-2022 10:29:01 Europe/Moscow] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/bsn/sites/bsn.ru/public_html/cron/robot/robot_functions.php:567) in /home/bsn/sites/bsn.ru/public_html/includes/class.storage.php on line 255
+[20-Jun-2022 10:29:01 Europe/Moscow] PHP Notice:  Undefined variable: id_user in /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/excel/excel.php on line 514
+[20-Jun-2022 10:29:01 Europe/Moscow] PHP Notice:  Undefined variable: id_user in /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/excel/excel.php on line 514
+[20-Jun-2022 10:29:01 Europe/Moscow] PHP Notice:  Undefined variable: id_user in /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/excel/excel.php on line 514
+[20-Jun-2022 10:29:01 Europe/Moscow] PHP Notice:  Undefined variable: id_user in /home/bsn/sites/bsn.ru/public_html/cron/robot/parsers/excel/excel.php on line 514

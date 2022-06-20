@@ -1,0 +1,10 @@
+[04-Mar-2022 01:41:03 Europe/Moscow] PHP Notice:  Undefined index: lat in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[04-Mar-2022 01:41:03 Europe/Moscow] PHP Notice:  Undefined index: lng in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[04-Mar-2022 01:41:03 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[04-Mar-2022 01:41:03 Europe/Moscow] PHP Notice:  Undefined index: lat in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[04-Mar-2022 01:41:03 Europe/Moscow] PHP Notice:  Undefined index: lng in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[04-Mar-2022 01:41:03 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[04-Mar-2022 01:41:03 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[04-Mar-2022 01:41:07 Europe/Moscow] PHP Notice:  Undefined variable: nophoto in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 580
+[04-Mar-2022 01:41:07 Europe/Moscow] PHP Notice:  Undefined index: build_sell in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 609
+[04-Mar-2022 01:41:07 Europe/Moscow] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 613
