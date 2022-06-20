@@ -1,0 +1,36 @@
+Array
+(
+    [external_id] => Array
+        (
+        )
+
+    [address] => Array
+        (
+            [817536897] => адрес: <region>Санкт-Петербург</region><locality-name>Пушкин</locality-name><sub-locality-name>Пушкинский</sub-locality-name><address>Железнодорожная, 36</address>
+            [824] => адрес: <region>Санкт-Петербург</region><locality-name>Курортный р-н</locality-name><sub-locality-name>Сестрорецк г.</sub-locality-name><address>Гагаринская улица, 25</address>
+            [843] => адрес: <region>Санкт-Петербург</region><locality-name>Пушкин</locality-name><sub-locality-name>Пушкинский</sub-locality-name><address>Академический, 7</address>
+            [682] => адрес: <region>Санкт-Петербург</region><locality-name>Пушкин</locality-name><sub-locality-name>Пушкинский</sub-locality-name><address>Академический, 7</address>
+            [817536533] => адрес: <region>Санкт-Петербург</region><locality-name>Пушкин</locality-name><sub-locality-name>Пушкинский</sub-locality-name><address>Парковая, 40</address>
+        )
+
+    [moderation] => Array
+        (
+        )
+
+    [estate_type] => Array
+        (
+        )
+
+    [img] => Array
+        (
+        )
+
+    [rooms] => Array
+        (
+        )
+
+    [rooms_square] => Array
+        (
+        )
+
+)

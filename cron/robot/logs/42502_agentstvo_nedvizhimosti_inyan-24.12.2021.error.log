@@ -1,0 +1,13 @@
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined index: lat in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined index: lng in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined index: lat in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined index: lng in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[24-Dec-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/bsn/sites/bsn.ru/public_html/includes/class.db.mysqli.php on line 103
+[24-Dec-2021 01:41:07 Europe/Moscow] PHP Notice:  Undefined variable: nophoto in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 580
+[24-Dec-2021 01:41:07 Europe/Moscow] PHP Notice:  Undefined index: build_sell in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 609
+[24-Dec-2021 01:41:07 Europe/Moscow] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 613

@@ -1,0 +1,49 @@
+Array
+(
+    [external_id] => Array
+        (
+        )
+
+    [address] => Array
+        (
+            [1000] => адрес: <region>Санкт-Петербург</region><locality-name>Шушары пос.</locality-name><sub-locality-name>Пушкинский</sub-locality-name><address>улица Пушкинская, 24</address>
+            [982] => адрес: <region>Санкт-Петербург</region><locality-name>Дони СНТ</locality-name><sub-locality-name></sub-locality-name><address></address>
+            [448] => адрес: <region>Санкт-Петербург</region><locality-name>Красное Село</locality-name><sub-locality-name></sub-locality-name><address>проспект Героев, 27к1</address>
+            [768] => адрес: <region>Санкт-Петербург</region><locality-name>посёлок Усть-Ижора</locality-name><sub-locality-name>Колпинский</sub-locality-name><address>шоссе Шлиссельбургское</address>
+            [767] => адрес: <region>Санкт-Петербург</region><locality-name>посёлок Репино</locality-name><sub-locality-name>курортный район</sub-locality-name><address>улица Железнодорожная, 4</address>
+            [712] => адрес: <region>Санкт-Петербург</region><locality-name>Усть-Ижора пос.</locality-name><sub-locality-name>Колпинский</sub-locality-name><address>шоссе Шлиссельбургское, 169</address>
+            [715] => адрес: <region>Санкт-Петербург</region><locality-name>Сестрорецк</locality-name><sub-locality-name>Курортный район</sub-locality-name><address>улица Коробицына, 2А</address>
+            [714] => адрес: <region>Санкт-Петербург</region><locality-name>Ломоносов</locality-name><sub-locality-name>Петродворцовый район</sub-locality-name><address>улица Жоры Антоненко, 8</address>
+            [787] => адрес: <region>Санкт-Петербург</region><locality-name>Тярлево пос.</locality-name><sub-locality-name></sub-locality-name><address>улица Московская, 10</address>
+            [785] => адрес: <region>Санкт-Петербург</region><locality-name>Тярлево пос.</locality-name><sub-locality-name></sub-locality-name><address></address>
+            [102] => адрес: <region>Санкт-Петербург</region><locality-name>Пушкин</locality-name><sub-locality-name>Пушкинский район</sub-locality-name><address>улица Оранжерейная, 63</address>
+            [101] => адрес: <region>Санкт-Петербург</region><locality-name>Горелово</locality-name><sub-locality-name>Красносельский район</sub-locality-name><address>шоссе Красносельское, 56</address>
+            [854] => адрес: <region>Санкт-Петербург</region><locality-name>Усть-Ижора пос.</locality-name><sub-locality-name>Колпинский</sub-locality-name><address>улица Социалистическая</address>
+            [1040] => адрес: <region>Санкт-Петербург</region><locality-name>Шушары пос.</locality-name><sub-locality-name>Пушкинский</sub-locality-name><address>проспект Новгородский, 10</address>
+            [328] => адрес: <region>Санкт-Петербург</region><locality-name>посёлок Шушары</locality-name><sub-locality-name></sub-locality-name><address>улица Окуловская, 4</address>
+            [1154] => адрес: <region>Санкт-Петербург</region><locality-name>посёлок Парголово</locality-name><sub-locality-name>Выборгский</sub-locality-name><address>улица Первого Мая, 93</address>
+        )
+
+    [moderation] => Array
+        (
+        )
+
+    [estate_type] => Array
+        (
+            [717] => коммерческая
+            [729] => коммерческая
+        )
+
+    [img] => Array
+        (
+        )
+
+    [rooms] => Array
+        (
+        )
+
+    [rooms_square] => Array
+        (
+        )
+
+)

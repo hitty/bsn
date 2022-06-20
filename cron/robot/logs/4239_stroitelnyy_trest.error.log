@@ -1,0 +1,35 @@
+Array
+(
+    [external_id] => Array
+        (
+        )
+
+    [address] => Array
+        (
+        )
+
+    [moderation] => Array
+        (
+        )
+
+    [estate_type] => Array
+        (
+        )
+
+    [img] => Array
+        (
+            [0] => https://www.stroytrest.spb.ru/images/ID8620.png - Не удалось получить размер фото
+            [1] => https://www.stroytrest.spb.ru/images/ID8620.png
+            [2] => https://www.stroytrest.spb.ru/images/ID10027.jpg - Не удалось получить размер фото
+            [3] => https://www.stroytrest.spb.ru/images/ID10027.jpg
+        )
+
+    [rooms] => Array
+        (
+        )
+
+    [rooms_square] => Array
+        (
+        )
+
+)

@@ -1,0 +1,247 @@
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  deg2rad() expects parameter 1 to be float, string given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1212
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1216
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1217
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  deg2rad() expects parameter 1 to be float, string given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1212
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1216
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1217
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  deg2rad() expects parameter 1 to be float, string given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1212
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1216
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1217
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  deg2rad() expects parameter 1 to be float, string given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1212
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1216
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1217
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1186
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1187
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  deg2rad() expects parameter 1 to be float, string given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1189
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1186
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1187
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  deg2rad() expects parameter 1 to be float, string given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1189
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1186
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  A non-numeric value encountered in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1187
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Warning:  deg2rad() expects parameter 1 to be float, string given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1189
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[23-Nov-2021 01:41:02 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[23-Nov-2021 01:41:05 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:17 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Undefined index: id_business_center in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 2196
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:18 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:23 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:28 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:28 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 524
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:29 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:30 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:30 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:32 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:34 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:35 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:36 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:36 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:36 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:36 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:36 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:36 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:36 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:37 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:38 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 372
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 222
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  getimagesize(): Read error! in /home/bsn/sites/bsn.ru/public_html/includes/class.photos.php on line 554
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1077
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Undefined variable: suggestion in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1078
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Undefined variable: nophoto in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 580
+[23-Nov-2021 01:41:39 Europe/Moscow] PHP Notice:  Undefined index: build_sell in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 609

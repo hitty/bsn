@@ -1,0 +1,10 @@
+[11-Jun-2021 01:41:01 Europe/Moscow] PHP Notice:  Undefined index: address in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 3977
+[11-Jun-2021 01:41:01 Europe/Moscow] PHP Notice:  Undefined index: address in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 3979
+[11-Jun-2021 01:41:01 Europe/Moscow] PHP Notice:  Undefined index: address in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 3998
+[11-Jun-2021 01:41:01 Europe/Moscow] PHP Notice:  Undefined variable: district in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1151
+[11-Jun-2021 01:41:01 Europe/Moscow] PHP Warning:  html_entity_decode() expects parameter 1 to be string, array given in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 4382
+[11-Jun-2021 01:41:01 Europe/Moscow] PHP Warning:  getimagesize(): Filename cannot be empty in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 191
+[11-Jun-2021 01:41:01 Europe/Moscow] PHP Warning:  getimagesize(+78125614948): failed to open stream: Нет такого файла или каталога in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 191
+[11-Jun-2021 01:41:10 Europe/Moscow] PHP Notice:  Undefined variable: nophoto in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 580
+[11-Jun-2021 01:41:10 Europe/Moscow] PHP Notice:  Undefined index: build_sell in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 609
+[11-Jun-2021 01:41:10 Europe/Moscow] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 613

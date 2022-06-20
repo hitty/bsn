@@ -1,0 +1,4 @@
+[23-Sep-2014 12:39:31 Europe/Moscow] PHP Warning:  unlink(C:/server/www/bsn.int/cron/robot/files/prigorod_xml/_prigorodsu.xml): Permission denied in C:\server\www\bsn.int\cron\robot\robot_functions.php on line 317
+[23-Sep-2014 12:39:34 Europe/Moscow] PHP Warning:  file_put_contents(C:/server/www/bsn.int/cron/robot/files/prigorod_xml/_prigorodsu.xml): failed to open stream: Permission denied in C:\server\www\bsn.int\cron\robot\robot_functions.php on line 407
+[23-Sep-2014 12:39:37 Europe/Moscow] PHP Notice:  Undefined variable: counter in C:\server\www\bsn.int\cron\robot\parsers\prigorod_xml\prigorod_xml.php on line 96
+[23-Sep-2014 12:39:37 Europe/Moscow] PHP Notice:  Undefined index: total in C:\server\www\bsn.int\cron\robot\parsers\prigorod_xml\prigorod_xml.php on line 96

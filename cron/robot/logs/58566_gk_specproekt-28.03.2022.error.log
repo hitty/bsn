@@ -1,0 +1,26 @@
+[28-Mar-2022 12:55:11 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:55:35 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:55:51 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:56:10 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:56:25 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:56:45 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:00 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:10 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:19 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:26 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:34 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:42 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:51 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:57:58 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:58:06 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:58:14 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:58:24 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:58:33 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:58:48 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:59:06 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:59:15 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:59:25 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:59:38 Europe/Moscow] PHP Notice:  Only variables should be passed by reference in /home/bsn/sites/bsn.ru/public_html/includes/class.robot.php on line 1256
+[28-Mar-2022 12:59:47 Europe/Moscow] PHP Notice:  Undefined variable: nophoto in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 587
+[28-Mar-2022 12:59:47 Europe/Moscow] PHP Notice:  Undefined index: build_sell in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 616
+[28-Mar-2022 12:59:47 Europe/Moscow] PHP Notice:  Undefined index: build in /home/bsn/sites/bsn.ru/public_html/cron/robot/xml_values_processing.php on line 620

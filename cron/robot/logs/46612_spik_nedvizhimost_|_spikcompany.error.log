@@ -1,0 +1,74 @@
+Array
+(
+    [external_id] => Array
+        (
+        )
+
+    [address] => Array
+        (
+            [424] => адрес: <region>Санкт-Петербург</region><locality-name>Шушары пос.</locality-name><sub-locality-name></sub-locality-name><address>Вишерская ул., д 16</address>
+        )
+
+    [moderation] => Array
+        (
+            [499] => Array
+                (
+                    [0] => 
+                    [1] => 4
+                )
+
+            [523] => Array
+                (
+                    [0] => 
+                    [1] => 4
+                )
+
+            [490] => Array
+                (
+                    [0] => 
+                    [1] => 4
+                )
+
+            [503] => Array
+                (
+                    [0] => 
+                    [1] => 4
+                )
+
+            [479] => Array
+                (
+                    [0] => 
+                    [1] => 4
+                )
+
+            [481] => Array
+                (
+                    [0] => 
+                    [1] => 4
+                )
+
+            [504] => Array
+                (
+                    [0] => 
+                    [1] => 4
+                )
+
+        )
+
+    [estate_type] => Array
+        (
+        )
+
+    [img] => Array
+        (
+        )
+
+    [rooms] => Array
+        (
+        )
+
+    [rooms_square] => Array
+        (
+        )
+
+)
