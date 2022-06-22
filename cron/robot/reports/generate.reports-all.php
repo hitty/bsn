@@ -74,7 +74,7 @@ $counter = array('live'=>0,'live_photos'=>0,'build'=>0,'build_photos'=>0,'commer
 $ids_conformity = $db->fetchall("SELECT id,
                                  IF(rent=1,'rent','sell') AS deal_type,
                                  external_id,
-                                 IFNULL(photos.amount,0) AS photos_amount 
+                                 IFNULL(photos.amount,0) AS photos_amount , views_count, views_count_week
                                  FROM ".$sys_tables['build']." 
                                  LEFT JOIN (SELECT id_parent,COUNT(*) AS amount FROM ".$sys_tables['build_photos']." GROUP BY id_parent) AS photos ON photos.id_parent = ".$sys_tables['build'].".id
                                  WHERE id_user = " . $agency_info['user_id'] . " AND published = 1 ");
@@ -94,7 +94,7 @@ echo "build processed: ".$counter['build']." total;";
 $ids_conformity = $db->fetchall("SELECT id,
                                  IF(rent=1,'rent','sell') AS deal_type,
                                  external_id,
-                                 IFNULL(photos.amount,0) AS photos_amount 
+                                 IFNULL(photos.amount,0) AS photos_amount , views_count, views_count_week
                                  FROM ".$sys_tables['live']." 
                                  LEFT JOIN (SELECT id_parent,COUNT(*) AS amount FROM ".$sys_tables['live_photos']." GROUP BY id_parent) AS photos ON photos.id_parent = ".$sys_tables['live'].".id
                                  WHERE id_user = " . $agency_info['user_id'] . " AND published = 1 ");
@@ -113,7 +113,7 @@ echo "live processed: ".$counter['live']." total;";
 $ids_conformity = $db->fetchall("SELECT id,
                                  IF(rent=1,'rent','sell') AS deal_type,
                                  external_id,
-                                 IFNULL(photos.amount,0) AS photos_amount 
+                                 IFNULL(photos.amount,0) AS photos_amount , views_count, views_count_week
                                  FROM ".$sys_tables['commercial']." 
                                  LEFT JOIN (SELECT id_parent,COUNT(*) AS amount FROM ".$sys_tables['commercial_photos']." GROUP BY id_parent) AS photos ON photos.id_parent = ".$sys_tables['commercial'].".id
                                  WHERE id_user = " . $agency_info['user_id'] . " AND published = 1 ");
@@ -133,7 +133,7 @@ echo "commercial processed: ".$counter['commercial']." total;";
 $ids_conformity = $db->fetchall("SELECT id,
                                  IF(rent=1,'rent','sell') AS deal_type,
                                  external_id,
-                                 IFNULL(photos.amount,0) AS photos_amount
+                                 IFNULL(photos.amount,0) AS photos_amount, views_count, views_count_week
                                  FROM ".$sys_tables['country']."
                                  LEFT JOIN (SELECT id_parent,COUNT(*) AS amount FROM ".$sys_tables['country_photos']." GROUP BY id_parent) AS photos ON photos.id_parent = ".$sys_tables['country'].".id
                                  WHERE id_user = " . $agency_info['user_id'] . " AND published = 1 ");
