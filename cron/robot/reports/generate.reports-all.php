@@ -84,7 +84,7 @@ foreach($ids_conformity as $item){
     $xmlItem->append('url', "https://www.bsn.ru/estate/build/".$item['deal_type']."/".$item['id']."/",1);
     $xmlItem->append('photos_amount', $item['photos_amount'],1);
     $xmlItem->append('views_today', $item['views_count'],1);
-    $xmlItem->append('views_week', $item['views_count_week'],1);
+    $xmlItem->append('views_week', $item['views_count_week'] + $item['views_count'],1);
     ++$counter['build'];
     $counter['build_photos'] += $item['photos_amount'];
 }
@@ -104,7 +104,7 @@ foreach($ids_conformity as $item){
     $xmlItem->append('url', "https://www.bsn.ru/estate/live/".$item['deal_type']."/".$item['id']."/",1);
     $xmlItem->append('photos_amount', $item['photos_amount'],1);
     $xmlItem->append('views_today', $item['views_count'],1);
-    $xmlItem->append('views_week', $item['views_count_week'],1);
+    $xmlItem->append('views_week', $item['views_count_week'] + $item['views_count'],1);
     ++$counter['live'];
     $counter['live_photos'] += $item['photos_amount'];
 }
@@ -123,7 +123,7 @@ foreach($ids_conformity as $item){
     $xmlItem->append('url', "https://www.bsn.ru/estate/commercial/".$item['deal_type']."/".$item['id']."/",1);
     $xmlItem->append('photos_amount', $item['photos_amount'],1);
     $xmlItem->append('views_today', $item['views_count'],1);
-    $xmlItem->append('views_week', $item['views_count_week'],1);
+    $xmlItem->append('views_week', $item['views_count_week'] + $item['views_count'],1);
 
     ++$counter['commercial'];
     $counter['commercial_photos'] += $item['photos_amount'];
@@ -143,7 +143,7 @@ foreach($ids_conformity as $item){
     $xmlItem->append('url', "https://www.bsn.ru/estate/country/".$item['deal_type']."/".$item['id']."/",1);
     $xmlItem->append('photos_amount', $item['photos_amount'],1);
     $xmlItem->append('views_today', $item['views_count'],1);
-    $xmlItem->append('views_week', $item['views_count_week'],1);
+    $xmlItem->append('views_week', $item['views_count_week'] + $item['views_count'],1);
 
     ++$counter['country'];
     $counter['country_photos'] += $item['photos_amount'];
