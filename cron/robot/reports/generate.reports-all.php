@@ -192,5 +192,4 @@ if(!empty( $agency_info['email_service'] ) )
 //отправка письма
 $sendpulse = new Sendpulse( );
 $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $mailer_title, 'no-reply@bsn.ru', $emails, $attachments );
-    
 ?>
