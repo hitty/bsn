@@ -189,10 +189,6 @@ if(!empty( $agency_info['email_service'] ) )
         'name' => '',
         'email'=> $agency_info['email_service']
     );
-$emails[] = array(
-    'name' => '',
-    'email'=> 'kya1982@gmail.com',
-);
 //отправка письма
 $sendpulse = new Sendpulse( );
 $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $mailer_title, 'no-reply@bsn.ru', $emails, $attachments );
