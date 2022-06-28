@@ -185,14 +185,10 @@ $attachments = array(
 );
 
 if(!empty( $agency_info['email_service'] ) ) 
-    $emails[] = array(
-        'name' => '',
-        'email'=> $agency_info['email_service']
-    );
     $emails = [
         [
-                'name' => '',
-                'email'=> 'kya82@mail.ru'
+            'name' => '',
+            'email'=> $agency_info['email_service']
         ],
         [
                 'name' => '',
