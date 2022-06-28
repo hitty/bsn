@@ -160,11 +160,11 @@ echo "XML соответствия успешно создан: ".$counter['tota
 
 // перевод письма в кодировку мейлера
 $text = "Выгрузилось: <br />  <br />
-- всего: ".$counter['total']." фотографий - ".$counter['total_photos']."<br />  <br />
-- жилая: ".$counter['live']." фотографий - ".$counter['live_photos']."<br />
-- стройка: ".$counter['build']." фотографий - ".$counter['build_photos']."<br />
-- коммерческая: ".$counter['commercial']." фотографий - ".$counter['commercial_photos']."<br />
-- загородка: ".$counter['country']." фотографий - ".$counter['country_photos']."<br />";
+- всего: ".$counter['total']."<br />  <br />
+- жилая: ".$counter['live']."<br />
+- стройка: ".$counter['build']."<br />
+- коммерческая: ".$counter['commercial']."<br />
+- загородка: ".$counter['country']."<br />";
 Response::SetString( 'text', $text );
 
 $mailer_title = 'Выгрузка объектов '.$agency_info['title'].'. '.date('d.m.Y');
@@ -188,6 +188,10 @@ if(!empty( $agency_info['email_service'] ) )
     $emails[] = array(
         'name' => '',
         'email'=> $agency_info['email_service']
+    );
+    $emails[] = array(
+        'name' => '',
+        'email'=> 'kya82@mail.ru'
     );
 //отправка письма
 $sendpulse = new Sendpulse( );
