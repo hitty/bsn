@@ -190,8 +190,14 @@ if(!empty( $agency_info['email_service'] ) )
         'email'=> $agency_info['email_service']
     );
     $emails[] = array(
-        'name' => '',
-        'email'=> 'kya82@mail.ru'
+        [
+                'name' => '',
+                'email'=> 'kya82@mail.ru'
+        ],
+        [
+                'name' => '',
+                'email'=> 'kya1982@gmail.com'
+        ],
     );
 //отправка письма
 $sendpulse = new Sendpulse( );
