@@ -11,7 +11,6 @@ if(strtolower(substr( $os, 0, 3 ) ) == "win" )  $root = str_replace( "\\", '/', 
 define( "ROOT_PATH", $root );
 chdir(ROOT_PATH);
 include_once('cron/robot/robot_functions.php');    // функции  (крона
-
 mb_internal_encoding('UTF-8');
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 mb_regex_encoding('UTF-8');
@@ -66,7 +65,7 @@ $agency = $db->fetch("SELECT
 
 //создаем процесс
 $sent_report = 1;
-$res = $db->query("INSERT INTO ".$sys_tables['processes']." SET id_agency = ?, type = ?, status = ?, sent_report = ?", $agency['id'], 3, 1, $sent_report);
+$res = $db->query("INSERT INTO ".$sys_tables['processes']." SET id_agency = ?, type = ?, status = ?, sent_report = ?, datetime_start = NOW()", $agency['id'], 3, 1, $sent_report);
 $process_id = $db->insert_id;
 
 $link_response = get_http_response_code("http://xml.jcat.ru/export/bsn/spb/");
@@ -94,7 +93,7 @@ if($link_response != 200){
     $admin_mailer->Send();
     die();
 }
-$log['download'][] = downloadXmlFile("jcat","jcat","http://xml.jcat.ru/export/bsn/spb/",29298,false);  
+if( !DEBUG_MODE) $log['download'][] = downloadXmlFile("jcat","jcat","http://xml.jcat.ru/export/bsn/spb/",29298,false);
 
 $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW(), log = CONCAT (log,'Загрузка файла: ОК','\n\n','Анализ файла: ') WHERE id = ?", $process_id);
 $rent_titles = array(1=>'аренда', 2=>'продажа'); //типы сделок
@@ -398,7 +397,7 @@ while($filename = readdir($dh))
         $mail_text .= "<br /><br />";
     } // end of: $filename=='xml-file'
 }
-
+if( DEBUG_MODE ) die();
 if($mail_text!=''){
         
     $emails = array(
