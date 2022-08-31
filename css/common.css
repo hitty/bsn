@@ -1074,18 +1074,19 @@ section:after{
 }
 .banner-item{
     position: relative;
+    display: block;
 }
 .banner-item:before{
     content:"Реклама";
     position: absolute;
+    left: 4px;
+    top: 4px;
     padding: 3px 7px;
     border-radius: 10px;
     font-size: 10px;
     color: black;
     background-color: white;
     opacity: 0.5;
-    top: 5px;
-    left: 5px;
     cursor: pointer;
     font-family: Helvetica,Arial,sans-serif !important;
     line-height: 17px;
