@@ -1,6 +1,7 @@
 @charset "UTF-8";
 :root {
     --red: #dd0000;
+    --black: #000000;
 }
 
 html {
@@ -14,11 +15,9 @@ body {
     font: normal 14px "Roboto";
     color: var(--black);
     -webkit-font-smoothing: subpixel-antialiased;
-    -moz-font-smoothing: subpixel-antialiased;
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%;
      background: #f3f3f3;
     line-height: 20px;
     display: flex;
@@ -26,7 +25,7 @@ body {
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
-    flex-direction: column
+    flex-direction: column;
     position: relative;   
 }
 @media(min-width: 1220px){
@@ -62,7 +61,6 @@ span.external-link {
   cursor: pointer;
   -webkit-transition: border .2s ease-in-out, color .2s ease-in-out;
   -moz-transition: border .2s ease-in-out, color .2s ease-in-out;
-  -ms-transition: border .2s ease-in-out, color .2s ease-in-out;
   -o-transition: border .2s ease-in-out, color .2s ease-in-out;
   transition: border .2s ease-in-out, color .2s ease-in-out;  
 }
@@ -154,8 +152,6 @@ strong{
     position: relative;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
     border-radius: 3px;
     margin: 40px 40px 80px 40px;
     font-size: 30px;
@@ -261,12 +257,8 @@ header {
     -o-background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
-    -khtml-background-size: cover;
-    -ms-background-size: cover;
     -webkit-filter: blur(7px);
     -ms-filter: blur(7px);
-    -moz-filter: blur(7px);
-    -o-filter: blur(7px);
     filter: blur(7px);
 }
 .fullscreen-banner:before{
@@ -274,7 +266,7 @@ header {
     display: block;
     left: 0;
     right: 0;
-    bottom: 0px;
+    bottom: 0;
     height: 100px;
     background: -moz-linear-gradient(top, rgba(243,243,243,0.01) 0%, rgba(243,243,243,1) 100%);
     background: -webkit-linear-gradient(top, rgba(243,243,243,0.01) 0%,rgba(243,243,243,1) 100%);
@@ -1079,4 +1071,22 @@ section:after{
 .error-403 h2{
     font-size: 26px;
     text-align: center;
+}
+.banner-item{
+    position: relative;
+}
+.banner-item:before{
+    content:"Реклама";
+    position: absolute;
+    padding: 3px 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    color: black;
+    background-color: white;
+    opacity: 0.5;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+    font-family: Helvetica,Arial,sans-serif !important;
+    line-height: 17px;
 }
