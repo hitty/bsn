@@ -655,7 +655,7 @@ switch(true){
                  break;
             }
         }  
-        
+
         if(!empty($this_page->page_parameters[2]) && isPage($this_page->page_parameters[2])) Host::Redirect("/".$this_page->page_parameters[0]."/".$this_page->page_parameters[1]."/?page=".getPage($this_page->page_parameters[2])); 
         Response::SetString('tgb_type',$estate_type);
         
@@ -1133,7 +1133,6 @@ switch(true){
                 , true
             );
         }
-                
         break;
     
     //////////////////////////////////////////////////////////////////////////

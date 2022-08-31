@@ -963,7 +963,7 @@ class EstateItemLive extends EstateItem{
                 , ".$this->tables['agencies'].".advert_text as agency_advert_text
                 , ".$this->tables['agencies'].".activity as agency_activity
                 , ".$this->tables['agencies'].".email as agency_email
-                , ".$this->tables['agencies'].".url as agency_url
+                 , ".$this->tables['agencies'].".url as agency_url , ".$this->tables['agencies'].".advert as agency_advert
                 , ".$this->tables['agencies'].".doverie_years as doverie_years
                 , ".$this->tables['agencies_photos'].".name as agency_photo
                 , LEFT ( ".$this->tables['agencies_photos'].".name, 2) as agency_subfolder_photo
@@ -988,7 +988,7 @@ class EstateItemLive extends EstateItem{
                 , ".$this->tables['housing_estates'].".chpu_title as housing_estate_chpu
                 , ".$this->tables['housing_estates'].".apartments
                 , ".$this->tables['promotions'].".discount
-                , ".$this->tables['promotions'].".discount_type
+                , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                 , ".$this->tables['promotions'].".title AS promotion_title
                 , ".$this->tables['promotions'].".chpu_title AS promotion_chpu
                 , ".$this->tables['owners_user_types'].".title AS user_type_title
@@ -1506,7 +1506,7 @@ class EstateItemCommercial extends EstateItem{
                 , ".$this->tables['agencies'].".email as agency_email
                 , ".$this->tables['agencies_photos'].".name as agency_photo
                 , LEFT ( ".$this->tables['agencies_photos'].".name, 2) as agency_subfolder_photo
-                , ".$this->tables['agencies'].".url as agency_url
+                 , ".$this->tables['agencies'].".url as agency_url , ".$this->tables['agencies'].".advert as agency_advert
                 , ".$this->tables['agencies'].".doverie_years as doverie_years
                 , ".$this->tables['business_centers'].".title as business_center
                 , ".$this->tables['business_centers'].".chpu_title as business_center_chpu
@@ -1521,7 +1521,7 @@ class EstateItemCommercial extends EstateItem{
                 , ".$this->tables['facings'].".title as facing
                 , ".$this->tables['enters'].".title as enter
                 , ".$this->tables['promotions'].".discount
-                , ".$this->tables['promotions'].".discount_type
+                , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                 , ".$this->tables['promotions'].".title AS promotion_title
                 , ".$this->tables['promotions'].".chpu_title AS promotion_chpu
                 , ".$this->tables['promotions'].".date_end AS promotion_date_end
@@ -1709,7 +1709,7 @@ class EstateItemBuild extends EstateItem{
                 , ".$this->tables['agencies'].".email as agency_email
                 , ".$this->tables['agencies_photos'].".name as agency_photo
                 , LEFT ( ".$this->tables['agencies_photos'].".name, 2) as agency_subfolder_photo
-                , ".$this->tables['agencies'].".url as agency_url
+                 , ".$this->tables['agencies'].".url as agency_url , ".$this->tables['agencies'].".advert as agency_advert
                 , ".$this->tables['agencies'].".doverie_years as doverie_years
                 , ".$this->tables['building_types'].".title as building_type
                 , IF(maintable.id_region != 78,'',".$this->tables['districts'].".title) as district
@@ -1730,7 +1730,7 @@ class EstateItemBuild extends EstateItem{
                 , ".$this->tables['facings'].".title as facing
                 , ".$this->tables['windows'].".title as `window`
                 , ".$this->tables['promotions'].".discount
-                , ".$this->tables['promotions'].".discount_type
+                , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                 , ".$this->tables['promotions'].".title AS promotion_title
                 , ".$this->tables['promotions'].".chpu_title AS promotion_chpu
                 , ".$this->tables['owners_user_types'].".title AS user_type_title
@@ -2085,7 +2085,7 @@ class EstateItemCountry extends EstateItem{
                 , ".$this->tables['agencies'].".email as agency_email
                 , ".$this->tables['agencies_photos'].".name as agency_photo
                 , LEFT ( ".$this->tables['agencies_photos'].".name, 2) as agency_subfolder_photo
-                , ".$this->tables['agencies'].".url as agency_url
+                 , ".$this->tables['agencies'].".url as agency_url , ".$this->tables['agencies'].".advert as agency_advert
                 , ".$this->tables['agencies'].".doverie_years as doverie_years
                 , ".$this->tables['cottages'].".title as cottage   
                 , ".$this->tables['cottages'].".chpu_title as cottage_chpu
@@ -2111,7 +2111,7 @@ class EstateItemCountry extends EstateItem{
                 , ".$this->tables['promotions'].".title AS promotion_title
                 , ".$this->tables['promotions'].".chpu_title AS promotion_chpu
                 , ".$this->tables['promotions'].".date_end AS promotion_date_end
-                , ".$this->tables['promotions'].".discount_type
+                , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                 , ".$this->tables['promotions'].".discount
                 , ".$this->tables['owners_user_types'].".title AS user_type_title
                 , ".$this->tables['work_statuses'].".title AS work_status_title
@@ -2527,7 +2527,7 @@ class EstateListLive extends EstateList{
                              )  as `obj_type`
                              , (SELECT COUNT(*) FROM ".$this->work_photos_table." WHERE id_parent=".$this->work_table.".id) AS photos_count
                              , (SELECT COUNT(*) FROM ".$this->work_videos_table." WHERE id_parent=".$this->work_table.".id AND status = 3) AS videos_count
-                             , ".$this->tables['promotions'].".discount_type
+                             , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                              , ".$this->tables['promotions'].".discount
                              , ".$this->tables['housing_estates'].".title as `housing_estate_title`
                              , ".$this->tables['housing_estates'].".chpu_title as `housing_estate_chpu_title`
@@ -2548,6 +2548,8 @@ class EstateListLive extends EstateList{
                       LEFT JOIN ".$this->tables['promotions']." ON ".$this->tables['promotions'].".id = ".$this->work_table.".id_promotion
                       LEFT JOIN ".$this->tables['geodata']." ON ".$this->tables['geodata'].".a_level=2 AND ".$this->tables['geodata'].".id_region = ".$this->work_table.".id_region AND ".$this->tables['geodata'].".id_area = ".$this->work_table.".id_area
                       LEFT JOIN ".$this->tables['users']." ON ".$this->tables['users'].".id = ".$this->work_table.".id_user
+                             LEFT JOIN ".$this->tables['agencies']." ON ".$this->tables['users'].".id_agency = ".$this->tables['agencies'].".id
+                      
                       LEFT JOIN ".$this->work_photos_table." ON ".$this->work_photos_table.".id = ".$this->work_table.".id_main_photo
                       LEFT JOIN ".$this->tables['housing_estates_photos']." ON ".$this->tables['housing_estates'].".id_main_photo = ".$this->tables['housing_estates_photos'].".id
                       ".(!empty($groupby) ? "WHERE ".$this->work_table.".id IN (".implode(',',$ids).")" 
@@ -2897,7 +2899,7 @@ class EstateListCommercial extends EstateList{
                                ) as `obj_type_short_title`
                              , (SELECT COUNT(*) FROM ".$this->work_photos_table." WHERE id_parent=".$this->work_table.".id) AS photos_count
                              , (SELECT COUNT(*) FROM ".$this->work_videos_table." WHERE id_parent=".$this->work_table.".id AND status = 3) AS videos_count
-                             , ".$this->tables['promotions'].".discount_type
+                             , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                              , ".$this->tables['promotions'].".discount
                       FROM ".$this->work_table."
                       
@@ -2913,6 +2915,7 @@ class EstateListCommercial extends EstateList{
                       LEFT JOIN ".$this->tables['business_centers']." ON ".$this->tables['business_centers'].".id = ".$this->work_table.".id_business_center
                       LEFT JOIN ".$this->tables['geodata']." ON ".$this->tables['geodata'].".a_level=2 AND ".$this->tables['geodata'].".id_region = ".$this->work_table.".id_region AND ".$this->tables['geodata'].".id_area = ".$this->work_table.".id_area
                       LEFT JOIN ".$this->tables['users']." ON ".$this->tables['users'].".id = ".$this->work_table.".id_user
+                             LEFT JOIN ".$this->tables['agencies']." ON ".$this->tables['users'].".id_agency = ".$this->tables['agencies'].".id
                       LEFT JOIN ".$this->work_photos_table." ON ".$this->work_photos_table.".id = ".$this->work_table.".id_main_photo
                       LEFT JOIN ".$this->tables['business_centers_photos']." ON ".$this->tables['business_centers'].".id_main_photo = ".$this->tables['business_centers_photos'].".id
                       ".(!empty($groupby) ? "WHERE ".$this->work_table.".id IN (".implode(',',$ids).")" : (empty($where)?"":"WHERE ".$where) )."
@@ -3121,7 +3124,7 @@ class EstateListBuild extends EstateList{
                              , (SELECT COUNT(*) FROM ".$this->work_photos_table." WHERE id_parent=".$this->work_table.".id) AS photos_count
                              , (SELECT COUNT(*) FROM ".$this->work_videos_table." WHERE id_parent=".$this->work_table.".id AND status = 3) AS videos_count
                              , (SELECT COUNT(*) FROM ".$this->work_table." b WHERE b.group_id=".$this->work_table.".group_id) AS total_objects
-                             , ".$this->tables['promotions'].".discount_type
+                             , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                              , ".$this->tables['promotions'].".discount
                              , ".$this->tables['users'].".id_agency        
                              , ".$this->tables['housing_estates'].".title as `housing_estate_title`
@@ -3142,6 +3145,7 @@ class EstateListBuild extends EstateList{
                              LEFT JOIN ".$this->tables['districts']." ON ".$this->work_table.".id_district = ".$this->tables['districts'].".id
                              LEFT JOIN ".$this->tables['districts_areas']." ON ".$this->work_table.".id_area = ".$this->tables['districts_areas'].".id
                              LEFT JOIN ".$this->tables['users']." ON ".$this->work_table.".id_user = ".$this->tables['users'].".id
+                             LEFT JOIN ".$this->tables['agencies']." ON ".$this->tables['users'].".id_agency = ".$this->tables['agencies'].".id
                              LEFT JOIN ".$this->work_photos_table." ON ".$this->work_table.".id_main_photo = ".$this->work_photos_table.".id
                              LEFT JOIN ".$this->tables['housing_estates_photos']." ON ".$this->tables['housing_estates'].".id_main_photo = ".$this->tables['housing_estates_photos'].".id
                              ".(!empty($groupby) ? "WHERE ".$this->work_table.".id IN (".implode(',',$ids).")" 
@@ -3386,7 +3390,7 @@ class EstateListCountry extends EstateList{
                              ) as `obj_type`
                       , (SELECT COUNT(*) FROM ".$this->work_photos_table." WHERE id_parent=".$this->work_table.".id) AS photos_count
                       , (SELECT COUNT(*) FROM ".$this->work_videos_table." WHERE id_parent=".$this->work_table.".id AND status = 3) AS videos_count
-                      , ".$this->tables['promotions'].".discount_type
+                      , ".$this->tables['promotions'].".discount_type, ".$this->tables['agencies'].".advert as `agency_advert`
                       , ".$this->tables['promotions'].".discount
                       FROM ".$this->work_table."
                       LEFT JOIN ".$this->tables['ownerships']." ON ".$this->tables['ownerships'].".id=".$this->work_table.".id_ownership
@@ -3404,6 +3408,7 @@ class EstateListCountry extends EstateList{
                       LEFT JOIN ".$this->tables['cottages']." ON ".$this->tables['cottages'].".id = ".$this->work_table.".id_cottage
                       LEFT JOIN ".$this->tables['geodata']." ON ".$this->tables['geodata'].".a_level=2 AND ".$this->tables['geodata'].".id_region = ".$this->work_table.".id_region AND ".$this->tables['geodata'].".id_area = ".$this->work_table.".id_area
                       LEFT JOIN ".$this->tables['users']." ON ".$this->tables['users'].".id = ".$this->work_table.".id_user
+                             LEFT JOIN ".$this->tables['agencies']." ON ".$this->tables['users'].".id_agency = ".$this->tables['agencies'].".id
                       LEFT JOIN ".$this->work_photos_table." ON ".$this->work_photos_table.".id = ".$this->work_table.".id_main_photo
                       LEFT JOIN ".$this->tables['cottages_photos']." ON ".$this->tables['cottages'].".id_main_photo = ".$this->tables['cottages_photos'].".id
                       ".(!empty($groupby) ? "WHERE ".$this->work_table.".id IN (".implode(',',$ids).")" 

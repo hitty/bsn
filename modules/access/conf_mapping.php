@@ -511,6 +511,17 @@ return array(
             'label' => 'Показывать в списке агентств',
             'tip' => 'Показывать на сайте в списке агентств'
         )
+        ,'advert' => array(
+            'type' => TYPE_INTEGER,
+            'min' => 1,
+            'max' => 2,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'radio',
+            'values' => array(2=>'Нет',1=>'Да'),
+            'label' => 'Показывать баннер "Реклама"',
+            'tip' => 'Платное агентство'
+        )
         ,'id_manager' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => false,

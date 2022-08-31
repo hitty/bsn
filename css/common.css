@@ -1072,21 +1072,28 @@ section:after{
     font-size: 26px;
     text-align: center;
 }
-.banner-item{
+.banner-item,
+.tgb,
+.photo{
     position: relative;
     display: block;
 }
-.banner-item:before{
+.banner-item:before,
+.tgb:before,
+.adaurum-commercial-block,
+.advert:after{
     content:"Реклама";
     position: absolute;
-    left: 4px;
-    top: 4px;
+    right: 4px!important;
+    bottom: 4px!important;
+    top: auto!important;
+    left: auto!important;
     padding: 3px 7px;
     border-radius: 10px;
     font-size: 10px;
     color: black;
     background-color: white;
-    opacity: 0.5;
+    opacity: 0.75;
     cursor: pointer;
     font-family: Helvetica,Arial,sans-serif !important;
     line-height: 17px;
