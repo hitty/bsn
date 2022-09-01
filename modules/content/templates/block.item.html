@@ -7,7 +7,7 @@
     {/if}
     {iflte $count_items,$count}
         {if!empty $item['title']}
-        <div class="{if!empty $big_image}col-2 big{else}col-1{/if} item br3 shadow-hover transition">
+        <div class="{if!empty $big_image}col-2 big{else}col-1{/if} item br3 shadow-hover transition {ifeq $item['advert'],1} advert{/if}">
             <a class="internal-link" href="{ifempty $item['link']}/{if!empty $item['content_type']}{$item['content_type']}{else}{$content_type}{/if}/{if!empty $item['category_code']}{$item['category_code']}/{/if}{if!empty $item['region_code']}{$item['region_code']}/{/if}{$item['chpu_title']}/{else}{$item['link']}/{/if}"></a>
             
             <div class="categories">

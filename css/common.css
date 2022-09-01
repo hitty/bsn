@@ -1074,9 +1074,12 @@ section:after{
 }
 .banner-item,
 .tgb,
-.photo{
+.photo,
+.news-main-photo,
+.banner-item{
     position: relative;
     display: block;
+    height: 100%;
 }
 .banner-item:before,
 .tgb:before,
@@ -1093,8 +1096,9 @@ section:after{
     font-size: 10px;
     color: black;
     background-color: white;
-    opacity: 0.75;
+    opacity: 1;
     cursor: pointer;
     font-family: Helvetica,Arial,sans-serif !important;
     line-height: 17px;
+    z-index: 100;
 }

@@ -75,6 +75,17 @@ return array(
             'allow_empty' => true, 
             'allow_null' => true
          )
+    ,'advert' => array(
+            'type' => TYPE_INTEGER,
+            'min' => 1,
+            'max' => 2,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'radio',
+            'values' => array(2=>'Нет',1=>'Да'),
+            'label' => 'Показывать баннер "Реклама"',
+            'tip' => 'Платное агентство'
+        )
         ,'title' => array(
             'type' => TYPE_STRING,
             'max' => 100,
@@ -240,7 +251,17 @@ return array(
             'label' => 'Заголовок',
             'tip' => 'Заголовок новости'
         )
-        ,'author' => array(
+    ,'advert' => array(
+            'type' => TYPE_INTEGER,
+            'min' => 1,
+            'max' => 2,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'radio',
+            'values' => array(2=>'Нет',1=>'Да'),
+            'label' => 'Показывать баннер "Реклама"',
+            'tip' => 'Платное агентство'
+        )        ,'author' => array(
             'type' => TYPE_STRING,
             'max' => 255,
             'allow_empty' => true, 
@@ -749,6 +770,17 @@ return array(
             'label' => 'Заголовок',
             'tip' => 'Заголовок новости'
         )
+    ,'advert' => array(
+            'type' => TYPE_INTEGER,
+            'min' => 1,
+            'max' => 2,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'radio',
+            'values' => array(2=>'Нет',1=>'Да'),
+            'label' => 'Показывать баннер "Реклама"',
+            'tip' => 'Платное агентство'
+        )
         ,'author' => array(
             'type' => TYPE_STRING,
             'max' => 255,
@@ -943,7 +975,17 @@ return array(
             'label' => 'Заголовок',
             'tip' => 'Заголовок новости'
         )
-        ,'id_category' => array(
+    ,'advert' => array(
+            'type' => TYPE_INTEGER,
+            'min' => 1,
+            'max' => 2,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'radio',
+            'values' => array(2=>'Нет',1=>'Да'),
+            'label' => 'Показывать баннер "Реклама"',
+            'tip' => 'Платное агентство'
+        )        ,'id_category' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => false,
             'allow_null' => false,
