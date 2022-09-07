@@ -176,11 +176,8 @@
     justify-content: center;
 }
 .flex-top {
-    -webkit-box-align: end;
-    ;-webkit-align-items: end;
-    ;-ms-flex-align: end;
-    ;align-items: end;
-    ;}
+    align-items: end;
+}
 
 .flex-justify {
     display: -webkit-flex;
