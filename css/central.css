@@ -1372,6 +1372,7 @@ background: none;
     top: 60px;
     left: 0;
     right: 0;
+    max-height: 100vh;
 }
 .fullscreen-gallery + .central-column{
     margin-top: calc( 100% - 60px );
