@@ -1409,7 +1409,7 @@ background: none;
     left: 50%;
     margin-left: -400px;
     height: 10px;
-    bottom: 20px;
+    bottom: 32px;
 }
 .fullscreen-gallery ul.thumbs-list li{
     display: inline-block;
@@ -2196,7 +2196,7 @@ article .doverie-years{
 }
 .estate-complex .contacts-wrap{
     position: absolute;
-    top: -185px;
+    top: -225px;
     margin: 0 10px;
     width: 1100px;
 }

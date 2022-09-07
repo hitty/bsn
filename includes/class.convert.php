@@ -370,7 +370,7 @@ class Convert {
     */
     public static function StripText($string){
                 
-        $string = preg_replace('/<([A-z][A-z0-9]*)[^>]*?(\/?)>/sui','<$1$2>', strip_tags($string,'<div><p><ul><ol><li><b><strong><i><h3><h4>') );
+        $string = preg_replace('/<([A-z][A-z0-9]*)[^>]*?(\/?)>/sui','<$1$2>', strip_tags($string,'<h2><div><p><ul><ol><li><b><strong><i><h3><h4>') );
         $string = str_replace('&nbsp;', ' ', $string);
         $string = str_replace( '&amp;', '&', $string );
         return $string;
