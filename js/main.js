@@ -340,8 +340,37 @@ jQuery(document).ready(function(){
         afterLoad: function(element) {
             element.removeClass( 'lazy' );
         }
-    })   
-})           
+    })
+
+
+    // advert manages
+    setTimeout(function(){
+        let advert_box_template = '<div class="advert-box">' +
+                '<span class="advert-box__close" data-icon="close"></span>' +
+                '<span class="advert-box__title">Рекламное объвление</span>' +
+                '<span class="advert-box__item">Номер:</span>' +
+                '<span class="advert-box__item"><a class="advert-box__link" href="" target="_blank">О рекламодателе</a></span>' +
+                '<span class="advert-box__item"><a class="advert-box__link" href="https://www.bsn.ru/about/" target="_blank">Реклама  ООО "Петросервис"</a></span>' +
+            '</div>'
+        jQuery('.advert,.banner-item').each(function(){
+            var _this = jQuery(this);
+            _this.prepend('<div class="advert-panel">Реклама</div>')
+            _this.prepend(advert_box_template)
+            jQuery('.advert-panel', _this).on('click', function(){
+                _this.addClass('advert-is-active');
+                return false;
+            })
+            jQuery('.advert-box__close', _this).on('click', function(){
+                _this.removeClass('advert-is-active');
+                return false;
+            })
+            jQuery('.advert-box', _this).on('click', function(e){
+                if( !jQuery(e.target).is('.advert-box__link') ) return false;
+
+            })
+        })
+    }, 300)
+})
 function validateEmail(email) { 
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);

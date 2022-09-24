@@ -1072,6 +1072,9 @@ section:after{
     font-size: 26px;
     text-align: center;
 }
+
+
+/* advert terms */
 .banner-item,
 .tgb,
 .photo,
@@ -1081,10 +1084,10 @@ section:after{
     display: block;
     height: 100%;
 }
-.banner-item:before,
+.banner-item .advert-panel,
 .tgb:before,
 .adaurum-commercial-block,
-.advert:after{
+.advert .advert-panel{
     content:"Реклама";
     position: absolute;
     right: 4px!important;
@@ -1101,4 +1104,50 @@ section:after{
     font-family: Helvetica,Arial,sans-serif !important;
     line-height: 17px;
     z-index: 100;
+}
+.adaurum-menu-toggle-block{
+    top: auto!important;
+    bottom: 0!important;
+    z-index: 1000!important;
+    background: transparent!important;
+    width: 70px!important;
+}
+.advert-box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    background: #ffffff;
+    padding: 16px;
+    z-index: 200;
+    transition: .3s all ease-in-out;
+}
+.advert-box a{
+    position: relative;
+    z-index: 201;
+}
+.advert-is-active .advert-box{
+    opacity: 1;
+    visibility: visible;
+}
+.advert-box__close{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #333333;
+}
+.advert-box__close:hover{
+    color: #1e88e5;
+}
+.advert-box__title{
+    display: block;
+    color: #333333;
+}
+.advert-box__item{
+    display: block;
+    margin: 8px 0 0 0;
+    color: #333333;
 }
