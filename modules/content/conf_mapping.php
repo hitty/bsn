@@ -270,7 +270,17 @@ return [
             'values' => [2=>'Нет',1=>'Да'],
             'label' => 'Показывать баннер "Реклама"',
             'tip' => 'Платное агентство'
-        ]        ,'author' => [
+        ]
+        ,'advert_url' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Ссылка на рекламодателя',
+            'tip' => 'обязательно наличие http'
+        ]
+        ,'author' => [
             'type' => TYPE_STRING,
             'max' => 255,
             'allow_empty' => true, 
@@ -790,6 +800,15 @@ return [
             'label' => 'Показывать баннер "Реклама"',
             'tip' => 'Платное агентство'
         ]
+        ,'advert_url' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Ссылка на рекламодателя',
+            'tip' => 'обязательно наличие http'
+        ]
         ,'author' => [
             'type' => TYPE_STRING,
             'max' => 255,
@@ -994,7 +1013,17 @@ return [
             'values' => [2=>'Нет',1=>'Да'],
             'label' => 'Показывать баннер "Реклама"',
             'tip' => 'Платное агентство'
-        ]        ,'id_category' => [
+        ]
+        ,'advert_url' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Ссылка на рекламодателя',
+            'tip' => 'обязательно наличие http'
+        ]
+        ,'id_category' => [
             'type' => TYPE_INTEGER,
             'allow_empty' => false,
             'allow_null' => false,

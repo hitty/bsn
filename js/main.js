@@ -345,15 +345,15 @@ jQuery(document).ready(function(){
 
     // advert manages
     setTimeout(function(){
-        let advert_box_template = '<div class="advert-box">' +
-                '<span class="advert-box__close" data-icon="close"></span>' +
-                '<span class="advert-box__title">Рекламное объвление</span>' +
-                '<span class="advert-box__item">Номер:</span>' +
-                '<span class="advert-box__item"><a class="advert-box__link" href="" target="_blank">О рекламодателе</a></span>' +
-                '<span class="advert-box__item"><a class="advert-box__link" href="https://www.bsn.ru/about/" target="_blank">Реклама  ООО "Петросервис"</a></span>' +
-            '</div>'
         jQuery('.advert,.banner-item').each(function(){
             var _this = jQuery(this);
+            let advert_box_template = '<div class="advert-box">' +
+                '<span class="advert-box__close" data-icon="close"></span>' +
+                '<span class="advert-box__title">Рекламное объвление</span>' +
+                '<!--span class="advert-box__item">Номер:</span-->' +
+                '<span class="advert-box__item"><a class="advert-box__link" href="' + ( _this.data('advert-url') ? _this.data('advert-url') : _this.data('link') ) + '" target="_blank">О рекламодателе</a></span>' +
+                '<span class="advert-box__item"><a class="advert-box__link" href="https://www.bsn.ru/about/" target="_blank">Реклама  ООО "Петросервис"</a></span>' +
+                '</div>'
             _this.prepend('<div class="advert-panel">Реклама</div>')
             _this.prepend(advert_box_template)
             jQuery('.advert-panel', _this).on('click', function(){
@@ -365,6 +365,10 @@ jQuery(document).ready(function(){
                 return false;
             })
             jQuery('.advert-box', _this).on('click', function(e){
+                if(jQuery(e.target).attr('href')) {
+                    window.open(jQuery(e.target).attr('href'));
+                    return false;
+                }
                 if( !jQuery(e.target).is('.advert-box__link') ) return false;
 
             })

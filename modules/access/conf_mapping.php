@@ -521,7 +521,16 @@ return array(
             'values' => array(2=>'Нет',1=>'Да'),
             'label' => 'Показывать баннер "Реклама"',
             'tip' => 'Платное агентство'
-        )
+        ),
+        'advert_url' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Ссылка на рекламодателя',
+            'tip' => 'обязательно наличие http'
+        ]
         ,'id_manager' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => false,
