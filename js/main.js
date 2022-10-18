@@ -347,6 +347,7 @@ jQuery(document).ready(function(){
     setTimeout(function(){
         jQuery('.advert,.banner-item').each(function(){
             var _this = jQuery(this);
+            console.log( _this )
             let advert_box_template = '<div class="advert-box">' +
                 '<span class="advert-box__close" data-icon="close"></span>' +
                 '<span class="advert-box__title">Рекламное объвление</span>' +
