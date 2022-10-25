@@ -411,8 +411,8 @@ function downloadFile($fullname, $link, $curl = true){
         curl_setopt($curl,CURLOPT_REFERER, $ref); 
         curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,30); 
         curl_setopt($curl,CURLOPT_USERAGENT,"Mozilla/5.0 (Windows; U; Windows NT 6.0; ru; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3");
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($curl, CURLOPT_VERBOSE, true);
         $verbose = fopen('php://temp', 'w+');
         curl_setopt($curl, CURLOPT_STDERR, $verbose);
