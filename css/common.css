@@ -1182,3 +1182,7 @@ section:after{
     background: transparent!important;
     height: auto!important;
 }
+#top-banner .advert-panel{
+    top: 4px!important;
+    bottom: auto!important;
+}
