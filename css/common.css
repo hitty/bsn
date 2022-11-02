@@ -1185,4 +1185,5 @@ section:after{
 #top-banner .advert-panel{
     top: 4px!important;
     bottom: auto!important;
+    display: none;
 }
