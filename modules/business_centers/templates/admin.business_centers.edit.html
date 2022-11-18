@@ -1,9 +1,11 @@
-<h1 class="pageTitle">Бизнес-центр</h1>
+<h1 className="pageTitle">Бизнес-центр</h1>
 {ifempty $data_mapping['id']['value']}
-<form class="form_default" method="post" action="/admin/estate/business_centers/add/" enctype="multipart/form-data">
+<form className="form_default" method="post" action="/admin/estate/business_centers/add/" encType="multipart/form-data">
     <h3>Новое событие</h3>
     {else}
-    <form class="form_default" method="post" action="/admin/estate/business_centers/edit/{$data_mapping['id']['value']}/" enctype="multipart/form-data" id="business_centers_form">
+    <form className="form_default" method="post"
+          action="/admin/estate/business_centers/edit/{$data_mapping['id']['value']}/" encType="multipart/form-data"
+          id="business_centers_form">
         <h3>Событие #{$data_mapping['id']['value']} &quot;{$data_mapping['title']['value']}&quot;</h3>
         {/if}
         {if!empty $form_submit}
@@ -32,7 +34,9 @@
             <p title="УК">
                 <label>УК</label>
                 <span class="lf fieldwrapper" id="autocomplete_inputbox">
-                <input type="text" class="autocomplete_input" class="autocomplete" value='{htmlquoted:$agency_title}' data-url="/admin/estate/business_centers/agencies/list/" size="40" autocomplete="off" data-input="id_user">
+                <input type="text" class="autocomplete_input" class="autocomplete" value='{htmlquoted:$agency_title}'
+                       data-url="/admin/estate/business_centers/agencies/list/" size="40" autocomplete="off"
+                       data-input="id_user">
             </span>
             </p>
         </fieldset>
@@ -42,29 +46,36 @@
         </fieldset>
         {if!empty $data_mapping['id']['value']}
         <fieldset>
-            <h3>Загрузка фотографий для БЦ #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width')*0.8;} x {php:echo Config::Get('images/min_height')*0.8;} px)</h3>
-            <input type="file" name="file_upload" id="file_upload" data-type="business_centers" data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/business_centers/photos/" data-session-id="{php:echo session_id();}"/>
+            <h3>Загрузка фотографий для поселка #{$data_mapping['id']['value']} (Минимальные размеры {php:echo
+                Config::Get('images/min_width')*0.8;} x {php:echo Config::Get('images/min_height')*0.8;} px)</h3>
+            <input type="file" name="file_upload" id="file_upload" data-type="business_centers"
+                   data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/business_centers/photos/"
+                   data-session-id="{php:echo session_id();}"/>
             <input type="hidden" name="id_priority"/>
         </fieldset>
         {/if}
         <p>
-        </p>
+            {if!empty $data_mapping['id']['value']}
+            <input type="submit" value="Сохранить" name="submit">
+            <input type="submit" value="Сохранить и перейти в список поселков" name="submit" id="redirect_submit">
+            {else} <input type="submit" value="Сохранить и добавить фото" name="submit">{/if}
         </p>
 
     </form>
     <script type="text/javascript">
-        jQuery(document).ready(function(){
-            jQuery('#advanced').on("change",function(){
+        jQuery(document).ready(function () {
+            jQuery('#advanced').on("change", function () {
                 manageAdvancedDates();
             })
             manageAdvancedDates();
-            function manageAdvancedDates(){
+
+            function manageAdvancedDates() {
                 var _el = jQuery('#advanced');
                 var _val = _el.val();
                 var _date_start = jQuery('#p_field_date_start');
                 var _date_end = jQuery('#p_field_date_end');
 
-                if(_val==2) {
+                if (_val == 2) {
                     _date_start.hide();
                     _date_end.hide();
                 } else {
@@ -78,10 +89,10 @@
                 geo_id_element: "#geolocation_id",
                 district_id_element: "#id_district",
                 subway_id_element: "#id_subway",
-                link_element : '#main-container',
+                link_element: '#main-container',
                 ajax_url: window.location.href,
                 multiselect: false,
-                onExit : function(item){
+                onExit: function (item) {
                     $('#text_geolocation').html(item.title);
                     $('#text_district_title').html(item.district_title.join(','));
                     $('#text_subway_title').html(item.subway_title.join(','));
