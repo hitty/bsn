@@ -544,10 +544,10 @@ switch(true){
         if( empty( $ajax_mode ) && $this_page->first_instance && !Host::$is_bot && !empty( $ref ) ) {
            $db->querys("UPDATE ".$sys_tables[$content_type]." SET `views_count`=`views_count`+1 WHERE `id`=?", $content_id);
            if( !empty( $article_id ) ) $db->querys("UPDATE ".$sys_tables['articles']." SET `views_count`=`views_count`+1 WHERE `id`=?", $article_id);
-
+            $type = $db->fetch( " SELECT id FROM " . $sys_tables['content_types'] . " WHERE content_type = ? ", $content_type);
            $info = array(
                  'id_parent' => $item['id']
-                ,'type' => $db->fetch( " SELECT id FROM " . $sys_tables['content_types'] . " WHERE content_type = ? ", $content_type)['id']
+                ,'type' => $type['id'] ?? ''
                 ,'ref' => $ref
                 ,'ip' => Host::getUserIp() 
                 ,'browser' => $_SERVER['HTTP_USER_AGENT']

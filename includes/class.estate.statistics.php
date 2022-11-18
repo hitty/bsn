@@ -278,7 +278,7 @@ class EstateStat {
                               FROM ".Config::$sys_tables['tarifs_agencies']."
                               LEFT JOIN ".Config::$sys_tables['agencies']." ON ".Config::$sys_tables['agencies'].".id_tarif = ".Config::$sys_tables['tarifs_agencies'].".id
                               WHERE ".Config::$sys_tables['agencies'].".id = ? AND   ".Config::$sys_tables['agencies'].".id_tarif!=?",$agency_id,6);
-        return $result['cnt'];
+        return $result['cnt'] ?? 0;
     } 
     /**
     * Количество подключенных услуг

@@ -431,7 +431,8 @@ switch(true){
             
             //
             Response::SetBoolean( 'common_user',$common_user);
-            $status = trim( Request::GetString( 'status',METHOD_GET), '/' ) ;
+            $status = Request::GetString( 'status',METHOD_GET);
+            $status = trim( $status ?? '', '/' ) ;
             $status = (empty( $status)?"all":$status);
             $where = $tabs_where = $where_status = [];
             $clauses = [];

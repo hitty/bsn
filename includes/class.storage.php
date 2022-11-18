@@ -186,7 +186,7 @@ class Cookie {
         if( headers_sent( $file, $line ) ) return false;
         if(empty($expires)) $expires = 0;
         else $expires = time() + $expires; 
-        return setcookie( $name, $value, $expires, $path, $domain, $secure, $httponly );
+        return setcookie( $name, $value, $expires, $path, $domain ?? '', $secure, $httponly );
     }
 
     // --- Getters --- //
