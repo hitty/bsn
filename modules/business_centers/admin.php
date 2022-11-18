@@ -10,7 +10,6 @@ $mapping = include(dirname(__FILE__).'/conf_mapping.php');
 $this_page->manageMetadata(array('title'=>'Бизнес-центры'));
 
 $business_centers_photo_folder = Config::$values['img_folders']['business_centers'];
-$GLOBALS['js_set'][] = '/modules/estate/form_estate.js';
 
 // собираем GET-параметры
 $get_parameters = [];
