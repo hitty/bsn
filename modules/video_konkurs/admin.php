@@ -33,7 +33,7 @@ switch($action){
     case 'del':
             $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
             if(!empty($id))  {
-                $res = $db->query("DELETE FROM ".$sys_tables['video_konkurs']." WHERE id = ?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['video_konkurs']." WHERE id = ?", $id);
                 $ajax_result = array('ok' => $res, 'ids'=>array($id));
                 $url = "http://ficus-n2.cloud4video.ru:8089/rest-api/file?login=pm%40bsn.ru&password=4d651eb627&gen_int_id=true";
                 $body = '<?xml version="1.0" encoding="utf-8"?>

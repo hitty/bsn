@@ -37,8 +37,8 @@ require_once('includes/functions.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -163,10 +163,10 @@ foreach($list as $k => $item){
             $sendpulse = new Sendpulse( );
             $result = $sendpulse->sendMail( $subject, $html, false, false, $sender_title, 'no-reply@bsn.ru', $emails );
         }
-        $db->query("UPDATE ".$sys_tables['tgb_banners']." SET published = 2 , enabled = 2, date_end = '0000-00-00' , date_start = '0000-00-00' , clicks_limit = 0 , clicks_limit_notification = 1 WHERE id = ? ", $item['id'] );    
+        $db->querys("UPDATE ".$sys_tables['tgb_banners']." SET published = 2 , enabled = 2, date_end = '0000-00-00' , date_start = '0000-00-00' , clicks_limit = 0 , clicks_limit_notification = 1 WHERE id = ? ", $item['id'] );
     } else if($item['clicks_limit_notification'] == 1 && ( $item['clicks_limit'] - 10 <= $total_clicks)){ // предупреждение об окончании кликов
 
-        $db->query("UPDATE ".$sys_tables['tgb_banners']." SET clicks_limit_notification = 2 WHERE id = ? ", $item['id'] );    
+        $db->querys("UPDATE ".$sys_tables['tgb_banners']." SET clicks_limit_notification = 2 WHERE id = ? ", $item['id'] );
         $clicks_left = $item['clicks_limit'] - ($total_clicks);
         Response::SetInteger( 'clicks_left' , $clicks_left );
         if(!empty($item['email']))        {

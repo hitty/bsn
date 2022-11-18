@@ -59,11 +59,11 @@ abstract class Tgb {
         switch($action){
             case "click": 
                 $table = self::$tables['tgb_stats_day_clicks'];
-                if(!Host::isBsn("tgb_stats_day_clicks",$id)) $res = $db->query("INSERT INTO ".$table." SET `id_parent`=?, `in_estate` = ?, `from` = ?, `position` = ?, ref=?, real_ref=?, ip=?", $id, $estate_type_code, $from, $position, $ref, Host::getRefererURL(), $ip);
+                if(!Host::isBsn("tgb_stats_day_clicks",$id)) $res = $db->querys("INSERT INTO ".$table." SET `id_parent`=?, `in_estate` = ?, `from` = ?, `position` = ?, ref=?, real_ref=?, ip=?", $id, $estate_type_code, $from, $position, $ref, Host::getRefererURL(), $ip);
                 break;
             case "show": 
                 $table = self::$tables['tgb_stats_day_shows'];
-                if(!Host::isBsn("tgb_stats_day_shows",$id)) $res = $db->query("INSERT INTO ".$table." SET `id_parent`=?, in_estate = ?, ip = ?, browser = ?, ref = ?", $id, $estate_type_code, $ip, $_SERVER['HTTP_USER_AGENT'],Host::getRefererURL());
+                if(!Host::isBsn("tgb_stats_day_shows",$id)) $res = $db->querys("INSERT INTO ".$table." SET `id_parent`=?, in_estate = ?, ip = ?, browser = ?, ref = ?", $id, $estate_type_code, $ip, $_SERVER['HTTP_USER_AGENT'],Host::getRefererURL());
                 break;
             default:
                 return false;
@@ -72,7 +72,7 @@ abstract class Tgb {
         if($from == 2 || $from == 3) tgb::setCreditTime();
         //сохранение статистики показов для метки
         $session_marker = Session::GetString('marker');
-        if(!empty($session_marker) && !Host::isBsn("markers_stats_day_clicks",$session_marker) ) $db->query("INSERT INTO ".self::$tables['markers_stats_day_clicks']." SET id_parent=?",$session_marker);
+        if(!empty($session_marker) && !Host::isBsn("markers_stats_day_clicks",$session_marker) ) $db->querys("INSERT INTO ".self::$tables['markers_stats_day_clicks']." SET id_parent=?",$session_marker);
          
         return $res;
     }
@@ -590,7 +590,7 @@ abstract class Tgb {
             $total_clicks = $item['cnt_clicks'] + 1;
             if($total_clicks < $item['day_limit']) {
                 $new_credit_time_rand = (int) ( ( $time_to_end_difference / ($item['day_limit'] - $total_clicks ) + $time_to_end_difference / ($item['day_limit'] - $total_clicks ) * mt_rand(-0.2, 0.8) ) * 60 );
-                $db->query("UPDATE ".self::$tables['tgb_banners']." SET credit_time = NOW() + INTERVAL ".$new_credit_time_rand." SECOND WHERE id = ?", $item['id']);
+                $db->querys("UPDATE ".self::$tables['tgb_banners']." SET credit_time = NOW() + INTERVAL ".$new_credit_time_rand." SECOND WHERE id = ?", $item['id']);
             }
             return $item;    
         }        

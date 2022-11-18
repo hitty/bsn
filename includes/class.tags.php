@@ -58,7 +58,7 @@ class Tags {
         }
         $res = $db->fetch("SELECT id FROM ".self::$tables['tags']." WHERE id_category=? AND title=?", $type, $title);
         if(!empty($res)) return intval($res['id']);
-        $res = $db->query("INSERT INTO ".self::$tables['tags']." (title, id_category) VALUES (?, ?)", $title, $type);
+        $res = $db->querys("INSERT INTO ".self::$tables['tags']." (title, id_category) VALUES (?, ?)", $title, $type);
         if(empty($res)) return false;
         return $db->insert_id;
     }
@@ -71,9 +71,9 @@ class Tags {
     */
     public static function linkTag($id_tag, $id_object, $link_table){
         global $db;
-        $res = $db->query("INSERT INTO ".$link_table." (id_tag, id_object) VALUES (?,?)", $id_tag, $id_object);
+        $res = $db->querys("INSERT INTO ".$link_table." (id_tag, id_object) VALUES (?,?)", $id_tag, $id_object);
         if(empty($res)) return false;
-        $res = $db->query("UPDATE ".self::$tables['tags']." SET tag_count=tag_count+1 WHERE id=?", $id_tag);
+        $res = $db->querys("UPDATE ".self::$tables['tags']." SET tag_count=tag_count+1 WHERE id=?", $id_tag);
         return !empty($res) && $db->affected_rows>0;
     }
 
@@ -85,9 +85,9 @@ class Tags {
     */
     public static function unlinkTag($id_tag, $id_object, $link_table){
         global $db;
-        $res = $db->query("DELETE FROM ".$link_table." WHERE id_tag=? AND id_object=?", $id_tag, $id_object);
+        $res = $db->querys("DELETE FROM ".$link_table." WHERE id_tag=? AND id_object=?", $id_tag, $id_object);
         if(empty($res) || $db->affected_rows<1) return false;
-        $res = $db->query("UPDATE ".self::$tables['tags']." SET tag_count=tag_count-1 WHERE id=?", $id_tag);
+        $res = $db->querys("UPDATE ".self::$tables['tags']." SET tag_count=tag_count-1 WHERE id=?", $id_tag);
         return !empty($res) && $db->affected_rows>0;
     }
 }

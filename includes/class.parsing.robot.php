@@ -951,7 +951,7 @@ class Parsing extends ParsingFunctions{
         global $sys_tables;
         if(empty($sys_tables)) $sys_tables = Config::$values['sys_tables'];
         
-        $db->query("INSERT INTO ".$sys_tables['parsing_stats']." (id_source,datetime_start,from_page) VALUES (?,NOW(),?)",$this->id,$this->from_page);
+        $db->querys("INSERT INTO ".$sys_tables['parsing_stats']." (id_source,datetime_start,from_page) VALUES (?,NOW(),?)",$this->id,$this->from_page);
         $this->line_id = $db->insert_id;
         
         //письмо с отчетом
@@ -980,7 +980,7 @@ class Parsing extends ParsingFunctions{
         global $sys_tables;
         if(empty($sys_tables)) $sys_tables = Config::$values['sys_tables'];
         
-        $db->query("UPDATE ".$sys_tables['parsing_stats']." 
+        $db->querys("UPDATE ".$sys_tables['parsing_stats']." 
                     SET objects_parsed = ?, objects_added = ?, to_page = ?
                     WHERE id = ? ",$lines_parsed, $lines_added, $current_page, $this->line_id);
                     
@@ -999,7 +999,7 @@ class Parsing extends ParsingFunctions{
         global $sys_tables;
         if(empty($sys_tables)) $sys_tables = Config::$values['sys_tables'];
         
-        $db->query("UPDATE ".$sys_tables['parsing_stats']." 
+        $db->querys("UPDATE ".$sys_tables['parsing_stats']." 
                     SET datetime_end = NOW() 
                     WHERE id = ? ",$this->line_id);
         
@@ -1036,7 +1036,7 @@ class Parsing extends ParsingFunctions{
         global $sys_tables;
         if(empty($sys_tables)) $sys_tables = Config::$values['sys_tables'];
         
-        return $db->query("UPDATE ".$sys_tables['live']." SET published = 2 WHERE info_source = 1".$this->id." AND id_user = ? AND published = 1",$this->id_user);
+        return $db->querys("UPDATE ".$sys_tables['live']." SET published = 2 WHERE info_source = 1".$this->id." AND id_user = ? AND published = 1",$this->id_user);
     }
     
     /**
@@ -1253,7 +1253,7 @@ class Parsing extends ParsingFunctions{
                 if(!empty($photos_list)){
                     foreach($photos_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
                     $photos_to_delete_ids = implode(',', array_keys($photos_list));
-                    if(!empty($photos_to_delete_ids)) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
+                    if(!empty($photos_to_delete_ids)) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
                 }
                 $inserted_id = $check_object['id'];
                 $line['photos'] = $photos['to_add'];
@@ -1290,20 +1290,20 @@ class Parsing extends ParsingFunctions{
             //если нет фоток, убираем (кроме vitodom.ru)
             if(!$has_photos && $this->id != 6){
                 $this->loading_log['images_errors'][] = $inserted_id;
-                $db->query("UPDATE ".$sys_tables['live']." SET published = 3 WHERE id = ?",$inserted_id);
+                $db->querys("UPDATE ".$sys_tables['live']." SET published = 3 WHERE id = ?",$inserted_id);
                 continue;
-            } elseif(!$has_photos) $db->query("UPDATE ".$sys_tables['live']." SET id_main_photo = 0 WHERE id = ?",$inserted_id);
+            } elseif(!$has_photos) $db->querys("UPDATE ".$sys_tables['live']." SET id_main_photo = 0 WHERE id = ?",$inserted_id);
             
             //считаем вес
             $item_weight = new Estate(TYPE_ESTATE_LIVE);
             $item_weight = $item_weight->getItemWeight($inserted_id,"live");
-            $res_weight = $db->query("UPDATE ".$sys_tables["live"]." SET weight=? WHERE id=?", $item_weight, $inserted_id);
+            $res_weight = $db->querys("UPDATE ".$sys_tables["live"]." SET weight=? WHERE id=?", $item_weight, $inserted_id);
         }
         
         $this->moveImages();
         
         //чистим таблицу
-        $db->query("DELETE FROM ".$sys_tables['parsed_stubs']." WHERE id_source = ?",$this->id);
+        $db->querys("DELETE FROM ".$sys_tables['parsed_stubs']." WHERE id_source = ?",$this->id);
         if(!empty($db->error)) echo "ERROR CLEARING: ".$db->last_query;
         
         return count($stubs);

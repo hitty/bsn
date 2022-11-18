@@ -286,7 +286,7 @@ class Member {
         if(empty($pay_params)) return false;
         //если публикация - просто публикуем
         if(!empty($pay_params) && !empty($pay_params['can_add']) ){
-            $result['object_status_set'] = $db->query("UPDATE ".$sys_tables[$estate_type]."
+            $result['object_status_set'] = $db->querys("UPDATE ".$sys_tables[$estate_type]."
                         SET published = 1, 
                             date_change = NOW()
                         WHERE id = ?", $id_object);
@@ -307,7 +307,7 @@ class Member {
                 if(!empty($pay_params['cost']) && $auth->balance >= $pay_params['cost'] || empty($pay_params['cost'])){
                     //все кроме поднятия - меняем поля status и status_date_end. И публикуем, если не опубликовано
                     if($status != 1)
-                        $result['object_status_set'] = $db->query("UPDATE ".$sys_tables[$estate_type]."
+                        $result['object_status_set'] = $db->querys("UPDATE ".$sys_tables[$estate_type]."
                                                                    SET status = ?, 
                                                                        status_date_end = ?, 
                                                                        published = 1, 
@@ -316,7 +316,7 @@ class Member {
                                                                    WHERE id = ?", $status, $status_date_end, (empty($pay_params['cost']) ? 2 : 1), $id_object);
                     //поднятие - меняем поля raising_status, raising_datetime, raising_days_left
                     elseif($status == 1)
-                        $result['object_status_set'] = $db->query("UPDATE ".$sys_tables[$estate_type]."
+                        $result['object_status_set'] = $db->querys("UPDATE ".$sys_tables[$estate_type]."
                                                                     SET raising_datetime = NOW() + INTERVAL 1 DAY, 
                                                                         raising_status = 1,
                                                                         raising_days_left = ?, 
@@ -329,7 +329,7 @@ class Member {
                 if((!empty($auth->id_tarif)) || (!empty($auth->agency_id_tarif))){
                     //если объект бесплтаный(это только промо-премиум-вип) - списываем с аккаунта выделение
                     if(empty($pay_params['cost']) && in_array($status,array(3,4,6)) && $auth->id_tarif > 0)
-                        $result['status_left_updated'] = $db->query("UPDATE ".$sys_tables['users']." 
+                        $result['status_left_updated'] = $db->querys("UPDATE ".$sys_tables['users']." 
                                                                      SET ".$this->object_cost_statuses[$status]['alias']."_left = ".$this->object_cost_statuses[$status]['alias']."_left - 1 
                                                                      WHERE id = ?", $auth->id);
                     //снимаем деньги с баланса
@@ -338,17 +338,17 @@ class Member {
                         if($auth->balance < $pay_params['cost']){
                             
                         }
-                        $result['payment'] = $db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$pay_params['cost'], $auth->id);
+                        $result['payment'] = $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$pay_params['cost'], $auth->id);
                         //отмечаем что объект оплачен с баланса
-                        $db->query("UPDATE ".$sys_tables[$estate_type]." SET payed_status = 1 WHERE id = ?",$id_object);
+                        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET payed_status = 1 WHERE id = ?",$id_object);
                     }
                 }
                 //частное лицо - просто снимаем деньги с баланса
-                else $result['payment'] = $db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$pay_params['cost'], $auth->id);
+                else $result['payment'] = $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$pay_params['cost'], $auth->id);
                 
                 //запись в финансах
                 if(!empty($result['payment']))
-                    $db->query("INSERT INTO ".$sys_tables['users_finances']." 
+                    $db->querys("INSERT INTO ".$sys_tables['users_finances']." 
                                 SET expenditure = ?, id_user = ?, obj_type = ?, id_parent=?, estate_type = ?", 
                                 $pay_params['cost'], $auth->id, $this->object_cost_statuses[$status]['alias'], $id_object, $estate_type);
             }

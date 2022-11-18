@@ -31,7 +31,7 @@ Request::Init();
 Cookie::Init(); 
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 require_once('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -54,7 +54,7 @@ foreach($files as $file=>$key){
     if($link_response != 200){
         $error_text = 'Файл недоступен.';
         echo $error_text;
-        $db->query("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'".$error_text."'), log = '', status = 2 WHERE id = ?", $process_id);
+        $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'".$error_text."'), log = '', status = 2 WHERE id = ?", $process_id);
         $success = false;
         //сразу отправляем письма отв. менеджеру и на web@bsn.ru
         $admin_mailer = new EMailer('mail');
@@ -133,10 +133,10 @@ while($filename = readdir($dh))
                 //текст письма
                 $mail_text .= "Обработка объектов агентства ".$agency['title']."<br /><br />";
                 // постановка в архив всех объектов этой компании (кроме объектов от недвижимости города)
-                $db->query("UPDATE ".$sys_tables['live']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
-                $db->query("UPDATE ".$sys_tables['build']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
-                $db->query("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
-                $db->query("UPDATE ".$sys_tables['country']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
+                $db->querys("UPDATE ".$sys_tables['live']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
+                $db->querys("UPDATE ".$sys_tables['build']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
+                $db->querys("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
+                $db->querys("UPDATE ".$sys_tables['country']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1 AND status=".$status);
                 
                 //читаем в строку нужный файл
                 $contents = file_get_contents($dir.$filename);
@@ -210,7 +210,7 @@ while($filename = readdir($dh))
                                                          ".(!empty($photos['in'])?" AND `external_img_src` NOT IN (".$photos_in.")":""));
                             if(!empty($photo_list)){
                                 foreach($photo_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
-                                if(!empty($photos_in)) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_in.")");
+                                if(!empty($photos_in)) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_in.")");
                             }
                             $inserted_id = $check_object['id'];
 
@@ -248,7 +248,7 @@ while($filename = readdir($dh))
                                 
                                 if(!empty($photo_list)){
                                     foreach($photo_list as $k => $val) Photos::Delete($robot->estate_type,$val['id'],"_new");
-                                    if(!empty($photos_in)) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_in.")");
+                                    if(!empty($photos_in)) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_in.")");
                                 }
                                     
                                 $inserted_id = $check_object_new['id'];
@@ -275,7 +275,7 @@ while($filename = readdir($dh))
                             case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                         }
                         $item_weight = $item_weight->getItemWeight($inserted_id,$robot->estate_type);
-                        $res_weight = $db->query("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
+                        $res_weight = $db->querys("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
                         ///
                         
                             // если есть картинки - присоединяем
@@ -295,7 +295,7 @@ while($filename = readdir($dh))
                         //обновление главной фотографии объекта если она не прикреплена
                         if($inserted_id>0 && !empty($photos['in']) && !empty($check_object['id']) && $check_object['id_main_photo']==0){
                             $photo_id = $db->fetch("SELECT id FROM ".$sys_tables[($robot->estate_type)."_photos"]." WHERE id_parent = ?",$inserted_id);
-                            if(!empty($photo_id)) $db->query("UPDATE ".$sys_tables[($robot->estate_type)]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
+                            if(!empty($photo_id)) $db->querys("UPDATE ".$sys_tables[($robot->estate_type)]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
                         }
                         
                         //модерация новых объектов

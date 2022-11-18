@@ -23,7 +23,7 @@ include('includes/class.storage.php');      // Session, Cookie, Responce, Reques
 include('includes/functions.php');          // функции  из модуля
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables; 
 include('includes/excel_reader2.php');  // конвертация excel в array
@@ -45,7 +45,7 @@ foreach($rows as $key=>$value){
     echo $pretty_url = trim($pretty_url,'/');
     echo "\n";
     $seo_text = $db->fetch("SELECT seo_text FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ?",$pretty_url);
-    $db->query("INSERT INTO ".$sys_tables['pages_seo']." SET pretty_url=?,title=?,h1_title=?,description=?,keywords=?,seo_text=?
+    $db->querys("INSERT INTO ".$sys_tables['pages_seo']." SET pretty_url=?,title=?,h1_title=?,description=?,keywords=?,seo_text=?
                ON DUPLICATE KEY UPDATE                                 title=?,h1_title=?,description=?,keywords=?,seo_text=?",
                $pretty_url, $value[3], $value[4], $value[5], $value[6], !empty($seo_text['seo_text'])?$seo_text['seo_text']:$value[7],
                             $value[3], $value[4], $value[5], $value[6], !empty($seo_text['seo_text'])?$seo_text['seo_text']:$value[7]

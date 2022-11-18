@@ -57,7 +57,7 @@ abstract class Banners {
                 break;
             case "show": 
                 $res = $db->insertFromArray( self::$tables['banners_stats_show_day'], $info) ;
-                $db->query("UPDATE " . self::$tables['banners'] . " SET days_views = days_views + 1 WHERE id = ?", $id );
+                $db->querys("UPDATE " . self::$tables['banners'] . " SET days_views = days_views + 1 WHERE id = ?", $id );
                 break;
             default:
                 return false;

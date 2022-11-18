@@ -28,7 +28,7 @@ require_once('includes/class.host.php');         // Host (вспомогател
 Host::Init();
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 include('cron/class.xml.generate.php');
 //логирование выгрузок xml-я
 $log = array();

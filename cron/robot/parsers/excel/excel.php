@@ -33,7 +33,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -143,7 +143,7 @@ foreach($files as $iteration => $file_format){
                                     $rent = 1;
                                     break;   
                             }
-                            $db->query("UPDATE estate.".$estate_type." SET `published` = 2, `date_change` = NOW() WHERE id_user = ? AND info_source!=4 AND published=1 AND elite!=1 ".(!empty($id_type_object)?" AND id_type_object = ".$id_type_object:""),$id_user);
+                            $db->querys("UPDATE estate.".$estate_type." SET `published` = 2, `date_change` = NOW() WHERE id_user = ? AND info_source!=4 AND published=1 AND elite!=1 ".(!empty($id_type_object)?" AND id_type_object = ".$id_type_object:""),$id_user);
                             
                             $rows = $fields_types = $data = array();
 
@@ -253,7 +253,7 @@ foreach($files as $iteration => $file_format){
                                         $photo_list = $db->fetchall("SELECT `id` FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id_parent` = ".$check_object['id']);
                                         if(!empty($photo_list)){
                                             foreach($photo_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
-                                            if(!empty($photo_list['in'])) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
+                                            if(!empty($photo_list['in'])) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
                                         }
                                         unset($photo_list);
                                         
@@ -313,7 +313,7 @@ foreach($files as $iteration => $file_format){
                                         case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                                     }
                                     $item_weight = $item_weight->getItemWeight($inserted_id,$robot->estate_type);
-                                    $res_weight = $db->query("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
+                                    $res_weight = $db->querys("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
                                     ///
                                     
                                     // если есть картинки - присоединяем
@@ -400,7 +400,7 @@ foreach($files as $iteration => $file_format){
                                                                              ".(!empty($photos['in'])?"AND `external_img_src` NOT IN (".implode(',', $photos['in']).")":""));
                                                     if(!empty($photo_list)){
                                                         foreach($photo_list as $k => $val) Photos::Delete($file_type_estate,$val['id']);
-                                                        if(!empty($photo_list['in'])) $db->query("DELETE FROM ".$sys_tables[$file_type_estate.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
+                                                        if(!empty($photo_list['in'])) $db->querys("DELETE FROM ".$sys_tables[$file_type_estate.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
                                                     }
                                                 }
 
@@ -455,15 +455,15 @@ foreach($files as $iteration => $file_format){
                     foreach($counts as $key=>$count){
                         if($total_published > $agency['total_objects']){
                             if($key == 'build'){
-                                $db->query("UPDATE ".$sys_tables[$key]." SET published = 2 WHERE id_user = ? AND published = 1 LIMIT ".($total_published - $agency['total_objects']),$agency['id_user']);
+                                $db->querys("UPDATE ".$sys_tables[$key]." SET published = 2 WHERE id_user = ? AND published = 1 LIMIT ".($total_published - $agency['total_objects']),$agency['id_user']);
                                 $counter[$key.'_over_limit'] = $db->affected_rows;
                                 $total_published -= $counter[$key.'_over_limit'];
                             }
                             else{
-                                $db->query("UPDATE ".$sys_tables[$key]." SET published = 2 WHERE id_user = ? and rent = 1 AND published = 1 LIMIT ".($total_published - $agency['total_objects']),$agency['id_user']);
+                                $db->querys("UPDATE ".$sys_tables[$key]." SET published = 2 WHERE id_user = ? and rent = 1 AND published = 1 LIMIT ".($total_published - $agency['total_objects']),$agency['id_user']);
                                 $counter[$key.'_rent_over_limit'] = $db->affected_rows;
                                 $total_published -= $counter[$key.'_rent_over_limit'];
-                                $db->query("UPDATE ".$sys_tables[$key]." SET published = 2 WHERE id_user = ? and rent = 2 AND published = 1 LIMIT ".($total_published - $agency['total_objects']),$agency['id_user']);
+                                $db->querys("UPDATE ".$sys_tables[$key]." SET published = 2 WHERE id_user = ? and rent = 2 AND published = 1 LIMIT ".($total_published - $agency['total_objects']),$agency['id_user']);
                                 $counter[$key.'_sell_over_limit'] = $db->affected_rows;
                                 $total_published -= $counter[$key.'_sell_over_limit'];
                             }
@@ -509,7 +509,7 @@ foreach($files as $iteration => $file_format){
 $nophoto = array('build' => 0, 'live' => 0, 'commercial' => 0, 'country' => 0);
 $estate_types = array_keys($nophoto);
 foreach($estate_types as $key => $estate_type){
-    $db->query("UPDATE ".$sys_tables[$estate_type]." 
+    $db->querys("UPDATE ".$sys_tables[$estate_type]." 
                 SET published = 3 
                 WHERE id_user = ? AND published = 1 AND id_main_photo = 0", $id_user);
     $nophoto[$estate_type] = $db->affected_rows;

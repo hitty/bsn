@@ -145,7 +145,7 @@ switch(true){
             }
             
             if($id>0){
-                if(!Host::$is_bot) $res = $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET `id_parent`= ? , `type` = ?", $id, $type);
+                if(!Host::$is_bot) $res = $db->querys("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET `id_parent`= ? , `type` = ?", $id, $type);
                 $ajax_result['ok'] = $res;
             }
         } else $this_page->http_code=404;

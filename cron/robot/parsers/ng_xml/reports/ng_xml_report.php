@@ -30,7 +30,7 @@ $sql = "
     LEFT JOIN `bsn_ng`.`agencies_list` ng ON ng.bsn_id = us .id_agency
     GROUP BY `id_user`
     ";
-$result = $db->query($sql) or trigger_error("MySQL error: ".$db->error, E_USER_WARNING);
+$result = $db->querys($sql) or trigger_error("MySQL error: ".$db->error, E_USER_WARNING);
 while ($row = $result->fetch_array(MYSQL_ASSOC))
 {
 
@@ -58,7 +58,7 @@ while ($row = $result->fetch_array(MYSQL_ASSOC))
                   (SELECT `id_user`,`id`,'build' as tab,`published`, `rent`, `external_id`, `info_source`, `id_street`, `txt_addr`, `cost`, '' as `by_the_day`, '' as `cost2meter`, `views_count` FROM ".$sys_tables['build_new']." WHERE `id_user` = ".$row['id_user']." AND published!=2 AND info_source=4)
                 ) a GROUP BY `external_id`
                 ";
-        $res_obj = $db->query($sql_obj) or die($db->error);
+        $res_obj = $db->querys($sql_obj) or die($db->error);
         while($row_obj = $res_obj->fetch_array()){
             $item = $user->appendChild($xml->createElement('item'));
              if($row_obj['published']==1) {

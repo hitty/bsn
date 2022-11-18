@@ -153,7 +153,7 @@ switch(true){
         $similar_list = $opinions->getList(3,0,implode(" AND ",$where) );  
         Response::SetArray('similar_list',$similar_list);
         // увеличение счетчика просмотров
-        $db->query("UPDATE ".$sys_tables['opinions_predictions']." SET `views_count`=`views_count`+1 WHERE `id`=?",$id);
+        $db->querys("UPDATE ".$sys_tables['opinions_predictions']." SET `views_count`=`views_count`+1 WHERE `id`=?",$id);
         $excluded_ids = [];
         if( !empty ( $similar_list) ) 
             array_walk( 

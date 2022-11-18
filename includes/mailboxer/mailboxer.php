@@ -57,7 +57,7 @@ error_reporting(E_ALL);
 //BLOCK: requiries {{{
 	// require database class
 		require('/home/apache/htdocs/includes/db/mysql.core.php');
-		$db->query('set names koi8r');
+		$db->querys('set names koi8r');
 
 	// require mailer class
 		require('/home/dither/lib/mailer.class.php');
@@ -95,7 +95,7 @@ function checkLogin($login, $passwd) // {{{
 				`passwd` = '" . $passwd . "'
 			LIMIT 1;";
 
-	$result = $db->query($sql);
+	$result = $db->querys($sql);
 
 	if($db->affected_rows == 1)
 	{
@@ -149,25 +149,25 @@ function rueng2eng($str) // {{{
 {
 	$symb = array
 				(
-					array('Á','a'),
-					array('á','A'),
-					array('÷','B'),
-					array('Å','e'),
-					array('å','E'),
-					array('Ú','3'),
-					array('í','M'),
-					array('î','H'),
-					array('Ï','o'),
-					array('ï','O'),
-					array('Ò','p'),
-					array('ò','P'),
-					array('Ó','c'),
-					array('ó','C'),
-					array('ô','T'),
-					array('Õ','y'),
-					array('õ','Y'),
-					array('È','x'),
-					array('è','X')
+					array('ï¿½','a'),
+					array('ï¿½','A'),
+					array('ï¿½','B'),
+					array('ï¿½','e'),
+					array('ï¿½','E'),
+					array('ï¿½','3'),
+					array('ï¿½','M'),
+					array('ï¿½','H'),
+					array('ï¿½','o'),
+					array('ï¿½','O'),
+					array('ï¿½','p'),
+					array('ï¿½','P'),
+					array('ï¿½','c'),
+					array('ï¿½','C'),
+					array('ï¿½','T'),
+					array('ï¿½','y'),
+					array('ï¿½','Y'),
+					array('ï¿½','x'),
+					array('ï¿½','X')
 				);
 
 	foreach($symb as $item)

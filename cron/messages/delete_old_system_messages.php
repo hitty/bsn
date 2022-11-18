@@ -36,8 +36,8 @@ require_once('includes/class.messages.php');     // Template (шаблониза
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $GLOBALS['db']=$db;
 
 // вспомогательные таблицы модуля
@@ -46,5 +46,5 @@ $sys_tables = Config::$sys_tables;
 //логи для почты
 $log = array();
 //читаем список системных сообщений
-$db->query('DELETE FROM '.$sys_tables['system_messages'].' WHERE is_system = 1 AND is_unread = 1 AND datetime_create <= NOW() - INTERVAL 3 MONTH');
+$db->querys('DELETE FROM '.$sys_tables['system_messages'].' WHERE is_system = 1 AND is_unread = 1 AND datetime_create <= NOW() - INTERVAL 3 MONTH');
 ?>

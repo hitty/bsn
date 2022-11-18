@@ -504,7 +504,7 @@ class Page {
                     );
                     Response::SetArray('auth',$auth_array);
                     //снятие флага для попапа сообщения
-                    if(!$ajax_mode && !empty($this->first_instance))$db->query("UPDATE ".$sys_tables['messages']." SET popup_notification = 1 WHERE id_user_to = ?", $auth->id);
+                    if(!$ajax_mode && !empty($this->first_instance))$db->querys("UPDATE ".$sys_tables['messages']." SET popup_notification = 1 WHERE id_user_to = ?", $auth->id);
                     //проверка на наличие непрочитанного системного сообщения и приглашения агента
                     if($this->is_members_page && empty($ajax_mode)) {
                         Response::SetBoolean('show_topline', false);
@@ -885,7 +885,7 @@ class Page {
     * @param string url 
     * @param boolean  
     */
-    public function menuEdit($level=0, $item, $title=null, $url=null, $active=null){
+    public function menuEdit($level=0, $item='', $title=null, $url=null, $active=null){
         if(!empty($this->menu[$level][$item])) {
             if(!is_null($title)) $this->menu[$level][$item]['title'] = $title;     
             if(!is_null($url)) $this->menu[$level][$item]['url'] = $url;     
@@ -923,7 +923,7 @@ class Page {
             } elseif(!empty($session_marker)) $marker = $session_marker;
             else  $marker = false;
             //сохранение статистики показов для метки
-            if(!empty($marker)) $db->query("INSERT INTO ".Config::$sys_tables['markers_stats_show_day']." SET id_parent=?, url=?, ip=?, browser=?, ref=?",
+            if(!empty($marker)) $db->querys("INSERT INTO ".Config::$sys_tables['markers_stats_show_day']." SET id_parent=?, url=?, ip=?, browser=?, ref=?",
                                                   $marker,$url,Host::getUserIp(),$_SERVER['HTTP_USER_AGENT'],Host::getRefererURL());
         }
         

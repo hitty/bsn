@@ -31,7 +31,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -96,7 +96,7 @@ while($filename = readdir($dh))
                     foreach($xml_values as $key=>$values){
                         //приведение всех ключей в нижний регистр
                         foreach($values as $k=>$val) $values[strtolower($k)] = !is_array($val)?$val:array_unique($val);
-                        $db->query("INSERT INTO ".$sys_tables['estate_complexes_external']." SET id_user = ?, type = ?, external_id = ?, external_title = ?",
+                        $db->querys("INSERT INTO ".$sys_tables['estate_complexes_external']." SET id_user = ?, type = ?, external_id = ?, external_title = ?",
                             $id_user, $type, $values['id'], $values['title']
                         );
                     }

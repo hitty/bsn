@@ -966,7 +966,8 @@ http://www.nusphere.com
 			<div class="text_desc">
 				<h1> How to install Server side DBG module </h1>
 				<p>
-					I noticed that DBG (PHP DEBUGGER) is<strong> NOT INSTALLED </strong>on your server <strong><? echo server('SERVER_NAME') ?>.</strong>
+					I noticed that DBG (PHP DEBUGGER) is<strong> NOT INSTALLED </strong>on your server <strong><?php
+echo server('SERVER_NAME') ?>.</strong>
 				</P>
 				<p>
 				<?php

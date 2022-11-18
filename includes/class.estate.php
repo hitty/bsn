@@ -121,7 +121,7 @@ class Estate {
     * @param mixed $mapping - меппинг формы (для передачи в форму добавления)
     * @return mixed $weight / $steps_weight_array
     */
-    public function getItemWeight($id = false, $estate_type, $mapping = false, $step = false){
+    public function getItemWeight($id = false, $estate_type = '', $mapping = false, $step = false){
         global $db;
         $item_weight = 0;
         $prefix = "";
@@ -481,7 +481,7 @@ class EstateItem extends Estate{
         global $db;
         $res = false;
         if(!empty($this->data_array['id']) || !empty($id) ){
-            $res = $db->query("DELETE FROM ".($from_new?$this->work_table_new:$this->work_table)." WHERE id=?",$this->data_array['id']);
+            $res = $db->querys("DELETE FROM ".($from_new?$this->work_table_new:$this->work_table)." WHERE id=?",$this->data_array['id']);
             if(!empty($res) ) $this->data_changed = true;
         }
         return $res;
@@ -505,7 +505,7 @@ class EstateItem extends Estate{
         $res = false;
         if(!empty($this->data_array['id']) ){
             global $db;
-            $res = $db->query("UPDATE ".$this->work_table." SET from_search_count = from_search_count + 1 WHERE id = ?",$this->data_array['id']);
+            $res = $db->querys("UPDATE ".$this->work_table." SET from_search_count = from_search_count + 1 WHERE id = ?",$this->data_array['id']);
         }
         return $res;
     }

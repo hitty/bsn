@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -97,7 +97,7 @@ foreach($agencies as $id_user => $date_array){
     foreach($date_array as $date => $counts){
         foreach($counts as $estate_type => $count){
             for($i=1; $i<=$count; $i++){
-                $db->query("INSERT INTO ".$sys_tables['billing']." SET external_id = ?, bsn_id = ?, date = ?, type = ?, bsn_id_user = ?, status = ?, adv_agency = ?",
+                $db->querys("INSERT INTO ".$sys_tables['billing']." SET external_id = ?, bsn_id = ?, date = ?, type = ?, bsn_id_user = ?, status = ?, adv_agency = ?",
                     mt_rand(10000,200000), mt_rand(100000,1300000), $date, $estate_type,  $id_user, 2, 1
                 );
             }

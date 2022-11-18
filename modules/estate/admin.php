@@ -103,7 +103,7 @@ if($action == 'new'){
     $action = empty($this_page->page_parameters[1]) ? "" : $this_page->page_parameters[1];
     unset($filters['published']);
     unset($get_parameters['f_published']);
-}  
+}
 $ajax_action = Request::GetString('action', METHOD_POST);
 if($ajax_mode && !empty($ajax_action)) $action = 'ajax';
 // обработка общих action-ов 
@@ -369,7 +369,7 @@ switch($action){
         $field = Request::GetString('field', METHOD_POST);
         $value = Request::GetString('value', METHOD_POST);
         if(!empty($id) && !empty($field)){
-            $res = $db->query("UPDATE ".$sys_tables[$estate.$estate_suffix]."
+            $res = $db->querys("UPDATE ".$sys_tables[$estate.$estate_suffix]."
                                SET `".$field."`=?
                                WHERE id=?", $value, $id);
             $results['setfield'] = ($res && $db->affected_rows) ? $id : -1;
@@ -392,7 +392,7 @@ switch($action){
             if(empty($estate_suffix)){
                 $res = $db->insertFromArray($sys_tables[$estate.'_new'], $row, 'id');
                 $new_id = $db->insert_id;;
-                if(!empty($res)) $res2 = $db->query("UPDATE ".$sys_tables[$estate]." SET published=3, date_change=NOW() WHERE id=?", $id);
+                if(!empty($res)) $res2 = $db->querys("UPDATE ".$sys_tables[$estate]." SET published=3, date_change=NOW() WHERE id=?", $id);
                 
             }    
             // тут надо еще сделать удаление тегов
@@ -412,11 +412,11 @@ switch($action){
     case 'archive':     // отправить в архив
         if($action == "archive" && empty($estate_suffix)) {
             $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-            $res = $db->query("UPDATE ".$sys_tables[$estate]."
+            $res = $db->querys("UPDATE ".$sys_tables[$estate]."
                                SET published=2, date_change=NOW()
                                WHERE id=?", $id);
             //отвязываем все строчки, которые были привязаны к этому ЖК
-            if($estate == 'housing_estates') $db->query("UPDATE ".$sys_tables['build']." SET id_housing_estate = 0 WHERE id_housing_estate = ?",$id);
+            if($estate == 'housing_estates') $db->querys("UPDATE ".$sys_tables['build']." SET id_housing_estate = 0 WHERE id_housing_estate = ?",$id);
             $results['archive'] = ($res && $db->affected_rows) ? $id : -1;
             if($ajax_mode){
                 $ajax_result = array('ok' => $results['archive']>0, 'ids'=>array($id));
@@ -427,7 +427,7 @@ switch($action){
     case 'restore':     // восстановить из архива
         if($action == "restore" && empty($estate_suffix)) {
             $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-            $res = $db->query("UPDATE ".$sys_tables[$estate]."
+            $res = $db->querys("UPDATE ".$sys_tables[$estate]."
                                SET published=1, date_change=NOW()
                                WHERE id=?", $id);
             $results['restore'] = ($res && $db->affected_rows) ? $id : -1;
@@ -440,7 +440,7 @@ switch($action){
     case 'del':         // удаление
         if($action == "del") {
             $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-            $res = $db->query("DELETE FROM ".$sys_tables[$estate.$estate_suffix]." WHERE id=?", $id);
+            $res = $db->querys("DELETE FROM ".$sys_tables[$estate.$estate_suffix]." WHERE id=?", $id);
             $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
             if($ajax_mode){
                 $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -530,7 +530,7 @@ switch($action){
         $id = Request::GetInteger('id', METHOD_POST);
         $id_manager = Request::GetInteger('id_manager', METHOD_POST);
         if(!empty($id_manager) && !empty($id)) {
-            $res = $db->query("UPDATE ".$sys_tables['housing_estates']." SET id_manager = ? WHERE id = ?", $id_manager, $id);
+            $res = $db->querys("UPDATE ".$sys_tables['housing_estates']." SET id_manager = ? WHERE id = ?", $id_manager, $id);
             $ajax_result['ok'] = $res;
         }
         break;               
@@ -615,13 +615,13 @@ switch($action){
                 $value = Request::GetInteger('value', METHOD_POST);
                 $type = Request::GetString('type', METHOD_POST);
                 $item = $db->fetch("SELECT * FROM ".$sys_tables['housing_estates_progresses']." WHERE id = ?", $id);
-                if(empty($item)) $db->query("INSERT INTO ".$sys_tables['housing_estates_progresses']." SET `".$type."` = ?, id_parent = ?", $value, $id_parent);
-                else $db->query("UPDATE ".$sys_tables['housing_estates_progresses']." SET `".$type."` = ?, id_parent = ? WHERE id=?", $value, $id_parent, $id);
+                if(empty($item)) $db->querys("INSERT INTO ".$sys_tables['housing_estates_progresses']." SET `".$type."` = ?, id_parent = ?", $value, $id_parent);
+                else $db->querys("UPDATE ".$sys_tables['housing_estates_progresses']." SET `".$type."` = ?, id_parent = ? WHERE id=?", $value, $id_parent, $id);
                 $ajax_result['ok'] = true;
                 break;          
            case $ajax_mode && $action == 'del':
                 $id = Request::GetInteger('id', METHOD_POST);
-                $db->query("DELETE FROM ".$sys_tables['housing_estates_progresses']." WHERE id=?", $id);
+                $db->querys("DELETE FROM ".$sys_tables['housing_estates_progresses']." WHERE id=?", $id);
                 $del_photos = Photos::DeleteAll('housing_estates_progresses',$id);
                 $ajax_result['ok'] = true;
                 break;          
@@ -636,17 +636,17 @@ switch($action){
             //если очередей нет
             if(empty($values)){
                 //удаляем все очереди
-                $db->query("DELETE FROM ".$sys_tables['housing_estates_queries']." WHERE id_parent = ".$object_id);
+                $db->querys("DELETE FROM ".$sys_tables['housing_estates_queries']." WHERE id_parent = ".$object_id);
                 //записываем информацию в наш ЖК
-                $res = $db->query("UPDATE ".$sys_tables['housing_estates']." SET phases = '', build_complete = ? WHERE id = ?",$build_complete,$object_id);
+                $res = $db->querys("UPDATE ".$sys_tables['housing_estates']." SET phases = '', build_complete = ? WHERE id = ?",$build_complete,$object_id);
             }else{
                 
                 //удаляем старые очереди
-                $db->query("DELETE FROM ".$sys_tables['housing_estates_queries']." WHERE id_parent = ".$object_id);
+                $db->querys("DELETE FROM ".$sys_tables['housing_estates_queries']." WHERE id_parent = ".$object_id);
                 //пишем новые очереди
                 if(!empty($values)){
                     foreach($values as $key=>$item){
-                        $res = $res && $db->query("INSERT INTO ".$sys_tables['housing_estates_queries']." SET id_parent = ?, query_num = ?, id_build_complete = ?, corpuses = ?, start_month = ?, start_year = ?",
+                        $res = $res && $db->querys("INSERT INTO ".$sys_tables['housing_estates_queries']." SET id_parent = ?, query_num = ?, id_build_complete = ?, corpuses = ?, start_month = ?, start_year = ?",
                             $object_id, $item['query'], $item['num'], $item['corpuses'], strtolower($item['month']), $item['year']
                         );
                     }
@@ -898,7 +898,7 @@ switch($action){
             if(empty($post_parameters['submit'])){
                 // Блокировка записи
                 if($action!='add'){
-                    $blocking = $db->query("UPDATE ".$sys_tables[$estate.$estate_suffix]."
+                    $blocking = $db->querys("UPDATE ".$sys_tables[$estate.$estate_suffix]."
                                             SET blocking_time=ADDTIME(NOW(), '00:15:00'), blocking_id_user=?
                                             WHERE id=?"
                                             , $auth->id
@@ -1030,7 +1030,7 @@ switch($action){
                         if($estate=='housing_estates'){
                             $chpu_title = createCHPUTitle($info['title']);
                             $chpu_item = $db->fetch("SELECT * FROM ".$sys_tables['housing_estates']." WHERE chpu_title = ?", $chpu_title);
-                            $db->query("UPDATE ".$sys_tables['housing_estates']." SET chpu_title = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
+                            $db->querys("UPDATE ".$sys_tables['housing_estates']." SET chpu_title = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
                         }
 
                         if(!empty($res) && $estate!='housing_estates'){
@@ -1131,7 +1131,7 @@ switch($action){
                         $update_district = !(empty($update_district) || $update_district == "false");
                         
                         if(!empty($object_id)||!empty($addr_source))
-                            $res = $db->query("UPDATE ".$sys_tables[$estate]." 
+                            $res = $db->querys("UPDATE ".$sys_tables[$estate]." 
                                                SET id_region = ?,
                                                    id_area = ?, 
                                                    id_city = ?, 
@@ -1270,7 +1270,7 @@ switch($action){
                         if($res) ++$photos_added;
                     }
                     //$id_main_photo = @Photos::getMainPhoto('build',$new_id);
-                    //if(!empty($id_main_photo)) $db->query("UPDATE ".$sys_tables['build']." SET id_main_photo = ? WHERE id = ?",$id_main_photo,$new_id);
+                    //if(!empty($id_main_photo)) $db->querys("UPDATE ".$sys_tables['build']." SET id_main_photo = ? WHERE id = ?",$id_main_photo,$new_id);
                 }
                 $ajax_result['objects_count'] = $objects_count;
                 $ajax_result['photos_count'] = $photos_added."/".$photos_count;
@@ -1279,7 +1279,7 @@ switch($action){
             //открепляем варианты от ЖК
             case $ajax_mode && $this_page->page_parameters[3] == 'unattach':
                 $id_user_from = Request::GetInteger('id_user_from',METHOD_POST);
-                $db->query("UPDATE ".$sys_tables['build']." SET id_housing_estate = 0 WHERE id_housing_estate = ? AND id_user = ? AND published = 1",$complex_id,$id_user_from);
+                $db->querys("UPDATE ".$sys_tables['build']." SET id_housing_estate = 0 WHERE id_housing_estate = ? AND id_user = ? AND published = 1",$complex_id,$id_user_from);
                 $ajax_result['objects_count'] = $db->affected_rows;
                 $ajax_result['ids'] = array($id_user_from);
                 $ajax_result['type'] = "unattach";
@@ -1297,7 +1297,7 @@ switch($action){
                 $ids = array_keys($ids);
                 foreach($ids as $k=>$object_id) @Photos::DeleteAll('build',$object_id);
                 //удаляем сами объекты
-                $db->query("DELETE FROM ".$sys_tables['build']." WHERE id_housing_estate = ? AND id_user = ? AND published = 1",$complex_id,$id_user_from);
+                $db->querys("DELETE FROM ".$sys_tables['build']." WHERE id_housing_estate = ? AND id_user = ? AND published = 1",$complex_id,$id_user_from);
                 $ajax_result['ids'] = array($id_user_from);
                 $ajax_result['objects_count'] = count($ids);
                 $ajax_result['type'] = "del";

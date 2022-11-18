@@ -46,7 +46,7 @@ switch($action){
     case 'publish':
         $id = Request::GetInteger('id', METHOD_POST);
         if(!empty($id)) {
-            $db->query("UPDATE ".$sys_tables['comments']." SET comments_active=1, comments_isnew=2 WHERE id=?",$id);
+            $db->querys("UPDATE ".$sys_tables['comments']." SET comments_active=1, comments_isnew=2 WHERE id=?",$id);
             $ajax_result['ok'] = true;
         }
         break;
@@ -112,7 +112,7 @@ switch($action){
         
         $selected_ids = Request::GetArray('selected_ids',METHOD_POST);
         $id = !empty($selected_ids) ? implode(',',$selected_ids) : (empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2]);
-        $res = $db->query("DELETE FROM ".$sys_tables['comments']." WHERE id IN ($id)");
+        $res = $db->querys("DELETE FROM ".$sys_tables['comments']." WHERE id IN ($id)");
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>!empty($selected_ids)?$selected_ids:array($id));

@@ -36,8 +36,8 @@ require_once('includes/class.email.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $GLOBALS['db']=$db;
 
 // вспомогательные таблицы модуля
@@ -71,7 +71,7 @@ if(!empty($list)){
 	if( empty( $id_campaign ) ) $id_campaign = $db->fetch(" SELECT MAX(id) as id FROM " . $sys_tables['newsletters_campaigns'] )['id'];
 
 
-        $db->query('UPDATE '.$sys_tables['specspam'].' SET begin_datetime = NOW() WHERE id=?',$item['id']);
+        $db->querys('UPDATE '.$sys_tables['specspam'].' SET begin_datetime = NOW() WHERE id=?',$item['id']);
         // параметры письма
         Response::SetString('subject',$item['subject']);
         Response::SetString('type',$item['type']);
@@ -128,7 +128,7 @@ if(!empty($list)){
             } else echo "Invalid email ".$item_email['email'].", ";
         }
         //
-        $db->query('UPDATE '.$sys_tables['specspam'].' SET published=2, end_datetime = NOW() WHERE id=?',$item['id']);    
+        $db->querys('UPDATE '.$sys_tables['specspam'].' SET published=2, end_datetime = NOW() WHERE id=?',$item['id']);
     }
     
 }

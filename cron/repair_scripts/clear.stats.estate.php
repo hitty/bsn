@@ -31,7 +31,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -47,7 +47,7 @@ foreach($estate_types as $estate){
                 //объект отсутствует
                 $item = $db->fetch("SELECT * FROM " . $sys_tables[$estate] . " WHERE id = ?", $id);
                 if( empty($item) ) {
-                    $db->query("DELETE FROM " . $sys_tables[$estate . $table] . " WHERE id_parent = ?", $id);
+                    $db->querys("DELETE FROM " . $sys_tables[$estate . $table] . " WHERE id_parent = ?", $id);
                 }
             }
         }

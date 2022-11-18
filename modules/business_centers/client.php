@@ -84,7 +84,7 @@ switch(true){
             $list = Favorites::ToList($list,7);
             //увеличение счетчика показов
             foreach($list as $key=>$item) $ids[] = '('.$item['id'].', 3, "'.Host::getUserIp().'", "'.$db->real_escape_string($_SERVER['HTTP_USER_AGENT']).'", "'.Host::getRefererURL().'")';
-            $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
+            $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
             
             $this_page->page_cache_time = Config::$values['blocks_cache_time']['last_offers_block'];
             Response::SetString('view_type', 'block');
@@ -156,7 +156,7 @@ switch(true){
             
             //увеличиваем счетчик просмотров если это не печать карточки
             if (!$print){
-                $db->query("UPDATE ".$sys_tables['business_centers']." SET views_count = views_count + 1 WHERE id = ?",$item['id']);
+                $db->querys("UPDATE ".$sys_tables['business_centers']." SET views_count = views_count + 1 WHERE id = ?",$item['id']);
             }
             
             //телефон в БЦ показывается согласно задаче: https://bsn.bitrix24.ru/company/personal/user/12/tasks/task/view/3924/?current_fieldset=SOCSERV
@@ -204,7 +204,7 @@ switch(true){
             $agent = Host::$user_agent;
             $ip = Host::getUserIp();
             if(!Host::isBot() && !Host::isBsn("estate_complexes_stats_day_clicks",$id) && isset($ref) && $ref!= '' && isset($agent) && $agent!='' && isset($ip) && $ip!='')
-                $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_clicks']." SET id_parent = ?, type = ?, ip = ?, browser = ?, ref = ?, server = ?, `module` = ?",
+                $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_clicks']." SET id_parent = ?, type = ?, ip = ?, browser = ?, ref = ?, server = ?, `module` = ?",
                     $id, 3, $ip, $agent, $ref, print_r($_SERVER, true), 'housing_estate'
                 );
             //владелец карточки           
@@ -417,7 +417,7 @@ switch(true){
                 if(!empty($list)){
                     $ids = [];
                     foreach($list as $k=>$item) $ids[] = '('.$item['id'].', 3, "'.$db->real_escape_string(Host::getUserIp()).'", "'.$db->real_escape_string($_SERVER['HTTP_USER_AGENT']).'", "'.$db->real_escape_string(Host::getRefererURL()).'")';
-                    $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
+                    $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
                 }
                 Response::SetArray('list', $list);
                 Response::SetInteger('full_count', $paginator->items_count);                
@@ -576,15 +576,15 @@ switch(true){
                             $phone = Request::GetString('phone', METHOD_POST);
                             $sortby = Request::GetString('sortby', METHOD_POST);
                             if( ( $action == 'edit' && empty($id) ) || empty($title)) return false;
-                                if($action == 'add') $db->query("INSERT INTO ".$sys_tables['business_centers_offices_renters']." SET title = ?, name = ?, phone = ?, id_user = ?", $title, $name, $phone, $auth->id);
-                                else $db->query("UPDATE ".$sys_tables['business_centers_offices_renters']." SET title = ?, name = ?, phone = ?, id_user = ? WHERE id = ?", $title, $name, $phone, $auth->id, $id);
+                                if($action == 'add') $db->querys("INSERT INTO ".$sys_tables['business_centers_offices_renters']." SET title = ?, name = ?, phone = ?, id_user = ?", $title, $name, $phone, $auth->id);
+                                else $db->querys("UPDATE ".$sys_tables['business_centers_offices_renters']." SET title = ?, name = ?, phone = ?, id_user = ? WHERE id = ?", $title, $name, $phone, $auth->id, $id);
                             break;
                         
                         case $action == 'del':
                             $id = Request::GetInteger('id', METHOD_POST);
                             if( empty($id)) return false;
-                            $res = $db->query("DELETE FROM ".$sys_tables['business_centers_offices_renters']."  WHERE id = ? AND id_user = ?", $id, $auth->id);
-                            if($res) $db->query("UPDATE ".$sys_tables['business_centers_offices']."  SET id_renter = 0, status = 2, date_rent_start = '0000-00-00', date_rent_end = '0000-00-00' WHERE id_renter = ?", $id);
+                            $res = $db->querys("DELETE FROM ".$sys_tables['business_centers_offices_renters']."  WHERE id = ? AND id_user = ?", $id, $auth->id);
+                            if($res) $db->querys("UPDATE ".$sys_tables['business_centers_offices']."  SET id_renter = 0, status = 2, date_rent_start = '0000-00-00', date_rent_end = '0000-00-00' WHERE id_renter = ?", $id);
                             break;
                         
                         case $action == 'list':

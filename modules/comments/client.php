@@ -54,7 +54,7 @@ switch(true){
                 $vote_for = 1;
                 $vote_against = 0;
             }
-            $res = $db->query("INSERT INTO ".$sys_tables['comments_votings']." SET id_parent = ?, vote_for = ?, vote_against = ?, id_user = ?",
+            $res = $db->querys("INSERT INTO ".$sys_tables['comments_votings']." SET id_parent = ?, vote_for = ?, vote_against = ?, id_user = ?",
                                $id_parent, $vote_for, $vote_against, $auth->id);
             
             $ajax_result['ok'] = true;

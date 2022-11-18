@@ -34,8 +34,8 @@ require_once('includes/getid3/getid3.php');
 echo '3';
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -49,7 +49,7 @@ $list = $db->fetchall("SELECT ".$sys_tables['users'].".id as id_user,
                        GROUP BY ".$sys_tables['calls'].".id
 ");
 foreach ($list as $key=>$item){
-    $db->query("UPDATE ".$sys_tables['calls']." SET cost = ? WHERE id = ?", !empty($item['call_cost']) ? $item['call_cost'] : 900, $item['id']);
+    $db->querys("UPDATE ".$sys_tables['calls']." SET cost = ? WHERE id = ?", !empty($item['call_cost']) ? $item['call_cost'] : 900, $item['id']);
 }
   
 ?>

@@ -36,8 +36,8 @@ require_once('includes/functions.php');          // функции  из кро�
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');;     // Photos (работа с графикой)
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 
 
@@ -52,7 +52,7 @@ $ids = $db->fetchall("SELECT id FROM ".$sys_tables['build']." WHERE id_user= ".$
 foreach($ids as $key=>$info){
     Photos::DeleteAll('build',$info['id']);
 }
-$db->query("DELETE FROM ".$sys_tables['build']." WHERE id_user = ".$id_user);
+$db->querys("DELETE FROM ".$sys_tables['build']." WHERE id_user = ".$id_user);
 
 echo "old objects deleted\r\n";
 
@@ -264,7 +264,7 @@ while($page_num < $page_limit){
             if(!empty($photos_list)){
                 foreach($photos_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
                 $photos_to_delete_ids = implode(',', $photos_list['in']);
-                if(!empty($photos_to_delete_ids)) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
+                if(!empty($photos_to_delete_ids)) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
             }
             //добавляем новую картинку:
             if(!empty($photos['out'])){
@@ -275,7 +275,7 @@ while($page_num < $page_limit){
                     $photo_add_result = Photos::Add($robot->estate_type, $robot->fields['id'], $prefix, $img['external_img_src'], $img['filename'], false, false, false, Config::Get('watermark_src'));
                     if(!is_array($photo_add_result)) $errors_log['img'][] = $img['external_img_src'];
                 }
-            }else $db->query("UPDATE ".$sys_tables[$robot->estate_type]." SET id_main_photo = ? WHERE id = ?",array_keys($photos_list_in)[0],$robot->fields['id']);
+            }else $db->querys("UPDATE ".$sys_tables[$robot->estate_type]." SET id_main_photo = ? WHERE id = ?",array_keys($photos_list_in)[0],$robot->fields['id']);
         }
         
         $inserted_id = $check_object['id'];
@@ -292,6 +292,6 @@ while($page_num < $page_limit){
 }
 echo $total_counter['added']." added,\r\n".$total_counter['existed']." updated,\r\n".$total_counter['total']." processed total from ".($page_num-1)." pages\r\n";
 
-$db->query("UPDATE ".$sys_tables['build']." SET id_housing_estate = 2252 WHERE id_user = ? and published = 1 and txt_addr LIKE '%колпин%'",$id_user);
-$db->query("UPDATE ".$sys_tables['build']." SET id_housing_estate = 2588 WHERE id_user = ? and published = 1 and txt_addr LIKE '%ковалев%'",$id_user);
+$db->querys("UPDATE ".$sys_tables['build']." SET id_housing_estate = 2252 WHERE id_user = ? and published = 1 and txt_addr LIKE '%колпин%'",$id_user);
+$db->querys("UPDATE ".$sys_tables['build']." SET id_housing_estate = 2588 WHERE id_user = ? and published = 1 and txt_addr LIKE '%ковалев%'",$id_user);
 ?>

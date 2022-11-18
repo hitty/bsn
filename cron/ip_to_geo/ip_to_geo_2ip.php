@@ -38,8 +38,8 @@ require_once('includes/class.email.php');
 require_once('cron/robot/class.xml2array.php');  // конвертация xml в array
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 
 // вспомогательные таблицы модуля
@@ -91,8 +91,8 @@ foreach($ip_to_found as $key=>$item){
     else $txt_addr = (!empty($data['country_rus'])?$data['country_rus'].", ":"").$data['region_rus'].($data['region_rus']!=$data['city_rus']?", ".$data['city_rus']:"");
     if(!empty($id_geodata)){
         ++$ips_geo_found;
-        $db->query("UPDATE ".$sys_tables['ip_geodata']." SET id_geodata = ?, txt_addr = ? WHERE ip = ?",$id_geodata,$txt_addr,$item);
-    }else $db->query("UPDATE ".$sys_tables['ip_geodata']." SET txt_addr = ? WHERE ip = ?",$txt_addr,$item);
+        $db->querys("UPDATE ".$sys_tables['ip_geodata']." SET id_geodata = ?, txt_addr = ? WHERE ip = ?",$id_geodata,$txt_addr,$item);
+    }else $db->querys("UPDATE ".$sys_tables['ip_geodata']." SET txt_addr = ? WHERE ip = ?",$txt_addr,$item);
 }
 
 //отправляем отчет

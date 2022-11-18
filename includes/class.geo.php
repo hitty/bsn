@@ -252,7 +252,7 @@ abstract class Geo {
                                                           (empty($this->fields['id_district'])?0:$this->fields['id_district']),
                                                           $addr_block,$exploders_with_levels[$exploder_key]['shortname']);
                             if(empty($exists_already))
-                                $db->query("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
+                                $db->querys("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
                                             VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)",
                                             $this->fields['id_user'],
                                             $this->file_format,
@@ -415,7 +415,7 @@ abstract class Geo {
                                                           (empty($this->fields['id_district'])?0:$this->fields['id_district']),
                                                           $addr_block,$exploders_with_levels[$exploder_key]['shortname']);
                             if(empty($exists_already))
-                                $db->query("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
+                                $db->querys("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
                                             VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)",
                                             $this->fields['id_user'],
                                             $this->file_format,

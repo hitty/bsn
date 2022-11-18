@@ -400,7 +400,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['campaigns']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['campaigns']." WHERE id=?", $id);
                 //удаление фото агентства
                 $del_photos = Photos::DeleteAll('campaigns',$id);    
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
@@ -640,7 +640,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['offers']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['offers']." WHERE id=?", $id);
                 //удаление фото агентства
                 $del_photos = Photos::DeleteAll('offers',$id);    
                 $results['delete'] = $res;
@@ -716,11 +716,11 @@ switch($action){
         switch($action){
             case 'add':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['phones']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['phones']." WHERE id=?", $id);
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['phones']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['phones']." WHERE id=?", $id);
             default:
                 $module_template = 'admin.phones.list.html';
                 // формирование списка для фильтра
@@ -822,7 +822,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['tarifs']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['tarifs']." WHERE id=?", $id);
                 //удаление фото агентства
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

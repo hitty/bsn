@@ -19,7 +19,7 @@ switch(true){
             //подтверждение подписки
             if(!empty($item)) {
                 //обнуление кода проверка и простановка статуса
-                $db->query("UPDATE ".$sys_tables['objects_subscriptions']." SET `confirm_key` = '', `confirmed` = ? WHERE `id` = ?", 1, $id);
+                $db->querys("UPDATE ".$sys_tables['objects_subscriptions']." SET `confirm_key` = '', `confirmed` = ? WHERE `id` = ?", 1, $id);
                 //редирект на список подписок для авторизованных
                 if( $auth->authorized ) {
                     if( empty( $ajax_mode ) ) Host::Redirect('/objects_subscriptions/');
@@ -33,7 +33,7 @@ switch(true){
                         require_once('includes/class.email.php');
                         $password = randomstring(6);                                  // генерация пароля по умолчанию
                         $hash_password = sha1(sha1($password));                       // вычисление хэша пароля
-                        $res = $db->query("INSERT INTO ".$sys_tables['users']."
+                        $res = $db->querys("INSERT INTO ".$sys_tables['users']."
                                 (email,name,passwd,datetime,access)
                                VALUES
                                 (?,'',?,NOW(),'')"
@@ -46,7 +46,7 @@ switch(true){
                         );
                         $id_user = $db->insert_id;     // Получение id пользователя
                         //обновление ID пользователя для подписки
-                        $db->query("UPDATE ".$sys_tables['objects_subscriptions']." SET id_user = ? WHERE id = ?", $id_user ,$id);
+                        $db->querys("UPDATE ".$sys_tables['objects_subscriptions']." SET id_user = ? WHERE id = ?", $id_user ,$id);
                         $mailer = new EMailer('mail');
                         // данные пользователя для шаблона
                         Response::SetArray( "data", array('email'=>$item['email'], 'password'=>$password) );
@@ -176,7 +176,7 @@ switch(true){
     case $action=='period_change' && count($this_page->page_parameters) == 1:                   
         $id = Request::GetInteger('id',METHOD_POST); // ID подписки
         $id_period = Request::GetInteger('id_period',METHOD_POST); // Периодичность (гранулярность) подписки
-        $ajax_result['ok'] = $db->query("UPDATE ".$sys_tables['objects_subscriptions']." SET id_period = ? WHERE id = ?",$id_period, $id);
+        $ajax_result['ok'] = $db->querys("UPDATE ".$sys_tables['objects_subscriptions']." SET id_period = ? WHERE id = ?",$id_period, $id);
         $ajax_result['lq'] = '';
         break;
     default:

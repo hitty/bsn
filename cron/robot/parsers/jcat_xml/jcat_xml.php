@@ -29,9 +29,9 @@ Request::Init();
 Cookie::Init(); 
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = !TEST_MODE ? new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']) : new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
-$db->query("set lc_time_names = 'ru_RU'");
+$db->querys("set lc_time_names = 'ru_RU'");
 require_once('includes/class.host.php');
 require_once('includes/class.email.php');
 require_once('includes/class.template.php');     // Template (шаблонизатор), FileCache (файловое кеширование)
@@ -65,7 +65,7 @@ $agency = $db->fetch("SELECT
 
 //создаем процесс
 $sent_report = 1;
-$res = $db->query("INSERT INTO ".$sys_tables['processes']." SET id_agency = ?, type = ?, status = ?, sent_report = ?, datetime_start = NOW()", $agency['id'], 3, 1, $sent_report);
+$res = $db->querys("INSERT INTO ".$sys_tables['processes']." SET id_agency = ?, type = ?, status = ?, sent_report = ?, datetime_start = NOW()", $agency['id'], 3, 1, $sent_report);
 $process_id = $db->insert_id;
 
 $link_response = get_http_response_code("http://xml.jcat.ru/export/bsn/spb/");
@@ -87,7 +87,7 @@ if($link_response != 200){
     $admin_mailer->From = 'bsnxml@bsn.ru';
     $admin_mailer->FromName = iconv('UTF-8', $admin_mailer->CharSet,'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла');
     
-    $db->query("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'Файл недоступен'), log = ?, status = 2 WHERE id = ?", $mail_text,$process_id);
+    $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'Файл недоступен'), log = ?, status = 2 WHERE id = ?", $mail_text,$process_id);
     
     // попытка отправить
     $admin_mailer->Send();
@@ -95,7 +95,7 @@ if($link_response != 200){
 }
 if( !DEBUG_MODE) $log['download'][] = downloadXmlFile("jcat","jcat","http://xml.jcat.ru/export/bsn/spb/",29298,false);
 
-$db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW(), log = CONCAT (log,'Загрузка файла: ОК','\n\n','Анализ файла: ') WHERE id = ?", $process_id);
+$db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW(), log = CONCAT (log,'Загрузка файла: ОК','\n\n','Анализ файла: ') WHERE id = ?", $process_id);
 $rent_titles = array(1=>'аренда', 2=>'продажа'); //типы сделок
     
 //папка с xml файлами 
@@ -147,17 +147,17 @@ while($filename = readdir($dh))
                 $mail_text .= "Обработка объектов агентства ".$agency['title']."<br /><br />";
                 
                 // постановка в архив всех объектов этой компании (кроме объектов от недвижимости города)
-                $db->query("UPDATE ".$sys_tables['live']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
-                $db->query("UPDATE ".$sys_tables['build']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
-                $db->query("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
-                $db->query("UPDATE ".$sys_tables['country']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['live']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['build']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['country']." SET `published` = '2', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source != 4 AND `published` = 1");
                 
                 //читаем в строку нужный файл
                 $contents = file_get_contents($dir.$filename);
                 $xml_str=xml2array($contents);
                 if($xml_str===FALSE){
                     $errors_log['fatal'] = 'Файл '.$dir.$filename.' не может быть обработан, т.к. имеет невалидные теги'; 
-                    $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW() log = CONCAT (log,'".$errors_log['fatal']."') WHERE id = ?", $process_id);
+                    $db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW() log = CONCAT (log,'".$errors_log['fatal']."') WHERE id = ?", $process_id);
                     break;
                 }
                 
@@ -169,10 +169,10 @@ while($filename = readdir($dh))
                 $info_source = 2;
                 
                 //обновляем инфу лога
-                $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW(), log = CONCAT (log,'".$file_type." XML') WHERE id = ?", $process_id);
+                $db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW(), log = CONCAT (log,'".$file_type." XML') WHERE id = ?", $process_id);
                 
                 //общее количество
-                $db->query("UPDATE ".$sys_tables['processes']." SET total_amount = ? WHERE id = ?", count($xml_values), $process_id);
+                $db->querys("UPDATE ".$sys_tables['processes']." SET total_amount = ? WHERE id = ?", count($xml_values), $process_id);
                 
                
                 
@@ -230,7 +230,7 @@ while($filename = readdir($dh))
                                                      ".(!empty($photos['in'])?" AND `external_img_src` NOT IN (".implode(',', $photos['in']).")":""));
                         if(!empty($photo_list)){
                             foreach($photo_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
-                            if(!empty($photo_list['in'])) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
+                            if(!empty($photo_list['in'])) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
                         }
                         $inserted_id = $check_object['id'];
 
@@ -266,7 +266,7 @@ while($filename = readdir($dh))
                                                          ".(!empty($photos['in'])?"AND `external_img_src` NOT IN (".implode(',', $photos['in']).")":""));
                             if(!empty($photo_list)){
                                 foreach($photo_list as $k => $val) Photos::Delete($robot->estate_type,$val['id'],"_new");
-                                if(!empty($photo_list['in'])) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
+                                if(!empty($photo_list['in'])) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
                             }
                                 
                             $inserted_id = $check_object_new['id'];
@@ -299,7 +299,7 @@ while($filename = readdir($dh))
                         case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                     }
                     $item_weight = $item_weight->getItemWeight($inserted_id,$robot->estate_type);
-                    $res_weight = $db->query("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
+                    $res_weight = $db->querys("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
                     ///
                                        
                     if(!empty($photos['out']) && $inserted_id>0 && !DEBUG_MODE) {
@@ -314,7 +314,7 @@ while($filename = readdir($dh))
 					/*
                     if($inserted_id>0 && !empty($photos['in']) && !empty($check_object['id']) && $check_object['id_main_photo']==0){
                         $photo_id = $db->fetch("SELECT id FROM ".$sys_tables[($robot->estate_type)."_photos"]." WHERE id_parent = ?",$inserted_id);
-                        if(!empty($photo_id)) $db->query("UPDATE ".$sys_tables[($robot->estate_type)]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
+                        if(!empty($photo_id)) $db->querys("UPDATE ".$sys_tables[($robot->estate_type)]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
                     }
                     */
                     if( !DEBUG_MODE ){
@@ -322,8 +322,8 @@ while($filename = readdir($dh))
                             Photos::setMain($robot->estate_type, $inserted_id,null,$prefix,$fields['main_photo']);
                         } else {
                             $photo_id = $db->fetch("SELECT id FROM ".$sys_tables[$robot->estate_type."_photos"]." WHERE id_parent".$prefix."=? ORDER BY id ASC",$inserted_id);
-                            if(!empty($photo_id)) $db->query("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
-                            $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);
+                            if(!empty($photo_id)) $db->querys("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
+                            $db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);
                         }
                     }
 
@@ -340,7 +340,7 @@ while($filename = readdir($dh))
 						$counter[($robot->estate_type.$deal_type.(!empty($status_alias) ? "_".$status_alias : ""))]++;
                     }
                     
-                    $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW(), 
+                    $db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW(), 
                                        ".($moderate_status == 1 ? 
                                           $robot->estate_type.$deal_type." = ".$robot->estate_type.$deal_type." + 1".
                                           (!empty($status_alias) ? ",".$robot->estate_type.$deal_type."_".$status_alias." = ".$robot->estate_type.$deal_type."_".$status_alias." + 1" : "").", 
@@ -373,7 +373,7 @@ while($filename = readdir($dh))
             ";
         }
         
-        $db->query("UPDATE ".$sys_tables['processes']." SET status = 2, last_action = NOW(), log = CONCAT (log,'<br />".$mail_text."') WHERE id = ?", $process_id);
+        $db->querys("UPDATE ".$sys_tables['processes']." SET status = 2, last_action = NOW(), log = CONCAT (log,'<br />".$mail_text."') WHERE id = ?", $process_id);
         
         $photos_text = '';
         //логирование ошибок

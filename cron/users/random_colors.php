@@ -27,8 +27,8 @@ Request::Init();
 Cookie::Init(); 
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("set lc_time_names = 'ru_RU'");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("set lc_time_names = 'ru_RU'");
 require_once('includes/class.email.php');
 require_once('includes/class.template.php');     // Template (шаблонизатор), FileCache (файловое кеширование)
 require_once('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
@@ -44,6 +44,6 @@ $sys_tables = Config::$sys_tables;
 $colors = Config::Get('users_avatar_colors');
 $list = $db->fetchall("SELECT * FROM ".$sys_tables['users']);
 foreach($list as $k=>$item){
-    $db->query("UPDATE ".$sys_tables['users']." SET avatar_color = ? WHERE id = ?", $colors[mt_rand(0,11)], $item['id']);
+    $db->querys("UPDATE ".$sys_tables['users']." SET avatar_color = ? WHERE id = ?", $colors[mt_rand(0,11)], $item['id']);
 }     
 ?>

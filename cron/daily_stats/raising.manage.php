@@ -22,8 +22,8 @@ include('includes/functions.php');          // функции  из модуля
 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 $sys_tables = Config::$sys_tables;
 header('Content-Type: text/html; Charset='.Config::$values['site']['charset']);   
@@ -31,7 +31,7 @@ header('Content-Type: text/html; Charset='.Config::$values['site']['charset']);
 $where = "raising_days_left > 0 AND raising_datetime > NOW( ) - INTERVAL 10 MINUTE AND raising_datetime <= NOW( )";
 $estate_types = array('commercial', 'live', 'build', 'country');
 foreach($estate_types as $estate){
-    $db->query("UPDATE ".$sys_tables[$estate]." SET raising_days_left = raising_days_left - 1, raising_datetime = NOW() + INTERVAL 1 DAY  WHERE ".$where);
-    $db->query("UPDATE ".$sys_tables[$estate]." SET raising_datetime = '0000-00-00 00:00:00', raising_status = 2 WHERE raising_days_left = 0 AND raising_status = 1");
+    $db->querys("UPDATE ".$sys_tables[$estate]." SET raising_days_left = raising_days_left - 1, raising_datetime = NOW() + INTERVAL 1 DAY  WHERE ".$where);
+    $db->querys("UPDATE ".$sys_tables[$estate]." SET raising_datetime = '0000-00-00 00:00:00', raising_status = 2 WHERE raising_days_left = 0 AND raising_status = 1");
 }
 ?>

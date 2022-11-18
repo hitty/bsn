@@ -45,7 +45,7 @@ switch(true){
                     } else $errors[] = 'Неверное расширение файла.';
                     if(empty($errors)) { // видео загрузилось
                         //запись в базу
-                        $db->query("INSERT INTO ".$sys_tables['video_konkurs']." SET 
+                        $db->querys("INSERT INTO ".$sys_tables['video_konkurs']." SET 
                                     id_estate_complex = ?,
                                     complex_type = ?,
                                     name = ?,
@@ -90,7 +90,7 @@ switch(true){
                                 $xml_str = xml2array($info);
                                 $external_link = $xml_str['response']['video']['formats']['format'][1]['types']['type']['encoded_url'];
                                 if(!empty($external_link))  {
-                                    $res = $db->query("UPDATE ".$sys_tables['video_konkurs']." SET external_link = ? WHERE id = ?",
+                                    $res = $db->querys("UPDATE ".$sys_tables['video_konkurs']." SET external_link = ? WHERE id = ?",
                                                    $external_link, $id
                                     );  
                                     if($res){
@@ -146,7 +146,7 @@ switch(true){
             $action = Request::GetString('action', METHOD_POST);
             if(!empty($id) && !empty($user_ip) && !empty($user_agent) && !empty($action)){
                 //dislike
-                if($action == 'minus') $db->query("DELETE FROM ".$sys_tables['video_konkurs_votings']."
+                if($action == 'minus') $db->querys("DELETE FROM ".$sys_tables['video_konkurs_votings']."
                                         WHERE 
                                             ".$sys_tables['video_konkurs_votings'].".id_parent = ?
                                             AND ".$sys_tables['video_konkurs_votings'].".ip = '".$user_ip."' 
@@ -162,7 +162,7 @@ switch(true){
                                             AND HOUR( TIMEDIFF( NOW( ) , ".$sys_tables['video_konkurs_votings'].".`datetime` ) ) < 24", $id
                     );                                                      
                     if(empty($item)){
-                        $res = $db->query("INSERT INTO ".$sys_tables['video_konkurs_votings']." SET
+                        $res = $db->querys("INSERT INTO ".$sys_tables['video_konkurs_votings']." SET
                                         id_parent = ?, user_agent = ?, ip = ?
                         ",              $id, $user_agent, $user_ip
                         );

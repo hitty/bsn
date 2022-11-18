@@ -253,7 +253,7 @@ switch(true){
         
         $category = $db->fetch("SELECT * FROM ".$sys_tables['bsntv_categories']." WHERE `code` = '".$db->real_escape_string($this_page->page_parameters[0])."'");
         // увеличение счетчика просмотров
-        $db->query("UPDATE ".$sys_tables['bsntv']." SET `views_count`=`views_count`+1 WHERE `id`=?",$bsntv_id);
+        $db->querys("UPDATE ".$sys_tables['bsntv']." SET `views_count`=`views_count`+1 WHERE `id`=?",$bsntv_id);
         
         $bsntv_content = $bsntv->getBsntvItem($this_page->page_parameters[1]);      
         $bsntv_content['content'] = preg_replace( '#\{gallery:([0-9]{1,})\-([0-9]{1,})\}#msiU', '{block photos/block/bsntv/'.$bsntv_content['id'].'/\\1/\\2/}', $bsntv_content['content'] );

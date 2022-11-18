@@ -36,8 +36,8 @@ require_once('includes/class.messages.php');     // Template (шаблониза
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $GLOBALS['db']=$db;
 
 // вспомогательные таблицы модуля
@@ -65,7 +65,7 @@ if(!empty($list)){
                     if(empty($parent_message)) $parent_message['id'] = 0;
                     $sent_id = $messages->Send($recipient['id'], $item_user['id'], $item['content'], $parent_message['id'], 1, '', false);
                 }
-                $db->query('UPDATE '.$sys_tables['system_messages'].' SET published=2, receipts = ? WHERE id=?', count($list_users), $item['id']);        
+                $db->querys('UPDATE '.$sys_tables['system_messages'].' SET published=2, receipts = ? WHERE id=?', count($list_users), $item['id']);
             }
         }
     }

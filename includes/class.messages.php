@@ -491,7 +491,7 @@ class Messages {
         }
         
         if (empty($this->error)){
-            $db->query("DELETE FROM ".$this->messages_table." WHERE id IN(".implode(",",$ids_array).")");
+            $db->querys("DELETE FROM ".$this->messages_table." WHERE id IN(".implode(",",$ids_array).")");
             
             if($recursive){
                 $ids_childrens = $this->DetermineChildrens($ids_array);
@@ -527,7 +527,7 @@ class Messages {
         }
         
         if (empty($this->error) && !(count($ids_array) == 1 && $ids_array[0] == 0)){
-            $db->query("UPDATE ".$this->messages_table." SET ".$field." = ? WHERE id IN(".implode(",",$ids_array).") ".$where, $value);
+            $db->querys("UPDATE ".$this->messages_table." SET ".$field." = ? WHERE id IN(".implode(",",$ids_array).") ".$where, $value);
             
             if($recursive && !(count($ids_array) == 1 && $ids_array[0] == 0)){
                 $ids_childrens = $this->DetermineChildrens($ids_array);
@@ -577,7 +577,7 @@ class Messages {
                 $this->SetField($ids_list, 'is_deleted_to', 1, $recursive,'AND `id_user_to` = '.$auth->id);
             }
         } else {
-            $db->query("DELETE FROM ".$this->messages_table." WHERE is_system = ? AND id_user_to = ?", 1, $auth->id);
+            $db->querys("DELETE FROM ".$this->messages_table." WHERE is_system = ? AND id_user_to = ?", 1, $auth->id);
         }
             
         $this->error = (!empty($db->error)) ? ($db->error) : ($this->error);

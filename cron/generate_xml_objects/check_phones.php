@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (???? ??????)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 require_once('includes/class.paginator.php');
 require_once('includes/class.estate.php');
@@ -44,8 +44,8 @@ define('__URL__','https://www.bsn.ru/');
 $db->select_db('estate');
 // ????????????? ??????? ???????
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
 
 // ??????????????? ??????? ??????
 $sys_tables = Config::$sys_tables;
@@ -86,7 +86,7 @@ if(empty($_GET['d'])){
                     $phones = array_merge(Convert::ToPhone($item['phones']),Convert::ToPhone($item['seller_phone']));
                     if(!empty($phones)){
                         foreach($phones as $k_p=>$phone) {
-                            if(strlen($phone)>=7) $db->query("INSERT INTO ".$sys_tables['phone_prefixes']." SET type=?, phone_number=?, id_user=?", $key, $phone, $item['id_user']);
+                            if(strlen($phone)>=7) $db->querys("INSERT INTO ".$sys_tables['phone_prefixes']." SET type=?, phone_number=?, id_user=?", $key, $phone, $item['id_user']);
                         }
                     }
                 }
@@ -95,7 +95,7 @@ if(empty($_GET['d'])){
     }
 }
 
-$db->query("set names cp1251") or die($db->error);
+$db->querys("set names cp1251") or die($db->error);
 $list = $db->fetchall("SELECT id as prefix, phone_number FROM ".$sys_tables['phone_prefixes']);
 foreach($list as $k=>$item){
     $filename =  'phones';;

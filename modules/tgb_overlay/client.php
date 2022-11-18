@@ -14,7 +14,7 @@ switch(true){
             //Overlay баннер (баннер)
             if(!empty($item)){
                 $ajax_result['ok'] = true;
-                if(!Host::$is_bot) $db->query("INSERT INTO ".$sys_tables['tgb_overlay_stats_day_shows']." SET id_parent = ?", $item['id']);
+                if(!Host::$is_bot) $db->querys("INSERT INTO ".$sys_tables['tgb_overlay_stats_day_shows']." SET id_parent = ?", $item['id']);
                 $item['img_folder'] = Config::$values['img_folders']['tgb_overlay'];
                 Response::SetArray('item', $item);
                 $module_template = 'block.html';
@@ -39,7 +39,7 @@ switch(true){
                         $type = 3;
                         break;
                 }                
-                if(!Host::$is_bot) $res = $db->query("INSERT INTO ".$sys_tables['tgb_overlay_stats_day_clicks']." SET `id_parent` = ? , type = ?, ip = ?, browser = ?, ref = ?", 
+                if(!Host::$is_bot) $res = $db->querys("INSERT INTO ".$sys_tables['tgb_overlay_stats_day_clicks']." SET `id_parent` = ? , type = ?, ip = ?, browser = ?, ref = ?",
                                                         $id, $type, Host::getUserIp(),$db->real_escape_string($_SERVER['HTTP_USER_AGENT']),Host::getRefererURL()
                 );
                 $ajax_result['ok'] = $res;
@@ -50,11 +50,11 @@ switch(true){
             $id = !empty($this_page->page_parameters[1]) && Validate::isDigit($this_page->page_parameters[1])?  $this_page->page_parameters[1] : false;
             if(!empty($id)) {
                 if(!Host::$is_bot) {
-                    $res = $db->query("INSERT INTO ".$sys_tables['tgb_overlay_stats_day_clicks']." SET `id_parent` = ? , type = ?", $id, 3);    
+                    $res = $db->querys("INSERT INTO ".$sys_tables['tgb_overlay_stats_day_clicks']." SET `id_parent` = ? , type = ?", $id, 3);
                     
                     $phone = Request::GetString('tgb-overlay-phone',METHOD_POST);
                     if(!empty($phone)) {
-                        $res = $db->query("INSERT INTO ".$sys_tables['tgb_overlay_phones']." SET `id_parent` = ? , phone = ?, ip = ?, browser = ?, ref = ?", 
+                        $res = $db->querys("INSERT INTO ".$sys_tables['tgb_overlay_phones']." SET `id_parent` = ? , phone = ?, ip = ?, browser = ?, ref = ?",
                                     $id, $phone, Host::getUserIp(),$db->real_escape_string($_SERVER['HTTP_USER_AGENT']),Host::getRefererURL()
                         );    
                         

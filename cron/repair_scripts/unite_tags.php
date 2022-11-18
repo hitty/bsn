@@ -31,7 +31,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -65,7 +65,7 @@ foreach($tags_list as $key=>$value){
             //записываем дубль, чтобы потом откорректировать таблицу news_tags
             $equal_tags_ids[] = $tags_list[$k]['id'];
             //удаляем такие же теги из базы и из прочитанного
-            $db->query("DELETE FROM ".Config::$values['sys_tables']['content_tags']." WHERE id = ".$tags_list[$k]['id']);
+            $db->querys("DELETE FROM ".Config::$values['sys_tables']['content_tags']." WHERE id = ".$tags_list[$k]['id']);
             unset($tags_list[$k]);
         }
         else
@@ -89,13 +89,13 @@ foreach($tags_list as $key=>$value){
                     }
                     $similar_tags_ids[] = $tags_list[$k]['id'];
                     //устанавливаем найденному похожему тегу id_similar =  id исходного
-                    $db->query("UPDATE ".Config::$values['sys_tables']['content_tags']." SET id_similar = ".$this_id.", difference_level = ".$different_letters." WHERE id = ".$tags_list[$k]['id']);
+                    $db->querys("UPDATE ".Config::$values['sys_tables']['content_tags']." SET id_similar = ".$this_id.", difference_level = ".$different_letters." WHERE id = ".$tags_list[$k]['id']);
                     $tags_list[$k]['id_similar'] = $this_id;
                     $tags_list[$k]['differnet_letters'] = $different_letters;
                 }
                 //если у найденного тега есть более похожий, то устанавливаем текущему id_similar = id найденного
                 else{
-                    $db->query("UPDATE ".Config::$values['sys_tables']['content_tags']." SET id_similar = ".$tags_list[$k]['id'].", difference_level = ".$different_letters." WHERE id = ".$this_id);
+                    $db->querys("UPDATE ".Config::$values['sys_tables']['content_tags']." SET id_similar = ".$tags_list[$k]['id'].", difference_level = ".$different_letters." WHERE id = ".$this_id);
                 }
             }
         }
@@ -105,7 +105,7 @@ foreach($tags_list as $key=>$value){
     if($has_equals){
         $equal_tags_ids = implode(', ',$equal_tags_ids);
         echo $tags_list[$key]['id'].': '.$equal_tags_ids.";\r\n";
-        $db->query("UPDATE ".Config::$values['sys_tables']['news_tags']." SET id_tag = ".$this_id." WHERE id_tag IN (".$equal_tags_ids.")");
+        $db->querys("UPDATE ".Config::$values['sys_tables']['news_tags']." SET id_tag = ".$this_id." WHERE id_tag IN (".$equal_tags_ids.")");
     }
 }
 /*

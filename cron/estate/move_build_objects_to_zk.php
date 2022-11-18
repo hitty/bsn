@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -45,12 +45,12 @@ $sys_tables = Config::$sys_tables;
 $estates = array('live','build','commercial','country');
 foreach($estates as $estate_type){
     /*
-    $db->query("UPDATE ".$sys_tables['build']." a
+    $db->querys("UPDATE ".$sys_tables['build']." a
         RIGHT JOIN ".$sys_tables['housing_estates']." b ON a.lat = b.lat AND a.lng = b.lng
         SET a.id_housing_estate = b.id
         WHERE a.id > 0 AND b.id > 0 and a.id_housing_estate = 0
     ");
-    $db->query("UPDATE ".$sys_tables['build']." a
+    $db->querys("UPDATE ".$sys_tables['build']." a
         RIGHT JOIN ".$sys_tables['housing_estates']." b ON a.lat >= b.lat-0.002 AND a.lat <= b.lat+0.002 AND a.lng >= b.lng-0.002 AND a.lng <= b.lng+0.002
         SET a.id_housing_estate = b.id
         WHERE a.id > 0 AND b.id > 0 and a.id_housing_estate = 0

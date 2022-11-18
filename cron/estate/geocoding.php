@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 include('includes/class.housing_estates.php');     // Estate (объекты рынка недвижимости)
@@ -43,7 +43,7 @@ $sys_tables = Config::$sys_tables;
 $estates = array('housing_estates','live','build','commercial','country');
 
 foreach($estates as $estate_type){  
-    $db->query("update ".$sys_tables[$estate_type]." set lat=0.00, lng=0.00 WHERE lat <=59.941 and lat>=59.937 AND lng<=30.321 and lng>=30.309");
+    $db->querys("update ".$sys_tables[$estate_type]." set lat=0.00, lng=0.00 WHERE lat <=59.941 and lat>=59.937 AND lng<=30.321 and lng>=30.309");
     switch($estate_type){
         case 'build':
             $estate = new EstateListBuild();
@@ -73,7 +73,7 @@ foreach($estates as $estate_type){
                     $item['lng'] = $point[0];
                     $item['lat'] = $point[1];
                     
-                    $db->query("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$item['lat'], $item['lng'],$item['id']);
+                    $db->querys("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$item['lat'], $item['lng'],$item['id']);
                 }
             }        }
     }

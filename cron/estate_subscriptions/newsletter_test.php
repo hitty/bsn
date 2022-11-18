@@ -26,11 +26,11 @@ require_once('includes/class.template.php');
 require_once('includes/functions.php');
 require_once('includes/class.email.php');
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 $sys_tables = Config::$sys_tables;
 
-/* TEST ONLY */$db->query("UPDATE ".$sys_tables['estate_subscriptions']." SET `last_delivery` = '2014-10-01 00:00:00', `last_seen` = '2014-10-01 00:00:00',`new_objects` = 10 WHERE `id_user` = 42378");
+/* TEST ONLY */$db->querys("UPDATE ".$sys_tables['estate_subscriptions']." SET `last_delivery` = '2014-10-01 00:00:00', `last_seen` = '2014-10-01 00:00:00',`new_objects` = 10 WHERE `id_user` = 42378");
 
 function set_obj_adds(&$item){ 
     //подсчет кол-ва фотографий объекта
@@ -170,7 +170,7 @@ if(!empty($users)){
                 $mailer->From = 'no-reply@bsn.ru';
                 $mailer->FromName = 'bsn.ru';                                                                
                 $mailer->Send();
-                //if ($mailer->Send()) $db->query("UPDATE ".$sys_tables['estate_subscriptions']." SET `last_delivery` = NOW() WHERE id_user = ?",$user['id_user']);
+                //if ($mailer->Send()) $db->querys("UPDATE ".$sys_tables['estate_subscriptions']." SET `last_delivery` = NOW() WHERE id_user = ?",$user['id_user']);
             }
         }
     }

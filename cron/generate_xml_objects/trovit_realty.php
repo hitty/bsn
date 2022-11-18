@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 require_once('includes/class.estate.php');
 
@@ -42,8 +42,8 @@ define('__URL__','https://www.bsn.ru/');
 $db->select_db('estate');
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -216,7 +216,7 @@ foreach($res as $k=>$item){
         if($item['id_facing']>2) $xmlItem->append('condition', $item['facing_title'],1);
         if($item['id_toilet']>2  && $item['id_toilet']<6) $xmlItem->append('bathrooms', $item['toilet_title'],1);
         
-        $res_image = $db->query("SELECT name, LEFT (".$sys_tables['live_photos'].".`name`,2) as `subfolder` 
+        $res_image = $db->querys("SELECT name, LEFT (".$sys_tables['live_photos'].".`name`,2) as `subfolder` 
                                  FROM ".$sys_tables['live_photos']." 
                                  WHERE id_parent = ?",$item['id']);
         $xmlItem->append('pictures', '',1);
@@ -382,7 +382,7 @@ foreach($res as $k=>$item){
         if($item['id_facing']>2) $xmlItem->append('condition', $item['facing_title'],1);
         if($item['id_toilet']>2  && $item['id_toilet']<6) $xmlItem->append('bathrooms', $item['toilet_title'],1);
         
-        $res_image = $db->query("SELECT name, LEFT (".$sys_tables['build_photos'].".`name`,2) as `subfolder` 
+        $res_image = $db->querys("SELECT name, LEFT (".$sys_tables['build_photos'].".`name`,2) as `subfolder` 
                                  FROM ".$sys_tables['build_photos']." 
                                  WHERE id_parent = ?",$item['id']);
         $xmlItem->append('pictures', '',1);

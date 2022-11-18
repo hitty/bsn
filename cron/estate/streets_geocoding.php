@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 include('includes/class.housing_estates.php');     // Estate (объекты рынка недвижимости)
@@ -68,7 +68,7 @@ if(!empty($list)){
         if(!empty($geo->response->GeoObjectCollection->featureMember[0]->GeoObject->Point->pos)){
             $point = explode(" ",$geo->response->GeoObjectCollection->featureMember[0]->GeoObject->Point->pos);
             if( $point[1] != 59.939095 && $point[0] != 30.315868 && $point[0] > 0 && $point[1] > 0){
-                $db->query("UPDATE ".$sys_tables['geodata']." SET lat_center = ?, lng_center = ? WHERE id = ?", $point[1], $point[0], $item['id']);
+                $db->querys("UPDATE ".$sys_tables['geodata']." SET lat_center = ?, lng_center = ? WHERE id = ?", $point[1], $point[0], $item['id']);
             }
         }
     }
@@ -94,7 +94,7 @@ if(!empty($list)){
         if(!empty($geo->response->GeoObjectCollection->featureMember[0]->GeoObject->Point->pos)){
             $point = explode(" ",$geo->response->GeoObjectCollection->featureMember[0]->GeoObject->Point->pos);
             if( $point[1] != 59.939095 && $point[0] != 30.315868 && $point[0] > 0 && $point[1] > 0){
-                $db->query("UPDATE ".$sys_tables['geodata']." SET lat_center = ?, lng_center = ? WHERE id = ?", $point[1], $point[0], $item['id']);
+                $db->querys("UPDATE ".$sys_tables['geodata']." SET lat_center = ?, lng_center = ? WHERE id = ?", $point[1], $point[0], $item['id']);
             }
         }
     }

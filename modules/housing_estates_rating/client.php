@@ -27,7 +27,7 @@ if( !empty( $user ) ) Response::SetArray( 'housing_estate_expert', $user );
 //авторизация и редирект на страницу без параметров для пользователя по коду
 if( !empty( $get_parameters['invite_code'] ) && !empty( $user ) ) {
     //флаг - клиент согласен
-    $db->query(" UPDATE " . $sys_tables['housing_estates_experts'] . " SET agreed = ? WHERE id = ?", 1, $user['id'] ) ;
+    $db->querys(" UPDATE " . $sys_tables['housing_estates_experts'] . " SET agreed = ? WHERE id = ?", 1, $user['id'] ) ;
     //залогинивание клиента
     $auth->checkSuperAdminAuth( $user['id_user'] );
     if(!empty($auth->authorized)) Host::Redirect( Host::$root_url . '/zhiloy_kompleks/votes/' );    
@@ -117,7 +117,7 @@ switch(true){
                     //определение района ЖК
                     $district = $db->fetch(" SELECT * FROM " . $sys_tables['housing_estates_districts'] ." WHERE FIND_IN_SET( " . $id . ",  housing_estates_ids) ") ;
                     //запись
-                    $db->query(" INSERT INTO " . $sys_tables['housing_estates_voting'] . " SET 
+                    $db->querys(" INSERT INTO " . $sys_tables['housing_estates_voting'] . " SET 
                                     id_parent = ?, id_user = ?, id_district = ?, rating = ?, rating_fields = ?, rating_transport = ?, rating_infrastructure = ?, rating_safety = ?, rating_ecology = ?, rating_quality = ?, is_expert = 1, ip = ?, browser = ?, ref = ?",
                                     $id, $auth->id, $district['id'], $avg_rating, $string_rating, 
                                     $parameters['transport'], $parameters['infrastructure'], $parameters['safety'],$parameters['ecology'], $parameters['quality'],
@@ -152,7 +152,7 @@ switch(true){
                 if(!empty($ajax_mode)){
                     $parameters = Request::GetParameters( METHOD_POST );
                     if( !empty( $parameters['resume'] ) ){
-                        $db->query(" UPDATE " . $sys_tables['housing_estates_experts'] . " set resume = ? WHERE id = ?", $parameters['resume'], $user['id'] );
+                        $db->querys(" UPDATE " . $sys_tables['housing_estates_experts'] . " set resume = ? WHERE id = ?", $parameters['resume'], $user['id'] );
                         $ajax_result['ok'] = true;
                         Response::SetString( 'title', 'Спасибо за ваш отзыв!' );
                         $module_template = "/templates/popup.success.html";
@@ -178,8 +178,8 @@ switch(true){
                     $parameters = Request::GetParameters( METHOD_POST );
                     
                     if( !empty( $parameters['fio'] )  && !empty( $parameters['job'] ) ){
-                        $db->query(" UPDATE " . $sys_tables['housing_estates_experts'] . " set job = ? WHERE id = ?", $parameters['job'], $user['id'] );
-                        $db->query(" UPDATE " . $sys_tables['users'] . " set name = ?, lastname = ? WHERE id = ?", $parameters['fio'], '', $user['id_user'] );
+                        $db->querys(" UPDATE " . $sys_tables['housing_estates_experts'] . " set job = ? WHERE id = ?", $parameters['job'], $user['id'] );
+                        $db->querys(" UPDATE " . $sys_tables['users'] . " set name = ?, lastname = ? WHERE id = ?", $parameters['fio'], '', $user['id_user'] );
                         $ajax_result['ok'] = true;
                     }
 

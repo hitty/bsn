@@ -35,8 +35,8 @@ require_once('includes/getid3/getid3.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
 
@@ -44,7 +44,7 @@ $sys_tables = Config::$sys_tables;
 $list = $db->fetchall(" SELECT * FROM " . $sys_tables['housing_estates_voting'] ." ORDER BY id DESC");;
 foreach($list as $k => $item ){
     $rating = explode( '-', $item['rating_fields'] );
-    $db->query( " UPDATE " . $sys_tables['housing_estates_voting'] ." SET rating_transport = ?, rating_infrastructure = ?, rating_safety = ?, rating_ecology = ?, rating_quality = ? WHERE id = ? ", 
+    $db->querys( " UPDATE " . $sys_tables['housing_estates_voting'] ." SET rating_transport = ?, rating_infrastructure = ?, rating_safety = ?, rating_ecology = ?, rating_quality = ? WHERE id = ? ",
                 $rating[0], $rating[1], $rating[2], $rating[3], $rating[4], $item['id'] 
     );
 }

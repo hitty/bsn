@@ -88,7 +88,7 @@ switch(true){
                             case 'adv03-r' : $from = 3; break; // google adwords
                             case 'adv04-r' : $from = 4; break; // yandex direct
                         }
-                        $db->query("INSERT INTO ".$sys_tables['banners_stats_click_day']." SET `id_parent`=?, `from` = ?, real_ref=?, ref=?, ip=?, browser = ?", $id, $from, $ref, $real_ref, $ip, $_SERVER['HTTP_USER_AGENT']); 
+                        $db->querys("INSERT INTO ".$sys_tables['banners_stats_click_day']." SET `id_parent`=?, `from` = ?, real_ref=?, ref=?, ip=?, browser = ?", $id, $from, $ref, $real_ref, $ip, $_SERVER['HTTP_USER_AGENT']);
                         Host::Redirect(!empty($item['direct_link']) ? trim($item['direct_link']) : 'https://www.bsn.ru/');
                     }
                 }

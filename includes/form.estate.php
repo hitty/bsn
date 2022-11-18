@@ -1,4 +1,4 @@
-<?
+<?php
 // проверка наличия в кэше
 //$form_filter = $memcache->get('bsn::form::estate');
 if(empty($form_filter) || $form_filter === FALSE) {

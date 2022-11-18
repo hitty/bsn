@@ -33,7 +33,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -132,7 +132,7 @@ while($filename = readdir($dh))
                             $estate_type='build';
                             break;   
                     }
-                    $db->query("UPDATE estate.".$estate_type." SET `published` = 2, `date_change` = NOW() WHERE id_user = ? AND info_source=5 AND published=1 AND elite!=1",$id_user);
+                    $db->querys("UPDATE estate.".$estate_type." SET `published` = 2, `date_change` = NOW() WHERE id_user = ? AND info_source=5 AND published=1 AND elite!=1",$id_user);
                     //обработка полученных значений
                     foreach($rows as $key=>$values){
                         if($key>1){ //0 и 1 - справочная инфа в файлах
@@ -171,7 +171,7 @@ while($filename = readdir($dh))
                                         case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                                     }
                                     $item_weight = $item_weight->getItemWeight($inserted_id,$robot->estate_type);
-                                    $res_weight = $db->query("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
+                                    $res_weight = $db->querys("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
                                     ///
                                     
                                     //модерация объектов

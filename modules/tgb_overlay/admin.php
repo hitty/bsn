@@ -46,7 +46,7 @@ switch($action){
                     case "to_called": $status = 1; break;
                     case "to_spam": $status = 2; break;
                 }
-                $db->query("UPDATE ".$sys_tables['tgb_overlay_phones']." SET status = ? WHERE id = ?",$status,$id);
+                $db->querys("UPDATE ".$sys_tables['tgb_overlay_phones']." SET status = ? WHERE id = ?",$status,$id);
                 $ajax_result['type_result'] = preg_replace('/to\_|restore/si','',$action);
                 $ajax_result['ok'] = true;
                 break;            
@@ -329,7 +329,7 @@ switch($action){
 		$value = Request::GetString('value',METHOD_POST);
 		$status = $action=='restore'?1:3;
 		if($id>0){
-			$res = $db->query("UPDATE ".$sys_tables['tgb_overlay']." SET `published` = ? WHERE id=?", $status, $id) or die($db->error);
+			$res = $db->querys("UPDATE ".$sys_tables['tgb_overlay']." SET `published` = ? WHERE id=?", $status, $id) or die($db->error);
 			$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 			if($ajax_mode){
 				$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));
@@ -344,7 +344,7 @@ switch($action){
         $value = Request::GetString('value',METHOD_POST);
          $status = $value == 'checked'?1:2;
         if($id>0){
-            $res = $db->query("UPDATE ".$sys_tables['tgb_overlay']." SET `enabled` = ? WHERE id=?", $status, $id);
+            $res = $db->querys("UPDATE ".$sys_tables['tgb_overlay']." SET `enabled` = ? WHERE id=?", $status, $id);
             $results['setStatus'] = $db->affected_rows>0 ? $id : -1;
             if($ajax_mode){
                 $ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));

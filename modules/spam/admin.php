@@ -62,7 +62,7 @@ switch($action){
                             //если такой файл есть - удаляем его
                             if(file_exists($banner_img)) unlink($banner_img);
                             //заносим в базу пустые значения имени удаленного файла
-                            $res = $db->query("UPDATE ".$sys_tables['normalspam']." SET ".$banner." = '' WHERE id = $id");
+                            $res = $db->querys("UPDATE ".$sys_tables['normalspam']." SET ".$banner." = '' WHERE id = $id");
                             //определяем выполнился запрос или провалился
                             $ajax_result['ok'] = $res;
                         } else $this_page->http_code = 404;
@@ -245,7 +245,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query('DELETE FROM '.$sys_tables['normalspam'].' WHERE id=?',$id);
+                $res = $db->querys('DELETE FROM '.$sys_tables['normalspam'].' WHERE id=?',$id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -322,7 +322,7 @@ switch($action){
                             //если такой файл есть - удаляем его
                             if(file_exists($banner_img)) unlink($banner_img);
                             //заносим в базу пустые значения имени удаленного файла
-                            $res = $db->query("UPDATE ".$sys_tables['specspam']." SET ".$banner." = '' WHERE id = $id");
+                            $res = $db->querys("UPDATE ".$sys_tables['specspam']." SET ".$banner." = '' WHERE id = $id");
                             //определяем выполнился запрос или провалился
                             $ajax_result['ok'] = $res;
                         } else $this_page->http_code = 404;
@@ -356,7 +356,7 @@ switch($action){
                         // перенос полученных значений в мэппинг формы для последующего отображения (подмена дефолотных)
                         
                         // сохранение в БД
-                        $db->query('TRUNCATE '.$sys_tables['specspam_users']);
+                        $db->querys('TRUNCATE '.$sys_tables['specspam_users']);
                         $query='INSERT INTO '.$sys_tables['specspam_users'].' (email) VALUES ';
                         $emails = array('valid'=>[],'invalid'=>[]);//список email
                         $emails_string = ''; //email списком
@@ -371,7 +371,7 @@ switch($action){
                                 if (!empty($item)) $emails['invalid'][]=$item;
                             }
                         }
-                        $res = $db->query("INSERT INTO ".$sys_tables['specspam_users']." (email) VALUES ".implode(', ',$emails['valid']));
+                        $res = $db->querys("INSERT INTO ".$sys_tables['specspam_users']." (email) VALUES ".implode(', ',$emails['valid']));
                         
                         //если есть неправильные email, будем выводить их, если нет, список сохраненных email
                         if (!empty($emails['invalid']))  Response::SetArray('emails_invalid',$emails['invalid']);
@@ -559,7 +559,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query('DELETE FROM '.$sys_tables['specspam'].' WHERE id=?',$id);
+                $res = $db->querys('DELETE FROM '.$sys_tables['specspam'].' WHERE id=?',$id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

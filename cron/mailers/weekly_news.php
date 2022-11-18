@@ -37,8 +37,8 @@ $debug = DEBUG_MODE || ( !empty($_SERVER['argv'][1]) && $_SERVER['argv'][1] === 
 $send = ( !empty($_SERVER['argv'][1]) && $_SERVER['argv'][1] === 'send' ) ? true : false;
 // Инициализация рабочих классов
 $db = !TEST_MODE ? new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']) : new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
-$db->query("set names ".Config::$values['mysql_remote']['charset']);
-$db->query("set lc_time_names = 'ru_RU'");
+$db->querys("set names ".Config::$values['mysql_remote']['charset']);
+$db->querys("set lc_time_names = 'ru_RU'");
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
 //проверка каждые 10 минут времени рассылки//подключить в случае ежедневной рассылки
@@ -58,7 +58,7 @@ $news_list = array();
 $news_list = $news->getList( 10, 0, false, false, "`datetime` >= NOW() - INTERVAL 7 DAY AND `datetime` <= NOW()  AND newsletter_feed = 1", $sys_tables['news'].".views_count DESC");
 foreach( $news_list as $n => $item )  createPhoto( $item );
 
-if( empty( $debug ) ) $db->query("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, partner_feed = 2");
+if( empty( $debug ) ) $db->querys("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, partner_feed = 2");
 
 //получение списка новостей Доверия
 $doverie = new Content('doverie');

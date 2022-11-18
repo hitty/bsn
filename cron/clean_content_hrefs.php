@@ -23,7 +23,7 @@ include('includes/class.storage.php');      // Session, Cookie, Responce, Reques
 include('includes/functions.php');          // функции  из модуля
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables; 
 $tables = array('opinions_predictions', 'news', 'articles', 'calendar_events', 'partners_articles');     
@@ -62,7 +62,7 @@ foreach($tables as $table){
             echo $res[3][0].' - '.$item['id'].' - '.$table;
             echo ++$count."\n<br />";
             $new_text = preg_replace("~<a[^>]+href\s*=\s*[\x27\x22]?[^\x20\x27\x22\x3E]+[\x27\x22]?[^>]*>(.+?)</a>~is", '$1', $text);
-            $db->query("UPDATE ".$sys_tables[$table]." SET ".$field." = ? WHERE id = ?", $new_text, $item['id']);
+            $db->querys("UPDATE ".$sys_tables[$table]." SET ".$field." = ? WHERE id = ?", $new_text, $item['id']);
         }
     }
 }               

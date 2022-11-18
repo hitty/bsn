@@ -1,5 +1,4 @@
-<?
-/**
+<?php/**
 * Class for storing ierarchic url schema
 */
 class pagetree

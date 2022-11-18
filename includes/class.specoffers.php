@@ -213,13 +213,13 @@ class specOffers {
             if(!empty($objects)) {
                 $objects_sql = [];
                 foreach($objects as $object) $objects_sql[] = "(".(is_array($object)?$object['id']:$object).",".(!empty($from)?3:1).",'".$ref."'".($action!=''?', "'.Host::getUserIp().'"':'').($action!=''?', "'.$db->real_escape_string($user_agent).'"':'').")";
-                $db->query("INSERT INTO ".self::$tables[$action]['objects']." (id_parent, `from` , `ref`".($action!=''?', `ip`':'').($action!=''?', `user_agent`':'').") VALUES ".implode(",",$objects_sql).";");
+                $db->querys("INSERT INTO ".self::$tables[$action]['objects']." (id_parent, `from` , `ref`".($action!=''?', `ip`':'').($action!=''?', `user_agent`':'').") VALUES ".implode(",",$objects_sql).";");
                 
             }
             if(!empty($packets)) {
                 $packets_sql = [];
                 foreach($packets as $packet) $packets_sql[] = "(".(is_array($packet)?$packet['id']:$packet)."".($action=='click'?', "'.Host::getUserIp().'"':'').")";
-                $db->query("INSERT INTO ".self::$tables[$action]['packets']." (id_parent".($action=='click'?', `ip`':'').") VALUES ".implode(",",$packets_sql).";");
+                $db->querys("INSERT INTO ".self::$tables[$action]['packets']." (id_parent".($action=='click'?', `ip`':'').") VALUES ".implode(",",$packets_sql).";");
                 
             }
         }

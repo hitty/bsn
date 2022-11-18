@@ -23,7 +23,7 @@ include('includes/class.tags.php');          // функции  из модул�
 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 $sys_tables = Config::$sys_tables;
 
@@ -61,7 +61,7 @@ $bsntv = $db->fetchall("
 
 ");
 foreach($bsntv as $k=>$item){
-    $db->query("UPDATE ".$sys_tables['comments']." SET id_parent = ?, parent_type = 9 WHERE id = ?", $item['bsntv_id'], $item['comments_id']);
+    $db->querys("UPDATE ".$sys_tables['comments']." SET id_parent = ?, parent_type = 9 WHERE id = ?", $item['bsntv_id'], $item['comments_id']);
 }
 
 die();
@@ -71,8 +71,8 @@ foreach($bsntv as $k=>$item){
     $chpu_title = explode("_", $item['chpu_title']);
     $new_id = $k + 1;
     $chpu_title = array_replace($chpu_title, array( 0 => $new_id));
-    $db->query("UPDATE ".$sys_tables['bsntv']." SET id = ?, chpu_title = ? WHERE old_articles_id = ?", $new_id, implode("_", $chpu_title), $item['old_articles_id']);
-    $db->query("UPDATE ".$sys_tables['bsntv_photos']." SET id_parent = ? WHERE id = ?", $new_id, $item['id_main_photo']);
+    $db->querys("UPDATE ".$sys_tables['bsntv']." SET id = ?, chpu_title = ? WHERE old_articles_id = ?", $new_id, implode("_", $chpu_title), $item['old_articles_id']);
+    $db->querys("UPDATE ".$sys_tables['bsntv_photos']." SET id_parent = ? WHERE id = ?", $new_id, $item['id_main_photo']);
 }
 
 ?>

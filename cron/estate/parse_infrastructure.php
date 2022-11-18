@@ -30,14 +30,14 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 include('includes/class.housing_estates.php');     // Estate (объекты рынка недвижимости)
 include('includes/class.photos.php');     // Photos (работа с графикой)
 $sys_tables = Config::$sys_tables;
 
-$db->query("TRUNCATE ".$sys_tables['infrastructure']);
+$db->querys("TRUNCATE ".$sys_tables['infrastructure']);
 $subcats = array(
     1 => array('магазины'),
     2 => array('школы','детские сады','институты','университеты','автошколы','академии','колледжи'),
@@ -85,7 +85,7 @@ foreach($categories as $k=>$category){
                 if(empty($result['error_message'])){
                     foreach($result['result'] as $k=>$result_item){
                         if(!empty($result_item['lat']) && !empty($result_item['lon'])){
-                            $db->query("INSERT IGNORE INTO ".$sys_tables['infrastructure']." SET id=?, id_category=?, name=?, address=?, lat=?, lng=?",
+                            $db->querys("INSERT IGNORE INTO ".$sys_tables['infrastructure']." SET id=?, id_category=?, name=?, address=?, lat=?, lng=?",
                                 $result_item['id'], $category['id'], $result_item['name'],$result_item['address'],$result_item['lat'],$result_item['lon']
                             );
                         }

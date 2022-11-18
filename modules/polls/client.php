@@ -68,7 +68,7 @@ switch(true){
             } else {
                 //регистрация пользователя
                 $reg_passwd = substr(md5(time()),-6);
-                $res = $db->query("INSERT INTO ".$sys_tables['users']."
+                $res = $db->querys("INSERT INTO ".$sys_tables['users']."
                                     (email,passwd,datetime,access)
                                    VALUES
                                     (?,?,NOW(),'')"

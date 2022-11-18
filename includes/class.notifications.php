@@ -58,13 +58,13 @@ class Notifications {
                 $messages = (new Messages)->GetList($auth->id, $ids);
                 foreach($messages as $k => $message) 
                     if($auth->id == $message['id_user_to']) (new Messages)->SetRead($message['id'], true);
-                    $db->query("UPDATE ".self::$tables['messages']." SET is_unread = 2, datetime_read = NOW() WHERE id_user_to = ? AND id = ?", $auth->id, $ids);
+                    $db->querys("UPDATE ".self::$tables['messages']." SET is_unread = 2, datetime_read = NOW() WHERE id_user_to = ? AND id = ?", $auth->id, $ids);
                 break;
             case 'system_messages':
-                $db->query("UPDATE ".self::$tables['messages']." SET is_unread = 2, datetime_read = NOW() WHERE id_user_to = ? AND id = ?", $auth->id, $ids);
+                $db->querys("UPDATE ".self::$tables['messages']." SET is_unread = 2, datetime_read = NOW() WHERE id_user_to = ? AND id = ?", $auth->id, $ids);
                 break;
             case 'estate_subscriptions':
-                $db->query("UPDATE ".self::$tables['objects_subscriptions']." SET new_objects = 0, last_seen = NOW() WHERE id_user = ?", $auth->id);
+                $db->querys("UPDATE ".self::$tables['objects_subscriptions']." SET new_objects = 0, last_seen = NOW() WHERE id_user = ?", $auth->id);
                 break;
             case 'comments':
                 $value = 1;                 //значение флага прочтения
@@ -84,7 +84,7 @@ class Notifications {
                 
         }
         if(!empty($table)){
-            $db->query("UPDATE ".self::$tables[$table]." SET `".$field."` = ? WHERE id IN (".$ids.")", $value);
+            $db->querys("UPDATE ".self::$tables[$table]." SET `".$field."` = ? WHERE id IN (".$ids.")", $value);
         }
     }
     

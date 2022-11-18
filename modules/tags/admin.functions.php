@@ -16,7 +16,7 @@ function deleteTagLinks($id){
         foreach($tableslist as $tlkey=>$tableitem){
             $table = array_pop($tableitem);
             if(in_array($table,$types)){
-                $res = $db->query("DELETE FROM content.".$table." WHERE id_tag=?", $id);
+                $res = $db->querys("DELETE FROM content.".$table." WHERE id_tag=?", $id);
             }
         }
     }

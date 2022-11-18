@@ -42,7 +42,7 @@ switch($action){
         $status = ( $action == 'restore' ? 1 : 2 );
 		$table = !empty($this_page->page_parameters[2]) && $this_page->page_parameters[2] == 'banners' ? 'textline_banners' : 'textline_campaigns' ;
 		if($id>0){
-			$res = $db->query("UPDATE ".$sys_tables[$table]." SET `enabled` = ? WHERE id=?", $status, $id);
+			$res = $db->querys("UPDATE ".$sys_tables[$table]." SET `enabled` = ? WHERE id=?", $status, $id);
 			$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 			if($ajax_mode){
 				$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));
@@ -417,7 +417,7 @@ switch($action){
 				$value = Request::GetString('value',METHOD_POST);
 				$status = $action=='restore'?1:3;
 				if($id>0){
-					$res = $db->query("UPDATE ".$sys_tables['textline_banners']." SET `enabled` = ? WHERE id=?", $status, $id) or die($db->error);
+					$res = $db->querys("UPDATE ".$sys_tables['textline_banners']." SET `enabled` = ? WHERE id=?", $status, $id) or die($db->error);
 					$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 					if($ajax_mode){
 						$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));
@@ -432,7 +432,7 @@ switch($action){
                 $value = Request::GetString('value',METHOD_POST);
                  $status = $value == 'checked'?1:2;
                 if($id>0){
-                    $res = $db->query("UPDATE ".$sys_tables['textline_banners']." SET `enabled` = ? WHERE id=?", $status, $id);
+                    $res = $db->querys("UPDATE ".$sys_tables['textline_banners']." SET `enabled` = ? WHERE id=?", $status, $id);
                     $results['setStatus'] = $db->affected_rows>0 ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));

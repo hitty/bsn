@@ -1,5 +1,4 @@
-<?
-set_time_limit(100000);
+<?phpet_time_limit(100000);
 require_once('includes/lib.errorhandler.php');
 register_shutdown_function('newFatalCatcher');
 //not loged query's
@@ -263,13 +262,13 @@ function updateAgenciesByPackets(){
     ) as t
     WHERE ((t.id_tarif > 0 AND t.id_tarif < 7 AND  t.counts > t.objects ) OR (t.counts > t.objects AND t.objects > 0) )
     ";
-    $res = $db->query($sql) or die($db->error);
+    $res = $db->querys($sql) or die($db->error);
     while($row = $res->fetch_array(MYSQL_ASSOC)) {
         if($row['id_tarif'] != 7 || ($row['rent_type'] == 'rent' && $row['dbtable'] == 'live')){
             if($row['rent_type']=='sell') $where = " AND rent = 2 ";
             elseif($row['rent_type']=='rent') $where = " AND rent = 1 ";
             else $where = "";
-            $db->query("UPDATE `estate`.".$row['dbtable']." SET `published` = 2 WHERE `elite`=2 AND `id_user` = ".$row['id']." AND published = 1 AND info_source != 4 AND info_source != 6 ".$where." ORDER BY `id` LIMIT ".($row['counts']-$row['objects'])) or die($db->error);
+            $db->querys("UPDATE `estate`.".$row['dbtable']." SET `published` = 2 WHERE `elite`=2 AND `id_user` = ".$row['id']." AND published = 1 AND info_source != 4 AND info_source != 6 ".$where." ORDER BY `id` LIMIT ".($row['counts']-$row['objects'])) or die($db->error);
         }
     }
 }
@@ -308,7 +307,7 @@ function updateNMarketEliteObjects(){
                        (SELECT 'build' as estate_type, id FROM estate.build WHERE published=1 AND id_user=26821 AND status>2)
         ) as a LIMIT ".($elite['ng_cnt']+$elite['nmarket_cnt']-300));
         if(!empty($nmarket_list)){
-            foreach($nmarket_list as $k=>$value) $db->query("UPDATE estate.".$value['estate_type']." SET status=2 WHERE `id` = ?",$value['id']);
+            foreach($nmarket_list as $k=>$value) $db->querys("UPDATE estate.".$value['estate_type']." SET status=2 WHERE `id` = ?",$value['id']);
         }
     }
 }
@@ -328,7 +327,7 @@ function downloadXmlFile($format=false, $agency_title, $link, $id_user, $db_chec
         $hash = md5_file($folder.$filename);
         if(!file_exists($folder.$filename) || filesize($folder.$filename)<10) {
             if(file_exists($folder.$filename)) unlink($folder.$filename);
-            $db->query("UPDATE `service`.`xml_imported_hash` SET `hash` = '".$hash."', `date` = CURDATE() WHERE `agency_title` = '".$agency_title."' ");
+            $db->querys("UPDATE `service`.`xml_imported_hash` SET `hash` = '".$hash."', `date` = CURDATE() WHERE `agency_title` = '".$agency_title."' ");
             return 'Файл '.$link.' не может быть скачан';
         }
         $item = $db->fetch("SELECT `id`, `date` FROM `service`.`xml_imported_hash` WHERE `agency_title` = ? AND `hash` = ?", $agency_title, $hash);     
@@ -338,7 +337,7 @@ function downloadXmlFile($format=false, $agency_title, $link, $id_user, $db_chec
                 return 'Файл '.$link.' агентства '.$agency_title.' не изменился с последней выгрузки - '.$item['date'].' : '.$db_check.'-';
             }
         } 
-        $db->query("UPDATE `service`.`xml_imported_hash` SET `hash` = '".$hash."', `date` = CURDATE() WHERE `agency_title` = '".$agency_title."' ");
+        $db->querys("UPDATE `service`.`xml_imported_hash` SET `hash` = '".$hash."', `date` = CURDATE() WHERE `agency_title` = '".$agency_title."' ");
     }
     if(empty($return_array)) return 'Файл '.$link.' агентства '.$agency_title.' выгружен. Проводится парсинг.';
     else return array($folder.$filename, 'Файл '.$link.' агентства '.$agency_title.' выгружен. Проводится парсинг.');
@@ -388,7 +387,7 @@ function downloadFtpXmlFile($format,$ftp_server,$ftp_login,$ftp_pass,$filename,$
                 $hash = md5_file($fullname);
                 $item = $db->fetch("SELECT `id` FROM `service`.`xml_imported_hash` WHERE `agency_title` = ? AND `hash` = ?", $agency_title, $hash);     
                 if(empty($item)) {
-                    $db->query("UPDATE `service`.`xml_imported_hash` SET `hash` = '".$hash."', `date` = CURDATE() WHERE `agency_title` = '".$agency_title."' ");
+                    $db->querys("UPDATE `service`.`xml_imported_hash` SET `hash` = '".$hash."', `date` = CURDATE() WHERE `agency_title` = '".$agency_title."' ");
                     $log .= 'Файл '.$filename.' агентства '.$agency_title.' ушел в обработку<br />';    
                 } else {
                     unlink($folder.$filename);
@@ -551,7 +550,7 @@ function isnertLineIntoBilling( $bsn_id_user, $date, $estate_type, $status, $db 
     echo "trying to insert\r\n";
     //пихаем строчку пока не вставится или не будет превышен лимит
     while(!$res && $k < 10){
-        $res = $db->query("INSERT INTO ".$sys_tables['billing']." SET external_id = ?, bsn_id = ?, date = ?, type = ?, bsn_id_user = ?, status = ?, adv_agency = ?",
+        $res = $db->querys("INSERT INTO ".$sys_tables['billing']." SET external_id = ?, bsn_id = ?, date = ?, type = ?, bsn_id_user = ?, status = ?, adv_agency = ?",
                            mt_rand(10000,200000), mt_rand(100000,1300000), $date, $estate_type,  $bsn_id_user, $status, 1);
     if( !empty( $db->error ) || empty( $db ) ){
         echo $db->last_query."\r\n";

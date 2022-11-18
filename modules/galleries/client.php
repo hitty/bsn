@@ -16,7 +16,7 @@ switch(true){
         $id = $this_page->page_parameters[0];
         if( !class_exists( 'Photos') ) if( !class_exists( 'Photos') ) require_once('includes/class.photos.php');
         
-        $db->query("UPDATE ".$sys_tables['galleries']." SET `views_count`=`views_count`+1 WHERE `id`=?",$id);
+        $db->querys("UPDATE ".$sys_tables['galleries']." SET `views_count`=`views_count`+1 WHERE `id`=?",$id);
         $item = $db->fetch("SELECT *, IF(YEAR(".$sys_tables['galleries'].".`datetime`) < Year(CURDATE()),DATE_FORMAT(".$sys_tables['galleries'].".`datetime`,'%e %M %Y'),DATE_FORMAT(".$sys_tables['galleries'].".`datetime`,'%e %M, %k:%i')) as normal_date
                             FROM  ".$sys_tables['galleries']." WHERE id = ?",
                             $id

@@ -49,7 +49,7 @@
 
 //BLOCK: REQUIRIES{{{
 	require('/home/apache/htdocs/includes/db/mysql.core.php');
-	$db->query('set names koi8r');
+	$db->querys('set names koi8r');
 	require('/home/bsnrobot/dbers/estate_live_sell.php');
 	require('/home/bsnrobot/dbers/estate_live_rent.php');
 	require('/home/bsnrobot/dbers/estate_build_flats.php');
@@ -179,7 +179,7 @@ foreach(getQueue() as $idx => $filename)
 					foreach($queuepart->childNodes as $item)
 					{
 						$sql = dber_estate_live_sell($item);
-						$db->query($sql) or die($db->error);
+						$db->querys($sql) or die($db->error);
 						$added += $db->affected_rows;
 					}
 
@@ -209,7 +209,7 @@ foreach(getQueue() as $idx => $filename)
 					foreach($queuepart->childNodes as $item)
 					{
 						$sql = dber_estate_live_rent($item);
-						$db->query($sql) or die($db->error);
+						$db->querys($sql) or die($db->error);
 						$added += $db->affected_rows;
 					}
 					if($db->errno > 0)
@@ -238,7 +238,7 @@ foreach(getQueue() as $idx => $filename)
 					foreach($queuepart->childNodes as $item)
 					{
 						$sql = dber_estate_build_flats($item);
-						$db->query($sql) or die($db->error);
+						$db->querys($sql) or die($db->error);
 						$added += $db->affected_rows;
 					}
 					if($db->errno > 0)
@@ -268,7 +268,7 @@ foreach(getQueue() as $idx => $filename)
 					foreach($queuepart->childNodes as $item)
 					{
 						$sql = dber_estate_commercial($item);
-						$db->query($sql) or die($db->error);
+						$db->querys($sql) or die($db->error);
 						$added += $db->affected_rows;
 					}
 					if($db->errno > 0)
@@ -298,7 +298,7 @@ foreach(getQueue() as $idx => $filename)
 					foreach($queuepart->childNodes as $item)
 					{
 						$sql = dber_estate_country_sell($item);
-						$db->query($sql) or die($db->error);
+						$db->querys($sql) or die($db->error);
 						$added += $db->affected_rows;
 					}
 					if($db->errno > 0)

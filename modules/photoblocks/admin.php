@@ -195,7 +195,7 @@ switch($action){
 	case 'del':
 		$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
 		$del_photos = Photos::DeleteAll('photoblocks',$id);
-		$res = $db->query("DELETE FROM ".$sys_tables['photoblocks']." WHERE id=?", $id);
+		$res = $db->querys("DELETE FROM ".$sys_tables['photoblocks']." WHERE id=?", $id);
 		$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 		if($ajax_mode){
 			$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

@@ -4,7 +4,7 @@ Config::Init();
 include('includes/class.convert.php');      // Convert, Validate (конвертирование, проверки валидности)
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 include('includes/class.sms.php');
 
 $smsObj = new SMSSender();

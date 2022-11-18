@@ -254,7 +254,7 @@ switch(true){
         $id = !empty( $this_page->page_parameters[1] ) ? $this_page->page_parameters[1] : false;
         $parameters = Request::GetParameters( METHOD_POST );
         if( !empty( $id ) && !empty( $parameters['answer'] ) ) {
-            $res = $db->query( "INSERT INTO " . $sys_tables['consults_answers'] . " 
+            $res = $db->querys( "INSERT INTO " . $sys_tables['consults_answers'] . " 
                                SET status = ?, answer = ?, id_parent = ?, date_in = NOW(), id_user = ?",
                                1, $parameters['answer'], $id, $auth->id
             );
@@ -292,8 +292,8 @@ switch(true){
             $vote_for = 0;
             $vote_against = 1;
         }
-        $res = $db->query( "INSERT INTO ".$sys_tables['consults_answers_votings']." SET id_parent = ?, vote_for = ?, vote_against = ?, id_user = ?",$answer_id, $vote_for, $vote_against, $auth->id);
-        $res = $res && $db->query( "UPDATE ".$sys_tables['consults_answers']." SET rating = rating ".(!empty( $vote_for)?"+":"-" )." 1"." WHERE id = ?",$answer_id);
+        $res = $db->querys( "INSERT INTO ".$sys_tables['consults_answers_votings']." SET id_parent = ?, vote_for = ?, vote_against = ?, id_user = ?",$answer_id, $vote_for, $vote_against, $auth->id);
+        $res = $res && $db->querys( "UPDATE ".$sys_tables['consults_answers']." SET rating = rating ".(!empty( $vote_for)?"+":"-" )." 1"." WHERE id = ?",$answer_id);
         $ajax_result['ok'] = true;
         break;
    ////////////////////////////////////////////////////////////////////////////////////////////////

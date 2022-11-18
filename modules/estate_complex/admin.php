@@ -33,7 +33,7 @@ switch($action){
         $id = Request::GetInteger('id',METHOD_POST);
         $id_complex = Request::GetInteger('id_complex',METHOD_POST);
         if(!empty($id_complex) && !empty($id)){
-            $res = $db->query("UPDATE ".$sys_tables['estate_complexes_external']." SET id_complex = ? WHERE id = ?",$id_complex, $id);
+            $res = $db->querys("UPDATE ".$sys_tables['estate_complexes_external']." SET id_complex = ? WHERE id = ?",$id_complex, $id);
             $ajax_result['ok'] = $res;
         }
         break;

@@ -13,7 +13,7 @@ switch(true){
             //Спонсор района (баннер)
             if(!empty($item)){
                 $ajax_result['ok'] = true;
-                if(!Host::$is_bot) $db->query("INSERT INTO ".$sys_tables['district_banners_stats_day_shows']." SET id_parent = ?", $item['id']);
+                if(!Host::$is_bot) $db->querys("INSERT INTO ".$sys_tables['district_banners_stats_day_shows']." SET id_parent = ?", $item['id']);
                 $item['img_folder'] = Config::$values['img_folders']['district_banners'];
                 Response::SetArray('item', $item);
                 $module_template = 'block.html';
@@ -25,7 +25,7 @@ switch(true){
         if($ajax_mode){
             $id = Request::GetInteger('id',METHOD_POST);
             if($id>0){
-                if(!Host::$is_bot) $res=$db->query("INSERT INTO ".$sys_tables['district_banners_stats_day_clicks']." SET `id_parent`=".$id);
+                if(!Host::$is_bot) $res=$db->querys("INSERT INTO ".$sys_tables['district_banners_stats_day_clicks']." SET `id_parent`=".$id);
                 $ajax_result['ok'] = $res;
             }
         } else $this_page->http_code=404;

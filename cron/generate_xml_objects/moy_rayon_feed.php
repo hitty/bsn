@@ -30,7 +30,7 @@ require_once('includes/class.opinions.php');         // Host (вспомогат
 Host::Init();
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
 //include('cron/class.xml.generate.php');     // Photos (работа с графикой)
 //логирование выгрузок xml-я

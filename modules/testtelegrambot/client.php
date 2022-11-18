@@ -30,10 +30,10 @@ require_once('includes/getid3/getid3.php');
 if(empty(Host::$requested_path)) Host::Init();
 
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 //$db = new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
-//$db->query("set names ".Config::$values['mysql_remote']['charset']);
-$db->query("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
+//$db->querys("set names ".Config::$values['mysql_remote']['charset']);
+$db->querys("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
 
 require_once("includes/class.telegram.test.php");
 

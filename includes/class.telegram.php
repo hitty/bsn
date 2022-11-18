@@ -693,7 +693,7 @@
               else $dialogline_id = $dialogline_id['id'];
           }
           
-          $db->query("UPDATE ".$sys_tables['telegram_contacts']." SET ".$mode."_start_id = ? WHERE id_chat = ?",$dialogline_id,$chat_id);
+          $db->querys("UPDATE ".$sys_tables['telegram_contacts']." SET ".$mode."_start_id = ? WHERE id_chat = ?",$dialogline_id,$chat_id);
       }
       /**
       * останавливаем поиск, чистим поле
@@ -708,7 +708,7 @@
           global $sys_tables;
           if(empty($sys_tables)) $sys_tables = Config::$values['sys_tables'];
           
-          $db->query("UPDATE ".$sys_tables['telegram_contacts']." SET ".$mode."_start_id = 0 WHERE id_chat = ?",$chat_id);
+          $db->querys("UPDATE ".$sys_tables['telegram_contacts']." SET ".$mode."_start_id = 0 WHERE id_chat = ?",$chat_id);
       }
       /**
       * проверяем, идет ли поиск

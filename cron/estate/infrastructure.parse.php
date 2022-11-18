@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 include('includes/class.housing_estates.php');     // Estate (объекты рынка недвижимости)
@@ -42,7 +42,7 @@ $url = "https://catalog.api.2gis.ru/3.0/items?type=street%2Cadm_div.city%2Ccross
 $result = json_decode( curlThis( $url . 'Санкт-Петербург,' . $addr ) );                 
 
 
-$db->query("TRUNCATE ".$sys_tables['infrastructure']);
+$db->querys("TRUNCATE ".$sys_tables['infrastructure']);
 $categories = $db->fetchall("SELECT * FROM ".$sys_tables['infrastructure_categories']);
 
 $subcats = $db->fetchall("SELECT id_parent,GROUP_CONCAT(CONCAT(id,'#',title) SEPARATOR '&') AS items FROM ".$sys_tables['infrastructure_subcategories']." GROUP BY id_parent",'id_parent');

@@ -123,7 +123,7 @@ switch(TRUE){
             }
             elseif($main_action == 'edit'){
                 //если кампания не новая, убираем в архив все объявления кампании
-                $db->query("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign = ".$info['id']);
+                $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign = ".$info['id']);
             }
             // выписывание ошибок в мэппинг формы (для отображения ошибочных полей)
             foreach($errors as $key=>$value){
@@ -261,21 +261,21 @@ switch(TRUE){
                                 
                                 if(!empty($exists)){
                                     //если есть, просто добавляем запись в таблицу соответствия (дубль не вставится, так как там unique (id_context,id_tag))
-                                    $res = $db->query("INSERT IGNORE INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) VALUES (?,?)",$id_block,$exists['id']);
+                                    $res = $db->querys("INSERT IGNORE INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) VALUES (?,?)",$id_block,$exists['id']);
                                     //увеличиваем счетчик для соответствующей кампании
-                                    if($res) $res = $db->query("UPDATE ".$sys_tables['context_advertisements']." SET tags_amount = tags_amount + 1 WHERE id = ?",$id_block);
+                                    if($res) $res = $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET tags_amount = tags_amount + 1 WHERE id = ?",$id_block);
                                     else $res = true;
                                 }
                                 else{
                                     //если нет, добавляем сначала тег
-                                    $res = $db->query("INSERT INTO ".$sys_tables['context_tags']." (txt_field,txt_value,source_id,estate_type) VALUES (?,?,?,?)",$group,$value,$source_id,$restrictions);
+                                    $res = $db->querys("INSERT INTO ".$sys_tables['context_tags']." (txt_field,txt_value,source_id,estate_type) VALUES (?,?,?,?)",$group,$value,$source_id,$restrictions);
                                     //а потом, если все хорошо, запись в таблицу соответствия
                                     if($res){
                                         //если это не новая кампания, добавляем запись, если новая, добавляем запрос в список отложенных
                                         if(!empty($id_block)){
-                                            $res = $db->query("INSERT IGNORE INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) VALUES (?,?)",$id_block,$db->insert_id);
+                                            $res = $db->querys("INSERT IGNORE INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) VALUES (?,?)",$id_block,$db->insert_id);
                                             //увеличиваем счетчик для соответствующей кампании
-                                            $res = $db->query("UPDATE ".$sys_tables['context_advertisements']." SET tags_amount = tags_amount + 1 WHERE id = ?",$id_block);
+                                            $res = $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET tags_amount = tags_amount + 1 WHERE id = ?",$id_block);
                                         }
                                         else $ajax_result['delayed_sql'] = "INSERT IGNORE INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) VALUES (?,".$db->insert_id.")";
                                     }
@@ -288,7 +288,7 @@ switch(TRUE){
                                 $price_type = empty($this_page->page_parameters[6]) ? "" : $this_page->page_parameters[6];$price_type = Convert::ToInt($price_type);
                                 //читаем значение цены
                                 $price_value = empty($this_page->page_parameters[7])?"":$this_page->page_parameters[7];$price_value = Convert::ToInt($price_value);
-                                if($price_value>0) $res = $db->query("UPDATE ".$sys_tables['context_advertisements']." SET ".(($price_type == 1)?"price_floor=":"price_top=").$price_value." WHERE id =".$id_block);
+                                if($price_value>0) $res = $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET ".(($price_type == 1)?"price_floor=":"price_top=").$price_value." WHERE id =".$id_block);
                                 $ajax_result['ok'] = $res;
                                 break;
                             //удаляем тег таргетинга (комнатность, метро, район, район ЛО)
@@ -297,10 +297,10 @@ switch(TRUE){
                                 //$id_tag = empty($this_page->page_parameters[5]) ? "" : $this_page->page_parameters[5];
                                 $id_tag = Request::GetInteger('tag_id',METHOD_POST);
                                 //удаляем запись из таблицы соответствия
-                                $res = $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$id_block." AND id_tag = ".$id_tag);
+                                $res = $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$id_block." AND id_tag = ".$id_tag);
                                 $ajax_result['ok'] = $res;
                                 //уменьшаем tags_amount для соответствующей кампании
-                                $db->query("UPDATE ".$sys_tables['context_advertisements']." SET ".$sys_tables['context_advertisements'].".tags_amount = ".$sys_tables['context_advertisements'].".tags_amount - 1 WHERE id = ".$id_block);
+                                $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET ".$sys_tables['context_advertisements'].".tags_amount = ".$sys_tables['context_advertisements'].".tags_amount - 1 WHERE id = ".$id_block);
                                 break;
                         }
                         break;
@@ -405,7 +405,7 @@ switch(TRUE){
                                 foreach($estate_type_splitted as $value)
                                     $condition[] = " estate_type NOT LIKE '%".$value."%'";
                                 $condition = implode(' AND ',$condition);
-                                $db->query("DELETE
+                                $db->querys("DELETE
                                             FROM ".$sys_tables['context_tags_conformity']."
                                             WHERE id_context = ? AND 
                                                   id_tag IN (SELECT id FROM ".$sys_tables['context_tags']." WHERE ".$condition.")",$id_block);
@@ -421,9 +421,9 @@ switch(TRUE){
                                 //если размеры изменились, отвязываем картинки, так как они уже не подходят
                                 if(count($sizes) != 1){
                                     //удаляем картнки
-                                    $db->query("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id_block);
+                                    $db->querys("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id_block);
                                     //устанавливаем id_main_photo = 0 для данной кампании
-                                    $db->query("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = 0 WHERE id = ".$id_block);
+                                    $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = 0 WHERE id = ".$id_block);
                                 }
                             }
                             
@@ -677,12 +677,12 @@ switch(TRUE){
                     $ajax_result['title'] = $temp_info['title'];
                     $ajax_result['status'] = $temp_info['published'];
                     
-                    $res = $db->query("INSERT INTO ".$sys_tables['context_advertisements']." (".implode(',',array_keys($temp_info)).") VALUES (\"".implode('","',array_values(array_map("addSlashes",$temp_info)))."\")");
+                    $res = $db->querys("INSERT INTO ".$sys_tables['context_advertisements']." (".implode(',',array_keys($temp_info)).") VALUES (\"".implode('","',array_values(array_map("addSlashes",$temp_info)))."\")");
                     
                     $new_id = $db->insert_id;
                     
                     //копируем пары этот_блок-тег из таблицы соответствия
-                    $res = $db->query("INSERT INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) 
+                    $res = $db->querys("INSERT INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) 
                                        SELECT ".$new_id." AS id_context,id_tag FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$id);
                     
                     ///копируем картинку этого блока, если есть:
@@ -702,7 +702,7 @@ switch(TRUE){
                         else
                         $res = Photos::Add('context_advertisements',$new_id,false,"http://st1.bsn.ru/".Config::$values['img_folders']['context_advertisements']."/big/".$img['folder']."/".$img['name'],false,$width,$height,true,false,false,$width,$height,true);
                         //обновляем id_main_photo
-                        if(!empty($res)) $db->query("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = ".$res['photo_id']." WHERE id = ".$new_id);
+                        if(!empty($res)) $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = ".$res['photo_id']." WHERE id = ".$new_id);
                     }
                     
                     
@@ -718,11 +718,11 @@ switch(TRUE){
                     //получаем id объекта
                     $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
                     //удаляем пары этот_блок-тег из таблицы соответствия
-                    $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$id);
+                    $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$id);
                     //удаляем все фотографии этого блока
-                    $db->query("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id);
+                    $db->querys("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id);
                     //удаляем сам рекламный блок
-                    $res = $db->query("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id = ?",$id);
+                    $res = $db->querys("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id = ?",$id);
                     $ajax_result['ok'] = $res;
                 }
                 break;
@@ -866,14 +866,14 @@ switch(TRUE){
             if(!empty($advertising_list))
                 foreach($advertising_list as $key=>$item){
                     //удаляем пары этот_блок-тег из таблицы соответствия
-                    $res = $res && $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$item['id']);
+                    $res = $res && $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$item['id']);
                     //удаляем все фотографии этого блока
-                    $res = $res && $db->query("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$item['id']);
+                    $res = $res && $db->querys("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$item['id']);
                     //удаляем сам рекламный блок
-                    $res = $res && $db->query("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id = ?",$item['id']);
+                    $res = $res && $db->querys("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id = ?",$item['id']);
                 }
             //удаляем саму кампанию
-            $res = $res && $db->query("DELETE FROM ".$sys_tables['context_campaigns']." WHERE id = ".$id);
+            $res = $res && $db->querys("DELETE FROM ".$sys_tables['context_campaigns']." WHERE id = ".$id);
             $ajax_result['ok'] = $res;
         }
     //список рекламных кампаний

@@ -185,7 +185,7 @@ switch(true){
             $id = Request::GetInteger('id', METHOD_POST);
             if(!empty($id)){
                 $ajax_result['ok'] = true;
-                if(!Host::$is_bot) $res = $db->query("INSERT INTO ".$sys_tables['content_stats_day_clicks']." SET `id_parent` = ? , type = ( SELECT id FROM " . $sys_tables['content_types'] . " WHERE content_type = ? ), ip = ?, browser = ?, ref = ?", 
+                if(!Host::$is_bot) $res = $db->querys("INSERT INTO ".$sys_tables['content_stats_day_clicks']." SET `id_parent` = ? , type = ( SELECT id FROM " . $sys_tables['content_types'] . " WHERE content_type = ? ), ip = ?, browser = ?, ref = ?",
                                                         $id, $content_type, Host::getUserIp(),$db->real_escape_string($_SERVER['HTTP_USER_AGENT']),Host::getRefererURL()
                 );
                 $ajax_result['ok'] = $res;
@@ -271,7 +271,7 @@ switch(true){
                     }
                     
                 }
-                $db->query("INSERT INTO " . $sys_tables['articles_test_answers'] . " SET answer = ?, right_answer = ?, id_parent = ?, id_voter = ?",
+                $db->querys("INSERT INTO " . $sys_tables['articles_test_answers'] . " SET answer = ?, right_answer = ?, id_parent = ?, id_voter = ?",
                     $id_answer, $right_answer, $question[0]['id_parent'], $id_voter    
                 );
                 $ajax_result['results'] = $array;
@@ -308,7 +308,7 @@ switch(true){
                 $module_template = 'test.item.results.html';
                 
                 $ajax_result['ok'] = true;
-                if(!Host::$is_bot) $res = $db->query("INSERT INTO ".$sys_tables['content_stats_day_finish']." SET `id_parent` = ? , type = ( SELECT id FROM " . $sys_tables['content_types'] . " WHERE content_type = ? ), ip = ?, browser = ?, ref = ?", 
+                if(!Host::$is_bot) $res = $db->querys("INSERT INTO ".$sys_tables['content_stats_day_finish']." SET `id_parent` = ? , type = ( SELECT id FROM " . $sys_tables['content_types'] . " WHERE content_type = ? ), ip = ?, browser = ?, ref = ?",
                                                         $id_parent, $content_type, Host::getUserIp(),$db->real_escape_string($_SERVER['HTTP_USER_AGENT']),Host::getRefererURL()
                 );
                 
@@ -344,7 +344,7 @@ switch(true){
                 if (!empty($this_page->page_parameters[1]) && ($this_page->page_parameters[1] == 'end')){
                     foreach($list as $k=>$item){
                         //отписка пользователя
-                        $db->query("UPDATE ".$sys_tables[$item['type']]." SET ".($item['type']=='users'?'subscribe_news':'published')." = 2 WHERE id = ".$item['id']);
+                        $db->querys("UPDATE ".$sys_tables[$item['type']]." SET ".($item['type']=='users'?'subscribe_news':'published')." = 2 WHERE id = ".$item['id']);
                         Response::SetString('error','unsubscribed');
                     }
                 } else {
@@ -368,9 +368,9 @@ switch(true){
             $email = Request::GetString('email', METHOD_POST);
             if(!empty($email) && Validate::isEmail($email)){
                 //запись в таблицу пользователей
-                $res = $db->query("UPDATE ".$sys_tables['users']." SET subscribe_news = 1 WHERE email = ?", $email);
+                $res = $db->querys("UPDATE ".$sys_tables['users']." SET subscribe_news = 1 WHERE email = ?", $email);
                 if(empty($db->affected_rows)) 
-                    $db->query(" INSERT INTO ".$sys_tables['subscribed_users']." SET email = ?, published = ?
+                    $db->querys(" INSERT INTO ".$sys_tables['subscribed_users']." SET email = ?, published = ?
                                  ON DUPLICATE KEY UPDATE published = ?
                     ", $email, 1, 1); 
             }
@@ -542,8 +542,8 @@ switch(true){
         $ref = Host::getRefererURL();
         
         if( empty( $ajax_mode ) && $this_page->first_instance && !Host::$is_bot && !empty( $ref ) ) {
-           $db->query("UPDATE ".$sys_tables[$content_type]." SET `views_count`=`views_count`+1 WHERE `id`=?", $content_id);
-           if( !empty( $article_id ) ) $db->query("UPDATE ".$sys_tables['articles']." SET `views_count`=`views_count`+1 WHERE `id`=?", $article_id);
+           $db->querys("UPDATE ".$sys_tables[$content_type]." SET `views_count`=`views_count`+1 WHERE `id`=?", $content_id);
+           if( !empty( $article_id ) ) $db->querys("UPDATE ".$sys_tables['articles']." SET `views_count`=`views_count`+1 WHERE `id`=?", $article_id);
 
            $info = array(
                  'id_parent' => $item['id']

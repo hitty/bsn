@@ -178,11 +178,11 @@ if(!empty($this_page->page_parameters[0]) && in_array($this_page->page_parameter
         if(empty($is_bot)) {
             $time = $db->fetch("SELECT TIMESTAMPDIFF(MINUTE, `datetime`, NOW()) as `time` FROM ".$sys_tables['phone_clicks_day']." WHERE ip = ? ORDER BY id DESC",Host::getUserIp());
             if((empty($time) || $time['time']>=1)){
-                $db->query("INSERT INTO ".$sys_tables['phone_clicks_day']." SET type = ?, id_parent = ?, id_object = ?, status = ?, ip = ?, browser = ?, ref = ?", $estate_type, $item['id_user'],$item['id'], 1,Host::getUserIp(),$_SERVER['HTTP_USER_AGENT'], $referer);
+                $db->querys("INSERT INTO ".$sys_tables['phone_clicks_day']." SET type = ?, id_parent = ?, id_object = ?, status = ?, ip = ?, browser = ?, ref = ?", $estate_type, $item['id_user'],$item['id'], 1,Host::getUserIp(),$_SERVER['HTTP_USER_AGENT'], $referer);
                 Response::SetInteger('id_click', $db->insert_id);
             }
         }
-        $db->query("INSERT INTO ".$sys_tables['phone_clicks_day_checker']." SET type = ?, id_parent = ?, id_object = ?, status = ?, ip = ?, browser = ?, ref = ?", $estate_type, $item['id_user'],$item['id'], 1,Host::getUserIp(),$_SERVER['HTTP_USER_AGENT'], $referer);
+        $db->querys("INSERT INTO ".$sys_tables['phone_clicks_day_checker']." SET type = ?, id_parent = ?, id_object = ?, status = ?, ip = ?, browser = ?, ref = ?", $estate_type, $item['id_user'],$item['id'], 1,Host::getUserIp(),$_SERVER['HTTP_USER_AGENT'], $referer);
         
     }
 } elseif($type == 'success_call' || $type == 'wrong_number' || $blacklist){
@@ -243,7 +243,7 @@ if(!empty($this_page->page_parameters[0]) && in_array($this_page->page_parameter
     }
     else{
         $id = Request::GetInteger('id',METHOD_POST) ;
-        if($id > 0) $db->query("UPDATE ".$sys_tables['phone_clicks_day']." SET status = ? WHERE id = ?", $type == 'success_call' ? 2 : 1, $id); 
+        if($id > 0) $db->querys("UPDATE ".$sys_tables['phone_clicks_day']." SET status = ? WHERE id = ?", $type == 'success_call' ? 2 : 1, $id);
     }
 } else $this_page->http_code=404;
 $ajax_result['ok'] = true;

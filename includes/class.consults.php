@@ -267,7 +267,7 @@ class ConsultQuestion {
         unset($this->data_array);
         unset($this->respondents_array);
         $this->status = "deleted";
-        return $db->query("DELETE FROM ".$this->tables['consults']." WHERE id = ".$this->id);
+        return $db->querys("DELETE FROM ".$this->tables['consults']." WHERE id = ".$this->id);
     }
     
     public function getItem( $id = false ){
@@ -289,7 +289,7 @@ class ConsultQuestion {
     
     public function Remoderate($send_notifications = true){
         global $db;
-        $db->query("UPDATE ".$this->tables['consults']." SET visible_to_all = 2, status = 2 WHERE id = ".$this->id);
+        $db->querys("UPDATE ".$this->tables['consults']." SET visible_to_all = 2, status = 2 WHERE id = ".$this->id);
         if(!empty($send_notifications)) $this->sendNotifications();
     }
     
@@ -614,7 +614,7 @@ class ConsultQuestion {
             $exists = $db->fetch("SELECT id FROM ".$this->tables['consults_answers']." WHERE id = ?",$answer_data['id']);
             if(!empty($exists)) return false;
         }
-        $res = $db->query("INSERT INTO ".$this->tables['consults_answers']." (status,answer,id_parent,date_in,id_user) VALUES (?,?,?,NOW(),?)",$status,$answer_data['answer'],$this->id,$answer_data['id_user']);
+        $res = $db->querys("INSERT INTO ".$this->tables['consults_answers']." (status,answer,id_parent,date_in,id_user) VALUES (?,?,?,NOW(),?)",$status,$answer_data['answer'],$this->id,$answer_data['id_user']);
         $new_id = $db->insert_id;
         //шлем оповещение модератору о новом ответе, если это не черновик
         if($status != 5) $this->sendModeratorNotification($new_id);
@@ -684,7 +684,7 @@ class ConsultQuestion {
         }
         $this->data_array['answers_amount']--;
         $this->saveToDB();
-        $res = $db->query("DELETE FROM ".$this->tables['consults_answers']." WHERE id = ?",$id);
+        $res = $db->querys("DELETE FROM ".$this->tables['consults_answers']." WHERE id = ?",$id);
         return $res;
     }
     
@@ -713,7 +713,7 @@ class ConsultQuestion {
         if(empty($this->data_array['answers_amount']) || empty($answer_id)) return false;
         $answer_info = $db->fetch("SELECT id_parent FROM ".$this->tables['consults_answers']." WHERE id = ?",$answer_id);
         if(empty($answer_info) || $answer_info['id_parent'] != $this->id) return false;
-        $res = $db->query("UPDATE ".$this->tables['consults']." SET ".$this->tables['consults'].".id_best_answer = ? WHERE id = ?",$answer_id,$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['consults']." SET ".$this->tables['consults'].".id_best_answer = ? WHERE id = ?",$answer_id,$this->id);
         return $res;
     }
     
@@ -725,7 +725,7 @@ class ConsultQuestion {
         $this->data_array['answers_amount'] = $answers_amount;
         $first_answer = $db->fetch("SELECT id FROM ".$this->tables['consults_answers']." WHERE id_parent = ? ORDER BY date_in ASC",$this->id);
         $first_answer = (empty($first_answer)?0:$first_answer['id']);
-        $res = $db->query("UPDATE ".$this->tables['consults']." SET answers_amount = ?, id_first_answer = ? WHERE id = ?",$answers_amount,$first_answer,$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['consults']." SET answers_amount = ?, id_first_answer = ? WHERE id = ?",$answers_amount,$first_answer,$this->id);
         return $res;
     }
     
@@ -851,7 +851,7 @@ class ConsultQuestion {
     
     public function toShared(){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['consults']." SET visible_to_all = 1 WHERE id = ?",$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['consults']." SET visible_to_all = 1 WHERE id = ?",$this->id);
         if(!empty($res)){
             $this->data_array['visible_to_all'] = 1;
             $this->visible_to_all = 1;
@@ -861,21 +861,21 @@ class ConsultQuestion {
     
     public function fromShared(){
         global $db;
-        if($this->status == 2) $res = $db->query("UPDATE ".$this->tables['consults']." SET visible_to_all = 2 WHERE id = ?",$this->id);
+        if($this->status == 2) $res = $db->querys("UPDATE ".$this->tables['consults']." SET visible_to_all = 2 WHERE id = ?",$this->id);
         if($res) $this->data_array['visible_to_all'] = 2;
         return $res;
     }
     
     public function toArchive(){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['consults']." SET status = 5 WHERE id = ?",$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['consults']." SET status = 5 WHERE id = ?",$this->id);
         if($res) $this->data_array['status'] = 5;
         return $res;
     }
     
     public function toModer(){
         global $db;
-        if($this->status == 2) $res =  $db->query("UPDATE ".$this->tables['consults']." SET status = 4, `question_datetime` = '0000-00-00 00:00:00', visible_to_all = 2 WHERE id = ".$this->id);
+        if($this->status == 2) $res =  $db->querys("UPDATE ".$this->tables['consults']." SET status = 4, `question_datetime` = '0000-00-00 00:00:00', visible_to_all = 2 WHERE id = ".$this->id);
         if($res){
             $this->data_array['status'] = 2;
             $this->data_array['question_datetime'] = '0000-00-00 00:00:00';
@@ -886,12 +886,12 @@ class ConsultQuestion {
     
     public function toPublished(){
         global $db;
-        return $db->query("UPDATE ".$this->tables['consults']." SET status = 1 WHERE id = ".$this->id);
+        return $db->querys("UPDATE ".$this->tables['consults']." SET status = 1 WHERE id = ".$this->id);
     }
     
     public function toUser($to_user_id){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['consults']." SET id_responded_user = ?,visible_to_all = ? WHERE id = ?",$to_user_id,2,$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['consults']." SET id_responded_user = ?,visible_to_all = ? WHERE id = ?",$to_user_id,2,$this->id);
         if($res){
             $this->id_respondent_agency = $to_user_id;
             $this->data_array['id_responded_user'] = $to_user_id;
@@ -945,9 +945,9 @@ class ConsultQuestion {
                 $this->id = $db->insert_id;
                 $this->data_array['id'] = $this->id;
                 $this->id_respondent_user = $this->data_array['id_respondent_user'];
-                $db->query("UPDATE ".$this->tables['consults']." SET `question_datetime` = NOW() WHERE id = ?",$this->id);
+                $db->querys("UPDATE ".$this->tables['consults']." SET `question_datetime` = NOW() WHERE id = ?",$this->id);
             }
-            if(!empty($refresh_date)) $db->query("UPDATE ".$this->tables['consults']." SET `moderation_datetime` = NOW() WHERE id = ?",$this->id);
+            if(!empty($refresh_date)) $db->querys("UPDATE ".$this->tables['consults']." SET `moderation_datetime` = NOW() WHERE id = ?",$this->id);
             $this->status = $this->data_array['status'];
             $this->visible_to_all = $this->data_array['visible_to_all'];
         } 
@@ -1079,7 +1079,7 @@ class ConsultQuestion {
     */
     public function visitQuestionPage(){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['consults']." SET views = views + 1 WHERE id = ?",$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['consults']." SET views = views + 1 WHERE id = ?",$this->id);
         return $res;
     }
 }

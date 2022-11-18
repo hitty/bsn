@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -49,7 +49,7 @@ foreach($estates as $estate_type){
         foreach($type_list as $k=>$type){
             $count_sell = $db->fetch("SELECT COUNT(*) as cnt FROM ".$sys_tables[$estate_type]." WHERE published = 1 AND rent = 2 AND id_type_object = ?",$type['id']);
             $count_rent = $db->fetch("SELECT COUNT(*) as cnt FROM ".$sys_tables[$estate_type]." WHERE published = 1 AND rent = 1 AND id_type_object = ?",$type['id']);
-            $db->query("UPDATE ".$sys_tables['type_objects_'.$estate_type]." SET sell_count = ?, rent_count = ? WHERE id = ?",$count_sell['cnt'],$count_rent['cnt'],$type['id']);
+            $db->querys("UPDATE ".$sys_tables['type_objects_'.$estate_type]." SET sell_count = ?, rent_count = ? WHERE id = ?",$count_sell['cnt'],$count_rent['cnt'],$type['id']);
         }
     }
 }

@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.template.php');
 require_once('includes/class.email.php');
 
@@ -63,9 +63,9 @@ foreach($cron_values as $key=>$cron){
 
 //изменения в views_count_last_week вносятся в daily_stats.php
 /*
-$db->query("UPDATE ".$sys_tables['live']." SET `views_count_week` = `views_count` WHERE 1");
-$db->query("UPDATE ".$sys_tables['build']." SET `views_count_week` = `views_count` WHERE 1");
-$db->query("UPDATE ".$sys_tables['commercial']." SET `views_count_week` = `views_count` WHERE 1");
-$db->query("UPDATE ".$sys_tables['country']." SET `views_count_week` = `views_count` WHERE 1");
+$db->querys("UPDATE ".$sys_tables['live']." SET `views_count_week` = `views_count` WHERE 1");
+$db->querys("UPDATE ".$sys_tables['build']." SET `views_count_week` = `views_count` WHERE 1");
+$db->querys("UPDATE ".$sys_tables['commercial']." SET `views_count_week` = `views_count` WHERE 1");
+$db->querys("UPDATE ".$sys_tables['country']." SET `views_count_week` = `views_count` WHERE 1");
 */
 ?>

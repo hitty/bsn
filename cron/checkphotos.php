@@ -41,8 +41,8 @@ require_once('includes/class.email.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
  
 // вспомогательные таблицы модуля
@@ -61,7 +61,7 @@ foreach($estate_types as $estate){
     foreach($list as $k=>$item){
        if( !file_exists( $root . '/' . $sm.'/'.$item['subfolder'].'/'.$item['name']) && !file_exists($root.'/'.$med.'/'.$item['subfolder'].'/'.$item['name'])){
             echo  $item['id'].'; '.' DEL - '.$estate.' ; ';  echo "\n";
-            $db->query("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id=?",$item['id']);
+            $db->querys("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id=?",$item['id']);
             //смотрим объект:
             $parent_object = $db->fetch("SELECT id,id_main_photo FROM ".$sys_tables[$estate]." WHERE id = ?",$item['id_parent']);
             //если объект есть, переназначаем mainPhoto
@@ -78,7 +78,7 @@ foreach($estate_types as $estate){
     foreach($list as $k=>$item){
         $estate_item = $db->fetch(" SELECT * FROM ".$sys_tables[$estate]." WHERE id = ?", $item['id_parent'] );
         if( empty( $estate_item ) ) {
-            $db->query( " DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['id'] );
+            $db->querys( " DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['id'] );
             $photos = $db->fetchall(" SELECT * FROM ".$sys_tables[$estate.'_photos']." WHERE external_img_src = ?", false, $item['external_img_src'] );
             if( empty( $photos ) ) {
                 if( file_exists( $root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['name'] ) ) unlink( $root . '/' . $sm.'/'.$item['subfolder'].'/'.$item['name'] );
@@ -86,6 +86,6 @@ foreach($estate_types as $estate){
                 if( file_exists( $root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['name'] ) ) unlink( $root . '/' . $big.'/'.$item['subfolder'].'/'.$item['name'] );
                 echo ' --- DELETED --- ' . $item['name'] . '  ||  ' . $item['external_img_src'] . "\n";
             }
-        } else $db->query( " UPDATE ".$sys_tables[$estate.'_photos']." SET checked = 1 WHERE id = ?", $item['id'] );    
+        } else $db->querys( " UPDATE ".$sys_tables[$estate.'_photos']." SET checked = 1 WHERE id = ?", $item['id'] );
     }
 }

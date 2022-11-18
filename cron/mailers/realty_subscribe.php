@@ -38,8 +38,8 @@ require_once('includes/class.estate.statistics.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $GLOBALS['db']=$db;
 
 // вспомогательные таблицы модуля
@@ -69,4 +69,4 @@ $mailer->From = 'no-reply@bsn.ru';
 $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'BSN.ru');
 $mailer->Send();  
 
-$db->query("UPDATE  ".$sys_tables['users']." SET lasttime_update = NOW() WHERE id = 17397");
+$db->querys("UPDATE  ".$sys_tables['users']." SET lasttime_update = NOW() WHERE id = 17397");

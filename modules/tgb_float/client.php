@@ -10,7 +10,7 @@ switch(true){
             break;
         }
         $referer = Host::getRefererURL();
-        $ajax_result['ok'] = $db->query("INSERT INTO ".$sys_tables['tgb_float_stats_day_clicks']." SET id_parent = ?, referer = ?",$id_parent,$referer);
+        $ajax_result['ok'] = $db->querys("INSERT INTO ".$sys_tables['tgb_float_stats_day_clicks']." SET id_parent = ?, referer = ?",$id_parent,$referer);
         break;
     //принимаем телефон пользователя
     case $ajax_mode && $action =="accept-phone":
@@ -23,7 +23,7 @@ switch(true){
         }else $phone = "8 ".array_pop($phone);
         
         $referer = Host::getRefererURL();
-        $res = $db->query("INSERT INTO ".$sys_tables['tgb_float_phones']." SET id_parent = ?, phone = ?, referer = ?",$id_parent,$phone,$referer);
+        $res = $db->querys("INSERT INTO ".$sys_tables['tgb_float_phones']." SET id_parent = ?, phone = ?, referer = ?",$id_parent,$phone,$referer);
         
         //читаем id агентства
         $id_agency = $db->fetch("SELECT ".$sys_tables['users'].".id_agency
@@ -75,7 +75,7 @@ switch(true){
         //Вертикальный баннер (баннер)
         if(!empty($item)){
             $ajax_result['ok'] = true;
-            if(!Host::$is_bot) $db->query("INSERT INTO ".$sys_tables['tgb_float_stats_day_shows']." SET id_parent = ?", $item['id']);
+            if(!Host::$is_bot) $db->querys("INSERT INTO ".$sys_tables['tgb_float_stats_day_shows']." SET id_parent = ?", $item['id']);
             
             //подставляем цвета по умолчанию
             if(empty($item['top_color'])) $item['top_color'] = $mapping['banners']['top_color']['default'];
@@ -90,7 +90,7 @@ switch(true){
     case $ajax_mode && $action=='click': 
         $id = Request::GetInteger('id',METHOD_POST);
         if($id>0){
-            if(!Host::$is_bot && !Host::isBsn('tgb_float_stats_day_clicks',$id)) $res=$db->query("INSERT INTO ".$sys_tables['tgb_float_stats_day_clicks']." SET `id_parent`=".$id);
+            if(!Host::$is_bot && !Host::isBsn('tgb_float_stats_day_clicks',$id)) $res=$db->querys("INSERT INTO ".$sys_tables['tgb_float_stats_day_clicks']." SET `id_parent`=".$id);
             $ajax_result['ok'] = $res;
         }
         break;

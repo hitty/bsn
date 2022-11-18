@@ -33,7 +33,7 @@ include('includes/class.storage.php');      // Session, Cookie, Responce, Reques
 include('includes/functions.php');          // функции  из модуля
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 //include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables;
@@ -42,7 +42,7 @@ $process_count = array('live'=>5000, 'commercial'=>5000, 'build'=>5000, 'country
 foreach($process_count as $estate_type=>$count){
     
     //удаление тегов у неактуальных обхектов
-    $db->query("DELETE FROM ".$sys_tables["tags_".$estate_type]." WHERE id_object IN (SELECT e.id FROM ".$sys_tables[$estate_type]." e WHERE e.published = 2)");   
+    $db->querys("DELETE FROM ".$sys_tables["tags_".$estate_type]." WHERE id_object IN (SELECT e.id FROM ".$sys_tables[$estate_type]." e WHERE e.published = 2)");
 
     if($estate_type=='foreign') {$cost_fields = "cost_rubles, cost_dollars, cost_euros";}
     else $cost_fields = 'cost';
@@ -109,7 +109,7 @@ function similaring($obj_list, $estate_type){
                 array_multisort($delta, SORT_DESC, $weight, SORT_DESC, $cnt, SORT_DESC, $_like_objects);
                 $similar_ids = array();
                 for($i=0;$i<15;$i++) $similar_ids[] = $_like_objects[$i]['id_object'];
-                $res = $db->query("UPDATE ".$sys_tables[$estate_type]." SET similar_date = NOW(), similar_ids=? WHERE id=?", implode(',',$similar_ids), $object['id']);
+                $res = $db->querys("UPDATE ".$sys_tables[$estate_type]." SET similar_date = NOW(), similar_ids=? WHERE id=?", implode(',',$similar_ids), $object['id']);
                 $overall_time_counter = round(microtime(true) - $overall_time_counter, 4);
                 $text = "; all time: ".$overall_time_counter.": id = ".$object['id']." : estate = ".$estate_type."\n";
                 file_put_contents('cron/tagging/similar.log', $text,FILE_APPEND );

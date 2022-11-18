@@ -105,7 +105,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['partners_articles_categories']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['partners_articles_categories']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -120,14 +120,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables['partners_articles_categories']."
                                 SET `position` = `position` + 2
                                 WHERE `id` <> ?  AND `position` >= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables['partners_articles_categories']."
                                     SET `position` = ? + 1
                                     WHERE `position` < ?
                                     ORDER BY `position` DESC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -142,14 +142,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables['partners_articles_categories']."
                                 SET `position` = `position` - 2
                                 WHERE `id` <> ?  AND `position` <= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables['partners_articles_categories']."
                                     SET `position` = ? - 1
                                     WHERE `position` > ?
                                     ORDER BY `position` ASC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -270,7 +270,7 @@ switch($action){
         break;
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-        $res = $db->query("DELETE FROM ".$sys_tables['partners_articles']." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables['partners_articles']." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

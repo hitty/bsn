@@ -187,7 +187,7 @@ switch(true){
                     //обновление ЧПУ
                     $chpu_title = createCHPUTitle($info['title']);
                     $chpu_item = $db->fetch("SELECT * FROM ".$sys_tables['invest']." WHERE alias = ?", $chpu_title);
-                    $db->query("UPDATE ".$sys_tables['invest']." SET alias = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
+                    $db->querys("UPDATE ".$sys_tables['invest']." SET alias = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
                     if(!empty($res)){
                         // редирект на редактирование свеженькой страницы
                         if(!empty($res)) {
@@ -215,7 +215,7 @@ switch(true){
     case $action == 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
         $del_photos = Photos::DeleteAll('invest',$id);
-        $res = $db->query("DELETE FROM ".$sys_tables['invest']." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables['invest']." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

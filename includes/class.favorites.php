@@ -136,7 +136,7 @@
                         $values[] = implode(',',array("(".Convert::ToInt($auth->id),Convert::ToInt($obj_id),Convert::ToInt($object_type),"NOW())"));
                     }             
                 }
-                $result = $db->query($sql.implode(',',$values));
+                $result = $db->querys($sql.implode(',',$values));
                 return $result;   
             } else { 
                 $favorites_indexes = self::GetData();
@@ -160,7 +160,7 @@
         public static function Remove($object_id,$object_type){
             global $db, $auth;
             if ($auth->isAuthorized()){
-                $result = $db->query("DELETE FROM ".self::$tables['favorites']." WHERE id_user = ? AND id_object = ? AND type_object = ?",
+                $result = $db->querys("DELETE FROM ".self::$tables['favorites']." WHERE id_user = ? AND id_object = ? AND type_object = ?",
                                   $auth->id,
                                   $object_id,
                                   $object_type

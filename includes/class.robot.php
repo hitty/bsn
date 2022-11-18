@@ -173,7 +173,7 @@ class Robot {
             if( empty( $photo)) {
                 $photo_similar = $db->fetch("SELECT * FROM ".$this->sys_tables[$this->estate_type.'_photos']." WHERE `external_img_src` = ?",$name);
                 if(!empty($photo_similar)) {
-                    $db->query("INSERT INTO ".$this->sys_tables[$this->estate_type.'_photos']." SET `id_parent".$suffix."` = ?, `external_img_src` = ?, name=?",$id, $name, $photo_similar['name']);
+                    $db->querys("INSERT INTO ".$this->sys_tables[$this->estate_type.'_photos']." SET `id_parent".$suffix."` = ?, `external_img_src` = ?, name=?",$id, $name, $photo_similar['name']);
                     $photos_in[] = "'".$photo_similar['external_img_src']."'";
                 }
                 else $photos_out[] = $name;
@@ -403,7 +403,7 @@ class Robot {
                                           (!empty($this->fields['addr_source'])?$this->fields['addr_source']:""));
             if( empty( $exists_already)){
                 if(!empty($addr_block))
-                    $db->query("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
+                    $db->querys("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
                                 VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)",
                                 $this->fields['id_user'],
                                 $this->file_format,
@@ -706,7 +706,7 @@ class Robot {
                             if( empty( $exists_already))
                                 if( empty( $exists_already)){
                                     if(!empty($addr_block))
-                                        $db->query("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
+                                        $db->querys("INSERT INTO ".$this->sys_tables['addresses_to_add']." (id_user,file_format,addr_source,id_region,id_area,id_city,id_place,id_district,offname,shortname,shortname_cut,date_in) 
                                                     VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)",
                                                     $this->fields['id_user'],
                                                     $this->file_format,
@@ -996,7 +996,7 @@ class Robot {
                         
                         $similar_street = $db->fetch( " SELECT *, MAX(id_street) as max_id_street, lng_center as lng, lat_center as lat FROM " . $sys_tables['geodata'] . " WHERE `parentguid` LIKE ? AND a_level = 5" , $parentguid );
                         if( !empty( $similar_street['id'] ) ) {
-                            $db->query( " INSERT INTO " . $sys_tables['geodata'] . " 
+                            $db->querys( " INSERT INTO " . $sys_tables['geodata'] . " 
                                           SET offname = ?, shortname = ?, shortname_cut = ?, aoguid = ?, parentguid = ?, id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ?, lng_center = ?, lat_center = ?, a_level = 5 ",
                                           $suggestion->data->street, $suggestion->data->street_type_full, $suggestion->data->street_type, $suggestion->data->street_fias_id, $parentguid, $similar_street['id_region'], $similar_street['id_area'], $similar_street['id_city'], $similar_street['id_place'], $similar_street['max_id_street'] + 1, !empty( $suggestion->data->geo_lon ) ? $suggestion->data->geo_lon : '0.00', !empty( $suggestion->data->geo_lat ) ? $suggestion->data->geo_lat : '0.00' 
                             );
@@ -1008,7 +1008,7 @@ class Robot {
                             $place = $db->fetch( " SELECT *, lng_center as lng, lat_center as lat FROM " . $sys_tables['geodata'] . " WHERE `aoguid` LIKE ? AND a_level = 4" , $suggestion->data->settlement_fias_id );
                             if( !empty( $place ) ) {
                                 //есть нас.пункт, нет улицы - добавляем улицу
-                                $db->query( " INSERT INTO " . $sys_tables['geodata'] . " 
+                                $db->querys( " INSERT INTO " . $sys_tables['geodata'] . " 
                                           SET offname = ?, shortname = ?, shortname_cut = ?, aoguid = ?, parentguid = ?, id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ?, lng_center = ?, lat_center = ?, a_level = 5 ",
                                           $suggestion->data->street, $suggestion->data->street_type_full, $suggestion->data->street_type, $suggestion->data->street_fias_id, $suggestion->data->settlement_fias_id, $place['id_region'], $place['id_area'], $place['id_city'], $place['id_place'], 1, !empty( $suggestion->data->geo_lon ) ? $suggestion->data->geo_lon : '0.00', !empty( $suggestion->data->geo_lat ) ? $suggestion->data->geo_lat : '0.00' 
                                 );
@@ -1020,7 +1020,7 @@ class Robot {
                                 //добавление нас.пункта
                                 $similar_place = $db->fetch( " SELECT *, MAX(id_place) as max_id_place, lng_center as lng, lat_center as lat FROM " . $sys_tables['geodata'] . " WHERE `parentguid` LIKE ? AND a_level = 4" , $parentguid );
                                 if( !empty( $similar_place['id'] ) ) {
-                                    $db->query( " INSERT INTO " . $sys_tables['geodata'] . " 
+                                    $db->querys( " INSERT INTO " . $sys_tables['geodata'] . " 
                                               SET offname = ?, shortname = ?, shortname_cut = ?, aoguid = ?, parentguid = ?, id_region = ?, id_area = ?, id_city = ?, id_place = ?, lng_center = ?, lat_center = ?, a_level = 4 ",
                                               $suggestion->data->settlement, $suggestion->data->settlement_type_full, $suggestion->data->settlement_type, $suggestion->data->settlement_fias_id, $parentguid, $similar_place['id_region'], $similar_place['id_area'], $similar_place['id_city'], $similar_place['max_id_place'] + 1, !empty( $suggestion->data->geo_lon ) ? $suggestion->data->geo_lon : '0.00', !empty( $suggestion->data->geo_lat ) ? $suggestion->data->geo_lat : '0.00' 
                                     );
@@ -1042,7 +1042,7 @@ class Robot {
                         
                         $similar_place = $db->fetch( " SELECT *, MAX(id_place) as max_id_place, lng_center as lng, lat_center as lat FROM " . $sys_tables['geodata'] . " WHERE `parentguid` LIKE ? AND a_level = 4" , $parentguid );
                         if( !empty( $similar_place['id'] ) ) {
-                            $db->query( " INSERT INTO " . $sys_tables['geodata'] . " 
+                            $db->querys( " INSERT INTO " . $sys_tables['geodata'] . " 
                                           SET offname = ?, shortname = ?, shortname_cut = ?, aoguid = ?, parentguid = ?, id_region = ?, id_area = ?, id_city = ?, id_place = ?, lng_center = ?, lat_center = ?, a_level = 4 ",
                                           $suggestion->data->settlement, $suggestion->data->settlement_type_full, $suggestion->data->settlement_type, $suggestion->data->settlement_fias_id, $parentguid, $similar_place['id_region'], $similar_place['id_area'], $similar_place['id_city'], $similar_place['max_id_place'] + 1, !empty( $suggestion->data->geo_lon ) ? $suggestion->data->geo_lon : '0.00', !empty( $suggestion->data->geo_lat ) ? $suggestion->data->geo_lat : '0.00' 
                             );
@@ -1055,7 +1055,7 @@ class Robot {
                         
                         $similar_place = $db->fetch( " SELECT *, MAX(id_place) as max_id_place, lng_center as lng, lat_center as lat FROM " . $sys_tables['geodata'] . " WHERE `parentguid` LIKE ? AND a_level = 4" , $parentguid );
                         if( !empty( $similar_place['id'] ) ) {
-                            $db->query( " INSERT INTO " . $sys_tables['geodata'] . " 
+                            $db->querys( " INSERT INTO " . $sys_tables['geodata'] . " 
                                           SET offname = ?, shortname = ?, shortname_cut = ?, aoguid = ?, parentguid = ?, id_region = ?, id_area = ?, id_city = ?, id_place = ?, lng_center = ?, lat_center = ?, a_level = 4 ",
                                           $suggestion->data->settlement, $suggestion->data->settlement_type_full, $suggestion->data->settlement_type, $suggestion->data->settlement_fias_id, $parentguid, $similar_place['id_region'], $similar_place['id_area'], $similar_place['id_city'], $similar_place['max_id_place'] + 1, !empty( $suggestion->data->geo_lon ) ? $suggestion->data->geo_lon : '0.00', !empty( $suggestion->data->geo_lat ) ? $suggestion->data->geo_lat : '0.00' 
                             );
@@ -1071,7 +1071,7 @@ class Robot {
                     }  
                 }
             }             
-            $db->query(" 
+            $db->querys(" 
                 INSERT INTO " . $sys_tables['xml_address_parse'] . " SET id_user = ?, external_id = ?, id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ?, house = ?, corp = ?, lat = ?, lng = ?, response = ?, address = ?, id_geodata = ?
                 ON DUPLICATE KEY UPDATE id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ?, house = ?, corp = ?, lat = ?, lng = ?, response = ?, address = ?, id_geodata = ?
             ", $this->fields['id_user'], $this->fields['external_id'], $this->fields['id_region'], $this->fields['id_area'], $this->fields['id_city'], $this->fields['id_place'], $this->fields['id_street'], $this->fields['house'], $this->fields['corp'], $this->fields['lat'], $this->fields['lng'], print_r( $suggestion, 1 ), $addr, !empty( $geodata ) ? $geodata['id'] : 0,
@@ -1105,7 +1105,7 @@ class Robot {
     public function addSpbAddress( $item ){
         if( !in_array( $item['id_region'], array( 78, 47 ) ) ) return false;
         global $db, $sys_tables;                          
-        $db->query(" INSERT IGNORE INTO " . $sys_tables['geodata_spb_addresses'] ." SET 
+        $db->querys(" INSERT IGNORE INTO " . $sys_tables['geodata_spb_addresses'] ." SET 
                      id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ?, house = ?, corp = ?, lat = ?, lng = ?, address = ? ",
                      $item['id_region'], $item['id_area'], $item['id_city'], $item['id_place'], $item['id_street'], $item['house'], $item['corp'], $item['lat'], $item['lng'], $item['txt_addr']
         );
@@ -1292,11 +1292,11 @@ class Robot {
                 $id = $db->fetch("SELECT MAX(group_id) as max_id FROM ".$this->sys_tables[$estate_type]);
                 $id = $id['max_id'] + 1;
                 if(!empty($robot)) $this->fields['group_id'] = $id;
-                else $db->query("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $id, $values['id']);
+                else $db->querys("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $id, $values['id']);
             }
         }  else {
             if(!empty($robot)) $this->fields['group_id'] = $item['group_id'];
-            else $db->query("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $item['group_id'], $values['id']);
+            else $db->querys("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $item['group_id'], $values['id']);
         }
     }
     /**
@@ -1317,10 +1317,10 @@ class Robot {
                 $id = $db->fetch("SELECT MAX(group_id) as max_id FROM ".$this->sys_tables[$estate_type]);
                 $id = $id['max_id'] + 1;
                 if(!empty($robot)) $this->fields['group_id'] = $id;
-                else $db->query("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $id, $values['id']);
+                else $db->querys("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $id, $values['id']);
             }  else {
                 if(!empty($robot)) $this->fields['group_id'] = $item['group_id'];
-                else $db->query("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $item['group_id'], $values['id']);
+                else $db->querys("UPDATE ".$this->sys_tables[$estate_type]." SET group_id=? WHERE id=?", $item['group_id'], $values['id']);
                 
             }
         }
@@ -1373,7 +1373,7 @@ class Robot {
                 case 3: $type_title = 'БЦ'; break;
             }
             $estate_complexes_log[] = $type_title.': '.$external_title;
-            $db->query("INSERT INTO ".$this->sys_tables['estate_complexes_external']." (id_user,external_id,external_title,type) VALUES (?,?,?,?)",$this->fields['id_user'],empty($external_id)?0:$external_id,$external_title,$type);
+            $db->querys("INSERT INTO ".$this->sys_tables['estate_complexes_external']." (id_user,external_id,external_title,type) VALUES (?,?,?,?)",$this->fields['id_user'],empty($external_id)?0:$external_id,$external_title,$type);
         }
     }
     /**

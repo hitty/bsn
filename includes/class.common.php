@@ -139,7 +139,7 @@
         public static function LogAgencyOperation($id_user,$id_agency,$operation,$operation_info = false){
             global $db;
             $sys_tables = Config::$sys_tables;
-            $res = $db->query("INSERT INTO ".$sys_tables['agencies_operations']." (id_agency,id_user,id_operation,operation_info)
+            $res = $db->querys("INSERT INTO ".$sys_tables['agencies_operations']." (id_agency,id_user,id_operation,operation_info)
                                VALUES (?,?,?,?)",$id_agency,$id_user,$operation,(empty($operation_info)?"":$operation_info));
             return $res;
         }
@@ -167,7 +167,7 @@
             
             $res = $db->insertFromArray($sys_tables['users'],$user_params);
             $new_id = $db->insert_id;
-            if(!empty($res)) $db->query("UPDATE ".$sys_tables['users']." SET `datetime` = NOW() WHERE id = ?",$new_id);
+            if(!empty($res)) $db->querys("UPDATE ".$sys_tables['users']." SET `datetime` = NOW() WHERE id = ?",$new_id);
             
             $user_params['user_activity'] = (!empty($user_params['user_activity'])?$user_params['user_activity']:1);
             
@@ -273,7 +273,7 @@
             if( empty( $password ) ) $password = randomstring(6); 
             $hash_password = sha1(sha1($password)); 
             if( empty( $login ) ) $login = randomstring(6);
-            $res = $db->query("INSERT INTO ".Config::$sys_tables['users']."
+            $res = $db->querys("INSERT INTO ".Config::$sys_tables['users']."
                                 (login, email, name, passwd, datetime)
                                VALUES
                                 ( ?, ?, '', ?, NOW() )"
@@ -285,7 +285,7 @@
             //запись эксперта в БД
             if( !empty( $expert ) ) {
                 $login = 'expert_' . $id_user;
-                $db->query(" UPDATE " . Config::$sys_tables['users'] . " SET login = ?, id_group = ?, expert = ? WHERE id = ?",
+                $db->querys(" UPDATE " . Config::$sys_tables['users'] . " SET login = ?, id_group = ?, expert = ? WHERE id = ?",
                              $login, 14, 1, $id_user
                 );
             }

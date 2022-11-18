@@ -88,7 +88,7 @@ error_reporting(E_ALL);
 // REQUIREIES {{{
 	// require database class
 		require('/home/apache/htdocs/includes/db/mysql.core.php');
-		$db->query('set names koi8r');
+		$db->querys('set names koi8r');
 
 	// require mailer class
 		require('/home/dither/lib/mailer.class.php');
@@ -350,7 +350,7 @@ foreach(getQueue() as $idx => $queue_filename)
 							{
 								$dlog_node->addItem('QUEUEPART_TYPE', dlog::ITEM_TYPE_INFO, 'live-sell');
 								$queuepart_type = 'live-sell';
-								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','Жилая недвижимость, продажа');
+								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫, О©╫О©╫О©╫О©╫О©╫О©╫О©╫');
 								$dlog_node->addItem('APPLYING_PARSER', dlog::ITEM_TYPE_INFO, $config['parsers_path'] . '/' . $config['parser_plain_bn_all']);
 								$dparser = new stdClass;
 								$dparser->srcfilename = $filename;
@@ -370,7 +370,7 @@ foreach(getQueue() as $idx => $queue_filename)
 							{
 								$dlog_node->addItem('QUEUEPART_TYPE', dlog::ITEM_TYPE_INFO, 'build');
 								$queuepart_type = 'build';
-								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','Строящаяся недвижимость');
+								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫');
 								$dlog_node->addItem('APPLYING_PARSER', dlog::ITEM_TYPE_INFO, $config['parsers_path'] . '/' . $config['parser_plain_bn_ned']);
 								$dparser = new stdClass;
 								$dparser->srcfilename = $filename;
@@ -390,7 +390,7 @@ foreach(getQueue() as $idx => $queue_filename)
 							{
 								$dlog_node->addItem('QUEUEPART_TYPE', dlog::ITEM_TYPE_INFO, 'commercial');
 								$queuepart_type = 'commercial';
-								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','Коммерческая недвижимость');
+								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫');
 								$dlog_node->addItem('APPLYING_PARSER', dlog::ITEM_TYPE_INFO, $config['parsers_path'] . '/' . $config['parser_plain_bn_kn']);
 								$dparser = new stdClass;
 								$dparser->srcfilename = $filename;
@@ -410,7 +410,7 @@ foreach(getQueue() as $idx => $queue_filename)
 							{
 								$dlog_node->addItem('QUEUEPART_TYPE', dlog::ITEM_TYPE_INFO, 'country-sell');
 								$queuepart_type = 'country-sell';
-								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','Загородная недвижимость, продажа');
+								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫, О©╫О©╫О©╫О©╫О©╫О©╫О©╫');
 								$dlog_node->addItem('APPLYING_PARSER', dlog::ITEM_TYPE_INFO, $config['parsers_path'] . '/' . $config['parser_plain_bn_zdd']);
 								$dparser = new stdClass;
 								$dparser->srcfilename = $filename;
@@ -430,7 +430,7 @@ foreach(getQueue() as $idx => $queue_filename)
 							{
 								$dlog_node->addItem('QUEUEPART_TYPE', dlog::ITEM_TYPE_INFO, 'live-rent');
 								$queuepart_type = 'live-rent';
-								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','Жилая недвижимость, аренда');
+								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫, О©╫О©╫О©╫О©╫О©╫О©╫');
 								$dlog_node->addItem('APPLYING_PARSER', dlog::ITEM_TYPE_INFO, $config['parsers_path'] . '/' . $config['parser_plain_bn_ard']);
 								$dparser = new stdClass;
 								$dparser->srcfilename = $filename;
@@ -554,7 +554,7 @@ foreach(getQueue() as $idx => $queue_filename)
 							{
 								$dlog_node->addItem('QUEUEPART_TYPE', dlog::ITEM_TYPE_INFO, 'live-rent');
 								$queuepart_type = 'live-rent';
-								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','Жилая недвижимость, аренда');
+								$user_messages->add('PARSE_TYPE_RECOGNIZED','NOTICE','О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫, О©╫О©╫О©╫О©╫О©╫О©╫');
 								$dlog_node->addItem('APPLYING_PARSER', dlog::ITEM_TYPE_INFO, $config['parsers_path'] . '/' . $config['parser_nevdom_live_rent']);
 								$dparser = new stdClass;
 								$dparser->srcfilename = $filename;
@@ -608,7 +608,7 @@ foreach(getQueue() as $idx => $queue_filename)
 		unlink($queue_filename);
 	}
 
-	if(!isset($dparser)) // Ни одного файла не обработалось
+	if(!isset($dparser)) // О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 	{
 		$user_messages->send_messages($queue_params);
 	}

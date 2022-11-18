@@ -27,8 +27,8 @@ Request::Init();
 Cookie::Init(); 
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("set lc_time_names = 'ru_RU'");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("set lc_time_names = 'ru_RU'");
 require_once('includes/class.email.php');
 require_once('includes/class.template.php');     // Template (шаблонизатор), FileCache (файловое кеширование)
 require_once('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
@@ -41,7 +41,7 @@ $log = array();
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
 
-$db->query("
+$db->querys("
     UPDATE ".$sys_tables['build']." a
     left join ".$sys_tables['housing_estates']." b on
         a.id_housing_estate = b.id

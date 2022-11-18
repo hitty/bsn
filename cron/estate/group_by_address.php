@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.robot.php');      // 
 
@@ -61,7 +61,7 @@ foreach($estates as $estate_type){
             );
         }
         
-        if( !empty( $addr ) ) $db->query("UPDATE ".$sys_tables[$estate_type]." SET group_id=? WHERE id=?", $addr['group_id'], $item['id']);
+        if( !empty( $addr ) ) $db->querys("UPDATE ".$sys_tables[$estate_type]." SET group_id=? WHERE id=?", $addr['group_id'], $item['id']);
         else {
             $robot->groupByAddress($estate_type, $item, false);
         }
@@ -82,7 +82,7 @@ foreach($estates as $estate_type){
         if( empty( $geodata ) ) {
             $geodata = $robot->getGeodataDdata( $robot->fullAddress( $item ) );    
             if( !empty( $geodata ) ) 
-                $db->query("UPDATE " . $sys_tables[$estate_type] ." 
+                $db->querys("UPDATE " . $sys_tables[$estate_type] ." 
                             SET id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ? WHERE group_id = ?", 
                             $geodata['id_region'], $geodata['id_area'], $geodata['id_city'], $geodata['id_place'], $geodata['id_street'], $item['group_id'] );
             
@@ -91,7 +91,7 @@ foreach($estates as $estate_type){
             $item['txt_addr'] =  $robot->fullAddress( $item );
             if( !empty( $item['txt_addr'] ) ) {
                 list( $lat, $lng ) = $robot->getCoords( $item );
-                if( $lat > 1 && $lng > 1 ) $db->query(" UPDATE " . $sys_tables[$estate_type] ." SET lat = ?, lng = ? WHERE group_id = ?", $lat, $lng, $item['group_id'] );
+                if( $lat > 1 && $lng > 1 ) $db->querys(" UPDATE " . $sys_tables[$estate_type] ." SET lat = ?, lng = ? WHERE group_id = ?", $lat, $lng, $item['group_id'] );
             }
         }
         echo '2.' . $estate_type . ' - ' . $k . "\n";
@@ -102,7 +102,7 @@ foreach($estates as $estate_type){
 foreach($estates as $estate_type){
     $list = $db->fetchall("SELECT COUNT(*), lat, lng, id_region, id_area, id_city, id_place, id_street, house, corp, txt_addr FROM ".$sys_tables[$estate_type]." WHERE house > 0 AND group_id > 0 AND lat > 1 AND lng > 1  GROUP BY group_id ORDER BY COUNT(*) DESC");
     foreach( $list as $k => $item ){
-        $db->query(" INSERT IGNORE INTO " . $sys_tables['geodata_spb_addresses'] ." SET 
+        $db->querys(" INSERT IGNORE INTO " . $sys_tables['geodata_spb_addresses'] ." SET 
                      id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ?, house = ?, corp = ?, lat = ?, lng = ?, address = ? ",
                      $item['id_region'], $item['id_area'], $item['id_city'], $item['id_place'], $item['id_street'], $item['house'], $item['corp'], $item['lat'], $item['lng'], $item['txt_addr']
         );
@@ -124,13 +124,13 @@ foreach( $list as $k => $coords ){
             $geodata = $robot->getGeodataDdata( $robot->fullAddress( $estate ) );    
             if( !empty( $geodata ) ) {
                 if( !empty( $geodata['id_street'] ) && $geodata['id_street'] != $address['id_street'] ) {
-                    $db->query( " UPDATE " . $sys_tables['live'] ." SET id_street = ?, lat='0.000000',lng='0.000000' WHERE id = ?", $geodata['id_street'], $estate['id'] );
+                    $db->querys( " UPDATE " . $sys_tables['live'] ." SET id_street = ?, lat='0.000000',lng='0.000000' WHERE id = ?", $geodata['id_street'], $estate['id'] );
                 }
                 
             }
         }
-        $db->query( " DELETE FROM " . $sys_tables['geodata_spb_addresses'] ." WHERE lat= ? AND lng = ? ", $address['lat'], $address['lng'] );
-        $db->query( " UPDATE " . $sys_tables['live'] ." SET lat='0.000000',lng='0.000000' WHERE lat= ? AND lng = ? ", $address['lat'], $address['lng'] );
+        $db->querys( " DELETE FROM " . $sys_tables['geodata_spb_addresses'] ." WHERE lat= ? AND lng = ? ", $address['lat'], $address['lng'] );
+        $db->querys( " UPDATE " . $sys_tables['live'] ." SET lat='0.000000',lng='0.000000' WHERE lat= ? AND lng = ? ", $address['lat'], $address['lng'] );
    }
 }  
 
@@ -148,7 +148,7 @@ foreach($estates as $estate_type){
         if( empty( $geodata ) ) {
             $geodata = $robot->getGeodataDdata( $robot->fullAddress( $item ) );    
             if( !empty( $geodata ) ) 
-                $db->query("UPDATE " . $sys_tables[$estate_type] ." 
+                $db->querys("UPDATE " . $sys_tables[$estate_type] ." 
                             SET id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ? WHERE group_id = ?", 
                             $geodata['id_region'], $geodata['id_area'], $geodata['id_city'], $geodata['id_place'], $geodata['id_street'], $item['group_id'] );
             
@@ -156,7 +156,7 @@ foreach($estates as $estate_type){
         if( !empty( $geodata ) ) {
             $item['txt_addr'] =  $robot->fullAddress( $item );
             list( $lat, $lng ) = $robot->getCoords( $item['txt_addr'] );
-            $db->query(" UPDATE " . $sys_tables[$estate_type] ." SET lat = ?, lng = ? WHERE group_id = ?", $lat, $lng, $item['group_id'] );
+            $db->querys(" UPDATE " . $sys_tables[$estate_type] ." SET lat = ?, lng = ? WHERE group_id = ?", $lat, $lng, $item['group_id'] );
         }
     }
 } 
@@ -165,7 +165,7 @@ foreach($estates as $estate_type){
 foreach($estates as $estate_type){
     $list = $db->fetchall("SELECT COUNT(*), lat, lng, id_region, id_area, id_city, id_place, id_street, house, corp, txt_addr FROM ".$sys_tables[$estate_type]." WHERE house > 0 AND group_id > 0 AND lat > 1 AND lng > 1  GROUP BY group_id ORDER BY COUNT(*) DESC");
     foreach( $list as $k => $item ){
-        $db->query(" INSERT IGNORE INTO " . $sys_tables['geodata_spb_addresses'] ." SET 
+        $db->querys(" INSERT IGNORE INTO " . $sys_tables['geodata_spb_addresses'] ." SET 
                      id_region = ?, id_area = ?, id_city = ?, id_place = ?, id_street = ?, house = ?, corp = ?, lat = ?, lng = ?, address = ? ",
                      $item['id_region'], $item['id_area'], $item['id_city'], $item['id_place'], $item['id_street'], $item['house'], $item['corp'], $item['lat'], $item['lng'], $item['txt_addr']
         );

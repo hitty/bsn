@@ -35,7 +35,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -53,7 +53,7 @@ foreach($estate_types as $estate){
     foreach($normal as $k=>$n){
         if(!findColumn($n['Field'],$archive)){
             //ALTER TABLE  `country` ADD  `gui` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '' AFTER  `date_in` , ADD INDEX (  `gui` );
-            $db->query("ALTER TABLE ".$sys_tables[$estate."_archive"]." ADD `".$n['Field']."` ".$n['Type']."  DEFAULT  ".$n['Default']." AFTER  `".$previous_field."`");
+            $db->querys("ALTER TABLE ".$sys_tables[$estate."_archive"]." ADD `".$n['Field']."` ".$n['Type']."  DEFAULT  ".$n['Default']." AFTER  `".$previous_field."`");
             echo $db->last_query."\n";
         }
         $previous_field = $n['Field'];
@@ -64,9 +64,9 @@ foreach($estate_types as $estate){
 //перемещение в архив всех объектов, у которых дата меньша чем 250 дней
 $estate_types = array('country','commercial','live','build');
 foreach($estate_types as $estate){
-    $db->query("INSERT IGNORE INTO ".$sys_tables[$estate."_archive"]." SELECT * FROM ".$sys_tables[$estate]." WHERE published = 2 AND date_change < CURDATE() - INTERVAL  200 DAY");
+    $db->querys("INSERT IGNORE INTO ".$sys_tables[$estate."_archive"]." SELECT * FROM ".$sys_tables[$estate]." WHERE published = 2 AND date_change < CURDATE() - INTERVAL  200 DAY");
     echo $db->last_query."\n";
-    $db->query("DELETE FROM ".$sys_tables[$estate]." WHERE published = 2 AND date_change < CURDATE() - INTERVAL 200 DAY");
+    $db->querys("DELETE FROM ".$sys_tables[$estate]." WHERE published = 2 AND date_change < CURDATE() - INTERVAL 200 DAY");
     echo $db->last_query."\n";
 }    
 //SHOW TABLES;
@@ -76,14 +76,14 @@ foreach($estate_types as $estate){
     $objects = $db->fetchall("SELECT external_id, id, id_user FROM ".$sys_tables[$estate]." WHERE external_id > 0 GROUP BY id_user, external_id HAVING COUNT(*) > 1");
     if(!empty($objects)) {
         foreach($objects as $o=>$object){
-            $db->query("DELETE FROM ".$sys_tables[$estate]."            WHERE external_id = ? AND id_user = ? AND published = 2", $object['external_id'], $object['id_user']);
-            $db->query("DELETE FROM ".$sys_tables[$estate.'_archive']." WHERE external_id = ? AND id_user = ? AND published = 2", $object['external_id'], $object['id_user']);
+            $db->querys("DELETE FROM ".$sys_tables[$estate]."            WHERE external_id = ? AND id_user = ? AND published = 2", $object['external_id'], $object['id_user']);
+            $db->querys("DELETE FROM ".$sys_tables[$estate.'_archive']." WHERE external_id = ? AND id_user = ? AND published = 2", $object['external_id'], $object['id_user']);
         }
     }
 
     $archive_objects = $db->fetchall("SELECT * FROM ".$sys_tables[$estate.'_archive']." WHERE external_id > 0 GROUP BY id_user, external_id HAVING COUNT(*) > 1");
     if(!empty($archive_objects)) {
-        foreach($archive_objects as $ao=>$archive_object) $db->query("DELETE FROM ".$sys_tables[$estate.'_archive']." WHERE external_id = ?  AND id_user = ? ",$archive_object['external_id'],$archive_object['id_user']);
+        foreach($archive_objects as $ao=>$archive_object) $db->querys("DELETE FROM ".$sys_tables[$estate.'_archive']." WHERE external_id = ?  AND id_user = ? ",$archive_object['external_id'],$archive_object['id_user']);
     }
     
 }
@@ -108,13 +108,13 @@ foreach($seo_list as $k=>$item){
             $already_exists = $db->fetch("SELECT * FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ?",$new_alias);
             if(!empty($already_exists)){
                 if(empty($already_exists['seo_text']))
-                    $db->query("UPDATE ".$sys_tables['pages_seo']." SET url = ?, title = ?, description = ?, keywords = ?, seo_text = ?, breadcrumbs = ?, filled = ? WHERE pretty_url = ?",
+                    $db->querys("UPDATE ".$sys_tables['pages_seo']." SET url = ?, title = ?, description = ?, keywords = ?, seo_text = ?, breadcrumbs = ?, filled = ? WHERE pretty_url = ?",
                        $alias['url'], $alias['title'], $alias['description'], $alias['keywords'], $alias['seo_text'], $alias['breadcrumbs'], $alias['filled'], $alias['pretty_url']
                     );
-                $db->query("DElETE FROM ".$sys_tables['pages_seo']." WHERE id = ?",$item['id']);
+                $db->querys("DElETE FROM ".$sys_tables['pages_seo']." WHERE id = ?",$item['id']);
                 
             } else  {
-                $db->query("UPDATE ".$sys_tables['pages_seo']." SET pretty_url = ? WHERE id = ?",
+                $db->querys("UPDATE ".$sys_tables['pages_seo']." SET pretty_url = ? WHERE id = ?",
                    $new_alias ,$item['id']
                 );
             }

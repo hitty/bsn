@@ -25,7 +25,7 @@
     require_once('includes/class.template.php');
     require_once('includes/class.email.php');
     $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-    $db->query("set names ".Config::$values['mysql']['charset']);
+    $db->querys("set names ".Config::$values['mysql']['charset']);
     
     $tables = Config::$sys_tables;
     $sql = "SELECT
@@ -194,7 +194,7 @@
         if(!empty($reg_where)) $where .= " AND (".implode(" OR ", $reg_where).") AND ".$estate->work_table.".`date_in`>'".$subscription['last_seen']."'";
         $list = $estate->Search($where);
         $sql = "UPDATE ".$tables['objects_subscriptions']." SET `new_objects`=? WHERE `id`=?";
-        $db->query($sql,count($list),$subscription['id']); // Обновление поля с количеством новых объектов
+        $db->querys($sql,count($list),$subscription['id']); // Обновление поля с количеством новых объектов
         if (Convert::ToInt($subscription['days_pass'])>=Convert::ToInt($subscription['objects_subscriptions_periods'])){
             $mailer = new EMailer('mail'); // возможно, следует вынести за пределы цикла (до него)
             $estate_type_name = Config::$values['object_types'][$estate_type]['name']; 

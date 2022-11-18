@@ -35,8 +35,8 @@ require_once('includes/class.check.email.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
 
@@ -56,16 +56,16 @@ foreach($email_list as $email){
         //проверка на существование email
         $alter = new CCheckMail();
         if( !$alter->execute( $email['email'] ) ){
-            if( $email['type'] == 'users' ) $db->query( " UPDATE " . $sys_tables[$email['type']] . " SET active_email = 2, checked_email = 1 WHERE id = ?", $email['id'] );
-            else $db->query( " UPDATE " . $sys_tables[$email['type']] . " SET published = 9, checked_email = 1 WHERE id = ?", $email['id'] );
+            if( $email['type'] == 'users' ) $db->querys( " UPDATE " . $sys_tables[$email['type']] . " SET active_email = 2, checked_email = 1 WHERE id = ?", $email['id'] );
+            else $db->querys( " UPDATE " . $sys_tables[$email['type']] . " SET published = 9, checked_email = 1 WHERE id = ?", $email['id'] );
         }  else {
             
-            $db->query( " UPDATE " . $sys_tables[$email['type']] . " SET active_email = 2, checked_email = 1 WHERE id = ?", $email['id'] );
+            $db->querys( " UPDATE " . $sys_tables[$email['type']] . " SET active_email = 2, checked_email = 1 WHERE id = ?", $email['id'] );
         }
     } else {
         
-        if( $email['type'] == 'users' ) $db->query( " UPDATE " . $sys_tables[$email['type']] . " SET active_email = 2, checked_email = 1 WHERE id = ?", $email['id'] );
-        else $db->query( " UPDATE " . $sys_tables[$email['type']] . " SET published = 9, checked_email = 1 WHERE id = ?", $email['id'] );
+        if( $email['type'] == 'users' ) $db->querys( " UPDATE " . $sys_tables[$email['type']] . " SET active_email = 2, checked_email = 1 WHERE id = ?", $email['id'] );
+        else $db->querys( " UPDATE " . $sys_tables[$email['type']] . " SET published = 9, checked_email = 1 WHERE id = ?", $email['id'] );
     }                                
 }
                             

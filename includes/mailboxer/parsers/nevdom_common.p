@@ -48,7 +48,7 @@ class plain_nevdom
 
 		$return = $config['db_block_default']; // default block
 
-		$result = $db->query('select `'.$config['db_block_table_id_fild'].'` from `'.$config['db_database'].'`.`'.$config['db_block_table'].'` where `'.$config['db_block_table_bn_fild'].'` = \''.$value.'\' or `'.$config['db_block_table_small_title_fild'].'` = \''.$value.'\' or `'.$config['db_block_table_title_fild'].'` = \''.$value.'\' LIMIT 1;');
+		$result = $db->querys('select `'.$config['db_block_table_id_fild'].'` from `'.$config['db_database'].'`.`'.$config['db_block_table'].'` where `'.$config['db_block_table_bn_fild'].'` = \''.$value.'\' or `'.$config['db_block_table_small_title_fild'].'` = \''.$value.'\' or `'.$config['db_block_table_title_fild'].'` = \''.$value.'\' LIMIT 1;');
 
 		if($db->affected_rows == 1)
 		{
@@ -58,7 +58,7 @@ class plain_nevdom
 		{
 			$similarity_analize = new similarity_analize($config['db_similarity_analize_min_percent'],$config['db_similarity_analize_min_distance']);
 
-			$result = $db->query('select `'.$config['db_block_table_title_fild'].'`, `'.$config['db_block_table_id_fild'].'` from `'.$config['db_database'].'`.`'.$config['db_block_table'].'`;');
+			$result = $db->querys('select `'.$config['db_block_table_title_fild'].'`, `'.$config['db_block_table_id_fild'].'` from `'.$config['db_database'].'`.`'.$config['db_block_table'].'`;');
 
 			while($res = $result->fetch_array(MYSQL_NUM))
 			{

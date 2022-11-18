@@ -310,7 +310,7 @@ switch(true){
                  $this_page->manageMetadata($new_meta, true);            
                  $module_template = 'item.html';
                  //кол-во просмотров
-                 $db->query("UPDATE ".$sys_tables['calendar_events']." SET views_count = views_count + 1 WHERE id = ?", $calendar_events_id);
+                 $db->querys("UPDATE ".$sys_tables['calendar_events']." SET views_count = views_count + 1 WHERE id = ?", $calendar_events_id);
                 
                  $where = $sys_tables['calendar_events'] . '.id != ' . $calendar_events_id . ' 
                                 AND ' . $sys_tables['calendar_events'] . '.id_category = ' . $item['id_category'] . '

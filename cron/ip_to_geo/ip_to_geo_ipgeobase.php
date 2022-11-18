@@ -37,8 +37,8 @@ require_once('includes/functions.php');          // функции  из кро�
 require_once('includes/class.email.php');
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 
 // вспомогательные таблицы модуля
@@ -82,8 +82,8 @@ foreach($ip_to_found as $key=>$item){
     
     if(!empty($id_geodata)){
         ++$ips_geo_found;
-        $db->query("UPDATE ".$sys_tables['ip_geodata']." SET id_geodata = ?, txt_addr = ? WHERE ip = ?",$id_geodata,$txt_addr,$item);
-    }else $db->query("UPDATE ".$sys_tables['ip_geodata']." SET txt_addr = ? WHERE ip = ?",$txt_addr,$item);
+        $db->querys("UPDATE ".$sys_tables['ip_geodata']." SET id_geodata = ?, txt_addr = ? WHERE ip = ?",$id_geodata,$txt_addr,$item);
+    }else $db->querys("UPDATE ".$sys_tables['ip_geodata']." SET txt_addr = ? WHERE ip = ?",$txt_addr,$item);
     
     $time2 = time();
 }

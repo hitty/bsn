@@ -34,8 +34,8 @@ switch($action){
                     $ids = $db->fetchall("SELECT id FROM ".$sys_tables['calls']." WHERE num_from = ? AND status!=3", false, $call['num_from']);
                     //снятие финансов
                     if(!empty($user['id']) && !empty($ids)) {
-                        $db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?", $cost, $user['id']);
-                        $db->query("UPDATE ".$sys_tables['calls']." SET status = 3 WHERE id_user = ? AND num_from = ?",$user['id'],$call['num_from']);
+                        $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?", $cost, $user['id']);
+                        $db->querys("UPDATE ".$sys_tables['calls']." SET status = 3 WHERE id_user = ? AND num_from = ?",$user['id'],$call['num_from']);
                         $ajax_result['ok'] = true;
                         foreach($ids as $k=>$id) $ajax_result['ids'][] = $id['id'];
                     }
@@ -78,7 +78,7 @@ switch($action){
             else {
                 if(($key = array_search($tag_id,$tags)) !== false) unset($tags[$key]);
             }
-            $db->query("UPDATE ".$sys_tables['calls']." SET tags=? WHERE id=?", $tag_id, $id);
+            $db->querys("UPDATE ".$sys_tables['calls']." SET tags=? WHERE id=?", $tag_id, $id);
             $ajax_result['ok'] = true;
         }
     break;
@@ -250,7 +250,7 @@ switch($action){
             }
             Response::SetArray('list', $list);
             //флаг непросмотренных звонков
-            if(!empty($auth->id)) $db->query("UPDATE ".$sys_tables['calls']." SET viewed = 1 WHERE id = ?",$auth->id);
+            if(!empty($auth->id)) $db->querys("UPDATE ".$sys_tables['calls']." SET viewed = 1 WHERE id = ?",$auth->id);
             $ajax_result['ok'] = true;
             //Список тегов
             $tags = $db->fetchall('SELECT * FROM '.$sys_tables['calls_tags']." ORDER BY title");

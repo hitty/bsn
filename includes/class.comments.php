@@ -92,7 +92,7 @@ class Comments {
         global $db;
         $sql = "SELECT count(*) as cnt FROM ".self::$comments_table."
                 WHERE id_parent IN (?) AND parent_type=?".($hide_blocked ? " AND comments_active=1" : "");
-        $res = $db->query(
+        $res = $db->querys(
             $sql,
             self::$id_parent,
             self::$parent_type['parent_type']
@@ -106,7 +106,7 @@ class Comments {
     * @param boolean $hide_blocked скрывать заблокированные
     * @param integer $shift смещение начала выборки
     */
-    public static function getLastComments($shift=null, $hide_blocked=true, $orderby,$node_id=0, $group_by = false, $limit = false){
+    public static function getLastComments($shift=null, $hide_blocked=true, $orderby='',$node_id=0, $group_by = false, $limit = false){
         global $db, $sys_tables, $auth;
         if(empty($shift)) $shift = self::$comments_shift; 
         self::$comments_shift = $shift;   
@@ -203,7 +203,7 @@ class Comments {
         if(!empty($text) && !empty($author_name)){
             $text = strip_tags($text);
             
-            $result = $db->query("INSERT INTO ".self::$comments_table." (id_parent, comments_datetime, author_name, author_email, parent_type, comments_text, user_ip, id_user, id_comment_parent, comments_active, id_comment_answer)
+            $result = $db->querys("INSERT INTO ".self::$comments_table." (id_parent, comments_datetime, author_name, author_email, parent_type, comments_text, user_ip, id_user, id_comment_parent, comments_active, id_comment_answer)
                                   VALUES (?,?,?,?,?,?,?,?,?,?,?)"
                                   , self::$id_parent
                                   , date('Y-m-d H:i:s')
@@ -231,7 +231,7 @@ class Comments {
     public static function blockComment($cid){
         global $auth, $db;
         if($auth->isAuthorized() && $auth->getAccess('priv_comm_moderate')=='Y'){
-            $res = $db->query("UPDATE ".self::$comments_table." SET comments_active=2 WHERE comments_id=?", $cid);
+            $res = $db->querys("UPDATE ".self::$comments_table." SET comments_active=2 WHERE comments_id=?", $cid);
             return $res;
         }
         return false;
@@ -245,7 +245,7 @@ class Comments {
     public static function unblockComment($cid){
         global $auth, $db;
         if($auth->isAuthorized() && $auth->getAccess('priv_comm_moderate')=='Y'){
-            $res = $db->query("UPDATE ".self::$comments_table." SET comments_active=1 WHERE comments_id=?", $cid);
+            $res = $db->querys("UPDATE ".self::$comments_table." SET comments_active=1 WHERE comments_id=?", $cid);
             return $res;
         }
         return false;

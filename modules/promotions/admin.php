@@ -210,7 +210,7 @@ switch($action){
                             case 4: $table = 'country';  break;
                         }
                         if(!empty($table) && !empty($id)){
-                            $res = $db->query("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $id_parent);
+                            $res = $db->querys("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $id_parent);
                             $ajax_result['ok'] = $res;
                         }
                     }
@@ -230,7 +230,7 @@ switch($action){
                         case 4: $table = 'country';  break;
                     }
                     if(!empty($table) && !empty($id)){
-                        $res = $db->query("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id = ?", 2, $id);
+                        $res = $db->querys("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id = ?", 2, $id);
                         $ajax_result['ok'] = $res;
                     }
                     break;
@@ -257,14 +257,14 @@ switch($action){
                                 //объект не прикреплен к комплексу
                                 if( (empty($complex) || $complex['published'] == 2) && empty($complex)) $ajax_result['wrong_complex'] = true;
                                 //прикреплен
-                                else if(!empty($complex)) $db->query("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = CURDATE() + INTERVAL 30 DAY, date_change = CURDATE(), published = 1, id_promotion = ? WHERE id = ?", 7, $id_parent, $id_object);
+                                else if(!empty($complex)) $db->querys("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = CURDATE() + INTERVAL 30 DAY, date_change = CURDATE(), published = 1, id_promotion = ? WHERE id = ?", 7, $id_parent, $id_object);
                             //проверка на существование объекта    
                             } else {
                                $object = $db->fetch("SELECT * FROM ".$sys_tables[$table]." WHERE id = ?", $id_object); 
                                 //объект не найден
                                 if( empty($object)) $ajax_result['wrong_object'] = true;
                                 //объект найден
-                                else $db->query("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = CURDATE() + INTERVAL 30 DAY, date_change = CURDATE(), published = 1, id_promotion = ? WHERE id = ?", 7, $id_parent, $id_object);
+                                else $db->querys("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = CURDATE() + INTERVAL 30 DAY, date_change = CURDATE(), published = 1, id_promotion = ? WHERE id = ?", 7, $id_parent, $id_object);
                             }
                         } else $ajax_result['wrong_promotion'] = true;
                             
@@ -325,7 +325,7 @@ switch($action){
                     case 4: $table = 'country';  break;
                 }
                 if(!empty($table) && !empty($info['id'])){
-                    $res = $db->query("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $info['id']);
+                    $res = $db->querys("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $info['id']);
                     $ajax_result['ok'] = $res;
                 }
              }
@@ -341,7 +341,7 @@ switch($action){
                 case 4: $table = 'country';  break;
             }
             if(!empty($table) && !empty($info['id'])){
-                $res = $db->query("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $info['id']);
+                $res = $db->querys("UPDATE ".$sys_tables[$table]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $info['id']);
                 $ajax_result['ok'] = $res;
             }
         }
@@ -403,7 +403,7 @@ switch($action){
 						$new_id = $db->insert_id;
                         
                         //Матвей:формирование ЧПУ-строки
-                        $db->query( "UPDATE ".$sys_tables['promotions']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
+                        $db->querys( "UPDATE ".$sys_tables['promotions']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
                         //Матвей:end
                         
 						// редирект на редактирование свеженькой страницы
@@ -447,10 +447,10 @@ switch($action){
             $ajax_result = array('ok' => false);
             break;
         }else $promotion_estate_type = $promotion_estate_type['estate_type'];
-        $db->query("UPDATE ".$sys_tables[$promotion_estate_type]." SET id_promotion = 0, status = 2, status_date_end = '0000-00-00' WHERE id_promotion = ?",$id);
+        $db->querys("UPDATE ".$sys_tables[$promotion_estate_type]." SET id_promotion = 0, status = 2, status_date_end = '0000-00-00' WHERE id_promotion = ?",$id);
         //похоже promotions_objects не используется, ее не чистим
         
-		$res = $db->query("DELETE FROM ".$sys_tables['promotions']." WHERE id=?", $id);
+		$res = $db->querys("DELETE FROM ".$sys_tables['promotions']." WHERE id=?", $id);
 		$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 		if($ajax_mode){
 			$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

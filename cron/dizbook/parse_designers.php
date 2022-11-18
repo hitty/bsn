@@ -24,7 +24,7 @@ require_once('includes/functions.php');          // функции  из мод�
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 require_once('includes/simple_html_dom.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 $extensions = array('png','jpg','jpeg','gif'); // File extensions
 
 //дизайнеры с фотками
@@ -55,7 +55,7 @@ while($filename = readdir($dh))
                 file_put_contents($root."/cron/dizbook/photos/".$filename.'.'.$imgextension,$picture);
             }    
 
-            $db->query("INSERT INTO dizbook.designers SET firstName=?, photoUrl=?",$title,$filename.'.'.$imgextension);
+            $db->querys("INSERT INTO dizbook.designers SET firstName=?, photoUrl=?",$title,$filename.'.'.$imgextension);
         }
     }
     
@@ -74,7 +74,7 @@ while($filename = readdir($dh))
         foreach($html->find('select.filter_script option') as $info){
             $url = $info->value;
             $name_eng = trim($info->plaintext);
-            $db->query("INSERT INTO dizbook.countries SET name_eng=?, url=?",$name_eng,$url);
+            $db->querys("INSERT INTO dizbook.countries SET name_eng=?, url=?",$name_eng,$url);
         }
     }
     
@@ -83,22 +83,22 @@ while($filename = readdir($dh))
 $list = $db->fetchall("SELECT * FROM dizbook.yii_country");
 foreach($list as $k=>$item){
     $country = $db->fetch("SELECT * FROM dizbook.countries WHERE name = ?",trim($item['name']));
-    if(empty($country)) $db->query("INSERT INTO dizbook.countries SET name=?,d_id=?",trim($item['name']),$item['id']);
-    else $db->query("UPDATE dizbook.countries SET d_id=? WHERE id=?",$item['id'],$country['id']);
-    $db->query("UPDATE dizbook.yii_country SET name=? WHERE id=?",trim($item['name']), $item['id']);
+    if(empty($country)) $db->querys("INSERT INTO dizbook.countries SET name=?,d_id=?",trim($item['name']),$item['id']);
+    else $db->querys("UPDATE dizbook.countries SET d_id=? WHERE id=?",$item['id'],$country['id']);
+    $db->querys("UPDATE dizbook.yii_country SET name=? WHERE id=?",trim($item['name']), $item['id']);
 }
 
 $list = $db->fetchall("SELECT * FROM dizbook.countries");
 foreach($list as $k=>$item){
     $country = $db->fetch("SELECT * FROM dizbook.yii_country WHERE name = ?",trim($item['name']));
     if(empty($country)) {
-        $db->query("INSERT INTO dizbook.yii_country SET name=?,created=CURDATE(),creatorId=1",trim($item['name']));
-        $db->query("UPDATE dizbook.countries SET d_id=? WHERE id=?",$db->insert_id, $item['id']);
+        $db->querys("INSERT INTO dizbook.yii_country SET name=?,created=CURDATE(),creatorId=1",trim($item['name']));
+        $db->querys("UPDATE dizbook.countries SET d_id=? WHERE id=?",$db->insert_id, $item['id']);
     }
 }
 
 
-$urls = $db->query("SELECT * FROM dizbook.countries WHERE url!=''");
+$urls = $db->querys("SELECT * FROM dizbook.countries WHERE url!=''");
 foreach($urls as $k=>$url){
     
     getDesigners("http://www.architonic.com/".$url['url'], $url, $page=1);
@@ -133,10 +133,10 @@ while($filename = readdir($dh))
             $fullname = $firstName.' '.$surname;
             $reverse_fullname = $surname.' '.$firstName; 
             $designer = $db->fetch("SELECT * FROM dizbook.designers WHERE firstName = ? OR firstName = ?",$fullname,$reverse_fullname);
-            if(!empty($designer)) $db->query("UPDATE dizbook.designers SET firstName=?, surname=?,countryId=? WHERE id=?",
+            if(!empty($designer)) $db->querys("UPDATE dizbook.designers SET firstName=?, surname=?,countryId=? WHERE id=?",
                                               $firstName, $surname, $countryId, $designer['id']
             );
-            else $db->query("INSERT INTO dizbook.designers SET firstName=?, surname=?,countryId=?",
+            else $db->querys("INSERT INTO dizbook.designers SET firstName=?, surname=?,countryId=?",
                                               $firstName, $surname, $countryId
             );
             
@@ -164,12 +164,12 @@ foreach($parsed as $pk=>$pb){
                 $submodel_title = $submodel_info->find('div', 0)->plaintext;
                 $item = $db->fetch("SELECT * FROM 2gis.autoi_cars WHERE id_brand=? AND id_model=? AND title=?", $id_brand, $id_model, $submodel_title);
                 if(empty($item)) {
-                    $db->query("INSERT INTO 2gis.autoi_cars SET id_brand=?, id_model=?, title=?", $id_brand, $id_model, $submodel_title);
+                    $db->querys("INSERT INTO 2gis.autoi_cars SET id_brand=?, id_model=?, title=?", $id_brand, $id_model, $submodel_title);
                     $id_submodel = $db->insert_id;
                 } else {
                     $id_submodel = $item['id'];
                 }
-                $db->query("UPDATE 2gis.autoi_cars SET id_submodel=? WHERE id=?",$id_submodel, $pb['id']);
+                $db->querys("UPDATE 2gis.autoi_cars SET id_submodel=? WHERE id=?",$id_submodel, $pb['id']);
             }
         }
         
@@ -184,12 +184,12 @@ foreach($parsed as $pk=>$pb){
             
             $item = $db->fetch("SELECT * FROM 2gis.autoi_characteristic_types WHERE title=?", $title);
             if(empty($item)) {
-                $db->query("INSERT INTO 2gis.autoi_characteristic_types SET id_brandtitle=?", $title);
+                $db->querys("INSERT INTO 2gis.autoi_characteristic_types SET id_brandtitle=?", $title);
                 $id_type = $db->insert_id;
             } else {
                 $id_type = $item['id'];
             }
-            $db->query("INSERT INTO 2gis.autoi_characteristics SET `car_id`=?, `id_type`=?, `value`=?",
+            $db->querys("INSERT INTO 2gis.autoi_characteristics SET `car_id`=?, `id_type`=?, `value`=?",
                         $car_id, $id_type, trim($sql_value) 
             );
                 

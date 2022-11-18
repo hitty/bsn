@@ -41,8 +41,8 @@ $memcache = new MCache(Config::$values['memcache']['host'], Config::$values['mem
 $debug = DEBUG_MODE || !empty($_SERVER['argv'][1]) ? true : false;
 // Инициализация рабочих классов
 $db = !TEST_MODE ? new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']) : new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
-$db->query("set names ".Config::$values['mysql_remote']['charset']);
-$db->query("set lc_time_names = 'ru_RU'");
+$db->querys("set names ".Config::$values['mysql_remote']['charset']);
+$db->querys("set lc_time_names = 'ru_RU'");
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
 
@@ -106,7 +106,7 @@ if(!empty($success)){
     }
     */
     //обновление флага выгрузки по времени
-    $db->query("UPDATE ".$sys_tables['agencies']." SET can_download = 2 WHERE id = ?",$agency['id']);
+    $db->querys("UPDATE ".$sys_tables['agencies']." SET can_download = 2 WHERE id = ?",$agency['id']);
     //обнуление всех старых процессов
     $db->fetch("UPDATE ".$sys_tables['processes']." SET status = ? WHERE id_agency = ? AND type = ? AND status = ?", 2, $agency['id'], 2, 1);
     //запуск нового процесса
@@ -124,7 +124,7 @@ if(!empty($success)){
     //проверка пакета для загрузки
     if(empty($agency['id_tarif'])){
         $error_text = 'У агентства нет тарифа'; 
-        $db->query("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'\n\nК сожалению у вас не выбран тарифа.'), log='', status = 2 WHERE id = ?", $process_id);
+        $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'\n\nК сожалению у вас не выбран тарифа.'), log='', status = 2 WHERE id = ?", $process_id);
         $success = false;
     }  
     if(!empty($success)){
@@ -135,7 +135,7 @@ if(!empty($success)){
             if($link_response != 200){
                 $agency['xml_link'] = curlThis($agency['xml_link'],false,false,false,false,true);
                 if(empty($agency['xml_link'])){
-                    $db->query("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'Файл недоступен'), log = '', status = 2 WHERE id = ?", $process_id);
+                    $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'Файл недоступен'), log = '', status = 2 WHERE id = ?", $process_id);
                     $success = false;
                     file_unavailiable_notify($agency);
                 }
@@ -154,7 +154,7 @@ if(!empty($success)){
         )[0];
         if(empty($filename) || !file_exists($filename)) {
             
-            $db->query("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'Файл недоступен'), log = '', status = 2 WHERE id = ?", $process_id);
+            $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'Файл недоступен'), log = '', status = 2 WHERE id = ?", $process_id);
             $success = false;
             //сразу отправляем письма отв. менеджеру, в компанию и на web@bsn.ru
             file_unavailiable_notify($agency);
@@ -162,7 +162,7 @@ if(!empty($success)){
         }
         if(!empty($success)){
             //успешное скачивание
-            $db->query("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'Загрузка файла: ОК','\n\n','Анализ файла: ') WHERE id = ?", $process_id);
+            $db->querys("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'Загрузка файла: ОК','\n\n','Анализ файла: ') WHERE id = ?", $process_id);
 
             //счетчики объектов
             $counter_analyse = $counter = array(
@@ -253,14 +253,14 @@ if(!empty($success)){
             print_r($file_type);
             if(empty($file_type)) {
                 $error_text = 'файл неизвестного формата'; 
-                $db->query("UPDATE ".$sys_tables['processes']." SET status = ?, full_log = CONCAT (log,'".$error_text."'), log='' WHERE id = ?", 2, $process_id);
+                $db->querys("UPDATE ".$sys_tables['processes']." SET status = ?, full_log = CONCAT (log,'".$error_text."'), log='' WHERE id = ?", 2, $process_id);
                 $success = false;
             }
              if(!empty($success)){
                  unset($contents);
                  unset($xml_str);
                 //обновляем инфу лога
-                $db->query("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'".$file_type." XML') WHERE id = ?", $process_id);
+                $db->querys("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'".$file_type." XML') WHERE id = ?", $process_id);
                 //формирование значений полей
                 $field_values = array();
                 //список по типам недвижимости + сделки
@@ -279,7 +279,7 @@ if(!empty($success)){
                             }
                         }       
                         if(!empty($internal_ids[$key])) $values['internal-id'] = $internal_ids[$key];  
-                        $res = $db->query("INSERT INTO ".$sys_tables['xml_parse']." SET id_agency = ?, file_type = ?, `xml_values` = ?, id_process = ?, hash = ?", $agency['id'], $file_type, json_encode($values), $process_id, sha1(http_build_query($values)));
+                        $res = $db->querys("INSERT INTO ".$sys_tables['xml_parse']." SET id_agency = ?, file_type = ?, `xml_values` = ?, id_process = ?, hash = ?", $agency['id'], $file_type, json_encode($values), $process_id, sha1(http_build_query($values)));
                         if(!empty($values) && !empty($res)){
                             $fields = $robot->getConvertedFields($values, false, false, true);
                             if(!empty($fields['rent'])) ++$counter_analyse[$robot->estate_type.($robot->estate_type!='build'?($fields['rent']==2?'_sell':'_rent'):"")];
@@ -299,13 +299,13 @@ if(!empty($success)){
                                
                 //общее кол-во объектов в файле
                 $total_amount = array_sum($counter_analyse);
-                $db->query("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'\n','".$text_counters."'), total_amount = ? WHERE id = ?", $total_amount, $process_id);
+                $db->querys("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'\n','".$text_counters."'), total_amount = ? WHERE id = ?", $total_amount, $process_id);
 
                 // постановка в архив всех объектов этой компании (кроме объектов от недвижимости города)
-                $db->query("UPDATE ".$sys_tables['build']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
-                $db->query("UPDATE ".$sys_tables['live']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
-                $db->query("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
-                $db->query("UPDATE ".$sys_tables['country']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['build']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['live']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
+                $db->querys("UPDATE ".$sys_tables['country']." SET `published` = '2', `status` = 2, status_date_end = '0000-00-00 00:00:00', `date_change` = NOW() WHERE id_user = '".$id_user."' AND info_source > 1 AND `published` = 1");
              }
         }
     }

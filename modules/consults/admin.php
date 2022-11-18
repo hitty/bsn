@@ -176,7 +176,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['agencies']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['agencies']." WHERE id=?", $id);
                 //удаление фото агентства
                 $del_photos = Photos::DeleteAll('consults_member_agencies',$id);    
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
@@ -299,7 +299,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['consults_categories']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['consults_categories']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -420,7 +420,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['consults_members']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['consults_members']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -447,7 +447,7 @@ switch($action){
                     $new_user_data = Common::createUser($spec_info);
                     if(empty($new_user_data)){
                         $existing_id = $db->fetch("SELECT id FROM ".$sys_tables['users']." WHERE email = ?",$spec_info['email'])['id'];
-                        $res = $db->query("UPDATE ".$sys_tables['consults_members']." SET bsn_id = ? WHERE id = ?",$existing_id,$id);
+                        $res = $db->querys("UPDATE ".$sys_tables['consults_members']." SET bsn_id = ? WHERE id = ?",$existing_id,$id);
                         if(!empty($existing_id)){
                             $ajax_result['ids'] = array($spec_info['id']);
                             $ajax_result['alert'] = "Не удалось добавить: уже есть пользователь #".$existing_id." с такой почтой. Аккаунт был привязан";
@@ -457,8 +457,8 @@ switch($action){
                         $ajax_result['ok'] = true;
                         break;
                     }
-                    $res = $db->query("UPDATE ".$sys_tables['consults_members']." SET bsn_id = ? WHERE id = ?",$new_user_data['id'],$id);
-                    $res = $db->query("UPDATE ".$sys_tables['consults_answers']." SET id_user = ? WHERE id_member = ?",$new_user_data['id'],$id);
+                    $res = $db->querys("UPDATE ".$sys_tables['consults_members']." SET bsn_id = ? WHERE id = ?",$new_user_data['id'],$id);
+                    $res = $db->querys("UPDATE ".$sys_tables['consults_answers']." SET id_user = ? WHERE id_member = ?",$new_user_data['id'],$id);
                     $ajax_result['alert'] = "Пользователь успешно добавлен, оптравлено письмо";
                     $ajax_result['ids'] = array($spec_info['id']);
                     $ajax_result['ok'] = $res;
@@ -591,7 +591,7 @@ switch($action){
 		break;
 	case 'del':
 		$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-		$res = $db->query("DELETE FROM ".$sys_tables['consults']." WHERE id=?", $id);
+		$res = $db->querys("DELETE FROM ".$sys_tables['consults']." WHERE id=?", $id);
 		$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 		if($ajax_mode){
 			$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

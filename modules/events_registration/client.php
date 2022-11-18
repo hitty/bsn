@@ -152,7 +152,7 @@ switch(true){
                 //проверка на отправку сообщения роботом
                 if (!Botobor_Keeper::get()->isRobot()) {
                     //записываем в БД
-                    $res = $db->query("INSERT INTO ".$sys_tables['events_request']." 
+                    $res = $db->querys("INSERT INTO ".$sys_tables['events_request']." 
                                  (id_event,datetime,request_data)
                                  VALUES
                                  (?,CURRENT_TIMESTAMP(),?)",

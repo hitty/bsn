@@ -127,7 +127,7 @@ class EstateSubscriptions{
     */
     public static function resetCounter($id){
         global $db;
-        return $db->query("UPDATE ".self::$tables['objects_subscriptions']." SET `new_objects` = 0 WHERE `id` = ?, `last_seen` = NOW()",$id);
+        return $db->querys("UPDATE ".self::$tables['objects_subscriptions']." SET `new_objects` = 0 WHERE `id` = ?, `last_seen` = NOW()",$id);
     }
     /**
     * Получение списка подписок на обновления (для текущего пользователя)
@@ -164,7 +164,7 @@ class EstateSubscriptions{
         self::$tables = Config::$sys_tables;
         if (!$auth->isAuthorized()) return false;
         $sql = "DELETE FROM ".self::$tables['objects_subscriptions']." WHERE `id`=? AND `id_user`=?";
-        $result = $db->query($sql,$id,$auth->id);
+        $result = $db->querys($sql,$id,$auth->id);
         return !empty($result);
     }
     /**
@@ -192,7 +192,7 @@ class EstateSubscriptions{
         $deal_type_name = $deal_type == 'sell' ? "Покупка" : "Аренда";
         //запись для авторизованного пользователя
         if ($auth->isAuthorized()){
-            $result = $db->query("INSERT INTO ".self::$tables['objects_subscriptions']."(id_user,email,create_datetime,last_delivery,last_seen,url,title,estate_type,deal_type,confirmed) 
+            $result = $db->querys("INSERT INTO ".self::$tables['objects_subscriptions']."(id_user,email,create_datetime,last_delivery,last_seen,url,title,estate_type,deal_type,confirmed) 
                                           VALUES (?,?,NOW(),NOW(),NOW(),?,?,?,?,?)",
                                           $auth->id, $auth->email, $url, $title, $estate_type, $deal_type, 1);
             //отправка письма о подписке (без проверочного кода)
@@ -202,7 +202,7 @@ class EstateSubscriptions{
             $item = $db->fetch("SELECT * FROM ".self::$tables['users']." WHERE email=?",$email); 
             $id_user = !empty($item['id']) ? $item['id'] : 0;
             $confirm_key = md5(microtime(true));
-            $result = $db->query("INSERT INTO ".self::$tables['objects_subscriptions']."
+            $result = $db->querys("INSERT INTO ".self::$tables['objects_subscriptions']."
                                                 (id_user, email, create_datetime, last_delivery, last_seen, url, title, estate_type, deal_type, confirm_key) 
                                          VALUES (?,?,NOW(),NOW(),NOW(),?,?,?,?,?)", 
                                          $id_user, $email, $url, $title, $estate_type, $deal_type, $confirm_key); 

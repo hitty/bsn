@@ -26,7 +26,7 @@ switch(true){
    //Редирект на банк с рекламы ФБ
    //////////////////////////////////////////////////////////////
    case !empty($from) && $from == 'fb':
-        if(!Host::$is_bot) $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET `id_parent`= ? , `type` = ?", 29, 3);
+        if(!Host::$is_bot) $db->querys("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET `id_parent`= ? , `type` = ?", 29, 3);
         $module_template = 'redirect.html';
         $this_page->page_template = 'modules/mortgage/templates/redirect.html';   
         break;

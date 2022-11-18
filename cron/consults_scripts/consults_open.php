@@ -38,7 +38,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -52,7 +52,7 @@ $res = true;
 $messages = new Messages();
 
 //записываем пользователей, у которых есть истекшие вопросы и у которых включено оповещение
-$db->query("SET lc_time_names = 'ru_RU'");
+$db->querys("SET lc_time_names = 'ru_RU'");
 $releasing_questions = $db->fetchall(" SELECT  ".$sys_tables['consults'].".id_respondent_user,
                                                ".$sys_tables['users'].".name,
                                                ".$sys_tables['users'].".email,
@@ -70,7 +70,7 @@ $releasing_questions = $db->fetchall(" SELECT  ".$sys_tables['consults'].".id_re
                                              NOW() > DATE_ADD(".$sys_tables['consults'].".`moderation_datetime`, INTERVAL ".$sys_tables['consults_categories'].".lifetime MINUTE)",'q_id');
 
 //делаем видимыми все вопросы, не взятые в работу по истечении lifetime минут
-$res = $db->query("UPDATE ".$sys_tables['consults']."
+$res = $db->querys("UPDATE ".$sys_tables['consults']."
                    LEFT JOIN ".$sys_tables['consults_categories']." ON ".$sys_tables['consults'].".id_category = ".$sys_tables['consults_categories'].".id
                    SET visible_to_all = 1
                    WHERE status = 1 AND 

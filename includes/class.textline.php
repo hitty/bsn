@@ -276,7 +276,7 @@ class TextLine {
         $time = $db->fetch("SELECT TIMESTAMPDIFF(MINUTE, `datetime`, NOW()) as `time` FROM ".$this->tables['textline_stats_day_clicks']." WHERE id_parent = ? AND ip = ? ORDER BY id DESC",$id, Host::getUserIp());
         if(empty($ref)) $ref = '';
         if($id>0 && !Host::$is_bot && (empty($time) || $time['time']>=2)){
-            $res=$db->query("INSERT INTO ".$this->tables['textline_stats_day_clicks']." SET `id_parent`=?, ref=?, real_ref=?, ip=?", $id, $ref, Host::getRefererURL(), Host::getUserIp());
+            $res=$db->querys("INSERT INTO ".$this->tables['textline_stats_day_clicks']." SET `id_parent`=?, ref=?, real_ref=?, ip=?", $id, $ref, Host::getRefererURL(), Host::getUserIp());
             return true;
         }
         
@@ -286,7 +286,7 @@ class TextLine {
     */       
     function show($item, $ref_url = '')      {
         global $db;
-        if(!Host::$is_bot) $db->query("INSERT INTO ".$this->tables['textline_stats_day_shows']." 
+        if(!Host::$is_bot) $db->querys("INSERT INTO ".$this->tables['textline_stats_day_shows']." 
                                             (id_parent, ip, remote_ip, user_ip, browser, ref, `data`, `ref_url`, `cookie`) 
                                        VALUES 
                                             (".$item['id'].", '".Host::getUserIp(true)."', '".Host::$remote_user_ip."', '".Host::getUserIp()."' ,'".$db->real_escape_string($_SERVER['HTTP_USER_AGENT'])."' ,'".Host::getRefererURL()."' ,'".print_r($_SERVER, true)."' ,'".$ref_url."' ,'".print_r($_COOKIE, true)."')"

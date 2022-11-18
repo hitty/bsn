@@ -33,7 +33,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -49,7 +49,7 @@ $res = true;
 
 $crawlers = array('google');
 foreach($crawlers as $key=>$item){
-    $res = $res && $db->query("INSERT INTO ".$sys_tables['pages_visits_'.$item.'_full']." (`date`,visits_amount,links_shown,old_pages_visits,pages_added) VALUES
+    $res = $res && $db->querys("INSERT INTO ".$sys_tables['pages_visits_'.$item.'_full']." (`date`,visits_amount,links_shown,old_pages_visits,pages_added) VALUES
                                (CURDATE() - INTERVAL 1 DAY,
                                (SELECT COUNT(*) AS visits_amount FROM  ".$sys_tables['pages_visits_'.$item.'_day']."),
                                (SELECT SUM(shown_today) AS links_shown FROM ".$sys_tables['pages_not_indexed_'.$item]."),
@@ -58,10 +58,10 @@ foreach($crawlers as $key=>$item){
                                 LEFT JOIN ".$sys_tables['pages_not_indexed_'.$item]." ON ".$sys_tables['pages_visits_'.$item.'_day'].".id_page_in_stack = ".$sys_tables['pages_not_indexed_'.$item].".id
                                 WHERE DATEDIFF(NOW(),date_out) >= 1),
                                (SELECT COUNT(*) AS pages_added FROM ".$sys_tables['pages_not_indexed_'.$item]." WHERE DATEDIFF(NOW(),date_out) = 0))");
-    $res = $res && $db->query("UPDATE ".$sys_tables['pages_not_indexed_'.$item]." SET shown_today = 0");
-    $res = $res && $db->query("TRUNCATE ".$sys_tables['pages_visits_'.$item.'_day']);
+    $res = $res && $db->querys("UPDATE ".$sys_tables['pages_not_indexed_'.$item]." SET shown_today = 0");
+    $res = $res && $db->querys("TRUNCATE ".$sys_tables['pages_visits_'.$item.'_day']);
 }
-//$res = $res && $db->query("INSERT INTO ".);
+//$res = $res && $db->querys("INSERT INTO ".);
 $log['apps_archive'] = "Статистика поисковых роботов: ".((!$res)?$db->error:"OK")."<br />";
 
 

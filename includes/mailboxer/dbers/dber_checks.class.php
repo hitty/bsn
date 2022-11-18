@@ -55,7 +55,7 @@ class dber_checks
 		global $db;
 
 		$sql = 'select 1 from ' . $table . ' where ' . $idname . ' = \'' . $value . '\' limit 1';
-		$db->query($sql);
+		$db->querys($sql);
 
 		return $db->affected_rows == 1 ? $value : NULL;
 	}//}}}

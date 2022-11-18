@@ -100,8 +100,8 @@ switch(true){
                         if($item['k_count']>0) $types[] = 'квартиры';
                         $list[$k]['types'] = implode(', ',$types);
                     }
-                    $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");                    
-                    $db->query("UPDATE ".$sys_tables['cottages']." SET search_count = search_count + 1 WHERE id IN (".implode(',',$clear_ids).")");
+                    $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
+                    $db->querys("UPDATE ".$sys_tables['cottages']." SET search_count = search_count + 1 WHERE id IN (".implode(',',$clear_ids).")");
                     Response::SetString('view_type', 'block');
                     if(!empty($list)) Response::SetArray('list', $list);
                 } else Host::RedirectLevelUp();
@@ -193,7 +193,7 @@ switch(true){
                 
                 //увеличиваем счетчик просмотров если это не печать карточки
                 if (!$print){
-                    $db->query("UPDATE ".$sys_tables['cottages']." SET views_count = views_count + 1 WHERE id = ?",$item['id']);
+                    $db->querys("UPDATE ".$sys_tables['cottages']." SET views_count = views_count + 1 WHERE id = ?",$item['id']);
                 }
                 //приведение телефона в удобный вид
                 if($item['advanced'] == 1 ) {
@@ -250,7 +250,7 @@ switch(true){
                 $agent = Host::$user_agent;
                 $ip = Host::getUserIp();
                 if(!Host::isBot() && !Host::isBsn("estate_complexes_stats_day_clicks",$id) && isset($ref) && $ref!= '' && isset($agent) && $agent!='' && isset($ip) && $ip!='')
-                    $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_clicks']." SET id_parent = ?, type = ?, ip = ?, browser = ?, ref = ?, server = ?, `module` = ?",
+                    $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_clicks']." SET id_parent = ?, type = ?, ip = ?, browser = ?, ref = ?, server = ?, `module` = ?",
                         $id, 2, $ip, $agent, $ref, print_r($_SERVER, true), 'housing_estate'
                     );
                 //владелец карточки           
@@ -289,7 +289,7 @@ switch(true){
                         $point = explode(" ",$geo->response->GeoObjectCollection->featureMember[0]->GeoObject->Point->pos);
                         $item['lng'] = $point[0];
                         $item['lat'] = $point[1];
-                        $db->query("UPDATE ".$sys_tables['cottages']." SET lat=?, lng=? WHERE id=?",$item['lat'], $item['lng'],$item['id']);
+                        $db->querys("UPDATE ".$sys_tables['cottages']." SET lat=?, lng=? WHERE id=?",$item['lat'], $item['lng'],$item['id']);
                         Response::SetArray('item', $item);
                     }
                 }
@@ -454,8 +454,8 @@ switch(true){
                             $list[$k]['types'] = implode(', ',$types);
                         }
                         //увеличение счетчика показов
-                        $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
-                        $db->query("UPDATE ".$sys_tables['cottages']." SET search_count = search_count + 1 WHERE id IN (".implode(',',$clear_ids).")");
+                        $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
+                        $db->querys("UPDATE ".$sys_tables['cottages']." SET search_count = search_count + 1 WHERE id IN (".implode(',',$clear_ids).")");
                     }
                     Response::SetArray('list', $list);
                     Response::SetInteger('full_count', $paginator->items_count);                

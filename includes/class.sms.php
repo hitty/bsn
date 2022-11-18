@@ -63,7 +63,7 @@ class SMSSender{
             }
         }
         // записываем результат рассылки
-        $db->query("UPDATE ".$this->db_sms_text_table."
+        $db->querys("UPDATE ".$this->db_sms_text_table."
                     SET `status`='OK', `success`=?
                     WHERE id=?"
                     , $success_counter
@@ -151,7 +151,7 @@ class SMSSender{
                 $delivery_datetime = $yyyy.'-'.$mm.'-'.$dd.' '.$delivery_time;
             } else $delivery_datetime = '0000-00-00 00:00:00';
             if(!empty($this->ids_sms_status_buffer[$push_id])){
-                $db->query("UPDATE ".$this->db_sms_log_table."
+                $db->querys("UPDATE ".$this->db_sms_log_table."
                             SET `code`=?, `status`=?, delivery_datetime=? 
                             WHERE `id`=?"
                             , $status
@@ -186,7 +186,7 @@ class SMSSender{
         foreach($pushes as $push){
             if((string)$push->attributes()->res != '0'){
                 // ошибочный статус
-                $db->query("UPDATE ".$this->db_sms_log_table."
+                $db->querys("UPDATE ".$this->db_sms_log_table."
                             SET `code`=?, `status`=?
                             WHERE `id`=?"
                             , intval((string)$push->attributes()->res)
@@ -194,7 +194,7 @@ class SMSSender{
                             , intval((string)$push->attributes()->sms_id));
             } else {
                 // смс отправлена
-                $db->query("UPDATE ".$this->db_sms_log_table."
+                $db->querys("UPDATE ".$this->db_sms_log_table."
                             SET `sms_count`=?, `push_id`=?, `code`=0
                             WHERE `id`=?"
                             , intval((string)$push->attributes()->sms_count)
@@ -248,7 +248,7 @@ class SMSSender{
     */
     private function smsAddToSendBuffer($send_id, $text, $number, $ttl){
         global $db;
-        $res = $db->query("INSERT INTO ".$this->db_sms_log_table." (id_text, number, ttl)
+        $res = $db->querys("INSERT INTO ".$this->db_sms_log_table." (id_text, number, ttl)
                            VALUES (?, ?, ?)"
                           , $send_id
                           , $number
@@ -294,7 +294,7 @@ class SMSSender{
     private function createText($text, $count=0){
         global $db;
         if(empty($text)) return false;
-        $result = $db->query("INSERT INTO ".$this->db_sms_text_table."
+        $result = $db->querys("INSERT INTO ".$this->db_sms_text_table."
                                 (`text`, `from_who`, `count`, `create_date`)
                               VALUES
                                 (?, ?, ?, NOW())"

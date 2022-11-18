@@ -92,7 +92,7 @@ switch(true){
                         ////////////////////////////////////////////////////////////////////////////
                         case 'click':
                             $id = Request::GetInteger('id', METHOD_POST);
-                            $db->query("INSERT INTO ".$sys_tables['agencies_mainpage_stats_click_day']." SET id_parent = ?, ip = ?, ref = ?",
+                            $db->querys("INSERT INTO ".$sys_tables['agencies_mainpage_stats_click_day']." SET id_parent = ?, ip = ?, ref = ?",
                                 $id, Host::getUserIp(), Host::getRefererURL()
                             );
                         
@@ -135,7 +135,7 @@ switch(true){
                                         $item['count_total'] = $count_total;
                                         $list[] = $item;
                                         //показ
-                                        $db->query("INSERT INTO ".$sys_tables['agencies_mainpage_stats_show_day']." SET id_parent = ?, ip = ?, browser = ?, ref = ?",
+                                        $db->querys("INSERT INTO ".$sys_tables['agencies_mainpage_stats_show_day']." SET id_parent = ?, ip = ?, browser = ?, ref = ?",
                                             $item['id'], Host::getUserIp(), !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "", Host::getRefererURL()
                                         );
                                         if($count_items >= $total) break;

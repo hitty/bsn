@@ -49,7 +49,7 @@ class Photos {
             }
         }
         else return false;
-        if(!empty($id_photo)) $res = $db->query("UPDATE  ".Config::$sys_tables[$table].$suffix." SET `id_main_photo` = ".$id_photo.( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_photo = 2" : "" )." WHERE `id` = ".$id);
+        if(!empty($id_photo)) $res = $db->querys("UPDATE  ".Config::$sys_tables[$table].$suffix." SET `id_main_photo` = ".$id_photo.( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_photo = 2" : "" )." WHERE `id` = ".$id);
         return true;
         
     } 
@@ -121,7 +121,7 @@ class Photos {
         if(!is_array($new_order)) $new_order = explode(',',$new_order);
         $res = true;
         foreach($new_order as $position=>$photo_id){
-            $res = $res && $db->query("UPDATE ".Config::$sys_tables[$table."_photos"]." SET position = ? WHERE id = ?",($position+1),$photo_id);
+            $res = $res && $db->querys("UPDATE ".Config::$sys_tables[$table."_photos"]." SET position = ? WHERE id = ?",($position+1),$photo_id);
         }
         return $res;
     }
@@ -135,7 +135,7 @@ class Photos {
     public static function Sort($table, $order){
         global $db;
         foreach($order as $cnt => $value){
-            $res = $db->query("UPDATE  ".Config::$sys_tables[$table.'_photos']." SET `position` = ".($cnt+1)." WHERE `id` = ".$value);
+            $res = $db->querys("UPDATE  ".Config::$sys_tables[$table.'_photos']." SET `position` = ".($cnt+1)." WHERE `id` = ".$value);
             if(empty($res)) return false;
         }
         return true;    
@@ -266,10 +266,10 @@ class Photos {
                     $addition_sql = "";
                     if($external_img_src!='') $addition_sql = ", `external_img_src`='".$external_img_src."'";
                     //запись имени фото в БД
-                    if($db->query("INSERT ".(!empty($force_add)?"IGNORE":"")." INTO ".Config::$sys_tables[$table.'_photos']." SET `name` = '".$targetFile."', `id_parent".$suffix."` = ".$id.$addition_sql)){
+                    if($db->querys("INSERT ".(!empty($force_add)?"IGNORE":"")." INTO ".Config::$sys_tables[$table.'_photos']." SET `name` = '".$targetFile."', `id_parent".$suffix."` = ".$id.$addition_sql)){
                         $id_photo = $db->insert_id;
                         //запись главной фотки если она первая
-                        $getMainPhoto = $db->query("SELECT ".Config::$sys_tables[$table].$suffix.".id_main_photo
+                        $getMainPhoto = $db->querys("SELECT ".Config::$sys_tables[$table].$suffix.".id_main_photo
                                                     FROM ".Config::$sys_tables[$table].$suffix."
                                                     RIGHT JOIN ".Config::$sys_tables[$table.'_photos']." ON ".Config::$sys_tables[$table.'_photos'].".id = ".Config::$sys_tables[$table].$suffix.".id_main_photo 
                                                     WHERE ".Config::$sys_tables[$table].$suffix.".id_main_photo > 0 AND ".Config::$sys_tables[$table].$suffix.".id = ".$id);
@@ -297,7 +297,7 @@ class Photos {
     */
     public static function setTitle($table, $id, $title){
          global $db;
-         return $db->query("UPDATE ".Config::$sys_tables[$table.'_photos']." SET title = ? WHERE id = ?", $title, $id); 
+         return $db->querys("UPDATE ".Config::$sys_tables[$table.'_photos']." SET title = ? WHERE id = ?", $title, $id);
     }    
     /**
     * скачивание фото по ссылке
@@ -482,7 +482,7 @@ class Photos {
             if(!file_exists($filename) || !unlink($filename)) { $unlink_flag = false; break; }
         }
         foreach($rows as $k=>$item){
-            $del = $db->query("DELETE FROM ".Config::$sys_tables[$table.'_photos']." WHERE `id` = ?",$item['photo_id']);
+            $del = $db->querys("DELETE FROM ".Config::$sys_tables[$table.'_photos']." WHERE `id` = ?",$item['photo_id']);
             if(empty($item['id'])) continue;
             //если удаленная фотография является главной, то переназначаем главную
             $main_photo = self::getMainPhoto($table,$item['id'],$suffix);
@@ -508,10 +508,10 @@ class Photos {
                 if (file_exists(ROOT_PATH.'/'.$image_folder."/".$_folder."/".$value['subfolder']."/".$value['name']))
                     if(!unlink(ROOT_PATH.'/'.$image_folder."/".$_folder."/".$value['subfolder']."/".$value['name'])) { $unlink_flag = false; break; }
             }
-            $del = $db->query("DELETE FROM ".Config::$sys_tables[$table.'_photos']." WHERE `id_parent".$suffix."` = ?",$id_parent);
+            $del = $db->querys("DELETE FROM ".Config::$sys_tables[$table.'_photos']." WHERE `id_parent".$suffix."` = ?",$id_parent);
             
         }
-        $db->query("UPDATE ".Config::$sys_tables[$table].$suffix." SET `id_main_photo` = 0 ".( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_photo = 1" : "" )." WHERE id = ?",$id_parent);
+        $db->querys("UPDATE ".Config::$sys_tables[$table].$suffix." SET `id_main_photo` = 0 ".( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_photo = 1" : "" )." WHERE id = ?",$id_parent);
         return !empty($del) && !empty($unlink_flag);
     }
     /**

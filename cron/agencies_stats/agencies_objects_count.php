@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -71,7 +71,7 @@ foreach($common_user_ids as $key=>$item){
         $counter['commercial'] += $item['commercial'];
     }else $update_query[] = "active_commercial = 0";
     
-    if(!empty($update_query)) $res = $res && $db->query("UPDATE ".$sys_tables['users']." SET ".implode(',',$update_query)." WHERE id = ".$item['id']);
+    if(!empty($update_query)) $res = $res && $db->querys("UPDATE ".$sys_tables['users']." SET ".implode(',',$update_query)." WHERE id = ".$item['id']);
 }
 $log['stats_users'] = "Обновление статистики объектов в пользователях: ".((!$res)?$db->error:"OK")."<br />".
                 " -жилая: ".$counter['live']."<br />"." -стройка: ".$counter['build']."<br />"." -загородная: ".$counter['country']."<br />"." -коммерческая: ".$counter['commercial']."<br />";
@@ -117,7 +117,7 @@ foreach($agencies_list as $key=>$item){
         $counter['commercial'] += $item['commercial'];
     } 
     else $update_query[] = "active_commercial = 0";
-    if(!empty($update_query)) $res = $res && $db->query("UPDATE ".$sys_tables['agencies']." SET ".implode(',',$update_query)." WHERE id = ".$item['id_agency']);
+    if(!empty($update_query)) $res = $res && $db->querys("UPDATE ".$sys_tables['agencies']." SET ".implode(',',$update_query)." WHERE id = ".$item['id_agency']);
 }
 $log['stats'] = "Обновление статистики объектов в агентствах: ".((!$res)?$db->error:"OK")."<br />".
                 " -жилая: ".$counter['live']."<br />"." -стройка: ".$counter['build']."<br />"." -загородная: ".$counter['country']."<br />"." -коммерческая: ".$counter['commercial']."<br />";

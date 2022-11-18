@@ -33,7 +33,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -321,7 +321,7 @@ while($filename = readdir($dh))
                             case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                         }
                         $item_weight = $item_weight->getItemWeight($inserted_id,$robot->estate_type);
-                        $res_weight = $db->query("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
+                        $res_weight = $db->querys("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
                         ///
                         
                         // если есть картинки - присоединяем
@@ -346,7 +346,7 @@ while($filename = readdir($dh))
                             if(!empty($photos_list)){
                                 foreach($photos_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
                                 $photos_to_delete_ids = implode(',', $photos_list['in']);
-                                if(!empty($photos_to_delete_ids)) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
+                                if(!empty($photos_to_delete_ids)) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
                             }
                         }
                         
@@ -359,7 +359,7 @@ while($filename = readdir($dh))
                              $photo_add_result = Photos::Add($robot->estate_type, $fields['id'], $prefix, false, $image_filename, false, false, false, Config::Get('watermark_src'),false,false,false,false,true);
                              if(!is_array($photo_add_result)) $errors_log['img'][] = $img['external_img_src'];
                             //}
-                        }else $db->query("UPDATE ".$sys_tables[$robot->estate_type]." SET id_main_photo = ? WHERE id = ?",array_keys($photos_list_in)[0],$robot->fields['id']);
+                        }else $db->querys("UPDATE ".$sys_tables[$robot->estate_type]." SET id_main_photo = ? WHERE id = ?",array_keys($photos_list_in)[0],$robot->fields['id']);
                         
                         //модерация новых объектов
                         if($prefix=='_new') {

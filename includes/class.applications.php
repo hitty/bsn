@@ -312,7 +312,7 @@ class Application {
         global $db;
         $this->saveToDB();
         //отмечаем старую, что ее уже брали в работу
-        $db->query("UPDATE ".$this->tables['applications']." SET in_work_amount = in_work_amount + 1 WHERE id = ".$parent_app->id);
+        $db->querys("UPDATE ".$this->tables['applications']." SET in_work_amount = in_work_amount + 1 WHERE id = ".$parent_app->id);
     }
     
     /**
@@ -496,23 +496,23 @@ class Application {
         unset($this->data_array);
         unset($this->owners_array);
         $this->status = "deleted";
-        return $db->query("DELETE FROM ".$this->tables['applications']." WHERE id = ".$this->id);
+        return $db->querys("DELETE FROM ".$this->tables['applications']." WHERE id = ".$this->id);
     }
     
     public function Called(){
         global $db;
-        return $db->query("UPDATE ".$this->tables['applications']." SET status = 10 WHERE id = ".$this->id);
+        return $db->querys("UPDATE ".$this->tables['applications']." SET status = 10 WHERE id = ".$this->id);
     }
     
     public function Remoderate($send_notifications = true){
         global $db;
-        $db->query("UPDATE ".$this->tables['applications']." SET visible_to_all = 2, status = 2 WHERE id = ".$this->id);
+        $db->querys("UPDATE ".$this->tables['applications']." SET visible_to_all = 2, status = 2 WHERE id = ".$this->id);
         if(!empty($send_notifications)) $this->sendNewAppNotifications();
     }
     
     public function InWork($user_id){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['applications']." SET status = 3, start_datetime = NOW(), visible_to_all = 2, id_user = ? WHERE id = ?",$user_id,$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['applications']." SET status = 3, start_datetime = NOW(), visible_to_all = 2, id_user = ? WHERE id = ?",$user_id,$this->id);
         return $res;
     }
     
@@ -591,7 +591,7 @@ class Application {
                                      'user_id'=>$this->owners_array['id_user']
                                      );
                 //при необходимости переносим заявку продавцу-админу
-                if(!empty($app_to_admin)) $db->query("UPDATE ".$this->tables['applications']." SET id_user = ?,id_owner = ?  WHERE id = ?",$notify_info['user_id'],$notify_info['user_id'],$app_info['id']);
+                if(!empty($app_to_admin)) $db->querys("UPDATE ".$this->tables['applications']." SET id_user = ?,id_owner = ?  WHERE id = ?",$notify_info['user_id'],$notify_info['user_id'],$app_info['id']);
             break;
         }
         //читаем информацию по объекту:
@@ -890,7 +890,7 @@ class Application {
            (!empty($auth) && ($auth->id_tarif > 0 || $auth->id_agency > 0 && $auth->agency_id_tarif > 0) ) ) $buy_type = "in_work_exclusive";
         //если не бесплатны, читаем цену заявки 
         if(!empty($this->data_array['id_realtor_help_type'])) $cost_app = 1000;
-        else $cost_app = (!empty($free_app) ? 0 : ($buy_type=='in_work_exclusive') ? $this->data_array['exclusive_cost'] : $this->getCost($id_user));
+        else $cost_app = (!empty($free_app) ? 0 : ( ($buy_type=='in_work_exclusive') ? $this->data_array['exclusive_cost'] : $this->getCost($id_user)) );
         
         
         ///костыли
@@ -968,10 +968,10 @@ class Application {
                     $new_app->InWork($id_user);
                 }else $this->InWork($id_user);
                 
-                $res = $res && $db->query("INSERT INTO ".$this->tables['users_finances']."
+                $res = $res && $db->querys("INSERT INTO ".$this->tables['users_finances']."
                                            (`datetime`,id_user,obj_type,id_parent,expenditure,income,paygate)
                                            VALUES (NOW(),?,'application',?,?,0,1) ",$id_user,(!empty($new_app)?$this->id:$this->id),$cost_app);
-                $res = $res && $db->query("UPDATE ".$this->tables['users']." SET balance = ? WHERE id = ?",$user_balance,$id_user);
+                $res = $res && $db->querys("UPDATE ".$this->tables['users']." SET balance = ? WHERE id = ?",$user_balance,$id_user);
                 
                 $return_result['pay_result'] = $res;
             }
@@ -983,7 +983,7 @@ class Application {
     
     public function toShared(){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['applications']." SET visible_to_all = 1 WHERE id = ?",$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['applications']." SET visible_to_all = 1 WHERE id = ?",$this->id);
         if(!empty($res)){
             $this->data_array['visible_to_all'] = 1;
             $this->visible_to_all = 1;
@@ -993,21 +993,21 @@ class Application {
     
     public function fromShared(){
         global $db;
-        if($this->status == 2) $res = $db->query("UPDATE ".$this->tables['applications']." SET visible_to_all = 2 WHERE id = ?",$this->id);
+        if($this->status == 2) $res = $db->querys("UPDATE ".$this->tables['applications']." SET visible_to_all = 2 WHERE id = ?",$this->id);
         if($res) $this->data_array['visible_to_all'] = 2;
         return $res;
     }
     
     public function toArchive(){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['applications']." SET status = 5 WHERE id = ?",$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['applications']." SET status = 5 WHERE id = ?",$this->id);
         if($res) $this->data_array['status'] = 5;
         return $res;
     }
     
     public function toModer(){
         global $db;
-        if($this->status == 2) $res =  $db->query("UPDATE ".$this->tables['applications']." SET status = 4, `datetime` = '0000-00-00 00:00:00', visible_to_all = 2 WHERE id = ".$this->id);
+        if($this->status == 2) $res =  $db->querys("UPDATE ".$this->tables['applications']." SET status = 4, `datetime` = '0000-00-00 00:00:00', visible_to_all = 2 WHERE id = ".$this->id);
         if($res){
             $this->data_array['status'] = 4;
             $this->data_array['datetime'] = '0000-00-00 00:00:00';
@@ -1018,19 +1018,19 @@ class Application {
     
     public function toFinished(){
         global $db;
-        if($this->status == 3) $res =  $db->query("UPDATE ".$this->tables['applications']." SET status = 1, visible_to_all = 2, finish_datetime = NOW() WHERE id = ".$this->id);
+        if($this->status == 3) $res =  $db->querys("UPDATE ".$this->tables['applications']." SET status = 1, visible_to_all = 2, finish_datetime = NOW() WHERE id = ".$this->id);
         if($res) $this->data_array['status'] = 1;
         return $res;
     }
     
     public function toPublished(){
         global $db;
-        return $db->query("UPDATE ".$this->tables['applications']." SET status = 2, `datetime` = NOW() WHERE id = ".$this->id);
+        return $db->querys("UPDATE ".$this->tables['applications']." SET status = 2, `datetime` = NOW() WHERE id = ".$this->id);
     }
     
     public function toUser($to_user_id){
         global $db;
-        $res = $db->query("UPDATE ".$this->tables['applications']." SET id_user = ?,id_owner = ?,visible_to_all = ? WHERE id = ?",$to_user_id,$to_user_id,2,$this->id);
+        $res = $db->querys("UPDATE ".$this->tables['applications']." SET id_user = ?,id_owner = ?,visible_to_all = ? WHERE id = ?",$to_user_id,$to_user_id,2,$this->id);
         if($res){
             $this->data_array['id_user'] = $to_user_id;
             $this->data_array['id_owner'] = $to_user_id;
@@ -1140,9 +1140,9 @@ class Application {
                 $this->id = $db->insert_id;
                 $this->data_array['id'] = $this->id;
                 $this->id_user = $this->data_array['id_user'];
-                $db->query("UPDATE ".$this->tables['applications']." SET `creation_datetime` = NOW() WHERE id = ?",$this->id);
+                $db->querys("UPDATE ".$this->tables['applications']." SET `creation_datetime` = NOW() WHERE id = ?",$this->id);
             }
-            if(!empty($refresh_date)) $db->query("UPDATE ".$this->tables['applications']." SET `datetime` = NOW() WHERE id = ?",$this->id);
+            if(!empty($refresh_date)) $db->querys("UPDATE ".$this->tables['applications']." SET `datetime` = NOW() WHERE id = ?",$this->id);
             $this->id_parent = $this->data_array['id_parent'];
             $this->status = $this->data_array['status'];
             $this->visible_to_all = $this->data_array['visible_to_all'];
@@ -1731,7 +1731,7 @@ abstract class AppsFunctions{
                                                                ))<=0 AND 
                   ".$sys_tables['applications'].".status = 2 AND ".$sys_tables['applications'].".visible_to_all = 1";
         //делаем видимыми только платным клиентам те, которые от 5 до 10 дней
-        $res = $db->query("UPDATE ".$sys_tables['applications']." 
+        $res = $db->querys("UPDATE ".$sys_tables['applications']." 
                            LEFT JOIN ".$sys_tables['application_types']." ON ".$sys_tables['application_types'].".id = ".$sys_tables['applications'].".application_type
                            SET visible_to_all = 3
                            WHERE ".$where);

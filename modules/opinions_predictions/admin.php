@@ -228,7 +228,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['opinions_expert_agencies']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['opinions_expert_agencies']." WHERE id=?", $id);
                 //удаление фото агентства
                 $del_photos = Photos::DeleteAll('opinions_expert_agencies',$id);    
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
@@ -352,7 +352,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['opinions_expert_estate_types']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['opinions_expert_estate_types']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -541,7 +541,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['opinions_expert_profiles']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['opinions_expert_profiles']." WHERE id=?", $id);
 				//удаление фото эксперта
 				$del_photos = Photos::DeleteAll('opinions_expert_profiles',$id);				
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
@@ -659,7 +659,7 @@ switch($action){
 						$new_id = $db->insert_id;
                         
                         //Матвей:формирование ЧПУ-строки
-                        $db->query( "UPDATE ".$sys_tables['opinions_predictions']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['annotation']), $new_id);
+                        $db->querys( "UPDATE ".$sys_tables['opinions_predictions']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['annotation']), $new_id);
                         //Матвей:end
                         
 						// редирект на редактирование свеженькой страницы
@@ -684,7 +684,7 @@ switch($action){
 		break;
 	case 'del':
 		$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-		$res = $db->query("DELETE FROM ".$sys_tables['opinions_predictions']." WHERE id=?", $id);
+		$res = $db->querys("DELETE FROM ".$sys_tables['opinions_predictions']." WHERE id=?", $id);
 		$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 		if($ajax_mode){
 			$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

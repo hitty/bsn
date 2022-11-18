@@ -212,7 +212,7 @@ switch($action){
 						$new_id = $db->insert_id;
                         
                         //Матвей:формирование ЧПУ-строки
-                        $db->query( "UPDATE ".$sys_tables['calendar_events']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
+                        $db->querys( "UPDATE ".$sys_tables['calendar_events']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
                         //Матвей:end                        
                         
 						// редирект на редактирование свеженькой страницы
@@ -246,7 +246,7 @@ switch($action){
 		$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
         if($id>0){
             $del_photos = Photos::DeleteAll('calendar_events',$id);
-		    $res = $db->query("DELETE FROM ".$sys_tables['calendar_events']." WHERE id=?", $id);
+		    $res = $db->querys("DELETE FROM ".$sys_tables['calendar_events']." WHERE id=?", $id);
 		    $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 		    if($ajax_mode){
 			    $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

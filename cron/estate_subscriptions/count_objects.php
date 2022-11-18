@@ -26,7 +26,7 @@ require_once('includes/class.template.php');
 require_once('includes/class.email.php');
 require_once('includes/class.paginator.php');
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 $tables = Config::$sys_tables;
 $list = $db->fetchall("SELECT *,UNIX_TIMESTAMP(`last_seen_setinterval`) AS `check_time` FROM ".$tables['objects_subscriptions']." WHERE confirmed = 1");       // список подтвержденных подписок
@@ -34,7 +34,7 @@ $list = $db->fetchall("SELECT *,UNIX_TIMESTAMP(`last_seen_setinterval`) AS `chec
 foreach($list as $k => $item){     
 
     if((time() > $item['check_time']) && ($item['check_time'] != 0))  // Обновление поля last_seen и last_delivery (last_delivery также обновляется в newsletter.php)
-        $db->query("UPDATE ".$tables['objects_subscriptions']." SET `last_seen` = NOW(), `new_objects` = '0' ,`last_seen_setinterval` = '0000-00-00 00:00' WHERE `id`=?", $item['id']);
+        $db->querys("UPDATE ".$tables['objects_subscriptions']." SET `last_seen` = NOW(), `new_objects` = '0' ,`last_seen_setinterval` = '0000-00-00 00:00' WHERE `id`=?", $item['id']);
 
     
     $url = $item['url'];  
@@ -91,6 +91,6 @@ foreach($list as $k => $item){
     if(!empty($reg_where)) $where[] = " (".implode(" OR ", $reg_where).") ";
     $where[] = $estate->work_table.".`date_in`>'".$item['last_seen']."'";
     $count = new Paginator($estate->work_table, 1, implode(" AND ", $where)); 
-    $db->query("UPDATE ".$tables['objects_subscriptions']." SET `new_objects`=? WHERE `id`=?", $count->items_count,$item['id']); // Обновление поля с количеством новых объектов    
+    $db->querys("UPDATE ".$tables['objects_subscriptions']." SET `new_objects`=? WHERE `id`=?", $count->items_count,$item['id']); // Обновление поля с количеством новых объектов
 }
 ?>

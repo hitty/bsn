@@ -1,5 +1,4 @@
-<?
-$xml = new DOMDocument('1.0','utf-8');
+<?php$xml = new DOMDocument('1.0','utf-8');
 $xmlentire = $xml->appendChild($xml->createElement('objs'));
 $xmlentire->setAttribute('date',date('Y-m-d H:i:s'));
 
@@ -18,7 +17,7 @@ $sql = "
     WHERE a.published=1 AND a.id_user=29298
     GROUP BY `id_user`
     ";
-$result = $db->query($sql) or trigger_error("MySQL error: ".$db->error, E_USER_WARNING);
+$result = $db->querys($sql) or trigger_error("MySQL error: ".$db->error, E_USER_WARNING);
 echo '';
 while ($row = $result->fetch_array(MYSQL_ASSOC))
 {
@@ -37,7 +36,7 @@ while ($row = $result->fetch_array(MYSQL_ASSOC))
                   (SELECT `id_user`,`id`,'build' as tab,`published`,`external_id`, `info_source`,`views_count` FROM ".$sys_tables['build']." WHERE `id_user` = ".$row['id_user']." AND published=1 AND id_user=29298) 
                 ) a
                 ";
-        $res_obj = $db->query($sql_obj) or die($db->error);
+        $res_obj = $db->querys($sql_obj) or die($db->error);
         while($row_obj = $res_obj->fetch_array()){
             $item = $user->appendChild($xml->createElement('item'));
             $item->setAttribute('url','http://www.bsn.ru/'.$row_obj['tab'].'/'.$row_obj['id']);

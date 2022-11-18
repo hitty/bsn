@@ -1,4 +1,4 @@
-<?
+<?php
 class generateXml{
     
     public $item = 0;

@@ -30,13 +30,13 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 $sys_tables = Config::$sys_tables;
 $tables = array('cottages', 'business_centers', 'housing_estates');
 foreach($tables as $table){
-    $db->query("UPDATE ".$sys_tables[$table]." SET random_sorting = 0");
+    $db->querys("UPDATE ".$sys_tables[$table]." SET random_sorting = 0");
     $list = $db->fetchall("SELECT id FROM ".$sys_tables[$table]." WHERE advanced = 1");
-    foreach($list as $k=>$item) $db->query("UPDATE ".$sys_tables[$table]." SET random_sorting = ? WHERE id = ?", mt_rand(1,1000), $item['id']);
+    foreach($list as $k=>$item) $db->querys("UPDATE ".$sys_tables[$table]." SET random_sorting = ? WHERE id = ?", mt_rand(1,1000), $item['id']);
 }
 ?>

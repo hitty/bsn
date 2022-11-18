@@ -30,9 +30,9 @@ Request::Init();
 Cookie::Init(); 
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = !TEST_MODE ? new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']) : new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
-$db->query("set names ".Config::$values['mysql_remote']['charset']);
+$db->querys("set names ".Config::$values['mysql_remote']['charset']);
 
-$db->query("set lc_time_names = 'ru_RU'");
+$db->querys("set lc_time_names = 'ru_RU'");
 require_once('includes/class.host.php');
 require_once('includes/class.email.php');
 require_once('includes/class.template.php');     // Template (шаблонизатор), FileCache (файловое кеширование)
@@ -322,7 +322,7 @@ if(!empty($process)){
                             //была ошибка для тех у кого безлимитный тариф - там был 0, уменьшать было нечего
                             if($counter[$robot->estate_type.$deal_type_title] > 0){
                                 --$counter[$robot->estate_type.$deal_type_title];     
-                                $db->query("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type_title." = ".$robot->estate_type.$deal_type_title." - 1 WHERE id = ?", $process_id);
+                                $db->querys("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type_title." = ".$robot->estate_type.$deal_type_title." - 1 WHERE id = ?", $process_id);
                             }
                         }
 
@@ -352,7 +352,7 @@ if(!empty($process)){
                         if(!empty($photos_list)){
                             foreach($photos_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
                             $photos_to_delete_ids = implode(',', array_keys($photos_list));
-                            if(!empty($photos_to_delete_ids)) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
+                            if(!empty($photos_to_delete_ids)) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
                         }
                         $inserted_id = $check_object['id'];
 
@@ -379,7 +379,7 @@ if(!empty($process)){
                                     ++$counter_joint['total_new'];
                                     //вычитаем (лимита склееные
                                     --$counter[$robot->estate_type.$deal_type_title];
-                                    $db->query("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type_title." = ".$robot->estate_type.$deal_type_title." - 1 WHERE id = ?", $process_id);
+                                    $db->querys("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type_title." = ".$robot->estate_type.$deal_type_title." - 1 WHERE id = ?", $process_id);
                                 }
                                 
                             } 
@@ -405,7 +405,7 @@ if(!empty($process)){
                                 ++$counter_joint['total_new'];
                                 //вычитаем из лимита склееные
                                 --$counter[$robot->estate_type.$deal_type_title];
-                                $db->query("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type_title." = ".$robot->estate_type.$deal_type_title." - 1 WHERE id = ?", $process_id);
+                                $db->querys("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type_title." = ".$robot->estate_type.$deal_type_title." - 1 WHERE id = ?", $process_id);
                             }
                             
                             //определение списка фотографий, которых нет в БД
@@ -417,7 +417,7 @@ if(!empty($process)){
                             if(!empty($photos_list)){
                                 foreach($photos_list as $k => $val) Photos::Delete($robot->estate_type,$val['id'],"_new");
                                 $photos_to_delete_ids = implode(',', $photos_list['to_delete']);
-                                if(!empty($photos_to_delete_ids)) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
+                                if(!empty($photos_to_delete_ids)) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".$photos_to_delete_ids.")");
                             }
                                 
                             $inserted_id = $check_object_new['id'];
@@ -458,19 +458,19 @@ if(!empty($process)){
  
                         //если нет фотографий, записываем и переходим к следующему
                         if(empty( $fields['images'] ) || count($fields['images']) == 0){
-                            $db->query("UPDATE ".$sys_tables[$robot->estate_type]." SET published = 3 WHERE id = ?",$inserted_id);
+                            $db->querys("UPDATE ".$sys_tables[$robot->estate_type]." SET published = 3 WHERE id = ?",$inserted_id);
                             ++$counter_nophoto[$robot->estate_type.$deal_type];
                             $nophoto_ids[] =  !empty($fields['real_internal_id']) ? $fields['real_internal_id'] : $fields['external_id'] ;
                             $nophoto_objects = true;
                             //кол-во обработанных объектов
-                            $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);    
-                            $db->query("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
+                            $db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);    
+                            $db->querys("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
                             --$counter[$robot->estate_type.$deal_type_title];
                             continue;
                         }
                         
                         //обнуление главной фотки
-                        $db->query("UPDATE ".$sys_tables[$robot->estate_type]." SET id_main_photo = 0, has_photo = 1 WHERE id = ?", $inserted_id);
+                        $db->querys("UPDATE ".$sys_tables[$robot->estate_type]." SET id_main_photo = 0, has_photo = 1 WHERE id = ?", $inserted_id);
 						$main_photo_manually_added = false;
 
                         print_r( $photos );
@@ -526,13 +526,13 @@ if(!empty($process)){
                                     if(empty($main_photo)) Photos::setMain($robot->estate_type, $inserted_id);
                                     $main_photo = Photos::getMainPhoto($robot->estate_type, $inserted_id);
                                     if(empty($main_photo)){
-                                        $db->query("UPDATE ".$sys_tables[$robot->estate_type]." SET published = 3 WHERE id = ?",$inserted_id);
+                                        $db->querys("UPDATE ".$sys_tables[$robot->estate_type]." SET published = 3 WHERE id = ?",$inserted_id);
                                         ++$counter_nophoto[$robot->estate_type.$deal_type];  
                                         $nophoto_ids[] =  !empty($fields['real_internal_id']) ? $fields['real_internal_id'] : $fields['external_id'] ;
                                         $nophoto_objects = true;     
                                         //кол-во обработанных объектов
-                                        $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);    
-                                        $db->query("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
+                                        $db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);    
+                                        $db->querys("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
                                         --$counter[$robot->estate_type.$deal_type];
                                         continue;
                                     }else $main_photo_manually_added = true;
@@ -552,27 +552,27 @@ if(!empty($process)){
                             case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                         }
                         $item_weight = $item_weight->getItemWeight($inserted_id,$robot->estate_type);
-                        $res_weight = $db->query("UPDATE ".$sys_tables[$robot->estate_type]." SET weight=? WHERE id=?", $item_weight, $inserted_id);
+                        $res_weight = $db->querys("UPDATE ".$sys_tables[$robot->estate_type]." SET weight=? WHERE id=?", $item_weight, $inserted_id);
                         
                         //предупреждение о большой площади комнат
                         if($robot->estate_type == 'live' && $fields['id_type_object'] == 2 && ( empty($fields['square_live']) || $fields['square_live'] > 50) ){
                             $errors['rooms_square'][  !empty($fields['real_internal_id']) ? $fields['real_internal_id'] : $fields['external_id']  ] = 'значение: ' . $fields['square_live'] . 'м2'; 
                         }  
-                        $db->query("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type." = ".$robot->estate_type.$deal_type." + 1, current_amount = current_amount + 1 WHERE id = ?", $process_id);
+                        $db->querys("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type." = ".$robot->estate_type.$deal_type." + 1, current_amount = current_amount + 1 WHERE id = ?", $process_id);
                     
                     } 
                     elseif(!empty($fields['vip']) && $fields['vip']==1){
                         --$counter[$robot->estate_type.$deal_type.'_vip'];
-                        $db->query("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type."_vip = ".$robot->estate_type.$deal_type."_vip - 1 WHERE id = ?", $process_id);
+                        $db->querys("UPDATE ".$sys_tables['processes']." SET ".$robot->estate_type.$deal_type."_vip = ".$robot->estate_type.$deal_type."_vip - 1 WHERE id = ?", $process_id);
                     }
                         
                 } // отсечение лимитов
                 //кол-во обработанных объектов
-                $db->query("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);    
-                $db->query("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
+                $db->querys("UPDATE ".$sys_tables['processes']." SET last_action = NOW() WHERE id = ?", $process_id);    
+                $db->querys("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
 
             }else{
-                $db->query("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
+                $db->querys("DELETE FROM ".$sys_tables['xml_parse']." WHERE id = ?", $xml_parse_id);    
                 echo $count."!@#";
             }
         }
@@ -734,8 +734,8 @@ if(!empty($process)){
     }
                        
     //процесс окончен
-    $db->query("UPDATE ".$sys_tables['processes']." SET status = ?, total_added = ?, total_errors = ?, full_log = CONCAT (full_log, '\n', log, '\n', ?, '\n','___________________________________',''), log='', datetime_end = NOW() WHERE id = ?", 2, $total_added, $total_errors, $mail_text, $process_id);
-    $db->query("UPDATE ".$sys_tables['processes']." SET full_log = REPLACE(full_log, '<br/>', '\n') WHERE id = ?", $process_id);
+    $db->querys("UPDATE ".$sys_tables['processes']." SET status = ?, total_added = ?, total_errors = ?, full_log = CONCAT (full_log, '\n', log, '\n', ?, '\n','___________________________________',''), log='', datetime_end = NOW() WHERE id = ?", 2, $total_added, $total_errors, $mail_text, $process_id);
+    $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = REPLACE(full_log, '<br/>', '\n') WHERE id = ?", $process_id);
     file_put_contents( ROOT_PATH . '/cron/robot/logs/' . $id_user . "_" . createCHPUTitle($process['title']) . '.error.log', print_r( $full_errors_log, true ) );
     //если были ошибки выполнения скрипта
     if( filesize( $error_log )>10 ){

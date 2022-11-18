@@ -543,7 +543,7 @@ switch(true){
                 foreach($list as $key=>$item)
                     $viewed_ids[] = $item['id'];
                 $viewed_ids = implode(',',$viewed_ids);
-                if(!empty($viewed_ids)) $db->query("UPDATE ".$sys_tables['applications']." SET viewed = 1 WHERE id IN (".$viewed_ids.")");
+                if(!empty($viewed_ids)) $db->querys("UPDATE ".$sys_tables['applications']." SET viewed = 1 WHERE id IN (".$viewed_ids.")");
                 Notifications::setRead('applications', $viewed_ids);
             }
             
@@ -568,10 +568,10 @@ switch(true){
         $comment = Request::GetString('comment',METHOD_POST);
         switch($action){
             case 'save':
-                $ajax_result['ok'] = $db->query("UPDATE ".$sys_tables['applications']." SET comment = ? WHERE id = ?",$comment,$id_app);
+                $ajax_result['ok'] = $db->querys("UPDATE ".$sys_tables['applications']." SET comment = ? WHERE id = ?",$comment,$id_app);
                 break;
             case 'delete':
-                $ajax_result['ok'] = $db->query("UPDATE ".$sys_tables['applications']." SET comment = '' WHERE id = ?",$id_app);
+                $ajax_result['ok'] = $db->querys("UPDATE ".$sys_tables['applications']." SET comment = '' WHERE id = ?",$id_app);
                 break;
         }
         break;

@@ -30,7 +30,7 @@ Cookie::Init();
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -52,7 +52,7 @@ for($i=1; $i<=5; $i++){
     
     if(empty($item)) break;
     
-    $db->query("
+    $db->querys("
         DELETE FROM ".$sys_tables[$estate_type]." WHERE id IN (
         SELECT b.id FROM (
         SELECT MAX(id) as id

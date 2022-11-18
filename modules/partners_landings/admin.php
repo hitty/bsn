@@ -172,7 +172,7 @@ switch($action){
                 //добавление записи в сео
                 $item = $db->fetch(" SELECT * FROM " . $sys_tables['pages_seo'] . " WHERE url = ?", 'partners_landings/' . $id);
                 if( empty( $item ) ) 
-                    $db->query( 
+                    $db->querys( 
                         " INSERT IGNORE INTO " . $sys_tables['pages_seo'] . " 
                                   SET 
                                     url = ?, 
@@ -180,7 +180,7 @@ switch($action){
                         ", 'partners_landings/' . $id, $info['pretty_url']
                     );
                 else 
-                    $db->query( 
+                    $db->querys( 
                         " UPDATE " . $sys_tables['pages_seo'] . " 
                           SET 
                             pretty_url = ?
@@ -216,7 +216,7 @@ switch($action){
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
 		$del_photos = Photos::DeleteAll('partners_landings',$id);
-        $res = $db->query("DELETE FROM ".$sys_tables['partners_landings']." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables['partners_landings']." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

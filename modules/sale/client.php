@@ -255,7 +255,7 @@ switch(true){
             $name = Request::GetString('name', METHOD_POST);
             $phone = Request::GetString('phone', METHOD_POST);
             $email = Request::GetString('email', METHOD_POST);
-            $db->query("INSERT INTO ".$sys_tables['application_forms']." SET `name` = ?,  `phone` = ?,  `email` = ?,  `id_campaign` = ?", $name, $phone, $email, $id);
+            $db->querys("INSERT INTO ".$sys_tables['application_forms']." SET `name` = ?,  `phone` = ?,  `email` = ?,  `id_campaign` = ?", $name, $phone, $email, $id);
         }
         $campaignItem = new SaleItemCampaigns($id);
         if(empty($campaignItem->data_loaded)){

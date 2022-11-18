@@ -138,7 +138,7 @@ switch(true){
                     $ajax_result['ok'] = true;
                     //сохранение статистики показов для метки
                     $session_marker = Session::GetString('marker');
-                    if(!empty($session_marker)) $db->query("INSERT INTO ".$sys_tables['markers_stats_click_day']." SET id_parent=?",$session_marker);
+                    if(!empty($session_marker)) $db->querys("INSERT INTO ".$sys_tables['markers_stats_click_day']." SET id_parent=?",$session_marker);
                 }
             } else $this_page->http_code=404;
         break;

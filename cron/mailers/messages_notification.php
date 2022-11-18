@@ -38,8 +38,8 @@ require_once('includes/class.estate.statistics.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $GLOBALS['db']=$db;
 
 // вспомогательные таблицы модуля
@@ -79,8 +79,8 @@ foreach($list as $k=>$item){
         $mailer->AddAddress($item['email'], iconv('UTF-8',$mailer->CharSet, ""));
         $mailer->From = 'no-reply@bsn.ru';
         $mailer->FromName = 'bsn.ru';                                                                
-        if ($mailer->Send()) $db->query("UPDATE ".$sys_tables['messages']." SET ".$sys_tables['messages'].".email_notification = 1 WHERE id = ?",$item['id']);
-    }  else $db->query("UPDATE ".$sys_tables['messages']." SET ".$sys_tables['messages'].".email_notification = 1 WHERE id = ?",$item['id']);
+        if ($mailer->Send()) $db->querys("UPDATE ".$sys_tables['messages']." SET ".$sys_tables['messages'].".email_notification = 1 WHERE id = ?",$item['id']);
+    }  else $db->querys("UPDATE ".$sys_tables['messages']." SET ".$sys_tables['messages'].".email_notification = 1 WHERE id = ?",$item['id']);
 
     
 }

@@ -52,7 +52,7 @@ switch($action){
                 $item =  $db->fetch("SELECT fileattach as document FROM ".$sys_tables['references_docs']." WHERE id=?",$id);
                 if(!empty($item)) {
                     unlink(ROOT_PATH.'/'.Config::$values['docs_folders'].'/'.$item['document']);
-                    $res = $db->query("UPDATE ".$sys_tables['references_docs']." SET fileattach = '' WHERE id=?",$id);
+                    $res = $db->querys("UPDATE ".$sys_tables['references_docs']." SET fileattach = '' WHERE id=?",$id);
                     if(!empty($res)){
                         $ajax_result['ok'] = true;
                     } else $ajax_result['error'] = 'Невозможно выполнить удаление документа';
@@ -247,7 +247,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['references_docs_'.$action_type]." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['references_docs_'.$action_type]." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -375,7 +375,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['references_docs_categories']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['references_docs_categories']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -469,7 +469,7 @@ switch($action){
                             $targetExt = $fileParts['extension'];
                             $_targetFile = md5(microtime()).'.' . $targetExt; // конечное имя файла
                             move_uploaded_file($data['tmp_name'],$_folder.$_targetFile);
-                            $db->query("UPDATE ".$sys_tables['references_docs']." SET `fileattach` = ? WHERE id = ?", $_targetFile, $id);
+                            $db->querys("UPDATE ".$sys_tables['references_docs']." SET `fileattach` = ? WHERE id = ?", $_targetFile, $id);
                             $post_parameters[$fname] = $_targetFile;
                             $mapping['references_docs']['fileattach']['value'] = $_targetFile;
                         }
@@ -492,7 +492,7 @@ switch($action){
                         $new_id = $db->insert_id;
                         
                         //Матвей:формирование ЧПУ-строки
-                        $db->query( "UPDATE ".$sys_tables['references_docs']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
+                        $db->querys( "UPDATE ".$sys_tables['references_docs']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
                         //Матвей:end
                         
                         // редирект на редактирование свеженькой страницы
@@ -517,7 +517,7 @@ switch($action){
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
 		$del_photos = Photos::DeleteAll('references_docs',$id);
-        $res = $db->query("DELETE FROM ".$sys_tables['references_docs']." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables['references_docs']." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

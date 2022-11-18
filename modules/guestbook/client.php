@@ -38,7 +38,7 @@ switch(true){
                     //проверка на отправку сообщения роботом
                     if (!Botobor_Keeper::get()->isRobot()) {
                         //записываем в БД
-                        $res = $db->query("INSERT INTO ".$sys_tables['guestbook']." 
+                        $res = $db->querys("INSERT INTO ".$sys_tables['guestbook']." 
                                     (question,question_datetime,name,email)
                                     VALUES
                                      (?,NOW(),?,?)"

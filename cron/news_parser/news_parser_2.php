@@ -46,8 +46,8 @@ $run_type = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['
     require_once('includes/functions.php');          // функции  из крона
     // Инициализация рабочих классов
     $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-    $db->query("set names ".Config::$values['mysql']['charset']);
-    $db->query("SET lc_time_names = 'ru_RU';");
+    $db->querys("set names ".Config::$values['mysql']['charset']);
+    $db->querys("SET lc_time_names = 'ru_RU';");
     require_once('includes/class.email.php');
 
 
@@ -75,7 +75,7 @@ if(!empty($run_type)){
     $run_type = 2;
 }else $run_type = 1;
 //делаем запись в статистике
-$db->query("INSERT INTO ".$sys_tables['news_articles_parsing']." (run_type,sources_ids) VALUES (".$run_type.",'".implode(',',array_keys($sources_list))."')");
+$db->querys("INSERT INTO ".$sys_tables['news_articles_parsing']." (run_type,sources_ids) VALUES (".$run_type.",'".implode(',',array_keys($sources_list))."')");
 $this_parsing_id = $db->insert_id;
 $links_total = 0;
 $links_total_added = 0;
@@ -126,9 +126,9 @@ foreach($sources_list as $source_key=>$source){
     unset($html);
     
     //удаляем старые зависшие
-    $db->query("DELETE FROM ".$sys_tables['news_articles_parsing']." WHERE end_datetime LIKE '%000%'");
+    $db->querys("DELETE FROM ".$sys_tables['news_articles_parsing']." WHERE end_datetime LIKE '%000%'");
     
-    $db->query("UPDATE ".$sys_tables['news_sources']." SET last_view = NOW() WHERE id = ?",$source_key);
+    $db->querys("UPDATE ".$sys_tables['news_sources']." SET last_view = NOW() WHERE id = ?",$source_key);
     
     //берем первые 5 ссылок - чтобы было только актуальное
     $links_amount = count($links);
@@ -191,7 +191,7 @@ foreach($sources_list as $source_key=>$source){
                 $new_id = $db->insert_id;
                 ++$counter;
                 
-                $db->query("UPDATE ".$sys_tables['news_sources']." SET articles_recieved = articles_recieved + 1 WHERE id = ?",$source_key);
+                $db->querys("UPDATE ".$sys_tables['news_sources']." SET articles_recieved = articles_recieved + 1 WHERE id = ?",$source_key);
                 
                 //ищем и при возможности добавляем картинки
                 if(!empty($article_image)){
@@ -224,7 +224,7 @@ foreach($sources_list as $source_key=>$source){
 
 $log = implode('<br />',$log);
 
-$db->query("UPDATE ".$sys_tables['news_articles_parsing']." SET end_datetime = NOW(), articles_readed = ?, articles_added = ? WHERE id = ?",$links_total,$links_total_added,$this_parsing_id);
+$db->querys("UPDATE ".$sys_tables['news_articles_parsing']." SET end_datetime = NOW(), articles_readed = ?, articles_added = ? WHERE id = ?",$links_total,$links_total_added,$this_parsing_id);
 
 if($run_type == 2){
     $ajax_result['message'] = 'Парсер успешно отработал';

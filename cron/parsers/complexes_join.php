@@ -29,8 +29,8 @@ set_time_limit(0);
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
 $query_not_log  = true;
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $sys_tables = Config::$sys_tables;
 $dir = ROOT_PATH."/cron/parsers/complex_images/";
 /*
@@ -67,7 +67,7 @@ foreach($u_list as $k=>$u_item){
     
     $robot->getAddress($u_item['Адрес']);
     
-    $db->query("INSERT INTO ".$sys_tables['housing_estates']." SET 
+    $db->querys("INSERT INTO ".$sys_tables['housing_estates']." SET 
                     published = 1, 
                     title = ?,
                     id_region = ?,

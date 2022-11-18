@@ -101,9 +101,9 @@ switch($action){
                 $action = Request::GetString('action',METHOD_POST);
                 $day = Request::GetString('day',METHOD_POST);
                 if(!empty($action) && !empty($day)){
-                    if($action == 'off') $db->query("DELETE FROM ".$sys_tables['news_mailer_schedule']." WHERE day_number = ?",$day);
+                    if($action == 'off') $db->querys("DELETE FROM ".$sys_tables['news_mailer_schedule']." WHERE day_number = ?",$day);
                     elseif($action == 'on'){
-                        $db->query("INSERT IGNORE INTO ".$sys_tables['news_mailer_schedule']."  SET day_number=?, start=?
+                        $db->querys("INSERT IGNORE INTO ".$sys_tables['news_mailer_schedule']."  SET day_number=?, start=?
                                     ON DUPLICATE KEY UPDATE start=?
                         ", $day, $start, $start
                         );
@@ -293,7 +293,7 @@ switch($action){
                 break;            
             case $action == 'add':
                 $id_parent = Request::GetString('id',METHOD_POST);
-                $db->query("INSERT INTO " . $sys_tables[ $table ]." SET id_parent = ?", $id_parent);
+                $db->querys("INSERT INTO " . $sys_tables[ $table ]." SET id_parent = ?", $id_parent);
                 $ajax_result['id'] = $db->insert_id;
                 $ajax_result['ok'] = true;  
                 break;
@@ -321,14 +321,14 @@ switch($action){
             case $action == 'delete':
                 $id = Request::GetString('id', METHOD_POST);
                 $id_parent = $db->fetch("SELECT id_parent FROM " . $sys_tables[ $table ] . ' WHERE id = ?', $id)['id_parent'];
-                $db->query("DELETE FROM " . $sys_tables[ $table ]." WHERE id = ?", $id);
+                $db->querys("DELETE FROM " . $sys_tables[ $table ]." WHERE id = ?", $id);
                 Photos::Delete( $table, $id );
                 break;
             case $action == 'save':
                 $post_parameters = Request::GetParameters(METHOD_POST);
                 $id_parent = $db->fetch("SELECT id_parent FROM " . $sys_tables[ $table ] . ' WHERE id = ?', $post_parameters['id'])['id_parent'];
                 if( $promo_type == 'promo')
-                    $db->query("UPDATE " . $sys_tables['articles_promo']." SET
+                    $db->querys("UPDATE " . $sys_tables['articles_promo']." SET
                                 title = ?,
                                 content = ?,
                                 background_position = ?,
@@ -345,7 +345,7 @@ switch($action){
                                 $post_parameters['id']
                     );
                 else if( $promo_type == 'advert')
-                    $db->query("UPDATE " . $sys_tables['longread_advert']." SET
+                    $db->querys("UPDATE " . $sys_tables['longread_advert']." SET
                                 title = ?,
                                 description = ?,
                                 link = ?
@@ -356,7 +356,7 @@ switch($action){
                                 $post_parameters['id']
                     );
                 else {
-                    $db->query("UPDATE " . $sys_tables['articles_test']." SET
+                    $db->querys("UPDATE " . $sys_tables['articles_test']." SET
                                 title = ?
                             WHERE id = ?",
                                 !empty( $post_parameters['test_title'] ) ? $post_parameters['test_title'] : '',
@@ -386,7 +386,7 @@ switch($action){
                   switch($action){
                     case 'add':
                         $id_parent = Request::GetString('id',METHOD_POST);
-                        $db->query("INSERT INTO " . $sys_tables['articles_test_' . $re_action]." SET id_parent = ?", $id_parent);
+                        $db->querys("INSERT INTO " . $sys_tables['articles_test_' . $re_action]." SET id_parent = ?", $id_parent);
                         $id = $ajax_result['id'] = $db->insert_id;
                         Response::SetInteger('id', $id);
                         $module_template = $re_action == 'questions' ? 'admin.test.question.item.html' : 'admin.test.results.item.html';
@@ -394,7 +394,7 @@ switch($action){
                         break;
                     case 'save':
                         $post_parameters = Request::GetParameters(METHOD_POST);
-                        $db->query("UPDATE " . $sys_tables['articles_test_results']." SET
+                        $db->querys("UPDATE " . $sys_tables['articles_test_results']." SET
                                     `title` = ?,
                                     `from` = ?,
                                     `to` = ?,
@@ -410,7 +410,7 @@ switch($action){
                     
                     case 'delete':
                         $id = Request::GetString('id', METHOD_POST);
-                        $db->query("DELETE FROM " . $sys_tables['articles_test_' . $re_action]." WHERE id = ?", $id);
+                        $db->querys("DELETE FROM " . $sys_tables['articles_test_' . $re_action]." WHERE id = ?", $id);
                         break;                        
                   }
                   break;
@@ -421,9 +421,9 @@ switch($action){
             $list = $db->fetchall("SELECT * FROM " . $sys_tables[ $table ]. " WHERE id_parent = ? ORDER BY id ASC", false, $id_parent);
             foreach($list as $k=>$item) {
                 //обновление короткого заголовка родительской статьи
-                if($k == 0 && $promo_type == 'promo') $db->query(" UPDATE " . $sys_tables['articles']." SET content_short = ?, content = ? WHERE id = ?", $item['content'], $item['content'], $id_parent);
+                if($k == 0 && $promo_type == 'promo') $db->querys(" UPDATE " . $sys_tables['articles']." SET content_short = ?, content = ? WHERE id = ?", $item['content'], $item['content'], $id_parent);
                 //обновление позиций
-                $db->query("UPDATE " . $sys_tables[ $table ] . " SET position = ? WHERE id = ?", $promo_type == 'test' ? $k + 1 : $k, $item['id']);
+                $db->querys("UPDATE " . $sys_tables[ $table ] . " SET position = ? WHERE id = ?", $promo_type == 'test' ? $k + 1 : $k, $item['id']);
             }
         }
         break; 
@@ -589,7 +589,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['content_partners']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['content_partners']." WHERE id=?", $id);
                 //удаление фото эксперта
                 $del_photos = Photos::DeleteAll('content_partners',$id);                
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
@@ -862,7 +862,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables[$content_type . '_regions']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables[$content_type . '_regions']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -877,14 +877,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables[$content_type . '_regions']."
                                 SET `position` = `position` + 2
                                 WHERE `id` <> ?  AND `position` >= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables[$content_type . '_regions']."
                                     SET `position` = ? + 1
                                     WHERE `position` < ?
                                     ORDER BY `position` DESC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -899,14 +899,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables[$content_type . '_regions']."
                                 SET `position` = `position` - 2
                                 WHERE `id` <> ?  AND `position` <= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables[$content_type . '_regions']."
                                     SET `position` = ? - 1
                                     WHERE `position` > ?
                                     ORDER BY `position` ASC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -1048,7 +1048,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['news_mailer_banners']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['news_mailer_banners']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -1063,14 +1063,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables['news_mailer_banners']."
                                 SET `position` = `position` + 2
                                 WHERE `id` <> ?  AND `position` >= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables['news_mailer_banners']."
                                     SET `position` = ? + 1
                                     WHERE `position` < ?
                                     ORDER BY `position` DESC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -1085,14 +1085,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables['news_mailer_banners']."
                                 SET `position` = `position` - 2
                                 WHERE `id` <> ?  AND `position` <= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables['news_mailer_banners']."
                                     SET `position` = ? - 1
                                     WHERE `position` > ?
                                     ORDER BY `position` ASC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -1206,7 +1206,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables[$content_type . '_categories']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables[$content_type . '_categories']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -1221,14 +1221,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables[$content_type . '_categories']."
                                 SET `position` = `position` + 2
                                 WHERE `id` <> ?  AND `position` >= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables[$content_type . '_categories']."
                                     SET `position` = ? + 1
                                     WHERE `position` < ?
                                     ORDER BY `position` DESC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -1243,14 +1243,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables[$content_type . '_categories']."
                                 SET `position` = `position` - 2
                                 WHERE `id` <> ?  AND `position` <= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables[$content_type . '_categories']."
                                     SET `position` = ? - 1
                                     WHERE `position` > ?
                                     ORDER BY `position` ASC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -1383,7 +1383,7 @@ switch($action){
                         $new_id = $db->insert_id;
                         
                         //Матвей:формирование ЧПУ-строки
-                        $db->query( "UPDATE ".$sys_tables[$content_type]." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
+                        $db->querys( "UPDATE ".$sys_tables[$content_type]." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.createCHPUTitle($info['title']), $new_id);
                         //Матвей:end
                         
                         //отправка Яндексу пинга новости
@@ -1429,7 +1429,7 @@ switch($action){
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
         $del_photos = Photos::DeleteAll($content_type, $id);
-        $res = $db->query("DELETE FROM ".$sys_tables[$content_type]." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables[$content_type]." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -1478,7 +1478,7 @@ switch($action){
                     $ajax_result['ok'] = false;
                     break;
                 }
-                $ajax_result['ok'] = $db->query("UPDATE ".$sys_tables['news_sources']." SET status = ? WHERE id = ?",(empty($active)?2:1),$id);
+                $ajax_result['ok'] = $db->querys("UPDATE ".$sys_tables['news_sources']." SET status = ? WHERE id = ?",(empty($active)?2:1),$id);
                 break;
             //парсер новостей
             //case $ajax_mode && $action == 'run_parser':
@@ -1577,18 +1577,18 @@ switch($action){
                 $ajax_result['ok'] = $db->insertFromArray($sys_tables[$content_type],$info);
                 $news_inserted_id = $db->insert_id;
                 
-                $db->query("UPDATE ".$sys_tables[$content_type]." SET chpu_title = CONCAT(id,'_',chpu_title) WHERE id = ?", $news_inserted_id);
+                $db->querys("UPDATE ".$sys_tables[$content_type]." SET chpu_title = CONCAT(id,'_',chpu_title) WHERE id = ?", $news_inserted_id);
                 
-                $db->query("UPDATE ".$sys_tables['news_sources']." SET articles_published = articles_published + 1 WHERE id = ?",$article_info['id_source']);
+                $db->querys("UPDATE ".$sys_tables['news_sources']." SET articles_published = articles_published + 1 WHERE id = ?",$article_info['id_source']);
                 
                 if(!empty($this_page->page_parameters[4]) && $this_page->page_parameters[4] == 'w_edit') $ajax_result['new_href'] = '/admin/content/' . $content_type . '}/edit/'.$news_inserted_id."/";
-                $db->query("UPDATE ".$sys_tables['news_parsing']." SET status = 2, id_news = ? WHERE id = ?",$news_inserted_id,$id);
+                $db->querys("UPDATE ".$sys_tables['news_parsing']." SET status = 2, id_news = ? WHERE id = ?",$news_inserted_id,$id);
                 
                 //переносим фотографии
-                $db->query("INSERT INTO ".$sys_tables['news_photos']." (id_parent,name) (SELECT '".$news_inserted_id."' AS id_parent,name FROM ".$sys_tables['news_parsing_photos']." WHERE id_parent = ?)",$id);
+                $db->querys("INSERT INTO ".$sys_tables['news_photos']." (id_parent,name) (SELECT '".$news_inserted_id."' AS id_parent,name FROM ".$sys_tables['news_parsing_photos']." WHERE id_parent = ?)",$id);
                 //если фотки есть, устанавливаем main_photo
                 if(!empty($db->insert_id)){
-                    $db->query("UPDATE ".$sys_tables[$content_type]." SET id_main_photo = ? WHERE id = ?",$db->insert_id,$news_inserted_id);
+                    $db->querys("UPDATE ".$sys_tables[$content_type]." SET id_main_photo = ? WHERE id = ?",$db->insert_id,$news_inserted_id);
                 }
                 
                 $ajax_result['ids'] = array($id);
@@ -1600,7 +1600,7 @@ switch($action){
                     $ajax_result['ok'] = false;
                     break;
                 }
-                $ajax_result['ok'] = $db->query("UPDATE ".$sys_tables['news_parsing']." SET status = 3 WHERE id = ?",$id);
+                $ajax_result['ok'] = $db->querys("UPDATE ".$sys_tables['news_parsing']." SET status = 3 WHERE id = ?",$id);
                 $ajax_result['ids'] = array($id);
                 break;
             //список статей

@@ -37,7 +37,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -59,7 +59,7 @@ if(date('H')==1){
     elseif(!empty($_SERVER['argc']) && $_SERVER['argc']>1 && !empty($_SERVER['argv']) && $_SERVER['argv'][1]=='ng_check') {
         $flag = $db->fetch("SELECT id FROM ".$sys_tables['ng_check_upload']." WHERE `status` = 1");
         if(!empty($flag)) {
-            $db->query("UPDATE ".$sys_tables['ng_check_upload']." SET `status` = 2");
+            $db->querys("UPDATE ".$sys_tables['ng_check_upload']." SET `status` = 2");
             $log['download'][] = downloadFtpXmlFile("ng","industry-soft.ru","bsn","bsnwebmedia","BSN_Export.xml");
         }
     }
@@ -77,10 +77,10 @@ while($filename = readdir($dh))
     {
         
         // постановка в архив всех объектов этой компании (кроме объектов от недвижимости города)
-        $db->query("UPDATE ".$sys_tables['live']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
-        $db->query("UPDATE ".$sys_tables['build']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
-        $db->query("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
-        $db->query("UPDATE ".$sys_tables['country']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
+        $db->querys("UPDATE ".$sys_tables['live']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
+        $db->querys("UPDATE ".$sys_tables['build']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
+        $db->querys("UPDATE ".$sys_tables['commercial']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
+        $db->querys("UPDATE ".$sys_tables['country']." SET `published` = '2', `date_change` = NOW() WHERE  info_source = 4 AND published=1");
 
         $counter = array('live_sell'=>0,            'live_rent'=>0,             'commercial_sell'=>0,            'commercial_rent'=>0,          'build'=>0,            'country_sell'=>0,            'country_rent'=>0, 
                          'live_sell_promo'=>0,      'live_rent_promo'=>0,       'commercial_sell_promo'=>0,      'commercial_rent_promo'=>0,    'build_promo'=>0,      'country_sell_promo'=>0,      'country_rent_promo'=>0, 
@@ -177,7 +177,7 @@ while($filename = readdir($dh))
                                                  ".(!empty($photos['in'])?" AND `external_img_src` NOT IN (".implode(',', $photos['in']).")":""));
                     if(!empty($photo_list)){
                         foreach($photo_list as $k => $val) Photos::Delete($robot->estate_type,$val['id']);
-                        if(!empty($photo_list['in'])) $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
+                        if(!empty($photo_list['in'])) $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
                     }
                     $inserted_id = $check_object['id'];
 
@@ -214,7 +214,7 @@ while($filename = readdir($dh))
                                                      ".(!empty($photos['in'])?"AND `external_img_src` NOT IN (".implode(',', $photos['in']).")":""));
                         if(!empty($photo_list)){
                             foreach($photo_list as $k => $val) Photos::Delete($robot->estate_type,$val['id'],"_new");
-                            $db->query("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
+                            $db->querys("DELETE FROM ".$sys_tables[$robot->estate_type.'_photos']." WHERE `id` IN (".implode(',', $photo_list['in']).")");
                         }
                             
                         $inserted_id = $check_object_new['id'];
@@ -244,7 +244,7 @@ while($filename = readdir($dh))
                         case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                     }
                     $item_weight = $item_weight->getItemWeight($inserted_id,$robot->estate_type);
-                    $res_weight = $db->query("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
+                    $res_weight = $db->querys("UPDATE ".$sys_tables[$robot->estate_type.$prefix]." SET weight=? WHERE id=?",$item_weight,$inserted_id);
                 }
                 ///
                 
@@ -260,7 +260,7 @@ while($filename = readdir($dh))
                 //обновление главной фотографии объекта если она не прикреплена
                 if($inserted_id>0 && !empty($photos['in']) && !empty($check_object['id']) && $check_object['id_main_photo']==0){
                     $photo_id = $db->fetch("SELECT id FROM ".$sys_tables[($robot->estate_type)."_photos"]." WHERE id_parent = ?",$inserted_id);
-                    if(!empty($photo_id)) $db->query("UPDATE ".$sys_tables[($robot->estate_type)]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
+                    if(!empty($photo_id)) $db->querys("UPDATE ".$sys_tables[($robot->estate_type)]." SET id_main_photo = ? WHERE id = ?",$photo_id['id'],$inserted_id);
                 }
                 //модерация новых объектов
                 if($prefix=='_new') {

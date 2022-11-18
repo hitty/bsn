@@ -352,7 +352,7 @@ abstract class CreditCalculator {
         if(empty($id) || empty($type)) return false;
         global $db;
         $sys_tables = Config::$values['sys_tables'];
-        return $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_show_day']." SET id_parent = ?, `type`=?", $id, $type);
+        return $db->querys("INSERT INTO ".$sys_tables['credit_calculator_stats_show_day']." SET id_parent = ?, `type`=?", $id, $type);
     }
     
     /**
@@ -366,7 +366,7 @@ abstract class CreditCalculator {
         if(empty($calculator_id) || empty($source_type)) return false;
         global $db;
         $sys_tables = Config::$values['sys_tables'];
-        return $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_show_day']." SET id_parent = ?, `type` = ?", $calculator_id,  ($source_type == 1 ? 1 : 2) );
+        return $db->querys("INSERT INTO ".$sys_tables['credit_calculator_stats_show_day']." SET id_parent = ?, `type` = ?", $calculator_id,  ($source_type == 1 ? 1 : 2) );
     }
     
     /**
@@ -383,7 +383,7 @@ abstract class CreditCalculator {
         $calculator_id = $db->fetch("SELECT id FROM ".$sys_tables['credit_calculator']." WHERE bank_id = ? AND type = ? AND enabled = 1 AND published = 1");
         if(empty($calculator_id) || empty($calculator_id['id'])) return false;
         else $calculator_id = $calculator_id['id'];
-        return $db->query("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET id_parent = ?, `type` = ?", $calculator_id, ($source_type == 1 ? 1 : 2) );
+        return $db->querys("INSERT INTO ".$sys_tables['credit_calculator_stats_click_day']." SET id_parent = ?, `type` = ?", $calculator_id, ($source_type == 1 ? 1 : 2) );
     }
 }
 ?>

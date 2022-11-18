@@ -119,7 +119,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['housing_estates_districts']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['housing_estates_districts']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -259,7 +259,7 @@ switch($action){
                         if($action=='edit'){
                             $res = $db->updateFromArray($sys_tables['housing_estates_experts'], $info, 'id') or die($db->error);
                             
-                            $db->query(" UPDATE " . $sys_tables['users'] . " SET name = ?, lastname = ? WHERE id = ?",
+                            $db->querys(" UPDATE " . $sys_tables['users'] . " SET name = ?, lastname = ? WHERE id = ?",
                                        $post_parameters['name'], $post_parameters['lastname'], $info['id_user']
                             );
                             if( !empty(  $sent_invite ) ) $housing_estates_rating->sentInvite( $info['id'] );
@@ -268,11 +268,11 @@ switch($action){
                             $res = $db->insertFromArray($sys_tables['housing_estates_experts'], $info, 'id');
                             if(!empty($res)){
                                 $new_id = $db->insert_id;
-                                $db->query(" INSERT INTO " . $sys_tables['users'] . " SET login = ?, name = ?, lastname = ?, id_group = 14, expert = 1",
+                                $db->querys(" INSERT INTO " . $sys_tables['users'] . " SET login = ?, name = ?, lastname = ?, id_group = 14, expert = 1",
                                            'he_expert_' . $new_id, $post_parameters['name'], $post_parameters['lastname']
                                 );
                                 $user_id = $db->insert_id;
-                                $db->query(" UPDATE " . $sys_tables['housing_estates_experts'] . " SET id_user = ?, original_passwd = ? WHERE id = ?", $user_id, $original_passwd, $new_id );
+                                $db->querys(" UPDATE " . $sys_tables['housing_estates_experts'] . " SET id_user = ?, original_passwd = ? WHERE id = ?", $user_id, $original_passwd, $new_id );
                                 if( !empty(  $sent_invite ) ) $housing_estates_rating->sentInvite( $new_id );
                                 // редирект на редактирование свеженькой страницы
                                 if(!empty($res)) {
@@ -296,7 +296,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['housing_estates_experts']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['housing_estates_experts']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

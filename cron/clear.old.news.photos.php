@@ -28,8 +28,8 @@ require_once('includes/class.content.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names " . Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names " . Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 
 // вспомогательные таблицы модуля
@@ -54,8 +54,8 @@ foreach ($tables as $table) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
-            $db->query( " UPDATE ".$sys_tables[$table]." SET id_main_photo = 0 WHERE id = ?", $item['id'] );
-            $db->query( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id_main_photo'] );
+            $db->querys( " UPDATE ".$sys_tables[$table]." SET id_main_photo = 0 WHERE id = ?", $item['id'] );
+            $db->querys( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id_main_photo'] );
             echo $item['title'].'<br>\n';
         }
     }*/
@@ -73,7 +73,7 @@ foreach ($tables as $table) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
-            $db->query( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id'] );
+            $db->querys( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id'] );
         }
     }
 

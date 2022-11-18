@@ -118,7 +118,7 @@ switch($action){
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
         $sql = "DELETE FROM ".$sys_tables['projects_changes']." WHERE `id`=?";
-        $res = $db->query($sql,$id);
+        $res = $db->querys($sql,$id);
         $results['delete'] = ($res && $db->affected_rows)? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

@@ -32,8 +32,8 @@ class Moderation extends EstateItem{
             $this->makeHash();
             //поиск на похожий для склейки
             $item = $db->fetch("SELECT `id` FROM ".$this->work_table_new." WHERE `id_user`=? AND `hash`=? AND id!=?",$this->data_array['id_user'], $this->data_array['hash'], $this->data_array['id']);
-            if(!empty($item)) $db->query("DELETE FROM ".$this->work_table_new." WHERE id=?",$item['id']);
-            $db->query("UPDATE ".$this->work_table_new." SET `id_moderate_status` = ?, `hash` = ? WHERE `id` = ?", $this->moderated_status, $this->data_array['hash'], $this->data_array['id']);          
+            if(!empty($item)) $db->querys("DELETE FROM ".$this->work_table_new." WHERE id=?",$item['id']);
+            $db->querys("UPDATE ".$this->work_table_new." SET `id_moderate_status` = ?, `hash` = ? WHERE `id` = ?", $this->moderated_status, $this->data_array['hash'], $this->data_array['id']);
             return array('ok'=>false,'reason'=>'Не прошел модерацию', 'status'=>$this->moderated_status);
         } else { // прошел модерацию
             $this->data_changed = true;
@@ -84,7 +84,7 @@ class Moderation extends EstateItem{
                 // обновление графики объекта
                 if($this->data_array['info_source']!=5) $this->updateObjectGraphics($this->id, $id_new);
                 //удаление записи в таблице new
-                $res = $db->query("DELETE FROM ".$this->work_table_new." WHERE `id` = ?",$id_new);
+                $res = $db->querys("DELETE FROM ".$this->work_table_new." WHERE `id` = ?",$id_new);
                 return $res;
             } else return false;
         }
@@ -205,7 +205,7 @@ class Moderation extends EstateItem{
                     if($delete==true) Photos::Delete($this->type,$value['id']); 
                 }
             }
-            $db->query("UPDATE ".$this->work_photos_table." SET `id_parent` = ?, `id_parent_new` = 0 WHERE `id_parent_new`=?",$id, $id_new);
+            $db->querys("UPDATE ".$this->work_photos_table." SET `id_parent` = ?, `id_parent_new` = 0 WHERE `id_parent_new`=?",$id, $id_new);
         }
         //читаем id окончательного списка фотографий
         $list = explode(',',$db->fetch("SELECT GROUP_CONCAT(`id`) AS ids FROM ".$this->work_photos_table." WHERE `id_parent`=".$id)['ids']);

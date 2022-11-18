@@ -37,8 +37,8 @@ require_once('includes/class.email.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $GLOBALS['db']=$db;
 $url=DEBUG_MODE?'https://www.bsnnew.int':'https://www.bsn.ru';
 $links_per_query = 39500;
@@ -64,7 +64,7 @@ $today = date('Y-m-d\\TH:i:sP',time());
 
 //#################################################################
 // ЧПУ урлы
-$db->query("UPDATE ".$sys_tables['pages_seo']." SET lastmod_date = CURDATE() - INTERVAL 30 DAY WHERE lastmod_date = '0000-00-00 00:00:00'");
+$db->querys("UPDATE ".$sys_tables['pages_seo']." SET lastmod_date = CURDATE() - INTERVAL 30 DAY WHERE lastmod_date = '0000-00-00 00:00:00'");
 //floor,top - от какого и сколько объектов выбираем
 $floor = 0; $top = $links_per_query;
 do{

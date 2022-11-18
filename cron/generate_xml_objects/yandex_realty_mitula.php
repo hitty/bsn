@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 
 
@@ -41,8 +41,8 @@ define('__URL__','https://www.bsn.ru/');
 $db->select_db('estate');
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -155,7 +155,7 @@ foreach($res as $k=>$item){
                 $xmlItem->append('currency', 'RUB',2); // * обязательное поле
                 if($item['rent']==1) $xmlItem->append('period', $item['by_the_day']==1 ? 'день' : 'месяц',2); 
         
-             $res_image = $db->query("SELECT name, LEFT (".$sys_tables['live_photos'].".`name`,2) as `subfolder` 
+             $res_image = $db->querys("SELECT name, LEFT (".$sys_tables['live_photos'].".`name`,2) as `subfolder` 
                                      FROM ".$sys_tables['live_photos']." 
                                      WHERE id_parent = ?",$item['id']);
             while($item_image = $res_image->fetch_array()) {
@@ -302,7 +302,7 @@ foreach($res as $k=>$item){
                 $xmlItem->append('value', $item['cost'],2); // * обязательное поле
                 $xmlItem->append('currency', 'RUB',2); // * обязательное поле
         
-             $res_image = $db->query("SELECT name, LEFT (".$sys_tables['build_photos'].".`name`,2) as `subfolder` 
+             $res_image = $db->querys("SELECT name, LEFT (".$sys_tables['build_photos'].".`name`,2) as `subfolder` 
                                      FROM ".$sys_tables['build_photos']." 
                                      WHERE id_parent = ?",$item['id']);
             while($item_image = $res_image->fetch_array()) {
@@ -417,7 +417,7 @@ foreach($deal_types as $val => $deal_type){
                 $xmlItem->append('manually-added', $item['info_source'] == 1 ? '+' : '-',1); 
                 $xmlItem->append('id-user', $item['id_user'], 1 );  
                 
-                 $res_image = $db->query("SELECT name, LEFT (".$sys_tables['country_photos'].".`name`,2) as `subfolder` 
+                 $res_image = $db->querys("SELECT name, LEFT (".$sys_tables['country_photos'].".`name`,2) as `subfolder` 
                                          FROM ".$sys_tables['country_photos']." 
                                          WHERE id_parent = ?",$item['id']);
                 while($item_image = $res_image->fetch_array()) {

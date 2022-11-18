@@ -129,9 +129,9 @@ switch(true){
                 );
                 $cookie_vote = Cookie::GetString('konkurs_vote_for_' . $id_category);
                 if(empty($check) && empty($cookie_vote)){
-                    $res = $db->query("INSERT INTO ".$sys_tables['konkurs_votings']." SET id_konkurs = ?, vote_id_category = ?, vote_id_member = ?, ip = ?, datetime = NOW()",
+                    $res = $db->querys("INSERT INTO ".$sys_tables['konkurs_votings']." SET id_konkurs = ?, vote_id_category = ?, vote_id_member = ?, ip = ?, datetime = NOW()",
                                        $list['id_konkurs'],$list['id_category'],$id,$user_ip);
-                    $res1 = $db->query("UPDATE ".$sys_tables['konkurs_members']." SET amount = amount+1 WHERE id=?",$id);
+                    $res1 = $db->querys("UPDATE ".$sys_tables['konkurs_members']." SET amount = amount+1 WHERE id=?",$id);
                     $ajax_result['ok'] = $res && $res1;
                     Cookie::SetCookie('konkurs_vote_for_' . $id_category, $id, 60*60*24*160, '/', DEBUG_MODE ? '.bsn.int' : '.bsn.ru');
                 }

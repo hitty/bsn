@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.robot.php');      // 
 
@@ -46,5 +46,5 @@ $estates = array('build', 'live','commercial','country');
 
 
 
-foreach($estates as $estate_type) $db->query(" DELETE FROM " . $sys_tables[$estate_type] ." WHERE published = 4 AND draft_session != '' AND date_change < NOW() - INTERVAL 6 HOUR")
+foreach($estates as $estate_type) $db->querys(" DELETE FROM " . $sys_tables[$estate_type] ." WHERE published = 4 AND draft_session != '' AND date_change < NOW() - INTERVAL 6 HOUR")
 ?>

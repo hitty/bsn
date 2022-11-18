@@ -21,7 +21,7 @@ include('includes/class.convert.php');      // Convert, Valdate (конверт�
 include('includes/class.storage.php');      // Session, Cookie, Responce, Request
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 $sys_tables = Config::$sys_tables;
 
 $list = $db->fetchall("
@@ -37,12 +37,12 @@ $list = $db->fetchall("
                         ORDER BY COUNT DESC"
 );
 foreach($list as $k=>$item){
-            $db->query("DELETE 
+            $db->querys("DELETE 
                         FROM 
                             ".$sys_tables['blacklist_ips']." 
                         WHERE 
                             `range` = 2 AND ip LIKE '".$item['subip']."%' " 
             );  
-            //$db->query("INSERT INTO ".$sys_tables['blacklist_ips']." SET `range` = 1, ip = CONCAT(?, '.')", $item['subip'])  ;
+            //$db->querys("INSERT INTO ".$sys_tables['blacklist_ips']." SET `range` = 1, ip = CONCAT(?, '.')", $item['subip'])  ;
 }
 ?>

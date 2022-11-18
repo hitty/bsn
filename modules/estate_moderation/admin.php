@@ -164,7 +164,7 @@ switch(true){
     
     // пропускаем
     case $action == 'pass':
-        $res = $db->query("UPDATE ".$sys_tables[$estate]." SET published = 1 WHERE id = ?", $id);
+        $res = $db->querys("UPDATE ".$sys_tables[$estate]." SET published = 1 WHERE id = ?", $id);
         
         if($ajax_mode) $ajax_result = array('ok' => $res && $db->affected_rows, 'ids'=>array($id));
         
@@ -172,7 +172,7 @@ switch(true){
     
     // возвращаем
     case $action == 'stop':     
-        $res = $db->query("UPDATE ".$sys_tables[$estate]." SET published = 4 WHERE id = ?", $id);
+        $res = $db->querys("UPDATE ".$sys_tables[$estate]." SET published = 4 WHERE id = ?", $id);
         
         if($ajax_mode) $ajax_result = array('ok' => $res && $db->affected_rows, 'ids'=>array($id));
         
@@ -356,7 +356,7 @@ switch(true){
         // если была отправка формы - начинаем обработку
         if(empty($post_parameters['submit'])){
             
-            $blocking = $db->query("UPDATE ".$sys_tables[$estate]."
+            $blocking = $db->querys("UPDATE ".$sys_tables[$estate]."
                                     SET blocking_time=ADDTIME(NOW(), '00:15:00'), blocking_id_user=?
                                     WHERE id=?"
                                     , $auth->id

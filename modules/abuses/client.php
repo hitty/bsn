@@ -31,7 +31,7 @@ switch(true){
             $item = $db->fetch("SELECT id_user, rent FROM ".$sys_tables[$estate_type]." WHERE id = ?",$object_id);
             $id_user = (!empty($item) && !empty($item['id_user']) ? $item['id_user'] : 0);
             
-            $res = $db->query("INSERT INTO ".$sys_tables['abuses']." 
+            $res = $db->querys("INSERT INTO ".$sys_tables['abuses']." 
                                SET id_category = ?, estate_type = ?, id_object = ?, id_user = ?, abuse_date = NOW()",
                                $category_id, $estate_type, $object_id, $id_user
             );     
@@ -127,7 +127,7 @@ switch(true){
         $id_user = $db->fetch("SELECT id_user FROM ".$sys_tables[$estate_type]." WHERE id = ?",$object_id);
         $id_user = (!empty($id_user) && !empty($id_user['id_user']) ? $id_user['id_user'] : 0);
         
-        $res = $db->query("INSERT INTO ".$sys_tables['abuses']." 
+        $res = $db->querys("INSERT INTO ".$sys_tables['abuses']." 
                            SET id_category = ?, estate_type = ?, id_object = ?, id_user = ?, abuse_date = NOW()",
                            $category_id, $estate_type, $object_id, $id_user
         );     

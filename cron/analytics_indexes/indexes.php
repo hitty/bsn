@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -91,7 +91,7 @@ $sys_tables = Config::$sys_tables;
     
     //Запись индексов в таблицу
     $sql = "INSERT INTO ".$sys_tables['analytics_indexes_build']." SET $insert_sql date = NOW()";
-    $db->query($sql) or die($sql.$db->error);
+    $db->querys($sql) or die($sql.$db->error);
     
 // ВТОРИЧНАЯ НЕДВИЖИМОСТЬ
 //Общая отсечка
@@ -142,7 +142,7 @@ $sys_tables = Config::$sys_tables;
         $count++;
     }    //Запись индексов в таблицу
     $sql = "INSERT INTO ".$sys_tables['analytics_indexes_live']." SET $insert_sql date = NOW(), type = 'sell'";
-    $db->query($sql) or die($sql.$db->error);
+    $db->querys($sql) or die($sql.$db->error);
    
     
 //#############################################################################################
@@ -155,7 +155,7 @@ foreach($conditions as $condition){
     $sql_1kk = "
               ( select avg(".$condition.")  from ".$sys_tables['live']." where square_full between 15 and 38 and cost/square_full between 40000 and 150000 and published=1 and id_type_object = 1  and rent = 2 and rooms_sale = 1 and ( (id_district > 1 and id_district < 17) ) )              union
               (select avg(".$condition.")  from ".$sys_tables['live']." where square_full > 38 and square_full < 100 and cost/square_full between 40000 and 150000 and published=1 and id_type_object = 1  and rent = 2 and rooms_sale = 1 and ( (id_district > 1 and id_district < 17)))";
-    $res = $db->query($sql_1kk) or die($sql_1kk.$db->error);
+    $res = $db->querys($sql_1kk) or die($sql_1kk.$db->error);
     $kompakt = $res->fetch_row();
     $prostor = $res->fetch_row();
     if($condition != 'cost/square_full') { $kompakt[0]=$kompakt[0]/1000 ; $prostor[0]=$prostor[0]/1000 ; }
@@ -167,7 +167,7 @@ foreach($conditions as $condition){
               (select avg(".$condition.")  from ".$sys_tables['live']." where square_full between 15 and 55 and cost/square_full between 40000 and 150000 and published=1 and id_type_object = 1  and rent = 2 and rooms_sale = 2 and ( (id_district > 1 and id_district < 17)) )
               union
               (select avg(".$condition.")  from ".$sys_tables['live']." where square_full > 55 and square_full < 150 and cost/square_full between 40000 and 150000 and published=1 and id_type_object = 1  and rent = 2 and rooms_sale = 2 and ( (id_district > 1 and id_district < 17)) )";
-    $res = $db->query($sql_2kk) or die($sql_2kk.$db->error);
+    $res = $db->querys($sql_2kk) or die($sql_2kk.$db->error);
     $kompakt = $res->fetch_row();
     $prostor = $res->fetch_row();
     if($condition != 'cost/square_full') { $kompakt[0]=$kompakt[0]/1000 ; $prostor[0]=$prostor[0]/1000 ; }
@@ -178,7 +178,7 @@ foreach($conditions as $condition){
               (select avg(".$condition.")  from ".$sys_tables['live']." where square_full between 15 and 79 and cost/square_full between 40000 and 150000 and published=1 and id_type_object = 1  and rent = 2 and rooms_sale = 3 and ( (id_district > 1 and id_district < 17)) )
               union
               (select avg(".$condition.")  from ".$sys_tables['live']." where square_full > 79 and square_full < 250 and cost/square_full between 40000 and 150000 and published=1 and id_type_object = 1  and rent = 2 and rooms_sale = 3 and ( (id_district > 1 and id_district < 17)) )";
-    $res = $db->query($sql_3kk) or die($sql_3kk.$db->error);
+    $res = $db->querys($sql_3kk) or die($sql_3kk.$db->error);
     $kompakt = $res->fetch_row();
     $prostor = $res->fetch_row();
     if($condition != 'cost/square_full') { $kompakt[0]=$kompakt[0]/1000 ; $prostor[0]=$prostor[0]/1000 ; }
@@ -186,7 +186,7 @@ foreach($conditions as $condition){
     $sql[] = "`3kk_".$condition."_prostor` = ".(int)($prostor[0]);
 
 }
-$db->query("INSERT INTO ".$sys_tables['analytics_indexes_flats_sizes']." SET date = NOW(), ".implode(", ",$sql)) or die("INSERT INTO ".$sys_tables['analytics_indexes_flats_sizes']." SET date = NOW(), ".implode(", ",$sql).$db->error);    
+$db->querys("INSERT INTO ".$sys_tables['analytics_indexes_flats_sizes']." SET date = NOW(), ".implode(", ",$sql)) or die("INSERT INTO ".$sys_tables['analytics_indexes_flats_sizes']." SET date = NOW(), ".implode(", ",$sql).$db->error);
 
 //Общая отсечка
 $sql_where = "".$sys_tables['live'].".published = 1 AND ".$sys_tables['live'].".square_full > 10 AND ".$sys_tables['live'].".square_full < 1000 AND ".$sys_tables['live'].".cost > 500000 AND (".$sys_tables['live'].".cost/".$sys_tables['live'].".square_full) > 40000 AND (".$sys_tables['live'].".cost/".$sys_tables['live'].".square_full) < 150000 AND ".$sys_tables['live'].".id_type_object = 1 AND ".$sys_tables['live'].".rent = 2 AND ".$sys_tables['live'].".rooms_sale > 0  AND ".$sys_tables['live'].".id_district > 1 and ".$sys_tables['live'].".id_district < 17 ";
@@ -422,7 +422,7 @@ $sql = "
 
     $arr = array_keys($values);
 
-    $res = $db->query($sql) or die($db->error);
+    $res = $db->querys($sql) or die($db->error);
     
     $count = 0;
     $insert_sql = '';
@@ -434,7 +434,7 @@ $sql = "
     //Запись индексов в таблицу
 
     $sql = "INSERT INTO ".$sys_tables['analytics_indexes_flats_districts_size']." SET $insert_sql date = NOW()";
-    $db->query($sql) or die($sql.$db->error);
+    $db->querys($sql) or die($sql.$db->error);
     $_ID_ = $db->insert_id;
 
     $sql_where_blocks_array = array(2,3,4,5,6,7,8,10,11,12,13,15,16);
@@ -462,7 +462,7 @@ $sql = "
                   GROUP BY
                       ".$sys_tables['live'].".id_district 
           ";
-            $res = $db->query($sql) or die($sql.$db->error);
+            $res = $db->querys($sql) or die($sql.$db->error);
             if($res->num_rows == 0) $insert_sql.= "".$arr[$count]." = 0, ";
             else{
                 while($row = $res->fetch_row()){
@@ -473,5 +473,5 @@ $sql = "
     }
 
     $sql = "UPDATE ".$sys_tables['analytics_indexes_flats_districts_size']." SET $insert_sql date = NOW() WHERE id=$_ID_";
-    $db->query($sql) or die($sql.$db->error);
+    $db->querys($sql) or die($sql.$db->error);
 ?>

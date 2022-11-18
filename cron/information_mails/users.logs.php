@@ -30,13 +30,13 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 $list = $db->loadUsersLogsData(ROOT_PATH);
 if(!empty($list)){
     foreach($list as $query){
         echo $query." ;;; \n";
-        if(!empty($query)) $db->query($query);
+        if(!empty($query)) $db->querys($query);
     }
     $db->clearUsersLogsData(ROOT_PATH);
 }

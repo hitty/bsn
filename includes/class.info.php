@@ -76,11 +76,11 @@ abstract class Content {
         }
         $id_field_name = "field_".$this->__id_field;
         if(empty($this->$id_field_name)){
-            $res = $db->query("INSERT ".$this->__table." (`".implode(`,`,$this->__structure)."`)
+            $res = $db->querys("INSERT ".$this->__table." (`".implode(`,`,$this->__structure)."`)
                            VALUES (".implode(',',$ins).")");
             if($res) return $db->insert_id();
         } else {
-            $res = $db->query("UPDATE ".$this->__table." 
+            $res = $db->querys("UPDATE ".$this->__table." 
                                SET ".implode(', ',$upd)."
                                WHERE ".$this->__table.".".$this->__id_field."=?",$this->$id_field_name);
             if($res) return true;
@@ -97,7 +97,7 @@ abstract class Content {
         $id_field_name = 'field'.$this->__id_field;
         if(empty($id)) $id = $this->$id_field_name;
         if(empty($id)) return false;
-        $res = $db->query("DELETE FROM ".$this->__table." WHERE ".$this->__table.".".$this->__id_field."=?", $id);
+        $res = $db->querys("DELETE FROM ".$this->__table." WHERE ".$this->__table.".".$this->__id_field."=?", $id);
         if($res) $this->clear();
         return $res;
     }

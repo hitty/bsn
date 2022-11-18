@@ -23,7 +23,7 @@ include('includes/class.storage.php');      // Session, Cookie, Responce, Reques
 include('includes/functions.php');          // функции  из модуля
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables; 
 $sys_tables['pages_seo'] = 'common.pages_seo';
@@ -126,7 +126,7 @@ foreach($deal_types as $deal_type){
                 }
                 if(!empty($query)) {ksort($query); $query_catalogs.='/?'.http_build_query($query, '', '&'); }
                
-                $update = $db->query("UPDATE ".$sys_tables['pages_seo']." 
+                $update = $db->querys("UPDATE ".$sys_tables['pages_seo']." 
                                       SET title = ?, description = ?
                                       WHERE url = ?
                 ",$seo_title,$seo_description,$query_catalogs);

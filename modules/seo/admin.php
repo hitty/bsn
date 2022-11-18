@@ -155,7 +155,7 @@ switch($action){
         break;
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-        $res = $db->query("DELETE FROM ".$sys_tables['pages_seo']." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables['pages_seo']." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -257,7 +257,7 @@ switch($action){
                     case $action == "add":
                         $page_to_add = Request::GetInteger('page_id',METHOD_POST);
                         $page_info = $db->fetch("SELECT url,title,description FROM ".$sys_tables['pages_seo']." WHERE id = ".$page_to_add);
-                        $res = $db->query("INSERT INTO ".$sys_tables['pages_not_indexed_'.$bot_alias]." (url,title,description,date_in) VALUES (?,?,?,NOW())",$page_info['url'],$page_info['title'],$page_info['description']);
+                        $res = $db->querys("INSERT INTO ".$sys_tables['pages_not_indexed_'.$bot_alias]." (url,title,description,date_in) VALUES (?,?,?,NOW())",$page_info['url'],$page_info['title'],$page_info['description']);
                         if(!$res) $ajax_result['alert'] = $db->errors;
                         else{
                             $page_info['date_in'] = date("d.m.Y H:i:s");
@@ -270,7 +270,7 @@ switch($action){
                         $page_id= Convert::ToInt($page_id);
                         if(empty($page_id)) $ajax_result['ok'] = false;
                         $ajax_result['ids'] = array($page_id);
-                        $res = $db->query("DELETE FROM ".$sys_tables['pages_not_indexed_'.$bot_alias]." WHERE id = ?",$page_id);
+                        $res = $db->querys("DELETE FROM ".$sys_tables['pages_not_indexed_'.$bot_alias]." WHERE id = ?",$page_id);
                         $ajax_result = array('ok' => $res, 'ids'=>array($page_id));
                         break;
                     //статистика

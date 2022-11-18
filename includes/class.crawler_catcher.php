@@ -66,7 +66,7 @@ abstract class CrawlerCatcher{
         $crawlers = Config::$values['crawlers_aliases'];
         foreach($crawlers as $key=>$item){
             $page_id = CrawlerCatcher::checkInStack($item);
-            $res =  $res && $db->query("UPDATE ".$sys_tables['pages_not_indexed_'.$item]." SET ".$bot_alias."tm = NOW() WHERE id = ?",$page_id);
+            $res =  $res && $db->querys("UPDATE ".$sys_tables['pages_not_indexed_'.$item]." SET ".$bot_alias."tm = NOW() WHERE id = ?",$page_id);
         }
         
         return $res;
@@ -85,8 +85,8 @@ abstract class CrawlerCatcher{
         if(empty($page_info)) return "Страница не найдена в pages_seo, нельзя добавить.";
         else{
           $existing_id = $db->fetch("SELECT id FROM ".$sys_tables['pages_not_indexed']." WHERE url = ?",$page_url);
-          if(!empty($existing_id))return $db->query("UPDATE ".$sys_tables['pages_not_indexed']." SET url = ?,title = ?,description = ?,date_in = NOW(), bad_page = 2 WHERE id = ?",$page_url,$page_info['title'],$page_info['description'],$existing_id);
-          else return $db->query("INSERT INTO ".$sys_tables['pages_not_indexed']." 
+          if(!empty($existing_id))return $db->querys("UPDATE ".$sys_tables['pages_not_indexed']." SET url = ?,title = ?,description = ?,date_in = NOW(), bad_page = 2 WHERE id = ?",$page_url,$page_info['title'],$page_info['description'],$existing_id);
+          else return $db->querys("INSERT INTO ".$sys_tables['pages_not_indexed']." 
                                     ( url, title, description, date_in ) VALUES ( ?, ?, ?, NOW() )", 
                                     $page_url, $page_info['title'], $page_info['description'] 
           );
@@ -135,7 +135,7 @@ abstract class CrawlerCatcher{
         foreach($all_pages as $key=>$item){
             $in_index = CrawlerCatcher::checkGoogleIndex("/".$item['url'],"www.bsn.ru");
             //если страница в индексе google, отмечаем в таблице
-            $db->query("UPDATE ".$sys_tables['pages_not_indexed_google']." SET in_index = ".(!empty($in_index)?1:2)." WHERE id = ?",$item['id']);
+            $db->querys("UPDATE ".$sys_tables['pages_not_indexed_google']." SET in_index = ".(!empty($in_index)?1:2)." WHERE id = ?",$item['id']);
             echo $item['url'].(!empty($in_index)?"":" not")." in index"."\n";
         }
     }
@@ -163,7 +163,7 @@ abstract class CrawlerCatcher{
             $in_stack = CrawlerCatcher::checkInStack( $bot_alias, false, true );
             
             //если страница в стеке, выкидываем и записываем визит робота
-            if(!empty($in_stack)) $db->query("UPDATE ".$sys_tables['pages_not_indexed_'.$bot_alias]." SET date_out = NOW(), bot_visits_total = bot_visits_total + 1 WHERE id = ?",$in_stack);
+            if(!empty($in_stack)) $db->querys("UPDATE ".$sys_tables['pages_not_indexed_'.$bot_alias]." SET date_out = NOW(), bot_visits_total = bot_visits_total + 1 WHERE id = ?",$in_stack);
             
             //возвращаем список ссылок для вставки (сначала выбираем те, которые еще не показывались (вообще и сегодня))
             $res = $db->fetchall("SELECT id,CONCAT('/',url,'/') AS url,title,title AS text FROM ".$sys_tables['pages_not_indexed_'.$bot_alias]." WHERE date_out = '0000-00-00 00:00:00' AND has_shown = 2 AND shown_today = 0 LIMIT 10",'id');
@@ -176,10 +176,10 @@ abstract class CrawlerCatcher{
             shuffle( $res );      
             
             //отмечаем на этих ссылках, что они показаны
-            if(!empty($res)) $db->query("UPDATE ".$sys_tables['pages_not_indexed_'.$bot_alias]." SET shown_today = shown_today + 1, shown_total = shown_total + 1 WHERE id IN (".$links.")");
+            if(!empty($res)) $db->querys("UPDATE ".$sys_tables['pages_not_indexed_'.$bot_alias]." SET shown_today = shown_today + 1, shown_total = shown_total + 1 WHERE id IN (".$links.")");
             
             //записываем посещение
-            $db->query("INSERT INTO ".$sys_tables['pages_visits_'.$bot_alias."_day"]." (url,id_page_in_stack,visit_date) VALUES (?,?,NOW())",$_SERVER['REQUEST_URI'],(!empty($in_stack)?$in_stack:0));
+            $db->querys("INSERT INTO ".$sys_tables['pages_visits_'.$bot_alias."_day"]." (url,id_page_in_stack,visit_date) VALUES (?,?,NOW())",$_SERVER['REQUEST_URI'],(!empty($in_stack)?$in_stack:0));
         }
         
         Response::SetArray( 'crawler_links', $res );
@@ -226,8 +226,8 @@ abstract class CrawlerCatcher{
             if(!empty($errors[$key])) continue;
             else{
                 $check_exists = $db->fetch("SELECT id FROM ".$sys_tables['pages_not_indexed_'.$bot_alias]." WHERE url = '".$url."'");
-                if(!empty($check_exists)) $db->query("UPDATE ".$sys_tables['pages_not_indexed_'.$bot_alias]." SET date_out = '0000-00-00 00:00:00', bad_page = 2");
-                else $db->query("INSERT INTO ".$sys_tables['pages_not_indexed_'.$bot_alias]." (url,title,description,date_in,date_out,bad_page) VALUES (?,?,?,NOW(),'0000-00-00 00:00:00',2)",$url,$ankor,$ankor);
+                if(!empty($check_exists)) $db->querys("UPDATE ".$sys_tables['pages_not_indexed_'.$bot_alias]." SET date_out = '0000-00-00 00:00:00', bad_page = 2");
+                else $db->querys("INSERT INTO ".$sys_tables['pages_not_indexed_'.$bot_alias]." (url,title,description,date_in,date_out,bad_page) VALUES (?,?,?,NOW(),'0000-00-00 00:00:00',2)",$url,$ankor,$ankor);
             } 
         }
         return $errors;

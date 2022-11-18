@@ -25,7 +25,7 @@ class HousingEstatesRating {
         $mailer->From = 'pr@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet, "BSN.ru");
         // попытка отправить
-        $db->query(" UPDATE ".$this->tables['housing_estates_experts']." SET sent_mail = 3 WHERE id = ?", $id_expert);
+        $db->querys(" UPDATE ".$this->tables['housing_estates_experts']." SET sent_mail = 3 WHERE id = ?", $id_expert);
         return $mailer->Send();
         
     }

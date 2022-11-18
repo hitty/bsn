@@ -59,9 +59,9 @@ function delete_page($id){
     $del_ids[$id] = array('object_id' => $id);
     $del_ids = array_keys($del_ids);
     // удаление из pages
-    $d2 = $db->query("DELETE FROM ".$sys_tables['pages']." WHERE id IN (".implode(',',$del_ids).")");
+    $d2 = $db->querys("DELETE FROM ".$sys_tables['pages']." WHERE id IN (".implode(',',$del_ids).")");
     // удаление из pages_map
-    $d1 = $db->query("DELETE FROM ".$sys_tables['pages_map']." WHERE path LIKE CONCAT(?,'.%') OR id=?",$page_in_map['path'],$page_in_map['id']);
+    $d1 = $db->querys("DELETE FROM ".$sys_tables['pages_map']." WHERE path LIKE CONCAT(?,'.%') OR id=?",$page_in_map['path'],$page_in_map['id']);
     if($d1 && $d2) return $del_ids;
     return false;
 }
@@ -88,13 +88,13 @@ function move_page($page_id, $target_map_id){
         if(strpos($target['path'],$object['path'])===0) return false;   // перемещение в потомка запрещено (зацикливание)
     }
     // updating node parent
-    $result = $db->query("UPDATE ".$sys_tables['pages_map']."
+    $result = $db->querys("UPDATE ".$sys_tables['pages_map']."
                                 SET parent_id=? WHERE id=?",
                                 $target_map_id,
                                 $object['id']);
     if(!$result) return false;
     // перемещаем "кустик"
-    $result = $db->query("UPDATE ".$sys_tables['pages_map']." 
+    $result = $db->querys("UPDATE ".$sys_tables['pages_map']." 
                                 SET path = REPLACE(path,?,?),
                                     level = (level-?+?)
                                 WHERE path = ?
@@ -108,7 +108,7 @@ function move_page($page_id, $target_map_id){
                               );
     if(!$result) {
         // возвращаем узел к начальному состоянию
-        $result = $db->query("UPDATE ".$sys_tables['pages_map']."
+        $result = $db->querys("UPDATE ".$sys_tables['pages_map']."
                                     SET parent_id=? WHERE id=?"
                                     , $object['parent_id']
                                     , $object['id']
@@ -138,7 +138,7 @@ function add_page_in_map($page_id, $map_parent_id){
                                 WHERE parent_id=?", $map_parent_id);
     if(empty($order_select) || $order_select['max_position']===null) $order_select = array('max_position'=>0);
     
-    $result = $db->query("INSERT INTO ".$sys_tables['pages_map']."
+    $result = $db->querys("INSERT INTO ".$sys_tables['pages_map']."
                             (object_id, parent_id, level, position)
                           VALUES 
                             (?, ?, ?, ?)"
@@ -149,7 +149,7 @@ function add_page_in_map($page_id, $map_parent_id){
                           );
     if(!$result) return false;
     $id = $db->insert_id;
-    $result = $db->query("UPDATE ".$sys_tables['pages_map']." SET path=? WHERE id=?"
+    $result = $db->querys("UPDATE ".$sys_tables['pages_map']." SET path=? WHERE id=?"
                         , (empty($target['path']) ? '' : $target['path'].'.').$id
                         , $id
                         );

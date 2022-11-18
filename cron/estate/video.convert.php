@@ -30,7 +30,7 @@ Cookie::Init();
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 include('includes/class.videos.php');     // Photos (работа с графикой)

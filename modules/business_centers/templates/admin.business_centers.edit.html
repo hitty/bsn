@@ -40,19 +40,7 @@
 	    <script src="//maps.googleapis.com/maps/api/js?v=3.9&sensor=true"></script>
         <div id="map_canvas" style="width:100%; height:500px;margin-top:5px"></div> 
 	</fieldset>    
-	{if!empty $data_mapping['id']['value']}
-    	<fieldset>
-            <h3>Загрузка фотографий для поселка #{$data_mapping['id']['value']} (Минимальные размеры {php:echo Config::Get('images/min_width')*0.8;} x {php:echo Config::Get('images/min_height')*0.8;} px)</h3>
-            <input type="file" name="file_upload" id="file_upload" data-type="business_centers" data-id="{$data_mapping['id']['value']}" data-url="/admin/estate/business_centers/photos/" data-session-id="{php:echo session_id();}"/>
-            <input type="hidden" name="id_priority"/>   
-        </fieldset>  
-    {/if} 
-    <p>
-        {if!empty $data_mapping['id']['value']}
-            <input type="submit" value="Сохранить" name="submit">
-            <input type="submit" value="Сохранить и перейти в список поселков" name="submit" id="redirect_submit">
-        {else} <input type="submit" value="Сохранить и добавить фото" name="submit">{/if}
-    </p>    
+    </p>
      
 </form>
 <script type="text/javascript">

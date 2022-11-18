@@ -35,8 +35,8 @@ require_once('includes/class.robot.php');        // класс с функция
 require_once('includes/functions.php');          // функции  из крона
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 
 
@@ -123,7 +123,7 @@ while($page_num<84){
         else{
             //если нашли, и это не спарсенный объект, помечаем, как имеющееся и у нас, и на novostroy.su
             if ($similar['parsed']!=1){
-                $db->query("UPDATE ".Config::$values['sys_tables']['housing_estates']." SET ".Config::$values['sys_tables']['housing_estates'].".parsed=3 WHERE id=".$similar['id']);
+                $db->querys("UPDATE ".Config::$values['sys_tables']['housing_estates']." SET ".Config::$values['sys_tables']['housing_estates'].".parsed=3 WHERE id=".$similar['id']);
                 ++$total_counter['existed'];
             }
         }

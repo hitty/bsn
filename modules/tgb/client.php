@@ -242,7 +242,7 @@ switch(true){
                  if(!empty($val['id'])) $values[] = "(".$val['id'].", '".Host::getUserIp()."','".$db->real_escape_string($_SERVER['HTTP_USER_AGENT'])."','".Host::getRefererURL()."')";
             }
             //сохранение статистики показов для не роботов
-            if(!Host::$is_bot && !empty($values)) $db->query("INSERT INTO ".$sys_tables['tgb_stats_day_shows']." (id_parent, ip, browser, ref) VALUES ".implode(',',$values));
+            if(!Host::$is_bot && !empty($values)) $db->querys("INSERT INTO ".$sys_tables['tgb_stats_day_shows']." (id_parent, ip, browser, ref) VALUES ".implode(',',$values));
             
             $module_template = 'list.html';
 
@@ -301,7 +301,7 @@ switch(true){
                                 case 'adv03-r' : $from = 6; break; // google adwords
                                 case 'adv04-r' : $from = 7; break; // yandex direct
                             }
-                            $db->query("INSERT INTO ".$sys_tables['tgb_stats_day_clicks']." SET `id_parent`=?, `from` = ?, real_ref=?, ref=?, ip=?, agent = ?", $id, $from, $ref, $real_ref, $ip, $_SERVER['HTTP_USER_AGENT']); 
+                            $db->querys("INSERT INTO ".$sys_tables['tgb_stats_day_clicks']." SET `id_parent`=?, `from` = ?, real_ref=?, ref=?, ip=?, agent = ?", $id, $from, $ref, $real_ref, $ip, $_SERVER['HTTP_USER_AGENT']);
                             Host::Redirect(!empty($item['direct_link']) ? trim($item['direct_link']) : 'https://www.bsn.ru/');
                         }
                     }
@@ -325,15 +325,15 @@ switch(true){
                 }            
                 $from = 5;
                 if(!empty($item)) {
-                    $res=$db->query("INSERT INTO ".$sys_tables['tgb_stats_day_shows']." SET `id_parent`=?, ref=?, ip=?, browser = ?", $item['id'], $ref, Host::getUserIp(), $_SERVER['HTTP_USER_AGENT']); 
+                    $res=$db->querys("INSERT INTO ".$sys_tables['tgb_stats_day_shows']." SET `id_parent`=?, ref=?, ip=?, browser = ?", $item['id'], $ref, Host::getUserIp(), $_SERVER['HTTP_USER_AGENT']);
                     
                     $real_ref = Host::getRefererURL();
                     $ip = Host::getUserIp();
                     //1 клик в 10 минут
                     $click = $db->fetch("SELECT * FROM ".$sys_tables['tgb_stats_day_clicks']." WHERE ip = ?", $ip);
-                    if(empty($click) && !empty($real_ref)) $res=$db->query("INSERT INTO ".$sys_tables['tgb_stats_day_clicks']." SET `id_parent`=?, `from` = ?, real_ref=?, ip=?, agent = ?", $item['id'], $from, $real_ref, $ip, $_SERVER['HTTP_USER_AGENT']); 
+                    if(empty($click) && !empty($real_ref)) $res=$db->querys("INSERT INTO ".$sys_tables['tgb_stats_day_clicks']." SET `id_parent`=?, `from` = ?, real_ref=?, ip=?, agent = ?", $item['id'], $from, $real_ref, $ip, $_SERVER['HTTP_USER_AGENT']);
                 }
-                $res=$db->query("INSERT INTO ".$sys_tables['popunder_clicks']." SET ref=?, real_ref=?, ip=?, browser = ?", $ref, !empty($item) ? implode(" :: ", $item) : $db->last_query, Host::getUserIp(), $_SERVER['HTTP_USER_AGENT']); 
+                $res=$db->querys("INSERT INTO ".$sys_tables['popunder_clicks']." SET ref=?, real_ref=?, ip=?, browser = ?", $ref, !empty($item) ? implode(" :: ", $item) : $db->last_query, Host::getUserIp(), $_SERVER['HTTP_USER_AGENT']);
             break;
     default:
         $module_template = '/templates/clearcontent.html';

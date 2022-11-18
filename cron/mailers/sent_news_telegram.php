@@ -30,9 +30,9 @@ require_once('includes/class.convert.php');      // Convert, Validate (конв�
 include('includes/class.content.php');       // Config (конфигурация сайта)
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 //$db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-//$db->query("set names ".Config::$values['mysql']['charset']);
+//$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.memcache.php');     // MCache (memcached, кеширование в памяти)
 require_once('includes/class.telegram.php');
 $memcache = new MCache(Config::$values['memcache']['host'], Config::$values['memcache']['port']);
@@ -61,7 +61,7 @@ switch(true){
             $content = $news->getNewsItemTelegramSnippet($item);
 			//TelegramController::pushToChannel($content['content'],false);
             Telegram::pushToChannel( $content['content'] );
-            if( !IS_DEBUG_MODE ) $db->query("UPDATE ".$sys_tables['news']." SET `telegram_feed` = 3 WHERE id = ?", $item['id']);
+            if( !IS_DEBUG_MODE ) $db->querys("UPDATE ".$sys_tables['news']." SET `telegram_feed` = 3 WHERE id = ?", $item['id']);
         }
        
 }

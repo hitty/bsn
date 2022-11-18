@@ -33,7 +33,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('cron/robot/class.xml2array.php');  // конвертация xml в array
 // вспомогательные таблицы модуля
@@ -85,7 +85,7 @@ while($_targetFile = readdir($dh)){
                 print_r($xml_str);
                 $external_link = $xml_str['response']['video']['formats']['format'][1]['types']['type']['encoded_url'];
                 if(!empty($external_link)) {
-                    $res = $db->query("UPDATE ".$sys_tables['video_konkurs']." SET external_link = ? WHERE id = ?",
+                    $res = $db->querys("UPDATE ".$sys_tables['video_konkurs']." SET external_link = ? WHERE id = ?",
                                    $external_link, $item['id']
                     );  
                     echo $db->last_query;

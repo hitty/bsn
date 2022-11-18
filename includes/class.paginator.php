@@ -53,7 +53,7 @@ class Paginator {
     private function PrepareFull($sql_full){
         global $db;
         $sql = $sql_full;
-        $t_result = $db->query($sql);
+        $t_result = $db->querys($sql);
         if($t_result) $row = $t_result->fetch_array(MYSQLI_ASSOC);
         $this->items_count = empty($row) ? 0 : $row['items_count'];
         $this->pages_count = ceil($this->items_count / $this->limit);

@@ -26,7 +26,7 @@ require_once('includes/class.template.php');
 require_once('includes/functions.php');
 require_once('includes/class.email.php');
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 $sys_tables = Config::$sys_tables;
 Response::SetString('img_folder',Config::Get('img_folders/live'));
@@ -166,7 +166,7 @@ if(!empty($users)){
                 $mailer->From = 'no-reply@bsn.ru';
                 $mailer->FromName = 'bsn.ru';                                                                
                 if ($mailer->Send()) {
-                    $db->query("UPDATE ".$sys_tables['objects_subscriptions']." SET `last_delivery` = NOW() WHERE id_user = ?",$user['id_user']);
+                    $db->querys("UPDATE ".$sys_tables['objects_subscriptions']." SET `last_delivery` = NOW() WHERE id_user = ?",$user['id_user']);
                     print_r($user['email']);
                 }
             }

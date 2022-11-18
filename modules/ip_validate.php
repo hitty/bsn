@@ -10,7 +10,7 @@
             // проверка на наличие JS
             ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 case 'js':
-                    $db->query("UPDATE ".$sys_tables['ips_list_js']." SET status = 1 WHERE ip = ? ", !empty(Host::$forwarded_user_ip) ? Host::$forwarded_user_ip : Host::$remote_user_ip);
+                    $db->querys("UPDATE ".$sys_tables['ips_list_js']." SET status = 1 WHERE ip = ? ", !empty(Host::$forwarded_user_ip) ? Host::$forwarded_user_ip : Host::$remote_user_ip);
                     break;
             }
             break;
@@ -46,7 +46,7 @@
                 
                 if($res['success'])
                 {
-                    $db->query("DELETE 
+                    $db->querys("DELETE 
                                 FROM 
                                     ".$sys_tables['blacklist_ips']." 
                                 WHERE 
@@ -54,8 +54,8 @@
                                     (  `range` = 2 AND ip = ? )", 
                                 Host::getUserIp(), Host::getUserIp()
                     );
-                    $db->query("DELETE FROM ".$sys_tables['visitors_ips_day']." WHERE ip = ? ", !empty(Host::$forwarded_user_ip) ? Host::$forwarded_user_ip : Host::$remote_user_ip);
-                    $db->query("DELETE FROM ".$sys_tables['ips_list_js']." WHERE ip = ? ", !empty(Host::$forwarded_user_ip) ? Host::$forwarded_user_ip : Host::$remote_user_ip);
+                    $db->querys("DELETE FROM ".$sys_tables['visitors_ips_day']." WHERE ip = ? ", !empty(Host::$forwarded_user_ip) ? Host::$forwarded_user_ip : Host::$remote_user_ip);
+                    $db->querys("DELETE FROM ".$sys_tables['ips_list_js']." WHERE ip = ? ", !empty(Host::$forwarded_user_ip) ? Host::$forwarded_user_ip : Host::$remote_user_ip);
                     $refer = Session::GetString('referer');
                     Session::SetString('referer', false);
                     Host::Redirect(!empty($refer) ? $refer : '/');

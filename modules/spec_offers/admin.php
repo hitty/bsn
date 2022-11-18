@@ -500,7 +500,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['spec_offers_categories']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['spec_offers_categories']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -562,11 +562,11 @@ switch($action){
                     //Определение менеджера
                     if(!empty($auth->email)){
                         $manager = $db->fetch("SELECT * FROM ".$sys_tables['managers']." WHERE email = ? AND bsn_manager = ?",$auth->email,1);
-                        $db->query("INSERT INTO ".$sys_tables['spec_objects_credits']." SET id_object=?, id_manager=?, date_start=?, date_end=?, `limit`=?, day_limit=?",
+                        $db->querys("INSERT INTO ".$sys_tables['spec_objects_credits']." SET id_object=?, id_manager=?, date_start=?, date_end=?, `limit`=?, day_limit=?",
                                     $id_object, $manager['id'], date( 'Y-m-d H:i:s', strtotime($date_start)),  date( 'Y-m-d H:i:s', strtotime($date_end)), $limit, $day_limit
                         );
                         $ajax_result['lq_1'] = '';
-                        $db->query("UPDATE ".$sys_tables['managers']." SET pingola_credit_limit = ? WHERE email = ? AND bsn_manager = ?", $manager['pingola_credit_limit']-$limit,$auth->email,1);
+                        $db->querys("UPDATE ".$sys_tables['managers']." SET pingola_credit_limit = ? WHERE email = ? AND bsn_manager = ?", $manager['pingola_credit_limit']-$limit,$auth->email,1);
                         $ajax_result['lq_2'] = '';
                     }
                 }
@@ -778,7 +778,7 @@ switch($action){
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
 				$del_photos = Photos::DeleteAll('spec_offers_objects',$id);
-				$res = $db->query("DELETE FROM ".$sys_tables['spec_offers_objects']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['spec_offers_objects']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -793,7 +793,7 @@ switch($action){
 				//флаг
 				$flag_name = Request::GetString('flag',METHOD_POST);
 				if($id>0 && in_array($flag_name,array('base_page_flag','first_page_flag','first_page_head_flag','inestate_flag'))){
-					$res = $db->query("UPDATE ".$sys_tables['spec_offers_objects']." SET `".$flag_name."` = ? WHERE id=?", $status, $id);
+					$res = $db->querys("UPDATE ".$sys_tables['spec_offers_objects']." SET `".$flag_name."` = ? WHERE id=?", $status, $id);
 					$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 					if($ajax_mode){
 						$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));
@@ -999,7 +999,7 @@ switch($action){
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
 				$del_photos = Photos::DeleteAll('spec_offers_packets',$id);
-				$res = $db->query("DELETE FROM ".$sys_tables['spec_offers_packets']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['spec_offers_packets']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -1014,7 +1014,7 @@ switch($action){
 				//флаг
 				$flag_name = Request::GetString('flag',METHOD_POST);
 				if($id>0 && in_array($flag_name,array('base_page_flag','first_page_flag','first_page_head_flag','inestate_flag'))){
-					$res = $db->query("UPDATE ".$sys_tables['spec_offers_packets']." SET `".$flag_name."` = ? WHERE id=?", $status, $id);
+					$res = $db->querys("UPDATE ".$sys_tables['spec_offers_packets']." SET `".$flag_name."` = ? WHERE id=?", $status, $id);
 					$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 					if($ajax_mode){
 						$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));

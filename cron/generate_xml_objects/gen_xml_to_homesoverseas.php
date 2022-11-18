@@ -29,7 +29,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 
 
@@ -40,8 +40,8 @@ define('__URL__','http://www.interestate.ru/');
 $db->select_db('estate');
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = '".Config::$values['mysql']['lc_time_names']."';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -50,7 +50,7 @@ $log = array();
 $liv_count=0; $build_count=0; $vil_count=0;
 
 $db->select_db('inter_site');
-$db->query('set names utf8');
+$db->querys('set names utf8');
 
 $xml = new DOMDocument('1.0','UTF-8');
 
@@ -66,13 +66,13 @@ $sql = "SELECT
         LEFT JOIN `inter_country` c ON c.id=o.id_country
         WHERE `o`.`actual`='Y' AND c.actual='Y' AND `cost`>0 AND `o`.`idate` < NOW() - INTERVAL 5 DAY AND `o`.`id_htype` NOT IN ".$estates." AND `o`.`id_curr` IN (2,3,4,23,8)
         ";
-$res = $db->query($sql) or die($db->error);
+$res = $db->querys($sql) or die($db->error);
 
 while($row = $res->fetch_array())
 {
     $good_photo=array();
     //если есть хотя бы 1 большая фотография - записывать в xml
-    $photo_res = $db->query("(SELECT `pic` FROM `inter_pics` WHERE `id_object` = ".$row['id'].") UNION
+    $photo_res = $db->querys("(SELECT `pic` FROM `inter_pics` WHERE `id_object` = ".$row['id'].") UNION
                              (SELECT `pic` FROM `inter_plans` WHERE `id_object` = ".$row['id'].")") or die($db->error);
     while($photo_row = $photo_res->fetch_array(MYSQL_ASSOC)){
         if(file_exists(INTER_ROOT_PATH.'/object_pics/'.$photo_row['pic'])) {

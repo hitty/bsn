@@ -64,7 +64,7 @@ switch(true){
                 $status = Request::GetInteger('status',METHOD_POST);
                 
                 //обновляем статус:
-                $res = $db->query("UPDATE ".$sys_tables['mortgage_applications_recievers']." SET status = ? WHERE id_bank = ? AND id_application = ?",$status,$id_bank,$id);
+                $res = $db->querys("UPDATE ".$sys_tables['mortgage_applications_recievers']." SET status = ? WHERE id_bank = ? AND id_application = ?",$status,$id_bank,$id);
                 $id_admin = $db->fetch("SELECT id FROM ".$sys_tables['users']." WHERE agency_admin = 1 AND id_agency = ?",$id_bank);
                 $id_admin = (empty($id_admin) || empty($id_admin['id']) ? 0 : $id_admin['id']);
                 
@@ -75,8 +75,8 @@ switch(true){
                                           WHERE ".$sys_tables['mortgage_applications'].".id = ?",$id);
                     $income = (empty($income) || empty($income['cost']) ? 0 : $income['cost']);
                     if(!empty($id_admin)){
-                        $db->query("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,id_parent,income,id_initiator,action_source) VALUES (NOW(),?,?,?,?,?,?)",$id_admin,'mortgage_application',$id,$income,$auth->id,1);
-                        $db->query("UPDATE ".$sys_tables['users']." SET balance = balance + ? WHERE id = ?",$income,$id_admin);
+                        $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,id_parent,income,id_initiator,action_source) VALUES (NOW(),?,?,?,?,?,?)",$id_admin,'mortgage_application',$id,$income,$auth->id,1);
+                        $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance + ? WHERE id = ?",$income,$id_admin);
                     }
                 }
                 
@@ -262,8 +262,8 @@ switch(true){
                                 
                                 //списание
                                 if(!empty($bank_info['admin_id'])){
-                                    $db->query("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,id_parent,expenditure,action_source) VALUES (NOW(),?,?,?,?,?)",$bank_info['admin_id'],'mortgage_application',$id,$expenditure,1);
-                                    $db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$expenditure,$bank_info['admin_id']);
+                                    $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,id_parent,expenditure,action_source) VALUES (NOW(),?,?,?,?,?)",$bank_info['admin_id'],'mortgage_application',$id,$expenditure,1);
+                                    $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$expenditure,$bank_info['admin_id']);
                                 }
                                 
                             }
@@ -300,7 +300,7 @@ switch(true){
                     
                     //обновляем таблицу получателей
                     $banks_selected = Request::GetString('banks_selected',METHOD_POST);
-                    $db->query("DELETE FROM ".$sys_tables['mortgage_applications_recievers']." WHERE id_application = ?",$id);
+                    $db->querys("DELETE FROM ".$sys_tables['mortgage_applications_recievers']." WHERE id_application = ?",$id);
                     if(!empty($banks_selected)){
                         $banks_selected = array_map("Convert::toInt",explode(',',$banks_selected));
                         $line_to_insert = array('id_application'=>$id,'id_bank'=>0,'status'=>$info['status']);
@@ -339,7 +339,7 @@ switch(true){
             $ajax_result['ok'] = false;
             break;
         }else{
-            $res = $db->query("DELETE FROM ".$sys_tables['mortgage_applications']." WHERE id = ?",$id);
+            $res = $db->querys("DELETE FROM ".$sys_tables['mortgage_applications']." WHERE id = ?",$id);
             $ajax_result['type'] = 'del';
             $ajax_result['ids'] = array($id);
             $ajax_result['ok'] = $res;

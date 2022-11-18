@@ -1,4 +1,4 @@
-<?php   
+<?php
 $overall_memory_usage = memory_get_peak_usage();
 $overall_time_counter = microtime( true );
 //DEBUG - local
@@ -60,8 +60,8 @@ Banners::Init();
 // Инициализация рабочих классов
 $memcache = new MCache(Config::$values['memcache']['host'], Config::$values['memcache']['port']);
 $db = new mysqli_db(Config::$values[ DEBUG_MODE ? 'mysql' : 'mysql' ]['host'], Config::$values[ DEBUG_MODE ? 'mysql' : 'mysql' ]['user'], Config::$values[ DEBUG_MODE ? 'mysql' : 'mysql' ]['pass']);
-$db->query("set names ".Config::$values[ DEBUG_MODE ? 'mysql' : 'mysql' ]['charset']);
-$db->query("SET lc_time_names = '".Config::$values[ DEBUG_MODE ? 'mysql' : 'mysql' ]['lc_time_names']."';");
+$db->querys("set names ".Config::$values[ DEBUG_MODE ? 'mysql' : 'mysql' ]['charset']);
+$db->querys("SET lc_time_names = '".Config::$values[ DEBUG_MODE ? 'mysql' : 'mysql' ]['lc_time_names']."';");
  
 FileCache::Init('filecache');
 $auth = new Auth();

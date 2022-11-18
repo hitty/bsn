@@ -18,7 +18,7 @@ function dber_estate_live_sell_remove($user_id, $remove_options)
 		$sql = "DELETE from flatdata.livtrad where user_id = '" . $user_id . "' AND arend = 'N';";
 	}
 
-	if($db->query($sql))
+	if($db->querys($sql))
 	{
 		return $db->affected_rows;
 	}

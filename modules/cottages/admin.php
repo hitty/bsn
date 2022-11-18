@@ -51,8 +51,8 @@ else {
 
 /*
 for($i=2; $i<=40; $i++){
-   $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_full_shows']." SET date = CURDATE() - INTERVAL ".$i." DAY, amount = ".mt_rand(150,300).", type = 2, id_parent = 163");
-   $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_full_clicks']." SET date = CURDATE() - INTERVAL ".$i." DAY, amount = ".mt_rand(15,30).", type = 2, id_parent = 163");
+   $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_full_shows']." SET date = CURDATE() - INTERVAL ".$i." DAY, amount = ".mt_rand(150,300).", type = 2, id_parent = 163");
+   $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_full_clicks']." SET date = CURDATE() - INTERVAL ".$i." DAY, amount = ".mt_rand(15,30).", type = 2, id_parent = 163");
 }
 */
 
@@ -64,7 +64,7 @@ switch($action){
         $id = Request::GetInteger('id', METHOD_POST);
         $id_manager = Request::GetInteger('id_manager', METHOD_POST);
         if(!empty($id_manager) && !empty($id)) {
-            $res = $db->query("UPDATE ".$sys_tables['cottages']." SET id_manager = ? WHERE id = ?", $id_manager, $id);
+            $res = $db->querys("UPDATE ".$sys_tables['cottages']." SET id_manager = ? WHERE id = ?", $id_manager, $id);
             $ajax_result['ok'] = $res;
         }
         break;               
@@ -143,7 +143,7 @@ switch($action){
 				break;
 			case 'del':
 				$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-				$res = $db->query("DELETE FROM ".$sys_tables['cottages_developers']." WHERE id=?", $id);
+				$res = $db->querys("DELETE FROM ".$sys_tables['cottages_developers']." WHERE id=?", $id);
 				$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 				if($ajax_mode){
 					$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -275,7 +275,7 @@ switch($action){
                     break;
                 case 'del':
                     $id = empty($this_page->page_parameters[4]) ? 0 : $this_page->page_parameters[4];
-                    $res = $db->query("DELETE FROM ".$sys_tables['country_demand']." WHERE id=?", $id);
+                    $res = $db->querys("DELETE FROM ".$sys_tables['country_demand']." WHERE id=?", $id);
                     $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -395,7 +395,7 @@ switch($action){
                     break;
                 case 'del':
                     $id = empty($this_page->page_parameters[4]) ? 0 : $this_page->page_parameters[4];
-                    $res = $db->query("DELETE FROM ".$sys_tables['country_demand_members']." WHERE id=?", $id);
+                    $res = $db->querys("DELETE FROM ".$sys_tables['country_demand_members']." WHERE id=?", $id);
                     $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -509,7 +509,7 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['analytics_cottage_settlements']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['analytics_cottage_settlements']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -863,7 +863,7 @@ switch($action){
                     //обновление ЧПУ
                     $chpu_title = createCHPUTitle($info['title']);
                     $chpu_item = $db->fetch("SELECT * FROM ".$sys_tables['cottages']." WHERE chpu_title = ?", $chpu_title);
-                    $db->query("UPDATE ".$sys_tables['cottages']." SET chpu_title = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
+                    $db->querys("UPDATE ".$sys_tables['cottages']." SET chpu_title = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
 					if(!empty($res)){
 						// редирект на редактирование свеженькой страницы
 						if(!empty($res)) {
@@ -889,7 +889,7 @@ switch($action){
 	case 'del':
 		$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
 		$del_photos = Photos::DeleteAll('cottages',$id);
-		$res = $db->query("DELETE FROM ".$sys_tables['cottages']." WHERE id=?", $id);
+		$res = $db->querys("DELETE FROM ".$sys_tables['cottages']." WHERE id=?", $id);
 		$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 		if($ajax_mode){
 			$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

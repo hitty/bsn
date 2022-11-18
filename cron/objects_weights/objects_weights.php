@@ -34,8 +34,8 @@ require_once('includes/class.estate.php');     // методы для подсч
 require_once('includes/functions.php');    // функции  из крона
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 
 
@@ -63,7 +63,7 @@ foreach($estate_types as $key=>$estate_type){
     foreach($list_unweighted as $k=>$item_data){
         //считаем, сколько фотографий у объекта
         $item_weight = $weight->getItemWeight($item_data['id'],$estate_type);
-        $db->query("UPDATE ".$sys_tables[$estate_type]." SET weight=? WHERE id=?",$item_weight,$item_data['id']);
+        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET weight=? WHERE id=?",$item_weight,$item_data['id']);
     }
 }
 /*
@@ -77,7 +77,7 @@ while ($list_unweighted){
         //считаем, сколько фотографий у объекта
         $photos_count = $db->fetch("SELECT COUNT(*) AS count FROM ".$sys_tables[$estate_type.'_photos']." WHERE id_parent=".$item_data['id'])['count'];
         $item_weight = Estate::getItemWeight($item_data,$photos_count,$build_weights,$photos_weights,$estate_type);
-        $db->query("UPDATE ".$sys_tables[$estate_type]." SET weight=? WHERE id=?",$item_weight,$item_data['id']);
+        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET weight=? WHERE id=?",$item_weight,$item_data['id']);
     }
     $fetch_limit += 500;
     $list_unweighted = $db->fetchall("SELECT * FROM ".$sys_tables[$estate_type]." WHERE weight=0 LIMIT ".($fetch_limit-500).",".$fetch_limit);

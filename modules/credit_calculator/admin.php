@@ -333,7 +333,7 @@ switch($action){
 		$value = Request::GetString('value',METHOD_POST);
 		$status = $action=='restore'?1:3;
 		if($id>0){
-			$res = $db->query("UPDATE ".$sys_tables['credit_calculator']." SET `published` = ? WHERE id=?", $status, $id) or die($db->error);
+			$res = $db->querys("UPDATE ".$sys_tables['credit_calculator']." SET `published` = ? WHERE id=?", $status, $id) or die($db->error);
 			$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 			if($ajax_mode){
 				$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));
@@ -348,7 +348,7 @@ switch($action){
         $value = Request::GetString('value',METHOD_POST);
          $status = $value == 'checked'?1:2;
         if($id>0){
-            $res = $db->query("UPDATE ".$sys_tables['credit_calculator']." SET `enabled` = ? WHERE id=?", $status, $id);
+            $res = $db->querys("UPDATE ".$sys_tables['credit_calculator']." SET `enabled` = ? WHERE id=?", $status, $id);
             $results['setStatus'] = $db->affected_rows>0 ? $id : -1;
             if($ajax_mode){
                 $ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));

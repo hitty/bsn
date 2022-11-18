@@ -70,9 +70,9 @@ switch(true){
                     );
 
                     if(empty($check)){
-                        $res = $db->query("INSERT INTO ".$sys_tables['konkurs_votings']." SET id_konkurs = ?, vote_id_category = ?, vote_id_member = ?, ip = ?, datetime = NOW()",
+                        $res = $db->querys("INSERT INTO ".$sys_tables['konkurs_votings']." SET id_konkurs = ?, vote_id_category = ?, vote_id_member = ?, ip = ?, datetime = NOW()",
                                            $list['id_konkurs'],$list['id_category'],$id,$user_ip);
-                        $res1 = $db->query("UPDATE ".$sys_tables['konkurs_members']." SET amount = amount+1 WHERE id=?",$id);
+                        $res1 = $db->querys("UPDATE ".$sys_tables['konkurs_members']." SET amount = amount+1 WHERE id=?",$id);
                         $ajax_result['ok'] = $res && $res1;
                     }
                 }
@@ -162,7 +162,7 @@ switch(true){
 
                     if (!Botobor_Keeper::get()->isRobot()) {
                         //записываем в БД
-                        $res = $db->query("INSERT INTO ".$sys_tables['konkurs_members']." 
+                        $res = $db->querys("INSERT INTO ".$sys_tables['konkurs_members']." 
                                     (title,id_konkurs,id_category,email,text, status)
                                     VALUES
                                      (?,?,?,?,?,?)"
@@ -220,7 +220,7 @@ switch(true){
                                 // генерируем пароль
                                 $reg_passwd = substr(md5(time()),-6);
                                 // создание нового пользователя в БД
-                                $res = $db->query("INSERT INTO ".$sys_tables['users']."
+                                $res = $db->querys("INSERT INTO ".$sys_tables['users']."
                                                     (email,name,passwd,datetime,access)
                                                    VALUES
                                                     (?,?,?,NOW(),'')"

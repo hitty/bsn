@@ -39,7 +39,7 @@ switch(true){
             if(empty($user) && empty($auth->id) && !empty($email) && !empty($fio)){                                                // если пользователь с указанным имейлом или логином не зарегистрирован
                 $password = randomstring(6);                                  // генерация пароля по умолчанию
                 $hash_password = sha1(sha1($password));                       // вычисление хэша пароля
-                $res = $db->query("INSERT INTO ".$sys_tables['users']."
+                $res = $db->querys("INSERT INTO ".$sys_tables['users']."
                         (email,name,passwd,datetime,access)
                        VALUES
                         (?,?,?,NOW(),'')"
@@ -68,7 +68,7 @@ switch(true){
                  if($mailer->Send()) $ajax_result['ok'] = true;
             } else {
                 //обновление имен пользователя, если его нет
-                if(empty($user['name']) && empty($user['lastname']) && !empty($fio)) $db->query("UPDATE ".$sys_tables['users']." SET name = ? WHERE id = ?", $fio, $user['id']);
+                if(empty($user['name']) && empty($user['lastname']) && !empty($fio)) $db->querys("UPDATE ".$sys_tables['users']." SET name = ? WHERE id = ?", $fio, $user['id']);
                 //проверка на уже зарегенного 
                 $webinar_user = $db->fetch("SELECT * FROM ".$sys_tables['webinars_users']." WHERE id_user = ? AND id_parent = ?", $user['id'], $id);
                 if(!empty($webinar_user)){
@@ -88,7 +88,7 @@ switch(true){
             if(empty($webinar_user)){
                 $ajax_result['user'] = $user;
                 //записываем в БД вебинарских пользователей
-                $res = $db->query("INSERT INTO ".$sys_tables['webinars_users']." 
+                $res = $db->querys("INSERT INTO ".$sys_tables['webinars_users']." 
                              (id_parent,id_user)
                              VALUES
                              (?,?)",
@@ -214,7 +214,7 @@ switch(true){
             break;
         }
         
-        $db->query("UPDATE ".$sys_tables['webinars']." SET `views_count`=`views_count`+1 WHERE `id`=?",$item['id']);
+        $db->querys("UPDATE ".$sys_tables['webinars']." SET `views_count`=`views_count`+1 WHERE `id`=?",$item['id']);
         
         $today = new DateTime();  //сейчас
         $date_end = new DateTime(date('Y-m-d H:i:s', strtotime($item['datetime']))); //дата окончания показа

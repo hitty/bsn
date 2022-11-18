@@ -50,7 +50,7 @@ include_once('includes/class.db.mysqli.php');    // mysqli_db (база данн
 include_once('includes/class.estate.php');   
 include_once('includes/class.estate.subscriptions.php'); 
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables; 
 $sys_tables['pages_seo'] = 'common.pages_seo';
@@ -817,7 +817,7 @@ function genChpu($estate_type, $deal_type, $query_catalogs, $chpu, $item, $arr){
 
     if(empty($page_seo_item)){
         if(!empty($h1_title)){
-            $insert = $db->query("
+            $insert = $db->querys("
                                INSERT IGNORE INTO common.pages_seo
                                SET 
                                   url = '".$query_catalogs."',

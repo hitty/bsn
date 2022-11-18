@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -72,8 +72,8 @@ while($pic_dir = readdir($dh))
             $id = $item['id'];
             $images_count = $db->fetchall("SELECT * FROM ".$sys_tables['business_centers_photos']." WHERE id_parent = ".$id);
             if(count($images_count)<3){
-                $db->query("UPDATE ".$sys_tables['business_centers']." SET id_main_photo = 0 WHERE id = ?",$id);  
-                $db->query("DELETE FROM ".$sys_tables['business_centers_photos']." WHERE id_parent = ?",$id);  
+                $db->querys("UPDATE ".$sys_tables['business_centers']." SET id_main_photo = 0 WHERE id = ?",$id);
+                $db->querys("DELETE FROM ".$sys_tables['business_centers_photos']." WHERE id_parent = ?",$id);
                 echo $item['id']."\n";
                 $pic_dh = opendir($dir.$id);
                 while($images = readdir($pic_dh))

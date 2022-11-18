@@ -22,8 +22,8 @@ include('includes/functions.php');          // функции  из модуля
 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 
 $sys_tables = Config::$sys_tables;
 header('Content-Type: text/html; Charset='.Config::$values['site']['charset']);   
@@ -36,7 +36,7 @@ function fill_tables($systbl,$sourceFieldName){
     $list = $db->fetchall("SELECT `id`,`".$sourceFieldName."` FROM ".$systbl."");
     foreach($list as $k=>$item){
         $chpu_title = $item['id'].'_'.Convert::ToTranslit($item[$sourceFieldName]);
-        $db->query("UPDATE ".$systbl." SET `chpu_title` =? WHERE id=?", $chpu_title, $item['id'] );
+        $db->querys("UPDATE ".$systbl." SET `chpu_title` =? WHERE id=?", $chpu_title, $item['id'] );
         $r++;
     }
     echo "Records updated: ".$r."<br>";

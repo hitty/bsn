@@ -83,7 +83,7 @@ if(!empty($this_page->page_parameters[1])){
                     $mapping['pages']['url']['value'] = (empty($parent_url) ? '' : $parent_url.'/').$mapping['pages']['alias']['value'];
                     // если изменился url, то пересчитать его для всех других страниц
                     if($mapping['pages']['url']['value']!==$old_url){
-                        $db->query("
+                        $db->querys("
                             UPDATE ".$sys_tables['pages']." SET url = REPLACE(url, ?, ?)
                             WHERE url LIKE ?"
                             , $old_url

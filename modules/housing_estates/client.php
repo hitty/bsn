@@ -266,8 +266,8 @@ switch(true){
                                     $ids[] = '('.$item['id'].', 1, "'.Host::getUserIp().'", "'.$db->real_escape_string($_SERVER['HTTP_USER_AGENT']).'", "'.Host::getRefererURL().'")';
                                     $clear_ids[] = $item['id'];
                                 } 
-                                $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
-                                $db->query("UPDATE ".$sys_tables['housing_estates']." SET search_count = search_count + 1 WHERE id IN (".implode(',',$clear_ids).")");
+                                $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
+                                $db->querys("UPDATE ".$sys_tables['housing_estates']." SET search_count = search_count + 1 WHERE id IN (".implode(',',$clear_ids).")");
                             }
                             Response::SetArray('list', $list);
                             Response::SetInteger('full_count', $paginator->items_count);                
@@ -348,7 +348,7 @@ switch(true){
                                     $json = json_decode($coords,true); 
                                     $data = explode(" ",$json['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']);                      
                                     if(!empty($data[0]) && !empty($data[1])) {
-                                        $db->query("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$data[1],$data[0],$item['id']);
+                                        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$data[1],$data[0],$item['id']);
                                         $points[$key]['lat'] =  $data[1];
                                         $points[$key]['lng'] =  $data[0];
 
@@ -626,7 +626,7 @@ switch(true){
                         //увеличение счетчика показов
                         $ids = [];
                         foreach($list as $key=>$item) $ids[] = '('.$item['id'].', 1, "'.$db->real_escape_string(Host::getUserIp()).'", "'.$db->real_escape_string($_SERVER['HTTP_USER_AGENT']).'", "'.$db->real_escape_string(Host::getRefererURL()).'")';
-                        $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
+                        $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_shows']." (id_parent, type, ip, browser, ref) VALUES ".implode(",",$ids)."");
                         
                         if($ajax_mode) $ajax_result['ok'] = true;
                         Response::SetString('view_type', 'block');
@@ -762,7 +762,7 @@ switch(true){
 
             //увеличиваем счетчик просмотров если это не печать карточки
             if (!$print){
-                $db->query("UPDATE ".$sys_tables['housing_estates']." SET views_count = views_count + 1 WHERE id = ?",$item['id']);
+                $db->querys("UPDATE ".$sys_tables['housing_estates']." SET views_count = views_count + 1 WHERE id = ?",$item['id']);
             }
             // проверка на изранное
             $item = Favorites::ToItem($item,5);
@@ -875,7 +875,7 @@ switch(true){
                 $agent = Host::$user_agent;
                 $ip = Host::getUserIp();
                 if(!Host::isBot() && !Host::isBsn("estate_complexes_stats_day_clicks",$id) && isset($ref) && $ref!= '' && isset($agent) && $agent!='' && isset($ip) && $ip!='')
-                    $db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_day_clicks']." SET id_parent = ?, type = ?, ip = ?, browser = ?, ref = ?, server = ?, `module` = ?",
+                    $db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_day_clicks']." SET id_parent = ?, type = ?, ip = ?, browser = ?, ref = ?, server = ?, `module` = ?",
                         $id, 1, $ip, $agent, $ref, print_r($_SERVER, true), 'housing_estate'
                     );
                 //владелец карточки           
@@ -977,7 +977,7 @@ switch(true){
                 $prefix = ($auth->expert == 1)?"expert_":"";
                 //$prefix = "";
                 //записываем голос
-                $db->query("INSERT INTO ".$sys_tables['housing_estates_voting']." 
+                $db->querys("INSERT INTO ".$sys_tables['housing_estates_voting']." 
                             SET id_parent = ?, 
                                 rating = ?, 
                                 rating_fields = ?, 
@@ -988,7 +988,7 @@ switch(true){
                                 id_user = ?", $he_id, $rating, $rating_fields, Host::getUserIp(), $_SERVER['HTTP_USER_AGENT'], Host::getRefererURL(),(!empty($prefix)?1:2),(!empty($auth->id)?$auth->id:0));
                 //обновляем рейтинг ЖК
                 $new_rating = $db->fetch("SELECT AVG(rating) AS new_rating FROM ".$sys_tables['housing_estates_voting']." WHERE id_parent = ?",$he_id)['new_rating'];
-                $db->query("UPDATE ".$sys_tables['housing_estates']." SET rating = '".$new_rating."' WHERE id = ?",$he_id);
+                $db->querys("UPDATE ".$sys_tables['housing_estates']." SET rating = '".$new_rating."' WHERE id = ?",$he_id);
                 $ajax_result['new_value'] = number_format($new_rating,2);
                 $ajax_result['ok'] = true;
             }

@@ -129,9 +129,9 @@ switch($action){
                 break;
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['content_tags_categories']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['content_tags_categories']." WHERE id=?", $id);
                 if($res && $db->affected_rows) {
-                    $result = $db->query("DELETE FROM ".$sys_tables['content_tags']." WHERE id_category=?", $id);                    
+                    $result = $db->querys("DELETE FROM ".$sys_tables['content_tags']." WHERE id_category=?", $id);
                 }
                 $results['delete'] = ($res && !empty($result)) ? $id : -1;
             default:
@@ -179,19 +179,19 @@ switch($action){
                     $where = implode(',',$where);
                     //при необходимости удаляем строчки, где у таких объектов стоит целевой тег
                     if(!empty($where))
-                        $db->query("DELETE FROM ".$sys_tables['news_tags']." 
+                        $db->querys("DELETE FROM ".$sys_tables['news_tags']." 
                                     WHERE ".$sys_tables['news_tags'].".id_object IN(".$where.") AND ".$sys_tables['news_tags'].".id_tag =". $target_id);
                     //переназначаем вместо убираемых тегов целевой
-                    $db->query('UPDATE '.$sys_tables['news_tags'].' 
+                    $db->querys('UPDATE '.$sys_tables['news_tags'].' 
                                 SET '.$sys_tables['news_tags'].'.id_tag = '.$target_id.' 
                                 WHERE '.$sys_tables['news_tags'].'.id_tag = '.implode(' OR '.$sys_tables['news_tags'].'.id_tag = ',$notselected_ids));
                     //сколько прибавить к tag_count целевого тега
                     $add_to_count = $db->affected_rows;
                     //для убираемых тегов ставим tag_count = 0
-                    $db->query('DELETE FROM '.$sys_tables['content_tags'].' 
+                    $db->querys('DELETE FROM '.$sys_tables['content_tags'].' 
                                 WHERE '.$sys_tables['content_tags'].'.id = '.implode(' OR '.$sys_tables['content_tags'].'.id = ',$notselected_ids));
                     //целевому тегу устанавливаем корректное значение tag_count
-                    $db->query('UPDATE '.$sys_tables['content_tags'].'
+                    $db->querys('UPDATE '.$sys_tables['content_tags'].'
                                 SET '.$sys_tables['content_tags'].'.tag_count = '.$sys_tables['content_tags'].'.tag_count + ? WHERE id = ?',$add_to_count,$target_id);
                 }
                 $ajax_result['ok'] = true;
@@ -199,7 +199,7 @@ switch($action){
             case ($ajax_mode == true && $action == 'remove'):
                 $target_id = empty($this_page->page_parameters[3]) ? 0 : Convert::ToInt($this_page->page_parameters[3]);
                 //для тега, который удалили из группы похожих, удаляем для него id_similar и для тех, кто похож на него тоже (так как группа похожести может быть только одна, это корректно)
-                $res = $db->query("UPDATE ".$sys_tables['content_tags']." SET id_similar = 0 AND difference_level = 0 WHERE id = ? OR id_similar = ?",$target_id,$target_id);
+                $res = $db->querys("UPDATE ".$sys_tables['content_tags']." SET id_similar = 0 AND difference_level = 0 WHERE id = ? OR id_similar = ?",$target_id,$target_id);
                 $ajax_result['ok'] = $res;
                 break;
             case ($ajax_mode == false):
@@ -346,7 +346,7 @@ switch($action){
         break;
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-        $res = $db->query("DELETE FROM ".$sys_tables['content_tags']." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables['content_tags']." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if(!empty($res)){
             deleteTagLinks($id);

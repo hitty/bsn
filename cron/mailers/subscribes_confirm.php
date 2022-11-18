@@ -36,8 +36,8 @@ require_once('includes/class.email.php');
 require_once('includes/functions.php');
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -147,7 +147,7 @@ if(!empty($ids_to_delete)){
     $ids_to_delete = implode(',',$ids_to_delete);
     $subscr_to_delete = count(explode(',',$ids_to_delete));
     //удаляем подписки
-    $db->query("DELETE FROM ".$sys_tables['objects_subscriptions']." WHERE id IN (".$ids_to_delete.")");
+    $db->querys("DELETE FROM ".$sys_tables['objects_subscriptions']." WHERE id IN (".$ids_to_delete.")");
 }
 $mailer = new EMailer('mail');
 $mail_html .= $subscr_to_delete." подписок удалено у ".count($owners_ids)." пользователей:<br /> ".implode("<br />",$owners_ids);

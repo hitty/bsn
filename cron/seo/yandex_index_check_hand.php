@@ -35,8 +35,8 @@ require_once('includes/getid3/getid3.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -104,9 +104,9 @@ if(!empty($list_to_check)){
         
         if(!empty($query_result->response->results)){
             $in_index[] = $item['url'];
-            $db->query("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET in_index = 1,index_checked = NOW() WHERE id = ".$item['id']);
+            $db->querys("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET in_index = 1,index_checked = NOW() WHERE id = ".$item['id']);
         }else{
-            $db->query("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET index_checked = NOW() WHERE id = ".$item['id']);
+            $db->querys("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET index_checked = NOW() WHERE id = ".$item['id']);
             $not_in_index[] = $item['url'];
         } 
     }

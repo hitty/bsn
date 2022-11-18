@@ -37,8 +37,8 @@ require_once('includes/functions.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -124,9 +124,9 @@ foreach($list as $k => $item){
             // попытка отправить
             $manager_mailer->Send();             
         }
-        $db->query("UPDATE ".$sys_tables['textline_campaigns']." SET enabled = 2 date_end = '0000-00-00' , date_start = '0000-00-00' , clicks_limit = 0 , clicks_limit_notification = 1 WHERE id = ? ", $item['id'] );    
+        $db->querys("UPDATE ".$sys_tables['textline_campaigns']." SET enabled = 2 date_end = '0000-00-00' , date_start = '0000-00-00' , clicks_limit = 0 , clicks_limit_notification = 1 WHERE id = ? ", $item['id'] );    
     } else if($item['clicks_limit_notification'] == 1 && ( $item['clicks_limit'] - 10 <= $total_clicks)){ // предупреждение об окончании кликов
-        $db->query("UPDATE ".$sys_tables['textline_campaigns']." SET clicks_limit_notification = 2 WHERE id = ? ", $item['id'] );    
+        $db->querys("UPDATE ".$sys_tables['textline_campaigns']." SET clicks_limit_notification = 2 WHERE id = ? ", $item['id'] );    
         $clicks_left = $item['clicks_limit'] - ($total_clicks);
         Response::SetInteger( 'clicks_left' , $clicks_left );
         if(!empty($item['email']))        {

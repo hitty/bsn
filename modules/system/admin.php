@@ -87,8 +87,8 @@ switch(true){
                     break;
                 }
                 $exists = $db->fetch("SELECT id FROM ".$sys_tables['blacklist_ips']." WHERE ip = ?",$ip);
-                if(empty($exists)) $res = $db->query("INSERT INTO ".$sys_tables['blacklist_ips']." (ip,block_start,block_type,place_found,block_initiator) VALUES (?,NOW(),?,9,?)", $ip, $block_type, $auth->id);
-                else $res = $db->query("UPDATE ".$sys_tables['blacklist_ips']." SET ".($block_type > 0 ? " block_start = NOW(), " : "")."block_type = ?, block_initiator = ? WHERE ip = ?",$block_type, $auth->id, $ip);
+                if(empty($exists)) $res = $db->querys("INSERT INTO ".$sys_tables['blacklist_ips']." (ip,block_start,block_type,place_found,block_initiator) VALUES (?,NOW(),?,9,?)", $ip, $block_type, $auth->id);
+                else $res = $db->querys("UPDATE ".$sys_tables['blacklist_ips']." SET ".($block_type > 0 ? " block_start = NOW(), " : "")."block_type = ?, block_initiator = ? WHERE ip = ?",$block_type, $auth->id, $ip);
                 //
                 $ajax_result = array('ok' => true,'result' => $res, 'ids'=>array($id));
                 break;

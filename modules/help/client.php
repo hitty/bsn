@@ -67,7 +67,7 @@ switch(true){
         if (!empty($this_page->page_parameters[2]) && !in_array($this_page->page_parameters[2],$usefulness)) {$this_page->http_code=404; break;}
         if (!empty($this_page->page_parameters[2])){
             if(Validate::CanVote($section,2592000,$this_page->page_parameters[2])){ //значение 2592000 = 30 дней не дает голосовать
-                $db->query("UPDATE ".$sys_tables['help_articles']." 
+                $db->querys("UPDATE ".$sys_tables['help_articles']." 
                             SET ".$this_page->page_parameters[2]." = ".$this_page->page_parameters[2]." + 1 
                             WHERE id=".$article_id);
                 $_COOKIE['bsnvoteinterval'.$section] = $this_page->page_parameters[2];
@@ -78,7 +78,7 @@ switch(true){
             Response::SetString('already_voted',$_COOKIE['bsnvoteinterval'.$section]);
         }
         //инкремент просмотра статьи
-        $db->query("UPDATE ".$sys_tables['help_articles']." SET views_count = views_count + 1 WHERE id=".$article_id);
+        $db->querys("UPDATE ".$sys_tables['help_articles']." SET views_count = views_count + 1 WHERE id=".$article_id);
         
         //хлебные крошки
         $tag_title = $categories[$article['id_category']]['title']; 

@@ -38,8 +38,8 @@ require_once('includes/functions.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 $argc = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : false;
 
@@ -49,7 +49,7 @@ $sys_tables = Config::$sys_tables;
 //---------- СТАТИСТИКА СПЕЦПРЕДЛОЖЕНИЙ, ОБЩАЯ ----------------------
 //подсчет статистики кликов по телефону
 for( $i=1; $i<=10; $i++ ){
-    $res = $db->query("
+    $res = $db->querys("
         INSERT INTO ".$sys_tables['banners_stats_show_full']."  
             ( id_parent,amount,date)  
         SELECT 
@@ -58,7 +58,7 @@ for( $i=1; $i<=10; $i++ ){
         WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY
         GROUP BY  id_parent 
     ");
-    $res = $res && $db->query("
+    $res = $res && $db->querys("
         INSERT INTO ".$sys_tables['banners_stats_click_full']." 
             ( id_parent,amount,date,`from`, position)  
         SELECT 
@@ -67,7 +67,7 @@ for( $i=1; $i<=10; $i++ ){
         WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY
         GROUP BY  id_parent, `from`, position 
     ");
-    $db->query( " DELETE FROM " . $sys_tables['banners_stats_show_day'] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
-    $db->query( " DELETE FROM " . $sys_tables['banners_stats_click_day'] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
+    $db->querys( " DELETE FROM " . $sys_tables['banners_stats_show_day'] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
+    $db->querys( " DELETE FROM " . $sys_tables['banners_stats_click_day'] ." WHERE DATE(`datetime`) = CURDATE() - INTERVAL " . $i  . " DAY ");
 }
 ?>

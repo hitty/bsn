@@ -207,12 +207,12 @@ class Auth {
         $user_ip = Host::getUserIp();
         
         $userip_exists = $db->fetch("SELECT id FROM ".$this->sys_tables['users_ips']." WHERE ip = ? AND id_user = ?",$user_ip,$user_id);
-        if(empty($userip_exists) && empty($userip_exists['id'])) $res = $res && $db->query("INSERT IGNORE INTO ".$this->sys_tables['users_ips']." (id_user,ip,date_enter) VALUES (?,?,NOW())",$user_id,$user_ip);
-        else $res = $res && $db->query("UPDATE ".$this->sys_tables['users_ips']." SET date_enter = NOW() WHERE id = ?",$userip_exists['id']);
+        if(empty($userip_exists) && empty($userip_exists['id'])) $res = $res && $db->querys("INSERT IGNORE INTO ".$this->sys_tables['users_ips']." (id_user,ip,date_enter) VALUES (?,?,NOW())",$user_id,$user_ip);
+        else $res = $res && $db->querys("UPDATE ".$this->sys_tables['users_ips']." SET date_enter = NOW() WHERE id = ?",$userip_exists['id']);
         
         
         $ip_exists = $db->fetch("SELECT id FROM ".$this->sys_tables['ip_geodata']." WHERE ip = ?",$user_ip);
-        if(empty($ip_exists)) $res = $res && $db->query("INSERT IGNORE INTO ".$this->sys_tables['ip_geodata']." (ip) VALUES (?)",$user_ip);
+        if(empty($ip_exists)) $res = $res && $db->querys("INSERT IGNORE INTO ".$this->sys_tables['ip_geodata']." (ip) VALUES (?)",$user_ip);
         return $res;
     }
     
@@ -341,7 +341,7 @@ class Auth {
                 }
             }
             
-            $db->query("UPDATE ".$this->users_table." SET `last_enter` = NOW() WHERE `id` =".$this->id) or die($db->error);
+            $db->querys("UPDATE ".$this->users_table." SET `last_enter` = NOW() WHERE `id` =".$this->id) or die($db->error);
             $this->authorized = true;
             
             Favorites::Init();

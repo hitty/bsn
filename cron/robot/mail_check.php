@@ -30,8 +30,8 @@ require_once('includes/mailboxer/mailboxer.class');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $module_tables = include('cron/conf_tables.php');
@@ -75,7 +75,7 @@ function checkLogin($login, $passwd){
     echo $sql = "SELECT `users`.`id` FROM ".Config::$sys_tables['users']."
                  WHERE `login` = '" . $login . "' AND `passwd` = '" . sha1(sha1($passwd)) . "' LIMIT 1;";
     logf_s($sql);
-    $result = $db->query($sql);
+    $result = $db->querys($sql);
     if($db->affected_rows == 1){
         list($id) = $result->fetch_array();
 		echo "ID = ".$id;

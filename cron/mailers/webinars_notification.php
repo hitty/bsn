@@ -35,8 +35,8 @@ require_once('includes/class.template.php');     // Template (шаблониза
 require_once('includes/class.email.php');
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -49,7 +49,7 @@ $list = $db->fetchall("SELECT *,
                        WHERE status = 1 AND TIMESTAMPDIFF( HOUR, NOW(), `datetime`) <= 5 AND notification_status = 1");
 Response::SetString('mailer_title', 'Вебинары');                       
 foreach($list as $k=>$item){
-    $db->query("UPDATE ".$sys_tables['webinars']." SET notification_status = 2 WHERE id = ?", $item['id']);
+    $db->querys("UPDATE ".$sys_tables['webinars']." SET notification_status = 2 WHERE id = ?", $item['id']);
     $users = $db->fetchall("SELECT ".$sys_tables['webinars_users'].".*,
                                        TRIM(CONCAT(".$sys_tables['users'].".name, ' ', ".$sys_tables['users'].".lastname)) as user_name,
                                        TRIM(".$sys_tables['users'].".name) as name,

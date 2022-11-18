@@ -38,13 +38,13 @@ require_once('includes/getid3/getid3.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql_remote']['host'], Config::$values['mysql_remote']['user'], Config::$values['mysql_remote']['pass']);
-$db->query("set names ".Config::$values['mysql_remote']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql_remote']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
 
-$db->query( " DELETE FROM " . $sys_tables['estate_complexes_stats_full_clicks'] . ' WHERE id_parent = 539 AND type = 3 AND YEAR(date) = 2019');
-$db->query( " DELETE FROM " . $sys_tables['estate_complexes_stats_full_shows'] . ' WHERE id_parent = 539 AND type = 3 AND YEAR(date) = 2019');
+$db->querys( " DELETE FROM " . $sys_tables['estate_complexes_stats_full_clicks'] . ' WHERE id_parent = 539 AND type = 3 AND YEAR(date) = 2019');
+$db->querys( " DELETE FROM " . $sys_tables['estate_complexes_stats_full_shows'] . ' WHERE id_parent = 539 AND type = 3 AND YEAR(date) = 2019');
 
 for( $i=0; $i < 80; $i++ ){
     $data = [
@@ -56,7 +56,7 @@ for( $i=0; $i < 80; $i++ ){
     $amount = mt_rand( 1, 6 ) + mt_rand( -3, 3 );
     if( $amount <= 0 ) $amount = 1;
     
-    $db->query( " INSERT INTO " .$sys_tables['estate_complexes_stats_full_clicks'] . " SET 
+    $db->querys( " INSERT INTO " .$sys_tables['estate_complexes_stats_full_clicks'] . " SET 
                     id_parent = 539,
                     type = 3,
                     date = '2019-01-01' + INTERVAL " . $i ." DAY,
@@ -64,7 +64,7 @@ for( $i=0; $i < 80; $i++ ){
     );
                     
     $amount = ( $amount * 8 ) + mt_rand( 10, 30 );
-    $db->query( " INSERT INTO " .$sys_tables['estate_complexes_stats_full_shows'] . " SET 
+    $db->querys( " INSERT INTO " .$sys_tables['estate_complexes_stats_full_shows'] . " SET 
                     id_parent = 539,
                     type = 3,
                     date = '2019-01-01' + INTERVAL " . $i ." DAY,

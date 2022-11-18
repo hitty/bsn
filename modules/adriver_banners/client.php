@@ -6,7 +6,7 @@ if(!empty($action) && count($this_page->page_parameters) == 1 && Validate::isDig
         $this_page->page_title = $item['title'];
         Response::SetArray('item', $item);
         $module_template = 'item.html';
-        if(!Host::isBsn("adriver_banners_stats_click_day",$item['id'])) $db->query("INSERT INTO ".$sys_tables['adriver_banners_stats_click_day']." SET id_parent = ?, ref=?, ip=?, agent=?", $item['id'], Host::getRefererURL(), Host::getUserIp(), $_SERVER['HTTP_USER_AGENT']);
+        if(!Host::isBsn("adriver_banners_stats_click_day",$item['id'])) $db->querys("INSERT INTO ".$sys_tables['adriver_banners_stats_click_day']." SET id_parent = ?, ref=?, ip=?, agent=?", $item['id'], Host::getRefererURL(), Host::getUserIp(), $_SERVER['HTTP_USER_AGENT']);
     } else Host::Redirect('/');
 } else {
     Host::Redirect('/');

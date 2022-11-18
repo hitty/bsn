@@ -144,7 +144,7 @@ switch($action){
 				break;
             case 'del':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['districts']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['districts']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -294,7 +294,7 @@ switch($action){
 						break;
 					case 'del':
 						$id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-						$res = $db->query("DELETE FROM ".$sys_tables['subway_lines']." WHERE id=?", $id);
+						$res = $db->querys("DELETE FROM ".$sys_tables['subway_lines']." WHERE id=?", $id);
 						$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 						if($ajax_mode){
 							$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -433,7 +433,7 @@ switch($action){
 				break;
             case 'del':
                 $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-                $res = $db->query("DELETE FROM ".$sys_tables['subways']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['subways']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -674,7 +674,7 @@ switch($action){
 			case 'del':
 				$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
 				$values = $db->fetch("SELECT * FROM ".$sys_tables['geodata']." WHERE id=?", $id);
-				$res = $db->query("DELETE FROM ".$sys_tables['geodata']." WHERE 
+				$res = $db->querys("DELETE FROM ".$sys_tables['geodata']." WHERE 
 									`a_level`>=".$values['a_level'].
 									($values['id_country']>0?" AND `id_country` = ".$values['id_country']:"").
 									($values['id_region']>0?" AND `id_region` = ".$values['id_region']:"").
@@ -757,7 +757,7 @@ switch($action){
                 $title_street = Request::GetString('title_street', METHOD_POST);
                 if (empty($id)||empty($id_street)||empty($title_street)) return false;
                 $query="UPDATE ".$sys_tables['wrong_streets']." SET id_street=".$id_street.", true_title='".$title_street."'"." WHERE id=".$id;
-                $db->query($query) or die($db->error);
+                $db->querys($query) or die($db->error);
                 
                 // запоминаем для шаблона GET - параметры
                 Response::SetArray('get_array', $get_parameters);
@@ -927,7 +927,7 @@ switch($action){
                             
                             //если все хорошо, отмечаем что улица добавлена: ставим время добавления
                             if(!empty($ajax_result['res'])){
-                                $db->query("UPDATE ".$sys_tables['addresses_to_add']." SET date_out = CURRENT_TIMESTAMP WHERE id = ?",$addr_id);
+                                $db->querys("UPDATE ".$sys_tables['addresses_to_add']." SET date_out = CURRENT_TIMESTAMP WHERE id = ?",$addr_id);
                                 $ajax_result['ids'] = array($addr_id);
                             }else $ajax_result['error'] = "Ошибка запроса к базе";
                         }
@@ -937,7 +937,7 @@ switch($action){
                         if($ajax_mode){
                             $id = empty($this_page->page_parameters[3]) ? "" : $this_page->page_parameters[3];
                             $geo_id = Request::GetInteger('geo_id',METHOD_POST);
-                            $ajax_result['res'] = $db->query("UPDATE ".$sys_tables['addresses_to_add']." SET date_out = CURRENT_TIMESTAMP, id_geodata = ? WHERE id = ?",$geo_id,$id);
+                            $ajax_result['res'] = $db->querys("UPDATE ".$sys_tables['addresses_to_add']." SET date_out = CURRENT_TIMESTAMP, id_geodata = ? WHERE id = ?",$geo_id,$id);
                             $ajax_result['ids'] = array($id);
                             $ajax_result['ok'] = true;
                         }
@@ -1194,7 +1194,7 @@ switch($action){
                         break;
                     case 'del':
                         $id = empty($this_page->page_parameters[3]) ? "" : $this_page->page_parameters[3];
-                        $ajax_result['ok'] = $db->query("DELETE FROM ".$sys_tables['addresses_to_add']." WHERE id = ?",$id);
+                        $ajax_result['ok'] = $db->querys("DELETE FROM ".$sys_tables['addresses_to_add']." WHERE id = ?",$id);
                         if(!$ajax_result['ok']) $ajax_result['error'] = "Ошибка запроса к базе";
                         else $ajax_result['ids'] = array($id);
                         break;

@@ -37,7 +37,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
  $sys_tables = Config::$sys_tables;
  header('Content-Type: text/html; Charset='.Config::$values['site']['charset']);   
  $cottages = new Cottages();

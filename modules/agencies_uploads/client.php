@@ -26,18 +26,18 @@ else {
         case 'test_link':
             $link = Request::GetString('link', METHOD_POST);
             //запись новой ссылки агентства
-            $db->query("UPDATE ".$sys_tables['agencies']." SET xml_link = ? WHERE id = ?", $link, $auth->id_agency);
+            $db->querys("UPDATE ".$sys_tables['agencies']." SET xml_link = ? WHERE id = ?", $link, $auth->id_agency);
             //запуск нового процесса
-            $res = $db->query("INSERT INTO ".$sys_tables['processes']." SET id_agency = ?, type = ?, status = ?", $auth->id_agency, 1, 1);
+            $res = $db->querys("INSERT INTO ".$sys_tables['processes']." SET id_agency = ?, type = ?, status = ?", $auth->id_agency, 1, 1);
             $process_id = $db->insert_id;
             $ajax_result['ok'] = $res;
             $ajax_result['id'] = $process_id;
             //скачивание ссылки
             $filename = downloadXmlFile("bn",$auth->agency_title,$link,$auth->id,false,Config::Get('xml_file_folders/downloads'), true)[0];
-            if(empty($filename)) $db->query("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'\n','<span class=\"red\">Файл недоступен</span>') WHERE id = ?", $process_id);
+            if(empty($filename)) $db->querys("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'\n','<span class=\"red\">Файл недоступен</span>') WHERE id = ?", $process_id);
             else {
                 //анализ файла
-                $db->query("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'Загрузка файла: <span class=\"green\">ОК</span>','\n','Анализ файла: ') WHERE id = ?", $process_id);
+                $db->querys("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'Загрузка файла: <span class=\"green\">ОК</span>','\n','Анализ файла: ') WHERE id = ?", $process_id);
                 //счетчики объектов
                 $counter = array('live_sell'=>0,            'live_rent'=>0,             'commercial_sell'=>0,            'commercial_rent'=>0,          'build'=>0,            'country_sell'=>0,            'country_rent'=>0, 
                                  'total'=>0
@@ -118,11 +118,11 @@ else {
                         break;
                     default:
                         //процесс окончен
-                        $db->query("UPDATE ".$sys_tables['processes']." SET status = ?, log = CONCAT (log,'<span class=\"red\">файл неизвестного формата</span>') WHERE id = ?", 2, $process_id);
+                        $db->querys("UPDATE ".$sys_tables['processes']." SET status = ?, log = CONCAT (log,'<span class=\"red\">файл неизвестного формата</span>') WHERE id = ?", 2, $process_id);
                         break;
                 }
                 if(!empty($file_type)){
-                     $db->query("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'<b>".$file_type." XML</b>') WHERE id = ?", $process_id);
+                     $db->querys("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'<b>".$file_type." XML</b>') WHERE id = ?", $process_id);
                     //список по типам недвижимости + сделки
                     foreach($values_array as $key=>$values){
                         foreach($values as $k=>$val) {
@@ -149,11 +149,11 @@ else {
                         - коммерческая (аренда): ".$counter['commercial_rent']."
                         - загородная (продажа): ".$counter['country_sell']."
                         - загородная (аренда): ".$counter['country_rent']."</span>";
-                    $db->query("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'".$text_counters."') WHERE id = ?", $process_id);
+                    $db->querys("UPDATE ".$sys_tables['processes']." SET log = CONCAT (log,'".$text_counters."') WHERE id = ?", $process_id);
                 }
             }
             //процесс окончен
-            $db->query("UPDATE ".$sys_tables['processes']." SET status = ?, log = CONCAT (log,'\n','','') WHERE id = ?", 2, $process_id);
+            $db->querys("UPDATE ".$sys_tables['processes']." SET status = ?, log = CONCAT (log,'\n','','') WHERE id = ?", 2, $process_id);
             // удаление скаченного фалйа
             if(file_exists($filename)) unlink($filename);
             
@@ -163,14 +163,14 @@ else {
        ////////////////////////////////////////////////////////////////////////////////////////////////   
         case 'status_change':
             $status = Request::GetString('status', METHOD_POST);
-            $db->query("UPDATE ".$sys_tables['agencies']." SET xml_status = ?, can_download = 2 WHERE id = ?", empty($status) || $status == 2 ? 2 : 1, $auth->id_agency);
+            $db->querys("UPDATE ".$sys_tables['agencies']." SET xml_status = ?, can_download = 2 WHERE id = ?", empty($status) || $status == 2 ? 2 : 1, $auth->id_agency);
             break;       
        ////////////////////////////////////////////////////////////////////////////////////////////////
        // изменение статуса выгрузки сейчас
        ////////////////////////////////////////////////////////////////////////////////////////////////   
         case 'download_status':
             $status = Request::GetString('status', METHOD_POST);
-            $db->query("UPDATE ".$sys_tables['agencies']." SET can_download = ? WHERE id = ?", $status == 'true' ? 2 : 1, $auth->id_agency);
+            $db->querys("UPDATE ".$sys_tables['agencies']." SET can_download = ? WHERE id = ?", $status == 'true' ? 2 : 1, $auth->id_agency);
             break;       
         ////////////////////////////////////////////////////////////////////////////////////////////////
        // изменение времени выгрузки 
@@ -188,7 +188,7 @@ else {
                 if(empty($item['xml_link'])) $ajax_result['error_text'] = 'Невозможно изменить време выгрузки когда не указан файл выгрузки';
                 else {
                     $status = Request::GetString('download_status', METHOD_POST);
-                    $db->query("UPDATE ".$sys_tables['agencies']." SET xml_time = ?, can_change_time = ?, can_download = ? WHERE id = ?", $time, !empty($this_page->page_parameters[1]) && $this_page->page_parameters[1] == 'closest' ? 2 : $item['can_change_time'], empty($status) || $status == 'false' ? 2 : 1, $auth->id_agency);
+                    $db->querys("UPDATE ".$sys_tables['agencies']." SET xml_time = ?, can_change_time = ?, can_download = ? WHERE id = ?", $time, !empty($this_page->page_parameters[1]) && $this_page->page_parameters[1] == 'closest' ? 2 : $item['can_change_time'], empty($status) || $status == 'false' ? 2 : 1, $auth->id_agency);
                     //подсчет времени, оставшегося до выгрузки 
                     $datetime1 = new DateTime($time);
                     $datetime2 = new DateTime("now");
@@ -233,7 +233,7 @@ else {
                 $ajax_result['type'] = $item['type'];
                 if($item['type']==2 && $item['total_amount']>0) $ajax_result['percentage'] = Convert::ToInt(($item['current_amount']/$item['total_amount'])*100);
                 else $ajax_result['percentage'] = 0;
-                $db->query("UPDATE ".$sys_tables['processes']." SET full_log = ?, log = '' WHERE id = ?", $item['full_log'].$item['log'], $process_id);
+                $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = ?, log = '' WHERE id = ?", $item['full_log'].$item['log'], $process_id);
                 //вывод полного лога
                 if($item['status'] == 2) $ajax_result['log'] = nl2br($item['full_log'].$item['log']);
             }

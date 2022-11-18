@@ -30,7 +30,7 @@ Cookie::Init();
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 include('includes/class.excel.reader.php');  // конвертация excel в array
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 $sys_tables = Config::$sys_tables;
 
 /*
@@ -64,7 +64,7 @@ while($filename = readdir($dh))
                 $date = explode('/',$row[1]);
                 $date = $date[2].'-'.$date[0].'-'.$date[1].' 12:00:00';
             }
-            $db->query("INSERT INTO law.contacts SET id_user = 4, status = ?, fio = ?, phone = ?, question = ?, result = ?, notes = ?, datetime = ?",
+            $db->querys("INSERT INTO law.contacts SET id_user = 4, status = ?, fio = ?, phone = ?, question = ?, result = ?, notes = ?, datetime = ?",
                 $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $date 
             );        
         }

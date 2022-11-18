@@ -235,7 +235,7 @@ if(!empty($this_page->page_parameters[1])){
                     break;
                 case 'del':
                     $id = empty($this_page->page_parameters[4]) ? 0 : $this_page->page_parameters[4];
-                    $res = $db->query('DELETE FROM '.$sys_tables['system_messages'].' WHERE id=?',$id);
+                    $res = $db->querys('DELETE FROM '.$sys_tables['system_messages'].' WHERE id=?',$id);
                     $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -877,15 +877,15 @@ if(!empty($this_page->page_parameters[1])){
                                         
                                         $res = $db->fetch("SELECT * FROM ".$sys_tables['agencies_opening_hours']." WHERE day_num = ".($item[0]+1)." AND id_agency = ".$mapping[$worktable]['id']['value']);
                                         if(!empty($res)) 
-                                            $db->query("UPDATE ".$sys_tables['agencies_opening_hours']." SET begin = ?, end = ?, applications_processing = ? 
+                                            $db->querys("UPDATE ".$sys_tables['agencies_opening_hours']." SET begin = ?, end = ?, applications_processing = ? 
                                                         WHERE day_num = ? AND id_agency = ?",$item[1],$item[2],$item[3],($item[0]+1),$mapping[$worktable]['id']['value']);
                                         else 
-                                            $db->query("INSERT INTO ".$sys_tables['agencies_opening_hours']." (day_num,id_agency,begin,end,applications_processing) 
+                                            $db->querys("INSERT INTO ".$sys_tables['agencies_opening_hours']." (day_num,id_agency,begin,end,applications_processing) 
                                                         VALUES (?,?,?,?,?)",($item[0]+1),$mapping[$worktable]['id']['value'],$item[1],$item[2],$item[3]);
                                         if(!empty($db->error)) Response::SetString('db_error',$db->error);
                                         $working_days[$item[0]] = array('day_num'=>$item[0],'begin'=>$item[1],'end'=>$item[2]);
                                     }
-                                    else $db->query("DELETE FROM ".$sys_tables['agencies_opening_hours']." WHERE day_num = ? AND id_agency = ?",($item[0]+1),$mapping[$worktable]['id']['value']);
+                                    else $db->querys("DELETE FROM ".$sys_tables['agencies_opening_hours']." WHERE day_num = ? AND id_agency = ?",($item[0]+1),$mapping[$worktable]['id']['value']);
                                 }
                             }
                         }
@@ -958,7 +958,7 @@ if(!empty($this_page->page_parameters[1])){
                                       if(!empty($bc)){
                                           $ids = [];
                                           foreach($bc as $k=>$item) $ids[] = $item['id'];
-                                          $db->query("UPDATE ".$sys_tables['business_centers_offices']." SET id_renter = 0, status = 2, date_rent_start = '0000-00-00', date_rent_start = '0000-00-00' WHERE id_parent IN (".implode(", ", $ids).")");
+                                          $db->querys("UPDATE ".$sys_tables['business_centers_offices']." SET id_renter = 0, status = 2, date_rent_start = '0000-00-00', date_rent_start = '0000-00-00' WHERE id_parent IN (".implode(", ", $ids).")");
                                       }
                                   }
                                   $info['promo'] = $tarif['promo'];
@@ -980,10 +980,10 @@ if(!empty($this_page->page_parameters[1])){
                             if($worktable=='agencies'){
                                 $user = $db->fetch("SELECT `id` FROM ".$sys_tables['users']." WHERE id_agency=".Convert::ToInt($info['id']));
                                 $advert_phone =  Validate::isPhone($info['advert_phone'])?2:1;
-                                $db->query("UPDATE ".$sys_tables['live']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
-                                $db->query("UPDATE ".$sys_tables['build']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
-                                $db->query("UPDATE ".$sys_tables['commercial']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
-                                $db->query("UPDATE ".$sys_tables['country']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
+                                $db->querys("UPDATE ".$sys_tables['live']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
+                                $db->querys("UPDATE ".$sys_tables['build']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
+                                $db->querys("UPDATE ".$sys_tables['commercial']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
+                                $db->querys("UPDATE ".$sys_tables['country']." SET `has_advert_phone`= ? WHERE `id_user` = ?", $advert_phone, $user['id']);
                                 //если назначен тариф агентству, делаем страницу брендированной
                                 $info['payed_page'] = (!empty($info['id_tarif'])?1:2);
                             } 
@@ -1001,18 +1001,18 @@ if(!empty($this_page->page_parameters[1])){
                                 if(!empty($new_tarif_title)) Common::LogAgencyOperation($auth->id,$info['id'],3,(($new_tarif_title == "empty")?"Тариф снят":$new_tarif_title));
                                 
                                 //убираем брендированную страницу при снятии тарифа
-                                if($new_tarif_title == "empty") $db->query("UPDATE ".$sys_tables['agencies']." SET payed_page = 2 WHERE id = ".$info['id']);
+                                if($new_tarif_title == "empty") $db->querys("UPDATE ".$sys_tables['agencies']." SET payed_page = 2 WHERE id = ".$info['id']);
                                 
                                 //обновление пользователя для агентства
-                                $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ?", $info['id']);
-                                $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 1, id_agency = ? WHERE id = ?",$info['id'], $info_users['id']);
+                                $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ?", $info['id']);
+                                $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 1, id_agency = ? WHERE id = ?",$info['id'], $info_users['id']);
                             } 
                             //простановка ответственного агентству
                             if(($worktable == 'users' && $info['id_agency'] > 0)){
                                 $agency_admin = $db->fetch("SELECT * FROM ".$sys_tables['users']." WHERE agency_admin = 1 AND id_agency = ?", $info['id_agency']);
                                 if(empty($agency_admin)){
-                                    $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ?", $info['id_agency']);
-                                    $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 1 WHERE id = ?", $info['id']);
+                                    $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ?", $info['id_agency']);
+                                    $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 1 WHERE id = ?", $info['id']);
                                 }
                             }
                         } else {
@@ -1030,16 +1030,16 @@ if(!empty($this_page->page_parameters[1])){
                                 //простановка ответственного агентству
 
                                 if($worktable=='agencies') {
-                                    $db->query( "UPDATE ".$sys_tables['agencies']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.Convert::ToTranslit($info['title']), $new_id);
+                                    $db->querys( "UPDATE ".$sys_tables['agencies']." SET `chpu_title` = ? WHERE `id` = ?", $new_id.'_'.Convert::ToTranslit($info['title']), $new_id);
                                     //обновляем админа агентства
-                                    $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ?", $new_id);
-                                    $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 1, id_agency = ? WHERE id = ?",$new_id, $mapping['agencies']['users_id']['value']);
+                                    $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ?", $new_id);
+                                    $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 1, id_agency = ? WHERE id = ?",$new_id, $mapping['agencies']['users_id']['value']);
                                     //записываем пользователя который провел операцию
                                     Common::LogAgencyOperation($auth->id,$new_id,1,(!empty($old_user_id))?("с привязкой к пользователю #".$old_user_id):("с созданием пользователя #".$user_id));
                                 }
                                 if(($worktable == 'users' && $info['id_agency'] > 0) || $worktable == 'agencies'){
-                                    $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ? AND id != ?", $worktable == 'users' ? $info['id_agency'] : $new_id, $worktable == 'users' ? $new_id : $user_id);
-                                    $db->query("UPDATE ".$sys_tables['users']." SET agency_admin = 1 WHERE id = ?", $worktable == 'users' ? $new_id : $user_id);
+                                    $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 2 WHERE id_agency = ? AND id != ?", $worktable == 'users' ? $info['id_agency'] : $new_id, $worktable == 'users' ? $new_id : $user_id);
+                                    $db->querys("UPDATE ".$sys_tables['users']." SET agency_admin = 1 WHERE id = ?", $worktable == 'users' ? $new_id : $user_id);
                                 }
                                 // редирект на редактирование свеженькой страницы
                                 if(!empty($res)) {
@@ -1073,11 +1073,11 @@ if(!empty($this_page->page_parameters[1])){
                 
                 if($worktable=='agencies'){
                     //чистим пользователей агентства
-                    $db->query("UPDATE ".$sys_tables['users']." SET id_agency = 0,agency_admin = 2 WHERE id_agency = ?",$id);
+                    $db->querys("UPDATE ".$sys_tables['users']." SET id_agency = 0,agency_admin = 2 WHERE id_agency = ?",$id);
                     //удаление фото агентства
                     $del_photos = Photos::DeleteAll('agencies',$id);
                 }
-                $res = $db->query("DELETE FROM ".$sys_tables[$worktable]." WHERE id = ?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables[$worktable]." WHERE id = ?", $id);
                 
                 //записываем пользователя который провел операцию
                 Common::LogAgencyOperation($auth->id,$id,7,"");
@@ -1126,7 +1126,7 @@ if(!empty($this_page->page_parameters[1])){
                     $counter['commercial'] += (!empty($user_info['commercial'])?$user_info['commercial']:0);
                     
                     if(!empty($update_query)){
-                        $res = $db->query("UPDATE ".$sys_tables[$worktable]." 
+                        $res = $db->querys("UPDATE ".$sys_tables[$worktable]." 
                                            SET ".implode(',',$update_query)." 
                                            WHERE id = ".(($worktable=='users')?$id:$id_agency));
                     } 
@@ -1135,7 +1135,7 @@ if(!empty($this_page->page_parameters[1])){
                 }
                 else{
                     $results['refresh'] = $id;
-                    $res = $db->query("UPDATE ".$sys_tables[$worktable]." 
+                    $res = $db->querys("UPDATE ".$sys_tables[$worktable]." 
                                        SET active_build = 0,active_live = 0,active_commercial = 0, active_country = 0
                                        WHERE id = ".(($worktable=='users')?$id:$id_agency));
                 }
@@ -1197,15 +1197,15 @@ if(!empty($this_page->page_parameters[1])){
                             } 
                             elseif($auth->id_group == 10 || $auth->id_group = 101){
                                     if($info['sum'] > 0)
-                                        $res = $db->query("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`income`,`paygate`,`id_initiator`)
+                                        $res = $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`income`,`paygate`,`id_initiator`)
                                                            VALUES (?,'balance',?,1,?)",$info['id_target_user'],$info['sum'],$info['id_user']);
                                     else 
-                                        $res = $db->query("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`expenditure`,`paygate`,`id_initiator`)
+                                        $res = $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`expenditure`,`paygate`,`id_initiator`)
                                                            VALUES (?,'balance',?,1,?)",$info['id_target_user'],abs($info['sum']),$info['id_user']);
                                     //записываем пользователя который провел операцию
                                     Common::LogAgencyOperation($auth->id,$id,5,$mapping['replenish_balance']['sum']['value']);
                                     //если все хорошо, пополняем баланс
-                                    if($res) $res = $res && $db->query("UPDATE ".$sys_tables['users']." SET balance = balance + ".$info['sum']." WHERE id = ?",$info['id_target_user']);
+                                    if($res) $res = $res && $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance + ".$info['sum']." WHERE id = ?",$info['id_target_user']);
                                     Response::SetBoolean('admin_transaction',true);
                             }
                             Response::SetBoolean('saved', $res); // результат сохранения
@@ -1256,10 +1256,10 @@ if(!empty($this_page->page_parameters[1])){
                                 Response::SetBoolean('admin_transaction',false);
                             } 
                             elseif($auth->id_group == 10 || $auth->id_group = 101){
-                                    $res = $db->query("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`income`,`paygate`,`id_initiator`)
+                                    $res = $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`income`,`paygate`,`id_initiator`)
                                                     VALUES (?,'balance',?,1,?)",$info['id_target_user'],$info['sum'],$info['id_user']);
                                     //если все хорошо, пополняем баланс
-                                    if($res) $res = $res && $db->query("UPDATE ".$sys_tables['users']." SET balance = balance + ".$info['sum']." WHERE id = ?",$info['id_target_user']);
+                                    if($res) $res = $res && $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance + ".$info['sum']." WHERE id = ?",$info['id_target_user']);
                                     Response::SetBoolean('admin_transaction',true);
                             }
                             Response::SetBoolean('saved', $res); // результат сохранения
@@ -1285,14 +1285,14 @@ if(!empty($this_page->page_parameters[1])){
                 if($this_page->page_parameters[1] == 'agencies'){
                     //записываем пользователя который провел операцию
                     Common::LogAgencyOperation($auth->id,$id,4,"");
-                    $res = $db->query("UPDATE ".$sys_tables['agencies']." SET xml_status = 2 WHERE id = ?",$id);
+                    $res = $db->querys("UPDATE ".$sys_tables['agencies']." SET xml_status = 2 WHERE id = ?",$id);
                     $ids = $db->fetch("SELECT GROUP_CONCAT(id) AS ids FROM ".$sys_tables['users']." WHERE id_agency = ".$id)['ids'];
                 } 
                 
-                $res = $res && $db->query("UPDATE ".$sys_tables['build']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
-                $res = $res && $db->query("UPDATE ".$sys_tables['live']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
-                $res = $res && $db->query("UPDATE ".$sys_tables['commercial']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
-                $res = $res && $db->query("UPDATE ".$sys_tables['country']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
+                $res = $res && $db->querys("UPDATE ".$sys_tables['build']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
+                $res = $res && $db->querys("UPDATE ".$sys_tables['live']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
+                $res = $res && $db->querys("UPDATE ".$sys_tables['commercial']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
+                $res = $res && $db->querys("UPDATE ".$sys_tables['country']." SET published = 2 WHERE id_user IN (".$ids.") AND published = 1;");
                 
                 $ajax_result['ok'] = $res;
                 break;
@@ -1347,7 +1347,7 @@ if(!empty($this_page->page_parameters[1])){
                 //асинхронно запускали скрипт выгрузки раньше
                 //$exec_result = shell_exec("php ".ROOT_PATH."/cron/robot/xml_parser.php ".$id." > /dev/null &");
                 //теперь - просто ставим галочку в таблице
-                $exec_result = $db->query("UPDATE ".$sys_tables['agencies']." SET can_download = 1 WHERE id = ?",$id);
+                $exec_result = $db->querys("UPDATE ".$sys_tables['agencies']." SET can_download = 1 WHERE id = ?",$id);
                 //$ajax_result['exec_result'] = !empty($exec_result);
                 $ajax_result['ok'] = true;
                 break;
@@ -1360,20 +1360,20 @@ if(!empty($this_page->page_parameters[1])){
                         case 'approve':
                             $tr_info = $db->fetch("SELECT * FROM ".$sys_tables['admin_finances']." WHERE id = ".$tr_id);
                             if($tr_info['sum'] < 0)
-                                $res = $db->query("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`expenditure`,`paygate`,`id_initiator`)
+                                $res = $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`expenditure`,`paygate`,`id_initiator`)
                                                                  VALUES (?,'balance',?,1,?)",$tr_info['id_target_user'],abs($tr_info['sum']),$tr_info['id_user']);
                             else 
-                                $res = $db->query("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`income`,`paygate`,`id_initiator`)
+                                $res = $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`id_user`,`obj_type`,`income`,`paygate`,`id_initiator`)
                                                                  VALUES (?,'balance',?,1,?)",$tr_info['id_target_user'],$tr_info['sum'],$tr_info['id_user']);
                             //если все хорошо, пополняем баланс
-                            if($res) $res = $res && $db->query("UPDATE ".$sys_tables['users']." SET balance = balance + ".$tr_info['sum']." WHERE id = ?",$tr_info['id_target_user']);
+                            if($res) $res = $res && $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance + ".$tr_info['sum']." WHERE id = ?",$tr_info['id_target_user']);
                             if($res){
-                                $ajax_result['ok'] = $res && $db->query("DELETE FROM ".$sys_tables['admin_finances']." WHERE id = ?",$tr_id);
+                                $ajax_result['ok'] = $res && $db->querys("DELETE FROM ".$sys_tables['admin_finances']." WHERE id = ?",$tr_id);
                                 $ajax_result['ids'] = array($tr_id);
                             } 
                             break;
                         case 'delete':
-                            $ajax_result['ok'] = $db->query("DELETE FROM ".$sys_tables['admin_finances']." WHERE id = ?",$tr_id);
+                            $ajax_result['ok'] = $db->querys("DELETE FROM ".$sys_tables['admin_finances']." WHERE id = ?",$tr_id);
                             $ajax_result['ids'] = array($tr_id);
                             break;
                     }
@@ -1949,7 +1949,7 @@ if(!empty($this_page->page_parameters[1])){
                     break;
                 case 'del':
                     $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                    $res = $db->query("DELETE FROM ".$sys_tables['managers']." WHERE id=?", $id);
+                    $res = $db->querys("DELETE FROM ".$sys_tables['managers']." WHERE id=?", $id);
                     $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

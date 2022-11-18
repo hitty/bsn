@@ -10,8 +10,8 @@ $mapping = include(dirname(__FILE__).'/conf_mapping.php');
 $this_page->manageMetadata(array('title'=>'Бизнес-центры'));
 
 $business_centers_photo_folder = Config::$values['img_folders']['business_centers'];
-$GLOBALS['js_set'][] = '/modules/estate/form_estate.js';            
-        
+$GLOBALS['js_set'][] = '/modules/estate/form_estate.js';
+
 // собираем GET-параметры
 $get_parameters = [];
 $filters = [];
@@ -49,10 +49,10 @@ switch($action){
         $id = Request::GetInteger('id', METHOD_POST);
         $id_manager = Request::GetInteger('id_manager', METHOD_POST);
         if(!empty($id_manager) && !empty($id)) {
-            $res = $db->query("UPDATE ".$sys_tables['business_centers']." SET id_manager = ? WHERE id = ?", $id_manager, $id);
+            $res = $db->querys("UPDATE ".$sys_tables['business_centers']." SET id_manager = ? WHERE id = ?", $id_manager, $id);
             $ajax_result['ok'] = $res;
         }
-        break;               
+        break;
     case 'geoitems':
         // addrselector:: иерархический список геопозиций от нулевого ID до указанного + районы и метро
         $item_id = Request::GetInteger('item_id', METHOD_POST);
@@ -96,7 +96,7 @@ switch($action){
                 'id_city'=>$location['id_city']
             );
         }
-        $ajax_result['ok'] = true;                
+        $ajax_result['ok'] = true;
         $ajax_result['geoitems_query'] = '';
         $ajax_result['items'] = $geolocation;
         // определение района
@@ -147,7 +147,7 @@ switch($action){
             ORDER BY offname, shortname"
             , false
             , $info['aoguid']
-            
+
         );
         $geolist = [];
         foreach($geoitems as $location){
@@ -155,7 +155,7 @@ switch($action){
         }
         $ajax_result['ok'] = true;
         $ajax_result['geolist_query'] = '';
-                        
+
         $ajax_result['items'] = $geolist;
         break;
     case 'streets_list':
@@ -190,10 +190,10 @@ switch($action){
                     $ajax_result['ok'] = true;
                     if(!empty($list)) $ajax_result['list'] = $list;
                     else $ajax_result['list'] = array(0=>array('id'=>0,'title'=>'Такое агентство не найдено'));
-                    
+
                 break;
             }
-        break;       
+        break;
     /**************************\
     |*  Работа с фотографиями  *|
     \**************************/
@@ -208,7 +208,7 @@ switch($action){
         $ajax_result['ok'] = true;
         if(!empty($list)) $ajax_result['list'] = $list;
         else $ajax_result['list'] = array(0=>array('id'=>0,'title'=>'Такой БЦ найден'));
-        break;        
+        break;
     case 'photos':
         if($ajax_mode){
             $ajax_result['error'] = '';
@@ -235,7 +235,7 @@ switch($action){
 					if(!empty($id)){
 						$res = Photos::Add('business_centers',$id,false,false,false,Config::Get('images/min_width')*0.8,Config::Get('images/min_height')*0.8,true);
 						if(!empty($res)){
-                            if(gettype($res) == 'string') $ajax_result['error'] = $res;  
+                            if(gettype($res) == 'string') $ajax_result['error'] = $res;
                             else {
                                 $ajax_result['ok'] = true;
                                 $ajax_result['list'] = $res;
@@ -245,8 +245,8 @@ switch($action){
                     break;
                 case 'setTitle':
                     //добавление названия
-                    $id = Request::GetInteger('id_photo', METHOD_POST);                
-                    $title = Request::GetString('title', METHOD_POST);                
+                    $id = Request::GetInteger('id_photo', METHOD_POST);
+                    $title = Request::GetString('title', METHOD_POST);
                     if(!empty($id)){
                         $res = Photos::setTitle('business_centers',$id, $title);
                         $ajax_result['last_query'] = '';
@@ -257,7 +257,7 @@ switch($action){
                 case 'del':
 					//удаление фото
 					//id фотки
-					$id_photo = Request::GetInteger('id_photo', METHOD_POST);				
+					$id_photo = Request::GetInteger('id_photo', METHOD_POST);
 					if(!empty($id_photo)){
 						$res = Photos::Delete('business_centers',$id_photo);
 						if(!empty($res)){
@@ -270,7 +270,7 @@ switch($action){
 					//id текущей новости
 					$id = Request::GetInteger('id', METHOD_POST);
 					//id фотки
-					$id_photo = Request::GetInteger('id_photo', METHOD_POST);				
+					$id_photo = Request::GetInteger('id_photo', METHOD_POST);
 					if(!empty($id_photo)){
 						$res = Photos::setMain('business_centers', $id, $id_photo);
 						if(!empty($res)){
@@ -279,7 +279,7 @@ switch($action){
 					} else $ajax_result['error'] = 'Неверные входные параметры';
                     break;
                 case 'sort':
-					// сортировка фото 
+					// сортировка фото
 					//порядок следования фотографий
 					$order = Request::GetArray('order', METHOD_POST);
 					if(!empty($order)){
@@ -308,10 +308,10 @@ switch($action){
                                 `title`
                             FROM ".$sys_tables['business_centers']."
                             WHERE `id` = ?",$id);
-        $photo = Photos::getMainPhoto('business_centers',$id);                    
+        $photo = Photos::getMainPhoto('business_centers',$id);
         Response::SetString('photo',$business_centers_photo_folder.'/sm/'.$photo['subfolder']."/".$photo['name']);
         $post_parameters = Request::GetParameters(METHOD_POST);
-        // если была отправка формы - выводим данные 
+        // если была отправка формы - выводим данные
         if(!empty($post_parameters['submit'])){
             Response::SetBoolean('form_submit', true); // признак того, что форма была обработана
             //передача данных в шаблон
@@ -364,27 +364,27 @@ switch($action){
                         ) d ON c.id_parent = d.id_parent
 
                     )
-                ");         
-            Response::SetArray('stats',$stats); // статистика объекта    
+                ");
+            Response::SetArray('stats',$stats); // статистика объекта
             // общее количество показов/кликов/
         }
-        Response::SetArray('info',$info); // информация об объекте                                        
+        Response::SetArray('info',$info); // информация об объекте
         break;
     /************************************\
     |*  Корпуса Бизнес-центров          *|
-    \************************************/        
+    \************************************/
     case 'corps':
         $action = empty($this_page->page_parameters[2]) ? "" : $this_page->page_parameters[2];
         switch($action){
-            
+
             /****************\
             |*  Удаление   *|
-            \***************/        
+            \***************/
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? "" : $this_page->page_parameters[3];
                 if(!empty($id)){
-                    $res = $db->query("UPDATE ".$sys_tables['business_centers_levels']." SET id_corp = 0 WHERE id_corp = ?", $id);
-                    $res = $db->query("DELETE FROM ".$sys_tables['business_centers_corps']." WHERE id=?", $id);
+                    $res = $db->querys("UPDATE ".$sys_tables['business_centers_levels']." SET id_corp = 0 WHERE id_corp = ?", $id);
+                    $res = $db->querys("DELETE FROM ".$sys_tables['business_centers_corps']." WHERE id=?", $id);
                     $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -394,7 +394,7 @@ switch($action){
                 break;
             /*********************\
             |*  Редактирование    *|
-            \*********************/        
+            \*********************/
             case 'add':
             case 'edit':
                 $GLOBALS['js_set'][] = '/js/jui_new/jquery-ui.js';
@@ -422,7 +422,7 @@ switch($action){
                 if(!empty($info['id_parent']) || !empty($mapping['corps']['id_parent']['value']) || !empty($post_parameters['id_parent'])){
                     $business_center = $db->fetch("SELECT title FROM ".$sys_tables['business_centers']." WHERE id = ?", !empty($post_parameters['id_parent']) ? $post_parameters['id_parent'] : ( !empty($mapping['corps']['id_parent']['value']) ? $mapping['corps']['id_parent']['value'] : $info['id_parent'] ));
                     $post_parameters['business_center_title'] = $mapping['corps']['business_center_title']['value'] = $business_center['title'];
-                    
+
                 }
                 Response::SetBoolean('not_show_submit_button', true); // не показывать кнопку сохранить в темплейте формы
                 // если была отправка формы - начинаем обработку
@@ -466,7 +466,7 @@ switch($action){
                         Response::SetBoolean('saved', $res); // результат сохранения
                     } else Response::SetBoolean('errors', true); // признак наличия ошибок
                 }
-                // если мы попали на страницу редактирования путем редиректа с добавления, 
+                // если мы попали на страницу редактирования путем редиректа с добавления,
                 // значит мы успешно создали новый объект, нужно об этом сообщить в шаблон
                 $referer = Host::getRefererURL();
                 if($action=='edit' && !empty($referer) && substr($referer,-5)=='/add/') {
@@ -490,10 +490,10 @@ switch($action){
                                         WHERE ".$sys_tables['business_centers_corps'].".id = ?
                 ", $id);
                 Response::SetBoolean('bc_owner', !empty($bc_owner) && $bc_owner['business_center'] == 1);
-                break;            
+                break;
         /**********************************\
         |*  Список корпусов БЦ              *|
-        \**********************************/        
+        \**********************************/
             default:
                 $conditions = [];
                 if(!empty($filters)){
@@ -501,7 +501,7 @@ switch($action){
                     if(!empty($filters['business_center'])) $conditions['business_center'] = $sys_tables['business_centers_corps'].".`id_parent` = ".$filters['business_center'];
                 }
                 // формирование списка для фильтра
-                $condition = implode(" AND ",$conditions);        
+                $condition = implode(" AND ",$conditions);
                 // создаем пагинатор для списка
                 $sql = "SELECT  COUNT(*) as items_count
                           FROM ".$sys_tables['business_centers_corps']."
@@ -524,7 +524,7 @@ switch($action){
                     Header('Location: '.Host::getWebPath($paginator->link_prefix.$paginator->pages_count));
                     exit(0);
                 }
-                $list = $db->fetchall( 
+                $list = $db->fetchall(
                                      "SELECT  
                                             ".$sys_tables['business_centers_corps'].".*,
                                             ".$sys_tables['business_centers'].".title as business_center_title
@@ -537,11 +537,11 @@ switch($action){
                 $module_template = 'admin.corps.list.html';
                 break;
         }
-    
-        break;        
+
+        break;
     /************************************\
     |*  Этажи Бизнес-центров            *|
-    \************************************/        
+    \************************************/
     case 'levels':
         $action = empty($this_page->page_parameters[2]) ? "" : $this_page->page_parameters[2];
         switch($action){
@@ -550,7 +550,7 @@ switch($action){
                     Photos::$__folder_options = array(
                                                 'sm'=>array(206,152,'cut',65),
                                                 'big'=>array(800,600,'',70)
-                    );             
+                    );
                     $ajax_result['error'] = '';
                     // переопределяем экшн
                     $action = empty($this_page->page_parameters[3]) ? "" : $this_page->page_parameters[3];
@@ -575,7 +575,7 @@ switch($action){
                             if(!empty($id)){
                                 $res = Photos::Add('business_centers_offices',$id,false,false,false,Config::Get('images/min_width')*0.8,Config::Get('images/min_height')*0.8,true);
                                 if(!empty($res)){
-                                    if(gettype($res) == 'string') $ajax_result['error'] = $res;  
+                                    if(gettype($res) == 'string') $ajax_result['error'] = $res;
                                     else {
                                         $ajax_result['ok'] = true;
                                         $ajax_result['list'] = $res;
@@ -585,8 +585,8 @@ switch($action){
                             break;
                         case 'setTitle':
                             //добавление названия
-                            $id = Request::GetInteger('id_photo', METHOD_POST);                
-                            $title = Request::GetString('title', METHOD_POST);                
+                            $id = Request::GetInteger('id_photo', METHOD_POST);
+                            $title = Request::GetString('title', METHOD_POST);
                             if(!empty($id)){
                                 $res = Photos::setTitle('business_centers_offices',$id, $title);
                                 $ajax_result['last_query'] = '';
@@ -597,7 +597,7 @@ switch($action){
                         case 'del':
                             //удаление фото
                             //id фотки
-                            $id_photo = Request::GetInteger('id_photo', METHOD_POST);                
+                            $id_photo = Request::GetInteger('id_photo', METHOD_POST);
                             if(!empty($id_photo)){
                                 $res = Photos::Delete('business_centers_offices',$id_photo);
                                 if(!empty($res)){
@@ -610,7 +610,7 @@ switch($action){
                             //id текущей новости
                             $id = Request::GetInteger('id', METHOD_POST);
                             //id фотки
-                            $id_photo = Request::GetInteger('id_photo', METHOD_POST);                
+                            $id_photo = Request::GetInteger('id_photo', METHOD_POST);
                             if(!empty($id_photo)){
                                 $res = Photos::setMain('business_centers_offices', $id, $id_photo);
                                 if(!empty($res)){
@@ -619,7 +619,7 @@ switch($action){
                             } else $ajax_result['error'] = 'Неверные входные параметры';
                             break;
                         case 'sort':
-                            // сортировка фото 
+                            // сортировка фото
                             //порядок следования фотографий
                             $order = Request::GetArray('order', METHOD_POST);
                             if(!empty($order)){
@@ -634,11 +634,11 @@ switch($action){
                 break;
             /****************\
             |*  Удаление   *|
-            \***************/        
+            \***************/
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? "" : $this_page->page_parameters[3];
                 if(!empty($id)){
-                    $res = $db->query("DELETE FROM ".$sys_tables['business_centers_levels']." WHERE id=?", $id);
+                    $res = $db->querys("DELETE FROM ".$sys_tables['business_centers_levels']." WHERE id=?", $id);
                     $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -648,7 +648,7 @@ switch($action){
                 break;
             /*********************\
             |*  Редактирование    *|
-            \*********************/        
+            \*********************/
             case 'add':
             case 'edit':
                 $GLOBALS['js_set'][] = '/js/jui_new/jquery-ui.js';
@@ -667,7 +667,7 @@ switch($action){
                                         WHERE id=?", $id) ;
                     //предустановка ссылки на картинки на главной и в шапке
                     $cnt = count($_POST);
-                    Response::SetString('img_link', $cnt==0?$info['img_link']:(!empty($_POST['img_link'])?$_POST['img_link']:false));                     
+                    Response::SetString('img_link', $cnt==0?$info['img_link']:(!empty($_POST['img_link'])?$_POST['img_link']:false));
                     $business_centers_offices = $db->fetch("SELECT * FROM ".$sys_tables['business_centers_offices']." WHERE id_parent = ?",$id);
                     Response::SetArray('business_centers_offices',$business_centers_offices);
                 }
@@ -685,7 +685,7 @@ switch($action){
                 if(!empty($info['id_parent']) || !empty($mapping['levels']['id_parent']['value']) || !empty($post_parameters['id_parent'])){
                     $business_center = $db->fetch("SELECT title FROM ".$sys_tables['business_centers']." WHERE id = ?", !empty($post_parameters['id_parent']) ? $post_parameters['id_parent'] : ( !empty($mapping['levels']['id_parent']['value']) ? $mapping['levels']['id_parent']['value'] : $info['id_parent'] ));
                     $post_parameters['business_center_title'] = $mapping['levels']['business_center_title']['value'] = $business_center['title'];
-                    
+
                 }
                 Response::SetBoolean('not_show_submit_button', true); // не показывать кнопку сохранить в темплейте формы
                 //папки для картинок спецпредложений
@@ -728,13 +728,13 @@ switch($action){
                     if(empty($errors) && !empty($mapping['levels']['level']['value'])){
                         if(empty($info['id'])){
                             $level = $db->fetch("SELECT * FROM ".$sys_tables['business_centers_levels']." WHERE level = ? AND id_parent = ? AND corp = ?",
-                                $mapping['levels']['level']['value'], $mapping['levels']['id_parent']['value'], $mapping['levels']['corp']['value']    
-                            );                                                                     
+                                $mapping['levels']['level']['value'], $mapping['levels']['id_parent']['value'], $mapping['levels']['corp']['value']
+                            );
                         } else {
                             $level = $db->fetch("SELECT * FROM ".$sys_tables['business_centers_levels']." WHERE level = ? AND id_parent = ? AND corp = ? AND id!=?",
-                                $mapping['levels']['level']['value'], $mapping['levels']['id_parent']['value'], $mapping['levels']['corp']['value'], $info['id']    
-                            );                                                                     
-                            
+                                $mapping['levels']['level']['value'], $mapping['levels']['id_parent']['value'], $mapping['levels']['corp']['value'], $info['id']
+                            );
+
                         }
                         if(!empty($level)) $errors = $mapping['levels']['level']['error'] = 'Данный этаж-корпус уже существует, блин!';
                     }
@@ -765,7 +765,7 @@ switch($action){
                         Response::SetBoolean('saved', $res); // результат сохранения
                     } else Response::SetBoolean('errors', true); // признак наличия ошибок
                 }
-                // если мы попали на страницу редактирования путем редиректа с добавления, 
+                // если мы попали на страницу редактирования путем редиректа с добавления,
                 // значит мы успешно создали новый объект, нужно об этом сообщить в шаблон
                 $referer = Host::getRefererURL();
                 if($action=='edit' && !empty($referer) && substr($referer,-5)=='/add/') {
@@ -797,10 +797,10 @@ switch($action){
                                         WHERE ".$sys_tables['business_centers_levels'].".id = ?
                 ", $id);
                 Response::SetBoolean('bc_owner', !empty($bc_owner) && $bc_owner['business_center'] == 1);
-                break;            
+                break;
         /**********************************\
         |*  Список этажей БЦ              *|
-        \**********************************/        
+        \**********************************/
             default:
                 $conditions = [];
                 if(!empty($filters)){
@@ -808,7 +808,7 @@ switch($action){
                     if(!empty($filters['business_center'])) $conditions['business_center'] = $sys_tables['business_centers_levels'].".`id_parent` = ".$filters['business_center'];
                 }
                 // формирование списка для фильтра
-                $condition = implode(" AND ",$conditions);        
+                $condition = implode(" AND ",$conditions);
                 // создаем пагинатор для списка
                 $sql = "SELECT  COUNT(*) as items_count
                           FROM ".$sys_tables['business_centers_levels']."
@@ -838,17 +838,17 @@ switch($action){
                 $module_template = 'admin.levels.list.html';
                 break;
         }
-    
+
         break;
     /************************************\
     |*  Офисы Бизнес-центров            *|
-    \************************************/        
+    \************************************/
     case 'offices':
         $action = empty($this_page->page_parameters[2]) ? "" : $this_page->page_parameters[2];
         switch($action){
             /**********************\
             |*  Координаты  *|
-            \**********************/        
+            \**********************/
             case 'coords':
                 $id = Request::GetInteger('id', METHOD_POST);
                 $values = Request::GetArray('values', METHOD_POST);
@@ -856,7 +856,7 @@ switch($action){
                 if(!empty($id) && !empty($values['areas'])){
                     $list = $db->fetchall("SELECT id FROM ".$sys_tables['business_centers_offices']." WHERE id_parent = ?", false, $id);
                     if(!empty($list)) foreach($list as $k=>$item) $ids_to_delete[] = $item['id'];
-                    
+
                     foreach($values['areas'] as $k=>$value){
                         $area = $coords = []    ;
                         foreach($value['coords'] as $kc=>$coord) $coords[] = $coord;
@@ -867,27 +867,27 @@ switch($action){
                         }
                         if(!empty($value['id'])){
                             $ids[] = $value['id'];
-                            $db->query("UPDATE ".$sys_tables['business_centers_offices']." SET id_parent = ?, coords = ?, draw_type = ? WHERE id = ?",
+                            $db->querys("UPDATE ".$sys_tables['business_centers_offices']." SET id_parent = ?, coords = ?, draw_type = ? WHERE id = ?",
                                 $id, $value['coords'], $value['type'], $value['id']
                             );
                         } else {
-                            $db->query("INSERT INTO ".$sys_tables['business_centers_offices']." SET id_parent = ?, coords = ?, draw_type = ?",
+                            $db->querys("INSERT INTO ".$sys_tables['business_centers_offices']." SET id_parent = ?, coords = ?, draw_type = ?",
                                 $id, $value['coords'], $value['type']
                             );
                             $value['id'] = $db->insert_id;
                         }
                         $office = $db->fetch("SELECT * FROM ".$sys_tables['business_centers_offices']." WHERE id = ?", $value['id']);
                         $ajax_result['values'][] = $office;
-                        
+
                     }
                     $array_difference = array_diff($ids_to_delete, $ids);
-                    if(count($array_difference) > 0) $db->query("DELETE FROM ".$sys_tables['business_centers_offices']." WHERE id IN (".implode(",", $array_difference).")");
+                    if(count($array_difference) > 0) $db->querys("DELETE FROM ".$sys_tables['business_centers_offices']." WHERE id IN (".implode(",", $array_difference).")");
                     $ajax_result['ok'] = true;
                 }
-                break; 
+                break;
             /**********************\
             |*  данные по офису   *|
-            \**********************/        
+            \**********************/
             case 'data':
                 $post_parameters = Request::GetParameters(METHOD_POST);
                 $id = Request::GetInteger('id', METHOD_POST);
@@ -898,7 +898,7 @@ switch($action){
                 $id_object = Request::GetInteger('id_object', METHOD_POST);
                 $id_object_status = isset($post_parameters['id_object']);
                 $object_type = Request::GetInteger('object_type', METHOD_POST);
-                $floor = Request::GetFloat('floor', METHOD_POST);         
+                $floor = Request::GetFloat('floor', METHOD_POST);
                 $id_facing = Request::GetInteger('id_facing', METHOD_POST);
                 $post_status = Request::GetBoolean('status', METHOD_POST);
                 $status = Request::GetString('status', METHOD_POST);
@@ -914,9 +914,9 @@ switch($action){
                         case !empty($id_facing): $field = 'id_facing'; $value = $id_facing; break;
                         case !empty($number): $field = 'number'; $value = $number; break;
                     }
-                    $res = $db->query("UPDATE ".$sys_tables['business_centers_offices']." SET ".$field." = ? WHERE id = ?", $value, $id);
-                    if(!empty($object_type) && $object_type == 2) $res = $db->query("UPDATE ".$sys_tables['business_centers_offices']." SET status = 2 WHERE id = ?", $id);
-                    elseif(!empty($post_status) && $value == 1) $res = $db->query("UPDATE ".$sys_tables['business_centers_offices']." SET object_type = 1 WHERE id = ?", $id);
+                    $res = $db->querys("UPDATE ".$sys_tables['business_centers_offices']." SET ".$field." = ? WHERE id = ?", $value, $id);
+                    if(!empty($object_type) && $object_type == 2) $res = $db->querys("UPDATE ".$sys_tables['business_centers_offices']." SET status = 2 WHERE id = ?", $id);
+                    elseif(!empty($post_status) && $value == 1) $res = $db->querys("UPDATE ".$sys_tables['business_centers_offices']." SET object_type = 1 WHERE id = ?", $id);
                     elseif(!empty($id_object_status) && !empty($id_object)){
                         $item = $db->fetch("SELECT * FROM ".$sys_tables['commercial']." WHERE id = ?", $id_object);
                         if(!empty($item)) {
@@ -927,26 +927,26 @@ switch($action){
                                 LEFT JOIN ".$sys_tables['business_centers_offices']." ON  ".$sys_tables['business_centers_offices'].".id_parent = ".$sys_tables['business_centers_levels'].".id
                                 WHERE ".$sys_tables['business_centers_offices'].".id = ?", $id
                             );
-                            if(!empty($business_center) ) $db->query("UPDATE ".$sys_tables['commercial']." SET id_business_center = ? WHERE id = ?", $business_center['id'], $id_object);
-                        } 
+                            if(!empty($business_center) ) $db->querys("UPDATE ".$sys_tables['commercial']." SET id_business_center = ? WHERE id = ?", $business_center['id'], $id_object);
+                        }
                     }
                     $ajax_result['ok'] = $res;
                 }
                 break;
-                            
-                       
+
+
         }
         break;
     /************************************\
     |*  Работа с Бизнес-центрами  *|
-    \************************************/		
+    \************************************/
 	case 'add':
 	case 'edit':
 	    $GLOBALS['js_set'][] = '/js/file_upload/jquery.uploadifive.js';
         $GLOBALS['css_set'][] = '/js/file_upload/uploadify.css';
         $GLOBALS['js_set'][] = '/js/jquery.addrselector.js';
         $GLOBALS['css_set'][] = '/css/jquery.addrselector.css';
-        
+
 		$module_template = 'admin.business_centers.edit.html';
 		$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
 		if($action=='add'){
@@ -962,7 +962,7 @@ switch($action){
                                 FROM ".$sys_tables['business_centers']." main
                                 LEFT JOIN ".$sys_tables['districts']." distr ON distr.id=main.id_district
                                 LEFT JOIN ".$sys_tables['subways']." subway ON subway.id=main.id_subway
-                                WHERE main.id=?", $id);                                
+                                WHERE main.id=?", $id);
 		}
         // определение геоданных объекта
         $geodata = $db->fetchall("
@@ -997,7 +997,7 @@ switch($action){
                 $info['id_region'], $info['id_area'], $info['id_city'], $info['id_place'], $info['id_street']
             );
             $info['txt_street'] = $street['offname'].' '.$street['shortname'];
-        }        
+        }
 		// перенос дефолтных (считанных из базы) значений в мэппинг формы
 		foreach($info as $key=>$field){
 			if(!empty($mapping['business_centers'][$key])) $mapping['business_centers'][$key]['value'] = $info[$key];
@@ -1042,7 +1042,7 @@ switch($action){
                         }
                     }
                 }
-            }                 
+            }
 			// перенос полученных значений в мэппинг формы для последующего отображения (подмена дефолотных)
 			foreach($post_parameters as $key=>$field){
 				if(isset($mapping['business_centers'][$key])) $mapping['business_centers'][$key]['value'] = $post_parameters[$key];
@@ -1097,7 +1097,7 @@ switch($action){
                     //обновление ЧПУ
                     $chpu_title = createCHPUTitle($info['title']);
                     $chpu_item = $db->fetch("SELECT * FROM ".$sys_tables['business_centers']." WHERE chpu_title = ?", $chpu_title);
-                    $db->query("UPDATE ".$sys_tables['business_centers']." SET chpu_title = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
+                    $db->querys("UPDATE ".$sys_tables['business_centers']." SET chpu_title = ? WHERE id = ?", $chpu_title.(!empty($chpu_item)?"_".$new_id:""), $new_id);
 					if(!empty($res)){
 						// редирект на редактирование свеженькой страницы
 						if(!empty($res)) {
@@ -1120,7 +1120,7 @@ switch($action){
 	case 'del':
 		$id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
 		$del_photos = Photos::DeleteAll('business_centers',$id);
-		$res = $db->query("DELETE FROM ".$sys_tables['business_centers']." WHERE id=?", $id);
+		$res = $db->querys("DELETE FROM ".$sys_tables['business_centers']." WHERE id=?", $id);
 		$results['delete'] = ($res && $db->affected_rows) ? $id : -1;
 		if($ajax_mode){
 			$ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -1141,7 +1141,7 @@ switch($action){
             }
         }
 
-        
+
 		$module_template = 'admin.business_centers.list.html';
 		// формирование списка
         $managers_list = $db->fetchall("SELECT id, name as title FROM ".$sys_tables['managers']." WHERE bsn_manager=1 UNION SELECT 99 as id, 'не проставлен' as name");
@@ -1155,11 +1155,11 @@ switch($action){
             if(!empty($filters['agency_check'])){
               if($filters['agency_check']==1)  $conditions[] = " id_user > 0";
               else  $conditions[] = " id_user = 0";
-            }         
-            if(!empty($filters['published'])) $conditions[] = "`published` = ".$filters['published'];    
+            }
+            if(!empty($filters['published'])) $conditions[] = "`published` = ".$filters['published'];
 		}
 		// формирование списка для фильтра
-		$condition = implode(" AND ",$conditions);		
+		$condition = implode(" AND ",$conditions);
 		// создаем пагинатор для списка
 		$paginator = new Paginator($sys_tables['business_centers'], 30, $condition);
 		// get-параметры для ссылок пагинатора
@@ -1176,7 +1176,7 @@ switch($action){
 			Header('Location: '.Host::getWebPath($paginator->link_prefix.$paginator->pages_count));
 			exit(0);
 		}
-        
+
         $sql = "SELECT 
                         business_centers.*,   
                         IFNULL(a.cnt_day,0) as cnt_day,
@@ -1184,14 +1184,14 @@ switch($action){
                         IFNULL(c.cnt_click_day,0) as cnt_click_day,
                         IFNULL(f.cnt_click_full_last_days,0) as cnt_click_full_last_days
                   FROM ".$sys_tables['business_centers']." business_centers";
-        $sql .= " LEFT JOIN (SELECT COUNT(*) as cnt_day, id_parent FROM ".$sys_tables['estate_complexes_stats_day_shows']." WHERE type = 3 GROUP BY id_parent) a ON a.id_parent = business_centers.id";        
-        $sql .= " LEFT JOIN (SELECT COUNT(*) as cnt_click_day, id_parent FROM ".$sys_tables['estate_complexes_stats_day_clicks']." WHERE type = 3 GROUP BY id_parent) c ON c.id_parent = business_centers.id";        
-        $sql .= " LEFT JOIN (SELECT AVG(amount) as cnt_full_last_days, id_parent FROM ".$sys_tables['estate_complexes_stats_full_shows']." WHERE type = 3 AND date > CURDATE() - INTERVAL 30  DAY AND date <= CURDATE() - INTERVAL 1 DAY GROUP BY id_parent) e ON e.id_parent = business_centers.id";        
-        $sql .= " LEFT JOIN (SELECT AVG(amount) as cnt_click_full_last_days, id_parent FROM ".$sys_tables['estate_complexes_stats_full_clicks']." WHERE type = 3 AND date > CURDATE() - INTERVAL 30  DAY AND date <= CURDATE() - INTERVAL 1 DAY  GROUP BY id_parent) f ON f.id_parent = business_centers.id";        
+        $sql .= " LEFT JOIN (SELECT COUNT(*) as cnt_day, id_parent FROM ".$sys_tables['estate_complexes_stats_day_shows']." WHERE type = 3 GROUP BY id_parent) a ON a.id_parent = business_centers.id";
+        $sql .= " LEFT JOIN (SELECT COUNT(*) as cnt_click_day, id_parent FROM ".$sys_tables['estate_complexes_stats_day_clicks']." WHERE type = 3 GROUP BY id_parent) c ON c.id_parent = business_centers.id";
+        $sql .= " LEFT JOIN (SELECT AVG(amount) as cnt_full_last_days, id_parent FROM ".$sys_tables['estate_complexes_stats_full_shows']." WHERE type = 3 AND date > CURDATE() - INTERVAL 30  DAY AND date <= CURDATE() - INTERVAL 1 DAY GROUP BY id_parent) e ON e.id_parent = business_centers.id";
+        $sql .= " LEFT JOIN (SELECT AVG(amount) as cnt_click_full_last_days, id_parent FROM ".$sys_tables['estate_complexes_stats_full_clicks']." WHERE type = 3 AND date > CURDATE() - INTERVAL 30  DAY AND date <= CURDATE() - INTERVAL 1 DAY  GROUP BY id_parent) f ON f.id_parent = business_centers.id";
         if(!empty($condition)) $sql .= " WHERE ".$condition;
         $sql .= " ORDER BY advanced, business_centers.title";
-        $sql .= " LIMIT ".$paginator->getLimitString($page); 
-                
+        $sql .= " LIMIT ".$paginator->getLimitString($page);
+
 		$list = $db->fetchall($sql);
 		// определение главной фотки для поселка
 		foreach($list as $key=>$value){

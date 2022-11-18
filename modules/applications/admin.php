@@ -119,7 +119,7 @@ switch(true){
                                                             ".$sys_tables['agencies_opening_hours'].".`end`>TIME_FORMAT(NOW(),'%H:%i:%s')");
                         //если это не агрегатор и мы не попали во время работы, отправляем заявку в "ждущие опубликования"
                         if(empty($agency_in_time)){
-                            $db->query("UPDATE ".$sys_tables['applications']." SET status = 6 WHERE id = ".$app_info['id']);
+                            $db->querys("UPDATE ".$sys_tables['applications']." SET status = 6 WHERE id = ".$app_info['id']);
                         }
                     }
                 }
@@ -308,7 +308,7 @@ switch(true){
                             $colors = Config::Get('users_avatar_colors');
                             $new_color = $colors[mt_rand(0,11)];
                             // создание нового пользователя в БД, записываем агрегатор-источник
-                            $res = $db->query("INSERT INTO ".$sys_tables['users']."
+                            $res = $db->querys("INSERT INTO ".$sys_tables['users']."
                                                 (email,name,phone,passwd,datetime,access,id_agregator,avatar_color)
                                                VALUES
                                                 (?,?,?,?,NOW(),'',?,?)"
@@ -360,7 +360,7 @@ switch(true){
                                 if($mailer->Send()){
                                     Response::SetString('success','email');
                                     //если все хорошо, переписываем объект на нового пользователя и заявку тоже ему
-                                    $db->query("UPDATE ".$estate_table." SET id_user = ? WHERE id = ?",$new_user_id,$object_info['id']);
+                                    $db->querys("UPDATE ".$estate_table." SET id_user = ? WHERE id = ?",$new_user_id,$object_info['id']);
                                     $this_app->toUser($new_user_id);
                                 } 
                             }
@@ -414,7 +414,7 @@ switch(true){
                             if(!empty($user_info['id_agency'])) $agr_agency_info = $db->fetch("SELECT id,id_tarif FROM ".$sys_tables['agencies']." WHERE id = ".$user_info['id_agency']);
                             
                             //переписываем объект на нового пользователя и заявку тоже ему
-                            $db->query("UPDATE ".$estate_table." SET id_user = ? WHERE id = ?",$object_info['id_user'],$object_info['id']);
+                            $db->querys("UPDATE ".$estate_table." SET id_user = ? WHERE id = ?",$object_info['id_user'],$object_info['id']);
                             $this_app->toUser($object_info['id_user']);
                             
                             //если заявка оказалась агентству и у него нет тарифа, переносим сразу в общий пул и убираем уведомления

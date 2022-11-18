@@ -193,7 +193,7 @@ class EstateEstimate {
         );
         if(empty($user)){
             self::$passwd = substr(md5(time()),-6);
-            $db->query(" INSERT INTO ".self::$tables['users']." SET email = ?, login = ?, passwd = ?", 
+            $db->querys(" INSERT INTO ".self::$tables['users']." SET email = ?, login = ?, passwd = ?", 
                     self::$data['email'], self::$data['email'], sha1(sha1(self::$passwd)) 
             );
         }

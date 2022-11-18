@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -43,7 +43,7 @@ $list = $db->fetchall("SELECT
                        RIGHT JOIN ".$sys_tables['tarifs_agencies']." ON ".$sys_tables['tarifs_agencies'].".id = ".$sys_tables['agencies'].".id_tarif
                        WHERE ".$sys_tables['agencies'].".id_tarif > 0");
 foreach($list as $k=>$item){
-    $db->query("UPDATE ".$sys_tables['agencies']." SET 
+    $db->querys("UPDATE ".$sys_tables['agencies']." SET 
         promo = ?, premium = ?, vip = ?, staff_number = ?, action = ?, video = ?, tarif_end = '2015-11-01' WHERE id = ?",
         $item['promo'], $item['premium'], $item['vip'], $item['staff_number'], $item['action'], $item['video'], $item['id_agency']
     );

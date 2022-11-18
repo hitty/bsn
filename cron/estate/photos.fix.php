@@ -27,8 +27,8 @@ Request::Init();
 Cookie::Init(); 
 require_once('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("set lc_time_names = 'ru_RU'");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("set lc_time_names = 'ru_RU'");
 require_once('includes/class.email.php');
 require_once('includes/class.template.php');     // Template (шаблонизатор), FileCache (файловое кеширование)
 require_once('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
@@ -60,8 +60,8 @@ foreach($estate_types as $estate){
         GROUP BY ".$sys_tables[$estate.'_photos'].".id
     ");
     foreach($list as $k=>$item){
-        $db->query("UPDATE ".$sys_tables[$estate]." SET id_main_photo = 0, published = 2 WHERE id = ?",$item['id']);
-        $db->query("DELETE FROM  ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['photo_id']);
+        $db->querys("UPDATE ".$sys_tables[$estate]." SET id_main_photo = 0, published = 2 WHERE id = ?",$item['id']);
+        $db->querys("DELETE FROM  ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['photo_id']);
         unlink($root . '/img/uploads/sm/' . $item['subfolder']. '/' . $item['name']);
         unlink($root . '/img/uploads/med/' . $item['subfolder']. '/' . $item['name']);
         unlink($root . '/img/uploads/big/' . $item['subfolder']. '/' . $item['name']);
@@ -95,7 +95,7 @@ foreach($estate_types as $estate){
             if(file_exists(ROOT_PATH.'/img/uploads/med/'.$item['subfolder'].'/'.$item['name'])) unlink(ROOT_PATH.'/img/uploads/med/'.$item['subfolder'].'/'.$item['name']);
             if(file_exists(ROOT_PATH.'/img/uploads/big/'.$item['subfolder'].'/'.$item['name'])) unlink(ROOT_PATH.'/img/uploads/big/'.$item['subfolder'].'/'.$item['name']);
         }
-        $db->query("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['id']);
+        $db->querys("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['id']);
     }
 }
 */
@@ -137,7 +137,7 @@ foreach($estate_types as $estate){
         }
         echo "\n";
         
-        $db->query("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['id']);
+        $db->querys("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['id']);
     }
 }
 
@@ -160,9 +160,9 @@ foreach($estate_types as $estate){
     
     echo "\n\n".$estate.' : '.count($list)."\n";
     foreach($list as $k=>$item) {
-        $db->query("UPDATE ".$sys_tables[$estate]." SET id_main_photo = 0, has_photo = 1 WHERE id = ?", $item['id']);
+        $db->querys("UPDATE ".$sys_tables[$estate]." SET id_main_photo = 0, has_photo = 1 WHERE id = ?", $item['id']);
         $photo_id = $db->fetch("SELECT id FROM ".$sys_tables[$estate."_photos"]." WHERE id_parent = ? ORDER BY id ASC",$item['id']);
-        if(!empty($photo_id)) $db->query("UPDATE ".$sys_tables[$estate]." SET id_main_photo = ?, has_photo = 2 WHERE id = ?",$photo_id['id'], $item['id']);
+        if(!empty($photo_id)) $db->querys("UPDATE ".$sys_tables[$estate]." SET id_main_photo = ?, has_photo = 2 WHERE id = ?",$photo_id['id'], $item['id']);
         
     }
 }
@@ -189,14 +189,14 @@ foreach($estate_types as $estate){
         ) {
             print_r($item);
             //удаляем из базы фотки у которых данный external_id
-            $db->query("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['photo_id']);
+            $db->querys("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id = ?", $item['photo_id']);
             if(!empty($item['id'])){
                 //определение заглавной фотографии
                 $main_photo_id = $db->fetch("SELECT id FROM ".$sys_tables[$estate]." WHERE id = ? AND id_main_photo = ?", $item['id'], $item['photo_id']);
                 if(!empty($main_photo_id)) {
-                    $db->query("UPDATE ".$sys_tables[$estate]." SET id_main_photo = 0, has_photo = 1 WHERE id = ?",$item['id']);
+                    $db->querys("UPDATE ".$sys_tables[$estate]." SET id_main_photo = 0, has_photo = 1 WHERE id = ?",$item['id']);
                     $photo_id = $db->fetch("SELECT id FROM ".$sys_tables[$estate."_photos"]." WHERE id_parent = ? ORDER BY id ASC",$item['id']);
-                    if(!empty($photo_id)) $db->query("UPDATE ".$sys_tables[$estate]." SET id_main_photo = ?, has_photo = 2 WHERE id = ?",$photo_id['id'], $item['id']);
+                    if(!empty($photo_id)) $db->querys("UPDATE ".$sys_tables[$estate]." SET id_main_photo = ?, has_photo = 2 WHERE id = ?",$photo_id['id'], $item['id']);
                 }
             }
             

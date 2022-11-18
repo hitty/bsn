@@ -128,7 +128,7 @@ class Host {
             $uri = substr( sha1( sha1( microtime() ) ), 0, 8 );
             $item = self::getShortUri($uri, false) ;
         } while( !empty($item));
-        $db->query("INSERT INTO " . Config::Get('sys_tables/short_uri') ." SET short_uri = ?, real_uri = ? ", $uri, $real_uri);
+        $db->querys("INSERT INTO " . Config::Get('sys_tables/short_uri') ." SET short_uri = ?, real_uri = ? ", $uri, $real_uri);
         return $uri;
     }
         

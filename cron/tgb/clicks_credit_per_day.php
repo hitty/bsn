@@ -38,8 +38,8 @@ require_once('includes/functions.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 $argc = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : false;
 
@@ -52,7 +52,7 @@ foreach($list as $k=>$item){
     $item['new_day_limit'] = Tgb::getClicksPerDay($item['id']);
     $stats = Tgb::getItemStats($item['id']);
     $item = array_merge($item, $stats);
-    $db->query("INSERT INTO ".$sys_tables['tgb_banners_credits']." SET `day_limit` = ?, id_banner= ?
+    $db->querys("INSERT INTO ".$sys_tables['tgb_banners_credits']." SET `day_limit` = ?, id_banner= ?
                                    ON DUPLICATE KEY UPDATE `day_limit` = ?
                                     ", $item['new_day_limit'], $item['id'], $item['new_day_limit']);
     $item['agency'] = Tgb::getAgency($sys_tables['tgb_campaigns'].".id = ".$item['id_campaign']);

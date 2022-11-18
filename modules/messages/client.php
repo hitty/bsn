@@ -19,7 +19,7 @@ switch(true){
     //установка чекбокса
     case $action == 'send_message_change' && $ajax_mode && !empty($auth->id):
         $value = Request::GetInteger('value', METHOD_POST);
-        if(!empty($value)) $db->query("UPDATE ".$sys_tables['users']." SET message_send = ? WHERE id = ?", $value, $auth->id);
+        if(!empty($value)) $db->querys("UPDATE ".$sys_tables['users']." SET message_send = ? WHERE id = ?", $value, $auth->id);
         echo '';
         break;
     //Страница Диалогов
@@ -47,10 +47,10 @@ switch(true){
                     ,$from, $to, $to, $from
                 );
                 if(!empty($item)) {
-                    $db->query("UPDATE ".$sys_tables['messages']." SET datetime_create = NOW(), is_deleted_from = 2, is_deleted_to = 2 WHERE id = ?", $item['id'] );
+                    $db->querys("UPDATE ".$sys_tables['messages']." SET datetime_create = NOW(), is_deleted_from = 2, is_deleted_to = 2 WHERE id = ?", $item['id'] );
                     Host::Redirect('/members/messages/#' . $item['id'], 301, false);
                 }
-                $db->query("INSERT INTO ".$sys_tables['messages']." SET id_user_from = ?, id_user_to = ?, datetime_create = NOW()", $from, $to);
+                $db->querys("INSERT INTO ".$sys_tables['messages']." SET id_user_from = ?, id_user_to = ?, datetime_create = NOW()", $from, $to);
                 Host::Redirect('/members/messages/#' . $db->insert_id, 301, false);
             break;
         
@@ -303,7 +303,7 @@ switch(true){
                 
                 //пометить все дерево разговора прочитанным
                 foreach($list as $k=>$item){
-                    $db->query("UPDATE ".$sys_tables['messages']." SET popup_notification = 1 WHERE 
+                    $db->querys("UPDATE ".$sys_tables['messages']." SET popup_notification = 1 WHERE 
                             id_user_from = ? AND id_user_to = ?
                             ", $item['id_user_from'], $item['id_user_to']);
                 }

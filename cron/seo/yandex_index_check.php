@@ -35,8 +35,8 @@ require_once('includes/getid3/getid3.php');
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -83,8 +83,8 @@ else{
         $inserting[] = "(".$time_start.",".$item->__toString().")";
     }
     if(!empty($inserting)){
-        $db->query("TRUNCATE ".$sys_tables['yandex_xml_limits']);
-        $db->query("INSERT INTO ".$sys_tables['yandex_xml_limits']." (hour,query_limit) VALUES ".implode(',',$inserting));
+        $db->querys("TRUNCATE ".$sys_tables['yandex_xml_limits']);
+        $db->querys("INSERT INTO ".$sys_tables['yandex_xml_limits']." (hour,query_limit) VALUES ".implode(',',$inserting));
     }
 }
 
@@ -118,10 +118,10 @@ if(!empty($limit) && $limit > 0){
             
             if(!empty($query_result->response->results)){
                 $in_index[] = $item['url'];
-                $db->query("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET in_index = 1,index_checked = NOW() WHERE id = ".$item['id']);
+                $db->querys("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET in_index = 1,index_checked = NOW() WHERE id = ".$item['id']);
             }else{
                 //возвращаем в показы те, что не в индексе
-                $db->query("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET index_checked = NOW(),date_out = '0000-00-00 00:00:00', shown_today = 0 WHERE id = ".$item['id']);
+                $db->querys("UPDATE ".$sys_tables['pages_not_indexed_yandex']." SET index_checked = NOW(),date_out = '0000-00-00 00:00:00', shown_today = 0 WHERE id = ".$item['id']);
                 $not_in_index[] = $item['url'];
             } 
         }

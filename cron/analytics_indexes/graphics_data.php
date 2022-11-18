@@ -30,7 +30,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -109,7 +109,7 @@ $sql = "
     ) ";
     
     $arr = array_keys($values);
-    $res = $db->query($sql) or die($db->error);
+    $res = $db->querys($sql) or die($db->error);
     
     $count = 0;
     $insert_sql = '';
@@ -121,7 +121,7 @@ $sql = "
     //Запись индексов в таблицу
 
     $sql = "INSERT INTO ".$sys_tables['analytics_graphics']." SET $insert_sql date = NOW()";
-    $db->query($sql) or die($sql.$db->error);
+    $db->querys($sql) or die($sql.$db->error);
     echo $_ID_ = $db->insert_id;
     
 
@@ -156,14 +156,14 @@ $sql = "
           )
           ";
         
-    $res = $db->query($sql) or die($sql.$db->error);
+    $res = $db->querys($sql) or die($sql.$db->error);
     $insert_sql = '';
 
     while($row = $res->fetch_row()){
         $insert_sql.= "".$arr[$count]." = '".($row[0])."', ";
         $count++;
     }
-    $db->query("UPDATE ".$sys_tables['analytics_graphics']." SET $insert_sql date = NOW() WHERE id=$_ID_") or die($db->error);
+    $db->querys("UPDATE ".$sys_tables['analytics_graphics']." SET $insert_sql date = NOW() WHERE id=$_ID_") or die($db->error);
 
 
 //Данные для графика 3: распределение по площадям для вторички для 1/2/3 КК
@@ -172,13 +172,13 @@ $sql = "
     for($rooms = 1; $rooms < 4; $rooms++){
         for($i=20; $i<=100; $i=$i+$gr3_step){
             $sql = "SELECT COUNT(*) as cnt FROM ".$sys_tables['live']." WHERE $sql_where AND $sql_where_liv_blocks AND rooms_sale = $rooms AND square_full >= $i AND square_full < ".($i+$gr3_step);
-            $res = $db->query($sql) or die($db->error);
+            $res = $db->querys($sql) or die($db->error);
             $row = $res->fetch_array(); 
             $inserts_sql[$rooms].= $row['cnt'].";";
             
         }
     }
-    $db->query("UPDATE ".$sys_tables['analytics_graphics']." SET 3_1kk_txt_sqear = '$inserts_sql[1]', 3_2kk_txt_sqear = '$inserts_sql[2]', 3_3kk_txt_sqear = '$inserts_sql[3]' WHERE id=$_ID_") or die($db->error);
+    $db->querys("UPDATE ".$sys_tables['analytics_graphics']." SET 3_1kk_txt_sqear = '$inserts_sql[1]', 3_2kk_txt_sqear = '$inserts_sql[2]', 3_3kk_txt_sqear = '$inserts_sql[3]' WHERE id=$_ID_") or die($db->error);
         
 //Данные для графика 4: распределение по площадям для вторички для 1/2/3 КК
 
@@ -186,13 +186,13 @@ $sql = "
     for($rooms = 1; $rooms < 4; $rooms++){
         for($i=2000000; $i<=9500000; $i=$i+$gr4_step){
             $sql = "SELECT COUNT(*) as cnt FROM ".$sys_tables['live']." WHERE $sql_where AND $sql_where_liv_blocks AND rooms_sale = $rooms AND cost >= $i AND cost < ".($i+$gr4_step);
-            $res = $db->query($sql) or die($db->error);
+            $res = $db->querys($sql) or die($db->error);
             $row = $res->fetch_array(); $insertr_sql[$rooms].= ($row['cnt']>0 ? (integer)$row['cnt'] : 0) .";";
             
         }
     }
     echo "UPDATE ".$sys_tables['analytics_graphics']." SET 4_1kk_txt_cost = '$insertr_sql[1]', 4_2kk_txt_cost = '$insertr_sql[2]', 4_3kk_txt_cost = '$insertr_sql[3]' WHERE id=$_ID_";
-    $db->query("UPDATE ".$sys_tables['analytics_graphics']." SET 4_1kk_txt_cost = '$insertr_sql[1]', 4_2kk_txt_cost = '$insertr_sql[2]', 4_3kk_txt_cost = '$insertr_sql[3]' WHERE id=$_ID_") or die($db->error);
+    $db->querys("UPDATE ".$sys_tables['analytics_graphics']." SET 4_1kk_txt_cost = '$insertr_sql[1]', 4_2kk_txt_cost = '$insertr_sql[2]', 4_3kk_txt_cost = '$insertr_sql[3]' WHERE id=$_ID_") or die($db->error);
 
         
 //Данные для графика 5: распределение по территория города - для 1/2/3 КК (кол-во)
@@ -203,13 +203,13 @@ $sql = "
     for($rooms = 1; $rooms < 4; $rooms++){
         foreach($areas as $field => $ids){
             $sql = "SELECT COUNT(*) as cnt FROM ".$sys_tables['live']." WHERE $sql_where_simple AND rooms_sale = $rooms AND id_district IN ($ids)";
-            $res = $db->query($sql) or die($db->error);
+            $res = $db->querys($sql) or die($db->error);
             $row = $res->fetch_array(); $areas_sql[$rooms].= (integer)($row['cnt']).";";
             
         }
     }
     echo "UPDATE ".$sys_tables['analytics_graphics']." SET 5_1kk_text = '$areas_sql[1]', 5_2kk_text = '$areas_sql[2]', 5_3kk_text = '$areas_sql[3]' WHERE id=$_ID_";
-    $db->query("UPDATE ".$sys_tables['analytics_graphics']." SET 5_1kk_text = '$areas_sql[1]', 5_2kk_text = '$areas_sql[2]', 5_3kk_text = '$areas_sql[3]' WHERE id=$_ID_") or die($db->error);
+    $db->querys("UPDATE ".$sys_tables['analytics_graphics']." SET 5_1kk_text = '$areas_sql[1]', 5_2kk_text = '$areas_sql[2]', 5_3kk_text = '$areas_sql[3]' WHERE id=$_ID_") or die($db->error);
             
 
 //Данные для графика 5: динамика стоимости кв.метра по типам квартир
@@ -238,7 +238,7 @@ $sql = "
 
     $count = 19;
     $insert_sql = '';
-    $res = $db->query($sql) or die($db->error);
+    $res = $db->querys($sql) or die($db->error);
     while($row = $res->fetch_row()){
         $insert_sql.= "".$arr[$count]." = '".($row[0])."', ";
         $count++;
@@ -246,5 +246,5 @@ $sql = "
     //Запись индексов в таблицу
 
   echo  $sql = "UPDATE ".$sys_tables['analytics_graphics']." SET $insert_sql date = NOW() WHERE id = $_ID_";
-   $db->query($sql) or die($sql.$db->error);
+   $db->querys($sql) or die($sql.$db->error);
 ?>

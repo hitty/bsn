@@ -219,7 +219,7 @@ class SaleItem extends Sale{
         global $db;
         $res = false;
         if(!empty($this->data_array['id']) || !empty($id)){
-            $res = $db->query("DELETE FROM ".($this->work_table)." WHERE id=?",$this->data_array['id']);
+            $res = $db->querys("DELETE FROM ".($this->work_table)." WHERE id=?",$this->data_array['id']);
             if(!empty($res)) $this->data_changed = true;
         }
         return $res;

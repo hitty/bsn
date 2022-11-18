@@ -149,7 +149,7 @@ switch(true){
                 }
                 else $sql_values = " (".$campaign_data['id'].", '".Host::getUserIp()."','".$db->real_escape_string($_SERVER['HTTP_USER_AGENT'])."','".Host::getRefererURL()."')";
                 
-                $db->query("INSERT INTO ".$sys_tables['context_stats_show_day']." (id_parent, ip, browser, ref) VALUES ".$sql_values);
+                $db->querys("INSERT INTO ".$sys_tables['context_stats_show_day']." (id_parent, ip, browser, ref) VALUES ".$sql_values);
             }
             
             $ajax_result['release_ydirect'] = empty($this_page->page_parameters[4]);
@@ -179,7 +179,7 @@ switch(true){
             $time = $db->fetch("SELECT TIMESTAMPDIFF(HOUR, `datetime`, NOW()) as `time` FROM ".$sys_tables['context_stats_click_day']." WHERE id_parent = ? AND ip = ? ORDER BY id DESC",$id, Host::getUserIp());
             if(empty($ref)) $ref = '';
             if($id>0 && !Host::$is_bot && (empty($time) || $time['time']>=1)){
-                $res=$db->query("INSERT INTO ".$sys_tables['context_stats_click_day']." SET `id_parent`=?, `from` = ?, ref=?, real_ref=?, ip=?",$id,$from,$ref,Host::getRefererURL(),Host::getUserIp());
+                $res=$db->querys("INSERT INTO ".$sys_tables['context_stats_click_day']." SET `id_parent`=?, `from` = ?, ref=?, real_ref=?, ip=?",$id,$from,$ref,Host::getRefererURL(),Host::getUserIp());
                 $ajax_result['ok'] = $res;
                 //если все хорошо, осуществляем списание
                 if($res){
@@ -204,7 +204,7 @@ switch(true){
                     
                     //списание с баланса кампании
                     $banner_data['balance'] -= $banner_data['click_cost'];
-                    $db->query("UPDATE ".$sys_tables['context_campaigns']." SET balance = ? WHERE id = ?",$banner_data['balance'],$id_campaign);
+                    $db->querys("UPDATE ".$sys_tables['context_campaigns']." SET balance = ? WHERE id = ?",$banner_data['balance'],$id_campaign);
                     
                     //читаем максимальную стоимость клика для данной кампании
                     $max_click = $db->fetch("SELECT MAX(click_cost) AS max_click
@@ -240,12 +240,12 @@ switch(true){
                     
                     $owner_info['user_balance'] -= $banner_data['click_cost'];
                     //списание с баланса пользователя
-                    $db->query("UPDATE ".$sys_tables['users']." SET balance = ".$owner_info['user_balance']." WHERE id = ?",$banner_data['id_user']);
+                    $db->querys("UPDATE ".$sys_tables['users']." SET balance = ".$owner_info['user_balance']." WHERE id = ?",$banner_data['id_user']);
                     
                     //делаем запись в context_finances
-                    $db->query("INSERT INTO ".$sys_tables['context_finances']." SET id_parent = ?, id_user = ?, expenditure = ?, income = 0",$id,$banner_data['id_user'],$banner_data['click_cost']);
+                    $db->querys("INSERT INTO ".$sys_tables['context_finances']." SET id_parent = ?, id_user = ?, expenditure = ?, income = 0",$id,$banner_data['id_user'],$banner_data['click_cost']);
                     //делаем запись в users_finances
-                    $db->query("INSERT INTO ".$sys_tables['users_finances']." SET id_user = ?, id_parent = ?, obj_type = 'context_banner', expenditure = ?, income = 0",$banner_data['id_user'],$id,$banner_data['click_cost']);
+                    $db->querys("INSERT INTO ".$sys_tables['users_finances']." SET id_user = ?, id_parent = ?, obj_type = 'context_banner', expenditure = ?, income = 0",$banner_data['id_user'],$id,$banner_data['click_cost']);
                     
                     //если баланс кампании оказался <=0, убираем ее и все ее объявления в архив и оповещаем клиента и менеджера
                     if(($banner_data['balance'] < $banner_data['click_cost'])){
@@ -257,9 +257,9 @@ switch(true){
                         $notification_data['manager_name'] = explode(' ',$owner_info['manager_name'])[0];
                         $notification_data['balance'] = $banner_data['balance'] - $banner_data['click_cost'];
                         //все объявления кампании идут в архив
-                        $db->query("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign = ?",$id_campaign);
+                        $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign = ?",$id_campaign);
                         //убираем кампанию в архив и ставим ей нулевой баланс
-                        $db->query("UPDATE ".$sys_tables['context_campaigns']." SET published = 2, balance = 0 WHERE id = ?",$id_campaign);
+                        $db->querys("UPDATE ".$sys_tables['context_campaigns']." SET published = 2, balance = 0 WHERE id = ?",$id_campaign);
                         //уведомляем компанию и менеджера
                         contextCampaigns::Notification(7,$notification_data,false,false);
                     }
@@ -267,15 +267,15 @@ switch(true){
                     $user_balance = $db->fetch("SELECT balance FROM ".$sys_tables['users']." WHERE id = ".$banner_data['id_user'])['balance'];
                     if($user_balance<=0){
                         //устанавливаем пользователю нулевой баланс
-                        $db->query("UPDATE ".$sys_tables['users']." SET balance = 0 WHERE id = ?",$banner_data['id_user']);
+                        $db->querys("UPDATE ".$sys_tables['users']." SET balance = 0 WHERE id = ?",$banner_data['id_user']);
                         //убираем все его кампании в архив и устанавливаем им нулевой баланс, убираем в архив все объявления
-                        $db->query("UPDATE ".$sys_tables['context_campaigns']." SET published = 2 AND balance = 0 WHERE id_user = ?",$banner_data['id_user']);
-                        $db->query("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_user = ?",$banner_data['id_user']);
+                        $db->querys("UPDATE ".$sys_tables['context_campaigns']." SET published = 2 AND balance = 0 WHERE id_user = ?",$banner_data['id_user']);
+                        $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_user = ?",$banner_data['id_user']);
                     }
                 }
                 //сохранение статистики показов для метки
                 $session_marker = Session::GetString('marker');
-                if(!empty($session_marker)) $db->query("INSERT INTO ".$sys_tables['markers_stats_day_clicks']." SET id_parent=?",$session_marker);
+                if(!empty($session_marker)) $db->querys("INSERT INTO ".$sys_tables['markers_stats_day_clicks']." SET id_parent=?",$session_marker);
             }
         } else $this_page->http_code=404;
         break;
@@ -679,9 +679,9 @@ switch(true){
                                             foreach($img_list as $key=>$item)
                                                 Photos::Delete($sys_tables['context_advertisements_photos'],$item['id']);
                                             //удаляем картинки из таблицы
-                                            $db->query("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id_block);
+                                            $db->querys("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id_block);
                                             //устанавливаем id_main_photo = 0 для данной кампании
-                                            $db->query("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = 0 WHERE id = ".$id_block);
+                                            $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = 0 WHERE id = ".$id_block);
                                         }
                                     }
                                 }
@@ -848,17 +848,17 @@ switch(true){
                                         else $ajax_result['archivation'] = '1';
                                         $res = $db->updateFromArray($sys_tables['context_advertisements'], $info, 'id');
                                         //если необходимо, добавляем теги, удалив предварительно предыдущие
-                                        $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
+                                        $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
                                         //убеждаемся что удалили все
                                         $still_exists = $db->fetchall("SELECT id FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$info['id']);
                                         $q_counter = 0;
                                         while(count($still_exists)>0 || $q_counter>20){
-                                            $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
+                                            $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
                                             $still_exists = $db->fetchall("SELECT id FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$info['id']);
                                             ++$q_counter;
                                         }
                                         if(!empty($tags_sql)){
-                                            $res = $res && $db->query($tags_sql);
+                                            $res = $res && $db->querys($tags_sql);
                                         }
                                     }else{
                                         $res = $db->insertFromArray($sys_tables['context_advertisements'], $info, 'id');
@@ -866,18 +866,18 @@ switch(true){
                                             $new_id = $db->insert_id;
                                             if(empty($info['id'])) $info['id'] = $new_id;
                                             //если все хорошо, добавляем объявлению теги, удалив предыдущие
-                                            $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
+                                            $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
                                             //убеждаемся что удалили все
                                             $still_exists = $db->fetchall("SELECT id FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$info['id']);
                                             $q_counter = 0;
                                             while(count($still_exists)>0 || $q_counter>20){
-                                                $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
+                                                $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$info['id']);
                                                 $still_exists = $db->fetchall("SELECT id FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$info['id']);
                                                 ++$q_counter;
                                             }
                                             if($q_counter > 20) $res = false;
                                             if(!empty($tags_sql)){
-                                                $res = $res && $db->query($tags_sql);
+                                                $res = $res && $db->querys($tags_sql);
                                             }
                                         }
                                     }
@@ -896,7 +896,7 @@ switch(true){
                                                                     id_tag IN (SELECT id FROM ".$sys_tables['context_tags']." WHERE ".$estate_restrictions.")");
                                         if(!empty($tags_deleted['ids'])){
                                             //удаляем их из таблицы соответствия
-                                            $res = $db->query("DELETE
+                                            $res = $db->querys("DELETE
                                                                FROM ".$sys_tables['context_tags_conformity']."
                                                                WHERE id_context = ".Convert::ToInt($id_block)." AND 
                                                                id IN (".$tags_deleted['ids'].")");
@@ -1066,7 +1066,7 @@ switch(true){
                         case 'reqts':
                             $id = Request::GetInteger('id',METHOD_POST);
                             $id_place = Request::GetInteger('id_place',METHOD_POST);
-                            $res = $db->query("UPDATE ".$sys_tables['context_advertisements']." SET id_place = ? WHERE id = ?",$id_place,$id);
+                            $res = $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET id_place = ? WHERE id = ?",$id_place,$id);
                             $ajax_result['ok'] = $res;
                         case 'list':
                             //получение списка фотографий
@@ -1086,7 +1086,7 @@ switch(true){
                             //id текущего рекламного блока
                             $id = Request::GetInteger('id', METHOD_POST);
                             //при попытке изменения фотографии сразу убираем в архив
-                            $db->query("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id = ? AND published = 1",$id);
+                            $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id = ? AND published = 1",$id);
                             //читаем высоту и ширину фотографии
                             $campaign_data = $db->fetch("SELECT IF(".$sys_tables['context_advertisements'].".block_type = 2 AND ".$sys_tables['context_advertisements'].".id_place = 4,
                                                                 ".$sys_tables['context_places'].".width_txtimage,
@@ -1116,7 +1116,7 @@ switch(true){
                                     else {
                                         if(gettype($res) == 'string') $ajax_result['error'] = $res;
                                         else {
-                                            $db->query("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = ".$res['photo_id']." WHERE id = ".$id);
+                                            $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = ".$res['photo_id']." WHERE id = ".$id);
                                             $ajax_result['ok'] = true;
                                             $ajax_result['list'] = $res;
                                         }
@@ -1129,7 +1129,7 @@ switch(true){
                             //id фотки
                             $id_photo = Request::GetInteger('id_photo', METHOD_POST);
                             //при попытке изменения фотографии сразу убираем в архив
-                            $db->query("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_main_photo = ? AND published = 1",$id_photo);
+                            $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_main_photo = ? AND published = 1",$id_photo);
                             
                             if(!empty($id_photo)){
                                 $res = Photos::Delete('context_advertisements',$id_photo);
@@ -1164,12 +1164,12 @@ switch(true){
                     $temp_info['title'] = $temp_info['title']." (копия".$similar_advs.")";
                     $ajax_result['title'] = $temp_info['title'];
                     
-                    $res = $db->query("INSERT INTO ".$sys_tables['context_advertisements']." (".implode(',',array_keys($temp_info)).") VALUES (\"".implode('","',array_values(array_map("addSlashes",$temp_info)))."\")");
+                    $res = $db->querys("INSERT INTO ".$sys_tables['context_advertisements']." (".implode(',',array_keys($temp_info)).") VALUES (\"".implode('","',array_values(array_map("addSlashes",$temp_info)))."\")");
                     
                     $new_id = $db->insert_id;
                     
                     //копируем пары этот_блок-тег из таблицы соответствия
-                    $res = $db->query("INSERT INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) 
+                    $res = $db->querys("INSERT INTO ".$sys_tables['context_tags_conformity']." (id_context,id_tag) 
                                        SELECT ".$new_id." AS id_context,id_tag FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ".$id);
                     
                     ///копируем картинку этого блока, если есть:
@@ -1189,7 +1189,7 @@ switch(true){
                         else
                         $res = Photos::Add('context_advertisements',$new_id,false,"//st1.bsn.ru/".Config::$values['img_folders']['context_advertisements']."/big/".$img['folder']."/".$img['name'],false,$width,$height,true,false,false,$width,$height,true);
                         //обновляем id_main_photo
-                        if(!empty($res)) $db->query("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = ".$res['photo_id']." WHERE id = ".$new_id);
+                        if(!empty($res)) $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET id_main_photo = ".$res['photo_id']." WHERE id = ".$new_id);
                     }
                     
                     
@@ -1204,7 +1204,7 @@ switch(true){
                     //получаем id объекта
                     $id = Request::GetInteger('id',METHOD_POST);
                     //удаляем пары этот_блок-тег из таблицы соответствия
-                    $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$id);
+                    $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context = ?",$id);
                     ///удаляем все фотографии этого блока:
                     //читаем список картинок, которые нужно удалить
                     $img_list = $db->fetchall("SELECT id FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ".$id);
@@ -1212,9 +1212,9 @@ switch(true){
                     foreach($img_list as $key=>$item)
                         Photos::Delete($sys_tables['context_advertisements_photos'],$item['id']);
                     //удаляем картинки из таблицы
-                    $db->query("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id);
+                    $db->querys("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id_parent = ?",$id);
                     //удаляем сам рекламный блок
-                    $res = $db->query("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id = ?",$id);
+                    $res = $db->querys("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id = ?",$id);
                     $ajax_result['ok'] = $res;
                     break;
                 }
@@ -2356,7 +2356,7 @@ switch(true){
                     }
                     elseif(!empty($campaign_info['id']) && ($campaign_info['published'] == 1) && empty($errors)){
                         //если кампания не архивная и не новая, убираем в архив все объявления кампании и оповещаем менеджера, что кампания идет в архив
-                        $db->query("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign = ".$campaign_info['id']);
+                        $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign = ".$campaign_info['id']);
                         //читаем информацию по компании, чья это кампания
                         $agency_info = $db->fetch("SELECT ".$sys_tables['agencies'].".id,
                                                           ".$sys_tables['agencies'].".title AS agency_title,
@@ -2755,19 +2755,19 @@ switch(true){
                 foreach($img_list as $key=>$picture_id)
                     Photos::Delete('context_advertisements',$picture_id);
                 //удаляем картинки из таблицы
-                $db->query("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id IN (".$adv_list['photos_ids'].")");
+                $db->querys("DELETE FROM ".$sys_tables['context_advertisements_photos']." WHERE id IN (".$adv_list['photos_ids'].")");
             }
             
             //если есть объявления, удаляем
             if(!empty($adv_list['adv_ids'])){
                 //удаляем пары объявление-тег из таблицы соответствия
-                $db->query("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context IN (".$adv_list['adv_ids'].")");
+                $db->querys("DELETE FROM ".$sys_tables['context_tags_conformity']." WHERE id_context IN (".$adv_list['adv_ids'].")");
                 //удаляем объявления
-                $res = $db->query("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id IN (".$adv_list['adv_ids'].")");
+                $res = $db->querys("DELETE FROM ".$sys_tables['context_advertisements']." WHERE id IN (".$adv_list['adv_ids'].")");
             }
             
             //удаляем саму кампанию
-            $res = $res && $db->query("DELETE FROM ".$sys_tables['context_campaigns']." WHERE id = ?",$campaign_id);
+            $res = $res && $db->querys("DELETE FROM ".$sys_tables['context_campaigns']." WHERE id = ?",$campaign_id);
             $ajax_result['ok'] = $res;
             if(empty($res)) $ajax_result['errors'] = $db->error;
             break;

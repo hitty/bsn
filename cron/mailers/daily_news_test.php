@@ -44,8 +44,8 @@ $debug = DEBUG_MODE || !empty($_SERVER['argv'][1]) ? true : false;
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -91,13 +91,13 @@ else $date_where .= '  AND datetime >= NOW() - INTERVAL '.(date('N')).' DAY ';
     $newsletter_title = !empty($title) ? $title[0]['title'] : "Новости рынка недвижимости от БСН за ".date("d.m.Y");
     Response::SetArray('newsletter_title', $newsletter_title);
 
-    if(empty($debug)) $db->query("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, newsletter_title=2");
+    if(empty($debug)) $db->querys("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, newsletter_title=2");
 
     //получение списка статей
     $articles = new Content('articles');
     $articles_list = $articles->getList(false, false, false, false,'newsletter_feed = 1'.$date_where ,$sys_tables['articles_categories'].".position, ".$sys_tables['articles'].".views_count DESC");
     if(!empty($articles_list)) Response::SetArray('articles_list', $articles_list);
-    if(empty($debug)) $db->query("UPDATE ".$sys_tables['articles']." SET `newsletter_feed` = 2");
+    if(empty($debug)) $db->querys("UPDATE ".$sys_tables['articles']." SET `newsletter_feed` = 2");
 
 
 //мнения экспертов
@@ -148,7 +148,7 @@ if( !empty($debug) || ( !empty($email_list) && (!empty($news_list) || !empty($ar
     $eml_tpl = new Template('daily_news.email.html', 'cron/mailers/');
     $html = $eml_tpl->Processing();
     echo $html = iconv('UTF-8', $mailer->CharSet.'//IGNORE', $html);
-    $mailer = $db->query("INSERT INTO ".$sys_tables['news_mailers']." SET datetime = CURDATE(), content = ?", $html);
+    $mailer = $db->querys("INSERT INTO ".$sys_tables['news_mailers']." SET datetime = CURDATE(), content = ?", $html);
     Response::SetInteger('mailer_id', $db->insert_id);
 
     foreach($email_list as $email){

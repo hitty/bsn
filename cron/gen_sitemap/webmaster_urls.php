@@ -34,8 +34,8 @@ require_once('includes/class.sitemap.php');      // Sitemap (класс для �
 
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 $url=DEBUG_MODE?'https://www.bsnnew.int':'https://www.bsn.ru';
 
 //инициализируем класс для работы с curl
@@ -77,7 +77,7 @@ if (($years==0)&&($months==0)&&($days>=14)){
 download_csv($url_csv,'cron/gen_sitemap/webmaster.csv');
 
 //чистим таблицу в базе перед записью
-$db->query('TRUNCATE '.$sys_tables['webmaster_site_urls']);
+$db->querys('TRUNCATE '.$sys_tables['webmaster_site_urls']);
 
 //читаем скачанный csv и пишем в базу новый список url
 if(!parse_csv($path)){
@@ -102,7 +102,7 @@ do{
         $url_to_base=str_replace('https://www.bsn.ru','',$url);
         //пишем в базу
         $query="UPDATE ".$sys_tables['webmaster_site_urls']." SET server_answer='".$db->real_escape_string($result['server_answers'][$i])."', title='".$db->real_escape_string($result['pages_titles'][$i])."', check_date='".$db->real_escape_string($result['pages_date'][$i])."', url='".$db->real_escape_string($url_to_base)."' WHERE url='".$db->real_escape_string($url_to_base)."' OR url='".$db->real_escape_string($url)."'";
-        $db->query($query);
+        $db->querys($query);
         $i++;
     }
     echo count($urls)." urls processed<br>";
@@ -260,7 +260,7 @@ function urls_to_db($urls,$change_dates){
     GLOBAL $db,$sys_tables;
     $i=0;
     while ($i < count($urls)){
-        $db->query("INSERT IGNORE INTO ".$sys_tables['webmaster_site_urls']." SET url = ?, change_date = ?
+        $db->querys("INSERT IGNORE INTO ".$sys_tables['webmaster_site_urls']." SET url = ?, change_date = ?
                     ON DUPLICATE KEY UPDATE url = ?",
                     $urls[$i], $change_dates[$i], $urls[$i]);
         ++$i;

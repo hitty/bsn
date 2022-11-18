@@ -23,7 +23,7 @@ include('includes/class.storage.php');      // Session, Cookie, Responce, Reques
 include('includes/functions.php');          // функции  из модуля
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables; 
 $sys_tables['pages_seo'] = 'common.pages_seo';
@@ -31,12 +31,12 @@ $sys_tables['pages_seo'] = 'common.pages_seo';
 
  $list = $db->fetchall("SELECT * FROM ".$sys_tables['pages_seo']." WHERE seo_text!='' GROUP BY pretty_url, url ORDER BY id ASC");
  foreach($list as $k=>$item){
-     $db->query("DELETE FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ? AND url = ? AND id != ? AND seo_text=''", $item['pretty_url'], $item['url'], $item['id']);
+     $db->querys("DELETE FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ? AND url = ? AND id != ? AND seo_text=''", $item['pretty_url'], $item['url'], $item['id']);
  }
 
 $list = $db->fetchall("SELECT * FROM ".$sys_tables['pages_seo']." GROUP BY pretty_url, url ORDER BY id ASC");
 foreach($list as $k=>$item){
- $db->query("DELETE FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ? AND url = ? AND id != ? ", $item['pretty_url'], $item['url'], $item['id']);
+ $db->querys("DELETE FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ? AND url = ? AND id != ? ", $item['pretty_url'], $item['url'], $item['id']);
 }
    die();                                                             
 //  Жилая 

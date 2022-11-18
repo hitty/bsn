@@ -245,7 +245,7 @@ switch(true){
                     //если есть аккаунт для прикрепления - обновляем данные
                     $account_attach = unserialize(Session::GetString('account_attach'));
                     if(!empty($account_attach)) {
-                        if(!empty($account_attach['field']) && !empty($account_attach['value'])) $db->query("UPDATE ".$sys_tables['users']." SET ".$account_attach['field']."=? WHERE id=?",$account_attach['value'],$auth->id);
+                        if(!empty($account_attach['field']) && !empty($account_attach['value'])) $db->querys("UPDATE ".$sys_tables['users']." SET ".$account_attach['field']."=? WHERE id=?",$account_attach['value'],$auth->id);
                         Session::SetString('account_attach','');
                     }
                     //если авторизовались с помощью соцсети - закрываем окно
@@ -347,7 +347,7 @@ switch(true){
                         } else $domain = false;
                         if(!empty($domain) && !Validate::emailBlackList($domain)){
                         // создание нового пользователя в БД
-                        $res = $db->query("INSERT INTO ".$sys_tables['users']."
+                        $res = $db->querys("INSERT INTO ".$sys_tables['users']."
                                             (email,name,passwd,datetime,access)
                                            VALUES
                                             (?,?,?,NOW(),'')"
@@ -365,7 +365,7 @@ switch(true){
                             if(!empty($account_attach)) {
                                 //проверка на существование такой учетной записи
                                 $item = $db->fetch("SELECT * FROM ".$sys_tables['users']." WHERE ".$account_attach['field']."=?",$account_attach['value']);
-                                if(!empty($item)) $db->query("UPDATE ".$sys_tables['users']." SET ".$account_attach['field']."=? WHERE id=?",$account_attach['value'],$db->insert_id);
+                                if(!empty($item)) $db->querys("UPDATE ".$sys_tables['users']." SET ".$account_attach['field']."=? WHERE id=?",$account_attach['value'],$db->insert_id);
                                 Session::SetString('account_attach','');
                             }
 
@@ -493,7 +493,7 @@ switch(true){
             // генерация нового кода подтверждения
             $confirm_code = substr(md5(time()),-6);
             // создание нового запроса
-            $res = $db->query("INSERT IGNORE INTO ".$sys_tables['users_restore']."
+            $res = $db->querys("INSERT IGNORE INTO ".$sys_tables['users_restore']."
                                     SET id_users = ?, users_email = ?, confirm_code = ?
                                     ON DUPLICATE KEY UPDATE id_users = ?, confirm_code = ?"     
                                , $user_row['id']
@@ -593,13 +593,13 @@ switch(true){
                     
                     Response::SetString('success','step2');
                     // обработка формы подтверждения смены пароля
-                    $result = $db->query("UPDATE ".$sys_tables['users']."
+                    $result = $db->querys("UPDATE ".$sys_tables['users']."
                                           SET passwd=?
                                           WHERE id=?"
                                           , sha1(sha1($post_parameters['newpass1']))
                                           , $user['id_users']);
                     if($result){
-                        $res = $db->query("DELETE FROM ".$sys_tables['users_restore']." WHERE id=?", $restore_row['id']);
+                        $res = $db->querys("DELETE FROM ".$sys_tables['users_restore']." WHERE id=?", $restore_row['id']);
                         Response::SetBoolean('completed',true);
                         $res = $auth->AuthCheck($get_parameters['email'], $post_parameters['newpass1']);
                         if($res) Host::Redirect('/');
@@ -671,7 +671,7 @@ switch(true){
                                 $status_date_end = "0000-00-00 00:00:00";
                             }
                             
-                            $res = $db->query("UPDATE ".$sys_tables[$estate]." SET date_change= NOW(), status = ?, status_date_end = ? WHERE id=? AND id_user=?",$status, $status_date_end, $id, $auth->id); 
+                            $res = $db->querys("UPDATE ".$sys_tables[$estate]." SET date_change= NOW(), status = ?, status_date_end = ? WHERE id=? AND id_user=?",$status, $status_date_end, $id, $auth->id);
                             if($res) {
                                 $item = $db->fetch("SELECT ".($status!=2?"
                                                            DATE_FORMAT(status_date_end,'%d %M') as `date_end`,
@@ -704,7 +704,7 @@ switch(true){
                         if($from_archive){
                             //если объект промо/премиум из тарифа, то обнуляем все и добавляем в тариф +1 опцию
                             $item = $db->fetch("SELECT payed_status, status, id_user FROM ".$sys_tables[$estate]." WHERE id = ?", $id);
-                            $res = $db->query("UPDATE ".$sys_tables[$estate]." 
+                            $res = $db->querys("UPDATE ".$sys_tables[$estate]." 
                                                SET published=".($action == 'archive'?2:1).", 
                                                    date_change=CURDATE() ".( (!empty($auth->id_tarif) && !empty($item) && $item['payed_status']==2) || 
                                                                              ( !empty( $auth->agency_admin ) && $auth->agency_admin == 1 )?
@@ -727,7 +727,7 @@ switch(true){
                                 if(!empty($items)){
                                     $items = preg_replace('/[^0-9\,]/','',$items);
                                     $items = trim(preg_replace('/((\,)(?<!(^\,)|(\d\,(?!$))))|(^\,)|(\,$)/sui','',$items),',');
-                                    $res = $db->query("UPDATE ".$sys_tables[$estate_type]." SET published = 2, date_change=CURDATE(), status = 2, status_date_end = '0000-00-00 00:00:00' WHERE id IN (".$items.") AND id_user = ".$auth->id);
+                                    $res = $db->querys("UPDATE ".$sys_tables[$estate_type]." SET published = 2, date_change=CURDATE(), status = 2, status_date_end = '0000-00-00 00:00:00' WHERE id IN (".$items.") AND id_user = ".$auth->id);
                                 }
                             }
                         }else{
@@ -811,7 +811,7 @@ switch(true){
                                     if(!empty($items)){
                                         $items = preg_replace('/[^0-9\,]/','',$items);
                                         $items = trim(preg_replace('/((\,)(?<!(^\,)|(\d\,(?!$))))|(^\,)|(\,$)/sui','',$items),',');
-                                        $res = $db->query("UPDATE ".$sys_tables[$estate_type]." SET published = 1, status = 2, date_change = NOW(), status_date_end = DATE_ADD(CURDATE(), INTERVAL 30 DAY) WHERE id IN (".$items.") AND id_user = ".$auth->id);
+                                        $res = $db->querys("UPDATE ".$sys_tables[$estate_type]." SET published = 1, status = 2, date_change = NOW(), status_date_end = DATE_ADD(CURDATE(), INTERVAL 30 DAY) WHERE id IN (".$items.") AND id_user = ".$auth->id);
                                         ++$k;
                                         if($k>$can_add_amount) break;
                                     }
@@ -863,7 +863,7 @@ switch(true){
                         $info = $db->fetch("SELECT * FROM ".$sys_tables[$estate]." WHERE `id` = ? AND id_user=?",$id,$auth->id);
                         if(($status==3 || $status==4) && $info['status_date_end'] < date("Y-m-d H:i:s")) $ajax_result['ok'] = false;
                         else{
-                            $res = $db->query("UPDATE ".$sys_tables[$estate]." SET status=? WHERE id=? AND id_user=?",$status,$id,$auth->id); 
+                            $res = $db->querys("UPDATE ".$sys_tables[$estate]." SET status=? WHERE id=? AND id_user=?",$status,$id,$auth->id);
                             $ajax_result['ok'] = $res;
                         }
                     }
@@ -877,14 +877,14 @@ switch(true){
                     $selected = Request::GetArray('selected',METHOD_POST);
                     if(array_key_exists($estate, $estate_types) && Validate::isDigit($id)){
                         //удаление из основной таблицы
-                        $db->query("UPDATE ".$sys_tables[$estate]." SET date_change = NOW(), published = 9, status = 2, status_date_end = '0000-00-00' WHERE id=? AND id_user=?",$id,$auth->id); 
+                        $db->querys("UPDATE ".$sys_tables[$estate]." SET date_change = NOW(), published = 9, status = 2, status_date_end = '0000-00-00' WHERE id=? AND id_user=?",$id,$auth->id);
                         //удаление фоток для id_parent
-                        //$db->query("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id_parent=? ",$id); 
+                        //$db->querys("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE id_parent=? ",$id);
                         //удаление из таблицы new
                         $list_new=$db->fetch("SELECT id FROM ".$sys_tables[$estate.'_new']." WHERE id_object=? AND id_user=?",$id,$auth->id);
                         if(!empty($list_new)){
-                            $db->query("DELETE FROM ".$sys_tables[$estate.'_new']." WHERE id=? AND id_user=?",$list_new['id'],$auth->id);     
-                            $db->query("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE  WHERE id_parent_new=? ",$list_new['id']); 
+                            $db->querys("DELETE FROM ".$sys_tables[$estate.'_new']." WHERE id=? AND id_user=?",$list_new['id'],$auth->id);
+                            $db->querys("DELETE FROM ".$sys_tables[$estate.'_photos']." WHERE  WHERE id_parent_new=? ",$list_new['id']);
                         }
                         $ajax_result['ok'] = true;
                     }
@@ -896,7 +896,7 @@ switch(true){
                             if(!empty($items)){
                                 $items = preg_replace('/[^0-9\,]/','',$items);
                                 $items = trim(preg_replace('/((\,)(?<!(^\,)|(\d\,(?!$))))|(^\,)|(\,$)/sui','',$items),',');
-                                $res = $db->query("DELETE FROM ".$sys_tables[$estate_type]." WHERE id IN (".$items.") AND id_user = ".$auth->id);
+                                $res = $db->querys("DELETE FROM ".$sys_tables[$estate_type]." WHERE id IN (".$items.") AND id_user = ".$auth->id);
                             }
                         }
                         $ajax_result['group_operation'] = true;
@@ -927,7 +927,7 @@ switch(true){
                         if( empty( $session ) ) {
                            Session::SetString( $auth->id . $estate . $deal_type, true ) ;
                            if( empty( $draft_session ) ) 
-                                $db->query("INSERT INTO " . $sys_tables[ $estate ] ." SET 
+                                $db->querys("INSERT INTO " . $sys_tables[ $estate ] ." SET 
                                                 id_user = ?, date_in = NOW(), date_change = NOW(), published = ?, rent = ?, seller_name = ?, seller_phone = ?, draft_session = ?
                                                 ", $auth->id, 
                                                    4, 
@@ -1347,7 +1347,7 @@ switch(true){
                                                 case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                                             }
                                             $item_weight = $item_weight->getItemWeight( $info['id'], $estate);
-                                            $res_weight = $db->query("UPDATE ".$sys_tables[$estate]." SET weight=? WHERE id=?",$item_weight, $info['id']);
+                                            $res_weight = $db->querys("UPDATE ".$sys_tables[$estate]." SET weight=? WHERE id=?",$item_weight, $info['id']);
                                             
                                             //если был опубликован бесплатный объект, оповещаем пользователя
                                             if($published > 1 && $info['published'] == 1 && !empty($auth->email) && Validate::isEmail($auth->email)){
@@ -1394,7 +1394,7 @@ switch(true){
                                                     case 'commercial':$item_weight = new Estate(TYPE_ESTATE_COMMERCIAL);break;
                                                 }
                                                 $item_weight = $item_weight->getItemWeight($new_id,$estate);
-                                                $res_weight = $db->query("UPDATE ".$sys_tables[$estate]." SET weight=? WHERE id=?",$item_weight,$new_id);
+                                                $res_weight = $db->querys("UPDATE ".$sys_tables[$estate]." SET weight=? WHERE id=?",$item_weight,$new_id);
                                                 ///
                                                 header('Location: '.Host::getWebPath('/members/objects/edit/'.$estate.'/'.$deal.'/'.$new_id.'/'));
                                             } else 
@@ -1785,7 +1785,7 @@ switch(true){
             //log request
             $sql = "UPDATE ".$sys_tables['users_pay']."
                     SET `log` = CONCAT_WS(' \n',`log`,?) WHERE id=?";
-            $result = $db->query($sql,
+            $result = $db->querys($sql,
                                  date('Y-m-d H:i:s').": ResultRequest: InvId=".$inv_id."; OutSum=".$inv_summ."; SignatureValue=".$crc.";shp_object=0; shp_user=".$shp_user,
                                  $inv_id);
 
@@ -1802,18 +1802,18 @@ switch(true){
                     if(!empty($item_history['id_promocode'])){
                         $check_promocode = $auth->checkPromocode(false, $item_history['id_promocode'], $item_history['id_user']);    
                         if(!empty($check_promocode) && empty($check_promocode['id_user'])){
-                            $db->query("INSERT INTO ".$sys_tables['promocodes_used']." SET id_parent=?, id_user=?", $check_promocode['id'], $item_history['id_user']);
+                            $db->querys("INSERT INTO ".$sys_tables['promocodes_used']." SET id_parent=?, id_user=?", $check_promocode['id'], $item_history['id_user']);
                             //15022016 изменено: теперь paygate = 1, отеляем промокод от робокассы
-                            $db->query("INSERT INTO ".$sys_tables['users_finances']." SET income = ?, id_user = ?, obj_type = ?, paygate = 1, id_parent = ?", $inv_summ*($check_promocode['percent']/100), $item_history['id_user'], 'promocode', $check_promocode['id']);
+                            $db->querys("INSERT INTO ".$sys_tables['users_finances']." SET income = ?, id_user = ?, obj_type = ?, paygate = 1, id_parent = ?", $inv_summ*($check_promocode['percent']/100), $item_history['id_user'], 'promocode', $check_promocode['id']);
                         }
                     }
                     //финансы - пополнение баланса paygate = 2, чтобы выделить пополнение робокассой
-                    $db->query("INSERT INTO ".$sys_tables['users_finances']." SET income = ?, id_user = ?, obj_type = ?, paygate = 2", $inv_summ, $item_history['id_user'], 'balance');
+                    $db->querys("INSERT INTO ".$sys_tables['users_finances']." SET income = ?, id_user = ?, obj_type = ?, paygate = 2", $inv_summ, $item_history['id_user'], 'balance');
                     $sql = "UPDATE ".$sys_tables['users']."
                             SET balance = balance + ?
                             WHERE id = ?";
                     if(!empty($check_promocode) && empty($check_promocode['id_user']))  $inv_summ = $inv_summ * (1 + ($check_promocode['percent']/100));
-                    $result = $db->query($sql, $inv_summ, $item_history['id_user']);
+                    $result = $db->querys($sql, $inv_summ, $item_history['id_user']);
                     if($result) {
                         $id_status = 4;
                         $log_text = date('Y-m-d H:i:s').': Оплата принята. Ваш баланс пополнен на '.$inv_summ.'руб.';
@@ -1825,7 +1825,7 @@ switch(true){
                             SET `id_status`=?,
                                 `log`=CONCAT_WS(' \n',`log`,?) 
                             WHERE `id`=?";
-                    $result = $db->query($sql ,$id_status, $log_text, $inv_id);
+                    $result = $db->querys($sql ,$id_status, $log_text, $inv_id);
                     echo "OK$inv_id\n";
                 } else echo "bad CHECK info";
             }
@@ -1849,10 +1849,10 @@ switch(true){
                     if(!empty($code)){
                         $check_promocode = $auth->checkPromocode($code);    
                         if(!empty($check_promocode) && empty($check_promocode['id_user']) && $check_promocode['type'] == 1 && $check_promocode['summ'] > 0){ //промокод на фиксированную сумму
-                            $db->query("INSERT INTO ".$sys_tables['promocodes_used']." SET id_parent=?, id_user=?", $check_promocode['id'], $auth->id);
+                            $db->querys("INSERT INTO ".$sys_tables['promocodes_used']." SET id_parent=?, id_user=?", $check_promocode['id'], $auth->id);
                             //15022016 изменено: теперь paygate = 1, отеляем промокод от робокассы
-                            $db->query("INSERT INTO ".$sys_tables['users_finances']." SET income = ?, id_user = ?, obj_type = ?, paygate = 1, id_parent=?", $check_promocode['summ'], $auth->id, 'promocode', $check_promocode['id']);
-                            $db->query("UPDATE ".$sys_tables['users']." SET balance = balance + ? WHERE id = ?", $check_promocode['summ'], $auth->id);
+                            $db->querys("INSERT INTO ".$sys_tables['users_finances']." SET income = ?, id_user = ?, obj_type = ?, paygate = 1, id_parent=?", $check_promocode['summ'], $auth->id, 'promocode', $check_promocode['id']);
+                            $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance + ? WHERE id = ?", $check_promocode['summ'], $auth->id);
                             $auth->balance = $auth->balance + $check_promocode['summ'];
                             Response::SetArray('auth', $auth);
                             Response::SetArray('item',$check_promocode);
@@ -1869,7 +1869,7 @@ switch(true){
                                     (`create_datetime`,`id_status`,`id_user`, `log`)
                                 VALUES
                                     (NOW(),1,?,?)";
-                        $result = $db->query($sql, $auth->id, date('Y-m-d H:i:s').': Инициация оплаты...');
+                        $result = $db->querys($sql, $auth->id, date('Y-m-d H:i:s').': Инициация оплаты...');
                         $inv_id = $db->insert_id;
                         $summ = Request::GetInteger('summ',METHOD_GET);
                         if(!empty($summ)) Response::SetInteger('inv_summ',$summ);
@@ -1884,7 +1884,7 @@ switch(true){
                         }
                     } else { //продолжение оплаты
                         Response::SetString('complete','continue');
-                        $db->query("DELETE FROM ".$sys_tables['users_pay']." WHERE `id_status`=1 AND DATEDIFF(NOW(),`create_datetime`)>2");
+                        $db->querys("DELETE FROM ".$sys_tables['users_pay']." WHERE `id_status`=1 AND DATEDIFF(NOW(),`create_datetime`)>2");
                         $inv_id = Request::GetInteger('inv_id', METHOD_POST);
                         $inv_desc = Request::GetString('inv_desc', METHOD_POST);
                         $inv_summ = preg_replace('~[^0-9]+~','',$_POST['inv_summ']);
@@ -1892,7 +1892,7 @@ switch(true){
 
                         if(!empty($inv_id) && !empty($inv_summ)){
                             $sql = "SELECT * FROM ".$sys_tables['users_pay']." WHERE id=? AND id_user=? AND id_status=1 AND TIMESTAMPDIFF(MINUTE,NOW(),create_datetime)<30";
-                            $result = $db->query($sql,$inv_id,$auth->id);
+                            $result = $db->querys($sql,$inv_id,$auth->id);
                             if($result && $result->num_rows > 0) {
                                 $sql = "UPDATE ".$sys_tables['users_pay']."
                                         SET `id_status`=2, 
@@ -1900,7 +1900,7 @@ switch(true){
                                             `id_promocode` = ?,
                                             `log`=CONCAT_WS(' \n',`log`,?)
                                         WHERE id=?";
-                                $result = $db->query($sql,
+                                $result = $db->querys($sql,
                                                      $inv_summ,
                                                      !empty($check_promocode) && empty($check_promocode['id_user']) && $check_promocode['type'] == 2 ? $check_promocode['id'] : 0,
                                                      date('Y-m-d H:i:s').': Переход к платежному сервису...',
@@ -2012,7 +2012,7 @@ switch(true){
                             if(empty($item)) continue;
                             $item = preg_replace('[^0-9\,]','',$item);
                             $item = trim(preg_replace('/((\,)(?<!(^\,)|(\d\,(?!$))))|(^\,)|(\,$)/sui','',$item),',');
-                            $db->query("UPDATE ".$sys_tables[$key]."
+                            $db->querys("UPDATE ".$sys_tables[$key]."
                                         SET `status` = ?, status_date_end = ?, published = 1, date_change = NOW()
                                         WHERE id IN (".$item.")", $status, $status_date_end);
                         }
@@ -2028,7 +2028,7 @@ switch(true){
                             if(empty($item)) continue;
                             $item = preg_replace('[^0-9\,]','',$item);
                             $item = trim(preg_replace('/((\,)(?<!(^\,)|(\d\,(?!$))))|(^\,)|(\,$)/sui','',$item),',');
-                            $db->query("UPDATE ".$sys_tables[$key]."
+                            $db->querys("UPDATE ".$sys_tables[$key]."
                                         SET `raising_datetime` = NOW() + INTERVAL 1 DAY, raising_status = 1, raising_days_left = ".$raise_period.", date_change = NOW()
                                         WHERE id IN (".$item.")");
                         }
@@ -2051,7 +2051,7 @@ switch(true){
                         (!empty($auth->agency_id_tarif) && ( ($status == 3 && !empty($agency_free_promo)) || ($status == 4 && !empty($agency_free_premium)) || ($status == 6 && !empty($agency_free_vip)))) ){
                         
                         //снятие промо-премиум с баланса пользователя
-                        $db->query("UPDATE ".$sys_tables['users']." SET ".$object_cost_statuses[$status]['alias']."_left = ".$object_cost_statuses[$status]['alias']."_left - ".$free_objects." 
+                        $db->querys("UPDATE ".$sys_tables['users']." SET ".$object_cost_statuses[$status]['alias']."_left = ".$object_cost_statuses[$status]['alias']."_left - ".$free_objects." 
                                     WHERE id = ?", $auth->id);
                         
                         //делаем записи в финансы
@@ -2063,7 +2063,7 @@ switch(true){
                             //учитываем бесплатные объекты
                             $free_counter = $free_objects;
                             foreach($item as $k=>$i){
-                                $db->query("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent=?, estate_type = ?", 
+                                $db->querys("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent=?, estate_type = ?",
                                     ($free_counter>0?0:$object_cost_statuses[$status]['cost']), $auth->id, $object_cost_statuses[$status]['alias'], $i, $key);
                                 if($free_counter > 0) --$free_counter;
                             }
@@ -2071,7 +2071,7 @@ switch(true){
                         $auth->checkAuth($auth->email, $auth->passwd, 1);
                     } else {
                         //снятие денег с баланса пользователя
-                        $db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$summ, $auth->id);
+                        $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$summ, $auth->id);
                         
                         //учитываем бесплатные объекты
                         $free_counter = $free_objects;
@@ -2082,7 +2082,7 @@ switch(true){
                             $item = trim(preg_replace('/((\,)(?<!(^\,)|(\d\,(?!$))))|(^\,)|(\,$)/sui','',$item),',');
                             $item = explode(',',$item);
                             foreach($item as $k=>$i){
-                                $db->query("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent=?, estate_type = ?", 
+                                $db->querys("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent=?, estate_type = ?",
                                     ($free_counter>0?0:$object_cost_statuses[$status]['cost']), $auth->id, $object_cost_statuses[$status]['alias'], $i, $key);
                                 if($free_counter > 0) --$free_counter;
                             }
@@ -2099,7 +2099,7 @@ switch(true){
                                 //учитываем бесплатные объекты
                                 foreach($item as $k=>$i){
                                     if($free_counter > 0) --$free_counter;
-                                    else $db->query("UPDATE ".$sys_tables[$key]." SET payed_status=1 WHERE id=?",$i);
+                                    else $db->querys("UPDATE ".$sys_tables[$key]." SET payed_status=1 WHERE id=?",$i);
                                 }
                             }
                     }
@@ -2381,18 +2381,18 @@ switch(true){
                 Response::SetString('period',$period);
 
                 //снятие денег с баланса пользователя и обновление тарифа, простановка брендированной страницы, типа пользователя
-                $db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ?, id_tarif = ?, promo_left = ?, premium_left = ?, vip_left = ?, tarif_start = NOW(), tarif_end = CURDATE() + INTERVAL ".$period." MONTH, payed_page = ".$tarif['payed_page'].", id_user_type = 2 WHERE id = ?",
+                $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ?, id_tarif = ?, promo_left = ?, premium_left = ?, vip_left = ?, tarif_start = NOW(), tarif_end = CURDATE() + INTERVAL ".$period." MONTH, payed_page = ".$tarif['payed_page'].", id_user_type = 2 WHERE id = ?",
                             $summ, $id_tarif, $period*$tarif['promo_available'], $period*$tarif['premium_available'], $period*$tarif['vip_available'], $auth->id);
                 $auth->AuthCheck();
                 //запись в финансы
-                $db->query("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent=?", 
+                $db->querys("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent=?",
                             $summ, $auth->id, 'tarif', $id_tarif
                 );
                 if(!empty($auth->id_agency)){
-                    $db->query("UPDATE ".$sys_tables['build']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
-                    $db->query("UPDATE ".$sys_tables['live']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
-                    $db->query("UPDATE ".$sys_tables['commercial']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
-                    $db->query("UPDATE ".$sys_tables['country']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
+                    $db->querys("UPDATE ".$sys_tables['build']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
+                    $db->querys("UPDATE ".$sys_tables['live']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
+                    $db->querys("UPDATE ".$sys_tables['commercial']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
+                    $db->querys("UPDATE ".$sys_tables['country']." SET published = 2, status = 2, status_date_end = '0000-00-00 00:00:00', date_change = NOW() WHERE id_user = ?", $auth->id);
                 }
                 
             }
@@ -2455,11 +2455,11 @@ switch(true){
             WHERE ".$sys_tables['users'].".agency_admin = 1 AND ".$sys_tables['agencies'].".id = ?
         ", $id_agency);
         $can_add_staff = ( !empty($staff_list['cnt']) && $staff_list['cnt'] < $agency_info['staff_number'] )|| $agency_info['staff_number'] == -1;
-        $from_invites = $db->query("DELETE FROM ".$sys_tables['users_invites_agencies']." WHERE id_user = ? AND id_agency = ?", $auth->id, $id_agency);
+        $from_invites = $db->querys("DELETE FROM ".$sys_tables['users_invites_agencies']." WHERE id_user = ? AND id_agency = ?", $auth->id, $id_agency);
         if($type == 'accept' && empty($can_add_staff)) {
             $ajax_result['error_text'] = 'Не удается добавить вас к компании '.$agency_info['title'].', <a href="/members/messages/add/'.$agency_info['id_user'].'/">обратитесь</a> к администратору аккаунта <b>'.$agency_info['user_name'].'</b>';
         } else {
-            if($from_invites && $type == 'accept') $from_users = $db->query("UPDATE ".$sys_tables['users']." SET id_agency = ?, agency_admin = 2 WHERE id = ?", $id_agency, $auth->id);
+            if($from_invites && $type == 'accept') $from_users = $db->querys("UPDATE ".$sys_tables['users']." SET id_agency = ?, agency_admin = 2 WHERE id = ?", $id_agency, $auth->id);
             $ajax_result['ok'] = ($type == 'accept' && $from_users) || ($type == 'reject' && $from_invites);
         }
         break;
@@ -2515,10 +2515,10 @@ switch(true){
                             $type = Request::GetString('type', METHOD_POST);
                             $summ = Request::GetInteger('summ', METHOD_POST);
                             if(!empty($id) && !empty($action) && !empty($summ)){
-                                $db->query("UPDATE ".$sys_tables['users']." SET balance = balance ".($type=='increase'?'+':'-')." ? WHERE id = ?", $summ, $id);
-                                $db->query("UPDATE ".$sys_tables['users']." SET balance = balance ".($type=='increase'?'-':'+')." ? WHERE id = ?", $summ, $auth->id);
-                                $db->query("INSERT ".$sys_tables['users_finances']." SET ".($type=='increase'?'income':'expenditure')."=?, id_user=?, obj_type = 'admin_balance', id_initiator = ?", $summ, $id, $auth->id);
-                                $db->query("INSERT ".$sys_tables['users_finances']." SET ".($type=='increase'?'expenditure':'income')."=?, id_user=?, obj_type = 'admin_balance', id_initiator = ?", $summ, $auth->id, $auth->id);
+                                $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance ".($type=='increase'?'+':'-')." ? WHERE id = ?", $summ, $id);
+                                $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance ".($type=='increase'?'-':'+')." ? WHERE id = ?", $summ, $auth->id);
+                                $db->querys("INSERT ".$sys_tables['users_finances']." SET ".($type=='increase'?'income':'expenditure')."=?, id_user=?, obj_type = 'admin_balance', id_initiator = ?", $summ, $id, $auth->id);
+                                $db->querys("INSERT ".$sys_tables['users_finances']." SET ".($type=='increase'?'expenditure':'income')."=?, id_user=?, obj_type = 'admin_balance', id_initiator = ?", $summ, $auth->id, $auth->id);
                                 
                             }
                             
@@ -2535,8 +2535,8 @@ switch(true){
                                                 LEFT JOIN ".$sys_tables['agencies']." ON ".$sys_tables['agencies'].".id = ".$sys_tables['users'].".id_agency
                                                 WHERE ".$sys_tables['users'].".id = ?", $id
                             );
-                            $from_invites = $db->query("DELETE FROM ".$sys_tables['users_invites_agencies']." WHERE id_user = ? AND id_agency = ?", $id, $auth->id_agency);
-                            $from_users = $db->query("UPDATE ".$sys_tables['users']." SET id_agency = 0, status = 1 WHERE id = ? AND id_agency = ?", $id, $auth->id_agency);
+                            $from_invites = $db->querys("DELETE FROM ".$sys_tables['users_invites_agencies']." WHERE id_user = ? AND id_agency = ?", $id, $auth->id_agency);
+                            $from_users = $db->querys("UPDATE ".$sys_tables['users']." SET id_agency = 0, status = 1 WHERE id = ? AND id_agency = ?", $id, $auth->id_agency);
                             Response::SetArray('item', $item);
                             $ajax_result['ok'] = $from_invites || $from_users;
                             $mailer = new EMailer('mail');
@@ -2567,7 +2567,7 @@ switch(true){
                                     $id = Request::GetString('id', METHOD_POST);
                                     $item = $db->fetch("SELECT * FROM ".$sys_tables['users']." WHERE id = ?", $id);
                                     if(!empty($item)){
-                                        $res = $db->query("INSERT INTO ".$sys_tables['users_invites_agencies']." SET id_user = ?, id_agency = ?, can_edit = 2", $id, $auth->id_agency);
+                                        $res = $db->querys("INSERT INTO ".$sys_tables['users_invites_agencies']." SET id_user = ?, id_agency = ?, can_edit = 2", $id, $auth->id_agency);
                                         if($res && Validate::isEmail($item['email'])){
                                             Response::SetArray('item', $item);
                                             Response::SetArray('auth', $auth);
@@ -2804,7 +2804,7 @@ switch(true){
                                             if(!empty($res)){
                                                 $new_id = $db->insert_id;
                                                 //список ожадния приглашения
-                                                $res = $db->query("INSERT INTO ".$sys_tables['users_invites_agencies']." SET id_user = ?, id_agency = ?, can_edit = 1", $new_id, $auth->id_agency);
+                                                $res = $db->querys("INSERT INTO ".$sys_tables['users_invites_agencies']." SET id_user = ?, id_agency = ?, can_edit = 1", $new_id, $auth->id_agency);
                                                 // редирект на редактирование свеженькой страницы
                                                 if(!empty($res)) {
                                                     header('Location: '.Host::getWebPath('/members/office/staff/edit/'.$new_id.'/'));
@@ -3260,7 +3260,7 @@ switch(true){
                             if(empty($object_estate_type) || empty($object_estate_type[0])) continue;
                             else $object_estate_type = array_pop($object_estate_type);
                             
-                            $res *= $db->query("UPDATE ".$sys_tables[$object_estate_type]." SET date_change = NOW() WHERE id = ?",$object_id);
+                            $res *= $db->querys("UPDATE ".$sys_tables[$object_estate_type]." SET date_change = NOW() WHERE id = ?",$object_id);
                             
                         }
                         break;
@@ -3275,8 +3275,8 @@ switch(true){
                             else $object_estate_type = array_pop($object_estate_type);
                             
                             
-                            $res *= $db->query("UPDATE ".$sys_tables[$object_estate_type]." SET raising_datetime = DATE_ADD(NOW(),INTERVAL 1 DAY), raising_days_left = 5, raising_status = 1,date_change = NOW() WHERE id = ?",$object_id);
-                            $res *= $db->query("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,estate_type,id_parent,expenditure,income,paygate,id_initiator,action_source)
+                            $res *= $db->querys("UPDATE ".$sys_tables[$object_estate_type]." SET raising_datetime = DATE_ADD(NOW(),INTERVAL 1 DAY), raising_days_left = 5, raising_status = 1,date_change = NOW() WHERE id = ?",$object_id);
+                            $res *= $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,estate_type,id_parent,expenditure,income,paygate,id_initiator,action_source)
                                                 VALUES (NOW(),?,?,?,?,?,0,1,?,3)",$user_info['id'],$status_aliases[$key],$object_estate_type,$object_id,round($user_objects['cost'][$status] *(1-$discount/100.0)),$user_info['id']);
                             
                         }
@@ -3293,8 +3293,8 @@ switch(true){
                             
                             $interval = ($status == 6?"1 WEEK":"1 MONTH");
                             
-                            $res *= $db->query("UPDATE ".$sys_tables[$object_estate_type]." SET status_date_end = DATE_ADD(status_date_end, INTERVAL ".$interval."), date_change = NOW() WHERE id = ?",$object_id);
-                            $res *= $db->query("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,estate_type,id_parent,expenditure,income,paygate,id_initiator,action_source)
+                            $res *= $db->querys("UPDATE ".$sys_tables[$object_estate_type]." SET status_date_end = DATE_ADD(status_date_end, INTERVAL ".$interval."), date_change = NOW() WHERE id = ?",$object_id);
+                            $res *= $db->querys("INSERT INTO ".$sys_tables['users_finances']." (`datetime`,id_user,obj_type,estate_type,id_parent,expenditure,income,paygate,id_initiator,action_source)
                                                 VALUES (NOW(),?,?,?,?,?,0,1,?,3)",$user_info['id'],$status_aliases[$key],$object_estate_type,$object_id,round($user_objects['cost'][$status]/count($objects)*(1-$discount/100.0)),$user_info['id']);
                             
                         }
@@ -3310,7 +3310,7 @@ switch(true){
         $expenditure = $user_objects['full_cost'] - round($user_objects['full_cost']*$discount/100.0);
         
         //отдельно обновляем баланс пользователя
-        $res *= $db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$expenditure,$user_info['id']);
+        $res *= $db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$expenditure,$user_info['id']);
         
         Response::SetInteger('expenditures',$expenditure);
         Response::SetString('home_link',"http://".Host::$host);

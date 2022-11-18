@@ -547,7 +547,7 @@ switch(true){
                         $item['lng'] = $lng;
                         $item['lat'] = $lat;
                         
-                        $db->query("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$item['lat'], $item['lng'],$item['id']);
+                        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$item['lat'], $item['lng'],$item['id']);
                         Response::SetArray('item', $item);
                     }
                 }
@@ -777,7 +777,7 @@ switch(true){
                 $estate_subscription = $db->fetch("SELECT *,IF(last_seen_setinterval  - INTERVAL 15 MINUTE > NOW(), last_seen_setinterval - INTERVAL 15 MINUTE, last_seen) as last_seen FROM ".$sys_tables['objects_subscriptions']." WHERE id = ?",$parameters['id_subscription']);
                 if(!empty($estate_subscription)){
                     $clauses['date_in']['from'] = $estate_subscription['last_seen'];
-                    if(empty($ajax_mode)) $db->query("UPDATE ".$sys_tables['objects_subscriptions']." SET last_delivery = NOW(),last_seen_setinterval = NOW() + INTERVAL 15 MINUTE WHERE id = ?",$parameters['id_subscription']);
+                    if(empty($ajax_mode)) $db->querys("UPDATE ".$sys_tables['objects_subscriptions']." SET last_delivery = NOW(),last_seen_setinterval = NOW() + INTERVAL 15 MINUTE WHERE id = ?",$parameters['id_subscription']);
                 } 
             } 
             //подписка на поиск
@@ -966,7 +966,7 @@ switch(true){
                             $list[$k]['views_count'] = $obj['views_count'] + $stats;
                         }
                     }
-                    if(!empty($update_ids)) $res = $db->query("UPDATE ".$estate->work_table." SET search_count=search_count+1 WHERE id IN (".implode(',',$update_ids).")");
+                    if(!empty($update_ids)) $res = $db->querys("UPDATE ".$estate->work_table." SET search_count=search_count+1 WHERE id IN (".implode(',',$update_ids).")");
 
                     Response::SetArray('list', $list);
                     Response::SetBoolean('group_by', $group_by);
@@ -1076,7 +1076,7 @@ switch(true){
                     $json = json_decode($coords,true); 
                     $data = explode(" ",$json['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']);                      
                     if(!empty($data[0]) && !empty($data[1])) {
-                        $db->query("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$data[1],$data[0],$item['id']);
+                        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET lat=?, lng=? WHERE id=?",$data[1],$data[0],$item['id']);
                         $index = $data[1].' '.$data[0];
                         if(empty($points[$index])) $c = 0;
                         else $c = count($points[$index]);

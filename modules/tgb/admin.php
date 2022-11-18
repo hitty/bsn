@@ -48,11 +48,11 @@ switch($action){
             //Определение менеджера
             if(!empty($auth->email)){
                 $manager = $db->fetch("SELECT * FROM ".$sys_tables['managers']." WHERE email = ? AND bsn_manager = ?",$auth->email,1);
-                $db->query("INSERT INTO ".$sys_tables['tgb_banners_credits']." SET id_banner=?, id_manager=?, date_start=?, date_end=?, `limit`=?, day_limit=?",
+                $db->querys("INSERT INTO ".$sys_tables['tgb_banners_credits']." SET id_banner=?, id_manager=?, date_start=?, date_end=?, `limit`=?, day_limit=?",
                             $id_banner, $manager['id'], date( 'Y-m-d H:i:s', strtotime($date_start)),  date( 'Y-m-d H:i:s', strtotime($date_end)), $limit, $day_limit
                 );
                 $ajax_result['lq_1'] = '';
-                $db->query("UPDATE ".$sys_tables['managers']." SET naydidom_credit_limit = ? WHERE email = ? AND bsn_manager = ?", $manager['naydidom_credit_limit']-$limit,$auth->email,1);
+                $db->querys("UPDATE ".$sys_tables['managers']." SET naydidom_credit_limit = ? WHERE email = ? AND bsn_manager = ?", $manager['naydidom_credit_limit']-$limit,$auth->email,1);
                 $ajax_result['lq_2'] = '';
             }
         }
@@ -64,7 +64,7 @@ switch($action){
 		$value = Request::GetString('value',METHOD_POST);
 		$status = $action=='restore'?1:2;
 		if($id>0){
-			$res = $db->query("UPDATE ".$sys_tables['tgb_campaigns']." SET `published` = ? WHERE id=?", $status, $id);
+			$res = $db->querys("UPDATE ".$sys_tables['tgb_campaigns']." SET `published` = ? WHERE id=?", $status, $id);
 			$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 			if($ajax_mode){
 				$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));
@@ -1127,12 +1127,12 @@ switch($action){
                         if(!empty($info['in_estate_section'])) $mapping['banners']['in_estate_section']['value'] /= 2;
                         
                         if($info['credit_clicks'] == 2){
-                            $db->query("DELETE FROM ".$sys_tables['tgb_banners_credits']." WHERE id_banner=?",
+                            $db->querys("DELETE FROM ".$sys_tables['tgb_banners_credits']." WHERE id_banner=?",
                                         $info['id']
                             );
                         } else {
                             $clicks = Tgb::getClicksPerDay($info['id']);
-                            $db->query("INSERT INTO ".$sys_tables['tgb_banners_credits']." SET id_banner=?, day_limit=?
+                            $db->querys("INSERT INTO ".$sys_tables['tgb_banners_credits']." SET id_banner=?, day_limit=?
                                         ON DUPLICATE KEY UPDATE day_limit=?",
                                         $info['id'], $clicks, $clicks
                             );
@@ -1162,7 +1162,7 @@ switch($action){
 				$value = Request::GetString('value',METHOD_POST);
 				$status = $action=='restore'?1:3;
 				if($id>0){
-					$res = $db->query("UPDATE ".$sys_tables['tgb_banners']." SET `published` = ? WHERE id=?", $status, $id) or die($db->error);
+					$res = $db->querys("UPDATE ".$sys_tables['tgb_banners']." SET `published` = ? WHERE id=?", $status, $id) or die($db->error);
 					$results['setStatus'] = ($res && $db->affected_rows) ? $id : -1;
 					if($ajax_mode){
 						$ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));
@@ -1177,7 +1177,7 @@ switch($action){
                 $value = Request::GetString('value',METHOD_POST);
                  $status = $value == 'checked'?1:2;
                 if($id>0){
-                    $res = $db->query("UPDATE ".$sys_tables['tgb_banners']." SET `enabled` = ? WHERE id=?", $status, $id);
+                    $res = $db->querys("UPDATE ".$sys_tables['tgb_banners']." SET `enabled` = ? WHERE id=?", $status, $id);
                     $results['setStatus'] = $db->affected_rows>0 ? $id : -1;
                     if($ajax_mode){
                         $ajax_result = array('ok' => $results['setStatus']>0, 'ids'=>array($id));

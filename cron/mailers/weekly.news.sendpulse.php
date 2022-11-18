@@ -45,8 +45,8 @@ print_r($_SERVER['argv']);
 $debug = DEBUG_MODE || !empty($_SERVER['argv'][1]) ? true : false;
 // Инициализация рабочих классов
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
-$db->query("SET lc_time_names = 'ru_RU';");
+$db->querys("set names ".Config::$values['mysql']['charset']);
+$db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -88,7 +88,7 @@ $news_list = array_merge(
 
 if( !empty( $partner_news ) ) $news_list = array_merge( $news_list, $partner_news );
 
- if( empty( $debug ) ) $db->query("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, partner_feed = 2");
+ if( empty( $debug ) ) $db->querys("UPDATE ".$sys_tables['news']." SET `newsletter_feed`=2, partner_feed = 2");
     
 //получение списка новостей БСН.ТВ
 $bsn_tv = new Content('bsntv');

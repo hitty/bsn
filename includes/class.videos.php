@@ -50,7 +50,7 @@ class Videos {
             }
 		}
 		else return false;
-        if(!empty($id_video)) $res = $db->query("UPDATE  ".Config::$sys_tables[$table].$suffix." SET `id_main_video` = ".$id_video.( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_video = 2" : "" )." WHERE `id` = ".$id);
+        if(!empty($id_video)) $res = $db->querys("UPDATE  ".Config::$sys_tables[$table].$suffix." SET `id_main_video` = ".$id_video.( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_video = 2" : "" )." WHERE `id` = ".$id);
 		return true;
 		
     } 
@@ -135,7 +135,7 @@ class Videos {
                     if(!empty($external_video_src)) $addition_sql = ", `external_video_src`='".$external_video_src."'";
                     //запись имени видео в БД
                     if(
-                        $db->query("INSERT INTO ".Config::$sys_tables[$table.'_videos']." SET 
+                        $db->querys("INSERT INTO ".Config::$sys_tables[$table.'_videos']." SET 
                                             `original_name` = '".$targetFile."', 
                                             `name` = '".$_FILES[$array_key]['name']."', 
                                             `id_parent".$suffix."` = ".$id.$addition_sql
@@ -143,7 +143,7 @@ class Videos {
                     ){
                         $id_video = $db->insert_id;
 					    //запись главной фотки если она первая
-					    $getMainVideo = $db->query("SELECT ".Config::$sys_tables[$table].$suffix.".id_main_video
+					    $getMainVideo = $db->querys("SELECT ".Config::$sys_tables[$table].$suffix.".id_main_video
                                                     FROM ".Config::$sys_tables[$table].$suffix."
                                                     RIGHT JOIN ".Config::$sys_tables[$table.'_videos']." ON ".Config::$sys_tables[$table.'_videos'].".id = ".Config::$sys_tables[$table].$suffix.".id_main_video 
                                                     WHERE ".Config::$sys_tables[$table].$suffix.".id_main_video > 0 AND ".Config::$sys_tables[$table].$suffix.".id = ".$id);
@@ -157,17 +157,17 @@ class Videos {
     }
     public static function Convert($table, $id, $item){
         global $db;
-        $db->query("UPDATE ".Config::$sys_tables[$table.'_videos']." SET status = 2 WHERE id = ?", $id);
+        $db->querys("UPDATE ".Config::$sys_tables[$table.'_videos']." SET status = 2 WHERE id = ?", $id);
         $targetFile = $item['original_name'];
         $subFolder = substr($targetFile,0,2);
         $tempFolder = ROOT_PATH.'/'.Config::$values['video_folder'].'/';
         $fileinfo = Filespot::upload($targetFile);
-        if(empty($fileinfo['object'])) $db->query("UPDATE ".Config::$sys_tables[$table.'_videos']." SET status = 1 WHERE id = ?", $id);
+        if(empty($fileinfo['object'])) $db->querys("UPDATE ".Config::$sys_tables[$table.'_videos']." SET status = 1 WHERE id = ?", $id);
         $getID3 = new getID3; 
         $file = $getID3->analyze($tempFolder . $subFolder . '/' . $targetFile);
         $addition_sql = "";
         //запись имени видео в БД
-        $db->query("UPDATE ".Config::$sys_tables[$table.'_videos']." SET `external_id` = ?, name = ?, filesize = ?, filelength = ?, status = 3 WHERE id = ?", $fileinfo['object']['id'], $fileinfo['object']['cdn_url'], $fileinfo['object']['size'], $fileinfo['object']['advanced']['format']['duration'], $id);
+        $db->querys("UPDATE ".Config::$sys_tables[$table.'_videos']." SET `external_id` = ?, name = ?, filesize = ?, filelength = ?, status = 3 WHERE id = ?", $fileinfo['object']['id'], $fileinfo['object']['cdn_url'], $fileinfo['object']['size'], $fileinfo['object']['advanced']['format']['duration'], $id);
         //удаление файла
         if(file_exists($tempFolder . $subFolder . '/' . $targetFile)) unlink($tempFolder . $subFolder . '/' . $targetFile);
         //загрузка превьюшек                    
@@ -189,7 +189,7 @@ class Videos {
     */
     public static function setTitle($table, $id, $title){
          global $db;
-         return $db->query("UPDATE ".Config::$sys_tables[$table.'_videos']." SET title = ? WHERE id = ?", $title, $id); 
+         return $db->querys("UPDATE ".Config::$sys_tables[$table.'_videos']." SET title = ? WHERE id = ?", $title, $id);
     }       
      
     /**
@@ -213,10 +213,10 @@ class Videos {
             Filespot::DeleteFromServer($video_name['external_id']);
             //если удаленная видео является главной, то переназначаем главную
             $main_video = self::getMainVideo($table, $item['id'], $suffix);
-            $del = $db->query("DELETE FROM ".Config::$sys_tables[$table.'_videos']." WHERE `id` = ?", $item['video_id']);
+            $del = $db->querys("DELETE FROM ".Config::$sys_tables[$table.'_videos']." WHERE `id` = ?", $item['video_id']);
             if($main_video['id']>0 && $main_video['id']==$id_video) self::setMain($table, $item['id'], 0, $suffix);
         }    
-        $db->query("UPDATE  ".Config::$sys_tables[$table].$suffix." SET `id_main_video` = 0, has_video = 1 WHERE `id` = ?", $id_video);
+        $db->querys("UPDATE  ".Config::$sys_tables[$table].$suffix." SET `id_main_video` = 0, has_video = 1 WHERE `id` = ?", $id_video);
         return !empty($del);
     }
     /**
@@ -234,10 +234,10 @@ class Videos {
 		foreach($rows as $key=>$value){
             if (file_exists(ROOT_PATH.'/'.$video_folder."/".$value['subfolder']."/".$value['name']))
 				if(!unlink(ROOT_PATH.'/'.$video_folder."/".$value['subfolder']."/".$value['name'])) { $unlink_flag = false; break; }
-			$del = $db->query("DELETE FROM ".Config::$sys_tables[$table.'_videos']." WHERE `id_parent".$suffix."` = ?",$id_parent);
+			$del = $db->querys("DELETE FROM ".Config::$sys_tables[$table.'_videos']." WHERE `id_parent".$suffix."` = ?",$id_parent);
 			
 		}
-		$db->query("UPDATE ".Config::$sys_tables[$table].$suffix." SET `id_main_video` = 0 ".( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_video = 1" : "" )." WHERE id = ?",$id_parent);
+		$db->querys("UPDATE ".Config::$sys_tables[$table].$suffix." SET `id_main_video` = 0 ".( in_array( $table, array('live', 'build', 'commercial', 'country' ) ) ? ", has_video = 1" : "" )." WHERE id = ?",$id_parent);
 		return !empty($del) && !empty($unlink_flag);
     }
     /**

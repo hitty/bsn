@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -47,7 +47,7 @@ $dir = ROOT_PATH."/cron/cottages/pictures/";
 //флаг однократного обновления
 $list = $db->fetchall("SELECT * FROM ".$sys_tables['housing_estates']);
 foreach($list as $k=>$item){
-    $db->query("INSERT IGNORE INTO ".$sys_tables['pages_seo']." SET url=?, pretty_url=?, title=?, h1_title=?, breadcrumbs=?",
+    $db->querys("INSERT IGNORE INTO ".$sys_tables['pages_seo']." SET url=?, pretty_url=?, title=?, h1_title=?, breadcrumbs=?",
         'housing_estates/'.$item['id'].'/', 
         'zhiloy_kompleks/'.createCHPUTitle($item['title']).'/', 
         $item['title'].' | Жилые комплексы',

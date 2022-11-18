@@ -21,22 +21,22 @@ include('includes/class.convert.php');      // Convert, Valdate (конверт�
 include('includes/class.storage.php');      // Session, Cookie, Responce, Request
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 $sys_tables = Config::$sys_tables;
 
 $list = $db->fetchall( " SELECT ip, city, country  FROM ".$sys_tables['visitors_ips_full']."  WHERE `page_url` LIKE '/' AND `referer` LIKE '/' AND `country` LIKE 'RU' AND `cookie` NOT LIKE '%ym%' GROUP BY ip HAVING COUNT(*) > 7 ORDER BY `visitors_ips_full`.`id`  DESC ");
 if( !empty( $list ) ) {
     foreach( $list as $k => $item ){
-        //$db->query( " INSERT IGNORE INTO ".$sys_tables['blacklist_ips']." SET ip=?, city=?, country=? ", $item['ip'], $item['city'], $item['country'] );
-        $db->query( " DELETE FROM " . $sys_tables['visitors_ips_full'] . " WHERE ip = ?", $item['ip'] );
+        //$db->querys( " INSERT IGNORE INTO ".$sys_tables['blacklist_ips']." SET ip=?, city=?, country=? ", $item['ip'], $item['city'], $item['country'] );
+        $db->querys( " DELETE FROM " . $sys_tables['visitors_ips_full'] . " WHERE ip = ?", $item['ip'] );
     }
 }
 
 $list = $db->fetchall( " SELECT ip, city, country  FROM ".$sys_tables['visitors_ips_full']."  WHERE country != 'RU' GROUP BY ip HAVING COUNT(*) > 25 ORDER BY `visitors_ips_full`.`id`  DESC ");
 if( !empty( $list ) ) {
     foreach( $list as $k => $item ){
-        //$db->query( " INSERT IGNORE INTO ".$sys_tables['blacklist_ips']." SET ip=?, city=?, country=? ", $item['ip'], $item['city'], $item['country'] );
-        $db->query( " DELETE FROM " . $sys_tables['visitors_ips_full'] . " WHERE ip = ?", $item['ip'] );
+        //$db->querys( " INSERT IGNORE INTO ".$sys_tables['blacklist_ips']." SET ip=?, city=?, country=? ", $item['ip'], $item['city'], $item['country'] );
+        $db->querys( " DELETE FROM " . $sys_tables['visitors_ips_full'] . " WHERE ip = ?", $item['ip'] );
     }
 }
 

@@ -84,7 +84,7 @@ switch($action){
                     $res = $db->insertFromArray($sys_tables['help_articles'], $info, 'id');
                     if(!empty($res)){
                         $new_id = $db->insert_id;
-                        $db->query("UPDATE ".$sys_tables['help_articles']." SET chpu_title = '".$new_id."_".createCHPUTitle($info['title'])."' WHERE id=".$new_id);
+                        $db->querys("UPDATE ".$sys_tables['help_articles']." SET chpu_title = '".$new_id."_".createCHPUTitle($info['title'])."' WHERE id=".$new_id);
                         // редирект на редактирование свеженькой страницы
                         if(!empty($res)) {
                             header('Location: '.Host::getWebPath('/admin/content/help/edit/'.$new_id.'/'));
@@ -108,7 +108,7 @@ switch($action){
     break;
     case 'del':
         $id = empty($this_page->page_parameters[2]) ? 0 : $this_page->page_parameters[2];
-        $res = $db->query("DELETE FROM ".$sys_tables['help_articles']." WHERE id=?", $id);
+        $res = $db->querys("DELETE FROM ".$sys_tables['help_articles']." WHERE id=?", $id);
         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
         if($ajax_mode){
             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -124,14 +124,14 @@ switch($action){
                 $sql = "UPDATE ".$sys_tables['help_articles']."
                         SET `position` = `position` + 2
                         WHERE `id` <> ?  AND `position` >= ?";
-                $res = $db->query($sql, $id, $item['position']);
+                $res = $db->querys($sql, $id, $item['position']);
                 if(empty($res)) $results['move'] = -1;
                 else {
                     $sql = "UPDATE ".$sys_tables['help_articles']."
                             SET `position` = ? + 1
                             WHERE `position` < ?
                             ORDER BY `position` DESC LIMIT 1";
-                    $res = $db->query($sql, $item['position'], $item['position']);
+                    $res = $db->querys($sql, $item['position'], $item['position']);
                     if(empty($res)) $results['move'] = -1;
                     else $results['move'] = $id;
                 }
@@ -146,14 +146,14 @@ switch($action){
                 $sql = "UPDATE ".$sys_tables['help_articles']."
                         SET `position` = `position` - 2
                         WHERE `id` <> ?  AND `position` <= ?";
-                $res = $db->query($sql, $id, $item['position']);
+                $res = $db->querys($sql, $id, $item['position']);
                 if(empty($res)) $results['move'] = -1;
                 else {
                     $sql = "UPDATE ".$sys_tables['help_articles']."
                             SET `position` = ? - 1
                             WHERE `position` > ?
                             ORDER BY `position` ASC LIMIT 1";
-                    $res = $db->query($sql, $item['position'], $item['position']);
+                    $res = $db->querys($sql, $item['position'], $item['position']);
                     if(empty($res)) $results['move'] = -1;
                     else $results['move'] = $id;
                 }
@@ -165,7 +165,7 @@ switch($action){
         if (!empty($this_page->page_parameters[2]) && $this_page->page_parameters[2]=='del'){
             $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
             $sql = "DELETE FROM ".$sys_tables['help_articles']." WHERE `id`=?";
-            $res = $db->query($sql,$id);
+            $res = $db->querys($sql,$id);
             $results['delete'] = ($res && $db->affected_rows)? $id : -1;              
             Response::SetArray('results',$results);
         }
@@ -315,7 +315,7 @@ switch($action){
                             $res = $db->insertFromArray($sys_tables['help_categories'], $info, 'id');
                             if(!empty($res)){
                                 $new_id = $db->insert_id;
-                                $db->query("UPDATE ".$sys_tables['help_categories']." SET chpu_title = '".$new_id."_".createCHPUTitle($info['title'])."' WHERE id=".$new_id);
+                                $db->querys("UPDATE ".$sys_tables['help_categories']." SET chpu_title = '".$new_id."_".createCHPUTitle($info['title'])."' WHERE id=".$new_id);
                                 // редирект на редактирование свеженькой страницы
                                 if(!empty($res)) {
                                     header('Location: '.Host::getWebPath('/admin/content/help/categories/edit/'.$new_id.'/'));
@@ -340,8 +340,8 @@ switch($action){
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
                 $del_photos = Photos::DeleteAll('help_categories',$id);
-                $res = $db->query("DELETE FROM ".$sys_tables['help_articles']." WHERE id_category=?", $id);
-                $res = $db->query("DELETE FROM ".$sys_tables['help_categories']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['help_articles']." WHERE id_category=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['help_categories']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -357,14 +357,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables['help_categories']."
                                 SET `position` = `position` + 2
                                 WHERE `id` <> ?  AND `position` >= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables['help_categories']."
                                     SET `position` = ? + 1
                                     WHERE `position` < ?
                                     ORDER BY `position` DESC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -379,14 +379,14 @@ switch($action){
                         $sql = "UPDATE ".$sys_tables['help_categories']."
                                 SET `position` = `position` - 2
                                 WHERE `id` <> ?  AND `position` <= ?";
-                        $res = $db->query($sql, $id, $item['position']);
+                        $res = $db->querys($sql, $id, $item['position']);
                         if(empty($res)) $results['move'] = -1;
                         else {
                             $sql = "UPDATE ".$sys_tables['help_categories']."
                                     SET `position` = ? - 1
                                     WHERE `position` > ?
                                     ORDER BY `position` ASC LIMIT 1";
-                            $res = $db->query($sql, $item['position'], $item['position']);
+                            $res = $db->querys($sql, $item['position'], $item['position']);
                             if(empty($res)) $results['move'] = -1;
                             else $results['move'] = $id;
                         }
@@ -405,7 +405,7 @@ switch($action){
                         $results['delete'] = -2;
                     } else {
                         $sql = "DELETE FROM ".$sys_tables['help_categories']." WHERE `id`=?";
-                        $res = $db->query($sql,$id);
+                        $res = $db->querys($sql,$id);
                         $results['delete'] = ($res && $db->affected_rows)? $id : -1;              
                     }
                     Response::SetArray('results',$results);

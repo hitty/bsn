@@ -257,7 +257,7 @@ switch(TRUE){
                     //////////////////////////////////////////////////////////////////////////////
                     case 'del':
                         $id = empty($this_page->page_parameters[4]) ? 0 : $this_page->page_parameters[4];
-                        $res = $db->query("DELETE FROM ".$sys_tables['konkurs_members_categories']." WHERE id=?", $id);
+                        $res = $db->querys("DELETE FROM ".$sys_tables['konkurs_members_categories']." WHERE id=?", $id);
                         $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                         if($ajax_mode){
                             $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));
@@ -397,7 +397,7 @@ switch(TRUE){
             //////////////////////////////////////////////////////////////////////////////
             case 'del':
                 $id = empty($this_page->page_parameters[3]) ? 0 : $this_page->page_parameters[3];
-                $res = $db->query("DELETE FROM ".$sys_tables['konkurs_members']." WHERE id=?", $id);
+                $res = $db->querys("DELETE FROM ".$sys_tables['konkurs_members']." WHERE id=?", $id);
                 $results['delete'] = $res ? $id : -1;
                 if ($delete_photo) {
                     Photos::$__folder_options=array(
@@ -563,11 +563,11 @@ switch(TRUE){
                         Photos::DeleteAll('konkurs',$item['id']);
                     }
                 //удаляем все категории
-                $res = $res && $db->query("DELETE FROM ".$sys_tables['konkurs_members_categories']." WHERE id_konkurs=?",$id);
+                $res = $res && $db->querys("DELETE FROM ".$sys_tables['konkurs_members_categories']." WHERE id_konkurs=?",$id);
                 //удаляем всех участников
-                $res = $res && $db->query("DELETE FROM ".$sys_tables['konkurs_members']." WHERE id_konkurs=?", $id);
+                $res = $res && $db->querys("DELETE FROM ".$sys_tables['konkurs_members']." WHERE id_konkurs=?", $id);
                 //удаляем сам конкурс
-                $res = $res && $db->query("DELETE FROM ".$sys_tables['konkurs']." WHERE id=?", $id);
+                $res = $res && $db->querys("DELETE FROM ".$sys_tables['konkurs']." WHERE id=?", $id);
                 $results['delete'] = ($res && $db->affected_rows) ? $id : -1;
                 if($ajax_mode){
                     $ajax_result = array('ok' => $results['delete']>0, 'ids'=>array($id));

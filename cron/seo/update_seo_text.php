@@ -25,13 +25,13 @@ include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 include('cron/robot/class.xml2array.php');  // конвертация xml в array
 
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables; 
 
 $list = $db->fetchall("SELECT * FROM common1.pages_seo");
 foreach($list as $k=>$item){
-    $db->query("UPDATE ".$sys_tables['pages_seo']." SET ". ( !empty($item['seo_text']) ? "seo_text = '".$item['seo_text']."'," : ""  ) ." title = ?, h1_title = ?, description = ?, keywords = ? WHERE pretty_url = ?",
+    $db->querys("UPDATE ".$sys_tables['pages_seo']." SET ". ( !empty($item['seo_text']) ? "seo_text = '".$item['seo_text']."'," : ""  ) ." title = ?, h1_title = ?, description = ?, keywords = ? WHERE pretty_url = ?",
                                 $item['title'], $item['h1_title'], $item['description'], $item['keywords'], $item['pretty_url']
     );
 }

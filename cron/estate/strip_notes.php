@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -48,7 +48,7 @@ foreach($estates as $estate_type){
     foreach($list as $k=>$item){
         $notes = Validate::stripEmail($item['notes']);
         $notes = Validate::stripPhone($notes);
-        $db->query("UPDATE ".$sys_tables[$estate_type]." SET notes = ? WHERE id = ?",$notes,$item['id']);
+        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET notes = ? WHERE id = ?",$notes,$item['id']);
         echo $db->last_query;
     }
 }
@@ -57,7 +57,7 @@ foreach($estates as $estate_type){
     foreach($list as $k=>$item){
         $notes = Validate::stripEmail($item['notes']);
         $notes = Validate::stripPhone($notes);
-        $db->query("UPDATE ".$sys_tables[$estate_type]." SET notes = ? WHERE id = ?",$notes,$item['id']);
+        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET notes = ? WHERE id = ?",$notes,$item['id']);
         echo $db->last_query;
     }
 }

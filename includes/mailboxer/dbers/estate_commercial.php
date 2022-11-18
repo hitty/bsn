@@ -19,7 +19,7 @@ function dber_estate_commercial_remove($user_id, $remove_options)
 	}
 
 
-	if($db->query($sql))
+	if($db->querys($sql))
 	{
 		return $db->affected_rows;
 	}

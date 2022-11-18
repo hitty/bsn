@@ -31,7 +31,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 // вспомогательные таблицы модуля
 $sys_tables = Config::$sys_tables;
@@ -49,12 +49,12 @@ $dialog_heads = $db->fetchall("SELECT h.*,GROUP_CONCAT(".$sys_tables['messages']
                                                                         AND ".$sys_tables['messages'].".id != h.id_head
                                GROUP BY id_head",'id_head');
 foreach($dialog_heads as $key=>$item){
-    $db->query("UPDATE ".$sys_tables['messages']." SET id_user_from = 45523 WHERE id = ?",$item['id_head']);
+    $db->querys("UPDATE ".$sys_tables['messages']." SET id_user_from = 45523 WHERE id = ?",$item['id_head']);
     $parent_msg_id = $item['id_head'];
     if(!empty($item['child_ids']))
         $item['child_ids'] = explode(',',$item['child_ids']);
         foreach($item['child_ids'] as $k=>$i){
-            $db->query("UPDATE ".$sys_tables['messages']." SET id_user_from = 45523,id_parent = ? WHERE id = ?",$parent_msg_id,$i);
+            $db->querys("UPDATE ".$sys_tables['messages']." SET id_user_from = 45523,id_parent = ? WHERE id = ?",$parent_msg_id,$i);
             $parent_msg_id = $i;
         }
 }

@@ -37,7 +37,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.host.php');
 require_once('includes/class.template.php');
 require_once('includes/class.email.php');
@@ -133,7 +133,7 @@ if(!empty($get_parameters['get_code'])){
             // попытка отправить
             $mailer->Send();        
         }
-        else $db->query("UPDATE ".$sys_tables['news']." SET `vkontakte_feed` = 3 WHERE  vkontakte_feed = 1 AND published = 1 AND datetime <=NOW() AND id = ?", $item['id']);
+        else $db->querys("UPDATE ".$sys_tables['news']." SET `vkontakte_feed` = 3 WHERE  vkontakte_feed = 1 AND published = 1 AND datetime <=NOW() AND id = ?", $item['id']);
     }
 }
        

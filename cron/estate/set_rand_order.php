@@ -34,7 +34,7 @@ Request::Init();
 Cookie::Init(); 
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 require_once('includes/class.email.php');
 include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');     // Photos (работа с графикой)
@@ -43,7 +43,7 @@ $estates = array('live','build','commercial','country');
 foreach($estates as $estate_type){
     $list = $db->fetchall("SELECT `id` FROM ".$sys_tables[$estate_type]." WHERE date_change = CURDATE()");
     foreach($list as $k=>$item){
-        $db->query("UPDATE ".$sys_tables[$estate_type]." SET rand_order=? WHERE id=?",mt_rand(1,10000),$item['id']);
+        $db->querys("UPDATE ".$sys_tables[$estate_type]." SET rand_order=? WHERE id=?",mt_rand(1,10000),$item['id']);
     }
 }
  ?>

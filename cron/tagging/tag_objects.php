@@ -32,7 +32,7 @@ include('includes/class.storage.php');      // Session, Cookie, Responce, Reques
 include('includes/functions.php');          // функции  из модуля
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 //include('includes/class.estate.php');     // Estate (объекты рынка недвижимости)
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables;
@@ -41,7 +41,7 @@ $process_count = array('build'=>2000, 'live'=>2000, 'commercial'=>100, 'country'
 
 //перетегирование объектов у которых были теги, но по какой-то причине!!!!! удалились из таблицы
 foreach($process_count as $estate_type=>$count){
-    $db->query("
+    $db->querys("
                 UPDATE ".$sys_tables[$estate_type]." SET ".$sys_tables[$estate_type].".tag_date = '2001-01-01 00-00-00' WHERE id IN (
                     SELECT a.id FROM 
                     (
@@ -200,14 +200,14 @@ function tagging($obj_list, $estate_type){
             if(!empty($tags_ids_delete)) {
                 $tags_ids_delete = '('.implode(", ",$tags_ids_delete).')';
                 echo $object['id'].":".$object_tag['id_tag'].':'.$tags_ids_delete."--".$estate_type."\n";
-                $db->query("DELETE FROM ".$sys_tables['tag_'.$estate_type]." WHERE id_object = ? AND id_tag IN ".$tags_ids_delete,$object['id']);
-                $db->query("UPDATE ".$sys_tables['tags']." SET tag_count = tag_count -1 WHERE id IN ".$tags_ids_delete);
+                $db->querys("DELETE FROM ".$sys_tables['tag_'.$estate_type]." WHERE id_object = ? AND id_tag IN ".$tags_ids_delete,$object['id']);
+                $db->querys("UPDATE ".$sys_tables['tags']." SET tag_count = tag_count -1 WHERE id IN ".$tags_ids_delete);
             }
 		
         }
         */
         // запись тегов в таблицу (или обновление)
-        $res = $db->query("INSERT INTO ".$sys_tables['estate_tags']." (id_tagtype,tag_name,tag_weight) 
+        $res = $db->querys("INSERT INTO ".$sys_tables['estate_tags']." (id_tagtype,tag_name,tag_weight) 
                                 VALUES (".implode("), (",$values).")
                                 ON DUPLICATE KEY UPDATE id_tagtype = VALUES(id_tagtype)");
         // получаем ID тегов
@@ -217,10 +217,10 @@ function tagging($obj_list, $estate_type){
             $tag_links[] = $tag_id.','.$object['id'].','.$tag['tag_weight']; 
         }
         // записываем связи тег-объект
-        $res = $db->query("INSERT INTO ".$sys_tables['tags_'.$estate_type]." (id_tag, id_object, weight) VALUES (".implode('), (', $tag_links).")
+        $res = $db->querys("INSERT INTO ".$sys_tables['tags_'.$estate_type]." (id_tag, id_object, weight) VALUES (".implode('), (', $tag_links).")
                            ON DUPLICATE KEY UPDATE id_tag = VALUES(id_tag)");
     }
-    $res = $db->query("UPDATE ".$sys_tables[$estate_type]." SET tag_date = NOW() WHERE id IN(".implode(',',array_keys($obj_list)).")");
+    $res = $db->querys("UPDATE ".$sys_tables[$estate_type]." SET tag_date = NOW() WHERE id IN(".implode(',',array_keys($obj_list)).")");
     echo $db->last_query;
 }
 

@@ -23,7 +23,7 @@ include('includes/class.storage.php');      // Session, Cookie, Responce, Reques
 include('includes/functions.php');          // функции  из модуля
 include('includes/class.db.mysqli.php');    // mysqli_db (база данных)
 $db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-$db->query("set names ".Config::$values['mysql']['charset']);
+$db->querys("set names ".Config::$values['mysql']['charset']);
 // вспомогательные таблицы
 $sys_tables = Config::$sys_tables; 
 $sys_tables['pages_seo'] = 'common.pages_seo';
@@ -94,8 +94,8 @@ foreach($result_array as $arr){
         $url_id = $db->fetch("SELECT id FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ?",implode('/',$sql_chpu));
         if(!empty($url_id['id'])){
             $count = $db->fetch("SELECT COUNT(*) as filled, MAX(date_change) as lastmod_date FROM ".$sys_tables['business_centers']." WHERE ".implode(" AND ",$filled_query));
-            if(!empty($count['lastmod_date'])) $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
-            else $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
+            if(!empty($count['lastmod_date'])) $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
+            else $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
             echo $db->last_query;
         }
     }
@@ -148,8 +148,8 @@ foreach($result_array as $arr){
         $url_id = $db->fetch("SELECT id FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ?",implode('/',$sql_chpu));
         if(!empty($url_id['id'])){
             $count = $db->fetch("SELECT COUNT(*) as filled, MAX(idate) as lastmod_date FROM ".$sys_tables['cottages']." WHERE ".implode(" AND ",$filled_query));
-            if(!empty($count['lastmod_date'])) $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
-            else $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
+            if(!empty($count['lastmod_date'])) $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
+            else $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
             echo $db->last_query;
         }
     }
@@ -220,8 +220,8 @@ foreach($result_array as $arr){
         $url_id = $db->fetch("SELECT id FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ?",implode('/',$sql_chpu));
         if(!empty($url_id['id'])){
             $count = $db->fetch("SELECT COUNT(*) as filled, MAX(date_change) as lastmod_date FROM ".$sys_tables['housing_estates']." WHERE ".implode(" AND ",$filled_query));
-            if(!empty($count['lastmod_date'])) $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
-            else $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
+            if(!empty($count['lastmod_date'])) $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
+            else $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
             echo $db->last_query;
         }
     }
@@ -243,7 +243,7 @@ $list = $db->fetchall("SELECT
 foreach($list as $k=>$item){
     $name = explode('.',$item['image_name']);
     $name = $name[0];
-    $db->query("INSERT IGNORE INTO ".$sys_tables['pages_seo']." SET url=?, pretty_url=?, title=?, h1_title=?, breadcrumbs=?, keywords=?, description=?, seo_text=?",
+    $db->querys("INSERT IGNORE INTO ".$sys_tables['pages_seo']." SET url=?, pretty_url=?, title=?, h1_title=?, breadcrumbs=?, keywords=?, description=?, seo_text=?",
         'inter/sell/?countries='.$item['id_country'], 
         'inter/sell/'.$name, 
         'Продажа зарубежной недвижимости в '.$item['title_prepositional'].' - BSN.ru',
@@ -340,8 +340,8 @@ foreach($deal_types as $deal_type){
         if(!empty($url_id['id'])){
                 $filled_query[] = $deal_type=='rent'?'rent=1':'rent=2';
                 $count = $db->fetch("SELECT COUNT(*) as filled, MAX(date_in) as lastmod_date FROM ".$sys_tables['commercial']." WHERE ".implode(" AND ",$filled_query));
-                if(!empty($count['lastmod_date'])) $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
-                else $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
+                if(!empty($count['lastmod_date'])) $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
+                else $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
                 echo $db->last_query;
             }
         }
@@ -432,8 +432,8 @@ foreach($deal_types as $deal_type){
         $url_id = $db->fetch("SELECT id FROM ".$sys_tables['pages_seo']." WHERE pretty_url = ?",implode('/',$sql_chpu));
         if(!empty($url_id['id'])){
                 $count = $db->fetch("SELECT COUNT(*) as filled, MAX(date_in) as lastmod_date FROM ".$sys_tables['build']." WHERE ".implode(" AND ",$filled_query));
-                if(!empty($count['lastmod_date'])) $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
-                else $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
+                if(!empty($count['lastmod_date'])) $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
+                else $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
                 echo $db->last_query;
             }
         }
@@ -503,8 +503,8 @@ foreach($deal_types as $deal_type){
         if(!empty($url_id['id'])){
                 $filled_query[] = $deal_type=='rent'?'rent=1':'rent=2';
                 $count = $db->fetch("SELECT COUNT(*) as filled, MAX(date_in) as lastmod_date FROM ".$sys_tables['country']." WHERE ".implode(" AND ",$filled_query));
-                if(!empty($count['lastmod_date'])) $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
-                else $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
+                if(!empty($count['lastmod_date'])) $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
+                else $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
                 echo $db->last_query;
             } 
         }
@@ -640,8 +640,8 @@ foreach($deal_types as $deal_type){
         if(!empty($url_id['id'])){
                 $filled_query[] = $deal_type=='rent'?'rent=1':'rent=2';
                 $count = $db->fetch("SELECT COUNT(*) as filled, MAX(date_in) as lastmod_date FROM ".$sys_tables['live']." WHERE ".implode(" AND ",$filled_query));
-                if(!empty($count['lastmod_date'])) $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
-                else $db->query("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
+                if(!empty($count['lastmod_date'])) $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ?, lastmod_date = ? WHERE id=?", $count['filled'], $count['lastmod_date'], $url_id['id']);
+                else $db->querys("UPDATE ".$sys_tables['pages_seo']." SET filled = ? WHERE id=?", $count['filled'], $url_id['id']);
                 echo $db->last_query;
             }
            
