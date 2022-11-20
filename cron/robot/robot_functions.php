@@ -1,4 +1,5 @@
-<?phpet_time_limit(100000);
+<?php
+@set_time_limit(100000);
 require_once('includes/lib.errorhandler.php');
 register_shutdown_function('newFatalCatcher');
 //not loged query's

@@ -1,4 +1,5 @@
-<?php$xml = new DOMDocument('1.0','utf-8');
+<?php
+$xml = new DOMDocument('1.0','utf-8');
 $xmlentire = $xml->appendChild($xml->createElement('objs'));
 $xmlentire->setAttribute('date',date('Y-m-d H:i:s'));
 
