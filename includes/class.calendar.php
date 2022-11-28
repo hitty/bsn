@@ -66,7 +66,6 @@ class Calendar {
     */
     public function getMonthsList($category=null, $region=null){
         global $db;
-        $where = $this->table . ".`date_begin` <= NOW() ";
         $list = $db->fetchall("
             SELECT 
                 DATE_FORMAT(" . $this->table . ".`date_begin`, '%Y') as `year`,
@@ -77,6 +76,7 @@ class Calendar {
             GROUP BY `year`, `month`
             ORDER BY `year` DESC, month_number
         ");
+        echo $db->last_query;
         $year = 0;
         $array = [];
         foreach($list as $k=>$item) {
