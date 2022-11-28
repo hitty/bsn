@@ -121,8 +121,6 @@ switch(true){
                                                 *,
                                                 DATE_FORMAT(`date_begin`,'%e') as `daybegin`, DATE_FORMAT(`date_end`,'%e') as `dayend`
                                            FROM ".$sys_tables['calendar_events']." 
-                                           WHERE 
-                                                `date_end` >= CURDATE()
                                            ORDER BY `date_begin` ASC
                                            LIMIT 3"
                     );   
@@ -189,7 +187,6 @@ switch(true){
                                             YEAR(`date_begin`) as `year`,
                                             DATE_FORMAT(`date_begin`,'%M %Y') as `month_year`
                                          FROM ".$sys_tables['calendar_events']." 
-                                         WHERE `date_begin` >= CURDATE()
                                          GROUP BY `month_year`
                                          ORDER BY `year`, `month`
                 ");
