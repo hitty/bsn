@@ -334,7 +334,6 @@ switch(true){
                                       registration_url
                                FROM ".$sys_tables['calendar_events']."
                                LEFT JOIN ".$sys_tables['calendar_events_photos']." ON ".$sys_tables['calendar_events'].".id_main_photo = ".$sys_tables['calendar_events_photos'].".id
-                               WHERE date_begin > NOW()
                                ORDER BY date_begin ASC");
         $nearest['description_short'] = strip_tags($nearest['description_short']);
         Response::SetArray('event',$nearest);
