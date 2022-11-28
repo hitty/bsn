@@ -138,7 +138,6 @@ switch(true){
                         if(!empty($current_year)){
                             $where = "
                                   
-                                `date_begin` < CURDATE() AND 
                                 (
                                     (
                                         (`date_begin` <= DATE('".$current_year."-".$current_month."-01' + INTERVAL 1 MONTH) ) 
