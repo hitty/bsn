@@ -17,12 +17,12 @@ ini_set('log_errors', 'On');
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Делаем видимыми только платным клиентам заявки от 5 до 10 дней
 ////////////////////////////////////////////////////////////////////////////////////////////////     
-$res = $res && $this->db->query("UPDATE ".$sys_tables['applications']." SET visible_to_all = 3 WHERE (DATEDIFF(NOW(),".$sys_tables['applications'].".`datetime`) BETWEEN 5 AND 10) AND visible_to_all = 1 AND status = 2");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['applications']." SET visible_to_all = 3 WHERE (DATEDIFF(NOW(),".$sys_tables['applications'].".`datetime`) BETWEEN 5 AND 10) AND visible_to_all = 1 AND status = 2");
 $log['apps_free_for_payed'] = "Бесплатные заявки старше 5 дней для платных клиентов: ".((!$res)?$this->db->error:"OK")."<br />";
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Убираем в архив заявки, которые старше 10 дней
 ////////////////////////////////////////////////////////////////////////////////////////////////     
-$res = $res && $this->db->query("UPDATE ".$sys_tables['applications']." SET status = 8 WHERE DATEDIFF(NOW(),".$sys_tables['applications'].".`datetime`) >= 10 AND visible_to_all IN (1,3) AND status = 2");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['applications']." SET status = 8 WHERE DATEDIFF(NOW(),".$sys_tables['applications'].".`datetime`) >= 10 AND visible_to_all IN (1,3) AND status = 2");
 $log['apps_archive'] = "Убирание в архив заявок старше 10 дней: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 $log = implode('<br />',$log);

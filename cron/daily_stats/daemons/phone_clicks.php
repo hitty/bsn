@@ -15,8 +15,8 @@ ini_set('log_errors', 'On');
 
 //---------- СТАТИСТИКА СПЕЦПРЕДЛОЖЕНИЙ, ОБЩАЯ ----------------------
 //подсчет статистики кликов по телефону
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['phone_clicks_full']." ( id_parent,id_object,amount,date, type, status)  SELECT id_parent, id_object, count(*), CURDATE() - INTERVAL 1 DAY, type, status  FROM  ".$sys_tables['phone_clicks_day']." GROUP BY  id_object, status ");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['phone_clicks_day']."");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['phone_clicks_full']." ( id_parent,id_object,amount,date, type, status)  SELECT id_parent, id_object, count(*), CURDATE() - INTERVAL 1 DAY, type, status  FROM  ".$sys_tables['phone_clicks_day']." GROUP BY  id_object, status ");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['phone_clicks_day']."");
 //-------------------------------------------------------------------
 
 $log['phones_stats'] = "Статистика кликов по телефону: ".((!$res)?$this->db->error:"OK")."<br />";

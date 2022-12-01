@@ -15,10 +15,10 @@ ini_set('log_errors', 'On');
 
 //-------------------------------------------------------------------
 // Статистика для Метки
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['markers_stats_show_full']."  ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['markers_stats_show_day']."  GROUP BY  id_parent ");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['markers_stats_click_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['markers_stats_click_day']." GROUP BY  id_parent ");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['markers_stats_show_day']."");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['markers_stats_click_day']."");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['markers_stats_show_full']."  ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['markers_stats_show_day']."  GROUP BY  id_parent ");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['markers_stats_click_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['markers_stats_click_day']." GROUP BY  id_parent ");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['markers_stats_show_day']."");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['markers_stats_click_day']."");
 $log['mark_stats'] = "Статистика для Метки: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
 //-------------------------------------------------------------------

@@ -15,8 +15,8 @@ ini_set('log_errors', 'On');
 
 //-------------------------------------------------------------------
 //снятие актуальности со спецух просрочивших дату показа
-$res = $res && $this->db->query("UPDATE ".$sys_tables['spec_offers_objects']." SET `base_page_flag`=2, `first_page_flag`=2 , `first_page_head_flag`=2 , `inestate_flag`=2 WHERE `date_end` <= CURDATE()");
-$res = $res && $this->db->query("UPDATE ".$sys_tables['spec_offers_packets']." SET `base_page_flag`=2, `first_page_flag`=2 , `first_page_head_flag`=2 , `inestate_flag`=2 WHERE `date_end` <= CURDATE()");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['spec_offers_objects']." SET `base_page_flag`=2, `first_page_flag`=2 , `first_page_head_flag`=2 , `inestate_flag`=2 WHERE `date_end` <= CURDATE()");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['spec_offers_packets']." SET `base_page_flag`=2, `first_page_flag`=2 , `first_page_head_flag`=2 , `inestate_flag`=2 WHERE `date_end` <= CURDATE()");
 $log['specoffers_arch'] = "Снятие актуальности со спецпредложений, просрочивших дату показа: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 $log = implode('<br />',$log);

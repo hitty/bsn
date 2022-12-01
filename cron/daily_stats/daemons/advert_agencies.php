@@ -23,7 +23,7 @@ $adv_agencies = $this->db->fetchall("SELECT u.id as id_user FROM ".$sys_tables['
 if(!empty($adv_agencies)){
   foreach($adv_agencies as $k => $agency){
     echo "processing agency with admin #".$agency['id_user']."\r\n";
-    $res = $res && $this->db->query("INSERT IGNORE INTO ".$sys_tables['billing']." (external_id, bsn_id, date, type, bsn_id_user, status, adv_agency)
+    $res = $res && $this->db->querys("INSERT IGNORE INTO ".$sys_tables['billing']." (external_id, bsn_id, date, type, bsn_id_user, status, adv_agency)
                 SELECT external_id, bsn_id, date, type, bsn_id_user, status, 1 FROM
                 (
                     SELECT external_id, id as bsn_id, CURDATE() - INTERVAL 1 DAY AS date, 'live' as type, `id_user` as bsn_id_user, IF(elite=1,5,status) as status FROM ".$sys_tables['live']." WHERE external_id>0 AND published=1 AND id_user=".$agency['id_user']." AND info_source > 1 AND info_source != 4
@@ -56,7 +56,7 @@ $agencies = $this->db->fetchall("SELECT u.id as id_user FROM ".$sys_tables['user
 if(!empty($agencies)){
   foreach($agencies as $k => $agency){
     echo "processing agency with admin #".$agency['id_user']."\r\n";
-    $res = $res && $this->db->query("INSERT IGNORE INTO ".$sys_tables['billing']." (external_id, bsn_id, date, type, bsn_id_user, status, adv_agency)
+    $res = $res && $this->db->querys("INSERT IGNORE INTO ".$sys_tables['billing']." (external_id, bsn_id, date, type, bsn_id_user, status, adv_agency)
                 SELECT external_id, bsn_id, date, type, bsn_id_user, status, 2  FROM
                 (
                     SELECT external_id, id as bsn_id, CURDATE() - INTERVAL 1 DAY AS date, 'live' as type, `id_user` as bsn_id_user, IF(elite=1,5,status) as status FROM ".$sys_tables['live']." WHERE external_id>0 AND published=1 AND id_user=".$agency['id_user']."  AND (status > 2 OR elite=1)  AND info_source > 1 AND info_source != 4

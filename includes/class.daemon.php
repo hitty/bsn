@@ -18,7 +18,7 @@
             $this->pid = $pid;
             if( empty( $db ) ) {
                 $this->db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
-                $this->db->query("set names ".Config::$values['mysql']['charset']);
+                $this->db->querys("set names ".Config::$values['mysql']['charset']);
             } 
             else $this->db = $db;
         }
@@ -42,7 +42,7 @@
         }
         
         private function setStatus($status){
-            return $this->db->query("UPDATE ".$this->sys_tables['daemons']." SET status = ? WHERE id = ?",$status,$this->action_info['id']);
+            return $this->db->querys("UPDATE ".$this->sys_tables['daemons']." SET status = ? WHERE id = ?",$status,$this->action_info['id']);
         }
         
         public function getStatus($res=false){

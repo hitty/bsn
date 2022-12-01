@@ -16,7 +16,7 @@ ini_set('log_errors', 'On');
 //подсчет статистики кликов по телефону
 $ids = $this->db->fetch("SELECT GROUP_CONCAT(id) as ids FROM ".$sys_tables['tgb_banners']." WHERE published = 1 AND enabled = 1 AND credit_clicks = 1")['ids'];
 if( !empty( $ids ) )
-    $res = $res && $this->db->query("INSERT INTO ".$sys_tables['tgb_banners_credits_stats']."  ( id_parent,amount,clicks_amount,date)  
+    $res = $res && $this->db->querys("INSERT INTO ".$sys_tables['tgb_banners_credits_stats']."  ( id_parent,amount,clicks_amount,date)  
                            SELECT 
                                 id_banner, 
                                 day_limit,
@@ -25,13 +25,13 @@ if( !empty( $ids ) )
                            FROM  ".$sys_tables['tgb_banners_credits']." 
                            WHERE id_banner IN (".$ids.") 
                            GROUP BY  id_banner ");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['tgb_stats_full_shows']."  ( id_parent,in_estate,amount,date)  SELECT id_parent,in_estate, count(*), CURDATE() - INTERVAL 1 DAY  FROM  ".$sys_tables['tgb_stats_day_shows']."  GROUP BY  id_parent,in_estate ");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['tgb_stats_full_clicks']." ( id_parent,in_estate,amount,date,`from`, position)  SELECT id_parent, in_estate, count(*), CURDATE() - INTERVAL 1 DAY, `from`, position  FROM  ".$sys_tables['tgb_stats_day_clicks']." GROUP BY  id_parent, `from`, position,in_estate ");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['tgb_stats_day_shows']."");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['tgb_stats_day_clicks']."");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['tgb_stats_full_shows']."  ( id_parent,in_estate,amount,date)  SELECT id_parent,in_estate, count(*), CURDATE() - INTERVAL 1 DAY  FROM  ".$sys_tables['tgb_stats_day_shows']."  GROUP BY  id_parent,in_estate ");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['tgb_stats_full_clicks']." ( id_parent,in_estate,amount,date,`from`, position)  SELECT id_parent, in_estate, count(*), CURDATE() - INTERVAL 1 DAY, `from`, position  FROM  ".$sys_tables['tgb_stats_day_clicks']." GROUP BY  id_parent, `from`, position,in_estate ");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['tgb_stats_day_shows']."");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['tgb_stats_day_clicks']."");
 
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['tgb_stats_popup_full']." ( id_parent,type,amount,date)  SELECT id_parent, action AS type, count(*) AS amount, CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['tgb_stats_popup_day']." GROUP BY  id_parent, action");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['tgb_stats_popup_day']."");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['tgb_stats_popup_full']." ( id_parent,type,amount,date)  SELECT id_parent, action AS type, count(*) AS amount, CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['tgb_stats_popup_day']." GROUP BY  id_parent, action");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['tgb_stats_popup_day']."");
 
 $log['tgb_stats'] = "Статистика для тгб: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;

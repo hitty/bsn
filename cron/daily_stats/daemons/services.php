@@ -17,14 +17,14 @@ ini_set('log_errors', 'On');
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Накапливаем статистику карточек консультанта
 ////////////////////////////////////////////////////////////////////////////////////////////////
-$res = $res && $this->db->query("UPDATE ".$sys_tables['consults']." SET views_count = views_count + views");
-$res = $res && $this->db->query("UPDATE ".$sys_tables['consults']." SET views = 0");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['consults']." SET views_count = views_count + views");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['consults']." SET views = 0");
 $log['consult_items'] = "Статистика карточек консультанта: ".((!$res)?$this->db->error:"OK")."<br />";
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Накапливаем статистику карточек вебинаров
 ////////////////////////////////////////////////////////////////////////////////////////////////
-$res = $res && $this->db->query("UPDATE ".$sys_tables['webinars']." SET views_count = views_count + views");
-$res = $res && $this->db->query("UPDATE ".$sys_tables['webinars']." SET views = 0");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['webinars']." SET views_count = views_count + views");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['webinars']." SET views = 0");
 $log['webinar_items'] = "Статистика карточек вебинаров: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 $log = implode('<br />',$log);

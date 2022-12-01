@@ -15,10 +15,10 @@ ini_set('log_errors', 'On');
 
 //-------------------------------------------------------------------
 // Статистика для объектов недвижимости - ЖК, КП, БЦ
-$res = $res  && $this->db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_full_shows']."  ( id_parent,amount,date, type)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, type  FROM  ".$sys_tables['estate_complexes_stats_day_shows']."  GROUP BY  id_parent, type ");
-$res = $res  && $this->db->query("INSERT INTO ".$sys_tables['estate_complexes_stats_full_clicks']." ( id_parent,amount,date, type)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, type  FROM  ".$sys_tables['estate_complexes_stats_day_clicks']." GROUP BY  id_parent, type ");
-$res = $res  && $this->db->query("TRUNCATE ".$sys_tables['estate_complexes_stats_day_shows']."");
-$res = $res  && $this->db->query("TRUNCATE ".$sys_tables['estate_complexes_stats_day_clicks']."");
+$res = $res  && $this->db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_full_shows']."  ( id_parent,amount,date, type)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, type  FROM  ".$sys_tables['estate_complexes_stats_day_shows']."  GROUP BY  id_parent, type ");
+$res = $res  && $this->db->querys("INSERT INTO ".$sys_tables['estate_complexes_stats_full_clicks']." ( id_parent,amount,date, type)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, type  FROM  ".$sys_tables['estate_complexes_stats_day_clicks']." GROUP BY  id_parent, type ");
+$res = $res  && $this->db->querys("TRUNCATE ".$sys_tables['estate_complexes_stats_day_shows']."");
+$res = $res  && $this->db->querys("TRUNCATE ".$sys_tables['estate_complexes_stats_day_clicks']."");
 $log['eo_stats'] = "Статистика для объектов недвижимости: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 

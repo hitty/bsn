@@ -82,8 +82,8 @@ foreach($agencies_list as $k=>$item){
         $res = $res && $mailer->Send();
     }elseif(!empty($item['tarif_ends'])){
         //делаем списание за тариф
-        $res = $res && $this->db->query("INSERT INTO ".$sys_tables['users_finances']." (id_user,obj_type,estate_type,id_parent,expenditure,income) VALUES (?,'tarif','',1,?,0)",$item['id_user'],$item['tarif_cost']);
-        $res = $res && $this->db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$item['tarif_cost'],$item['id_user']);
+        $res = $res && $this->db->querys("INSERT INTO ".$sys_tables['users_finances']." (id_user,obj_type,estate_type,id_parent,expenditure,income) VALUES (?,'tarif','',1,?,0)",$item['id_user'],$item['tarif_cost']);
+        $res = $res && $this->db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ? WHERE id = ?",$item['tarif_cost'],$item['id_user']);
     }
 }
 $log['agencies_ending_notifications'] = "Оповещения за 3 дня о приближении окончания тарифов агентств, списания по тарифам агентств: ".((!$res)?$this->db->error:"OK")."<br />";

@@ -27,9 +27,9 @@ foreach($estate_types as $key=>$estate_type){
     $ids_to_clear = implode(',',array_keys($ids_to_clear));
     if(empty($ids_to_clear)) continue;
     echo $res;
-    $res = $res && $this->db->query("DELETE FROM ".$sys_tables[$estate_type."_stats_show_full"]." WHERE id_parent IN (".$ids_to_clear.")");
-    $res = $res && $this->db->query("DELETE FROM ".$sys_tables[$estate_type."_stats_search_full"]." WHERE id_parent IN (".$ids_to_clear.")");
-    $res = $res && $this->db->query("DELETE FROM ".$sys_tables[$estate_type."_stats_from_search_full"]." WHERE id_parent IN (".$ids_to_clear.")");
+    $res = $res && $this->db->querys("DELETE FROM ".$sys_tables[$estate_type."_stats_show_full"]." WHERE id_parent IN (".$ids_to_clear.")");
+    $res = $res && $this->db->querys("DELETE FROM ".$sys_tables[$estate_type."_stats_search_full"]." WHERE id_parent IN (".$ids_to_clear.")");
+    $res = $res && $this->db->querys("DELETE FROM ".$sys_tables[$estate_type."_stats_from_search_full"]." WHERE id_parent IN (".$ids_to_clear.")");
     
 }
 $log['daily_stats'] = "Чистка статистики объектов которых нет в основных таблицах: ".((!$res)?$this->db->error:"OK")."<br />";

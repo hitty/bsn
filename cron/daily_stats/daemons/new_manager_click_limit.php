@@ -15,7 +15,7 @@ ini_set('log_errors', 'On');
 
 //----------------Статистика лимита для кликов для менеджеров--------
 if(date('j')==1) {
-    $res = $res && $this->db->query("UPDATE ".$sys_tables['managers']." SET naydidom_credit_limit = month_naydidom_credit_limit, pingola_credit_limit = month_pingola_credit_limit WHERE bsn_manager = 1");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables['managers']." SET naydidom_credit_limit = month_naydidom_credit_limit, pingola_credit_limit = month_pingola_credit_limit WHERE bsn_manager = 1");
     $log['managers_click_limit'] = "Статистика лимита для кликов для менеджеров: ".((!$res)?$this->db->error:"OK")."<br />";
     $res = true;
 }

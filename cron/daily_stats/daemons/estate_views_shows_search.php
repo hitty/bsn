@@ -20,31 +20,31 @@ ini_set('log_errors', 'On');
 $estate_types = array('live','commercial','country','build');
 foreach($estate_types as $key=>$item){
     //просмотры карточек
-    $res = $res && $this->db->query("INSERT INTO ".$sys_tables[$item.'_stats_show_full']." (id_user, id_parent, amount, `date`)
+    $res = $res && $this->db->querys("INSERT INTO ".$sys_tables[$item.'_stats_show_full']." (id_user, id_parent, amount, `date`)
                                 SELECT id_user, id, views_count AS amount, (CURDATE() - INTERVAL 1 DAY) AS `date`
                                 FROM ".$sys_tables[$item]."
                                 WHERE published = 1 AND views_count>0
                                 GROUP BY ".$sys_tables[$item].".id");
     //накапливаем недельные просмотры. если наступил понедельник - стираем их
-    if(date('w') == 1) $res = $res && $this->db->query("UPDATE ".$sys_tables[$item]." SET views_count_week=0 WHERE published=1");
-    else $res = $res && $this->db->query("UPDATE ".$sys_tables[$item]." SET views_count_week=views_count+views_count_week WHERE published=1");
-    $res = $res && $this->db->query("UPDATE ".$sys_tables[$item]." SET views_count=0 WHERE published=1");
+    if(date('w') == 1) $res = $res && $this->db->querys("UPDATE ".$sys_tables[$item]." SET views_count_week=0 WHERE published=1");
+    else $res = $res && $this->db->querys("UPDATE ".$sys_tables[$item]." SET views_count_week=views_count+views_count_week WHERE published=1");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables[$item]." SET views_count=0 WHERE published=1");
     
     //попаданий в поиск
-    $res = $res && $this->db->query("INSERT INTO ".$sys_tables[$item.'_stats_search_full']." (id_user, id_parent, amount, `date`)
+    $res = $res && $this->db->querys("INSERT INTO ".$sys_tables[$item.'_stats_search_full']." (id_user, id_parent, amount, `date`)
                                 SELECT id_user, id, search_count AS amount, (CURDATE() - INTERVAL 1 DAY) AS `date`
                                 FROM ".$sys_tables[$item]."
                                 WHERE published = 1 AND search_count>0
                                 GROUP BY ".$sys_tables[$item].".id");
-    $res = $res && $this->db->query("UPDATE ".$sys_tables[$item]." SET search_count=0 WHERE published=1");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables[$item]." SET search_count=0 WHERE published=1");
     
     //переходов с поиска
-    $res = $res && $this->db->query("INSERT INTO ".$sys_tables[$item.'_stats_from_search_full']." (id_user, id_parent, amount, `date`)
+    $res = $res && $this->db->querys("INSERT INTO ".$sys_tables[$item.'_stats_from_search_full']." (id_user, id_parent, amount, `date`)
                                 SELECT id_user, id, from_search_count AS amount, (CURDATE() - INTERVAL 1 DAY) AS `date`
                                 FROM ".$sys_tables[$item]."
                                 WHERE published = 1 AND from_search_count>0
                                 GROUP BY ".$sys_tables[$item].".id");
-    $res = $res && $this->db->query("UPDATE ".$sys_tables[$item]." SET from_search_count=0 WHERE published=1");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables[$item]." SET from_search_count=0 WHERE published=1");
 }
 $log['daily_views'] = "Запись просмотров, попаданий в результаты поиска и переходов с поиска: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------

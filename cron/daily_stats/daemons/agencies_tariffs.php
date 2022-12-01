@@ -18,7 +18,7 @@ $db = $this->db;
 //*******************************************************************
 //    Отключение подставных телефонов
 //*******************************************************************
-$list = $this->db->query( " UPDATE " . $sys_tables['agencies'] . " SET advert_phone = '' WHERE advert_phone_date_end < CURDATE() AND advert_phone_date_end != '0000-00-00' " );
+$list = $this->db->querys( " UPDATE " . $sys_tables['agencies'] . " SET advert_phone = '' WHERE advert_phone_date_end < CURDATE() AND advert_phone_date_end != '0000-00-00' " );
 
 //-------------------------------------------------------------------
 //---------- Окончания срока действия тарифа у агентств ----------------------
@@ -50,7 +50,7 @@ if(!empty($list))
               if(!empty($bc)){
                   $ids = array();
                   foreach($bc as $k=>$item) $ids[] = $item['id'];
-                  $this->db->query("UPDATE ".$sys_tables['business_centers_offices']." SET id_renter = 0, status = 2, date_rent_start = '0000-00-00', date_rent_start = '0000-00-00' WHERE id_parent IN (".implode(", ", $ids).")");
+                  $this->db->querys("UPDATE ".$sys_tables['business_centers_offices']." SET id_renter = 0, status = 2, date_rent_start = '0000-00-00', date_rent_start = '0000-00-00' WHERE id_parent IN (".implode(", ", $ids).")");
               }
         }
     }

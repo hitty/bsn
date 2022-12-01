@@ -15,15 +15,15 @@ ini_set('log_errors', 'On');
 
 //-------------------------------------------------------------------
 //Статистика для Спецпредложений
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['spec_objects_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_objects_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['spec_objects_stats_click_full']." ( id_parent,amount,date,`from`) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, `from`  FROM ".$sys_tables['spec_objects_stats_click_day']." GROUP BY  id_parent, `from`");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['spec_objects_stats_show_day']);
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['spec_objects_stats_click_day']);
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['spec_objects_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_objects_stats_show_day']." GROUP BY  id_parent");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['spec_objects_stats_click_full']." ( id_parent,amount,date,`from`) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, `from`  FROM ".$sys_tables['spec_objects_stats_click_day']." GROUP BY  id_parent, `from`");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['spec_objects_stats_show_day']);
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['spec_objects_stats_click_day']);
 
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['spec_packets_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_packets_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['spec_packets_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_packets_stats_click_day']." GROUP BY  id_parent");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['spec_packets_stats_click_day']);
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['spec_packets_stats_show_day']);
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['spec_packets_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_packets_stats_show_day']." GROUP BY  id_parent");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['spec_packets_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_packets_stats_click_day']." GROUP BY  id_parent");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['spec_packets_stats_click_day']);
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['spec_packets_stats_show_day']);
 $log['specoffers_stats'] = "Статистика для Спецпредложений: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
 //-------------------------------------------------------------------

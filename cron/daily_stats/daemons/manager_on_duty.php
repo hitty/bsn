@@ -26,8 +26,8 @@ $duty_manager = $this->db->fetch("(
                                 ORDER BY id ASC
                             )
 ");                                  
-$res = $res && $this->db->query("UPDATE ".$sys_tables['managers']." SET duty = 2 WHERE duty = 1");
-$res = $res && $this->db->query("UPDATE ".$sys_tables['managers']." SET duty = 1 WHERE id = ?", $duty_manager['id']);
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['managers']." SET duty = 2 WHERE duty = 1");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['managers']." SET duty = 1 WHERE id = ?", $duty_manager['id']);
 $log['working_manager'] = "установка дежурного менеджера БСН: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 $log = implode('<br />',$log);

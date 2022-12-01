@@ -35,7 +35,7 @@
             $this->db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], Config::$values['mysql']['pass']);
             //$this->db = new mysqli_db(Config::$values['mysql']['host'], Config::$values['mysql']['user'], "h9G9uBN8ubfcTRxd5");
             //$this->db = new mysqli_db(Config::$values['mysql']['host'], "root", "h9G9uBN8ubfcTRxd5");
-            $this->db->query("set names ".Config::$values['mysql']['charset']);
+            $this->db->querys("set names ".Config::$values['mysql']['charset']);
         }
         
         public function __construct($db = false){
@@ -199,7 +199,7 @@
         }
         
         public function resetDaemons(){
-            $res['result'] = $this->db->query("UPDATE ".$this->sys_tables['daemons']." SET status = 6 WHERE status IN (1,2)");
+            $res['result'] = $this->db->querys("UPDATE ".$this->sys_tables['daemons']." SET status = 6 WHERE status IN (1,2)");
             $res['errors'] = $this->db->fetch("SELECT GROUP_CONCAT(action_alias) AS action_failed FROM ".$this->sys_tables['daemons']." WHERE status != 6");
             if(!empty($res['errors']) && !empty($res['errors']['action_failed'])) $res['errors'] = $res['errors']['action_failed'];
             else $res['errors'] = false;
@@ -208,7 +208,7 @@
         }
         
         public function updateDaemons(){
-            $res['result'] = $this->db->query("UPDATE ".$this->sys_tables['daemons']." SET status = 6 WHERE status != 2");
+            $res['result'] = $this->db->querys("UPDATE ".$this->sys_tables['daemons']." SET status = 6 WHERE status != 2");
             $res['errors'] = $this->db->fetch("SELECT GROUP_CONCAT(action_alias) AS action_failed FROM ".$this->sys_tables['daemons']." WHERE status != 6");
             if(!empty($res['errors']) && !empty($res['errors']['action_failed'])) $res['errors'] = $res['errors']['action_failed'];
             else $res['errors'] = false;

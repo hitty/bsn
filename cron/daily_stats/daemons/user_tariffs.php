@@ -37,12 +37,12 @@ if(!empty($tarif_renewal)) {
     foreach($tarif_renewal as $k=>$item){
         
         //вписываем данные в финансы
-        $this->db->query("UPDATE ".$sys_tables['users']." SET balance = balance - ?, promo_left = ?, premium_left = ?, vip_left = ?, 
+        $this->db->querys("UPDATE ".$sys_tables['users']." SET balance = balance - ?, promo_left = ?, premium_left = ?, vip_left = ?, 
                                                     tarif_start = NOW(), tarif_end = CURDATE() + INTERVAL 1 MONTH, 
                                                     payed_page = ".$item['payed_page'].", id_user_type = 2 WHERE id = ?",
                     $item['cost'], $item['promo_available'], $item['premium_available'], $item['vip_available'], $item['id']);
         //запись в финансы
-        $this->db->query("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent = ?", 
+        $this->db->querys("INSERT INTO ".$sys_tables['users_finances']." SET expenditure = ?, id_user = ?, obj_type = ?, id_parent = ?", 
                     $item['cost'], $item['id'], 'tarif', $item['id_tarif']);
         
         //отправка письма пользователю
@@ -80,12 +80,12 @@ if(!empty($users_endtarif)){
                                    LEFT JOIN ".$sys_tables['agencies']." ON ".$sys_tables['users'].".id_agency = ".$sys_tables['agencies'].".id
                                    WHERE ".$sys_tables['users'].".id IN (".$users_endtarif.")")['titles'];
     //убираем тариф у пользователя, не возвращаем ему тип "пользователь", убираем флаг платной страницы
-    $res = $res && $this->db->query("UPDATE ".$sys_tables['users']." SET `id_tarif`=0, `promo_left`=0, `premium_left`=0, `vip_left` = 0, tarif_start = '0000-00-00', tarif_end = '0000-00-00', payed_page = 2 WHERE id IN (".$users_endtarif.")");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables['users']." SET `id_tarif`=0, `promo_left`=0, `premium_left`=0, `vip_left` = 0, tarif_start = '0000-00-00', tarif_end = '0000-00-00', payed_page = 2 WHERE id IN (".$users_endtarif.")");
     //все тарифные объекты в архив (если статус оплачен - не трогаем)                               
-    $res = $res && $this->db->query("UPDATE ".$sys_tables['build']." SET published = 2, status = 2, status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
-    $res = $res && $this->db->query("UPDATE ".$sys_tables['live']." SET published = 2, status = 2,status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
-    $res = $res && $this->db->query("UPDATE ".$sys_tables['commercial']." SET published = 2, status = 2,status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
-    $res = $res && $this->db->query("UPDATE ".$sys_tables['country']." SET published = 2, status = 2,status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables['build']." SET published = 2, status = 2, status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables['live']." SET published = 2, status = 2,status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables['commercial']." SET published = 2, status = 2,status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables['country']." SET published = 2, status = 2,status_date_end = '0000-00-00' WHERE id_user IN (".$users_endtarif.") AND payed_status = 2");
     $users_emails = $this->db->fetchall("SELECT ".$sys_tables['users'].".email,
                                             ".$sys_tables['tarifs'].".title
                                      FROM ".$sys_tables['users']."

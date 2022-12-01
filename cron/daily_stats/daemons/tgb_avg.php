@@ -16,10 +16,10 @@ ini_set('log_errors', 'On');
 //-------------------------------------------------------------------
 // среднее кол-во показов для ТГБ в разделе
 
-    $res = $res && $this->db->query("INSERT INTO  ".$sys_tables['tgb_daily_show_stats']." (amount, date, type)
+    $res = $res && $this->db->querys("INSERT INTO  ".$sys_tables['tgb_daily_show_stats']." (amount, date, type)
     SELECT AVG(amount) as amount,  date as date, in_estate as type FROM ".$sys_tables['tgb_stats_full_shows']." 
     WHERE in_estate > 0 AND date = CURDATE() - INTERVAL 1 DAY");
-    $res = $res && $this->db->query("INSERT INTO  ".$sys_tables['tgb_daily_click_stats']." (amount, date, type)
+    $res = $res && $this->db->querys("INSERT INTO  ".$sys_tables['tgb_daily_click_stats']." (amount, date, type)
     SELECT AVG(amount) as amount,  date as date, in_estate as type FROM ".$sys_tables['tgb_stats_full_clicks']."
     WHERE in_estate > 0 AND date = CURDATE() - INTERVAL 1 DAY");
 
@@ -28,8 +28,8 @@ $res = true;
 
 //запись кол-ва показов в месяц в начале каждого месяца
 if(date('j')==1) {
-    $res = $res && $this->db->query("INSERT INTO ".$sys_tables['tgb_monthly_show_stats']." (amount, date, `type`) SELECT SUM( amount ) AS amount, CURDATE() - INTERVAL 1 DAY AS date, `type` FROM ".$sys_tables['tgb_daily_show_stats']." WHERE date_format(date, '%Y%m') = date_format(date_add(now(), interval -1 month), '%Y%m') GROUP BY `type`");
-    $res = $res && $this->db->query("INSERT INTO ".$sys_tables['tgb_monthly_click_stats']." (amount, date, `type`) SELECT SUM( amount ) AS amount, CURDATE() - INTERVAL 1 DAY AS date, `type` FROM ".$sys_tables['tgb_daily_click_stats']." WHERE date_format(date, '%Y%m') = date_format(date_add(now(), interval -1 month), '%Y%m') GROUP BY `type`");
+    $res = $res && $this->db->querys("INSERT INTO ".$sys_tables['tgb_monthly_show_stats']." (amount, date, `type`) SELECT SUM( amount ) AS amount, CURDATE() - INTERVAL 1 DAY AS date, `type` FROM ".$sys_tables['tgb_daily_show_stats']." WHERE date_format(date, '%Y%m') = date_format(date_add(now(), interval -1 month), '%Y%m') GROUP BY `type`");
+    $res = $res && $this->db->querys("INSERT INTO ".$sys_tables['tgb_monthly_click_stats']." (amount, date, `type`) SELECT SUM( amount ) AS amount, CURDATE() - INTERVAL 1 DAY AS date, `type` FROM ".$sys_tables['tgb_daily_click_stats']." WHERE date_format(date, '%Y%m') = date_format(date_add(now(), interval -1 month), '%Y%m') GROUP BY `type`");
     $log['avg_shows_month'] = "запись кол-ва показов в месяц в начале каждого месяца: ".((!$res)?$this->db->error:"OK")."<br />";
     $res = true;
 }

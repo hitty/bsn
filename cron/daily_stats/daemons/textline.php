@@ -16,13 +16,13 @@ ini_set('log_errors', 'On');
 
 //-------------------------------------------------------------------
 // Статистика для TextLine
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['textline_stats_full_shows']."  ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM  ".$sys_tables['textline_stats_day_shows']."  GROUP BY  id_parent ");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['textline_stats_full_clicks']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM  ".$sys_tables['textline_stats_day_clicks']." GROUP BY  id_parent ");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['textline_stats_day_shows']."");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['textline_stats_day_clicks']."");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['textline_stats_full_shows']."  ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM  ".$sys_tables['textline_stats_day_shows']."  GROUP BY  id_parent ");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['textline_stats_full_clicks']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM  ".$sys_tables['textline_stats_day_clicks']." GROUP BY  id_parent ");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['textline_stats_day_shows']."");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['textline_stats_day_clicks']."");
 $log['textline_stats'] = "Статистика для TextLine: ".((!$res)?$this->db->error:"OK")."<br />";
 //снятие актуальности с TextLine просрочивших дату показа
-$res = $res && $this->db->query("UPDATE ".$sys_tables['textline_campaigns']." SET `enabled`=2, `clicks_limit` = 0 WHERE `date_end` <= CURDATE() and enabled=1");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['textline_campaigns']." SET `enabled`=2, `clicks_limit` = 0 WHERE `date_end` <= CURDATE() and enabled=1");
 $log['textline_arch'] = "Снятие актуальности с РК TextLine просрочивших дату показа: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 

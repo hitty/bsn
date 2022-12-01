@@ -16,7 +16,7 @@ ini_set('log_errors', 'On');
 //-------------------------------------------------------------------
 //----------- СТАТИСТИКА ПОДПИСАВШИХСЯ И ОТПИСАВШИХСЯ ПОЛЬЗОВАТЕЛЕЙ
 
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['subscribed_users_stats']." (subscribed, date, unsubscribed)
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['subscribed_users_stats']." (subscribed, date, unsubscribed)
 SELECT subscribed, s.date, unsubscribed FROM ( 
            SELECT SUM(ss.cnt) as subscribed, ss.date FROM (
                (SELECT COUNT(*) as cnt, CURDATE() - INTERVAL 1 DAY AS date FROM ".$sys_tables['subscribed_users']." WHERE published=1) 

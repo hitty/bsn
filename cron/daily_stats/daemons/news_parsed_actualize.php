@@ -17,7 +17,7 @@ ini_set('log_errors', 'On');
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Переносим в архив спарсенные новости старше суток
 ////////////////////////////////////////////////////////////////////////////////////////////////
-$res = $res && $this->db->query("UPDATE ".$sys_tables['news_parsing']." SET status = 4 WHERE TIMESTAMPDIFF(DAY, creation_datetime, NOW()) >=1 AND status = 1");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['news_parsing']." SET status = 4 WHERE TIMESTAMPDIFF(DAY, creation_datetime, NOW()) >=1 AND status = 1");
 $log['news_parsed_archive'] = "Перенос в архив необработанных новостей старше суток: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 $log = implode('<br />',$log);

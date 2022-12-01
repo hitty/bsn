@@ -18,11 +18,11 @@ ini_set('log_errors', 'On');
 $active_promotions = $this->db->fetchall("SELECT * FROM ".$sys_tables['promotions']." WHERE ( `date_end` <= CURDATE() OR `date_start` > CURDATE() ) AND published = 1");
 foreach($active_promotions as $k=>$promotion){
     $estate_type = $this->db->fetch("SELECT `type` FROM ".$sys_tables['estate_types']." WHERE id = ?", $promotion['id_estate_type']);
-    $res = $res && $this->db->query("UPDATE ".$sys_tables[$estate_type['type']]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $promotion['id_estate_type']);
-    $res = $res && $this->db->query("UPDATE ".$sys_tables['promotions']." SET `published` = 3 WHERE id = ?", $promotion['id']);
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables[$estate_type['type']]." SET status = ?, status_date_end = '0000-00-00', id_promotion = 0 WHERE id_promotion = ?", 2, $promotion['id_estate_type']);
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables['promotions']." SET `published` = 3 WHERE id = ?", $promotion['id']);
 }
 //простановка актуальности акциям
-$res = $res && $this->db->query("UPDATE ".$sys_tables['promotions']." SET `published` = 1 WHERE `date_start` <= CURDATE() AND `date_end` > CURDATE() AND published = 3");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['promotions']." SET `published` = 1 WHERE `date_start` <= CURDATE() AND `date_end` > CURDATE() AND published = 3");
 $log['promotion_arch'] = "Снятие актуальности с акций просрочивших дату показа: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
 //-------------------------------------------------------------------

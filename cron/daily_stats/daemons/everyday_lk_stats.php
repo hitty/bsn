@@ -17,7 +17,7 @@ ini_set('log_errors', 'On');
 //---------- Обнуление поля случайной сортировки ----------------------
 $estate_types = array('country','live','commercial','build');
 foreach($estate_types as $estate_type) {
-    $res = $res && $this->db->query("UPDATE ".$sys_tables[$estate_type]." SET rand_order=0 ");
+    $res = $res && $this->db->querys("UPDATE ".$sys_tables[$estate_type]." SET rand_order=0 ");
 }
 $log['rand_order_nullify'] = "Обнуление поля случайной сортировки: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
@@ -28,7 +28,7 @@ $res = true;
 //date_in >= CURDATE() - INTERVAL 1 DAY     DATE_ADD(CURDATE(), INTERVAL -2 day)
 $estate_types = array('live','build','commercial','country');
 foreach($estate_types as $key=>$estate_type){
-    $res = $res && $this->db->query("INSERT INTO ".$sys_tables['cabinet_stats']." (`date`, estate_type, deal_type, status, amount)
+    $res = $res && $this->db->querys("INSERT INTO ".$sys_tables['cabinet_stats']." (`date`, estate_type, deal_type, status, amount)
                 SELECT DATE_ADD(CURDATE(), INTERVAL -1 day) AS `date`, ".($key+1)." AS estate_type, deal_type, status, amount FROM
                 (
                 SELECT 1 AS deal_type, 2 AS status,  COUNT(*) AS amount

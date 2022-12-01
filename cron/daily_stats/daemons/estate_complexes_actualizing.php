@@ -15,26 +15,26 @@ ini_set('log_errors', 'On');
 
 //-------------------------------------------------------------------
 //перевод в обычный статус ЖК  просрочивших дату показа
-$res = $res && $this->db->query("UPDATE ".$sys_tables['housing_estates']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['housing_estates']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
 $log['he_normalize'] = "Перевод в обычный статус ЖК  просрочивших дату показа: ".((!$res)?$this->db->error:"OK")."<br />";
 //перевод в расширенный если между дат 
-$res = $res && $this->db->query("UPDATE ".$sys_tables['housing_estates']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['housing_estates']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
 $log['he_advanced'] = "Перевод в расширенный если между дат: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
 
 //перевод в обычный статус КП  просрочивших дату показа
-$res = $res && $this->db->query("UPDATE ".$sys_tables['cottages']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['cottages']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
 $log['cottages_normalize'] = "Перевод в обычный статус КП  просрочивших дату показа: ".((!$res)?$this->db->error:"OK")."<br />";
 //перевод в расширенный если между дат 
-$res = $res && $this->db->query("UPDATE ".$sys_tables['cottages']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['cottages']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
 $log['cottages_advanced'] = "Перевод в расширенный если между дат: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
 
 //перевод в обычный статус БЦ просрочивших дату показа
-$res = $res && $this->db->query("UPDATE ".$sys_tables['business_centers']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['business_centers']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
 $log['bc_normalize'] = "Перевод в обычный статус БЦ просрочивших дату показа: ".((!$res)?$this->db->error:"OK")."<br />";
 //перевод в расширенный если между дат 
-$res = $res && $this->db->query("UPDATE ".$sys_tables['business_centers']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['business_centers']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
 $log['bc_advanced'] = "Перевод в расширенный если между дат: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
 //-------------------------------------------------------------------

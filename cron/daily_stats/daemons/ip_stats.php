@@ -17,7 +17,7 @@ ini_set('log_errors', 'On');
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Переносим в общую таблицу статистику по ip
 ////////////////////////////////////////////////////////////////////////////////////////////////
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['visitors_ips_stats_full']." (ip,date,visits,avg_interval,min_avg_interval,bot_id) 
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['visitors_ips_stats_full']." (ip,date,visits,avg_interval,min_avg_interval,bot_id) 
                                  SELECT ip,
                                         visit_time AS date,
                                         COUNT(*) AS visits,
@@ -26,7 +26,7 @@ $res = $res && $this->db->query("INSERT INTO ".$sys_tables['visitors_ips_stats_f
                                         GROUP_CONCAT(DISTINCT user_agent)
                                  FROM ".Config::$values['sys_tables']['visitors_ips_day']."
                                  GROUP BY ip");
-$res = $res && $this->db->query("TRUNCATE TABLE ".$sys_tables['visitors_ips_day']);
+$res = $res && $this->db->querys("TRUNCATE TABLE ".$sys_tables['visitors_ips_day']);
 $log['ips_stats'] = "Перенос в общую статистику суточной статистики по IP: ".((!$res)?$this->db->error:"OK")."<br />";
 //-------------------------------------------------------------------
 $log = implode('<br />',$log);

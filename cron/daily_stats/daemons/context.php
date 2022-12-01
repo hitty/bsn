@@ -17,21 +17,21 @@ require_once("includes/class.context_campaigns.php");
 
 //-------------------------------------------------------------------
 //клики и просмотры по контекстным блокам
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['context_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['context_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['context_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['context_stats_click_day']." GROUP BY  id_parent");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['context_stats_click_day']);
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['context_stats_show_day']);
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['context_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['context_stats_show_day']." GROUP BY  id_parent");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['context_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['context_stats_click_day']." GROUP BY  id_parent");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['context_stats_click_day']);
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['context_stats_show_day']);
 $log['context_clicks_shows'] = "Клики и просмотры по контекстным блокам: ".((!$res)?$this->db->error:"OK")."<br />";
-$res = $this->db->query("UPDATE ".$sys_tables['context_campaigns']." SET published = 1 WHERE DATE(`date_start`) = CURDATE()");
+$res = $this->db->querys("UPDATE ".$sys_tables['context_campaigns']." SET published = 1 WHERE DATE(`date_start`) = CURDATE()");
 $log['context_auto_start'] = "Старт кампаний по дате начала: ".((!$res)?$this->db->error:"OK")."<br />";
 $res = true;
  //обновляем флаг редактирования для агентств
- $this->db->query("UPDATE ".$sys_tables['agencies']." SET can_change_time = 1");
+ $this->db->querys("UPDATE ".$sys_tables['agencies']." SET can_change_time = 1");
  //клики и просмотры по агентствам на главной
-$res = $this->db->query("INSERT INTO ".$sys_tables['agencies_mainpage_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['agencies_mainpage_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $this->db->query("INSERT INTO ".$sys_tables['agencies_mainpage_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['agencies_mainpage_stats_click_day']." GROUP BY  id_parent");
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['agencies_mainpage_stats_click_day']);
-$res = $res && $this->db->query("TRUNCATE ".$sys_tables['agencies_mainpage_stats_show_day']);
+$res = $this->db->querys("INSERT INTO ".$sys_tables['agencies_mainpage_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['agencies_mainpage_stats_show_day']." GROUP BY  id_parent");
+$res = $res && $this->db->querys("INSERT INTO ".$sys_tables['agencies_mainpage_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['agencies_mainpage_stats_click_day']." GROUP BY  id_parent");
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['agencies_mainpage_stats_click_day']);
+$res = $res && $this->db->querys("TRUNCATE ".$sys_tables['agencies_mainpage_stats_show_day']);
 $log['agencies_mainpage_clicks_shows'] = "Клики и просмотры по агентствам на главной ".((!$res)?$this->db->error:"OK")."<br />";
 
 //убираем в архив контекстные рекламные кампании (вместе со всеми объявлениями), срок действия которых закончился
@@ -49,8 +49,8 @@ $finishing_campaigns = $this->db->fetchall("SELECT ".$sys_tables['context_campai
                                       LEFT JOIN ".$sys_tables['agencies']." ON ".$sys_tables['agencies'].".id = ".$sys_tables['users'].".id_agency
                                       LEFT JOIN ".$sys_tables['managers']." ON ".$sys_tables['agencies'].".id_manager = ".$sys_tables['managers'].".id
                                       WHERE ".$sys_tables['context_campaigns'].".date_end<=NOW() AND ".$sys_tables['context_campaigns'].".published = 1");
-$res = $res && $this->db->query("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign IN (SELECT id FROM ".$sys_tables['context_campaigns']." WHERE date_end<NOW())");
-$res = $res && $this->db->query("UPDATE ".$sys_tables['context_campaigns']." SET published = 2 WHERE date_end<NOW()");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign IN (SELECT id FROM ".$sys_tables['context_campaigns']." WHERE date_end<NOW())");
+$res = $res && $this->db->querys("UPDATE ".$sys_tables['context_campaigns']." SET published = 2 WHERE date_end<NOW()");
 $log['context_archivate'] = "Уход в архив контекстных штук: ".((!$res)?$this->db->error:"OK")."<br />";
 
 //оповещаем менеджеров и компании
