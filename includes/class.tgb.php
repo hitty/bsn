@@ -5,10 +5,10 @@ abstract class Tgb {
         self::$tables = Config::Get('sys_tables');
     }
 
-    
+
     /**
     * запись статистики
-    * 
+    *
     * @param mixed $action
     * @param mixed $objects
     * @param mixed $packets
@@ -17,9 +17,9 @@ abstract class Tgb {
     * @param mixed $ip
     * @param mixed $user_agent
     */
-    public static function Statistics($action, $id, $estate_type = false, $from = false, $position = false, $ref = false, $real_ref = false, $ip=false, $user_agent=false){    
+    public static function Statistics($action, $id, $estate_type = false, $from = false, $position = false, $ref = false, $real_ref = false, $ip=false, $user_agent=false){
         global $db;
-        
+
         //если вызов для группы, запускаем отдельно для каждого
         if(is_array($id)){
             $res = true;
@@ -33,7 +33,7 @@ abstract class Tgb {
                 return $res;
             }
         }
-        
+
         self::$tables = Config::$values['sys_tables'];
         //1 клик в минуту
         $time = $db->fetch("SELECT TIMESTAMPDIFF(MINUTE, `datetime`, NOW()) as `time` 
@@ -51,17 +51,17 @@ abstract class Tgb {
         switch($position){
             case 'top': $position = 1; break;
             case 'center': $position = 2; break;
-            case 'right': $position = 3; break;    
+            case 'right': $position = 3; break;
             case 'in_estate': $position = 4;break;
             default: $position = 0; break;
-        }      
+        }
         $estate_type_code = !empty($estate_type) ? 1 : 0;
         switch($action){
-            case "click": 
+            case "click":
                 $table = self::$tables['tgb_stats_day_clicks'];
                 if(!Host::isBsn("tgb_stats_day_clicks",$id)) $res = $db->querys("INSERT INTO ".$table." SET `id_parent`=?, `in_estate` = ?, `from` = ?, `position` = ?, ref=?, real_ref=?, ip=?", $id, $estate_type_code, $from, $position, $ref, Host::getRefererURL(), $ip);
                 break;
-            case "show": 
+            case "show":
                 $table = self::$tables['tgb_stats_day_shows'];
                 if(!Host::isBsn("tgb_stats_day_shows",$id)) $res = $db->querys("INSERT INTO ".$table." SET `id_parent`=?, in_estate = ?, ip = ?, browser = ?, ref = ?", $id, $estate_type_code, $ip, $_SERVER['HTTP_USER_AGENT'],Host::getRefererURL());
                 break;
@@ -73,10 +73,10 @@ abstract class Tgb {
         //сохранение статистики показов для метки
         $session_marker = Session::GetString('marker');
         if(!empty($session_marker) && !Host::isBsn("markers_stats_day_clicks",$session_marker) ) $db->querys("INSERT INTO ".self::$tables['markers_stats_day_clicks']." SET id_parent=?",$session_marker);
-         
+
         return $res;
     }
-    
+
     /**
     * получение списка объектов
     * @param integer $count - кол-во элементов (если 0 - то без ограничения)
@@ -88,31 +88,33 @@ abstract class Tgb {
     public static function getList($count = 0, $from = 0, $where = "", $tgb_type = "", $get_rnd_slice = false){
         global $db;
         self::$tables = Config::$values['sys_tables'];
-        
+
         if(!empty($tgb_type)){
             $additional_fields = ",IF(".self::$tables['tgb_banners'].".direct_link LIKE '%https://www.bsn.ru%','internal','external') AS link_type,
-                                  1 AS is_tgb_banner";
+                                  1 AS is_tgb_banner,
+                                  ".self::$tables['tgb_banners'].".token,
+                                  ".self::$tables['tgb_banners'].".advert_url";
             $join_block = "LEFT JOIN ".self::$tables['tgb_campaigns']." ON ".self::$tables['tgb_campaigns'].".id = ".self::$tables['tgb_banners'].".id_campaign";
             switch($tgb_type){
-                case "build": 
+                case "build":
                     $tgb_type = 2;
                     break;
-                case "live": 
+                case "live":
                     $tgb_type = 1;
                     break;
-                case "commercial": 
+                case "commercial":
                     $tgb_type = 3;
                     break;
-                case "country": 
+                case "country":
                     $tgb_type = 4;
                     break;
-                case "zhiloy_kompleks": 
+                case "zhiloy_kompleks":
                     $tgb_type = 5;
                     break;
-                case "country": 
+                case "country":
                     $tgb_type = 6;
                     break;
-                case "cottages": 
+                case "cottages":
                     $tgb_type = 7;
                     break;
                 default: return false;
@@ -164,14 +166,14 @@ abstract class Tgb {
                 GROUP BY ".self::$tables['tgb_banners'].".id
                 ORDER BY " .$order_by . " 
                 ". ( !empty($count) ? " LIMIT ".$from.",".$count : "" );
-        
+
         $list = $db->fetchall($sql);
         if(!empty($get_rnd_slice)){
             shuffle($list);
             $list = array_slice($list, 0, $get_rnd_slice);
-        } 
-        
-        return $list;        
+        }
+
+        return $list;
     }
     /**
     * получение списка объектов с общей статистикой
@@ -185,9 +187,9 @@ abstract class Tgb {
         self::$tables = Config::$values['sys_tables'];
         if(empty($item)) {
             $item = $db->fetch("SELECT * FROM ".self::$tables['tgb_banners']." WHERE id = ?", $id);
-            $id = $item['id'];      
+            $id = $item['id'];
         }
-        
+
         $stats = $db->fetch("SELECT 
                                 main.*,
                                 DATEDIFF(main.date_end, CURDATE()) as date_end_diff,
@@ -383,49 +385,50 @@ abstract class Tgb {
                         LEFT JOIN (SELECT SUM(amount) as cnt_context_click_full_yesterday, '".(empty($item['id_context']) ? "0" : $item['id_context'])."' as id_parent_context, id_parent FROM ".self::$tables['context_stats_click_full']." WHERE id_parent IN (".(empty($item['id_context']) ? "0" : $item['id_context']).") AND date = CURDATE() - INTERVAL 1 DAY) fffff ON fffff.id_parent_context IN ( main.id_context )
                         WHERE main.id = ?
                         GROUP BY main.id", $id
-        );   
+        );
         return $stats;
     }
-    
+
     /**
     * получение рекламодателя баннера / места
     * @param string $where - набор ограничений, как для SQL (напр. "YEAR(datetime)=2012 AND MONTH(datetime)=3")
     * @return array of arrays
     */
     public static function getAgency($where){
-        global $db;    
+        global $db;
         self::$tables = Config::$values['sys_tables'];
-        
+
         $item = $db->fetch("SELECT ".self::$tables['agencies'].".title 
                               FROM ".self::$tables['agencies']." 
                               LEFT JOIN ".self::$tables['users']." ON ".self::$tables['agencies'].".id = ".self::$tables['users'].".id_agency
                               LEFT JOIN ".self::$tables['tgb_campaigns']." ON ".self::$tables['tgb_campaigns'].".id_user = ".self::$tables['users'].".id
-                              WHERE ".$where 
-                              
+                              WHERE ".$where
+
         );
         return $item;
 
     }
-    public static function getClientList($estate_type = false){ 
+    public static function getClientList($estate_type = false){
        global $db;
        $where = [];
        $where[] = self::$tables['tgb_banners'].".enabled = 1";
        $where[] = self::$tables['tgb_banners'].".published = 1";
        $where[] = self::$tables['tgb_banners'].".date_end > CURDATE()";
        $where[] = self::$tables['tgb_banners'].".date_start <= CURDATE()";
-        
+
         if(!empty($estate_type)){
             $estate_type_code = Config::Get('object_types')[$estate_type]['key'];
             $where[] = self::$tables['tgb_banners'] . ".in_estate_section & " . pow( 2, $estate_type_code );
             $where[] = self::$tables['tgb_banners'] . ".in_estate_section > 0";
         }
         $list = $db->fetchall("
-            SELECT `id` ,  `slogan_1`,  `slogan_2`, `title` , `annotation` , `with_popup` , `direct_link` ,  'external' as `link_type`, `photo` ,  `get_pixel` ,  `img_src` ,  `id_campaign`, `priority`, `cnt`
+            SELECT `id` , `advert_url`, `token`,  `slogan_1`,  `slogan_2`, `title` , `annotation` , `with_popup` , `direct_link` ,  'external' as `link_type`, `photo` ,  `get_pixel` ,  `img_src` ,  `id_campaign`, `priority`, `cnt`
             FROM (
-                SELECT `id` ,  `slogan_1`,  `slogan_2`,  `title` , `annotation` , `with_popup` ,  `direct_link` ,  'external' as `link_type`, `photo` ,  `get_pixel` ,  `img_src` ,  `id_campaign`, `priority`, COUNT(*) as `cnt`
+                SELECT `id` , `advert_url`, `token`,  `slogan_1`,  `slogan_2`,  `title` , `annotation` , `with_popup` ,  `direct_link` ,  'external' as `link_type`, `photo` ,  `get_pixel` ,  `img_src` ,  `id_campaign`, `priority`, COUNT(*) as `cnt`
                 FROM (
                     SELECT 
                            `id` ,  
+                            `advert_url`, `token`,
                            `title` ,
                            `slogan_1`,  
                            `slogan_2`,
@@ -456,7 +459,7 @@ abstract class Tgb {
                 GROUP BY  a.`id_campaign`
             ) b 
             WHERE b.cnt>1 OR b.priority>50
-        ");  
+        ");
         //для тех, у кого with_popup, читаем информацию по агентству-хозяину
         if(!empty($list)){
             $popup_ids = array_filter($list,function($e){return !empty($e['with_popup']);});
@@ -477,10 +480,10 @@ abstract class Tgb {
                 }
             }
         }
-        
-        return $list;     
-    } 
-    public static function getItem($id){   
+
+        return $list;
+    }
+    public static function getItem($id){
         global $db;
         $item = $db->fetch("SELECT *, 
                                     IF(utm = 2, direct_link, 
@@ -496,10 +499,10 @@ abstract class Tgb {
                                    as `direct_link`
 
                             FROM ".self::$tables['tgb_banners']." 
-                            WHERE id = " . $id 
+                            WHERE id = " . $id
         );
         return $item;
-        
+
     }
     /**
     * получение кол-ва кликов в день
@@ -527,7 +530,7 @@ abstract class Tgb {
     * рассчет времени клика с попандера
     * @param string $id - id баннера
     * @return integer
-    */   
+    */
     public static function setCreditTime($id = false){
         global $db;
         self::$tables = Config::$values['sys_tables'];
@@ -574,7 +577,7 @@ abstract class Tgb {
                     main.credit_time <= NOW() AND 
                     main.credit_clicks = 1 AND 
                     main.only_popunder_clicks != 2 AND 
-                    ".(!empty($id) ? " main.id = ".$id : 
+                    ".(!empty($id) ? " main.id = ".$id :
                     "main.published = 1 AND
                     main.clicks_limit > 0 AND
                     main.date_start <= NOW() AND
@@ -592,15 +595,15 @@ abstract class Tgb {
                 $new_credit_time_rand = (int) ( ( $time_to_end_difference / ($item['day_limit'] - $total_clicks ) + $time_to_end_difference / ($item['day_limit'] - $total_clicks ) * mt_rand(-0.2, 0.8) ) * 60 );
                 $db->querys("UPDATE ".self::$tables['tgb_banners']." SET credit_time = NOW() + INTERVAL ".$new_credit_time_rand." SECOND WHERE id = ?", $item['id']);
             }
-            return $item;    
-        }        
+            return $item;
+        }
         return false;
-        
+
     }
-    
+
     /**
     * читаем для баннера информацию по агентству-хозяину
-    * 
+    *
     * @param mixed $id - id баннера
     * @param mixed $fields - дополнительные поля если нужны
     */
@@ -630,10 +633,10 @@ abstract class Tgb {
                             WHERE ".$sys_tables['agencies'].".id = ?",$agency_id);
         return $info;
     }
-    
+
     /**
     * запись статистики всплывашки ТГБ
-    * 
+    *
     * @param mixed $action - ("","callback","application")
     * @param mixed $id
     */
@@ -641,9 +644,9 @@ abstract class Tgb {
         if(empty($id)) return false;
         global $db;
         $sys_tables = Config::$values['sys_tables'];
-        
+
         if(Host::isBsn("tgb_stats_popup_day",$id)) return false;
-        
+
         switch($action){
             case "": $action = 0; break;
             case "callback-click": $action = 1; break;
@@ -655,33 +658,33 @@ abstract class Tgb {
         @$in_estate = explode('/',$referer)[3];
         if(empty($in_estate)) return false;
         switch($in_estate){
-            case "build": 
+            case "build":
                 $in_estate = 2;
                 break;
-            case "live": 
+            case "live":
                 $in_estate = 1;
                 break;
-            case "commercial": 
+            case "commercial":
                 $in_estate = 3;
                 break;
-            case "country": 
+            case "country":
                 $in_estate = 4;
                 break;
-            case "zhiloy_kompleks": 
+            case "zhiloy_kompleks":
                 $in_estate = 5;
                 break;
-            case "country": 
+            case "country":
                 $in_estate = 6;
                 break;
-            case "cottags": 
+            case "cottags":
                 $in_estate = 7;
                 break;
             default: return false;
         }
-        
+
         $insert_info = array("id_parent" => $id,"action"=>$action,"in_estate"=>$in_estate,"ref"=>$referer,"ip"=>Host::getUserIp());
         return $db->insertFromArray($sys_tables["tgb_stats_popup_day"],$insert_info);
     }
-}      
+}
 
 ?>

@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-define('DEBUG_MODE', !empty($_SERVER['SERVER_NAME']) && preg_match('/.+\.int$/i', $_SERVER['SERVER_NAME']) ? true : false);
+define('DEBUG_MODE', (!empty($_SERVER['SERVER_NAME']) && preg_match('/.+\.int$/i', $_SERVER['SERVER_NAME']))  || (!empty($_SERVER['SCRIPT_NAME']) && preg_match('/.+\.int/i', $_SERVER['SCRIPT_NAME'])) ? true : false);
 
 $root = DEBUG_MODE ? realpath("../..") : realpath('/home/bsn/sites/bsn.ru/public_html/' );
 if(defined("PHP_OS")) $os = PHP_OS; else $os = php_uname();
@@ -133,65 +133,6 @@ $log['banners_stats'] = "Статистика для Баннеров Адрив
 $res = true;
 
 
-
-// Статистика для Метки
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['markers_stats_show_full']."  ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['markers_stats_show_day']."  GROUP BY  id_parent ");
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['markers_stats_click_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY FROM  ".$sys_tables['markers_stats_click_day']." GROUP BY  id_parent ");
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['markers_stats_show_day']."");
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['markers_stats_click_day']."");
-$log['mark_stats'] = "Статистика для Метки: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
-//Статистика для Спецпредложений
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['spec_objects_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_objects_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['spec_objects_stats_click_full']." ( id_parent,amount,date,`from`) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY, `from`  FROM ".$sys_tables['spec_objects_stats_click_day']." GROUP BY  id_parent, `from`");
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['spec_objects_stats_show_day']);
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['spec_objects_stats_click_day']);
-
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['spec_packets_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_packets_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['spec_packets_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['spec_packets_stats_click_day']." GROUP BY  id_parent");
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['spec_packets_stats_click_day']);
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['spec_packets_stats_show_day']);
-$log['specoffers_stats'] = "Статистика для Спецпредложений: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
-//клики и просмотры по контекстным блокам
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['context_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['context_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['context_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['context_stats_click_day']." GROUP BY  id_parent");
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['context_stats_click_day']);
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['context_stats_show_day']);
-$log['context_clicks_shows'] = "Клики и просмотры по контекстным блокам: ".((!$res)?$db->error:"OK")."<br />";
-$res = $db->querys("UPDATE ".$sys_tables['context_campaigns']." SET published = 1 WHERE DATE(`date_start`) = CURDATE()");
-$log['context_auto_start'] = "Старт кампаний по дате начала: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
- //обновляем флаг редактирования для агентств
- $db->querys("UPDATE ".$sys_tables['agencies']." SET can_change_time = 1");
- //клики и просмотры по агентствам на главной
-$res = $db->querys("INSERT INTO ".$sys_tables['agencies_mainpage_stats_show_full']." ( id_parent,amount,date)  SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['agencies_mainpage_stats_show_day']." GROUP BY  id_parent");
-$res = $res && $db->querys("INSERT INTO ".$sys_tables['agencies_mainpage_stats_click_full']." ( id_parent,amount,date) SELECT id_parent, count(*), CURDATE() - INTERVAL 1 DAY  FROM ".$sys_tables['agencies_mainpage_stats_click_day']." GROUP BY  id_parent");
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['agencies_mainpage_stats_click_day']);
-$res = $res && $db->querys("TRUNCATE ".$sys_tables['agencies_mainpage_stats_show_day']);
-$log['agencies_mainpage_clicks_shows'] = "Клики и просмотры по агентствам на главной ".((!$res)?$db->error:"OK")."<br />";
-                                                     
-//убираем в архив контекстные рекламные кампании (вместе со всеми объявлениями), срок действия которых закончился
-//читаем список кампаний, которые будем убирать, чтобы оповестить их и менеджеров
-$finishing_campaigns = $db->fetchall("SELECT ".$sys_tables['context_campaigns'].".title,
-                                             ".$sys_tables['users'].".id AS user_id,
-                                             ".$sys_tables['agencies'].".id AS agency_id,
-                                             IF(".$sys_tables['agencies'].".email IS NULL,".$sys_tables['users'].".email,".$sys_tables['agencies'].".email) AS agency_email,
-                                             IF(".$sys_tables['agencies'].".title IS NULL,".$sys_tables['users'].".name,".$sys_tables['agencies'].".title) AS agency_title,
-                                             ".$sys_tables['managers'].".id AS manager_id,
-                                             ".$sys_tables['managers'].".name AS manager_name,
-                                             ".$sys_tables['managers'].".email AS manager_email
-                                      FROM ".$sys_tables['context_campaigns']."
-                                      LEFT JOIN ".$sys_tables['users']." ON ".$sys_tables['users'].".id = ".$sys_tables['context_campaigns'].".id_user
-                                      LEFT JOIN ".$sys_tables['agencies']." ON ".$sys_tables['agencies'].".id = ".$sys_tables['users'].".id_agency
-                                      LEFT JOIN ".$sys_tables['managers']." ON ".$sys_tables['agencies'].".id_manager = ".$sys_tables['managers'].".id
-                                      WHERE ".$sys_tables['context_campaigns'].".date_end<=NOW() AND ".$sys_tables['context_campaigns'].".published = 1");
-$res = $res && $db->querys("UPDATE ".$sys_tables['context_advertisements']." SET published = 2 WHERE id_campaign IN (SELECT id FROM ".$sys_tables['context_campaigns']." WHERE date_end<NOW())");
-$res = $res && $db->querys("UPDATE ".$sys_tables['context_campaigns']." SET published = 2 WHERE date_end<NOW()");
-$log['context_archivate'] = "Уход в архив контекстных штук: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
 
 //оповещаем менеджеров и компании
 if(!empty($finishing_campaigns)){
@@ -440,80 +381,6 @@ if(!empty($list)){
     }
 
 }
-
-//снятие актуальности со спецух просрочивших дату показа
-$res = $res && $db->querys("UPDATE ".$sys_tables['spec_offers_objects']." SET `base_page_flag`=2, `first_page_flag`=2 , `first_page_head_flag`=2 , `inestate_flag`=2 WHERE `date_end` <= CURDATE()");
-$res = $res && $db->querys("UPDATE ".$sys_tables['spec_offers_packets']." SET `base_page_flag`=2, `first_page_flag`=2 , `first_page_head_flag`=2 , `inestate_flag`=2 WHERE `date_end` <= CURDATE()");
-$log['specoffers_arch'] = "Снятие актуальности со спецпредложений, просрочивших дату показа: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
-//перевод в обычный статус ЖК  просрочивших дату показа
-$res = $res && $db->querys("UPDATE ".$sys_tables['housing_estates']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
-$log['he_normalize'] = "Перевод в обычный статус ЖК  просрочивших дату показа: ".((!$res)?$db->error:"OK")."<br />";
-//перевод в расширенный если между дат 
-$res = $res && $db->querys("UPDATE ".$sys_tables['housing_estates']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
-$log['he_advanced'] = "Перевод в расширенный если между дат: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
-//перевод в обычный статус КП  просрочивших дату показа
-$res = $res && $db->querys("UPDATE ".$sys_tables['cottages']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
-$log['cottages_normalize'] = "Перевод в обычный статус КП  просрочивших дату показа: ".((!$res)?$db->error:"OK")."<br />";
-//перевод в расширенный если между дат 
-$res = $res && $db->querys("UPDATE ".$sys_tables['cottages']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
-$log['cottages_advanced'] = "Перевод в расширенный если между дат: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
-//перевод в обычный статус БЦ просрочивших дату показа
-$res = $res && $db->querys("UPDATE ".$sys_tables['business_centers']." SET `advanced`=2 WHERE (`date_end` <= CURDATE() OR `date_start` > CURDATE()) and advanced=1");
-$log['bc_normalize'] = "Перевод в обычный статус БЦ просрочивших дату показа: ".((!$res)?$db->error:"OK")."<br />";
-//перевод в расширенный если между дат 
-$res = $res && $db->querys("UPDATE ".$sys_tables['business_centers']." SET `advanced`=1 WHERE (`date_end` > CURDATE() AND `date_start` <= CURDATE())");
-$log['bc_advanced'] = "Перевод в расширенный если между дат: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
-// среднее кол-во показов для ТГБ в разделе
-$types = array(1=>array(1,2,3),2=>array(6,7,14),3=>array(4,5));
-foreach($types as $k=>$v){
-
-    $res = $res && $db->querys("INSERT INTO  ".$sys_tables['spec_offers_daily_show_stats']." (amount, date, type)
-    SELECT AVG(amount) as amount,  date as date, ".$k." as type FROM ".$sys_tables['spec_objects_stats_show_full']." 
-    WHERE id_parent IN ( SELECT id FROM ".$sys_tables['spec_offers_objects']." WHERE id_category IN (".implode(",",$v).") AND inestate_flag=1 )
-    AND date = CURDATE() - INTERVAL 1 DAY");
-    $res = $res && $db->querys("INSERT INTO  ".$sys_tables['spec_offers_daily_click_stats']." (amount, date, type)
-    SELECT AVG(amount) as amount,  date as date, ".$k." as type FROM ".$sys_tables['spec_objects_stats_click_full']." 
-    WHERE id_parent IN ( SELECT id FROM ".$sys_tables['spec_offers_objects']." WHERE id_category IN (".implode(",",$v).") AND inestate_flag=1 )
-    AND date = CURDATE() - INTERVAL 1 DAY");
-}
-$log['avg_tgb'] = "среднее кол-во показов для ТГБ в разделе: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
-//запись кол-ва показов в месяц в начале каждого месяца
-if(date('j')==1) {
-    $res = $res && $db->querys("INSERT INTO ".$sys_tables['spec_offers_monthly_show_stats']." (amount, date, `type`) SELECT SUM( amount ) AS amount, CURDATE() - INTERVAL 1 DAY AS date, `type` FROM ".$sys_tables['spec_offers_daily_show_stats']." WHERE date_format(date, '%Y%m') = date_format(date_add(now(), interval -1 month), '%Y%m') GROUP BY `type`");
-    $res = $res && $db->querys("INSERT INTO ".$sys_tables['spec_offers_monthly_click_stats']." (amount, date, `type`) SELECT SUM( amount ) AS amount, CURDATE() - INTERVAL 1 DAY AS date, `type` FROM ".$sys_tables['spec_offers_daily_click_stats']." WHERE date_format(date, '%Y%m') = date_format(date_add(now(), interval -1 month), '%Y%m') GROUP BY `type`");
-    $log['avg_shows_month'] = "запись кол-ва показов в месяц в начале каждого месяца: ".((!$res)?$db->error:"OK")."<br />";
-    $res = true;
-}
-
-
-//установка дежурного менеджера БСН по обработке жалоб (25052015 добавлено условие, исключающее из распределения контент-менеджера БСН)
-$duty_manager = $db->fetch("(
-                                SELECT id 
-                                FROM ".$sys_tables['managers']." 
-                                WHERE bsn_manager = 1 AND content_manager = 2 AND id >  ( SELECT id FROM ".$sys_tables['managers']." WHERE duty = 1 ) 
-                                ORDER BY id ASC
-                            ) UNION (
-                                SELECT id 
-                                FROM ".$sys_tables['managers']." 
-                                WHERE bsn_manager = 1 AND content_manager = 2
-                                ORDER BY id ASC
-                            )
-");                                  
-$res = $res && $db->querys("UPDATE ".$sys_tables['managers']." SET duty = 2 WHERE duty = 1");
-$res = $res && $db->querys("UPDATE ".$sys_tables['managers']." SET duty = 1 WHERE id = ?", $duty_manager['id']);
-$log['working_manager'] = "установка дежурного менеджера БСН: ".((!$res)?$db->error:"OK")."<br />";
-$res = true;
-
 
 //---------- Обнуление поля случайной сортировки ----------------------
 $estate_types = array('country','live','commercial','build');

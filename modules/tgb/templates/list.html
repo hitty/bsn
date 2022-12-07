@@ -18,7 +18,7 @@
         {if!empty $item['title']}
             {ifgt $count,$index}
             {ifeq $item['link_type'],'external'}
-                <div class="tgb col-1"{if!empty $mainpage_new} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{elseif!empty $mainpage} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{/if}>
+                <div class="advert tgb col-1"{if!empty $mainpage_new} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{elseif!empty $mainpage} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{/if}             {if!empty $item['advert_url']}data-advert-url="{$item['advert_url']}"{/if}            {if!empty $item['token']}data-token="{$item['token']}"{/if}            >
                     <span class="external-link br3{if!empty $item['with_popup']} disabled{/if}" data-link="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="tgb" data-id="{$item['id']}" data-position="">
                         <div class="tags">
                             {if!empty $item['slogan_1']}<span class="tag br3">{$item['slogan_1']}</span><span class="clearfix"></span>{/if}
@@ -40,7 +40,7 @@
                     </span>
                 </div>
             {else}
-                <div class="tgb br3 transition{if!empty $item['with_popup']} with-popup{/if}"{if!empty $mainpage_new} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{elseif!empty $mainpage} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{/if}>
+                <div class="advert tgb br3 transition{if!empty $item['with_popup']} with-popup{/if}"{if!empty $mainpage_new} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{elseif!empty $mainpage} onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Целевое действие', 'Клик ТГБ на новой главной']); }catch(e){}"{/if} {if!empty $item['advert_url']}data-advert-url="{$item['advert_url']}"{/if}            {if!empty $item['token']}data-token="{$item['token']}"{/if}>
                     <a href="{$item['direct_link']}" title="{quoted:$item['title']}" data-type="tgb" data-id="{$item['id']}" data-position="">
                         {php:$_index = rand(0,1);}
                         <img src="{ifempty $item['photo']}{$img_url[$_index]}{static:/}img/uploads/tgb/{$item['img_src']}{else}{$item['photo']}{/if}" alt="{quoted:$item['title']}" />

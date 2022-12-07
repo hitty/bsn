@@ -531,6 +531,14 @@ return array(
             'label' => 'Ссылка на рекламодателя',
             'tip' => 'обязательно наличие http'
         ]
+    ,'token' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Токен',
+        ]
         ,'id_manager' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => false,

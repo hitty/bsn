@@ -89,11 +89,19 @@ return [
         ,'advert_url' => [
             'type' => TYPE_STRING,
             'max' => 100,
-            'allow_empty' => false,
-            'allow_null' => false,
+            'allow_empty' => true,
+            'allow_null' => true,
             'fieldtype' => 'text',
             'label' => 'Ссылка на рекламодателя',
             'tip' => 'обязательно наличие http'
+        ]
+        ,'token' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => true,
+            'allow_null' => true,
+            'fieldtype' => 'text',
+            'label' => 'Токен',
         ]
         ,'title' => [
             'type' => TYPE_STRING,
@@ -279,6 +287,14 @@ return [
             'fieldtype' => 'text',
             'label' => 'Ссылка на рекламодателя',
             'tip' => 'обязательно наличие http'
+        ]
+        ,'token' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Токен',
         ]
         ,'author' => [
             'type' => TYPE_STRING,
@@ -809,6 +825,14 @@ return [
             'label' => 'Ссылка на рекламодателя',
             'tip' => 'обязательно наличие http'
         ]
+        ,'token' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Токен',
+        ]
         ,'author' => [
             'type' => TYPE_STRING,
             'max' => 255,
@@ -1022,6 +1046,14 @@ return [
             'fieldtype' => 'text',
             'label' => 'Ссылка на рекламодателя',
             'tip' => 'обязательно наличие http'
+        ]
+        ,'token' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Токен',
         ]
         ,'id_category' => [
             'type' => TYPE_INTEGER,

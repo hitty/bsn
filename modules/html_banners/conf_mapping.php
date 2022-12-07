@@ -8,6 +8,23 @@ return array(
             'allow_empty' => true, 
             'allow_null' => true
 		)
+    , 'advert_url' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => true,
+            'allow_null' => true,
+            'fieldtype' => 'text',
+            'label' => 'Ссылка на рекламодателя',
+            'tip' => 'обязательно наличие http'
+        ]
+    , 'token' => [
+            'type' => TYPE_STRING,
+            'max' => 100,
+            'allow_empty' => true,
+            'allow_null' => true,
+            'fieldtype' => 'text',
+            'label' => 'Токен',
+        ]
         ,'id_user' => array(
             'type' => TYPE_INTEGER,
             'fieldtype' => 'hidden',
@@ -70,7 +87,8 @@ return array(
             'values' => array(0=>'- выберите расположение -'),
             'label' => 'Расположение на сайте',
             'tip' => ''
-        )                     
+        )
+
 		,'date_start' => array(
 			'type' => TYPE_STRING,
             'allow_empty' => false, 

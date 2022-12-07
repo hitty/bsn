@@ -7,6 +7,7 @@ return array(
             'allow_empty' => true, 
             'allow_null' => true
 		)
+
 		,'title' => array(
 			'type' => TYPE_STRING,
             'allow_empty' => false, 
