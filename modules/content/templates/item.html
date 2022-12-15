@@ -1,3 +1,4 @@
+
 {if!empty $wide_format}
     {ifeq $item['id_category'],'27'}
         <div class="longread-title bg-cover lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" title="{ifeq $item['id'],35638}Автор карты — архитектор Дмитрий Якубович{/if}">
@@ -24,7 +25,11 @@
     {/if}    
 {/if}
 
-<article itemscope itemtype="http://schema.org/NewsArticle" class="clearfix col-3 {ifempty $promo}central-main-content {/if}br3 {$content_type}{if!empty $wide_format} central-wrapper{/if}{ifeq $item['id_category'],'27'} longread{/if}" >
+<article itemscope itemtype="http://schema.org/NewsArticle" class="clearfix col-3 {ifempty $promo}central-main-content {/if}br3 {$content_type}{if!empty $wide_format} central-wrapper{/if}{ifeq $item['id_category'],'27'} longread{/if} {ifeq $item['advert'],1} advert{/if}"
+            {if!empty $item['advert_url']}data-advert-url="{$item['advert_url']}"{/if}
+            {if!empty $item['token']}data-token="{$item['token']}"{/if}
+>
+
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/"/>
     
     {if!empty $promo}

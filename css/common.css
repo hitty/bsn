@@ -1182,6 +1182,8 @@ section:after{
     background: transparent!important;
     height: auto!important;
 }
+.estate-item .advert-panel,
+.news .advert-panel,
 #top-banner .advert-panel{
     top: 4px!important;
     bottom: auto!important;
