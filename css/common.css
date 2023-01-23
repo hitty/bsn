@@ -1176,13 +1176,13 @@ section:after{
 .advert-box__item {
     display: block;
     margin: 8px 0 0 0;
-    color: #333333;
     color: #333333!important;
     padding: 0!important;
     background: transparent!important;
     height: auto!important;
 }
 .estate-item .advert-panel,
+.articles .advert-panel,
 .news .advert-panel,
 #top-banner .advert-panel{
     top: 4px!important;

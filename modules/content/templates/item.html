@@ -3,7 +3,7 @@
     {ifeq $item['id_category'],'27'}
         <div class="longread-title bg-cover lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" title="{ifeq $item['id'],35638}Автор карты — архитектор Дмитрий Якубович{/if}">
             <div class="text">
-                
+
                 <div class="title{ifeq $item['title_position'],1} position-left{elseifeq $item['title_position'],2} position-right{else} position-center{/if}">
                     {include /templates/includes/breadcrumbs.html}
                     <h1 itemprop="headline">
@@ -22,7 +22,7 @@
         <h1 class="bg-cover{if!empty $promo} promo-title{/if} lazy" data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
             <span>{$item['title']}</span>
         </h1>
-    {/if}    
+    {/if}
 {/if}
 
 <article itemscope itemtype="http://schema.org/NewsArticle" class="clearfix col-3 {ifempty $promo}central-main-content {/if}br3 {$content_type}{if!empty $wide_format} central-wrapper{/if}{ifeq $item['id_category'],'27'} longread{/if} {ifeq $item['advert'],1} advert{/if}"
@@ -31,13 +31,13 @@
 >
 
     <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/"/>
-    
+
     {if!empty $promo}
         {include /modules/content/templates/promo.item.html}
     {else}
         <div class="content-wrapper">
 
-            
+
             {if!eq $item['id_category'],'27'}
                 {if!empty $item['video_link']}
                     <div class="video-box" itemscope itemtype="http://schema.org/VideoObject">
@@ -57,13 +57,13 @@
                     </div>
                 {/if}
                 <div class="image-info br3">
-                
+
                     {ifempty $wide_format}
-                        
+
                         {ifempty $item['video_link']}
                             <div {if!empty $video}style="display:none"{else}class="news-main-photo bg-cover br3 lazy"{/if} itemprop="image" itemscope itemtype="https://schema.org/ImageObject" {if!empty $photos}data-src="{static:/}img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}"{/if}>
 
-                                
+
                                 {if!eq $item['id_category'],'27'}
 
                                     {include /templates/includes/breadcrumbs.html}
@@ -82,29 +82,29 @@
                                 <link itemprop="url" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" />
                                 <link itemprop="contentUrl" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" />
                                 <meta itemprop="width" content="800">
-                                <meta itemprop="height" content="600">            
+                                <meta itemprop="height" content="600">
                                 {if!empty $item['photo_source']}<span class="photo-source">Источник фото: {$item['photo_source']}</span>{/if}
                             </div>
-                            
+
                         {/if}
-                       
+
                     {/if}
 
                 </div>
             {/if}
-            
+
             <div class="bigtext clearfix">
                  {ifeq $item['id_category'],'27'}
                     <p class="annotation">{$item['content_short']}</p>
                  {/if}
-                 
+
                 {$item['content']}
                 <div class="smallnotes bottom clearfix">
                     {if!eq $item['id_category'],'27'}
                         {if!empty $item['author']}<span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person" data-icon="create">{$item['author']}</span>{/if}
                         {if!empty $item['author_url']}<span class="source">Источник: <span class="external-link" data-link="{$item['author_url']}" title="{quoted:$item['title']}">{$item['author_url']}</span></span>{/if}
                     {/if}
-                    
+
                     <div id="social-buttons-content" data-icon="share">
                         <script src="https://yastatic.net/share2/share.js" async="async"></script>
                         <div class="ya-share2" data-size="s" data-services="vkontakte,facebook,twitter,odnoklassniki,gplus" data-counter></div>
@@ -113,9 +113,9 @@
                 {ifempty $item['author']}<p style="display: none;" itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="BSN.ru"/></p>{/if}
             </div>
 
-        </div>   
+        </div>
         {/if}
-    
+
         <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
             <meta itemprop="address" content="г. Санкт-Петербург, ул. Большая Посадская, д.16, лит.А, пом.15Н, офис 101">
             <meta itemprop="telephone" content="+7 (812) 655-02-13">
@@ -127,9 +127,9 @@
               <meta itemprop="height" content="40">
             </div>
             <meta itemprop="name" content="BSN.ru">
-        </div>    
+        </div>
         <meta itemprop="datePublished" content="{$item['datetime']}"/>
-        <meta itemprop="dateModified" content="{$item['datetime']}"/> 
+        <meta itemprop="dateModified" content="{$item['datetime']}"/>
     {if!eq $item['id_category'],'27'}
         {ifempty $promo}
             {ifeq $item['show_comments'],1}
@@ -137,7 +137,7 @@
             {/if}
         {/if}
     {/if}
-    </article> 
+    </article>
 
 {if!eq $item['id_category'],'27'}
     {ifempty $promo}
@@ -154,7 +154,7 @@
             <section id="content-list">
                 <h2 class="inner-wrapper">Популярное по теме</h2>
                 <div class="content-wrapper row-3 clearfix">
-                    {include /modules/content/templates/block.html}    
+                    {include /modules/content/templates/block.html}
                 </div>
             </section>
         {/if}
@@ -164,7 +164,7 @@
             <section id="content-list" class="central-wrapper">
                 <h2 class="blue">Другие новости рубрики</h2>
                 <div class="content-wrapper row-3 clearfix">
-                    {include /modules/news/content/block.html}    
+                    {include /modules/news/content/block.html}
                 </div>
             </section>
         {/if}
@@ -195,7 +195,6 @@
                 // место для заглушки (неообязательно)
             }
           });
-        </script>  
-        {/literal}  
+        </script>
+        {/literal}
 {/if}
- 

@@ -424,7 +424,6 @@ switch(true){
         ( $content_type == 'news' && !empty($this_page->page_parameters[2])) || 
         ($content_type != 'news' && !empty($this_page->page_parameters[1]))  :
         
-        //Матвей:просмотр новости по chpu_title
         if( $content_type == 'news' && count($this_page->page_parameters)>3) {Host::RedirectLevelUp(); break;}
         else if( $content_type != 'news' && count($this_page->page_parameters)>2) {Host::RedirectLevelUp(); break;}
 
@@ -450,7 +449,6 @@ switch(true){
         if(!empty($sys_tables[$content_type . '_regions'])) $region = $db->fetch("SELECT `id`, `code`, `title` FROM ".$sys_tables[$content_type . '_regions']." WHERE `code` = '".$db->real_escape_string($this_page->page_parameters[1])."'");
         
         $item = $content->getItem(false, $content_id);      
-         
         //обычная карточка
         $item['content'] = trim(preg_replace( '#\{gallery:([0-9]{1,})\-([0-9]{1,})\}#msiU', '{block photos/block/' . $content_type . '/'.$item['id'].'/\\1/\\2/}', $item['content'] ));
         
