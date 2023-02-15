@@ -262,6 +262,12 @@ function squareformat($value){
     return rtrim(rtrim(number_format($value,2, ".", ""), "0"), ".");
 }
 function get_http_response_code($url) {
+    stream_context_set_default( [
+        'ssl' => [
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ]);
     $headers = get_headers(trim($url));
     return substr($headers[0], 9, 3);
 }
