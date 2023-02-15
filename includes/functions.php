@@ -268,7 +268,13 @@ function get_http_response_code($url) {
             'verify_peer_name' => false,
         ],
     ]);
-    $headers = get_headers(trim($url));
+    $context = stream_context_create( [
+        'ssl' => [
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ]);
+    $headers = get_headers(trim($url),0, $context);
     return substr($headers[0], 9, 3);
 }
 function arrayCombineToArrays($array, $limit = false) {

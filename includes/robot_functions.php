@@ -314,12 +314,7 @@ function updateNMarketEliteObjects(){
 /* скачивание xml файла и проверка новизну файла (hash) */
 function downloadXmlFile($format=false, $agency_title='', $link='', $id_user=0, $db_check=true, $folder = false, $return_array = false, $curl = true){
     global $db;
-    stream_context_set_default( [
-        'ssl' => [
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-        ],
-    ]);
+
     $date_check = $db->fetch("SELECT `id` FROM `service`.`xml_imported_hash` WHERE `agency_title` = ? AND `date` = CURDATE()", $agency_title);
     if(!empty($date_check) && !empty($db_check)) return 'Файл '.$link.' агентства '.$agency_title.' сегодня уже выгружался';
     else{
