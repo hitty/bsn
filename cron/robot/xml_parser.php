@@ -66,7 +66,7 @@ $argc = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv
 $sent_report = ( empty($argc) ? 1 : 2 );
 //локально
 
-if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 5155 ";
+if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 4523 ";
 if(!empty($argc)) $where = $sys_tables['users'].".id_agency = ".$argc." AND ".$sys_tables['users'].".agency_admin = 1";
 
 $agency = $db->fetch("         SELECT          
@@ -83,9 +83,9 @@ $agency = $db->fetch("         SELECT
                                FROM ".$sys_tables['agencies']."
                                LEFT JOIN ".$sys_tables['users']." ON ".$sys_tables['agencies'].".id = ".$sys_tables['users'].".id_agency            
                                LEFT JOIN ".$sys_tables['managers']." ON ".$sys_tables['agencies'].".id_manager = ".$sys_tables['managers'].".id
-                               WHERE ".$where 
+                               WHERE ".$where
 );
-echo $db->last_query;       
+echo $db->last_query;
 
 $total = $total_added = $total_errors = 0;
 $success = true;
@@ -123,14 +123,15 @@ if(!empty($success)){
     $process_id = $db->insert_id;
     //проверка пакета для загрузки
     if(empty($agency['id_tarif'])){
-        $error_text = 'У агентства нет тарифа'; 
+        $error_text = 'У агентства нет тарифа';
         $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'\n\nК сожалению у вас не выбран тарифа.'), log='', status = 2 WHERE id = ?", $process_id);
         $success = false;
-    }  
+    }
     if(!empty($success)){
         //проеверяем ссылку
+        echo ' check;';
         if(!DEBUG_MODE){
-            
+
             $link_response = get_http_response_code($agency['xml_link']);
             if($link_response != 200){
                 $agency['xml_link'] = curlThis($agency['xml_link'],false,false,false,false,true);
@@ -140,7 +141,8 @@ if(!empty($success)){
                     file_unavailiable_notify($agency);
                 }
             }
-        }    
+        }
+        echo ' check ended;';
         if(DEBUG_MODE && file_exists(ROOT_PATH."/".Config::Get('xml_file_folders/downloads')."/54913_fyvfyvaaaafyvfyv.xml")) $filename = ROOT_PATH."/".Config::Get('xml_file_folders/downloads')."/54913_fyssdvfyvfyvfyv.xml";
         else $filename = downloadXmlFile(
             "bn",
