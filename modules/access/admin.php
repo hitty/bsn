@@ -1724,8 +1724,8 @@ if(!empty($this_page->page_parameters[1])){
                                        LEFT JOIN ".$sys_tables['processes']." ON ".$sys_tables['processes'].".id_agency = ".$sys_tables['agencies'].".id AND DATE(".$sys_tables['processes'].".datetime_start) = CURDATE() AND ".$sys_tables['processes'].".type = 2
                                        LEFT JOIN ".$sys_tables['managers']." ON ".$sys_tables['managers'].".id = ".$sys_tables['agencies'].".id_manager
                                        WHERE ".$sys_tables['agencies'].".xml_status = 1 ".(!empty($condition) ? " AND ".$condition : "")."
-                                       GROUP BY ".$sys_tables['agencies'].".id
-                                       ORDER BY ".$sys_tables['agencies'].".xml_time");      
+                                       GROUP BY ".$sys_tables['agencies'].".id 
+                                       ORDER BY ".$sys_tables['agencies'].".xml_time, ".$sys_tables['processes'].".id DESC");
                 Response::SetArray('list',$list);
                 Response::SetArray('paginator',array('items_count'=>count($list)));
                 $module_template = "admin.agencies.xml_stats.html";
