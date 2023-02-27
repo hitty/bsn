@@ -41,7 +41,7 @@ class Robot {
     public $object_statuses = []; //типы выделений
     const photos_limit = 20;
     
-    public function __construct($id_user){
+    public function __construct($id_user=0){
         global $db;
         // подключение таблицы
         $this->sys_tables = Config::Get('sys_tables');
@@ -840,7 +840,7 @@ class Robot {
         //теперь не убираем то, что в скобках (20.08.2015)
         //$txt_street = trim(preg_replace('/\s?\(.*\)/sui','',$txt_street));
         //убираем корректно указанные дом и корпус ("1 красноармейская д.3 к.34")
-        $txt_street = trim(preg_replace('/(\sд|\sк)\.?\s?[0-9]+/sui','',$txt_street));
+        $txt_street = trim(preg_replace('/(\sд|\sк|\sкорп|\sстр)\.?\s?[0-9]+/sui','',$txt_street));
         //убираем дом и корпус указанные просто цифрами ("1 красноармейская 3/34", "1 красноармейская 3 34 3",)
         $txt_street = trim(preg_replace('/(?(?<=[а-я])\s[0-9\/]+)/sui','',$txt_street));
         //разбираем всеми способами
@@ -4410,9 +4410,11 @@ class AvitoRXmlRobot extends Robot{
         //тип сделки (2-продажа/1-аренда)
         $this->fields['rent']=preg_match('/прода/sui',$values['OperationType'])?2:1;
         //регион 
-        if( !empty( $values['region'] ) ) {
-            if( preg_match( '/етербург/',$values['Region'] ) )  $this->fields['id_region'] = 78; ///объект находится в городе
-            elseif( preg_match( '/енинградская/',$values['Region'] ) ) $this->fields['id_region'] = 47; ///объект находится в области
+        $development = $db->fetch("SELECT * FROM ".$this->sys_tables['avito_developments']." WHERE housing_id = " . $values['newdevelopmentid'] );
+        $address = $values['Address'] = $development['address'] ?? '';
+        if( !empty( $address ) ) {
+            if( preg_match( '/етербург/',$address) )  $this->fields['id_region'] = 78; ///объект находится в городе
+            elseif( preg_match( '/енинградская/', $address ) ) $this->fields['id_region'] = 47; ///объект находится в области
         }
             
         ///определяем тип недвижимости и тип объекта

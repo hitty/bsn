@@ -66,7 +66,7 @@ $argc = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv
 $sent_report = ( empty($argc) ? 1 : 2 );
 //локально
 
-if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 4523 ";
+if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 4025 ";
 if(!empty($argc)) $where = $sys_tables['users'].".id_agency = ".$argc." AND ".$sys_tables['users'].".agency_admin = 1";
 
 $agency = $db->fetch("         SELECT          
