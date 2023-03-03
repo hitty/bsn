@@ -652,7 +652,10 @@ display: block;
 .topmenu .topmenu-firstlevel li.doverie-button{
     width: 400px;    
 }
-.topmenu .topmenu-firstlevel li.doverie-button .advert-box__item,
+.topmenu .topmenu-firstlevel li.doverie-button .advert-box__item{
+    font-size: 14px;
+    font-weight: normal;
+}
 .topmenu .topmenu-firstlevel li.doverie-button a{
     width: 140px;
     display: block;
