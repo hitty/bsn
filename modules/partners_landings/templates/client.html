@@ -73,33 +73,7 @@
                         <noscript><div><img src="https://mc.yandex.ru/watch/21898216" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
                     <!-- /Yandex.Metrika counter -->
                 {/if}                
-                
-                {if!empty $fbq}
-                    <!-- Facebook Pixel Code -->
-                    <script>
-                      !function(f,b,e,v,n,t,s)
-                      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                      n.queue=[];t=b.createElement(e);t.async=!0;
-                      t.src=v;s=b.getElementsByTagName(e)[0];
-                      s.parentNode.insertBefore(t,s)}(window, document,'script',
-                      'https://connect.facebook.net/en_US/fbevents.js');
-                      fbq('init', '1915455185387754');
-                      fbq('track', 'ViewContent', { 
-                           content_type: '{$fbq['content_type']}',
-                           content_ids: ['{$fbq['content_ids']}'],
-                           content_name: '{$fbq['content_name']}',
-                           content_category: '{$fbq['content_category']}',
-                           value: '{$fbq['value']}',
-                           currency: '{$fbq['currency']}'
-                      });      
-                    </script>
-                    <noscript><img height="1" width="1" style="display:none"
-                      src="https://www.facebook.com/tr?id=1915455185387754&ev=PageView&noscript=1"
-                    /></noscript>
-                    <!-- End Facebook Pixel Code -->
-                {/if}
+
                     
         {/if}
         
