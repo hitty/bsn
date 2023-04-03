@@ -19,7 +19,6 @@ switch(true){
     case empty($action):
         //получаем информацию по конкурсу
         $info = $db->fetch(" SELECT * FROM " . $sys_tables['konkurs'] ." WHERE url = ? ", $this_page->real_path );
-        
         Response::SetBoolean('konkurs_status',($info['status']==1));
         //заголовок таблицы голосования
         Response::SetArray('info',$info);
