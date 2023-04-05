@@ -66,6 +66,7 @@ switch(true){
         
         $h1 = empty($this_page->page_seo_h1) ? $info['title'] : $this_page->page_seo_h1;
         Response::SetString('h1',$h1);
+        Response::SetString('url',$_SERVER['REQUEST_URI']);
         $module_template = 'mainpage.html';
         break;
     //////////////////////////////////////////////////////////////
@@ -117,6 +118,26 @@ switch(true){
         //голосование
         $id = Request::GetInteger('id',METHOD_POST);
         $id_category = Request::GetInteger('id_category',METHOD_POST);
+
+        //проверка капчи
+        $check_recaptcha = false;
+        $recaptcha = Request::GetString('recaptcha_response', METHOD_POST);
+
+        if( !empty( $recaptcha ) ) {
+            // Build POST request
+            $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
+            $recaptcha_secret = Config::Get('recaptcha/secret');
+
+            // Make and decode POST request
+            $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha);
+            $recaptcha = json_decode($recaptcha);
+
+            // Take action based on the score returned
+            $check_recaptcha = $recaptcha->score >= 0.65;
+            $ajax_result['captcha_score'] = $recaptcha->score;
+
+        }
+
         if(!empty($id) && !empty($id_category)){
             //получаем категорию
             $list = $db->fetch("SELECT * FROM ".$sys_tables['konkurs_members']." WHERE id = ? AND id_category = ?",$id, $id_category);
@@ -128,10 +149,12 @@ switch(true){
                 );
                 $cookie_vote = Cookie::GetString('konkurs_vote_for_' . $id_category);
                 if(empty($check) && empty($cookie_vote)){
-                    $res = $db->querys("INSERT INTO ".$sys_tables['konkurs_votings']." SET id_konkurs = ?, vote_id_category = ?, vote_id_member = ?, ip = ?, datetime = NOW()",
-                                       $list['id_konkurs'],$list['id_category'],$id,$user_ip);
-                    $res1 = $db->querys("UPDATE ".$sys_tables['konkurs_members']." SET amount = amount+1 WHERE id=?",$id);
-                    $ajax_result['ok'] = $res && $res1;
+                    if( $check_recaptcha ) {
+                        $res = $db->querys("INSERT INTO ".$sys_tables['konkurs_votings']." SET id_konkurs = ?, vote_id_category = ?, vote_id_member = ?, ip = ?, datetime = NOW()",
+                            $list['id_konkurs'],$list['id_category'],$id,$user_ip);
+                            $res1 = $db->querys("UPDATE ".$sys_tables['konkurs_members']." SET amount = amount+1 WHERE id=?",$id);
+                    }
+                    $ajax_result['ok'] = true;
                     Cookie::SetCookie('konkurs_vote_for_' . $id_category, $id, 60*60*24*160, '/', DEBUG_MODE ? '.bsn.int' : '.bsn.ru');
                 }
             }

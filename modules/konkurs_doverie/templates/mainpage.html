@@ -18,23 +18,23 @@
             {php:$category = "";}
             {php:$voted_titles = array();}
                 <div class="clearfix flex konkurs-wrapper">
-                    
+
                     {php:$count=1;}
                     {loop $list,$k,$item}
                         {if!eq $category, $item['category_title']}
                             <div class="item col-1 transition br3 shadow-hover {if!eq $item['can_vote'],1}voted{else}none-voted {/if}" data-all-votes="{php: echo (!empty($item['all_votes']))?$item['all_votes']:0}" data-location="vote-{$item['id_category']}" data-url="/{$current_page['requested_path']}/{$item['id_category']}/" data-id="{$item['id_category']}">
                                 <div class="bg br3 transition">
-                                    
+
                                         <div class="members">
                                             {$item['members_count']}
                                             <span>{suffix_word:$item['members_count'],'участник','','а','ов'}</span>
                                         </div>
                                         <span class="button white">Голосовать</span>
                                         <span class="voted-for">Вы отдали свой голос за: <b>{$item['title']}</b></span>
-                                    
+
                                 </div>
                                 <div class="title">
-                                    {$item['category_title']} 
+                                    {$item['category_title']}
                                 </div>
                             </div>
                             {php:++$count}
@@ -53,6 +53,10 @@
         <div class="konkurs-clauses clearfix inner">{$info['text_end']}</div>
     {/if}
 
-    
+
 
 </div>
+<form action="{$url}" id="konkurs-vote">
+    <input type="hidden" name="recaptcha_response"  id="recaptcha" data-public="{php:echo Config::Get('recaptcha/public')}">
+</form>
+<script src="https://www.google.com/recaptcha/api.js?render={php:echo Config::Get('recaptcha/public')}"></script>
