@@ -181,7 +181,7 @@ class Auth {
                 if(Validate::isEmail($login)){
                     $email = $login; // это почтовый адрес
                 } else {
-                    $phone_login = preg_replace('![^0-9]!','', $login);
+                    $phone_login = preg_replace('![^0-9]!','', $login ?? '');
                     if(strlen($phone_login)>=10){
                         $phone = substr($phone_login,-10); // это мобильный телефон
                     }
