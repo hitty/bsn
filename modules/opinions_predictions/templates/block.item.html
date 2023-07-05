@@ -1,4 +1,7 @@
-<div class="item opinions col-1 br3 shadow-hover transition">
+<div class="item opinions col-1 br3 shadow-hover transition
+        {ifeq $item['advert'],1} advert{/if}"
+        {if!empty $item['advert_url']}data-advert-url="{$item['advert_url']}"{/if}
+        {if!empty $item['token']}data-token="{$item['token']}"{/if}>
     <a class="internal-link" href="/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/"></a>
     <span class="image br3 bg-cover-top-mid lazy" data-src="{static:/}img/uploads/{ifempty $mainpage}med{else}big{/if}/{$item['experts_subfolder']}/{$item['experts_photo']}"></span>
     <div class="content">

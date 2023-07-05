@@ -1,4 +1,6 @@
-<article itemscope itemtype="http://schema.org/NewsArticle" class="clearfix col-3 central-main-content br3 opinions" >
+<article itemscope itemtype="http://schema.org/NewsArticle" class="clearfix col-3 central-main-content br3 opinions {ifeq $item['advert'],1} advert{/if}"
+         {if!empty $item['advert_url']}data-advert-url="{$item['advert_url']}"{/if}
+{if!empty $item['token']}data-token="{$item['token']}"{/if} >
   <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://www.bsn.ru/{$item['type_url']}/{$item['estate_url']}/{$item['chpu_title']}/" />
     <div class="content-wrapper">
         <div class="image-info br3">
