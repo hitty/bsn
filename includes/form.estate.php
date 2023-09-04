@@ -36,9 +36,9 @@ if(empty($form_filter) || $form_filter === FALSE) {
             if( (in_array($item['id'], $subways ) ) || $item['id'] == $subways) $form_filter['subways'][$k]['on'] = true;
         }
     }
-    $form_filter['type_objects_live'] = $db->fetchall("SELECT id,title, sell_count, rent_count FROM information.type_objects_live ORDER BY title");
-    $form_filter['type_objects_commercial'] = $db->fetchall("SELECT id,title, sell_count, rent_count FROM information.type_objects_commercial ORDER BY title");
-    $form_filter['type_objects_inter'] = $db->fetchall("SELECT id,title, sell_count, rent_count FROM information.type_objects_inter ORDER BY title");
+    $form_filter['type_objects_live'] = $db->fetchall("SELECT id,title, sell_count, rent_count FROM " . $sys_tables['type_objects_live'] . " ORDER BY title");
+    $form_filter['type_objects_commercial'] = $db->fetchall("SELECT id,title, sell_count, rent_count FROM " . $sys_tables['type_objects_commercial'] . " ORDER BY title");
+    $form_filter['type_objects_inter'] = $db->fetchall("SELECT id,title, sell_count, rent_count FROM " . $sys_tables['type_objects_inter'] . " ORDER BY title");
     if(!empty($estate_type)) $form_filter['obj_type'] = $db->fetchall("SELECT id,title FROM ".$sys_tables['object_type_groups']." WHERE `type` = ? ORDER BY id", false, $estate_type);
     $form_filter['build_complete'] = $db->fetchall("SELECT id,title FROM ".$sys_tables['build_complete']." WHERE decade = 0 AND (year >= YEAR(CURDATE()) OR id=4) ORDER BY year, title");
     $form_filter['building_type'] = $db->fetchall("SELECT id,title FROM ".$sys_tables['building_types']." ORDER BY title");
