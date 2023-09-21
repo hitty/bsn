@@ -716,7 +716,7 @@ class Application {
                 if(!empty($notify_info['manager_email']) && Validate::isEmail($notify_info['manager_email'])){
                     $mailer = new EMailer('mail');
                     $mailer->sendEmail(
-                                        array($notify_info['manager_email'],"web@bsn.ru"),
+                                        array($notify_info['manager_email'],"hitty@bsn.ru"),
                                         array($notify_info['manager_name'],"Миша"),
                                         "Новая заявка на bsn.ru - ID ".$data['inserted_id'].", ".date('Y-m-d H:i:s'),
                                         '/modules/applications/templates/mail.manager.html',
@@ -728,7 +728,7 @@ class Application {
                 }
                 if(!empty($notify_info['user_email']) && empty($sended) && Validate::isEmail($notify_info['user_email'])){
                     $mailer = new EMailer('mail');
-                    $mailer->sendEmail(array($notify_info['user_email'],"web@bsn.ru"),
+                    $mailer->sendEmail(array($notify_info['user_email'],"hitty@bsn.ru"),
                                        array($notify_info['user_title'],"Миша"),
                                        "Новая заявка на bsn.ru - ID ".$data['inserted_id'].", ".date('Y-m-d H:i:s'),
                                        '/modules/applications/templates/mail.user.html',
@@ -753,7 +753,7 @@ class Application {
                             
                         } else{
                             
-                        $mailer->sendEmail(array($item['email'],'web@bsn.ru'),
+                        $mailer->sendEmail(array($item['email'],'hitty@bsn.ru'),
                                            array($item['name'],""),
                                            $item['name'].", в общем доступе на BSN.ru появилась новая заявка",
                                            '/modules/applications/templates/mail.shared.html',
@@ -858,7 +858,7 @@ class Application {
             
             // параметры письма
             $site = preg_replace('/^www\./','',$_SERVER['HTTP_HOST']);
-            $mailer->sendEmail(array("web@bsn.ru","marina@bsn.ru","d.salova@bsn.ru"),
+            $mailer->sendEmail(array("hitty@bsn.ru","marina@bsn.ru","d.salova@bsn.ru"),
                                array("Тех.поддержка","Марина","Дария"),
                                "Необходимо проверить заявку на ".$site." - ID ".$this->id.", ".date('Y-m-d H:i:s'),
                                "/modules/applications/templates/mail.content_manager.html",

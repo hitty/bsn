@@ -344,7 +344,7 @@ if($mail_text!=''){
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
     $mailer->AddAddress('scald@bsn.ru');
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'bsnxml@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Парсинг BNXML файла');
     // попытка отправить
@@ -367,7 +367,7 @@ if(!empty($log)){
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
     $mailer->AddAddress('scald@bsn.ru');
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'agregator@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Агрегатор BSN');
     // попытка отправить

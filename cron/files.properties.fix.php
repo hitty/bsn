@@ -42,7 +42,7 @@ if(true){
     require_once('includes/class.email.php');
     require_once('includes/class.email.php');
     $mailer = new EMailer();
-    $mailer->sendEmail('web@bsn.ru',"Миша","Исполняемые файлы test.bsn",false,false,false,"Результат исполнения: <br />".$res);
+    $mailer->sendEmail('hitty@bsn.ru',"Миша","Исполняемые файлы test.bsn",false,false,false,"Результат исполнения: <br />".$res);
     $mailer->sendEmail('hitty@bsn.ru',"Юра","Исполняемые файлы test.bsn",false,false,false,"Результат исполнения: <br />".$res);
 }
 

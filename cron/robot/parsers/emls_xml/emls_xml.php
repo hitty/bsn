@@ -56,7 +56,7 @@ foreach($files as $file=>$key){
         echo $error_text;
         $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'".$error_text."'), log = '', status = 2 WHERE id = ?", $process_id);
         $success = false;
-        //сразу отправляем письма отв. менеджеру и на web@bsn.ru
+        //сразу отправляем письма отв. менеджеру и на hitty@bsn.ru
         $admin_mailer = new EMailer('mail');
         $mail_text = 'Файл агентства #2898 "КРИС" по ссылке '.$file.' недоступен для скачивания';
         $html = iconv('UTF-8', $admin_mailer->CharSet, $mail_text);
@@ -67,7 +67,7 @@ foreach($files as $file=>$key){
         $admin_mailer->IsHTML(true);
         $admin_mailer->AddAddress('d.salova@bsn.ru');
         $admin_mailer->AddAddress('scald@bsn.ru');
-        $admin_mailer->AddAddress('web@bsn.ru');
+        $admin_mailer->AddAddress('hitty@bsn.ru');
         $admin_mailer->From = 'bsnxml@bsn.ru';
         $admin_mailer->FromName = iconv('UTF-8', $admin_mailer->CharSet,'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла');
         // попытка отправить
@@ -357,7 +357,7 @@ if($mail_text!=''){
     $emails = array(
         array(
             'name' => '',
-            'email'=> 'web@bsn.ru'
+            'email'=> 'hitty@bsn.ru'
         )
     );
     
@@ -389,7 +389,7 @@ if(!empty($log)){
     $emails = array(
         array(
             'name' => '',
-            'email'=> 'web@bsn.ru'
+            'email'=> 'hitty@bsn.ru'
         )
     );
     //отправка письма

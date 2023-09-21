@@ -79,7 +79,7 @@ switch(true){
                     if(!empty($item['manager_email'])){
                         $mailer = new EMailer('mail');
                         $data = array("info" => $form_data,"item" => $item);
-                        $mailer->sendEmail(array("web@bsn.ru",$item['manager_email']),
+                        $mailer->sendEmail(array("hitty@bsn.ru",$item['manager_email']),
                             array("Миша",""),
                             "Новая регистрация на мероприятие на BSN.ru",
                             '/modules/calendar_events/templates/mail.html',

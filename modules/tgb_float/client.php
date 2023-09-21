@@ -43,7 +43,7 @@ switch(true){
                                    FROM ".$sys_tables['agencies']."
                                    LEFT JOIN ".$sys_tables['managers']." ON ".$sys_tables['agencies'].".id_manager = ".$sys_tables['managers'].".id
                                    WHERE ".$sys_tables['agencies'].".id = ?",$id_agency);
-        //оповещаем web@bsn.ru и менеджера компании
+        //оповещаем hitty@bsn.ru и менеджера компании
         $mailer = new EMailer('mail');
         $mail_text = "Обратный звонок для компании #".$agency_info['agency_id']." ".$agency_info['agency_title'].": <b>".$phone."</b> со страницы <a href='".$referer."' target='_blank'>".$referer."</a>";
         $html = iconv('UTF-8', $mailer->CharSet, $mail_text);
@@ -53,7 +53,7 @@ switch(true){
         $mailer->AltBody = nl2br($html);
         $mailer->IsHTML(true);
         if(!empty($agency_info['manager_email']) && Validate::isEmail($agency_info['manager_email'])) $mailer->AddAddress($agency_info['manager_email']);
-        $mailer->AddAddress('web@bsn.ru');
+        $mailer->AddAddress('hitty@bsn.ru');
         $mailer->From = 'bsn_recall@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Обратные звонки на BSN.ru');
         // попытка отправить

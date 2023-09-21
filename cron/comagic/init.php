@@ -179,7 +179,7 @@ foreach($calls as $key=>$item){
                                 ),
                                 array(
                                     'name' => '',
-                                    'email' => "web@bsn.ru"
+                                    'email' => "hitty@bsn.ru"
                                 )
                             )
                         );

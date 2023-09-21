@@ -687,7 +687,7 @@ class contextCampaigns {
                 //если email корректный, отправляем письмо
                 if(!empty($data['agency_email'])  && Validate::isEmail($data['agency_email']) && !$noclient){
                     $mailer->AddAddress($data['agency_email']);
-                    $mailer->AddAddress('web@bsn.ru');
+                    $mailer->AddAddress('hitty@bsn.ru');
                     $mailer->From = 'no-reply@bsn.ru';
                     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'bsn.ru');
                     // попытка отправить
@@ -746,7 +746,7 @@ class contextCampaigns {
                     if(!empty($data['manager_email'])  && Validate::isEmail($data['manager_email'])){
                         if($notification_type == 1 && $data['manager_email'] != "s.sokolov76@gmail.com") $mailer->AddAddress("pm@bsn.ru");
                         $mailer->AddAddress($data['manager_email']);
-                        $mailer->AddAddress("web@bsn.ru");
+                        $mailer->AddAddress("hitty@bsn.ru");
                         $mailer->From = 'no-reply@bsn.ru';
                         $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'bsn.ru');
                         // попытка отправить

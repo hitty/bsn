@@ -160,7 +160,7 @@ $mailer->AltBody = strip_tags($html);
 $mailer->IsHTML(true);
 $mailer->AddAddress("alexander@pro.bkn.ru");
 $mailer->AddAddress("hitty@bsn.ru");
-$mailer->AddAddress("web@bsn.ru");
+$mailer->AddAddress("hitty@bsn.ru");
 $mailer->AddAttachment(__XMLPATH__.".gz");
 $mailer->From = 'no-reply@bsn.ru';
 $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Выгрузка объектов Александр-недвижимость');

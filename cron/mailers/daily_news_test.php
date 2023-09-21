@@ -138,7 +138,7 @@ Response::SetArray('env',array('url'=>Host::GetWebPath('/'),'host'=>Host::$host)
 if(!empty($debug)) $email_list = array(
     0 => array( 'id' => 3, 'email' => 'kya82@mail.ru'),
     1 => array( 'id' => 4, 'email' => 'hitty@bsn.ru'),
-    2 => array( 'id' => 4, 'email' => 'web@bsn.ru'),
+    2 => array( 'id' => 4, 'email' => 'hitty@bsn.ru'),
     3 => array( 'id' => 5, 'email' => 'pm@bsn.ru')
 );
 $mailer = new EMailer('mail');           

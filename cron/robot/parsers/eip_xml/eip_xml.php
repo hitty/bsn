@@ -557,7 +557,7 @@ if($mail_text!=''){
     if(empty($agency['id_tarif']) && !empty($agency['email_service'])  && Validate::isEmail($agency['email_service'])) $mailer->AddAddress($agency['email_service']);     //отправка письма агентству
     
     $mailer->AddAddress('hitty@bsn.ru');
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'bsnxml@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Парсинг EIPXML файла');
     // попытка отправить
@@ -580,7 +580,7 @@ if($mail_text!=''){
     $mailer->Body = $html;
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'bsnxml@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Парсинг EIPXML файла');
     // попытка отправить
@@ -601,7 +601,7 @@ if(!empty($log['download'])){
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
     $mailer->AddAddress('scald@bsn.ru');
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'agregator@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Агрегатор BSN');
     // попытка отправить

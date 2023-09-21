@@ -51,7 +51,7 @@ $is_ready = TelegramController::checkWebHook();
 if(empty($is_ready)){
     require_once('includes/class.email.php');
     $mailer = new EMailer('mail');
-    $mailer->sendEmail("web@bsn.ru","Миша","Проблемы с webhook у робота Telegram",false,false,false,"Не подключен webhook у робота Telegram");
+    $mailer->sendEmail("hitty@bsn.ru","Миша","Проблемы с webhook у робота Telegram",false,false,false,"Не подключен webhook у робота Telegram");
 }
 */
 

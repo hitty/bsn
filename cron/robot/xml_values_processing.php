@@ -759,7 +759,7 @@ if(!empty($process)){
     $emails = array(
         array(
             'name' => '',
-            'email'=> 'web@bsn.ru'
+            'email'=> 'hitty@bsn.ru'
         )
     );
     if(  $process['sent_report'] == 1)
@@ -795,7 +795,7 @@ if(!empty($process)){
         $emails = array(
             array(
                 'name' => '',
-                'email'=> 'web@bsn.ru'
+                'email'=> 'hitty@bsn.ru'
             )
         );
         if( !empty( $process['user_email'] )    && $process['xml_notification'] == 1 && Validate::isEmail($process['user_email']) )
@@ -816,8 +816,7 @@ if(!empty($process)){
         
         //отправка письма менеджеру
         if(!empty($process['manager_email'])){
-            
-            
+
             Response::SetArray('agency', $process);
             $eml_tpl = new Template('parse.xml.manager.notification.html', 'cron/robot/');
 
@@ -829,7 +828,7 @@ if(!empty($process)){
             $emails = array(
                 array(
                     'name' => '',
-                    'email'=> 'web@bsn.ru'
+                    'email'=> 'hitty@bsn.ru'
                 )
             );
             if( !empty( $process['manager_email']) )
@@ -859,7 +858,7 @@ if(!empty($process)){
         $emails = array(
             array(
                 'name' => '',
-                'email'=> !DEBUG_MODE ? $process['manager_email'] : 'web@bsn.ru'
+                'email'=> !DEBUG_MODE ? $process['manager_email'] : 'hitty@bsn.ru'
             )
         );
         //отправка письма

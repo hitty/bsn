@@ -84,7 +84,7 @@ $html = iconv('UTF-8', $manager_mailer->CharSet, $mail_text);
 $manager_mailer->Body = nl2br($html);
 $manager_mailer->AltBody = nl2br($html);
 $manager_mailer->IsHTML(true);
-$manager_mailer->AddAddress("web@bsn.ru");
+$manager_mailer->AddAddress("hitty@bsn.ru");
 $manager_mailer->From = 'photo_cleaner@bsn.ru';
 $manager_mailer->FromName = iconv('UTF-8', $manager_mailer->CharSet,'BSN.ru');
 // попытка отправить

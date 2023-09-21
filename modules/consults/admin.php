@@ -479,7 +479,7 @@ switch($action){
                     $mailer->AltBody = strip_tags($html);
                     $mailer->IsHTML(true);
                     $mailer->AddAddress($new_user_data['email'], iconv('UTF-8',$mailer->CharSet, $spec_info['name']));
-                    $mailer->AddAddress("web@bsn.ru",iconv('UTF-8',$mailer->CharSet, ""));
+                    $mailer->AddAddress("hitty@bsn.ru",iconv('UTF-8',$mailer->CharSet, ""));
                     $mailer->From = 'no-reply@bsn.ru';
                     $mailer->FromName = 'bsn.ru';
                     $mailer->Send();

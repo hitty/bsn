@@ -22,15 +22,15 @@
           switch($exception->code){
               case 1:
                 $mailer = new EMailer('mail');
-                $mailer->sendEmail("web@bsn.ru","Миша",$exception_info['message']." в строке ".$line_number,false,false,false,$exception_info['additional_description']);
+                $mailer->sendEmail("hitty@bsn.ru","Миша",$exception_info['message']." в строке ".$line_number,false,false,false,$exception_info['additional_description']);
               break;
               case 2:
                 $mailer = new EMailer('mail');
-                $mailer->sendEmail("web@bsn.ru","Миша",$exception_info['message']." в строке ".$line_number,false,false,false,$exception_info['additional_description']);
+                $mailer->sendEmail("hitty@bsn.ru","Миша",$exception_info['message']." в строке ".$line_number,false,false,false,$exception_info['additional_description']);
               break;
               case 3:
                 $mailer = new EMailer('mail');
-                $mailer->sendEmail("web@bsn.ru","Миша",$exception_info['message']." в строке ".$line_number,false,false,false,$exception_info['additional_description']);
+                $mailer->sendEmail("hitty@bsn.ru","Миша",$exception_info['message']." в строке ".$line_number,false,false,false,$exception_info['additional_description']);
               break;
           }
           return true;

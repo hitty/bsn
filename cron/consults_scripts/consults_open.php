@@ -122,7 +122,7 @@ if(!empty($releasing_questions)){
             $emails = array(
                 array(
                     'name' => '',
-                    'email'=> 'web@bsn.ru'
+                    'email'=> 'hitty@bsn.ru'
                 )
             );
             if(!empty( $item['email'] ) ) $emails[] = array( 'name' => '', 'email'=> $item['email'] );
@@ -148,7 +148,7 @@ if(!empty($releasing_questions)){
     $emails = array(
         array(
             'name' => '',
-            'email'=> 'web@bsn.ru'
+            'email'=> 'hitty@bsn.ru'
         )
     );
     //if(!empty( $item['email'] ) ) $emails[] = array( 'name' => '', 'email'=> $item['email'] );

@@ -338,7 +338,7 @@ if(!empty($users_objects)){
                     $mailer->Subject = iconv('UTF-8', $mailer->CharSet, $user_title.'тчет по размещению вашего объекта на BSN.ru');
                     $mailer->IsHTML(true);
                     if(Validate::isEmail($user_info['user_info']['email'])) $mailer->AddAddress($user_info['user_info']['email']);
-                    $mailer->AddAddress("web@bsn.ru");
+                    $mailer->AddAddress("hitty@bsn.ru");
                     $mailer->From = 'no-reply@bsn.ru';
                     $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
                     $res = false;
@@ -358,7 +358,7 @@ $mailer->Body = $html;
 $time_published = (empty($object_info['weeks_published'])?$object_info['days_ago_published']." дней":$object_info['weeks_published']." недель");
 $mailer->Subject = iconv('UTF-8', $mailer->CharSet, "Отправка недельной статистики по объектам частных лиц");
 $mailer->IsHTML(true);
-$mailer->AddAddress("web@bsn.ru");
+$mailer->AddAddress("hitty@bsn.ru");
 $mailer->From = 'no-reply@bsn.ru';
 $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
 $res = false;

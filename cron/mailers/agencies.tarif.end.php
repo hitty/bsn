@@ -72,7 +72,7 @@ foreach($list as $k=>$item){
     $emails = array(
         array(
             'name' => '',
-            'email'=> 'web@bsn.ru'
+            'email'=> 'hitty@bsn.ru'
         )
     );
     if( Validate::isEmail( $item['email_service'] ) ) $emails[] = array( 'name' => '', 'email'=> $item['email_service'] );

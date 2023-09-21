@@ -50,7 +50,7 @@ if ($link_response != 200) {
     $error_text = 'Файл недоступен.';
     echo $error_text;
     $success = false;
-    //сразу отправляем письма отв. менеджеру и на web@bsn.ru
+    //сразу отправляем письма отв. менеджеру и на hitty@bsn.ru
     $admin_mailer = new EMailer('mail');
     $mail_text = 'Файл агентства #4467 "avito" по ссылке $link недоступен для скачивания';
     $html = iconv('UTF-8', $admin_mailer->CharSet, $mail_text);
@@ -59,7 +59,7 @@ if ($link_response != 200) {
     $admin_mailer->Body = nl2br($html);
     $admin_mailer->AltBody = nl2br($html);
     $admin_mailer->IsHTML(true);
-    $admin_mailer->AddAddress('web@bsn.ru');
+    $admin_mailer->AddAddress('hitty@bsn.ru');
     $admin_mailer->From = 'bsnxml@bsn.ru';
     $admin_mailer->FromName = iconv('UTF-8', $admin_mailer->CharSet, 'Парсинг ' . (!empty($file_type) ? $file_type : '') . ' XML файла');
 

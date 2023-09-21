@@ -260,7 +260,7 @@ if($mail_text!=''){//отсылка программеру со всеми ти�
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
 	if(!empty($agency['email_service']) && Validate::isEmail($agency['email_service'])) $mailer->AddAddress($agency['email_service']);
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'bsntxt@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Обработка BN TXT');
     // попытка отправить
@@ -277,7 +277,7 @@ if($mail_text!=''){//отсылка программеру со всеми ти�
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
     $mailer->AddAddress('scald@bsn.ru');
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     if(!empty($agency['email']) )$mailer->AddAddress($agency['email']);     //отправка письма ответственному менеджеру
     if(empty($agency['id_tarif']) && !empty($agency['email_service']) && Validate::isEmail($agency['email_service'])) $mailer->AddAddress($agency['email_service']);     //отправка письма агентству
     $mailer->From = 'bsntxt@bsn.ru';

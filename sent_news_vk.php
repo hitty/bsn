@@ -127,7 +127,7 @@ if(!empty($get_parameters['get_code'])){
             $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'Неудачный постинг новостей ВК'.(!empty($photo_error) ? ", нет картинки ".$file : ""));
             $mailer->IsHTML(true);
             $mailer->AddAddress('kya1982@gmail.com');
-            $mailer->AddAddress('web@bsn.ru');
+            $mailer->AddAddress('hitty@bsn.ru');
             $mailer->AddAddress('mvinnik92@gmail.com');
             $mailer->From = 'no-reply@bsn.ru';
             $mailer->FromName = iconv('UTF-8', $mailer->CharSet, "BSN.ru");

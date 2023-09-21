@@ -173,7 +173,7 @@ if(!empty($users_objects)){
         $mailer->Subject = iconv('UTF-8', $mailer->CharSet, $user_info['user_name'].', до окончания действия платных услуг на BSN.ru остался 1 день');
         $mailer->IsHTML(true);
         $mailer->AddAddress($user_info['user_email']);
-        $mailer->AddAddress("web@bsn.ru");
+        $mailer->AddAddress("hitty@bsn.ru");
         $mailer->From = 'no-reply@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
         $mailer->Send();

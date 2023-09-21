@@ -958,7 +958,7 @@ class Parsing extends ParsingFunctions{
         require_once('includes/class.email.php');
         $mailer = new EMailer('mail');
         $letter_data = $this->formLetterData(1);
-        $mailer->sendEmail("web@bsn.ru",
+        $mailer->sendEmail("hitty@bsn.ru",
                            "Миша",
                            "Парсинг ".substr($this->estate_page,0,50)." начат",
                            "cron/parsing/templates/mail.endparsing.html",
@@ -1007,7 +1007,7 @@ class Parsing extends ParsingFunctions{
         require_once('includes/class.email.php');
         $mailer = new EMailer('mail');
         $letter_data = $this->formLetterData();
-        $mailer->sendEmail("web@bsn.ru",
+        $mailer->sendEmail("hitty@bsn.ru",
                            "Миша",
                            "Парсинг ".substr($this->estate_page,0,50)." начат",
                            "cron/parsing/templates/mail.endparsing.html",

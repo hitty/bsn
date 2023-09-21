@@ -148,7 +148,7 @@ function updateAgenciesByPackets(){
             $mailer->AltBody = strip_tags($html);
             $mailer->IsHTML(true);
             $mailer->AddAddress(!empty($row['manager_email'])?$row['manager_email']:'hitty@bsn.ru');
-            $mailer->AddAddress('web@bsn.ru');
+            $mailer->AddAddress('hitty@bsn.ru');
             $mailer->From = 'wmailer@bsn.ru';
             $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Робот bsn.ru');
             // попытка отправить

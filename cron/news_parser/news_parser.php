@@ -205,7 +205,7 @@ if(!empty($data['subject'])) $mailer->Subject = iconv('UTF-8', $mailer->CharSet,
 $mailer->Body = $mail_text;
 $mailer->AltBody = strip_tags($mail_text);
 $mailer->IsHTML(true);
-$mailer->AddAddress('web@bsn.ru');
+$mailer->AddAddress('hitty@bsn.ru');
 $mailer->From = 'no-reply@bsn.ru';
 $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'bsn.ru');
 // попытка отправить

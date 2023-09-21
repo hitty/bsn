@@ -6,7 +6,7 @@
         private $action_id;
         private $action_info;
         private $sleeping_limit = 720;
-        private $email_for_help = "web@bsn.ru";
+        private $email_for_help = "hitty@bsn.ru";
         
         public function __construct($action_info,$db=false,$pid = false){
             global $db;

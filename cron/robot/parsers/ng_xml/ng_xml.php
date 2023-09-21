@@ -338,7 +338,7 @@ while($filename = readdir($dh))
         $mailer->AddAddress('logs@4077704.ru');
         $mailer->AddAddress('4077704@mail.ru');
         $mailer->AddAddress('hitty@bsn.ru');
-        $mailer->AddAddress('web@bsn.ru');
+        $mailer->AddAddress('hitty@bsn.ru');
         $mailer->AddAddress('marina@bsn.ru');
         $mailer->From = 'bsnxml@bsn.ru';
         $mailer->FromName = 'bsn.ru';
@@ -365,7 +365,7 @@ if(!empty($_SERVER['argc']) && $_SERVER['argc']>1 && !empty($_SERVER['argv']) &&
         $mailer->Body = $html;
         $mailer->AltBody = strip_tags($html);
         $mailer->IsHTML(true);
-        $mailer->AddAddress('web@bsn.ru');
+        $mailer->AddAddress('hitty@bsn.ru');
         $mailer->From = 'bsnxml@bsn.ru';
         $mailer->FromName = 'bsn.ru';
         // попытка отправить
@@ -391,7 +391,7 @@ if(!empty($log['download']) && $log['download'][0]!=''){
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
     $mailer->AddAddress('scald@bsn.ru');
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'agregator@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Агрегатор BSN');
     // попытка отправить

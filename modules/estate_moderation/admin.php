@@ -443,7 +443,7 @@ switch(true){
                         $moderation_success = ($post_parameters['published'] == 1);
                         $mailer = new EMailer('mail');
                         
-                        $mailer->sendEmail(array($user_email,"web@bsn.ru"),
+                        $mailer->sendEmail(array($user_email,"hitty@bsn.ru"),
                                            array($data['user_title'],"Тех. поддержка"),
                                            "Ваш объект ".($moderation_success ? "" : "не ")."прошел модерацию на bsn.ru",
                                            "/modules/estate_moderation/templates/mail.user.".($moderation_success ? "success" : "return").".html",

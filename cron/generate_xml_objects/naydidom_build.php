@@ -478,7 +478,7 @@ if(!empty($log)){
     $mailer->Body = $html;
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
-	$mailer->AddAddress('web@bsn.ru');
+	$mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'no-reply@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Выгрузка объектов в НайдиДом');
     // попытка отправить

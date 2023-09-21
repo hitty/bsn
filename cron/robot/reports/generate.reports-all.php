@@ -176,7 +176,7 @@ $html = $eml_tpl->Processing();
 $emails = array(
     array(
         'name' => '',
-        'email'=> 'web@bsn.ru'
+        'email'=> 'hitty@bsn.ru'
     )
 );
 $attachments = array(

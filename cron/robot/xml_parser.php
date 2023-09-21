@@ -63,7 +63,7 @@ $cian_types = array('flats_rent','flats_for_sale','commerce','suburbian');
 $where = " ( `can_download` = 1 OR ( xml_time > DATE_SUB( NOW( ) , INTERVAL 3 MINUTE ) AND xml_time < DATE_ADD( NOW( ) , INTERVAL 3 MINUTE ) ) )  AND ".$sys_tables['users'].".agency_admin = 1 AND xml_status = 1 AND xml_time!='00:00:00'";
 //доп.загрузка с переданным параметром ID админа агентства
 $argc = !empty($_SERVER['argv']) && !empty($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : false;
-$sent_report = ( empty($argc) ? 1 : 2 );
+$sent_report = empty($argc) ? 1 : 2;
 //локально
 
 if(DEBUG_MODE) $where = $sys_tables['users'].".id_agency = 4025 ";
@@ -158,7 +158,7 @@ if(!empty($success)){
             
             $db->querys("UPDATE ".$sys_tables['processes']." SET full_log = CONCAT (log,'Файл недоступен'), log = '', status = 2 WHERE id = ?", $process_id);
             $success = false;
-            //сразу отправляем письма отв. менеджеру, в компанию и на web@bsn.ru
+            //сразу отправляем письма отв. менеджеру, в компанию и на hitty@bsn.ru
             file_unavailiable_notify($agency);
             
         }
@@ -329,7 +329,7 @@ function file_unavailiable_notify($agency){
     $admin_mailer->AltBody = nl2br($html);
     $admin_mailer->IsHTML(true);
     $admin_mailer->AddAddress('scald@bsn.ru');
-    $admin_mailer->AddAddress('web@bsn.ru');
+    $admin_mailer->AddAddress('hitty@bsn.ru');
     $admin_mailer->From = 'bsnxml@bsn.ru';
     $admin_mailer->FromName = iconv('UTF-8', $admin_mailer->CharSet,'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла');
     // попытка отправить
@@ -364,11 +364,12 @@ function file_unavailiable_notify($agency){
         if(!empty($agency['email_service']) && $agency['xml_notification'] == 1 && Validate::isEmail($agency['email_service'])) $mailer->AddAddress($agency['email_service']);     //отправка письма агентству
 
         $mailer->AddAddress('hitty@bsn.ru');
-        $mailer->AddAddress('web@bsn.ru');
+        $mailer->AddAddress('hitty@bsn.ru');
         $mailer->From = 'xml_parser@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'XML парсер BSN.ru');
         // попытка отправить
-        $mailer->Send();        
+        $result = $mailer->Send();
+        var_dump( $result );
 
         //отправка письма менеджеру
         if(!empty($agency['manager_email'])){
@@ -386,7 +387,7 @@ function file_unavailiable_notify($agency){
             $manager_mailer->Subject = iconv('UTF-8', $mailer->CharSet, "Отчет о загрузке объектов агентства ".$process['title']." ID ".$process['id_user']." от ".$report['normal_date']." ".$report['normal_date_start']." > ".$report['normal_date_end']);
 
             $manager_mailer->AddAddress($agency['manager_email']);     //отправка письма ответственному менеджеру
-            $mailer->AddAddress('web@bsn.ru');
+            $mailer->AddAddress('hitty@bsn.ru');
             $manager_mailer->From = 'xml_parser@bsn.ru';
             $manager_mailer->FromName = iconv('UTF-8', $manager_mailer->CharSet,'XML парсер BSN.ru');
             // попытка отправить

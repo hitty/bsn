@@ -132,7 +132,7 @@ $html = "Cтатистика агентств на bsn.ru:<br />".$log ;
 $emails = array(
     array(
         'name' => '',
-        'email'=> 'web@bsn.ru'
+        'email'=> 'hitty@bsn.ru'
     )
 );
 /*

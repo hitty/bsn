@@ -54,7 +54,7 @@ if(!empty($mail_text)){
     $mailer->Body = $html;
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'wmailer@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Проверка почты роботом BSN');
     // попытка отправить

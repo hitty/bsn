@@ -154,7 +154,7 @@ foreach($files as $iteration => $file_format){
                             }
                             catch(PHPExcel_Reader_Exception $e){
                                 $mailer = new Emailer('mail');
-                                $mailer->sendEmail(array("web@bsn.ru","scald@bsn.ru"),
+                                $mailer->sendEmail(array("hitty@bsn.ru","scald@bsn.ru"),
                                                    array('Миша','Юрий'),
                                                    "Сбой в чтении файла XLS",
                                                    false,
@@ -347,7 +347,7 @@ foreach($files as $iteration => $file_format){
                             catch(PHPExcel_Reader_Exception $e){
                                 require_once('includes/class.email.php');
                                 $mailer = new Emailer('mail');
-                                $mailer->sendEmail(array("web@bsn.ru","scald@bsn.ru"),
+                                $mailer->sendEmail(array("hitty@bsn.ru","scald@bsn.ru"),
                                                    array('Миша','Юрий'),
                                                    "Сбой в чтении файла XLS",
                                                    false,
@@ -541,7 +541,7 @@ if($mail_text!=''){//отсылка программеру со всеми ти�
     // инициализация шаблонизатора
     $mailer_title = iconv('UTF-8', $mailer->CharSet, 'Обработка формата excel. '.date('Y-m-d H:i:s'));
     $emails = array(
-        array( 'name' => '', 'email'=> 'web@bsn.ru' )
+        array( 'name' => '', 'email'=> 'hitty@bsn.ru' )
     );
     if(!empty( $agency_info['email_service'] ) ) $emails[] = array( 'name' => '', 'email'=> $agency_info['email_service'] );
     //отправка письма
@@ -550,7 +550,7 @@ if($mail_text!=''){//отсылка программеру со всеми ти�
  
 
     $emails = array(
-        array( 'name' => '', 'email'=> 'web@bsn.ru' )
+        array( 'name' => '', 'email'=> 'hitty@bsn.ru' )
         ,array( 'name' => '', 'email'=> 'd.salova@bsn.ru' )
     );
 

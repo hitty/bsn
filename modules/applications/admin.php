@@ -352,7 +352,7 @@ switch(true){
                             $mailer->Body = $html;
                             $mailer->AltBody = strip_tags($html);
                             $mailer->IsHTML(true);
-                            $mailer->AddAddress('web@bsn.ru');
+                            $mailer->AddAddress('hitty@bsn.ru');
                             $mailer->AddAddress($object_info['seller_email'], iconv('UTF-8',$mailer->CharSet, $object_info['seller_name']));
                             $mailer->From = 'no-reply@bsn.ru';
                             $mailer->FromName = 'bsn.ru';
@@ -392,7 +392,7 @@ switch(true){
                             $mailer->Body = $html;
                             $mailer->AltBody = strip_tags($html);
                             $mailer->IsHTML(true);
-                            $mailer->AddAddress('web@bsn.ru');
+                            $mailer->AddAddress('hitty@bsn.ru');
                             if(!empty($agency_info['email'])) $mailer->AddAddress($agency_info['email']);
                             $mailer->From = 'no-reply@bsn.ru';
                             $mailer->FromName = 'bsn.ru';

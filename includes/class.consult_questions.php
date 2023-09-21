@@ -386,7 +386,7 @@ class ConsultQuestion {
                 'section' => $this->data_array['category_title']
             );
             
-            //отдельно шлем на web@bsn.ru
+            //отдельно шлем на hitty@bsn.ru
             $this->sendNewQuestionNotification($env,$letter_data,"/modules/consults/templates/mail_notify_specs.html","","",true);
             
             //получаем список зарегистрированных специалистов
@@ -413,7 +413,7 @@ class ConsultQuestion {
     * @param mixed $letter_template - шаблон для письма
     * @param mixed $reciever_name   - имя получателя
     * @param mixed $address         - адрес получателя
-    * @param mixed $to_me           - дублирование на web@bsn.ru
+    * @param mixed $to_me           - дублирование на hitty@bsn.ru
     * @return bool
     */
     private function sendNewQuestionNotification($env,$letter_data,$letter_template,$reciever_name,$address,$to_me = false){
@@ -433,7 +433,7 @@ class ConsultQuestion {
         if(Validate::isEmail($address)) $mailer->AddAddress($address, iconv('UTF-8',$mailer->CharSet, ""));
         
         //если указано, дублируем
-        if(!empty($to_me)) $mailer->AddAddress('web@bsn.ru');
+        if(!empty($to_me)) $mailer->AddAddress('hitty@bsn.ru');
         
         $mailer->From = 'no-reply@bsn.ru';
         $mailer->FromName = 'bsn.ru';
@@ -555,7 +555,7 @@ class ConsultQuestion {
             //если email корректный, отправляем письмо
             if(!empty($notify_info['email'])  && Validate::isEmail($notify_info['email'])){
                 $mailer->AddAddress($notify_info['email']);
-                $mailer->AddAddress("web@bsn.ru");
+                $mailer->AddAddress("hitty@bsn.ru");
                 $mailer->From = 'no-reply@bsn.ru';
                 $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'bsn.ru');
                 // попытка отправить

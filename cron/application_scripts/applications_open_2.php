@@ -144,7 +144,7 @@ if(!empty($apps_list)){
             $mailer->AltBody = strip_tags($mail_text);
             $mailer->IsHTML(true);
             $mailer->AddAddress($item['email']);
-            $mailer->AddAddress('web@bsn.ru');
+            $mailer->AddAddress('hitty@bsn.ru');
             $mailer->From = 'no-reply@bsn.ru';
             $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'bsn.ru');
             //отправляем системное сообщение по поводу новых заявок в пуле
@@ -174,7 +174,7 @@ if(!empty($apps_list)){
         //отправляем системное сообщение
         //$messages->Send(0,$key,"В общем пуле появились новые заявки",0,1,"");
     }
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'no-reply@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'bsn.ru');
     // попытка отправить
@@ -198,7 +198,7 @@ if(!empty($apps_list)){
         $mailer->AltBody = strip_tags($mail_text);
         $mailer->IsHTML(true);        
         //$mailer->AddAddress(array_values($item)[0]['email']);
-        $mailer->AddAddress('web@bsn.ru');
+        $mailer->AddAddress('hitty@bsn.ru');
         //оповещаем системным сообщением о новой заявке
         //$messages->Send(0,$key,"Вам поступила новая заявка",0,1,"");
         $mailer->From = 'no-reply@bsn.ru';

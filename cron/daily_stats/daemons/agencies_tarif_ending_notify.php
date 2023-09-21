@@ -61,7 +61,7 @@ foreach($agencies_list as $k=>$item){
         $mailer->Subject = iconv('UTF-8', $mailer->CharSet, "Приближается срок окончания тарифа агентства ".$item['agency_title']." на BSN.ru");
         $mailer->IsHTML(true);
         $mailer->AddAddress($item['manager_email']);
-        $mailer->AddAddress("web@bsn.ru");
+        $mailer->AddAddress("hitty@bsn.ru");
         $mailer->From = 'no-reply@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
         $res = $res && $mailer->Send();
@@ -76,7 +76,7 @@ foreach($agencies_list as $k=>$item){
         $mailer->Subject = iconv('UTF-8', $mailer->CharSet, $item['user_name'].", приближается срок окончания тарифа агентства ".$item['agency_title']." на BSN.ru");
         $mailer->IsHTML(true);
         if(Validate::isEmail($item['user_email'])) $mailer->AddAddress($item['user_email']);
-        $mailer->AddAddress("web@bsn.ru");
+        $mailer->AddAddress("hitty@bsn.ru");
         $mailer->From = 'no-reply@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
         $res = $res && $mailer->Send();

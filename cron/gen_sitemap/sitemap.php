@@ -694,7 +694,7 @@ if(!DEBUG_MODE){
     $mailer->Body = $html;
     $mailer->AltBody = strip_tags($html);
     $mailer->IsHTML(true);
-    $mailer->AddAddress('web@bsn.ru');
+    $mailer->AddAddress('hitty@bsn.ru');
     $mailer->From = 'sitemap@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'Карта сайта BSN');
     // попытка отправить

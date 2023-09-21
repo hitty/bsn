@@ -251,7 +251,7 @@ switch(true){
                                     
                                     if(Validate::isEmail($bank_info['agency_main_email'])) $mailer->AddAddress($bank_info['agency_main_email']);
                                     if(Validate::isEmail($bank_info['agency_apps_email'])) $mailer->AddAddress($bank_info['agency_apps_email']);
-                                    $mailer->AddAddress('web@bsn.ru');
+                                    $mailer->AddAddress('hitty@bsn.ru');
                                     $mailer->AddAddress("d.salova@bsn.ru");
                                     $mailer->AddAddress("olga.v.volkova@bspb.ru");
                                     $mailer->From = 'no-reply@bsn.ru';
@@ -287,7 +287,7 @@ switch(true){
                                 $mailer->Subject = iconv('UTF-8', $mailer->CharSet, (!empty($bank_info['name']) ? $bank_info['name'].", н" : "Н")."овая заявка на ипотеку на BSN.ru");
                                 
                                 $mailer->AddAddress($manager_info['email']);
-                                $mailer->AddAddress('web@bsn.ru');
+                                $mailer->AddAddress('hitty@bsn.ru');
                                 $mailer->From = 'no-reply@bsn.ru';
                                 $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'BSN.ru');
                                 // попытка отправить

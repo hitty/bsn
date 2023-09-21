@@ -326,7 +326,7 @@ if(!empty($users_objects)){
                     $emails = array(
                         array(
                             'name' => '',
-                            'email'=> 'web@bsn.ru'
+                            'email'=> 'hitty@bsn.ru'
                         )
                     );
                     if(!empty( $user_info['user_info']['email'] ) ) $emails[] = array( 'name' => '', 'email'=> $user_info['user_info']['email'] );
@@ -354,7 +354,7 @@ $subject = 'Отправка недельной статистики по объ
 $emails = array(
     array(
         'name' => '',
-        'email'=> 'web@bsn.ru'
+        'email'=> 'hitty@bsn.ru'
     )
 );
 //отправка письма

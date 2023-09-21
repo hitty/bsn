@@ -80,7 +80,7 @@ switch(true){
                 // не найден менеджер
                 $ajax_result['ok'] = true;
                 $mailer = new EMailer('mail');
-                $mailer->sendEmail("web@bsn.ru",
+                $mailer->sendEmail("hitty@bsn.ru",
                                    "Миша",
                                    "Поступила жалоба, некому обработать".date('Y-m-d H:i:s'),
                                    "",
@@ -176,7 +176,7 @@ switch(true){
             // не найден менеджер
             $ajax_result['ok'] = true;
             $mailer = new EMailer('mail');
-            $mailer->sendEmail("web@bsn.ru",
+            $mailer->sendEmail("hitty@bsn.ru",
                                "Миша",
                                "Поступила жалоба, некому обработать".date('Y-m-d H:i:s'),
                                "",

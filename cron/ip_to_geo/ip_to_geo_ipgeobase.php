@@ -56,7 +56,7 @@ if(empty($ip_to_found)){
     $mailer->Body = $mail_html;
     $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'Поиск геоданных по IP через ipgeobase');
     $mailer->IsHTML(true);
-    $mailer->AddAddress("web@bsn.ru");
+    $mailer->AddAddress("hitty@bsn.ru");
     $mailer->From = 'no-reply@bsn.ru';
     $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
     $mailer->Send();
@@ -95,7 +95,7 @@ $mail_html = iconv('UTF-8', $mailer->CharSet.'//IGNORE', $mail_html);
 $mailer->Body = $mail_html;
 $mailer->Subject = iconv('UTF-8', $mailer->CharSet, 'Поиск геоданных по IP через ipgeobase');
 $mailer->IsHTML(true);
-$mailer->AddAddress("web@bsn.ru");
+$mailer->AddAddress("hitty@bsn.ru");
 $mailer->From = 'no-reply@bsn.ru';
 $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
 $mailer->Send();

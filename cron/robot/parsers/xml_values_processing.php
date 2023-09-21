@@ -548,7 +548,7 @@ if(!empty($process)){
     $admin_mailer->AltBody = nl2br($html);
     $admin_mailer->IsHTML(true);
     $admin_mailer->AddAddress('scald@bsn.ru');
-    $admin_mailer->AddAddress('web@bsn.ru');
+    $admin_mailer->AddAddress('hitty@bsn.ru');
     $admin_mailer->From = 'bsnxml@bsn.ru';
     $admin_mailer->FromName = iconv('UTF-8', $admin_mailer->CharSet,'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла');
     // попытка отправить
@@ -581,7 +581,7 @@ if(!empty($process)){
         if(!empty($process['email_service']) && $process['xml_notification'] == 1 && Validate::isEmail($process['email_service'])) $mailer->AddAddress($process['email_service']);     //отправка письма агентству
 
         $mailer->AddAddress('hitty@bsn.ru');
-        $mailer->AddAddress('web@bsn.ru');
+        $mailer->AddAddress('hitty@bsn.ru');
         $mailer->From = 'xml_parser@bsn.ru';
         $mailer->FromName = iconv('UTF-8', $mailer->CharSet,'XML парсер BSN.ru');
         // попытка отправить
@@ -602,7 +602,7 @@ if(!empty($process)){
             $manager_mailer->Subject = iconv('UTF-8', $mailer->CharSet, "Отчет о загрузке объектов агентства ".$process['title']." ID ".$process['id_user']." от ".$report['normal_date']." ".$report['normal_date_start']." > ".$report['normal_date_end']);
 
             $manager_mailer->AddAddress($process['manager_email']);     //отправка письма ответственному менеджеру
-            $mailer->AddAddress('web@bsn.ru');
+            $mailer->AddAddress('hitty@bsn.ru');
             $manager_mailer->From = 'xml_parser@bsn.ru';
             $manager_mailer->FromName = iconv('UTF-8', $manager_mailer->CharSet,'XML парсер BSN.ru');
             // попытка отправить

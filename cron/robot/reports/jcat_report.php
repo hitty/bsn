@@ -81,5 +81,5 @@ $xml->save($filename);
 exec("chmod 777 ".$filename);
 
 $mailer = new EMailer('mail');
-$mailer->sendEmail("web@bsn.ru","Миша","Сгенерирован XML-отчет по JCAT",false,false,false,"Сгенерирован XML-отчет по JCAT, ".date('Y-m-d H:i:s'));
+$mailer->sendEmail("hitty@bsn.ru","Миша","Сгенерирован XML-отчет по JCAT",false,false,false,"Сгенерирован XML-отчет по JCAT, ".date('Y-m-d H:i:s'));
 ?>  

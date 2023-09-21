@@ -89,7 +89,7 @@ function newErrorHandler($type, $message, $file, $line, $vars, $send_mail = fals
                 [
                     [
                         'name' => 'Юрий',
-                        'email'=> 'web@bsn.ru'
+                        'email'=> 'hitty@bsn.ru'
                     ] 
                 ] 
             );

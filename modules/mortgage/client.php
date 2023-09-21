@@ -177,7 +177,7 @@ switch(true){
             $mailer->Body = $html;
             $mailer->Subject = iconv('UTF-8', $mailer->CharSet, "Неполадки при отправке заявки на ипотеку");
             $mailer->IsHTML(true);
-            $mailer->AddAddress("web@bsn.ru");
+            $mailer->AddAddress("hitty@bsn.ru");
             $mailer->From = 'no-reply@bsn.ru';
             $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
             $res = false;
@@ -198,7 +198,7 @@ switch(true){
             $mailer->Subject = iconv('UTF-8', $mailer->CharSet, "Необходимо проверить заявку на ипотеку на bsn.ru: #".$insert_id);
             $mailer->IsHTML(true);
             $mailer->AddAddress("d.salova@bsn.ru");
-            $mailer->AddAddress("web@bsn.ru");
+            $mailer->AddAddress("hitty@bsn.ru");
             $mailer->From = 'no-reply@bsn.ru';
             $mailer->FromName = iconv('UTF-8', $mailer->CharSet, 'BSN.ru');
             $res = false;

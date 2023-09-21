@@ -120,7 +120,7 @@ class ConsultQuestion {
                         //отправка письма
                         $sendpulse = new Sendpulse( 'subscriberes' );
                         $emails = [
-                            [ 'name' => '',                         'email'=> 'web@bsn.ru' ],
+                            [ 'name' => '',                         'email'=> 'hitty@bsn.ru' ],
                             [ 'name' => $this->data_array['name'],  'email'=> $new_user_data['email'] ]
                         ];
 
@@ -390,7 +390,7 @@ class ConsultQuestion {
                 'section' => $this->data_array['category_title']
             );
             
-            //отдельно шлем на web@bsn.ru
+            //отдельно шлем на hitty@bsn.ru
             $this->sendNewQuestionNotification($env,$letter_data,"/modules/consults/templates/mail_notify_specs.html","","",true);
             
             //получаем список зарегистрированных специалистов
@@ -417,7 +417,7 @@ class ConsultQuestion {
     * @param mixed $letter_template - шаблон для письма
     * @param mixed $reciever_name   - имя получателя
     * @param mixed $address         - адрес получателя
-    * @param mixed $to_me           - дублирование на web@bsn.ru
+    * @param mixed $to_me           - дублирование на hitty@bsn.ru
     * @return bool
     */
     private function sendNewQuestionNotification($env,$letter_data,$letter_template,$reciever_name,$address,$to_me = false){
@@ -433,7 +433,7 @@ class ConsultQuestion {
         $emails = [];
         if( Validate::isEmail( $address ) ) $emails[] = [ 'name' => '', 'email'=> $address ];
         //если указано, дублируем
-        if( !empty( $to_me ) ) $emails[] = [ 'name' => '', 'email'=> 'web@bsn.ru' ];
+        if( !empty( $to_me ) ) $emails[] = [ 'name' => '', 'email'=> 'hitty@bsn.ru' ];
 
         return $sendpulse->sendMail( (!empty($reciever_name)?$reciever_name.", с":"С").'оздан новый вопрос в сервисе Консультант '.Host::$host.' ID '.$this->id, $html, '', '', '', '', $emails );
     }
@@ -475,7 +475,7 @@ class ConsultQuestion {
         //отправка письма
         $sendpulse = new Sendpulse( 'subscriberes' );
         $emails = [
-            [ 'name' => '',                         'email'=> 'web@bsn.ru' ],
+            [ 'name' => '',                         'email'=> 'hitty@bsn.ru' ],
             [ 'name' => $this->data_array['name'],  'email'=> $this->data_array['email'] ]
         ];
         if( empty( $id_answer ) ) $subject = 'Ваш вопрос «'.$this->id.'» в сервисе Консультант '.Host::$host.' прошел модерацию';
@@ -550,7 +550,7 @@ class ConsultQuestion {
                 $subject = "Необходимо проверить ".(empty($notify_info['answer'])?"вопрос":"ответ")." на ".$site." - ID ".(empty($notify_info['answer'])?$this->id:$id_answer).", ".date('Y-m-d H:i:s');
 
                 $emails = [
-                    [ 'name' => '',  'email'=> 'web@bsn.ru' ],
+                    [ 'name' => '',  'email'=> 'hitty@bsn.ru' ],
                     [ 'name' => '',  'email'=> $notify_info['email'] ]
                 ];
                 $correct_send = $sendpulse->sendMail( $subject, $html, '', '', '', '', $emails );
@@ -589,7 +589,7 @@ class ConsultQuestion {
         $subject = 'Ваш ответ ID '.$answer_info['id'].' в сервисе Консультант '.Host::$host.' прошел модерацию';
 
         $emails = [
-            [ 'name' => '',  'email'=> 'web@bsn.ru' ],
+            [ 'name' => '',  'email'=> 'hitty@bsn.ru' ],
             [ 'name' => $answer_info['user_name'],  'email'=> $answer_info['email'] ]
         ];
         $correct_send = $sendpulse->sendMail( $subject, $html, '', '', '', '', $emails );

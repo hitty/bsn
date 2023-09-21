@@ -334,7 +334,7 @@ class Member {
                                                                      WHERE id = ?", $auth->id);
                     //снимаем деньги с баланса
                     elseif(!empty($pay_params['cost'])){
-                        //если в этот момент уже не хватает, уведомляем web@bsn.ru
+                        //если в этот момент уже не хватает, уведомляем hitty@bsn.ru
                         if($auth->balance < $pay_params['cost']){
                             
                         }
