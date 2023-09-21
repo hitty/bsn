@@ -110,7 +110,7 @@ $process = $db->fetch("         SELECT
                                GROUP BY ".$sys_tables['agencies'].".id
                                ORDER BY ".$sys_tables['processes'].". id DESC"
 );
-if(empty($process['id'])) die();
+if(empty($process['id'])) die('113');
 $agency = $db->fetch("         SELECT          
                                       ".$sys_tables['users'].".id AS id_user,
                                       ".$sys_tables['users'].".email AS user_email,
@@ -127,8 +127,8 @@ $agency = $db->fetch("         SELECT
                                LEFT JOIN ".$sys_tables['managers']." ON ".$sys_tables['agencies'].".id_manager = ".$sys_tables['managers'].".id
                                WHERE ".$sys_tables['agencies'].".id = ".$process['id']);
 echo ' ; memory: '.memoryUsage(memory_get_usage(), $base_memory_usage)."\n";
-die();
 print_r($process) ;
+die();
 if(!empty($process)){
     $id_user = $process['id_user'];
     
