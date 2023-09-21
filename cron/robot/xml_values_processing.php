@@ -110,7 +110,8 @@ $process = $db->fetch("         SELECT
                                GROUP BY ".$sys_tables['agencies'].".id
                                ORDER BY ".$sys_tables['processes'].". id DESC"
 );
-
+var_dump( ($process['manager_email'] );
+die();)
 if(empty($process['id'])) die();
 $agency = $db->fetch("         SELECT          
                                       ".$sys_tables['users'].".id AS id_user,
