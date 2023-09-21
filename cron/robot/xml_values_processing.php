@@ -128,7 +128,6 @@ $agency = $db->fetch("         SELECT
                                WHERE ".$sys_tables['agencies'].".id = ".$process['id']);
 echo ' ; memory: '.memoryUsage(memory_get_usage(), $base_memory_usage)."\n";
 print_r($process) ;
-die();
 if(!empty($process)){
     $id_user = $process['id_user'];
     
@@ -808,7 +807,7 @@ if(!empty($process)){
                 'name' => '',
                 'email'=> $process['email_service']
             );
-
+        var_dump($emails);
         //отправка письма
         $sendpulse = new Sendpulse( );
         $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );
