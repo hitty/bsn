@@ -4814,6 +4814,8 @@ form .offer .checkbox{
 
 .cookie_accept{
     width:45%;
+    white-space: nowrap;
+
 }
 @media (min-width: 576px){
     #cookie_note.show{
