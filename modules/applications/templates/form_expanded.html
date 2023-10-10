@@ -38,8 +38,9 @@
         </div>
         <span>Комментарий<i>(необязательно)</i></span><textarea name="user_comment" class="{if!empty $form_type} grey{/if}" id="user-comment"></textarea>
     </div>
+    {php:$offer_text = 'Отправляя заявку,';}
+    {include /templates/offer.html}
     <div class="application-view-form-button public">
-        
         <button class="green send" value="Отправить" onclick="yaCounter21898216.reachGoal('send_open_app'); return true;">Отправить</button>
     </div>
 </form>

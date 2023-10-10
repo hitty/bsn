@@ -3148,7 +3148,7 @@ class EstateListBuild extends EstateList{
                              LEFT JOIN ".$this->tables['agencies']." ON ".$this->tables['users'].".id_agency = ".$this->tables['agencies'].".id
                              LEFT JOIN ".$this->work_photos_table." ON ".$this->work_table.".id_main_photo = ".$this->work_photos_table.".id
                              LEFT JOIN ".$this->tables['housing_estates_photos']." ON ".$this->tables['housing_estates'].".id_main_photo = ".$this->tables['housing_estates_photos'].".id
-                             ".(!empty($groupby) ? "WHERE ".$this->work_table.".id IN (".implode(',',$ids).")" 
+                             ".(!empty($groupby) && is_array($ids)? "WHERE ".$this->work_table.".id IN (".implode(',',$ids).")"
                                           : (empty($where)?"":"WHERE ".$where) )."
                              ".(!empty($order) ? "ORDER BY ".$order : "" )."
                              LIMIT ".$from.",".$count;

@@ -100,11 +100,13 @@
                 <label class="radio" for="user_type_2">Я - агент</label>
             </div>
         {/if}
-        
+
         <div class="row">
             <button class="send" value="Отправить">Отправить</button>
         </div>
-        
+        {php:$offer_text = 'Отправляя заявку,';}
+        {include /templates/offer.html}
+
         
     </form>
 </div> 

@@ -171,12 +171,8 @@
                     {/if}
                         <div class="object-manage bottom wide {if!eq $info['published'],1}wpublic-offer{/if}">
                            
-                            <div class="offer">
-                                <label class="checkbox">
-                                    <input type="checkbox" value="0" name="public_offer_agree" id="public-offer-agree" required="required">
-                                    Публикуя объявление на сайте, вы соглашаетесь с условиями <a class="internal-link" href="/terms_of_service/" data-new-tab="true" title="Публичная оферта" id="public-offer">оферты</a>.
-                                </label>
-                            </div>
+                            {php:$offer_text = 'Публикуя объявление на сайте,';}
+                            {include /templates/offer.html}
 
                             <div class="buttons">
                                 {ifeq $info['published'],1}

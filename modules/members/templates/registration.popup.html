@@ -10,7 +10,7 @@
         <span class="promocode-title">Промокод</span>
         <input type="text" id="reg_promo" name="login_promo" value="{if!empty $form_data['promo']}{$form_data['promo']}{/if}" placeholder="Промокод" {if!empty $errors['login_promo']}class="red-border"{/if}/>
     </div-->
-    
+
     <div class="row single-selector terms">
         <input type="hidden" name="terms" id="terms" value="2">
         <label class="selector-title checkbox">
@@ -31,10 +31,4 @@
         <span class="popup dashed-link-blue" data-url="/authorization/popup/" data-location="popup-authorization" data-redirect="true">Войти</span>
     </div>
 
-    <!--div class="row bottom-container">
-        {ifempty $not_show_social_authorization}
-            {php:$auth_type = 'authorization';}
-            {include /templates/social_authorization.html}
-        {/if}
-    </div-->
 </form>

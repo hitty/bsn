@@ -68,8 +68,10 @@
         {if!empty $agent_id}
             <input id="agent_id" name="agent_id" value="{$agent_id}" type="hidden" />
         {/if}
-        
-        
+
+        {php:$offer_text = 'Отправляя заявку,';}
+        {include /templates/offer.html}
+
         <div class="row">
             <button class="send" value="Отправить">Отправить</button>
         </div>
