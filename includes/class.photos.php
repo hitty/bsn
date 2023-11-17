@@ -6,7 +6,7 @@ class Photos {
                             'big'=>array(2000,1600,'',90)
                             );                 // свойства папок для загрузки и формата фотографий
     public static $__folder_originals = 'originals';
-    public static $_fileTypes = ['jpg','jpeg','gif','png','svg']; // File extensions
+    public static $_fileTypes = ['jpg','jpeg','gif','png','svg','webp']; // File extensions
     /**
     * получение главной фотки
     * @param string $table - основная таблица
