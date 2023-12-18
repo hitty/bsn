@@ -346,12 +346,14 @@ jQuery(document).ready(function(){
     // advert manages
     setTimeout(function(){
         jQuery('.advert,.banner-item').each(function(){
-            var _this = jQuery(this);
+            var _this = jQuery(this),
+                url = ( _this.data('advert-url') ? _this.data('advert-url') : _this.data('link') ).replace(/https?:\/\//g,'');
+            url = 'https://' + url;
             let advert_box_template = '<div class="advert-box">' +
                 '<span class="advert-box__close" data-icon="close"></span>' +
                 '<span class="advert-box__title">Рекламное объвление</span>' +
                 ( typeof _this.data('token')!= 'undefined' === true ? '<span class="advert-box__item">Номер: ' + _this.data('token') + '</span>' : '' ) +
-                '<span class="advert-box__item"><a class="advert-box__link" href="' + ( _this.data('advert-url') ? _this.data('advert-url') : _this.data('link') ) + '" target="_blank">О рекламодателе</a></span>' +
+                '<span class="advert-box__item"><a class="advert-box__link" href="' + url + '" target="_blank">О рекламодателе</a></span>' +
                 '<span class="advert-box__item"><a class="advert-box__link" href="https://www.bsn.ru/about/" target="_blank">Реклама  ООО "Петросервис"</a></span>' +
                 '</div>'
             _this.prepend('<div class="advert-panel">Реклама</div>')
