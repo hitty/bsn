@@ -352,7 +352,7 @@ jQuery(document).ready(function(){
             let advert_box_template = '<div class="advert-box">' +
                 '<span class="advert-box__close" data-icon="close"></span>' +
                 '<span class="advert-box__title">Рекламное объвление</span>' +
-                ( typeof _this.data('token')!= 'undefined' === true ? '<span class="advert-box__item">Номер: ' + _this.data('token') + '</span>' : '' ) +
+                ( typeof _this.data('token')!= 'undefined' === true ? '<span class="advert-box__item">ERID: ' + _this.data('token') + '</span>' : '' ) +
                 '<span class="advert-box__item"><a class="advert-box__link" href="' + url + '" target="_blank">О рекламодателе</a></span>' +
                 '<span class="advert-box__item"><a class="advert-box__link" href="https://www.bsn.ru/about/" target="_blank">Реклама  ООО "Петросервис"</a></span>' +
                 '</div>'
