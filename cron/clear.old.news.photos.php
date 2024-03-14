@@ -41,14 +41,14 @@ $big = 'img/uploads/big';
 if (!class_exists('Photos')) require_once('includes/class.photos.php');;
 
 foreach ($tables as $table) {
-    /* $list = $db->fetchall("
+    $list = $db->fetchall("
         SELECT 
             " . $sys_tables[$table] . ".*, 
             LEFT(" . $sys_tables[$table . '_photos'] . ".name,2) as subfolder, 
             " . $sys_tables[$table . '_photos'] . ".name as filename
         FROM " . $sys_tables[$table] . " 
         LEFT JOIN " . $sys_tables[$table . '_photos'] . " ON " . $sys_tables[$table . '_photos'] . ".id = " . $sys_tables[$table] . ".id_main_photo
-        WHERE YEAR( " . $sys_tables[$table] . ".datetime) < 2020 AND " . $sys_tables[$table . '_photos'] . ".name IS NOT NULL");
+        WHERE  " . $sys_tables[$table] . ".datetime < '2023-03-01' AND " . $sys_tables[$table . '_photos'] . ".name IS NOT NULL");
     foreach ($list as $k => $item) {
         if( !empty( $item['filename'] )) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
@@ -58,8 +58,9 @@ foreach ($tables as $table) {
             $db->querys( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id_main_photo'] );
             echo $item['title'].'<br>\n';
         }
-    }*/
+    }
 
+    /*
     $last_id = $item['id_main_photo'] ?? 13948;
     $list = $db->fetchall(" 
         SELECT 
@@ -76,5 +77,6 @@ foreach ($tables as $table) {
             $db->querys( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id'] );
         }
     }
+    */
 
 }
