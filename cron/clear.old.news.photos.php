@@ -34,7 +34,7 @@ $db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::Get('sys_tables');
-$tables = array('news');
+$tables = array('calendar_events');
 $sm = 'img/uploads/sm';
 $med = 'img/uploads/med';
 $big = 'img/uploads/big';
