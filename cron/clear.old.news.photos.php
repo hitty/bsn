@@ -48,7 +48,7 @@ foreach ($tables as $table) {
             " . $sys_tables[$table . '_photos'] . ".name as filename
         FROM " . $sys_tables[$table] . " 
         LEFT JOIN " . $sys_tables[$table . '_photos'] . " ON " . $sys_tables[$table . '_photos'] . ".id = " . $sys_tables[$table] . ".id_main_photo
-        WHERE  " . $sys_tables[$table] . ".datetime < '2023-03-01' AND " . $sys_tables[$table . '_photos'] . ".name IS NOT NULL");
+        WHERE  " . $sys_tables[$table] . ".datetime <= '2023-12-31' AND " . $sys_tables[$table . '_photos'] . ".name IS NOT NULL");
     foreach ($list as $k => $item) {
         if( !empty( $item['filename'] )) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
