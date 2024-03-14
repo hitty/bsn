@@ -52,11 +52,14 @@ foreach ($tables as $table) {
     foreach ($list as $k => $item) {
         if( !empty( $item['filename'] )) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
-            if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
+            if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) {
+                echo $item['filename'] . ' - ';
+                unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
+            }
             if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
             $db->querys( " UPDATE ".$sys_tables[$table]." SET id_main_photo = 0 WHERE id = ?", $item['id'] );
             $db->querys( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id_main_photo'] );
-            echo $item['title'].'<br>\n';
+            echo $item['id'].';\n';
         }
     }
 
