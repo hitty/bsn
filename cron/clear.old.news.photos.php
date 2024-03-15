@@ -43,6 +43,7 @@ $tables = ['housing_estates', '	business_centers', 'cottage'];
 
 
 foreach ($tables as $table) {
+
     $list = $db->fetchall("
         SELECT 
             " . $sys_tables[$table] . ".*, 
@@ -50,7 +51,7 @@ foreach ($tables as $table) {
             " . $sys_tables[$table . '_photos'] . ".name as filename
         FROM " . $sys_tables[$table] . " 
         LEFT JOIN " . $sys_tables[$table . '_photos'] . " ON " . $sys_tables[$table . '_photos'] . ".id = " . $sys_tables[$table] . ".id_main_photo
-        WHERE  " . $sys_tables[$table] . ".datetime < '2023-03-01'");
+        WHERE  " . $sys_tables[$table] . ".datetime < '2025-03-01'");
     foreach ($list as $k => $item) {
         if (!empty($item['filename'])) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
@@ -58,6 +59,20 @@ foreach ($tables as $table) {
             if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
             $db->querys(" UPDATE " . $sys_tables[$table] . " SET id_main_photo = 0 WHERE id = ?", $item['id']);
             $db->querys(" DELETE FROM " . $sys_tables[$table . '_photos'] . " WHERE id = ?", $item['id_main_photo']);
+        }
+    }
+
+    $list = $db->fetchall("
+        SELECT  " . $sys_tables[$table . '_photos'] . ".*,
+                LEFT(" . $sys_tables[$table . '_photos'] . ".name,2) as subfolder, 
+            " . $sys_tables[$table . '_photos'] . ".name as filename
+        FROM " . $sys_tables[$table . '_photos']);
+    foreach ($list as $k => $item) {
+        if (!empty($item['filename'])) {
+        if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
+        if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
+        if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
+        $db->querys(" DELETE FROM " . $sys_tables[$table . '_photos'] . " WHERE id = ?", $item['id']);
         }
     }
 
