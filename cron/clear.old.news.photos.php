@@ -39,7 +39,7 @@ $med = 'img/uploads/med';
 $big = 'img/uploads/big';
 if (!class_exists('Photos')) require_once('includes/class.photos.php');;
 
-$tables = ['housing_estates', 'business_centers', 'cottages'];
+$tables = ['housing_estates_progresses'];
 
 
 foreach ($tables as $table) {
