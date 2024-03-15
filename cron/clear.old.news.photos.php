@@ -39,7 +39,7 @@ $med = 'img/uploads/med';
 $big = 'img/uploads/big';
 if (!class_exists('Photos')) require_once('includes/class.photos.php');;
 
-$tables = ['news'];
+$tables = ['housing_estates', '	business_centers', 'cottage'];
 
 
 foreach ($tables as $table) {
@@ -58,11 +58,6 @@ foreach ($tables as $table) {
             if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
             $db->querys(" UPDATE " . $sys_tables[$table] . " SET id_main_photo = 0 WHERE id = ?", $item['id']);
             $db->querys(" DELETE FROM " . $sys_tables[$table . '_photos'] . " WHERE id = ?", $item['id_main_photo']);
-        }
-        if (preg_match('#<img#msiU', $item['content'])) {
-            echo $item['id'] . "\n";
-            $content = preg_replace('#<img.*?/?>#m','', $item['content']);
-            $db->querys(" UPDATE " . $sys_tables[$table] . " SET content = ? WHERE id = ? ", $content, $item['id']);
         }
     }
 
