@@ -1,15 +1,6 @@
 
 {if!empty $vip_list}
     <div class="objects-vip {$block_type}">
-    <h4>
-        {ifeq $block_type,'main'}
-            Витрина объектов
-            <a class="internal-link" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" title="Как разместить объявление в этом блоке?">Как разместить объявление в этом блоке?</a>
-            <span class="refresh">Обновить</span>
-        {else}
-            Витрина объектов
-        {/if}
-    </h4>
     {loop $vip_list,$key,$item}
         <div class="item">
             <a href="/{$item['type']}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" title="{$item['object_type']}" target="_blank" data-src="{if!empty $item['photo']}{static:/}img/uploads/sm/{$item['subfolder']}/{$item['photo']}{else}{static:/}img/layout/no-photo-small.gif{/if}" class="item-image lazy">
