@@ -59,7 +59,6 @@ foreach ($tables as $table) {
             $db->querys(" DELETE FROM " . $sys_tables[$table . '_photos'] . " WHERE id = ?", $item['id_main_photo']);
     }
 
-    /*
     $list = $db->fetchall("
         SELECT  " . $sys_tables[$table . '_photos'] . ".*,
                 LEFT(" . $sys_tables[$table . '_photos'] . ".name,2) as subfolder, 
@@ -73,6 +72,5 @@ foreach ($tables as $table) {
         $db->querys(" DELETE FROM " . $sys_tables[$table . '_photos'] . " WHERE id = ?", $item['id']);
         }
     }
-    */
 
 }
