@@ -39,7 +39,7 @@ $med = 'img/uploads/med';
 $big = 'img/uploads/big';
 if (!class_exists('Photos')) require_once('includes/class.photos.php');;
 
-$tables = ['housing_estates', '	business_centers', 'cottage'];
+$tables = ['housing_estates', 'business_centers', 'cottage'];
 
 
 foreach ($tables as $table) {
@@ -62,6 +62,7 @@ foreach ($tables as $table) {
         }
     }
 
+    /*
     $list = $db->fetchall("
         SELECT  " . $sys_tables[$table . '_photos'] . ".*,
                 LEFT(" . $sys_tables[$table . '_photos'] . ".name,2) as subfolder, 
@@ -75,5 +76,6 @@ foreach ($tables as $table) {
         $db->querys(" DELETE FROM " . $sys_tables[$table . '_photos'] . " WHERE id = ?", $item['id']);
         }
     }
+    */
 
 }
