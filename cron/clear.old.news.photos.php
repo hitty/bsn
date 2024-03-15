@@ -50,7 +50,7 @@ foreach ($tables as $table) {
             LEFT(" . $sys_tables[$table . '_photos'] . ".name,2) as subfolder, 
             " . $sys_tables[$table . '_photos'] . ".name as filename
         FROM " . $sys_tables[$table] . " 
-        LEFT JOIN " . $sys_tables[$table . '_photos'] . " ON " . $sys_tables[$table . '_photos'] . ".id = " . $sys_tables[$table] . ".id_main_photo'");
+        LEFT JOIN " . $sys_tables[$table . '_photos'] . " ON " . $sys_tables[$table . '_photos'] . ".id = " . $sys_tables[$table] . ".id_main_photo");
     foreach ($list as $k => $item) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
