@@ -34,11 +34,13 @@ $db->querys("SET lc_time_names = 'ru_RU';");
 
 // вспомогательные таблицы модуля
 $sys_tables = Config::Get('sys_tables');
-$tables = array('articles');
 $sm = 'img/uploads/sm';
 $med = 'img/uploads/med';
 $big = 'img/uploads/big';
 if (!class_exists('Photos')) require_once('includes/class.photos.php');;
+
+$tables = ['news'];
+
 
 foreach ($tables as $table) {
     $list = $db->fetchall("
@@ -48,35 +50,20 @@ foreach ($tables as $table) {
             " . $sys_tables[$table . '_photos'] . ".name as filename
         FROM " . $sys_tables[$table] . " 
         LEFT JOIN " . $sys_tables[$table . '_photos'] . " ON " . $sys_tables[$table . '_photos'] . ".id = " . $sys_tables[$table] . ".id_main_photo
-        WHERE  " . $sys_tables[$table] . ".datetime < '2023-03-01' AND " . $sys_tables[$table . '_photos'] . ".name IS NOT NULL");
+        WHERE  " . $sys_tables[$table] . ".datetime < '2023-03-01'");
     foreach ($list as $k => $item) {
-        if( !empty( $item['filename'] )) {
+        if (!empty($item['filename'])) {
             if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
             if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
-            $db->querys( " UPDATE ".$sys_tables[$table]." SET id_main_photo = 0 WHERE id = ?", $item['id'] );
-            $db->querys( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id_main_photo'] );
-            echo $item['title'].'<br>\n';
+            $db->querys(" UPDATE " . $sys_tables[$table] . " SET id_main_photo = 0 WHERE id = ?", $item['id']);
+            $db->querys(" DELETE FROM " . $sys_tables[$table . '_photos'] . " WHERE id = ?", $item['id_main_photo']);
+        }
+        if (preg_match('#<img#msiU', $item['content'])) {
+            echo $item['id'] . "\n";
+            $content = preg_replace('#<img.*?/?>#m','', $item['content']);
+            $db->querys(" UPDATE " . $sys_tables[$table] . " SET content = ? WHERE id = ? ", $content, $item['id']);
         }
     }
-
-    /*
-    $last_id = $item['id_main_photo'] ?? 13948;
-    $list = $db->fetchall(" 
-        SELECT 
-            *, 
-            LEFT(" . $sys_tables[$table . '_photos'] . ".name,2) as subfolder, 
-            " . $sys_tables[$table . '_photos'] . ".name as filename
-        FROM " . $sys_tables[$table . '_photos'] . " 
-        WHERE id <= " . $last_id );
-    foreach ($list as $k => $item) {
-        if( !empty( $item['filename'] )) {
-            if (file_exists($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $sm . '/' . $item['subfolder'] . '/' . $item['filename']);
-            if (file_exists($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $med . '/' . $item['subfolder'] . '/' . $item['filename']);
-            if (file_exists($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename'])) unlink($root . '/' . $big . '/' . $item['subfolder'] . '/' . $item['filename']);
-            $db->querys( " DELETE FROM ".$sys_tables[$table.'_photos']." WHERE id = ?", $item['id'] );
-        }
-    }
-    */
 
 }
