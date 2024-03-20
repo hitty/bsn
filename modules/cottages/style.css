@@ -104,14 +104,12 @@ table.cottages-list .col_price{
 #stady-list li:hover,
 #stady-list li.active_status{
    border:1px solid #fff;
-   box-shadow:0px 0px 5px #999; 
+   box-shadow:0 0 5px #999;
 }
 
 .lcrmp{
-  /*  width: 32%;
-    display: inline-block;
-    margin-right: 7px;   */
-    vertical-align: top    width: 180px;
+    vertical-align: top;
+    width: 180px;
     display: inline-block;
     margin-right: 4px;;
 
@@ -136,7 +134,7 @@ table.cottages-list .col_price{
     display: inline-block;
     max-width: 520px;
     font-style: normal;
-    text-overflow: visible;
+    text-overflow: unset;
     overflow: visible;
     height: auto;
     max-height: 30px;

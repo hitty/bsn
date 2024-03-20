@@ -1361,6 +1361,9 @@ background: none;
 .title-wrap .submenu-wrap li:hover{
     color: #1e88e5;    
 }
+.complex-title .title-wrap .submenu-wrap li{
+    color: #222;
+}
 /*  fullscreen gallery */     
 .fullscreen-gallery{
     position: absolute;

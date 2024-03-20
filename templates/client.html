@@ -14,10 +14,6 @@
     {elseif!empty $search_form_html}{$search_form_html}
     {/if}
     
-    {if!empty $fullscreen_gallery}                  
-        {include /modules/housing_estates/templates/gallery.fullscreen.html}
-    {/if}
-    
     <div class="central-column clearfix{if!empty $central_class} {$central_class}{/if} {ifempty $payed_format}flex-u{/if}">
         {ifempty $payed_format}<div id="left-column">{/if}
         {$content}
