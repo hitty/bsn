@@ -764,13 +764,7 @@ function checkForm( _first_instance, _mark, _initiator ){
         _error_status = true;
     }
     //если это публикация и галочка публичной оферты не поставлена
-    if(jQuery('.object-manage.bottom.wide').hasClass('wpublic-offer')){
-        if(jQuery('.object-manage.bottom.wide').find('#public-offer-agree:checked').length == 0){
-            jQuery('#public-offer-agree').addClass('error');
-            _error = true;
-        }else jQuery('#public-offer-agree').removeClass('error');
-    }
-    
+    console.log( _error +';' + _error_cost + ';' + _error_status)
     if(_error == false && _error_cost == false && _error_status == false){
         jQuery('button[class*=disabled]', jQuery('#item-edit-form')).removeClass('disabled');
     }  else {

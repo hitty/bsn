@@ -1776,12 +1776,14 @@ switch(true){
         $mrh_pass2 = "AOesZ5A3fSSycoa7Pfrrx3SWK690EB7m";        
         //обработка результата оплаты
         if(!empty($this_page->page_parameters[1]) && $this_page->page_parameters[1]=='result'){
+
             $inv_id = Request::GetString('InvId',METHOD_POST);
             $inv_summ = Request::GetString('OutSum',METHOD_POST);
             $crc = Request::GetString('SignatureValue',METHOD_POST);
             $shp_object = 0;
             $shp_user = Request::GetString('shp_user',METHOD_POST);
             $promocode = Request::GetString('shp_promocode',METHOD_POST);
+
             //log request
             $sql = "UPDATE ".$sys_tables['users_pay']."
                     SET `log` = CONCAT_WS(' \n',`log`,?) WHERE id=?";
@@ -1792,6 +1794,7 @@ switch(true){
             // nOutSum:nInvId:sMerchantPass2[:пользовательские параметры, в отсортированном порядке]
             $crc = strtoupper($crc); // 6A9A1221DF6B57B46AF935793BA52CD8
             $my_crc = strtoupper(md5("$inv_summ:$inv_id:$mrh_pass2:shp_object=0:shp_user=$shp_user"));
+
             if(empty($inv_id)) echo "bad INV_ID\n";
             elseif(empty($inv_summ)) echo "bad SUMM\n";
             elseif($my_crc != $crc) echo "bad SIGN\n";

@@ -786,7 +786,7 @@ class EstateSubscriptions{
                     foreach($val as $v=>$item) $other_params[] = ( $v > 0 ? ( $v + 1 != count($val) ? ', ' : '  и  ' ) . ( !empty($excluded_params) ?  'не ': '' ) : ' ') . trim($item);
                     $array_title[] = $description[] = implode('', array_map("rtrim", $other_params));
                 } else {
-                    $array_title[] = $title = str_replace(' , ', ', ', is_array($val) ? implode(' ',  array_map("trim", $val)) : $val);
+                    $array_title[] = $title = str_replace(' , ', ', ', is_array($val) ? implode(' ',  $val) : $val);
                     if($k!='title') $description[] = $title;
                 }
             }
