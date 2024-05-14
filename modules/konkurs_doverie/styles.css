@@ -511,4 +511,5 @@ header.with-shadow:after {
 
 .sponsors__img {
     max-height: 60px;
+    max-width: 80px;
 }
