@@ -30,7 +30,7 @@ header .mainlogo {
     height: 165px;
 }
 .central-column{
-    margin-top: 0;
+    margin: 0;
 }
 header .bottom-wrap {
     position: absolute;
@@ -129,13 +129,17 @@ header.with-shadow:after {
 }
 
 .konkurs-wrapper .item .bg {
-    background: #E7E7E7;
-    height: 120px;
+    height: 60px;
     display: flex;
     align-items: center;
     text-align: center;
+    background: url('/modules/konkurs_doverie/img/doverie-page-2019-item-bg.jpg') no-repeat #f26522;
+    filter: grayscale(.9);
+    transition: .3s ease-in-out all;
 }
-
+.konkurs-wrapper .item:hover .bg{
+    filter: grayscale(0);
+}
 .konkurs-wrapper .item .bg .members {
     text-align: center;
     font-size: 40px;
@@ -159,10 +163,6 @@ header.with-shadow:after {
     right: 40px;
     width: auto;
     display: block;
-}
-
-.konkurs-wrapper .item:hover .bg {
-    background: url('/modules/konkurs_doverie/img/doverie-page-2019-item-bg.jpg') no-repeat #f26522;
 }
 
 .konkurs-wrapper .item:not(.voted):hover .bg .button {
@@ -516,4 +516,9 @@ header.with-shadow:after {
 .sponsors__img {
     max-height: 60px;
     max-width: 80px;
+}
+#social-buttons-content,
+#social-buttons-content *{
+    margin-top: 0!important;
+    margin-bottom: 0!important;
 }
