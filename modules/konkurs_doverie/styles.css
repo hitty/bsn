@@ -16,18 +16,22 @@ header {
     background: url(/modules/konkurs_doverie/img/konkurs-2024.jpg) no-repeat center;
     width: 100%;
     padding: 20px 0 0 0;
-    height: 290px;
+    height: 200px;
     margin: 60px 0 0 0;
     position: relative;
 }
-
+header + .central-column {
+    margin: 0px auto 40px auto;
+}
 header .mainlogo {
     margin: 0 auto 40px auto;
     position: relative;
     width: 670px;
     height: 165px;
 }
-
+.central-column{
+    margin-top: 0;
+}
 header .bottom-wrap {
     position: absolute;
     bottom: 0;
