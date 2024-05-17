@@ -347,7 +347,7 @@ jQuery(document).ready(function(){
     setTimeout(function(){
         jQuery('.advert,.banner-item').each(function(){
             var _this = jQuery(this),
-                url = ( _this.data('advert-url') ? _this.data('advert-url') : _this.data('link') ).replace(/https?:\/\//g,'');
+                url = ( _this.data('advert-url') ? _this.data('advert-url') : ( _this.data('link') ? _this.data('link') : _this.attr('href') ) ).replace(/https?:\/\//g,'');
             url = 'https://' + url;
             let advert_box_template = '<div class="advert-box">' +
                 '<span class="advert-box__close" data-icon="close"></span>' +
