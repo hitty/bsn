@@ -3941,11 +3941,7 @@ class YandexRXmlRobot extends Robot{
         
         ///отделяем городские от загородных, определяем тип объекта и его адрес
         if( empty($values['location']['region']) || ( !empty($values['location']['region']) && preg_match('/етербург/',$values['location']['region']) ) || (!empty($values['location']['locality-name']) && preg_match('/етербург/',$values['location']['locality-name']))){
-            if( !empty($values['location']['region']) && !preg_match('/етербург/',$values['location']['region'] )  ){
-                $errors_log['address'][$this->fields['external_id'] ] = 'адрес: ' . $this->fields['addr_source'];
-                return false;
-            }
-            else if( !empty($values['location']['locality-name']) && !preg_match('/етербург/',$values['location']['locality-name'] ) ) {
+             if( !empty($values['location']['region']) && !preg_match('/етербург/',$values['location']['region'] ) && !empty($values['location']['locality-name']) && !preg_match('/етербург/',$values['location']['locality-name'] ) ) {
                 $errors_log['address'][$this->fields['external_id'] ] = 'адрес: ' . $this->fields['addr_source'];
                 return false;
             }
@@ -4087,7 +4083,7 @@ class YandexRXmlRobot extends Robot{
             if(!empty($values['sales-agent']['name'])) $this->fields['seller_name'] = $values['sales-agent']['name'];
             //телефон (может быть указано несколько, нам нужен первый)
             if(!empty($values['sales-agent']['phone']))
-                $this->fields['seller_phone'] = (count($values['sales-agent']['phone'])>1)?$values['sales-agent']['phone'][0]:$values['sales-agent']['phone'];
+                $this->fields['seller_phone'] = is_array($values['sales-agent']['phone'])?$values['sales-agent']['phone'][0]:$values['sales-agent']['phone'];
             //тип продавца (владелец/агентство)
             if(!empty($values['sales-agent']['category']) && ($values['sales-agent']['category'] == 'агентство' || $values['sales-agent']['category'] == 'agency')){
                 //если это агентство, пробуем найти его у нас
