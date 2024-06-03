@@ -1,3 +1,4 @@
+{ifempty $fullscreen_gallery}
 <div class="complex-title">
     <div class="title-wrap clearfix">
         {if!empty $item['doverie_years']}
@@ -18,6 +19,8 @@
 
     </div>
 </div>
+{/if}
+
 <div class="estate-item estate-complex">
 
     {include /modules/housing_estates/templates/block.item.contacts.html}

@@ -6,14 +6,16 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    
+
     {include /templates/includes/main_header_part.html}
-    
+
     {if!empty $h1}<h1>{$h1}</h1>{/if}
     {if!empty $search_form}{include /templates/includes/estate_search_form.html}
     {elseif!empty $search_form_html}{$search_form_html}
     {/if}
-    
+    {if!empty $fullscreen_gallery}
+        {include /modules/housing_estates/templates/gallery.fullscreen.html}
+    {/if}
     <div class="central-column clearfix{if!empty $central_class} {$central_class}{/if} {ifempty $payed_format}flex-u{/if}">
         {ifempty $payed_format}<div id="left-column">{/if}
         {$content}
@@ -30,15 +32,15 @@
             {include /templates/includes/main_right_part.html}
         {/if}
     </div>
-    
+
     {ifempty $wide_format}
         {ifempty $payed_format}
             <div class="central-wrapper bottom-banner">
                     <div id="middle-bottom-banner" onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Переходы по рекламе', 'Боттомлайн']); }catch(e){}"></div>
             </div>
-        {/if}       
-    {/if}       
-                 
+        {/if}
+    {/if}
+
     {include /templates/includes/main_footer_part.html}
 </body>
 </html>
