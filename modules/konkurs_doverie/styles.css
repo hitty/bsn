@@ -30,7 +30,7 @@ header .mainlogo {
     height: 165px;
 }
 .central-column{
-    margin: 0;
+    margin: 0 auto;
 }
 header .bottom-wrap {
     position: absolute;
