@@ -4,7 +4,11 @@
         {loop $list,$k,$item}    
             <div class="item shadow-hover br3 transition flex{ifeq $item['vote_id_member'], $item['id']} active{/if}" data-id="{$item['id']}">
                 <span data-icon="radio_button_unchecked"></span>
-                <span class="title">{$item['title']}</span>
+                <span class="title">
+                    {$item['title']}
+                    {if!empty $item['link']}<a href="{$item['link']}" target="_blank">Подробнее</a>{/if}
+                </span>
+
                 <div class="results"><i></i></div>
             </div>
         {/loop $list}

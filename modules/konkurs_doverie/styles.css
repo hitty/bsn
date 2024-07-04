@@ -350,7 +350,12 @@ header.with-shadow:after {
     display: inline-block;
     width: 536px;
 }
+.modal-inner .list .item .title a{
+    position: relative;
+    z-index: 100;
+    font-size: 14px;
 
+}
 .modal-inner .list .item:hover .title,
 .modal-inner .list .item.active .title {
     color: #f26522;

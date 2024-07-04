@@ -68,17 +68,24 @@ return array(
             'allow_empty' => true, 
             'allow_null' => true
         ),
+        'link' => array(
+            'type' => TYPE_STRING,
+            'allow_empty' => true,
+            'allow_null' => true,
+            'fieldtype' => 'text',
+            'label' => 'Ссылка на проект',
+        ),
         'status' => array(
             'type' => TYPE_INTEGER,
             'min' => 1,
             'max' => 2,
-            'allow_empty' => false, 
+            'allow_empty' => false,
             'allow_null' => false,
             'fieldtype' => 'radio',
             'values' => array(1=>'активен',2=>'не активен'),
             'label' => 'Статус участника',
             'tip' => 'Статус участника'
-        )        
+        )
     )
     ,'categories' => array(
          'id' => array(

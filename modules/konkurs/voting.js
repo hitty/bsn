@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
    var _wrap = jQuery('.expanded-list');
    if(jQuery('h3',_wrap).length==1) jQuery('h3',_wrap).click();
    jQuery('h3').on('click',_wrap, function(){
-        
+
        var _this = jQuery(this); 
         var _list = _this.next('div.expanded-list-items');
         _this.siblings('h3').removeClass('on');

@@ -1,6 +1,7 @@
 jQuery(document).ready(function(){
     //голосование - отметка
-    jQuery(document).on("click", '.modal-inner .item', function(){
+    jQuery(document).on("click", '.modal-inner .item', function(e){
+        if( e.target.getAttribute('href') ) return;
         var _this = jQuery(this);
         var _parent = _this.parents('.list');
         if( !_parent.hasClass('can-vote') ) return false;
