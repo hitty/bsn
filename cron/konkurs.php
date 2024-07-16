@@ -40,5 +40,6 @@ foreach ($votings as $v => $voting) {
         'city' => !empty($geo['city']['name_en']) ? $geo['city']['name_en'] : '',
         'country' => !empty($geo['country']['iso']) ? $geo['country']['iso'] : ''
     ];
+
     $db->updateFromArray( $sys_tables['konkurs_votings'], $data, 'id');
 }
