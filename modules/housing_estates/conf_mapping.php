@@ -172,11 +172,17 @@ return array(
             'label' => 'Сроки сдачи очередей',
             'tip' => ''
         )
-        ,'yandex_id' => array(
+        ,'yandex_house_id' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => true,
-            'label' => 'ID в базе яндекса',
-            'tip' => 'ID в базе яндекса'
+            'label' => 'ID очереди в базе яндекса',
+            'tip' => 'Сначала ищется по очереди, потом по ЖК'
+        )
+        ,'yandex_building_id' => array(
+            'type' => TYPE_INTEGER,
+            'allow_empty' => true,
+            'label' => 'ID ЖК в базе яндекса',
+            'tip' => 'ID ЖК в базе яндекса'
         )
         ,'214_fz' => array(
             'type' => TYPE_INTEGER,

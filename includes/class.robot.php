@@ -1325,10 +1325,15 @@ class Robot {
             }
         }
     }         
-    public function getYandexComplexById($yandex_id){
+    public function getYandexComplexById($yandex_house_id = 0, $yandex_building_id = 0){
         global $db;
-        if( empty( $yandex_id)) return false;
-        $where = ' yandex_id = '.$yandex_id;
+        if( !empty( $yandex_house_id)) {
+            $where = ' yandex_house_id = '.$yandex_house_id;
+            $item = $db->fetch("SELECT id,lat,lng FROM ".$this->sys_tables['housing_estates']." WHERE $where");
+            if(!empty($item)) return $item;
+        }
+        if( empty( $yandex_building_id)) return false;
+        $where = ' yandex_building_id = '.$yandex_building_id;
         $item = $db->fetch("SELECT id,lat,lng FROM ".$this->sys_tables['housing_estates']." WHERE $where");
         if( empty( $item) || empty($item['id'])) return false;
         return $item;
@@ -4241,7 +4246,7 @@ class YandexRXmlRobot extends Robot{
         //название жк
         if(!empty($values['yandex-building-id'])){
             $values['yandex-building-id'] = Convert::ToInt($values['yandex-building-id']);
-            $he_info = $this->getYandexComplexById($values['yandex-building-id']);
+            $he_info = $this->getYandexComplexById($values['yandex-house-id'] ?? 0, $values['yandex-building-id']);
             if(!empty($he_info)){
                 $this->fields['id_housing_estate'] = $he_info['id'];
                 if( empty( $this->fields['id_street'])){
