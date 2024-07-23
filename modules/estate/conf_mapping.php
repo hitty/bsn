@@ -4224,12 +4224,14 @@ return array(
     , 'yandex_house_id' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => true,
+            'fieldtype' => 'text',
             'label' => 'ID очереди в базе яндекса',
             'tip' => 'Сначала ищется по очереди, потом по ЖК'
         )
     , 'yandex_building_id' => array(
             'type' => TYPE_INTEGER,
             'allow_empty' => true,
+            'fieldtype' => 'text',
             'label' => 'ID ЖК в базе яндекса',
             'tip' => 'ID ЖК в базе яндекса'
         )
