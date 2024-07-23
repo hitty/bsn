@@ -1331,8 +1331,6 @@ class Robot {
 
             $where = ' yandex_house_id LIKE "%'.$yandex_house_id.'%"';
             $item = $db->fetch("SELECT id,lat,lng FROM ".$this->sys_tables['housing_estates']." WHERE $where");
-            echo $db->last_query;
-            die();
             if(!empty($item)) return $item;
         }
         if( empty( $yandex_building_id)) return false;
