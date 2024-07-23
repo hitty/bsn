@@ -1328,8 +1328,11 @@ class Robot {
     public function getYandexComplexById($yandex_house_id = 0, $yandex_building_id = 0){
         global $db;
         if( !empty( $yandex_house_id)) {
+
             $where = ' yandex_house_id = '.$yandex_house_id;
             $item = $db->fetch("SELECT id,lat,lng FROM ".$this->sys_tables['housing_estates']." WHERE $where");
+            echo $db->last_query;
+            die();
             if(!empty($item)) return $item;
         }
         if( empty( $yandex_building_id)) return false;
