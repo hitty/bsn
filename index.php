@@ -136,7 +136,6 @@ if(substr($content,0,5)=='<?xml'){
     header('Content-Type: text/html; Charset='.Config::$values['site']['charset']);
 }
 echo $content;
-/*
 
 $querylog = Convert::ArrayKeySort($db->querylog, 'time', true);
 $overall_time_counter = round(microtime(true) - $overall_time_counter, 4);
@@ -148,5 +147,4 @@ if(!empty($_GET['showtime']) || (defined("DEBUG_MODE") && DEBUG_MODE)){
     printf("\nAlocated memory: %d", $overall_memory_usage);
     echo "\n-->";
 }
-*/
 ?>

@@ -24,13 +24,13 @@
             var __url = '{root:/admin/service/konkurs/'+konkurs_url+'/}';
             var __get = new Array();
             if(__filter_title!='') __get.push('f_title='+__filter_title);
-            if(__filter_category>0) __get.push('f_category='+__filter_category);            
-            if(__filter_status>0) __get.push('f_status='+__filter_status);			
+            if(__filter_category>0) __get.push('f_category='+__filter_category);
+            if(__filter_status>0) __get.push('f_status='+__filter_status);
             if(__get.length>0) __url = __url+'?'+__get.join('&');
             document.location.href = __url;
         }
     </script>
-    
+
     <div class="filter_line">
         <label>
             Название:
@@ -44,7 +44,7 @@
                     <option value="{$val['id']}"{ifeq $get_array['f_category'],$val['id']} selected="selected"{/if}>{$val['title']}</option>
                 {/loop $categories}
             </select>
-        </label>    
+        </label>
         <label>
             Статус (видимость) :
             <select id="f_status" onchange="filter_activate()" style="width: 150px;">
@@ -52,11 +52,11 @@
                     <option value="1" {ifeq $get_array['f_status'],1} selected="selected"{/if}>Активные</option>
                     <option value="2" {ifeq $get_array['f_status'],2} selected="selected"{/if}>Не активные</option>
             </select>
-        </label>    
+        </label>
     </div>
     {if!empty $list}
         <div style="padding: 10px;font-weight: bold;text-align: right;">Всего голосов: {$total_votes}</div>
-        <table>    
+        <table>
             <colgroup>
                 <col class="col1" width="5%">
                 <col class="col2" width="40%">

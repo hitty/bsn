@@ -583,6 +583,7 @@ header.with-searchform:hover{
 .tgb-list.in-row {
     width: 1200px;
     height: 350px;
+    display: none;
 }
 .tgb-list a{
     border: none;
