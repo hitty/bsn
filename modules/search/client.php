@@ -68,6 +68,7 @@ switch(true){
                 if(!empty($parameters['type']) && $k==$parameters['type']) Response::SetString('selected_type',$k);
             }
             Response::SetArray('index_types',$index_types); 
+
             //инициализация сфинкс
             $sphinx = new SphinxClient;
             $sphinx->SetServer( '127.0.0.1', Config::Get('sphinx/port') ); // устанавливаем сервер и порт, на котором установлен Sphinx 
