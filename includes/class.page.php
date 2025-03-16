@@ -939,14 +939,12 @@ class Page {
             $this->menuAdd('Жилая недвижимость', 'live/sell', 3, false, false, 'sell');
             $this->menuAdd('Коммерческая недвижимость', 'commercial/sell', 3, false, false, 'sell');
             $this->menuAdd('Загородная недвижимость', 'country/sell', 3, false, false, 'sell');
-            $this->menuAdd('Зарубежная недвижимость', 'inter/sell', 3, false, false, 'sell');
 
         $this->menuAdd('Аренда', 'rent', 2, false, 'category-title', '/');
             $this->menuAdd('Жилая недвижимость', 'live/rent', 3, false, false, 'rent');
             $this->menuAdd('Коммерческая недвижимость', 'commercial/rent', 3, false, false, 'rent');
             $this->menuAdd('Загородная недвижимость', 'country/rent', 3, false, false, 'rent');
-            $this->menuAdd('Зарубежная недвижимость', 'inter/rent', 3, false, false, 'rent');
-            
+
         $this->menuAdd('___________', 'complexes', 2, false, 'category-title', '/');
             $this->menuAdd('Жилые комплексы', 'zhiloy_kompleks', 3, false, false, 'complexes');
             $this->menuAdd('Апартаменты', 'apartments', 3, false, false, 'complexes');

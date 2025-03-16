@@ -14,7 +14,7 @@ if(!empty($this_page->module_parameters['estate_type']) && in_array($this_page->
 } elseif(!empty($this_page->page_parameters[0]) && in_array($this_page->page_parameters[0], $estate_types)) {
     $estate_type = $this_page->page_parameters[0];
 }
-
+if ( $estate_type == 'inter' ) Host::RedirectLevelUp();
 // определяем тип сделки
 $deal_type = '';
 $deal_types = array('rent','sell');
