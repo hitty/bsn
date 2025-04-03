@@ -755,12 +755,6 @@ if(!empty($process)){
     // параметры письма
     $mailer_title = 'Обработка формата ' . $file_type . ' XML. '.date('Y-m-d H:i:s') . ', «' . $process['title'] . '»';
 
-    $emails = array(
-        array(
-            'name' => '',
-            'email'=> 'hitty@bsn.ru'
-        )
-    );
     if(  $process['sent_report'] == 1)
         $emails[] = array(
             'name' => '',
@@ -771,6 +765,7 @@ if(!empty($process)){
     $sendpulse = new Sendpulse( );
     $result = $sendpulse->sendMail( $mailer_title, $html, false, false, 'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла', 'no-reply@bsn.ru', $emails );
     print_r( $result );
+    print_r( $emails );
 
     if($process['sent_report'] == 1){
         $eml_tpl = new Template('parse.xml.notification.html', 'cron/robot/');
