@@ -751,10 +751,17 @@ if(!empty($process)){
     Response::SetString( 'content', $content );    
     $eml_tpl = new Template('report.html', 'modules/mailers/');
     $html = $eml_tpl->Processing();
-    
+    print_r( '0' );
+
     // параметры письма
     $mailer_title = 'Обработка формата ' . $file_type . ' XML. '.date('Y-m-d H:i:s') . ', «' . $process['title'] . '»';
 
+    $emails = array(
+        array(
+            'name' => '',
+            'email'=> 'kya1982@gmail.com'
+        )
+    );
     if(  $process['sent_report'] == 1)
         $emails[] = array(
             'name' => '',
@@ -764,8 +771,9 @@ if(!empty($process)){
     //отправка письма
     $sendpulse = new Sendpulse( );
     $result = $sendpulse->sendMail( $mailer_title, $html, false, false, 'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла', 'no-reply@bsn.ru', $emails );
-    print_r( $result );
+    print_r( '1' );
     print_r( $emails );
+    print_r( $result );
 
     if($process['sent_report'] == 1){
         $eml_tpl = new Template('parse.xml.notification.html', 'cron/robot/');
@@ -789,7 +797,7 @@ if(!empty($process)){
         $emails = array(
             array(
                 'name' => '',
-                'email'=> 'hitty@bsn.ru'
+                'email'=> 'kya1982@gmail.com'
             )
         );
         if( !empty( $process['user_email'] )    && $process['xml_notification'] == 1 && Validate::isEmail($process['user_email']) )
@@ -802,7 +810,9 @@ if(!empty($process)){
                 'name' => '',
                 'email'=> $process['email_service']
             );
-        var_dump($emails);
+        print_r( '2' );
+        print_r( $emails );
+
         //отправка письма
         $sendpulse = new Sendpulse( );
         $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );
@@ -822,7 +832,7 @@ if(!empty($process)){
             $emails = array(
                 array(
                     'name' => '',
-                    'email'=> 'hitty@bsn.ru'
+                    'email'=> 'kya1982@gmail.com'
                 )
             );
             if( !empty( $process['manager_email']) )
@@ -832,7 +842,10 @@ if(!empty($process)){
                 );
             //отправка письма
             $sendpulse = new Sendpulse( );
-            $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );  
+            $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );
+            print_r( '3' );
+            print_r( $emails );
+
             print_r( $result );
         }
     } 
@@ -852,12 +865,15 @@ if(!empty($process)){
         $emails = array(
             array(
                 'name' => '',
-                'email'=> !DEBUG_MODE ? $process['manager_email'] : 'hitty@bsn.ru'
+                'email'=> !DEBUG_MODE ? $process['manager_email'] : 'kya1982@gmail.com'
             )
         );
         //отправка письма
         $sendpulse = new Sendpulse( );
-        $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );  
+        $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );
+        print_r( '4' );
+        print_r( $emails );
+
         print_r( $result );
         
     }   
