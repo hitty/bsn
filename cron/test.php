@@ -1,10 +1,11 @@
 #!/usr/bin/php
 <?php
-error_reporting(0);
+error_reporting(E_ALL);
+@ini_set('display_errors', 1);
 $overall_time_counter = microtime(true);
 // переход в корневую папку сайта
 define('DEBUG_MODE', !empty($_SERVER['SERVER_NAME']) && preg_match('/.+\.int$/i', $_SERVER['SERVER_NAME']) ? true : false);
-$root = TEST_MODE ? realpath( '/home/bsn/sites/test.bsn.ru/public_html/trunk/' ) : ( DEBUG_MODE ? realpath( "../.." ) : realpath('/home/bsn/sites/bsn.ru/public_html/' ) ) ;
+$root =  DEBUG_MODE ? realpath( ".." ) : realpath('/home/bsn/sites/bsn.ru/public_html/' )  ;
 if(defined("PHP_OS")) $os = PHP_OS; else $os = php_uname();
 if(strtolower(substr( $os, 0, 3 ) ) == "win" )  $root = str_replace( "\\", '/', $root );
 define( "ROOT_PATH", $root );
@@ -15,10 +16,6 @@ mb_internal_encoding('UTF-8');
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 mb_regex_encoding('UTF-8');
 //запись всех ошибок в лог
-$error_log = ROOT_PATH.'/cron/comagic/spam_error.log';
-file_put_contents($error_log,'');
-ini_set('error_log', $error_log);
-ini_set('log_errors', 'On');
 // подключение классов ядра
 require_once('includes/class.config.php');       // Config (конфигурация сайта)
 Config::Init();
@@ -49,11 +46,10 @@ var_dump( $html );
 $emails = array(
     array(
         'name' => '',
-        'email'=> 'kya1982@gmail.com'
+        'email'=> 'kya@mail.ru'
     )
 );
 //отправка письма
 $sendpulse = new Sendpulse( );
-$result = $sendpulse->sendMail( 'Заголовок', $html, false, false, 'Парсинг  XML файла', 'no-reply@bsn.ru', $emails );
-print_r( $result );
+$result = $sendpulse->sendMail( 'Заголовок', $html, 'Парсинг  XML файла', 'no-reply@bsn.ru', $emails );
 ?>

@@ -41,7 +41,7 @@ if( !class_exists( 'Photos' ) ) require_once('includes/class.photos.php');;     
 require_once('includes/class.moderation.php'); // Moderation (процедура модерации)
 require_once('includes/class.robot.php');      // Robot (конвертация обработанных строк/нодов файлов в поля объектов недвижимости)
 require_once('cron/robot/class.xml2array.php');  // конвертация xml в array
-require_once("includes/class.sendpulse.php");
+require_once("includes/class.unisender.php");
 
 //логирование выгрузок xml-я
 $log = array();
@@ -769,8 +769,8 @@ if(!empty($process)){
         );
 
     //отправка письма
-    $sendpulse = new Sendpulse( );
-    $result = $sendpulse->sendMail( $mailer_title, $html, false, false, 'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла', 'no-reply@bsn.ru', $emails );
+    $sendpulse = new Sendpulse();
+    $result = $sendpulse->sendMail( $mailer_title, $html, 'Парсинг '.(!empty($file_type) ? $file_type : '').' XML файла', 'no-reply@bsn.ru', $emails );
     print_r( '1' );
     print_r( $emails );
     print_r( $result );
@@ -814,8 +814,8 @@ if(!empty($process)){
         print_r( $emails );
 
         //отправка письма
-        $sendpulse = new Sendpulse( );
-        $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );
+        $sendpulse = new Sendpulse();
+        $result = $sendpulse->sendMail( $mailer_title, $html, $sender_name, $sender_email, $emails );
         print_r( $result );
         
         //отправка письма менеджеру
@@ -841,8 +841,8 @@ if(!empty($process)){
                     'email'=> $process['manager_email']
                 );
             //отправка письма
-            $sendpulse = new Sendpulse( );
-            $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );
+            $sendpulse = new Sendpulse();
+            $result = $sendpulse->sendMail( $mailer_title, $html, $sender_name, $sender_email, $emails );
             print_r( '3' );
             print_r( $emails );
 
@@ -869,8 +869,8 @@ if(!empty($process)){
             )
         );
         //отправка письма
-        $sendpulse = new Sendpulse( );
-        $result = $sendpulse->sendMail( $mailer_title, $html, false, false, $sender_name, $sender_email, $emails );
+        $sendpulse = new Sendpulse();
+        $result = $sendpulse->sendMail( $mailer_title, $html, $sender_name, $sender_email, $emails );
         print_r( '4' );
         print_r( $emails );
 
