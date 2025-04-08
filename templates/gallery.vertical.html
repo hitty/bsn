@@ -69,7 +69,7 @@
                             {loop $photos,$pk,$pv}
                                 <a class="{ifempty $videos}{ifeq $pv['main_photo'],'true'}active {/if}{/if}" href="{if!empty $static}{$static}{else}/{/if}{$img_folder}/big/{$pv['subfolder']}/{$pv['name']}" title="{$pv['id']}: {quoted:$titles['header']}" data-id="{$pv['id']}" data-pos="{$pos}" itemscope itemtype="http://schema.org/ImageObject">
                                     <img src="{if!empty $static}{$static}{else}/{/if}{$img_folder}/sm/{$pv['subfolder']}/{$pv['name']}" class="{ifeq $pv['main_photo'],'true'}mainPhoto{/if}" alt="{quoted:$titles['header']}"/>
-                                    <img itemprop="contentUrl" src="https://st1.bsn.ru/{$img_folder}/big/{$pv['subfolder']}/{$pv['name']}" alt="" style="display: none;" />
+                                    <img itemprop="contentUrl" src="https://st.bsn.ru/{$img_folder}/big/{$pv['subfolder']}/{$pv['name']}" alt="" style="display: none;" />
                                     <meta itemprop="name" content="{quoted:$metadata['title']}">
                                     <meta itemprop="description" content="{quoted:$metadata['description']}">
                                 </a>

@@ -27,7 +27,7 @@
             
             {if!empty $item['video_link']}<span class="transition play" data-icon="play_circle_filled"></span>{/if}
             
-            <span class="image br3 bg-cover lazy" data-src="{if!empty $item['photo']}{static:/}img/uploads/{if!empty $big_image}big{else}med{/if}/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}"></span>
+            <span class="image br3 bg-cover lazy" data-src="{if!empty $item['photo']}{static:/}img/uploads/{if!empty $big_image}big{else}med{/if}/{$item['subfolder']}/{$item['photo']}{else}//st.bsn.ru/img/layout/no-photo-med.gif{/if}"></span>
             <div class="content">
                 <a class="title transition-text" href="{ifempty $item['link']}/{$item['content_type']}/{if!empty $item['category_code']}{$item['category_code']}/{/if}{if!empty $item['region_code']}{$item['region_code']}/{/if}{$item['chpu_title']}/{else}{$item['link']}/{/if}" title="подробнее">{$item['title']}</a>
             </div>

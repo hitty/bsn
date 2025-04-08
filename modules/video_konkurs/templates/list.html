@@ -19,7 +19,7 @@
                 <embed src='/js/spruto/player.swf'
                 type='application/x-shockwave-flash' allowfullscreen='true'
                 allowScriptAccess='always' width='460' height='270'
-                flashvars="settingsUrl=https://{Host::$host}/video_player/?name={$item['external_link']}&posterUrl=//st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo_name']}&title={$item['title']}"/>
+                flashvars="settingsUrl=https://{Host::$host}/video_player/?name={$item['external_link']}&posterUrl=//st.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo_name']}&title={$item['title']}"/>
             {/if}
             
             <div class="likes{ifempty $item['can_vote']} active{/if}" data-id={$item['id']}>{$item['votings']}</div>

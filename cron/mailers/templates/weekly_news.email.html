@@ -25,7 +25,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                             <tbody><tr valign="middle">
                                 
                                 <td colspan="3"  valign="middle" align=" vertical-align: center; center" style="text-align:center;">
-                                    <img src="https://st1.bsn.ru/img/layout/mailer/logo-medium.png"  style="display: inline-block;" width="112" height="31">
+                                    <img src="https://st.bsn.ru/img/layout/mailer/logo-medium.png"  style="display: inline-block;" width="112" height="31">
                                     
                                 </td>
                           
@@ -55,7 +55,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                         <td colspan="3" valign="top" style="background: #fff; border-collapse:collapse; padding:0; border-radius: 3px;" width="570" height="240" align="left"> 
                                             <table width="100%" cellspacing="0" cellpadding="0" style="padding: 0; margin:0;">
                                                 <tr width="570" height="240">
-                                                    <td style="border-radius: 3px; height:210px; background: url(https://st1.bsn.ru/img/uploads/mailers/big/{$item['photo']});">
+                                                    <td style="border-radius: 3px; height:210px; background: url(https://st.bsn.ru/img/uploads/mailers/big/{$item['photo']});">
                                                         {ifeq $item['type'],'news'}
                                                             <a href="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#FFF; margin: 0; display: block; font-size:24px; line-height: 32px; padding:20px; width:530px; height:200px;">{stripall:$item['title']}</a>
                                                         {elseifeq $item['type'],'doverie'}
@@ -72,7 +72,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                             <td valign="top" style="border-radius: 3px; background: #fff; border-collapse:collapse; padding:0; border-radius: 3px;" width="" height="380" align="left"> 
                                                 <table width="100%" cellspacing="0" cellpadding="0" style="padding: 0; margin:0;">
                                                     <tr width="" height="380">
-                                                        <td style="border-radius: 3px; height:380px; background: url(https://st1.bsn.ru/img/uploads/mailers/med/{$item['photo']});">
+                                                        <td style="border-radius: 3px; height:380px; background: url(https://st.bsn.ru/img/uploads/mailers/med/{$item['photo']});">
                                                             <a href="https://www.bsn.ru/doverie/{$item['category_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#FFF; margin: 0; display: block; font-size:18px; line-height: 24px; padding:20px; width:240px; height:300px;">{stripall:$item['title']}</a>
                                                             <span style="display: block; width: 240px; padding: 0px 20px; height: 30px; color: #ffffff; font-size: 14px; font-weight: normal; overflow: hidden;">
                                                                 Доверие потребителя 2021
@@ -90,7 +90,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                             <td valign="top" style="border-radius: 3px; background: #fff; border-collapse:collapse; padding:0; border-radius: 3px;" width="240" height="350" align="left"> 
                                                 <table width="100%" cellspacing="0" cellpadding="0" style="padding: 0; margin:0;">
                                                     <tr height="210" style="height:210px;">
-                                                        <td style="border-radius: 3px 3px 0 0; height:210px; background: url(https://st1.bsn.ru/img/uploads/mailers/sm/{$item['photo']});">
+                                                        <td style="border-radius: 3px 3px 0 0; height:210px; background: url(https://st.bsn.ru/img/uploads/mailers/sm/{$item['photo']});">
                                                             {ifeq $item['type'],'news'}
                                                                 <a href="https://www.bsn.ru/news/{$item['category_code']}/{$item['region_code']}/{$item['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; font-size:18px; line-height: 28px; padding:20px; width:240px; height:140px;">&nbsp;</a>
                                                             {elseifeq $item['type'],'doverie'}
@@ -141,7 +141,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                             {if!empty $article}
                       
                                 <tr>
-                                    <td colspan="3" valign="top" style="border-radius: 3px; background: url(https://st1.bsn.ru/img/uploads/mailers/big/{$article['photo']}); border-collapse:collapse; padding:0; border-radius: 3px;" width="530" height="240" align="left"> 
+                                    <td colspan="3" valign="top" style="border-radius: 3px; background: url(https://st.bsn.ru/img/uploads/mailers/big/{$article['photo']}); border-collapse:collapse; padding:0; border-radius: 3px;" width="530" height="240" align="left">
                                         <table cellpadding="0" cellspacing="0" style="padding: 0; margin:0;">
                                             <tr height="190" valign="top">
                                                 <td valign="top">
@@ -169,7 +169,7 @@ a:hover{text-decoration:none;color:#1e88e5;}
                                             <table width="100%" cellpadding="0" cellspacing="0" style="display: block; padding: 0; margin: 0;">    
                                             
                                                 <tr>
-                                                    <td style="padding: 0; background: url(https://st1.bsn.ru/img/uploads/mailers/sm/{$item['photo']}); border-collapse:collapse; border-radius: 3px 3px 0 0; width: 240px; height: 210px;" width="240" height="210">
+                                                    <td style="padding: 0; background: url(https://st.bsn.ru/img/uploads/mailers/sm/{$item['photo']}); border-collapse:collapse; border-radius: 3px 3px 0 0; width: 240px; height: 210px;" width="240" height="210">
                                                         <a href="https://www.bsn.ru/{$item['type']}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/?utm_campaign=email_subscribe&utm_source=bsn" title="{stripall:$item['title']}" target="_blank" style="text-decoration:none; color:#000; margin: 0; display: block; padding:20px; width:240px; height:140px; border-radius: 3px;">
                                                             
                                                             <div style="display: block; width: 100%; height: 100%;">

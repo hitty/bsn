@@ -166,7 +166,7 @@
             if(jQuery(this).children('.block__bottompanel').length > 0) jQuery(this).children('.block__bottompanel').children('.bottompanel__option.general').addClass('hovered');
             
             var _img_url = jQuery(this).attr('data-img');
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px"); 
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px");
             //координаты начала линии вправо
             var _line_start_left = parseInt(jQuery(this).offset().left) + jQuery(this).width();
             var _line_start_top = parseInt(jQuery(this).offset().top) + Math.floor(jQuery(this).height()/2);
@@ -186,7 +186,7 @@
             jQuery(this).removeClass('hovered');
             if(jQuery(this).find('.bottompanel__option.hovered').length > 0) jQuery(this).find('.bottompanel__option.hovered').removeClass('hovered');
             var _img_url = jQuery(this).attr('data-img');
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
             
             //координаты начала линии вправо
             var _line_start_left = parseInt(jQuery(this).offset().left) + jQuery(this).width();
@@ -210,7 +210,7 @@
             //меняем картинку справа
             var _img_url = jQuery(this).attr('data-img');
             if(_img_url == undefined) return true;
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px"); 
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px");
             
             var _parent_block = jQuery(this).parents('.column__text-block');
             //координаты начала линии вправо
@@ -232,7 +232,7 @@
             if(!jQuery(this).hasClass('general')) jQuery(this).removeClass('hovered').siblings('.general').addClass('hovered');
             //меняем картинку справа на картинку по умолчанию для этого блока
             var _img_url = jQuery(this).parents('.column__text-block').attr('data-img');
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px"); 
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px");
             var _parent_block = jQuery(this).parents('.column__text-block');
             
             //координаты начала линии вправо
@@ -301,16 +301,16 @@
 
 
         preload([
-            '//st1.bsn.ru/img/layout/adv_examples_200x480.png',
-            '//st1.bsn.ru/img/layout/adv_examples_topline.png',
-            '//st1.bsn.ru/img/layout/adv_examples_tall.png',
-            '//st1.bsn.ru/img/layout/adv_examples_float.png',
-            '//st1.bsn.ru/img/layout/adv_examples_tgb-1.png',
-            '//st1.bsn.ru/img/layout/adv_examples_tgb-2.png',
-            '//st1.bsn.ru/img/layout/adv_examples_200x480_main.png',
-            '//st1.bsn.ru/img/layout/adv_examples_topline_main.png',
-            '//st1.bsn.ru/img/layout/adv_examples_tgb_main.png',
-            '//st1.bsn.ru/img/layout/adv_examples_calc.png'
+            '//st.bsn.ru/img/layout/adv_examples_200x480.png',
+            '//st.bsn.ru/img/layout/adv_examples_topline.png',
+            '//st.bsn.ru/img/layout/adv_examples_tall.png',
+            '//st.bsn.ru/img/layout/adv_examples_float.png',
+            '//st.bsn.ru/img/layout/adv_examples_tgb-1.png',
+            '//st.bsn.ru/img/layout/adv_examples_tgb-2.png',
+            '//st.bsn.ru/img/layout/adv_examples_200x480_main.png',
+            '//st.bsn.ru/img/layout/adv_examples_topline_main.png',
+            '//st.bsn.ru/img/layout/adv_examples_tgb_main.png',
+            '//st.bsn.ru/img/layout/adv_examples_calc.png'
         ]);
     });
 </script>

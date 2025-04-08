@@ -40,7 +40,7 @@
         <div class="images">
             {if!empty $item_photos}
                 {loop $item_photos,$pk,$pv}
-                        <img src="//st1.bsn.ru/img/uploads/big/{$pv['subfolder']}/{$pv['name']}" alt=""/>
+                        <img src="//st.bsn.ru/img/uploads/big/{$pv['subfolder']}/{$pv['name']}" alt=""/>
                 {/loop $item_photos}
             {/if}
         </div>
@@ -79,7 +79,7 @@
         <div class="images">
             {if!empty $bc_photos}
                 {loop $bc_photos,$pk,$pv}
-                        <img src="//st1.bsn.ru/img/uploads/med/{$pv['subfolder']}/{$pv['name']}" alt=""/>
+                        <img src="//st.bsn.ru/img/uploads/med/{$pv['subfolder']}/{$pv['name']}" alt=""/>
                 {/loop $bc_photos}
                 {if!empty $item['lng']}<img src="http://static.maps.2gis.com/1.0?markers={$bc_item['lng']},{$bc_item['lat']}&zoom=14&size=206,152" alt=""/>{/if}
             {/if}

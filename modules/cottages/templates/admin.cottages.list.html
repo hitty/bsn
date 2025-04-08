@@ -115,7 +115,7 @@
                 {loop $list,$key,$item}
                     <tr id="item_{$item['id']}" class="stady-{$item['id_stady']}{ifeq $item['advanced'],1} advanced{/if}">
                         <td>
-                            {if!empty $item['photo']}<img src="//st1.bsn.ru/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
+                            {if!empty $item['photo']}<img src="//st.bsn.ru/{$item['photo']}" alt="{quoted:$item['title']}" style="float:left; padding:0px 5px 3px  0px" />{/if}
                             {$item['id']}
                         </td>
                         <td>

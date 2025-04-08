@@ -2,7 +2,7 @@
     {loop $list,$key,$item}
         <div class="item{ifgt $item['videos_count'],0} with-video{/if} {$item['highlighting']}">
             <a href="/business_centers/{$item['chpu_title']}/" target="_blank" title="{$item['title']}"></a>
-            <span class="image{ifgt $item['videos_count'],0} with-video{/if} lazy" data-src="//st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}"></span>
+            <span class="image{ifgt $item['videos_count'],0} with-video{/if} lazy" data-src="//st.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}"></span>
             {php:$media_show = !empty($item['photos_count']) || !empty($item['videos_count']) || !empty($item['comments_objects']);}
             {if!empty $media_show}
                 <div class="media-wrap">
@@ -12,7 +12,7 @@
                 </div>
             {/if}
             <div class="bg-wrap">
-                <span class="lazy" data-src="//st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}"></span>
+                <span class="lazy" data-src="//st.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}"></span>
             </div>
             <div class="content">
                 {if!empty $item['title']}<p class="title">«{$item['title']}»</p>{/if}

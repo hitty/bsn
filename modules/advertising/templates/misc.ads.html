@@ -89,12 +89,12 @@
             if(jQuery(this).hasClass('hovered')) return false;
             jQuery(this).addClass('hovered');
             var _img_url = jQuery(this).attr('data-img');
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px");
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px");
         });
         jQuery('.column__text-block').on('mouseleave',function(){
             jQuery(this).removeClass('hovered');
             var _img_url = jQuery(this).attr('data-img');
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
         });
         //картинка с образцом теперь ездит
         //предзагрузка картинок чтобы не мигало в хроме

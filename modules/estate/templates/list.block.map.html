@@ -17,7 +17,7 @@
         </div>
         <div class="list">
             {loop $list,$lkey,$item}
-                <div class="item internal-link br3 transition" data-new-tab="true" data-link="/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" data-img-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}">
+                <div class="item internal-link br3 transition" data-new-tab="true" data-link="/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" data-img-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st.bsn.ru/img/layout/no-photo-med.gif{/if}">
 
                         <span class="type-object text-decoration">
                         {ifeq $estate_type, 'build'}

@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>
                                                 <a href="https://www.bsn.ru/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/?utm_campaign=email_subscribe&utm_source=bsn" style="width: 180px;height:150px;display:block;">
-                                                    <img src="{if!empty $item['photo']}https://st1.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}{else}https://st1.bsn.ru/img/mail/nophoto.png{/if}" width="230" border="0" align="left" class="fiximg" style="border: 1px solid #e3e3e3;display: block;width: auto;height: auto;max-width: 100%;max-height: 100%;"/>
+                                                    <img src="{if!empty $item['photo']}https://st.bsn.ru/img/uploads/med/{$item['subfolder']}/{$item['photo']}{else}https://st.bsn.ru/img/mail/nophoto.png{/if}" width="230" border="0" align="left" class="fiximg" style="border: 1px solid #e3e3e3;display: block;width: auto;height: auto;max-width: 100%;max-height: 100%;"/>
                                                 </a>
                                             </td>
                                         </tr>
@@ -105,7 +105,7 @@
                                                 {if!empty $item['subway']}
                                                     <div style="color:{$item['subway_color']}; display: block;line-height: 16px;" class="subway">
                                                         {if!empty $item['subway_line_color']}
-                                                            <img src="//st1.bsn.ru/img/layout/subway-icon-{$item['subway_line_color']}.png" />
+                                                            <img src="//st.bsn.ru/img/layout/subway-icon-{$item['subway_line_color']}.png" />
                                                         {/if}
                                                         {$item['subway']}
                                                     </div>
@@ -126,7 +126,7 @@
 </tr>
 <tr>
     <td colspan="2" style="padding: 40px 0 0 0;">
-        <a href="http://{$host}/{$list_url}&id_subscription={$subscription_id}" style="text-decoration: none;"><img src="//st1.bsn.ru/img/layout/objects-subscription-button.png" /></a>    
+        <a href="http://{$host}/{$list_url}&id_subscription={$subscription_id}" style="text-decoration: none;"><img src="//st.bsn.ru/img/layout/objects-subscription-button.png" /></a>
         </td>
 </tr>
 {include /modules/mailers/templates/simple.footer.html}

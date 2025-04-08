@@ -2,7 +2,7 @@
     <div class="item br3 col-1 shadow-hover bbox transition">
         <div class="tag br3">VIP</div>
         <a class="internal-link" href="/{$item['type']}/{ifeq $item['rent'],2}sell{else}rent{/if}/{$item['id']}/" title="{$item['title']}"></a>
-        <span class="image bg-cover br3 lazy" data-src="{if!empty $item['photo']}{static:/}img/uploads/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}"></span>
+        <span class="image bg-cover br3 lazy" data-src="{if!empty $item['photo']}{static:/}img/uploads/med/{$item['subfolder']}/{$item['photo']}{else}//st.bsn.ru/img/layout/no-photo-med.gif{/if}"></span>
         <div class="content">
             <div class="title">
                 {ifeq $item['type'],'live'}

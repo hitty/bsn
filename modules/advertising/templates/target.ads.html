@@ -95,7 +95,7 @@
             if(jQuery(this).hasClass('hovered')) return false;
             jQuery(this).addClass('hovered');
             var _img_url = jQuery(this).attr('data-img');
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px"); 
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/" + _img_url + ".png') no-repeat -4px 0px");
             //координаты начала линии вправо
             var _line_start_left = parseInt(jQuery(this).offset().left) + jQuery(this).width();
             var _line_start_top = parseInt(jQuery(this).offset().top) + Math.floor(jQuery(this).height()/2);
@@ -116,7 +116,7 @@
             var _img_url = jQuery(this).attr('data-img');
             jQuery('.example-image').removeClass('media');
             jQuery('.example-image-box').addClass('clear');
-            jQuery('.example-image').css('background',"url('//st1.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
+            jQuery('.example-image').css('background',"url('//st.bsn.ru/img/layout/adv_examples_clear.png') no-repeat -4px 0px");
         });
         //картинка с образцом теперь ездит
         jQuery(document).on('scroll',function(){
@@ -169,13 +169,13 @@
         // Usage:
 
         preload([
-            '//st1.bsn.ru/img/layout/adv_examples_200x480.png',
-            '//st1.bsn.ru/img/layout/adv_examples_topline.png',
-            '//st1.bsn.ru/img/layout/adv_examples_tall.png',
-            '//st1.bsn.ru/img/layout/adv_examples_float.png',
-            '//st1.bsn.ru/img/layout/adv_examples_tgb-1.png',
-            '//st1.bsn.ru/img/layout/adv_examples_tgb-2.png',
-            '//st1.bsn.ru/img/layout/adv_examples_calc.png'
+            '//st.bsn.ru/img/layout/adv_examples_200x480.png',
+            '//st.bsn.ru/img/layout/adv_examples_topline.png',
+            '//st.bsn.ru/img/layout/adv_examples_tall.png',
+            '//st.bsn.ru/img/layout/adv_examples_float.png',
+            '//st.bsn.ru/img/layout/adv_examples_tgb-1.png',
+            '//st.bsn.ru/img/layout/adv_examples_tgb-2.png',
+            '//st.bsn.ru/img/layout/adv_examples_calc.png'
         ]);
     });
 </script>

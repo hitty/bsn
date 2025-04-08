@@ -21,7 +21,7 @@
         <div class="video-box" itemscope itemtype="http://schema.org/VideoObject">
             {if!empty $item['direct_video_link']}
                 {php:$link = 'http://' . str_replace('http://', '', $item['direct_video_link'])}
-                {php:$poster = "https://st1.bsn.ru/img/uploads/big/".$item['subfolder']."/".$item['photo']}
+                {php:$poster = "https://st.bsn.ru/img/uploads/big/".$item['subfolder']."/".$item['photo']}
                 {php:$title = $item['title']}
                 {include /templates/video.player.html}
             {else}
@@ -35,9 +35,9 @@
             <meta itemprop="interactionCount" content="{$item['views_count']}">  
             <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
                 <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                  <img src="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
-                  <link itemprop="url" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
-                  <link itemprop="contentUrl" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+                  <img src="https://st.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
+                  <link itemprop="url" href="https://st.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+                  <link itemprop="contentUrl" href="https://st.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
                   <meta itemprop="width" content="146">
                   <meta itemprop="height" content="40">
                 </div>
@@ -48,9 +48,9 @@
     {/if}
     {if!empty $photos}
         <div {if!empty $video}style="display:none"{else}class="news-main-photo"{/if} itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-            <img src="//st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" alt="{ifeq $item['id'],35638}Автор карты — архитектор Дмитрий Якубович{else}{$item['title']}{/if}" />
-            <link itemprop="url" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
-            <link itemprop="contentUrl" href="https://st1.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
+            <img src="//st.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}" alt="{ifeq $item['id'],35638}Автор карты — архитектор Дмитрий Якубович{else}{$item['title']}{/if}" />
+            <link itemprop="url" href="https://st.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
+            <link itemprop="contentUrl" href="https://st.bsn.ru/img/uploads/big/{$photos[0]['subfolder']}/{$photos[0]['name']}">
             <meta itemprop="width" content="800">
             <meta itemprop="height" content="600">            
         </div>
@@ -75,9 +75,9 @@
     {ifempty $item['author']}<p style="display: none;" itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="BSN.ru"/></p>{/if}
     <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;">
         <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-          <img src="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
-          <link itemprop="url" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
-          <link itemprop="contentUrl" href="https://st1.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+          <img src="https://st.bsn.ru/img/layout/bsn-logo-new-mainpage.png"/>
+          <link itemprop="url" href="https://st.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
+          <link itemprop="contentUrl" href="https://st.bsn.ru/img/layout/bsn-logo-new-mainpage.png">
           <meta itemprop="width" content="146">
           <meta itemprop="height" content="40">
         </div>

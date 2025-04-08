@@ -1,7 +1,7 @@
 {if!empty $list}
     <div class="list">
     {loop $list,$lkey,$item}
-        <div class="item br3" data-new-tab="true" data-link="/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" data-img-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}">
+        <div class="item br3" data-new-tab="true" data-link="/{$estate_type}/{ifeq $item['rent'],1}rent{else}sell{/if}/{$item['id']}/" data-img-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st.bsn.ru/img/layout/no-photo-med.gif{/if}">
             {ifempty $item['total_variants']}
                 {ifgt $item['square_full'],0}
                     <span class="full-square">    

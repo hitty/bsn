@@ -26,7 +26,7 @@ a:hover{text-decoration:none;}
                             <tbody><tr>
                                 
                                 <td align="left" style="text-align:left" valign="middle" width="90">
-                                    <img class="fiximg" src="https://st1.bsn.ru/img/layout/mailer/logo.png" border="0" width="70" height="20" align="left">
+                                    <img class="fiximg" src="https://st.bsn.ru/img/layout/mailer/logo.png" border="0" width="70" height="20" align="left">
                                 </td>
                                 
                                 <td align="left" valign="middle" width="{ifempty $curdate}490{else}290{/if}" style="text-align:left; color: #000; font-size: 18px; line-height: 21px;">
@@ -53,7 +53,7 @@ a:hover{text-decoration:none;}
 
                             <tr>
                             {if!empty $main_news}
-                                <td colspan="3" valign="top" style="background: url(https://st1.bsn.ru/img/uploads/mailers/{$main_news['photo']}); border-collapse:collapse; padding:0; border-radius: 3px;" width="580" height="250" align="left"> 
+                                <td colspan="3" valign="top" style="background: url(https://st.bsn.ru/img/uploads/mailers/{$main_news['photo']}); border-collapse:collapse; padding:0; border-radius: 3px;" width="580" height="250" align="left">
                                     
                                     <a href="https://www.bsn.ru/news/{$main_news['category_code']}/{$main_news['region_code']}/{$main_news['chpu_title']}/?utm_source=bsn&utm_medium=email&utm_campaign={$date}" title="{stripall:$main_news['title']}" target="_blank" style="text-decoration:none; margin: 0; display: block; padding: 20px; width: 540px; height: 210px;border-radius: 3px;">
                                         <span style="display: block; text-decoration:none; color:#fff; font-size: 30px; line-height: 40px; height: 190px;border-radius: 3px;">{stripall:$main_news['title']}</span>

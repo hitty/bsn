@@ -7,7 +7,7 @@
             {php:$status_text = $item['advanced']==1 ? 'Премиум' : 'Стандарт';}
             <div data-id="{$item['id']}" class="item{ifeq $item['advanced'],1} payed{/if}"  onClick="if(!_debug) try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(e){}">
                 <a class="hdr" href="/zhiloy_kompleks/{$item['chpu_title']}/" target="_blank" title="{$item['header']}"></a>
-                <div class="photo bbox {ifgt $item['videos_count'],0} with-video{/if} lazy" data-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st1.bsn.ru/img/layout/no-photo-med.gif{/if}" data-photos-count="{ifgt $item['photos_count'],0}{$item['photos_count']}{else}0{/if}">
+                <div class="photo bbox {ifgt $item['videos_count'],0} with-video{/if} lazy" data-src="{if!empty $item['photo']}{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}//st.bsn.ru/img/layout/no-photo-med.gif{/if}" data-photos-count="{ifgt $item['photos_count'],0}{$item['photos_count']}{else}0{/if}">
                     {php:$media_show = !empty($item['photos_count']) || !empty($item['videos_count']) || !empty($item['comments_objects']);}
                     {if!empty $media_show}
                         <div class="media-wrap">

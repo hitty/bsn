@@ -2,9 +2,9 @@
             <div class="item shadow-hover transition clearfix estate-complex" onClick="try{ _gaq.push(['_trackEvent', 'Строчное размещение', '{$status_text}']); }catch(err){ }" data-id="{$item['id']}" data-link="/cottedzhnye_poselki/{$item['chpu_title']}/">
                 <link itemprop="url" href="https://www.bsn.ru/cottedzhnye_poselki/{$item['chpu_title']}/">
                 <meta itemprop="name" content="Коттеджный поселок «{$item['title']}»" />
-                <link itemprop="image" href="{if!empty $item['photo']}https:{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}https://st1.bsn.ru/img/layout/no-photo-med.gif{/if}" />
+                <link itemprop="image" href="{if!empty $item['photo']}https:{static:/}{$img_folder}/med/{$item['subfolder']}/{$item['photo']}{else}https://st.bsn.ru/img/layout/no-photo-med.gif{/if}" />
                 {php:$photos = $item['photos']}
-                <div class="photo bbox bg-cover br3{ifempty $photos} lazy{/if}" {ifempty $photos}data-src="//st1.bsn.ru/img/layout/no-photo-med.gif"{/if}>
+                <div class="photo bbox bg-cover br3{ifempty $photos} lazy{/if}" {ifempty $photos}data-src="//st.bsn.ru/img/layout/no-photo-med.gif"{/if}>
                     {if!empty $photos}
                     <div class="image-list">
                         {loop $photos,$pk,$pv} 

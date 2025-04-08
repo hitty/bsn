@@ -85,17 +85,17 @@
 
         {ifempty $no_right_banner}
             {if!empty $pay_page}
-                <a class="promo-banner" title="Дешевле с тарифом" href="//www.bsn.ru/members/tarifs/" target="_blank"><img id="vip-banner" src="//st1.bsn.ru/img/layout/tariffs.png" alt="Дешевле с тарифом" /></a>
+                <a class="promo-banner" title="Дешевле с тарифом" href="//www.bsn.ru/members/tarifs/" target="_blank"><img id="vip-banner" src="//st.bsn.ru/img/layout/tariffs.png" alt="Дешевле с тарифом" /></a>
             {else}        
                 {php:$premium_type = mt_rand(0,3)}
                 {ifeq $premium_type,0}
-                    <a class="premium-banner" title="Объект премиум дает увеличение просмотров в 5 раз" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="premium-banner" src="//st1.bsn.ru/img/layout/premium-banner.png" alt="Объект премиум дает увеличение просмотров в 5 раз" /></a>
+                    <a class="premium-banner" title="Объект премиум дает увеличение просмотров в 5 раз" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="premium-banner" src="//st.bsn.ru/img/layout/premium-banner.png" alt="Объект премиум дает увеличение просмотров в 5 раз" /></a>
                 {elseifeq $premium_type,1}
-                    <a class="promo-banner" title="Объект промо дает увеличение просмотров в 3 раза" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="promo-banner" src="//st1.bsn.ru/img/layout/promo-banner.png" alt="Объект премиум дает увеличение просмотров в 3 раза" /></a>
+                    <a class="promo-banner" title="Объект промо дает увеличение просмотров в 3 раза" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="promo-banner" src="//st.bsn.ru/img/layout/promo-banner.png" alt="Объект премиум дает увеличение просмотров в 3 раза" /></a>
                  {elseifeq $premium_type,2}
-                    <a class="promo-banner" title="Объект VIP дает максимальное число просмотров" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="vip-banner" src="//st1.bsn.ru/img/layout/vip-banner.png" alt="Объект премиум дает максимальное число просмотров" /></a>
+                    <a class="promo-banner" title="Объект VIP дает максимальное число просмотров" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="vip-banner" src="//st.bsn.ru/img/layout/vip-banner.png" alt="Объект премиум дает максимальное число просмотров" /></a>
                  {else}
-                    <a class="promo-banner" title="Поднятие объекта за минимальные деньги" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="vip-banner" src="//st1.bsn.ru/img/layout/usluga-banner-up.png" alt="Поднятие объекта за минимальные деньги" /></a>
+                    <a class="promo-banner" title="Поднятие объекта за минимальные деньги" href="/help/14_lichnyy_kabinet/18_platnye_uslugi/" target="_blank"><img id="vip-banner" src="//st.bsn.ru/img/layout/usluga-banner-up.png" alt="Поднятие объекта за минимальные деньги" /></a>
                  {/if}
             {/if}
         {/if}
