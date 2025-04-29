@@ -107,7 +107,15 @@ return array(
             'fieldtype' => 'text',
             'label' => 'Название категории',
             'tip' => 'Полное название категории'
-        )    
+        ) ,
+        'position' => array(
+            'type' => TYPE_INTEGER,
+            'allow_empty' => false,
+            'allow_null' => false,
+            'fieldtype' => 'text',
+            'label' => 'Позиция от 1 до 100',
+            'tip' => 'Чем меньше позиция, тем она ближе к началу'
+        )
     )
     ,'status' => array(
         'active' => array(

@@ -46,7 +46,8 @@ switch(true){
                                    WHERE 
                                         ".$sys_tables['konkurs'].".id = ".$info['id']."
                                    GROUP BY ".$sys_tables['konkurs_members_categories'].".id
-                                   ORDER BY ".$sys_tables['konkurs_members_categories'].".id"); 
+                                   ORDER BY ".$sys_tables['konkurs_members_categories'].".position ASC,  
+                                   ".$sys_tables['konkurs_members_categories'].".id ");
                                   
             foreach($list as $k=>$item){
                     $cookie_title = Cookie::GetString('konkurs_vote_for_' . $item['id_category']);

@@ -44,6 +44,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Название</th>
+                    <th>Позиция</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -55,6 +56,7 @@
                             {if!empty $item['agency_photo']}<img src="/{$item['agency_photo_folder']}/{$item['agency_photo']}" alt="{quoted:$item['title']}" /> {/if}
                             {$item['title']}
                         </td>
+                        <td>{$item['position']}</td>
                         <td class="small_icons ac">
                             <a href="/admin/service/konkurs/{$konkurs_url}/categories/edit/{$item['id']}/" title="Изменить"><span class="ico_edit">Изменить</span></a>
                             <a href="/admin/service/konkurs/{$konkurs_url}/categories/del/{$item['id']}/" title="Удалить"><span class="ico_del">Удалить</span></a>

@@ -42,7 +42,7 @@ switch(true){
         Response::SetBoolean('konkurs_status',($info['status']==1));
         //заголовок таблицы голосования
         Response::SetArray('info',$info);
-        
+
         //голосование
         if (!empty($this_page->page_parameters[1]) && $this_page->page_parameters[1]=='voting' && $ajax_mode){
             $id = Request::GetInteger('id',METHOD_POST);
@@ -81,7 +81,7 @@ switch(true){
         }
         $GLOBALS['js_set'][] = '/modules/konkurs/voting.js';
         $GLOBALS['css_set'][] = '/modules/konkurs/style.css';
-        
+
         //если конкурс активен, получаем список участников
         if($info['status']==1){
             switch($info['type']){
@@ -100,8 +100,8 @@ switch(true){
                     $order = " RAND(), ";
                     //подулючене псеводформы
                     require_once('includes/class.email.php');
-                    require_once('includes/pseudo_form/pseudo_form.php');                    
-                    if( !class_exists( 'Photos') ) if( !class_exists( 'Photos') ) require_once('includes/class.photos.php');                    
+                    require_once('includes/pseudo_form/pseudo_form.php');
+                    if( !class_exists( 'Photos') ) if( !class_exists( 'Photos') ) require_once('includes/class.photos.php');
                     break;
                 default:
                     break;
@@ -126,12 +126,12 @@ switch(true){
                                     AND ".$sys_tables['konkurs_votings'].".id_konkurs=".$sys_tables['konkurs_members'].".id_konkurs
                                     ".$clauses."
                                    WHERE ".$sys_tables['konkurs_members'].".id_konkurs=".$info['id']." AND ".$sys_tables['konkurs_members'].".status = 1
-                                   ORDER BY ".$sys_tables['konkurs_members_categories'].".id , ".$order." member_title"); 
+                                   ORDER BY ".$sys_tables['konkurs_members_categories'].".position ASC ,".$sys_tables['konkurs_members_categories'].".id , ".$order." member_title");
             Response::SetArray('list',$list);
             Response::SetString('konkurs_url',$action);
             Response::SetString('img_folder',Config::Get('img_folders/konkurs'));
         }
-        
+
         //загрузка новых фотографий для Фотоконкурса (если была отправка формы)
         $post_parameters = Request::GetParameters(METHOD_POST);
         if($info['status']==1 && $info['type']=='photokonkurs'){
@@ -156,8 +156,8 @@ switch(true){
                     if(!Validate::isEmail($post_parameters['p_email'])) $errors['email'] = 'ошибка, неверный email';
                     $form_email = $post_parameters['p_email'];
                 } else $errors['email'] = 'Не допускается пустое значение';
-                //загрузка фотографии                 
-                if(empty($_FILES['image']['name'])) $errors['image'] = 'Загрузите фотографию';                
+                //загрузка фотографии
+                if(empty($_FILES['image']['name'])) $errors['image'] = 'Загрузите фотографию';
                 if(empty($errors)){
 
                     if (!Botobor_Keeper::get()->isRobot()) {
@@ -169,9 +169,9 @@ switch(true){
                                      , $form_title
                                      , $info['id']
                                      , $form_category
-                                     , $form_email 
-                                     , $form_text 
-                                     , 2 
+                                     , $form_email
+                                     , $form_text
+                                     , 2
                                      );
                          if(empty($res)){
                             $errors['error'] = true;
@@ -180,10 +180,10 @@ switch(true){
                             Photos::$__folder_options=array(
                                     'sm'=>array(160,120,'cut',65),
                                     'big'=>array(1200,960,'',50)
-                                    ); 
+                                    );
                             $res = Photos::Add('konkurs_members',$db->insert_id, false, false, false, false,false);
                             Response::SetString('success','email');
-                            
+
                             // отправка на мыло PR оповещения о новом номинанте
                             $mailer = new EMailer('mail');
                             // данные пользователя для шаблона
@@ -211,12 +211,12 @@ switch(true){
                             $mailer->FromName = 'bsn.ru';
                             // попытка отправить
                             $mailer->Send();
-                            
+
                             //поиск зарегистрировшегося ранее аккаунта
                             $row = $db->fetch("SELECT id FROM ".$sys_tables['users']." WHERE email='".$db->real_escape_string($form_email)."'");
                             $reg_passwd = '';
                             if(empty($row)){
-                                Response::SetBoolean('new_user',true);    
+                                Response::SetBoolean('new_user',true);
                                 // генерируем пароль
                                 $reg_passwd = substr(md5(time()),-6);
                                 // создание нового пользователя в БД
@@ -226,7 +226,7 @@ switch(true){
                                                     (?,?,?,NOW(),'')"
                                                    , $form_email
                                                    , $form_title
-                                                   , sha1(sha1($reg_passwd)));                                
+                                                   , sha1(sha1($reg_passwd)));
                             }
                             // отправка на мыло пользователя оповещения о новой регистрации
                             $mailer = new EMailer('mail');
@@ -254,14 +254,14 @@ switch(true){
                             $mailer->From = 'no-reply@bsn.ru';
                             $mailer->FromName = 'bsn.ru';
                             // попытка отправить
-                            $mailer->Send();                          
+                            $mailer->Send();
 
-                        } 
-                    }                                                    
+                        }
+                    }
                 }
-            } 
-            
-            //вставка формы отпраки через формоанализатор 
+            }
+
+            //вставка формы отпраки через формоанализатор
             Response::SetArray('form_vars',array(
                                      'title'=>$form_title
                                     ,'email'=>$form_email
@@ -272,16 +272,16 @@ switch(true){
             Response::SetArray('errors',$errors);
             $tpl = new Template("konkurs.photokonkurs.form.html",$this_page->module_path);
             $formContent = $tpl->Processing();
-                                                
+
             $botFormContent = new Botobor_Form($formContent);
             Response::SetString('form',$botFormContent->getCode());
         }
-        
+
         $module_template = 'konkurs.'.$info['type'].'.html';
         $this_page->addBreadcrumbs('Конкурс «'.$info['title'].'»', $action);
         $new_meta = array('title'=>$info['title']);
         $this_page->manageMetadata($new_meta,true);
-        
+
         $h1 = empty($this_page->page_seo_h1) ? $info['title'] : $this_page->page_seo_h1;
         Response::SetString('h1',$h1);
         break;

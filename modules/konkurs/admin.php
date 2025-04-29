@@ -292,7 +292,7 @@ switch(TRUE){
                 
                         $sql = "SELECT ".$sys_tables['konkurs_members_categories'].".* FROM ".$sys_tables['konkurs_members_categories'];
                         if(!empty($condition)) $sql .= " WHERE ".$condition;
-                        $sql .= " ORDER BY id ";
+                        $sql .= " ORDER BY position ASC, id ";
                         $sql .= " LIMIT ".$paginator->getLimitString($page); 
                         $list = $db->fetchall($sql);
                         // формирование списка
