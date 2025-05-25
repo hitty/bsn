@@ -1,4 +1,5 @@
 <?php
+Response::SetInteger('number', mt_rand(1,2));
 require_once('includes/class.content.php');
 
 $action = empty($this_page->page_parameters[0]) ? "" : $this_page->page_parameters[0];
