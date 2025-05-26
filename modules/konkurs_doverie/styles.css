@@ -129,6 +129,7 @@ header.with-shadow:after {
     filter: grayscale(.9);
     transition: .3s ease-in-out all;
 }
+.konkurs-wrapper .item.voted .bg,
 .konkurs-wrapper .item:hover .bg{
     filter: grayscale(0);
 }
@@ -188,7 +189,10 @@ header.with-shadow:after {
     padding-top: 10px;
 }
 
-.konkurs-wrapper .item:hover .bg .voted-for, .konkurs-wrapper .item:hover .bg .voted-for b {
+.konkurs-wrapper .item.voted .bg .voted-for,
+.konkurs-wrapper .item.voted .bg .voted-for b,
+.konkurs-wrapper .item:hover .bg .voted-for,
+.konkurs-wrapper .item:hover .bg .voted-for b {
     color: #fff;
 }
 
