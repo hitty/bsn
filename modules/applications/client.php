@@ -121,14 +121,6 @@ switch(true){
 
                 $mailer = new EMailer('mail');
                 $r = $mailer->sendEmail(
-                    'sales@adaurum.ru',
-                    'Adaurum',
-                    "Новая заявка ".date('Y-m-d H:i:s'),
-                    '/modules/applications/templates/mail.simple.html',
-                    '',
-                    '', false, false, true
-                );
-                $r = $mailer->sendEmail(
                     'kya1982@gmail.com',
                     'Юрий',
                     "Новая заявка ".date('Y-m-d H:i:s'),
